@@ -230,10 +230,10 @@ execution recoverable and auditable.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose probe</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation is reachable from the composition&#8217;s shared
-  Docker network or Kubernetes namespace and the returned status matches an
-  exact, class (<code>2XX</code>), or <code>default</code> response declared by that operation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Response-body conformance, authenticated or mutating operations,
-  authorization policy, AsyncAPI delivery, or full application semantics.</p></td>
+  Docker network or Kubernetes namespace. Anonymous results match a declared
+  response; supported OAuth results must match a declared <code>2xx</code> response.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response-body conformance, mutating or multi-scheme operations,
+  authorization-policy quality, AsyncAPI delivery, or full application semantics.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Creates and removes an ephemeral probe runner without changing member
   workloads; writes redacted probe evidence to composition state</p></td>
 </tr>
@@ -241,8 +241,9 @@ execution recoverable and auditable.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose status</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances, wire/exposure configuration evidence,
   and the latest recorded active-probe outcomes.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Current reachability after the probe timestamp, authenticated behavior not
-  explicitly tested, authorization, response bodies, or policy compliance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current reachability after the probe timestamp, authentication mechanisms not
+  explicitly identified by the evidence, authorization semantics, response
+  bodies, or policy compliance.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No runtime mutation; reads state while holding the lifecycle lock</p></td>
 </tr>
 <tr>
@@ -272,14 +273,21 @@ mutation.</p>
 <div class="paragraph">
 <p><code>probe</code> deliberately derives its request from the selected OpenAPI operation
 instead of introducing health-check fields in an Anchor. It accepts only
-<code>GET</code>, <code>HEAD</code>, and <code>OPTIONS</code>, requires one fully bound path, rejects required
-security schemes until an explicit authentication adapter exists, and executes
-a digest-pinned curl runner inside the common Docker network or Kubernetes
-namespace. Contractless, mutating, secured, non-HTTP, unresolved, and
-cross-platform wires are reported as unsupported rather than inferred healthy.
-Transport diagnostics and response bodies are not persisted; state contains
-only the wire, Contract, operation, adapter, status, outcome, failure code, and
-UTC timestamp.</p>
+<code>GET</code>, <code>HEAD</code>, and <code>OPTIONS</code>, requires one fully bound path, and executes a
+digest-pinned curl runner inside the common Docker network or Kubernetes
+namespace. The OAuth 2.0 adapter reuses one configured RFC 6749
+client-credentials binding that satisfies a complete, single-scheme OpenAPI
+Security Requirement alternative. It resolves the provider-derived token URL,
+client ID, scopes, and client-secret reference at execution time, then requires
+a Contract-declared <code>2xx</code> response from the protected operation. Kubernetes
+Secret values remain <code>secretKeyRef</code> references; Docker secrets are supplied
+only through the runner environment. Neither client-secret values nor bearer
+token values appear in the runner argument vector or state. Contractless, mutating,
+multi-scheme, non-HTTP, unresolved, and cross-platform wires are reported as
+unsupported rather than inferred healthy. Transport diagnostics and response
+bodies are not persisted; state contains only the wire, Contract, operation,
+adapter, security-mechanism identifier, status, outcome, normalized failure
+code, and UTC timestamp.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -303,6 +311,7 @@ dotx compose apply scenario.yaml --locked --dry-run
 # Execute, inspect recorded evidence, and clean up owned resources
 dotx compose apply scenario.yaml --locked
 dotx compose probe scenario.yaml --locked --wire oidc-provider-to-gateway
+dotx compose probe scenario.yaml --locked --wire protected-gateway-to-client
 dotx compose status scenario.yaml
 dotx compose destroy scenario.yaml</code></pre>
 </div>
@@ -592,6 +601,12 @@ probe the selected Contract operation over the actual network path.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Run <code>dotx compose probe scenario.yaml --wire &lt;wire&gt;</code>. If the wire is skipped,
   its operation requires a dedicated adapter or application-level acceptance
   test. Configuration evidence alone is not reachability evidence.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An OAuth probe reports <code>AUTHENTICATION_ERROR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the bound token URL and client ID, the referenced Secret name/key or
+  environment-store source, required scopes, issuer reachability, and client
+  authorization. Dotx deliberately does not persist the token endpoint&#8217;s body.</p></td>
 </tr>
 </tbody>
 </table>
