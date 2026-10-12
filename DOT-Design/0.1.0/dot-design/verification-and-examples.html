@@ -330,9 +330,10 @@ different meanings of “covered” into one percentage:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repository inventory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx repository test</code> and the DOT repository conformance workflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx repository test</code>, <code>dotx repository audit</code>, and the DOT repository conformance workflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Must be 100%: every catalogue entry is discovered, parsed, schema-valid,
-  cross-reference-valid, uniquely identified, and stored in its declared scope.</p></td>
+  cross-reference-valid, uniquely identified, and stored in its declared scope;
+  no deployable copy may remain outside <code>DOT-Repository</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CLI statements</p></td>
@@ -356,8 +357,20 @@ different meanings of “covered” into one percentage:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The repository gate fails on partial inventory, duplicate identities,
-mis-scoped definitions, or invalid DOTs. The statement report deliberately has
+<p>The repository test gate fails on partial inventory, duplicate identities,
+mis-scoped definitions, or invalid DOTs. The workspace audit separately
+classifies uncatalogued, identical, divergent, and malformed definitions and
+fails on every deployable <code>dot.json</code> outside <code>DOT-Repository</code>.
+<code>DOT-Testing/conformance/</code> fixtures are reported but exempt because invalid
+definitions are their purpose. During the staged migration, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository audit --repository DOT-Repository --workspace . --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The statement report deliberately has
 no artificial 100% threshold: a high line percentage cannot replace negative
 tests, lifecycle checks, live probes, or partner acceptance.</p>
 </div>
