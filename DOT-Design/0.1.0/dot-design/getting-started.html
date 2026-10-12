@@ -286,9 +286,9 @@ scripts are not inferred.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-CLI/bin/dotx validate testing/conformance/anchors/valid \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-CLI/bin/dotx validate DOT-Testing/conformance/anchors/valid \
   --schema DOT-Schema/schema.json
-DOT-CLI/bin/dotx inspect testing/conformance/anchors/valid --json</code></pre>
+DOT-CLI/bin/dotx inspect DOT-Testing/conformance/anchors/valid --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -306,16 +306,16 @@ a normalized, machine-readable view without deploying anything.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-CLI/bin/dotx compose validate \
-  testing/e2e/api-gateway-oidc/scenario.yaml
+  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
 
 DOT-CLI/bin/dotx compose plan \
-  testing/e2e/api-gateway-oidc/scenario.yaml
+  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
 
 DOT-CLI/bin/dotx compose plan \
-  testing/e2e/api-gateway-oidc/scenario.yaml --json
+  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --json
 
 DOT-CLI/bin/dotx compose apply \
-  testing/e2e/api-gateway-oidc/scenario.yaml --dry-run</code></pre>
+  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --dry-run</code></pre>
 </div>
 </div>
 <div class="paragraph">

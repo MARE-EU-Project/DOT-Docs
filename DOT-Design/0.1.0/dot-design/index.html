@@ -377,8 +377,8 @@ mvn -pl DOT-Domain test
 task cli:build
 
 # Validate and inspect the canonical composition example
-DOT-CLI/bin/dotx compose validate testing/e2e/api-gateway-oidc/scenario.yaml
-DOT-CLI/bin/dotx compose plan testing/e2e/api-gateway-oidc/scenario.yaml
+DOT-CLI/bin/dotx compose validate DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
+DOT-CLI/bin/dotx compose plan DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
 
 # Run the complete Anchor/composition repository gate
 task testing:conformance</code></pre>

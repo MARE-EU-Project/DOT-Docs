@@ -540,19 +540,19 @@ credentials remain outside the composition state.</p>
 <h2 id="_acceptance_material"><a class="anchor" href="#_acceptance_material"></a>Acceptance material</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The repository&#8217;s <code>testing/conformance/anchors/</code> directory contains the complete OpenAPI, AsyncAPI, Protobuf, GraphQL, contractless, binding, failure, and incompatibility examples. It also contains an APISIX/Keycloak scenario derived from SFC requirements while preserving the DOT/SFC ownership boundary. Run <code>task testing:conformance</code> to validate them through Java, the Registry resolvers, generated JSON Schema, and DOT CLI.</p>
+<p>The repository&#8217;s <code>DOT-Testing/conformance/anchors/</code> directory contains the complete OpenAPI, AsyncAPI, Protobuf, GraphQL, contractless, binding, failure, and incompatibility examples. It also contains an APISIX/Keycloak scenario derived from SFC requirements while preserving the DOT/SFC ownership boundary. Run <code>task testing:conformance</code> to validate them through Java, the Registry resolvers, generated JSON Schema, and DOT CLI.</p>
 </div>
 <div class="paragraph">
-<p><code>testing/e2e/api-gateway-oidc/</code> is the first opt-in live composition scenario. It models Keycloak as the provider of OIDC discovery and OAuth token operations, APISIX as the consumer of discovery and provider of a bearer-protected operation, and a headless OAuth client as the consumer of the token and protected operations. Three composer-owned wires materialize only deployment inputs; the protected wire explicitly binds the OpenAPI security scheme to RFC 6749 client credentials. <code>task testing:e2e:anchors:api-gateway-oidc:dry-run</code> exercises <code>compose apply --dry-run</code>; <code>task testing:e2e:anchors:api-gateway-oidc</code> applies the three-DOT composition, checks recorded status and native Secret references, proves anonymous access is rejected, proves token-authenticated access succeeds, and destroys the composition. The PoC-derived scenario backlog and pinned evidence revisions are documented in <code>testing/e2e/USE-CASES.md</code>.</p>
+<p><code>DOT-Testing/e2e/api-gateway-oidc/</code> is the first opt-in live composition scenario. It models Keycloak as the provider of OIDC discovery and OAuth token operations, APISIX as the consumer of discovery and provider of a bearer-protected operation, and a headless OAuth client as the consumer of the token and protected operations. Three composer-owned wires materialize only deployment inputs; the protected wire explicitly binds the OpenAPI security scheme to RFC 6749 client credentials. <code>task testing:e2e:anchors:api-gateway-oidc:dry-run</code> exercises <code>compose apply --dry-run</code>; <code>task testing:e2e:anchors:api-gateway-oidc</code> applies the three-DOT composition, checks recorded status and native Secret references, proves anonymous access is rejected, proves token-authenticated access succeeds, and destroys the composition. The PoC-derived scenario backlog and pinned evidence revisions are documented in <code>DOT-Testing/e2e/USE-CASES.md</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>testing/composition/federation-peers/</code> is a read-only PoC11-derived planning and lifecycle-rendering fixture. It resolves two named instances of one federation-agent DOT plus two instances of one local-core adapter DOT. Eight compatible OpenAPI wires cover reciprocal peer receipt and the pinned implementation&#8217;s Open5GS subscriber list, add, and modify operations. Each agent explicitly depends only on its local core; reciprocal peer wires do not fabricate a readiness cycle. The dry run proves scoped runtime identities, local-core-first ordering, non-sensitive local/peer node inputs, and both peer/core URL materializers without moving concrete addresses into logical anchors. Run it with <code>task testing:compose:federation-peers</code>. The source-adapted E2E under <code>testing/e2e/poc11-federation-peers/</code> additionally builds pinned revision <code>303b35351697a0fd3941dccd0feff91144ef4257</code>, deploys two federation agents with two isolated Open5GS-compatible core doubles, and proves reciprocal far-end subscriber updates. This is implementation evidence for subscriber synchronization, not acceptance of PoC11 attestation, governed disclosure, or trust-policy enforcement.</p>
+<p><code>DOT-Testing/composition/federation-peers/</code> is a read-only PoC11-derived planning and lifecycle-rendering fixture. It resolves two named instances of one federation-agent DOT plus two instances of one local-core adapter DOT. Eight compatible OpenAPI wires cover reciprocal peer receipt and the pinned implementation&#8217;s Open5GS subscriber list, add, and modify operations. Each agent explicitly depends only on its local core; reciprocal peer wires do not fabricate a readiness cycle. The dry run proves scoped runtime identities, local-core-first ordering, non-sensitive local/peer node inputs, and both peer/core URL materializers without moving concrete addresses into logical anchors. Run it with <code>task testing:compose:federation-peers</code>. The source-adapted E2E under <code>DOT-Testing/e2e/poc11-federation-peers/</code> additionally builds pinned revision <code>303b35351697a0fd3941dccd0feff91144ef4257</code>, deploys two federation agents with two isolated Open5GS-compatible core doubles, and proves reciprocal far-end subscriber updates. This is implementation evidence for subscriber synchronization, not acceptance of PoC11 attestation, governed disclosure, or trust-policy enforcement.</p>
 </div>
 <div class="sect2">
 <h3 id="_federated_learning_and_artifact_boundaries"><a class="anchor" href="#_federated_learning_and_artifact_boundaries"></a>Federated learning and artifact boundaries</h3>
 <div class="paragraph">
 <p>The PoC2-derived fixture under
-<code>testing/composition/poc2-federated-inference/</code> instantiates one Flower trainer
+<code>DOT-Testing/composition/poc2-federated-inference/</code> instantiates one Flower trainer
 DOT twice and connects both instances to one Flower server using the exact
 <code>flwr.proto.FlowerService.Join</code> bidirectional-stream selector from Flower
 v1.4.0&#8217;s authoritative Protobuf contract. The composer materializes the
@@ -587,7 +587,7 @@ carried by that protocol rather than new nullable fields on <code>Anchor</code>.
 <div class="paragraph">
 <p>For brokered protocols, the semantic producer, semantic consumer, and
 connection endpoint can be three different components. The PoC6-derived fixture
-under <code>testing/composition/poc6-closed-loop/</code> therefore keeps distinct AsyncAPI
+under <code>DOT-Testing/composition/poc6-closed-loop/</code> therefore keeps distinct AsyncAPI
 <code>send</code> and <code>receive</code> selectors on the two anchors, selects a Mosquitto service
 port as the composition-owned connection endpoint, and materializes that
 endpoint&#8217;s host and port into the actuator. The interpreter receives the same
@@ -597,7 +597,7 @@ into either anchor, while the OpenC2 message shape is described once in the
 AsyncAPI contract. The current PoC6 fixture reconstructs that contract from
 pinned source evidence and does not claim it is producer-authoritative. CACAO
 playbooks remain orchestration artifacts rather than anchor fields. The
-source-adapted E2E under <code>testing/e2e/poc6-cacao-openc2/</code> proves the chain from
+source-adapted E2E under <code>DOT-Testing/e2e/poc6-cacao-openc2/</code> proves the chain from
 the pinned interpreter through MQTT/OpenC2 and the pinned actuator to an
 isolated NWDAF API; telemetry, AI inference, playbook selection, and a real
 NWDAF remain outside that acceptance boundary.</p>
@@ -640,7 +640,7 @@ while adding an application-specific path. The transform belongs to the wire;
 neither the concrete URI nor the realm path belongs in the logical anchor.</p>
 </div>
 <div class="paragraph">
-<p>The PoC1-derived fixture under <code>testing/composition/poc1-ric-aaa/</code> binds the
+<p>The PoC1-derived fixture under <code>DOT-Testing/composition/poc1-ric-aaa/</code> binds the
 contract-declared Keycloak token operation&#8217;s <code>realm</code> path parameter in a
 six-DOT RIC AAA feedback loop. Its separate issuer setting remains an explicit
 URI transform because an issuer is not the JWKS operation URL. Seven wires
@@ -661,7 +661,7 @@ authorization remain acceptance and policy concerns.</p>
 <div class="paragraph">
 <p>The generic APISIX/Keycloak/OAuth-client E2E supplies reusable live acceptance
 evidence for one concrete client-credentials deployment. The source-adapted
-PoC1 E2E under <code>testing/e2e/poc1-ric-aaa/</code> goes further: it builds pinned proxy
+PoC1 E2E under <code>DOT-Testing/e2e/poc1-ric-aaa/</code> goes further: it builds pinned proxy
 and rogue-xApp modules unchanged behind thin dRAX-SDK bootstraps and executes
 all seven wires against digest-pinned Keycloak and OPA. A separately labelled
 controller adapter observes the producer Prometheus counter and JSON-patches
@@ -674,7 +674,7 @@ AAA xApp, absent RIC Config API, dRAX, or a live RIC.</p>
 </div>
 <div class="paragraph">
 <p>The PoC5-derived fixture under
-<code>testing/composition/poc5-security-pipeline/</code> demonstrates a linear multi-stage
+<code>DOT-Testing/composition/poc5-security-pipeline/</code> demonstrates a linear multi-stage
 pipeline built from actual FastAPI forwarding code. Log Analysis provides its
 events operation to Monitoring, Assessment provides its assessment operation to
 Log Analysis, and Mitigation provides its operation to Assessment. The three
@@ -687,7 +687,7 @@ wire <code>from</code>/<code>to</code> continues to mean contract <code>PROVIDES
 <h3 id="_standards_described_contractless_composition"><a class="anchor" href="#_standards_described_contractless_composition"></a>Standards-described contractless composition</h3>
 <div class="paragraph">
 <p>The PoC3-derived fixture under
-<code>testing/composition/poc3-insider-threat-pipeline/</code> uses contractless Anchors
+<code>DOT-Testing/composition/poc3-insider-threat-pipeline/</code> uses contractless Anchors
 for four semantic JSON handoffs across five analytics stages. Unlike an ordinary
 request/response dependency, each wire explicitly selects the receiving stage
 as <code>connectionEndpoint</code>; this covers push/ingest dataflow without changing the
@@ -704,7 +704,7 @@ before defining a DOT-specific workflow grammar.</p>
 </div>
 <div class="paragraph">
 <p>The PoC10-derived fixture under
-<code>testing/composition/poc10-secure-capability-exposure/</code> combines one reused
+<code>DOT-Testing/composition/poc10-secure-capability-exposure/</code> combines one reused
 OpenID Connect discovery contract with four contractless wires for W3C SPARQL,
 OPA decision/policy APIs, and Prometheus-style metrics. The pinned PoC source
 identifies those interaction boundaries but does not publish supported producer-owned
@@ -731,7 +731,7 @@ DOT-specific schema.</p>
 </div>
 <div class="paragraph">
 <p>The PoC9-derived fixture under
-<code>testing/composition/poc9-edge-ddos-collection/</code> applies the same evidence rule
+<code>DOT-Testing/composition/poc9-edge-ddos-collection/</code> applies the same evidence rule
 to a heterogeneous collection path. It composes an Amarisoft WebSocket,
 Open5GS AMF enrichment, InfluxDB ingestion/query, and a FastAPI export using
 contractless Anchors plus explicit host/port materializers. Credentials remain
@@ -743,7 +743,7 @@ classification is notebook-only, and no mitigation operation is present.</p>
 </div>
 <div class="paragraph">
 <p>The PoC8-derived fixture under
-<code>testing/composition/poc8-ndt-observability/</code> demonstrates the corresponding
+<code>DOT-Testing/composition/poc8-ndt-observability/</code> demonstrates the corresponding
 admission rule for observability. It connects cAdvisor&#8217;s Prometheus/OpenMetrics
 exposition endpoint to Prometheus through a composition-owned configuration
 file and exposes the pinned MARE FastAPI service separately. A proposed
@@ -759,8 +759,8 @@ implementation gaps rather than logical service wires.</p>
 </div>
 <div class="paragraph">
 <p>The complementary source-adapted scenario under
-<code>testing/composition/poc8-twin-integrity/</code> and
-<code>testing/e2e/poc8-twin-integrity/</code> exercises the official synchronization-
+<code>DOT-Testing/composition/poc8-twin-integrity/</code> and
+<code>DOT-Testing/e2e/poc8-twin-integrity/</code> exercises the official synchronization-
 integrity objective without redefining a container volume as an Anchor. A
 thin OpenAPI 3.1 adapter invokes the pinned PoC8 <code>generate_hash.sh</code> and
 <code>check_hash.sh</code> files unchanged. A separate synchronization-driver DOT receives
@@ -773,7 +773,7 @@ explicit gaps.</p>
 </div>
 <div class="paragraph">
 <p>The PoC4-derived fixture under
-<code>testing/composition/poc4-continuous-monitoring/</code> extends that rule across a
+<code>DOT-Testing/composition/poc4-continuous-monitoring/</code> extends that rule across a
 heterogeneous OSS monitoring stack. Five contractless wires connect
 node-exporter, Prometheus, Filebeat, Elasticsearch, Grafana, and Kibana using
 official protocol/API semantics and explicit config-file or environment
@@ -803,7 +803,7 @@ automated-mitigation outcome also remains unclaimed because those source
 components are still under development.</p>
 </div>
 <div class="paragraph">
-<p>The PoC7-derived fixture under <code>testing/composition/poc7-trust-scoring/</code> tests
+<p>The PoC7-derived fixture under <code>DOT-Testing/composition/poc7-trust-scoring/</code> tests
 non-admission without misrepresenting source intent. Its FastAPI trust-scoring
 operation is exposed as a contractless provider, but the Scapy collector only
 prints normalized flows to stdout and names REST, Kafka, or OTLP as future
@@ -819,7 +819,7 @@ device name <code>mare6g.eu/network-interface=eth0</code>. A lifecycle dry run p
 Docker rendering without host networking, host device paths, or <code>--privileged</code>.</p>
 </div>
 <div class="paragraph">
-<p>The separate executable scenario under <code>testing/e2e/poc7-trust-scoring/</code>
+<p>The separate executable scenario under <code>DOT-Testing/e2e/poc7-trust-scoring/</code>
 keeps that source gap visible while testing a standards-oriented integration.
 It invokes the pinned collector&#8217;s packet aggregation and stdout normalization,
 then a declared adapter publishes the resulting batch as a CloudEvents 1.0

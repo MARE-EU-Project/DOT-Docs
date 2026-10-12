@@ -269,7 +269,7 @@ never implies a higher one.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">testing/
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT-Testing/
 ├── acceptance/        versioned consumer profiles and golden API responses
 ├── conformance/       deterministic valid and invalid DOT fixtures
 ├── composition/       read-only validate, plan, and dry-run scenarios
@@ -294,7 +294,7 @@ deployed workload.</p>
 <h2 id="_canonical_anchor_scenario"><a class="anchor" href="#_canonical_anchor_scenario"></a>Canonical Anchor scenario</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>testing/e2e/api-gateway-oidc/</code> is the primary tutorial and lifecycle fixture.
+<p><code>DOT-Testing/e2e/api-gateway-oidc/</code> is the primary tutorial and lifecycle fixture.
 It contains three independently valid DOTs:</p>
 </div>
 <div class="ulist">
@@ -326,7 +326,7 @@ task testing:e2e:anchors:api-gateway-oidc</code></pre>
 </div>
 <div class="paragraph">
 <p>Read <a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> alongside
-<code>testing/e2e/api-gateway-oidc/scenario.yaml</code>.</p>
+<code>DOT-Testing/e2e/api-gateway-oidc/scenario.yaml</code>.</p>
 </div>
 </div>
 </div>
@@ -357,63 +357,63 @@ partner-runtime acceptance.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OIDC identity, OPA authorization, RIC forwarding, metrics feedback, and deny-list update</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc1-ric-aaa/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc1-ric-aaa/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repeated Flower trainers over gRPC/Protobuf and exposed BentoML inference</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc2-federated-inference/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc2-federated-inference/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Five-stage contractless JSON insider-threat analytics dataflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc3-insider-threat-pipeline/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc3-insider-threat-pipeline/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus metrics, Elasticsearch logs, Grafana, and Kibana configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc4-continuous-monitoring/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc4-continuous-monitoring/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Monitoring-to-analysis-to-assessment-to-mitigation security pipeline</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc5-security-pipeline/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc5-security-pipeline/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI plus brokered AsyncAPI/MQTT, CACAO, OpenC2, and NWDAF remediation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc6-closed-loop/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc6-closed-loop/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Least-privilege packet capture, explicit CloudEvents mediation, and trust scoring</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc7-trust-scoring/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc7-trust-scoring/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cAdvisor/Prometheus observability and physical/twin integrity checks</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc8-ndt-observability/</code> and <code>poc8-twin-integrity/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc8-ndt-observability/</code> and <code>poc8-twin-integrity/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amarisoft/Open5GS collection, InfluxDB storage, and data export</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc9-edge-ddos-collection/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc9-edge-ddos-collection/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OIDC-protected capability exposure, SPARQL, OPA policy decisions, and observability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/poc10-secure-capability-exposure/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc10-secure-capability-exposure/</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reciprocal federation peers and local-core adapters with separate readiness edges</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>testing/composition/federation-peers/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/federation-peers/</code></p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
 <p>The authoritative coverage and gap list is
-<code>testing/interoperability/pocs.yaml</code>. The official project descriptions are
+<code>DOT-Testing/interoperability/pocs.yaml</code>. The official project descriptions are
 available from <a href="https://mare6g.eu/pocs/">the MARE PoC catalogue</a>.</p>
 </div>
 </div>
@@ -475,13 +475,13 @@ support the proposed composition.</p>
 <p>Add negative fixtures for tempting but unsupported connections.</p>
 </li>
 <li>
-<p>Start under <code>testing/composition/</code> with validate and plan assertions.</p>
+<p>Start under <code>DOT-Testing/composition/</code> with validate and plan assertions.</p>
 </li>
 <li>
 <p>Add a lifecycle dry-run before any live execution.</p>
 </li>
 <li>
-<p>Promote to <code>testing/e2e/</code> only with isolated resources, explicit prerequisites,
+<p>Promote to <code>DOT-Testing/e2e/</code> only with isolated resources, explicit prerequisites,
 reliable cleanup, and externally observable assertions.</p>
 </li>
 <li>
