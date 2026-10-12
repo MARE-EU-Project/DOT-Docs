@@ -304,7 +304,7 @@ inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersi
     deployment: docker
     deploymentInputs:
       environment:
-        - {name: FEDERATION_NODE_ID, value: site-a}
+        - {service: federation-agent, name: FEDERATION_NODE_ID, value: site-a}
   - name: site-b
     source: ./federation-agent
     dotId: d5000000-0000-4000-8000-000000000001
@@ -312,7 +312,7 @@ inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersi
     deployment: docker
     deploymentInputs:
       environment:
-        - {name: FEDERATION_NODE_ID, value: site-b}</code></pre>
+        - {service: federation-agent, name: FEDERATION_NODE_ID, value: site-b}</code></pre>
 </div>
 </div>
 <div class="paragraph">

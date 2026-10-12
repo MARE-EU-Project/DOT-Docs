@@ -374,6 +374,60 @@ wire&#8217;s <code>parameters</code>, not to the Anchor.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="supported-contract-representation-matrix"><a class="anchor" href="#supported-contract-representation-matrix"></a>Supported Contract representation matrix</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Standard</th>
+<th class="tableblock halign-left valign-top">Contract <code>format</code></th>
+<th class="tableblock halign-left valign-top">Authoritative interaction</th>
+<th class="tableblock halign-left valign-top">Composition evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Request/response operation, including path and security requirements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One shared selector; <code>REQUEST_RESPONSE</code> for both participants</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message operation and Channel Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distinct complementary selectors; <code>SEND</code> and <code>RECEIVE</code>, plus the resolved channel address</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protobuf / gRPC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROTOBUF</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified RPC and unary or streaming shape</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One shared method selector; <code>REQUEST_RESPONSE</code>, <code>CLIENT_STREAM</code>,
+  <code>SERVER_STREAM</code>, or <code>BIDIRECTIONAL_STREAM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDL root field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One shared schema coordinate; <code>QUERY</code>, <code>MUTATION</code>, or <code>SUBSCRIPTION</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>dotx compose plan --json</code> exposes the resolved <code>contractStandard</code>,
+<code>contractFormat</code>, <code>providerInteraction</code>, and <code>consumerInteraction</code> on each
+contract-backed wire. These fields are derived from the supplied Contract and
+therefore do not duplicate authoring metadata in either Anchor or composition.
+The deterministic <code>DOT-Testing/composition/contract-standards/</code> matrix connects
+one provider DOT to one consumer DOT through every row above.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="semantic-types"><a class="anchor" href="#semantic-types"></a>Semantic types</h3>
 <div class="paragraph">
 <p><code>semanticTypes</code> is a list of URI identifiers describing the security or domain
@@ -516,6 +570,102 @@ allocated address, forwarded port, certificate, or network path.</p>
 <p><code>@ValidAnchor</code> and <code>AnchorValidator</code> reject duplicate Anchor UUIDs, undeclared
 Contract references, invalid selector syntax, undeclared ports, undeclared
 Anchor bindings, and duplicate service-local bindings.</p>
+</div>
+<div class="sect2">
+<h3 id="runtime-configuration-portability"><a class="anchor" href="#runtime-configuration-portability"></a>Runtime configuration portability</h3>
+<div class="paragraph">
+<p>Every <code>DeploymentService</code> declares its supported configuration surface through
+<code>environment</code>, <code>configFiles</code>, and logical <code>volumes</code>. A composition may supply
+only values whose names or target paths the selected service declares. Required
+environment variables and files without defaults fail before runtime mutation;
+sensitive environment values require a <code>secretRef</code> instead of a literal.
+When an input is omitted, <code>dotx</code> reuses the non-sensitive <code>defaultValue</code> or
+<code>defaultContent</code> declared by that service. Explicit composition values and wire
+materializers override defaults; conflicting explicit inputs fail closed.
+Declarations marked <code>sensitive</code> are forbidden from embedding either kind of
+default and must use a deployment-time secret reference or runtime-native
+secret facility.</p>
+</div>
+<div class="paragraph">
+<p>Each composition input carries the stable <code>service</code> id it targets. Authors may
+omit <code>service</code> only when exactly one service in the selected deployment declares
+that environment name, file path, or volume name; planning resolves and records
+the service explicitly. If two services declare the same item, omission is an
+error. Duplicate detection is service-local, so two services can intentionally
+receive different values for the same environment-variable name.</p>
+</div>
+<div class="paragraph">
+<p>Environment variables and configuration files are rendered by every currently
+executable <code>dotx</code> deployment adapter:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Manifest</th>
+<th class="tableblock halign-left valign-top">Environment</th>
+<th class="tableblock halign-left valign-top">Configuration files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_IMAGE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only bind mounts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_COMPOSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compose interpolation/process environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generated Compose override mounts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KUBERNETES_MANIFEST</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment environment patch; existing Secret keys remain <code>secretKeyRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConfigMap or Secret plus volume/mount patch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HELM_CHART</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chart <code>env</code> values; existing Secret keys are patched natively</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConfigMap or Secret plus workload patch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VAGRANTFILE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vagrant process/provisioner environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Files provisioned into the managed VM and exposed to the Vagrantfile</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Configuration remains service-scoped. A Docker image or Vagrant deployment is
+one workload or VM, so several logical services may safely share its declared
+configuration surface. Docker Compose, Kubernetes, and Helm may materialize
+several independent workloads. Until their DOT model gains an explicit,
+portable service-to-workload selector, <code>dotx</code> rejects a multi-service deployment
+that declares service configuration instead of flattening it across workloads.
+The native manifest may still configure those workloads directly. This
+fail-closed rule prevents environment values, secrets, or mounted files from
+being delivered to the wrong security function.</p>
+</div>
+<div class="paragraph">
+<p>Storage and privilege configuration is deliberately runtime-native. Docker
+image deployments support composition-scoped named volumes, explicit OCI bind
+sources, exact capability/host-namespace grants, and CNCF CDI devices. Compose
+payloads own their volume graph; Kubernetes and Helm own claims, storage
+classes, and volume topology; Vagrantfiles own disks and synced folders. A
+composer must not translate a host bind path into a cluster volume or silently
+grant privileged mode.</p>
+</div>
+<div class="paragraph">
+<p><code>WASM_MODULE</code> is a domain extension point, not an executable <code>dotx</code> adapter yet.
+It remains fail-closed until a reviewed WASI component/runtime profile defines
+environment, preopened directories, networking, secrets, and lifecycle
+semantics. The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
+matrix exercises the same catalogued DOT through every executable adapter.</p>
+</div>
 </div>
 </div>
 </div>

@@ -209,7 +209,8 @@ execution recoverable and auditable.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose plan</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Everything validated above plus the deterministic instance order, runtime
-  identities, endpoints, derived values, security status, and materializers.</p></td>
+  identities, endpoints, Contract standard/format and participant interaction,
+  derived values, security status, and materializers.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">That the planned hosts are reachable or credentials work.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
 </tr>
@@ -288,6 +289,17 @@ unsupported rather than inferred healthy. Transport diagnostics and response
 bodies are not persisted; state contains only the wire, Contract, operation,
 adapter, security-mechanism identifier, status, outcome, normalized failure
 code, and UTC timestamp.</p>
+</div>
+<div class="paragraph">
+<p>The non-HTTP standards are fully covered for definition, selector resolution,
+compatibility, endpoint selection, materialization, locking, and deterministic
+planning. They are intentionally not treated as generically live-probeable:
+AsyncAPI needs broker/protocol delivery semantics and an observable receiver;
+gRPC needs a request encoded against the selected method and must account for
+streaming; GraphQL needs a valid operation document, variables, selection set,
+and inspection of the response <code>errors</code> member. Those values are interaction
+fixtures or application inputs, not Anchor fields. A protocol adapter must add
+that explicit evidence before claiming live acceptance.</p>
 </div>
 <div class="listingblock">
 <div class="content">
