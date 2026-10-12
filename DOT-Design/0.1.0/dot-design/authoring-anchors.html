@@ -619,18 +619,18 @@ executable <code>dotx</code> deployment adapter:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_COMPOSE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compose interpolation/process environment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generated Compose override mounts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-service override using process-environment staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generated per-service Compose override mounts</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>KUBERNETES_MANIFEST</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment environment patch; existing Secret keys remain <code>secretKeyRef</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ConfigMap or Secret plus volume/mount patch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact workload/container patch; existing Secret keys remain <code>secretKeyRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service-qualified ConfigMap or Secret plus exact workload/mount patch</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>HELM_CHART</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Chart <code>env</code> values; existing Secret keys are patched natively</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ConfigMap or Secret plus workload patch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact post-install workload/container patch; existing Secret keys remain native</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service-qualified ConfigMap or Secret plus exact workload/mount patch</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VAGRANTFILE</code></p></td>
@@ -643,12 +643,25 @@ executable <code>dotx</code> deployment adapter:</p>
 <p>Configuration remains service-scoped. A Docker image or Vagrant deployment is
 one workload or VM, so several logical services may safely share its declared
 configuration surface. Docker Compose, Kubernetes, and Helm may materialize
-several independent workloads. Until their DOT model gains an explicit,
-portable service-to-workload selector, <code>dotx</code> rejects a multi-service deployment
-that declares service configuration instead of flattening it across workloads.
-The native manifest may still configure those workloads directly. This
-fail-closed rule prevents environment values, secrets, or mounted files from
-being delivered to the wrong security function.</p>
+several independent workloads. Their composition therefore supplies
+<code>deploymentInputs.workloads</code>: a Compose binding names one native service; a
+Kubernetes/Helm binding supplies exact native labels and optionally a container.
+Dotx intersects those labels with its composition-owned instance label and
+requires exactly one workload. Missing, duplicate, cross-runtime, ambiguous
+workload, and ambiguous container bindings fail closed. This prevents
+environment values, secrets, or mounted files from reaching the wrong security
+function without adding platform-specific selectors to the reusable DOT model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deploymentInputs:
+  workloads:
+    - service: api
+      kubernetes:
+        matchLabels:
+          app.kubernetes.io/component: api
+        container: api</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Storage and privilege configuration is deliberately runtime-native. Docker
@@ -664,7 +677,9 @@ grant privileged mode.</p>
 It remains fail-closed until a reviewed WASI component/runtime profile defines
 environment, preopened directories, networking, secrets, and lifecycle
 semantics. The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
-matrix exercises the same catalogued DOT through every executable adapter.</p>
+matrix exercises the same catalogued DOT through every executable adapter. The
+<code>DOT-Testing/composition/service-workloads/</code> matrix verifies isolation between
+two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
 </div>
 </div>
 </div>

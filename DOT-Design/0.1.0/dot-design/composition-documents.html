@@ -288,6 +288,55 @@ Unknown fields are rejected.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="deployment-inputs-and-native-workload-bindings"><a class="anchor" href="#deployment-inputs-and-native-workload-bindings"></a>Deployment inputs and native workload bindings</h3>
+<div class="paragraph">
+<p><code>deploymentInputs.environment</code>, <code>configFiles</code>, and <code>volumes</code> identify the
+logical <code>DeploymentService</code> that owns each input. <code>ociRuntime</code> and <code>cdiDevices</code>
+authorize only requirements already declared by that selected DOT deployment.
+These fields supply instance values and grants; they do not expand the DOT&#8217;s
+declared configuration surface.</p>
+</div>
+<div class="paragraph">
+<p>When a Docker Compose, Kubernetes, or Helm deployment contains several logical
+services with configuration, <code>deploymentInputs.workloads</code> is required for every
+configured service. The binding is deliberately instance-owned because native
+service names, labels, and containers can differ between deployment variants or
+environments:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deploymentInputs:
+  workloads:
+    - service: api
+      compose:
+        service: backend</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Kubernetes/Helm form uses exact-match standard labels and may select one
+container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deploymentInputs:
+  workloads:
+    - service: api
+      kubernetes:
+        matchLabels:
+          app.kubernetes.io/component: api
+        container: api</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Labels are combined with dotx&#8217;s instance ownership selector. A live apply must
+resolve exactly one Deployment, StatefulSet, or DaemonSet, and an omitted
+container is accepted only when that workload has one container. Two logical
+services cannot target the same Compose service or the same Kubernetes
+workload/container pair. Plans expose the binding and secret identifiers, and
+locks cryptographically pin them; neither contains resolved secret values.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="dot-definition-versus-dot-instance"><a class="anchor" href="#dot-definition-versus-dot-instance"></a>DOT definition versus DOT instance</h3>
 <div class="paragraph">
 <p>One pinned DOT definition can appear more than once in a composition. Each
