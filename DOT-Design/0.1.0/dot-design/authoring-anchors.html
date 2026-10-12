@@ -201,6 +201,10 @@ parameter values, security binding, or materializer only when the connection
 requires it.</p>
 </li>
 <li>
+<p>Run <code>dotx compose lock</code> and commit the generated lock beside the composition.
+Review digest changes as changes to the resolved DOT-to-DOT graph.</p>
+</li>
+<li>
 <p>Run <code>dotx compose validate</code> to check the document and <code>dotx compose plan</code> to
 inspect the resolved topology. Treat <code>UNKNOWN</code> compatibility as missing
 evidence, not as success.</p>

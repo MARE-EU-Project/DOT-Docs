@@ -1,8 +1,9 @@
 flowchart TD
   accTitle: Composition command and recovery lifecycle
-  accDescr: Validate and plan are read-only, dry-run previews actions, apply records either an applied or recoverable state, and destroy removes state only after successful cleanup.
+  accDescr: Lock content-addresses the DOT-to-DOT graph, validate and plan verify it read-only, dry-run previews actions, apply records either an applied or recoverable state, and destroy removes state only after successful cleanup.
 
-  Document["Composition document"] --> Validate["compose validate<br/>read-only"]
+  Document["Composition document<br/>DOT and Contract inputs"] --> Lock["compose lock<br/>content-addressed graph"]
+  Lock --> Validate["compose validate --locked<br/>read-only verification"]
   Validate --> Plan["compose plan<br/>read-only"]
   Plan -.->|preview| DryRun["compose apply --dry-run<br/>no runtime or state mutation"]
   Plan --> Apply["compose apply"]
@@ -25,7 +26,7 @@ flowchart TD
   classDef recovery fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px;
   classDef terminal fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   class Document source;
-  class Validate,Plan,DryRun,Status readonly;
+  class Lock,Validate,Plan,DryRun,Status readonly;
   class Apply,Resume,Destroy mutation;
   class Outcome decision;
   class Applied,Removed success;

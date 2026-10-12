@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/composition-lifecycle.html">
     <link rel="prev" href="wiring-and-security.html">
     <link rel="next" href="verification-and-examples.html">
-    <meta name="description" content="Validate, plan, apply, inspect, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
+    <meta name="description" content="Lock, validate, plan, apply, inspect, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -155,9 +155,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The lifecycle deliberately separates model validation, deterministic planning,
-runtime mutation, recorded state, and active acceptance evidence. This keeps
-review and CI read-only while making execution recoverable and auditable.</p>
+<p>The lifecycle deliberately separates reproducible input locking, model
+validation, deterministic planning, runtime mutation, recorded state, and
+active acceptance evidence. This keeps review and CI read-only while making
+execution recoverable and auditable.</p>
 </div>
 </div>
 </div>
@@ -191,6 +192,13 @@ review and CI read-only while making execution recoverable and auditable.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose lock</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact composition, selected DOT definitions and deployments, Contracts,
+  configuration inputs, and portable resolved plan are content-addressed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime availability, credentials, or policy acceptance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes only the requested lock file; <code>--check</code> is read-only</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose validate</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The strict document shape, references, selected deployments, Anchors,
@@ -240,23 +248,37 @@ review and CI read-only while making execution recoverable and auditable.</p>
 <em>what exactly would be connected and materialized?</em> Keeping both commands
 read-only makes them suitable for review and CI.</p>
 </div>
+<div class="paragraph">
+<p><code>lock</code> makes those answers reproducible. Its JSON output preserves the original
+<code>repository://</code> and relative references while recording SHA-256 digests for the
+composition, every resolved <code>dot.json</code>, every supplied Contract, configuration
+inputs, and the portable resolved plan. It never records secret values, runtime
+addresses, or checkout-local absolute paths. Validate, plan, and apply verify an
+adjacent lock automatically; <code>--locked</code> additionally requires it, and
+<code>--lock &lt;path&gt;</code> selects an explicit file. Any mismatch fails before runtime
+mutation.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Emit the canonical strict Draft 2020-12 schema
 dotx compose schema &gt; composition-v1alpha1.schema.json
 
+# Generate once, commit, and verify without rewriting
+dotx compose lock scenario.yaml
+dotx compose lock scenario.yaml --check
+
 # Structure, references, selectors, compatibility, and materializer declarations
-dotx compose validate scenario.yaml
+dotx compose validate scenario.yaml --locked
 
 # Deterministic resolved topology; no runtime mutation
-dotx compose plan scenario.yaml
-dotx compose plan scenario.yaml --json
+dotx compose plan scenario.yaml --locked
+dotx compose plan scenario.yaml --locked --json
 
 # Render runtime actions without state or runtime mutation
-dotx compose apply scenario.yaml --dry-run
+dotx compose apply scenario.yaml --locked --dry-run
 
 # Execute, inspect recorded evidence, and clean up owned resources
-dotx compose apply scenario.yaml
+dotx compose apply scenario.yaml --locked
 dotx compose status scenario.yaml
 dotx compose destroy scenario.yaml</code></pre>
 </div>
