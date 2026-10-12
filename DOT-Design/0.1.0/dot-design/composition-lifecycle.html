@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/composition-lifecycle.html">
     <link rel="prev" href="wiring-and-security.html">
     <link rel="next" href="verification-and-examples.html">
-    <meta name="description" content="Lock, validate, plan, apply, inspect, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
+    <meta name="description" content="Lock, validate, plan, apply, actively probe, inspect, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -167,7 +167,7 @@ execution recoverable and auditable.</p>
 <div class="sectionbody">
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/composition-lifecycle.svg" alt="Validation, planning, apply, recovery, status, and destroy lifecycle">
+<img src="_images/diagrams/composition-lifecycle.svg" alt="Locking, validation, planning, apply, active probing, recovery, status, and destroy lifecycle">
 </div>
 <div class="title">Figure 1. Composition lifecycle</div>
 </div>
@@ -228,10 +228,21 @@ execution recoverable and auditable.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose probe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation is reachable from the composition&#8217;s shared
+  Docker network or Kubernetes namespace and the returned status matches an
+  exact, class (<code>2XX</code>), or <code>default</code> response declared by that operation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response-body conformance, authenticated or mutating operations,
+  authorization policy, AsyncAPI delivery, or full application semantics.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creates and removes an ephemeral probe runner without changing member
+  workloads; writes redacted probe evidence to composition state</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose status</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances plus recorded wire/exposure
-  configuration evidence.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Active reachability, authentication, authorization, or policy compliance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances, wire/exposure configuration evidence,
+  and the latest recorded active-probe outcomes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current reachability after the probe timestamp, authenticated behavior not
+  explicitly tested, authorization, response bodies, or policy compliance.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No runtime mutation; reads state while holding the lifecycle lock</p></td>
 </tr>
 <tr>
@@ -258,6 +269,18 @@ adjacent lock automatically; <code>--locked</code> additionally requires it, and
 <code>--lock &lt;path&gt;</code> selects an explicit file. Any mismatch fails before runtime
 mutation.</p>
 </div>
+<div class="paragraph">
+<p><code>probe</code> deliberately derives its request from the selected OpenAPI operation
+instead of introducing health-check fields in an Anchor. It accepts only
+<code>GET</code>, <code>HEAD</code>, and <code>OPTIONS</code>, requires one fully bound path, rejects required
+security schemes until an explicit authentication adapter exists, and executes
+a digest-pinned curl runner inside the common Docker network or Kubernetes
+namespace. Contractless, mutating, secured, non-HTTP, unresolved, and
+cross-platform wires are reported as unsupported rather than inferred healthy.
+Transport diagnostics and response bodies are not persisted; state contains
+only the wire, Contract, operation, adapter, status, outcome, failure code, and
+UTC timestamp.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Emit the canonical strict Draft 2020-12 schema
@@ -279,6 +302,7 @@ dotx compose apply scenario.yaml --locked --dry-run
 
 # Execute, inspect recorded evidence, and clean up owned resources
 dotx compose apply scenario.yaml --locked
+dotx compose probe scenario.yaml --locked --wire oidc-provider-to-gateway
 dotx compose status scenario.yaml
 dotx compose destroy scenario.yaml</code></pre>
 </div>
@@ -291,7 +315,7 @@ identical composition source, resolved plan, runtime options, inputs, ordering,
 and previously applied runtime state.</p>
 </div>
 <div class="paragraph">
-<p>Apply, status, and destroy acquire a private per-composition process lock. A
+<p>Apply, probe, status, and destroy acquire a private per-composition process lock. A
 concurrent lifecycle command fails immediately rather than racing local state
 or runtime mutations.</p>
 </div>
@@ -307,13 +331,17 @@ or runtime mutations.</p>
 <p>recorded wire compatibility, security configuration, selected endpoint, and materializer count; and</p>
 </li>
 <li>
-<p>recorded exposed-Anchor bindings.</p>
+<p>recorded exposed-Anchor bindings; and</p>
+</li>
+<li>
+<p>the latest redacted active Contract-probe result for each probed wire.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Wire and exposure entries are configuration evidence, explicitly not active
-reachability or security probes.</p>
+<p>Wire and exposure entries remain configuration evidence. Only entries under
+active Contract-probe evidence demonstrate a runtime request and declared
+OpenAPI response match, bounded by their timestamp and adapter scope.</p>
 </div>
 </div>
 </div>
@@ -560,10 +588,10 @@ probe the selected Contract operation over the actual network path.</p>
   command finish; do not delete the lock while a lifecycle process is running.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status shows a configured wire but traffic fails</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration evidence is not an active probe. Check native runtime status,
-  DNS/routing, TLS/trust, credentials, policy decisions, and the actual Contract
-  operation separately.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status shows a configured wire but no active evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run <code>dotx compose probe scenario.yaml --wire &lt;wire&gt;</code>. If the wire is skipped,
+  its operation requires a dedicated adapter or application-level acceptance
+  test. Configuration evidence alone is not reachability evidence.</p></td>
 </tr>
 </tbody>
 </table>

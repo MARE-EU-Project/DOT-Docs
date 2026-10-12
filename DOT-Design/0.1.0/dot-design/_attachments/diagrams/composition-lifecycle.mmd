@@ -1,6 +1,6 @@
 flowchart TD
   accTitle: Composition command and recovery lifecycle
-  accDescr: Lock content-addresses the DOT-to-DOT graph, validate and plan verify it read-only, dry-run previews actions, apply records either an applied or recoverable state, and destroy removes state only after successful cleanup.
+  accDescr: Lock content-addresses the DOT-to-DOT graph, validate and plan verify it read-only, dry-run previews actions, apply records either an applied or recoverable state, safe contract probes record active evidence, and destroy removes state only after successful cleanup.
 
   Document["Composition document<br/>DOT and Contract inputs"] --> Lock["compose lock<br/>content-addressed graph"]
   Lock --> Validate["compose validate --locked<br/>read-only verification"]
@@ -14,7 +14,13 @@ flowchart TD
   Rollback -->|Incomplete or keep-on-failure| Recoverable["PARTIAL<br/>recoverable state recorded"]
   Recoverable --> Resume["compose apply --resume"]
   Resume --> Outcome
-  Applied --> Status["compose status"]
+  Applied --> Probe["compose probe<br/>safe OpenAPI operation<br/>runtime network scope"]
+  Probe --> Evidence{"Declared response<br/>status matched?"}
+  Evidence -->|Yes| Passed["PASSED evidence<br/>status · adapter · timestamp"]
+  Evidence -->|No| ProbeFailed["FAILED evidence<br/>redacted failure code"]
+  Passed --> Status["compose status"]
+  ProbeFailed --> Status
+  Applied --> Status
   Status --> Destroy["compose destroy<br/>reverse readiness order"]
   Destroy --> Removed["State removed<br/>after successful cleanup"]
 
@@ -27,8 +33,8 @@ flowchart TD
   classDef terminal fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   class Document source;
   class Lock,Validate,Plan,DryRun,Status readonly;
-  class Apply,Resume,Destroy mutation;
-  class Outcome decision;
-  class Applied,Removed success;
+  class Apply,Probe,Resume,Destroy mutation;
+  class Outcome,Evidence decision;
+  class Applied,Passed,Removed success;
   class Rollback,Recoverable recovery;
-  class Failed terminal;
+  class Failed,ProbeFailed terminal;

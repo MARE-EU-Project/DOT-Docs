@@ -210,9 +210,11 @@ inspect the resolved topology. Treat <code>UNKNOWN</code> compatibility as missi
 evidence, not as success.</p>
 </li>
 <li>
-<p>Use <code>apply --dry-run</code> before execution. After apply, use <code>status</code> for native
-runtime status and recorded configuration evidence; use a dedicated active
-probe when the acceptance criterion is real traffic or authentication.</p>
+<p>Use <code>apply --dry-run</code> before execution. After apply, use <code>compose probe</code> for
+safe Contract-derived traffic and <code>status</code> for native runtime status,
+configuration evidence, and the latest redacted probe evidence. Dedicated
+acceptance tests remain necessary for authentication, authorization, mutable
+operations, and application-specific outcomes.</p>
 </li>
 </ol>
 </div>
