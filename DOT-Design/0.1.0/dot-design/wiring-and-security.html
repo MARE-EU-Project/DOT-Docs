@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Wiring, Materialization, and Security :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/wiring-and-security.html">
+    <link rel="prev" href="composition-documents.html">
+    <link rel="next" href="composition-lifecycle.html">
+    <meta name="description" content="Connect request-response and messaging Anchors, derive deployment-specific values, bind contract security requirements, and expose composed capabilities.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.1.0/_exports/DOT-Design-0.1.0.pdf"
+              download="DOT-Design-0.1.0.pdf"
+              title="Download DOT-Design 0.1.0 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Registry</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.1.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="anchors-and-composition.html">DOT Anchors and Composition</a></li>
+    <li><a href="wiring-and-security.html">Wiring, Materialization, and Security</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Wiring, Materialization, and Security</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Wires express composition topology outside every participating DOT. They refer
+to stable Anchor UUIDs, resolve deployable endpoints through service bindings,
+and materialize only values that the target service has declared as
+configurable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="direct-requestresponse-wire"><a class="anchor" href="#direct-requestresponse-wire"></a>Direct request/response wire</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A wire uses instance names and stable Anchor UUIDs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
+  - name: oauth-token-to-client
+    from:
+      instance: identity
+      anchorId: a3000000-0000-4000-8000-000000000002
+    to:
+      instance: client
+      anchorId: a5000000-0000-4000-8000-000000000001
+    materializer:
+      type: ENVIRONMENT_VARIABLE
+      valueFrom: OPERATION_URL
+      target:
+        instance: client
+        service: oauth-client
+        environmentVariable: TOKEN_URL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Planning performs the following sequence:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Resolve the two pinned DOT instances.</p>
+</li>
+<li>
+<p>Resolve both Anchor UUIDs and require complementary <code>PROVIDES</code>/<code>REQUIRES</code> roles.</p>
+</li>
+<li>
+<p>Resolve the selected Contract elements.</p>
+</li>
+<li>
+<p>Evaluate semantic, interaction, protocol, media, schema, and security compatibility.</p>
+</li>
+<li>
+<p>Resolve the connection endpoint through the selected deployment&#8217;s <code>anchorBindings</code>.</p>
+</li>
+<li>
+<p>Verify that the target service declares <code>TOKEN_URL</code>.</p>
+</li>
+<li>
+<p>Build <code>OPERATION_URL</code> from the runtime endpoint and the authoritative OpenAPI server/operation path.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The resulting URL is deployment data. It is never copied back into <code>dot.json</code>
+or the Anchor.</p>
+</div>
+<div class="paragraph">
+<p>A wire and a materializer are intentionally separate. The wire says <em>these
+Anchors are connected</em>; the materializer says <em>write this derived value into
+this declared consumer setting</em>. A wire needs no materializer when the runtime
+already provides discovery, a service mesh performs routing, both participants
+use a fixed broker declared elsewhere, or the composition is documenting an
+Anchor relation without an executable handoff. Apply still requires every
+actually required service configuration value to have a default or explicit
+input.</p>
+</div>
+<div class="paragraph">
+<p>For the example above, the human-readable plan makes every resolution step
+inspectable before apply:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">oauth-token-to-client:
+  identity/a3000000-0000-4000-8000-000000000002
+    -&gt; client/a5000000-0000-4000-8000-000000000001 [COMPATIBLE]
+  endpoint: keycloak:8080
+    (HTTP, instance=identity service=keycloak port=http)
+  contract: c3000000-0000-4000-8000-000000000002
+    selector=#/paths/~1realms~1dotx~1protocol~1openid-connect~1token/post
+  materializer: OPERATION_URL -&gt; client/oauth-client env:TOKEN_URL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same plan with <code>--json</code> is the machine-readable automation output. It includes stable
+instance and Anchor references, compatibility reasons, the selected Contract,
+resolved endpoint, derived operation/channel value, materializer targets,
+security status, and exposed-Anchor endpoints. Consumers should parse JSON
+rather than scrape the human-readable form.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="brokered-wire"><a class="anchor" href="#brokered-wire"></a>Brokered wire</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For messaging, the semantic provider, semantic consumer, and connection
+endpoint may be three different instances. Select the broker explicitly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
+  - name: openc2-command-via-mqtt
+    from:
+      instance: interpreter
+      anchorId: a6000000-0000-4000-8000-000000000003
+    to:
+      instance: actuator
+      anchorId: a6000000-0000-4000-8000-000000000006
+    endpoint:
+      instance: broker
+      service: mqtt
+      port: mqtt
+    materializers:
+      - type: ENVIRONMENT_VARIABLE
+        valueFrom: ENDPOINT_HOST
+        target:
+          instance: actuator
+          service: openc2-actuator
+          environmentVariable: MQTT_BROKER_HOST
+      - type: ENVIRONMENT_VARIABLE
+        valueFrom: ENDPOINT_PORT
+        target:
+          instance: actuator
+          service: openc2-actuator
+          environmentVariable: MQTT_BROKER_PORT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The AsyncAPI operations and message schema stay in the Contract. The broker&#8217;s
+host and port stay in the resolved plan. If a channel has a templated address,
+the wire supplies only values for parameters declared by the Contract.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="materializers"><a class="anchor" href="#materializers"></a>Materializers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Materializers are explicit adapters between a resolved endpoint and a
+configuration surface already declared by a service.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENVIRONMENT_VARIABLE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes one resolved scalar to a declared environment variable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CONFIG_FILE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mounts a declared file and optionally replaces one YAML/JSON value selected
+  by an RFC 6901 JSON Pointer.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Supported <code>valueFrom</code> values are:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENDPOINT_HOST</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved service host only.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENDPOINT_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved numeric service port only.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENDPOINT_HOST_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>host:port</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ENDPOINT_URL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scheme://host:port</code>, using the bound port protocol.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OPERATION_URL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Endpoint URL plus the authoritative OpenAPI server base and operation path.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHANNEL_ADDRESS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of the authoritative AsyncAPI Channel Object.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An optional RFC 6570 <code>uriTemplate</code> can derive an application-specific URI from
+one resolved scalar. It is explicit composition behavior, not an Anchor or
+Contract fact.</p>
+</div>
+<div class="sect2">
+<h3 id="configuration-file-materialization"><a class="anchor" href="#configuration-file-materialization"></a>Configuration-file materialization</h3>
+<div class="paragraph">
+<p>A <code>CONFIG_FILE</code> materializer always names an operator-controlled source and a
+file path already declared by the target service. Without <code>valueFrom</code>, the
+source is supplied unchanged. With <code>valueFrom</code>, the source must be YAML or JSON
+and <code>jsonPointer</code> selects the scalar to replace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">materializer:
+  type: CONFIG_FILE
+  source: ./prometheus/prometheus.yml
+  valueFrom: ENDPOINT_HOST_PORT
+  target:
+    instance: prometheus
+    service: prometheus
+    path: /etc/prometheus/prometheus.yml
+    jsonPointer: /scrape_configs/0/static_configs/0/targets/0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This produces a deployable Prometheus configuration without putting the
+provider&#8217;s runtime address in either DOT. The corresponding executable fixture
+is <code>testing/composition/poc4-continuous-monitoring/scenario.yaml</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="uri-template-derivation"><a class="anchor" href="#uri-template-derivation"></a>URI-template derivation</h3>
+<div class="paragraph">
+<p>Use <code>uriTemplate</code> only when the application needs an explicit deterministic
+derivation that is not already the selected Contract operation URL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">materializer:
+  type: ENVIRONMENT_VARIABLE
+  valueFrom: ENDPOINT_URL
+  uriTemplate: "{+value}/keycloak/realms/drax"
+  target:
+    instance: proxy
+    service: proxy-xapp
+    environmentVariable: OIDC_ISSUER</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The RFC 6570 variable is named <code>value</code>. The template belongs to the
+composition because it adapts one deployment to another; it does not amend the
+Contract or redefine the Anchor.</p>
+</div>
+<div class="paragraph">
+<p>Materialization fails when the target configuration is undeclared, the
+Contract path/channel remains unresolved, alternative server paths are
+ambiguous, two wires produce conflicting values for one target, or the endpoint
+and target are on different runtime platforms without an explicit network
+binding.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="path-and-channel-parameters"><a class="anchor" href="#path-and-channel-parameters"></a>Path and channel parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Only deployment-specific scalar values belong in the wire:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">parameters:
+  realm:
+    value: drax</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Contract remains authoritative for the parameter name, location,
+requirement, schema, default, and serialization rules. Current composition
+bindings cover OpenAPI path parameters and AsyncAPI channel parameters.
+Query/header/cookie parameters, complex serialization, and runtime-derived
+parameter values require explicit future adapters.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="security-and-secrets"><a class="anchor" href="#security-and-secrets"></a>Security and secrets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Contract security remains authoritative. A wire may demonstrate how one
+declared scheme is satisfied by deployment configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">security:
+  bindings:
+    - scheme: bearerAuth
+      mechanism: https://www.rfc-editor.org/rfc/rfc6749#section-4.4
+      participant: {instance: client, service: oauth-client}
+      parameters:
+        tokenUrl: {environmentVariable: TOKEN_URL}
+        clientId: {environmentVariable: CLIENT_ID}
+        clientSecret: {environmentVariable: CLIENT_SECRET}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sensitive inputs are references, never secret values. They are scoped to the
+DOT instance whose selected deployment consumes them:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
+  - name: client
+    source: ./oauth-client
+    dotId: d5000000-0000-4000-8000-000000000001
+    dotVersion: 1.0.0
+    deployment: kubernetes
+    deploymentInputs:
+      environment:
+        - name: CLIENT_SECRET
+          secretRef:
+            store: kubernetes
+            name: oauth-client
+            key: client-secret</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Plans and composition state keep only the reference. Docker deployments can
+resolve <code>store: environment</code> at final handoff; Kubernetes and Helm preserve
+<code>store: kubernetes</code> as <code>secretKeyRef</code> without reading the Secret. A
+<code>CONFIGURED</code> plan proves configuration completeness, not token validity,
+issuer trust, mTLS, workload identity, or remote attestation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exposed-anchors"><a class="anchor" href="#exposed-anchors"></a>Exposed Anchors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A composition may re-export a member Anchor under a composition-local name:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">exposedAnchors:
+  - name: protected-metadata-through-gateway
+    target:
+      instance: gateway
+      anchorId: a4000000-0000-4000-8000-000000000003</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At apply time, an operator may request a local forward:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply scenario.yaml \
+  --forward protected-metadata-through-gateway=19080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The exposure name belongs to the composition boundary. It does not rename or
+replace the member Anchor UUID.</p>
+</div>
+<div class="paragraph">
+<p>Before runtime mutation, follow the
+<a href="composition-lifecycle.html" class="xref page">validation and lifecycle workflow</a>.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="composition-documents.html">Composition Documents and DOT Instances</a></span>
+  <span class="next"><a href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

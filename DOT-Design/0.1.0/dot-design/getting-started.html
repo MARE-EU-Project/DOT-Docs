@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Getting started :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/getting-started.html">
+    <link rel="prev" href="index.html">
+    <link rel="next" href="architecture.html">
+    <meta name="description" content="Build DOT-Design, validate a DOT, inspect a composition plan, run the Registry, and generate the documentation.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.1.0/_exports/DOT-Design-0.1.0.pdf"
+              download="DOT-Design-0.1.0.pdf"
+              title="Download DOT-Design 0.1.0 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Registry</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.1.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="getting-started.html">Getting started</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Getting started</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page establishes a small, reproducible development path. Start with the
+domain and CLI checks, which do not require MongoDB, before running the Registry
+integration tests or live deployment scenarios.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tool</th>
+<th class="tableblock halign-left valign-top">Required for</th>
+<th class="tableblock halign-left valign-top">Project baseline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Domain</code>, <code>DOT-Registry</code>, schema generation, and Java tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java 26; Maven 3.9+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Building and testing <code>dotx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.25+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Running <code>DOT-Registry</code> and its integration tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accessible on <code>localhost:27017</code> by default</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository command aliases</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional but recommended</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Kubernetes tools, Helm, or Vagrant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only the matching deployment adapters and live scenarios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install only what you intend to execute</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Antora, the Antora PDF extension, Asciidoctor PDF, and Mermaid CLI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Building the HTML/PDF documentation site and Mermaid diagrams</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="#build-the-documentation">Build the documentation</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_out_the_repository"><a class="anchor" href="#_check_out_the_repository"></a>Check out the repository</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Design.git
+cd DOT-Design
+git submodule update --init --recursive</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The source repository and its submodules may require access granted by the
+MARE-EU-Project organization. <code>DOT-Schema</code> is tracked directly and does not
+require a separate checkout.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verify_the_domain_model"><a class="anchor" href="#_verify_the_domain_model"></a>Verify the domain model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The domain module uses plain JUnit tests and does not start Spring or require
+MongoDB:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -pl DOT-Domain test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use the full Maven reactor only when MongoDB is available for Registry tests:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn clean install
+# equivalent Task alias
+task mci</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The build generates CycloneDX JSON and XML software bills of materials during
+the Maven <code>verify</code> phase.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build_and_test_dotx"><a class="anchor" href="#_build_and_test_dotx"></a>Build and test dotx</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOT-CLI</code> is an independent Go module and is not part of the Maven reactor:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:build
+task cli:test
+DOT-CLI/bin/dotx --version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The binary is written to <code>DOT-CLI/bin/dotx</code>. Use <code>task cli:install</code> only when
+you want to install it into <code>GOBIN</code> or <code>GOPATH/bin</code> and install Bash completion.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validate_a_dot"><a class="anchor" href="#_validate_a_dot"></a>Validate a DOT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>dotx validate</code> reads <code>dot.json</code> at the project root, falling back to
+<code>dot/dot.json</code>. The selected file is the unique DOT deployment definition;
+unreferenced Dockerfiles, Compose files, Kubernetes manifests, Helm charts, and
+scripts are not inferred.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-CLI/bin/dotx validate testing/conformance/anchors/valid \
+  --schema DOT-Schema/schema.json
+DOT-CLI/bin/dotx inspect testing/conformance/anchors/valid --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validation checks the JSON Schema and domain relationships. Inspection provides
+a normalized, machine-readable view without deploying anything.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validate_and_plan_a_composition"><a class="anchor" href="#_validate_and_plan_a_composition"></a>Validate and plan a composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The canonical example connects Keycloak, APISIX, and an OAuth client:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-CLI/bin/dotx compose validate \
+  testing/e2e/api-gateway-oidc/scenario.yaml
+
+DOT-CLI/bin/dotx compose plan \
+  testing/e2e/api-gateway-oidc/scenario.yaml
+
+DOT-CLI/bin/dotx compose plan \
+  testing/e2e/api-gateway-oidc/scenario.yaml --json
+
+DOT-CLI/bin/dotx compose apply \
+  testing/e2e/api-gateway-oidc/scenario.yaml --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All four commands above are non-mutating. <code>validate</code> answers whether references
+and compatibility can be resolved; <code>plan</code> shows the exact instances, endpoints,
+security status, and materializers; <code>apply --dry-run</code> renders supported runtime
+actions without writing composition state.</p>
+</div>
+<div class="paragraph">
+<p>Read <a href="composition-lifecycle.html#validation-planning-and-lifecycle" class="xref page">Validation,
+planning, and lifecycle</a> before a live apply.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_dot_registry"><a class="anchor" href="#_run_dot_registry"></a>Run DOT-Registry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Start MongoDB first, then run the Spring Boot application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -pl DOT-Registry spring-boot:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default application database is <code>dots</code>. Integration tests use the separate
+<code>dots-test</code> database:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd DOT-Registry
+./mvnw test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Registry currently exposes read-only Anchor and Contract endpoints. See
+<a href="../dot-registry/index.html" class="xref page">DOT-Registry</a> for the routes and response model.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_the_composition_conformance_gate"><a class="anchor" href="#_run_the_composition_conformance_gate"></a>Run the composition conformance gate</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:conformance</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This gate combines Java domain and Registry tests, Go tests, generated-schema
+validation, fixture inspection, composition validation/planning, and dry-run
+scenario checks. It does not claim that external partner systems or production
+networks were exercised.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-the-documentation"><a class="anchor" href="#build-the-documentation"></a>Build the documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Install the documentation toolchain once:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:setup</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then generate the Antora HTML site and PDF export:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:check
+task docs:build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generated artifacts are written under <code>DOT-Docs/build/site</code> and are intentionally
+ignored by Git. To build and serve the site locally:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <code><a href="http://localhost:8000" class="bare">http://localhost:8000</a></code>. Do not edit files under <code>DOT-Docs/build</code>; update the
+AsciiDoc sources instead.</p>
+</div>
+<div class="paragraph">
+<p>Mermaid sources are stored as Antora attachments and rendered locally by
+<code>task docs:diagrams</code>. The renderer produces SVG for the HTML site and
+high-resolution PNG for PDF export; both outputs are committed so a clean
+checkout can resolve every Antora resource. Each source includes an accessible
+title and description, and each AsciiDoc image macro supplies alternative text.</p>
+</div>
+<div class="paragraph">
+<p><code>task docs:build</code> regenerates the diagrams before building either output. The
+toolchain is version-pinned and does not send architecture content to an
+external rendering service. Edit the <code>.mmd</code> source, never the generated SVG or
+PNG, then run the full documentation build to verify both renderers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_where_to_continue"><a class="anchor" href="#_where_to_continue"></a>Where to continue</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="architecture.html" class="xref page">Architecture</a> for system and ownership boundaries.</p>
+</li>
+<li>
+<p><a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> for the model
+overview and task-oriented composition guides.</p>
+</li>
+<li>
+<p><a href="verification-and-examples.html" class="xref page">Verification and examples</a> for evidence
+levels and MARE PoC scenarios.</p>
+</li>
+<li>
+<p><a href="../dot-domain/index.html" class="xref page">DOT-Domain</a> for Java model details.</p>
+</li>
+<li>
+<p><a href="../dot-registry/index.html" class="xref page">DOT-Registry</a> for persistence and read APIs.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Overview</a></span>
+  <span class="next"><a href="architecture.html">Architecture</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

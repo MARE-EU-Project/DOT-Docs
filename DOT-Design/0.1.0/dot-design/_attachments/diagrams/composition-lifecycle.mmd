@@ -1,0 +1,33 @@
+flowchart TD
+  accTitle: Composition command and recovery lifecycle
+  accDescr: Validate and plan are read-only, dry-run previews actions, apply records either an applied or recoverable state, and destroy removes state only after successful cleanup.
+
+  Document["Composition document"] --> Validate["compose validate<br/>read-only"]
+  Validate --> Plan["compose plan<br/>read-only"]
+  Plan -.->|preview| DryRun["compose apply --dry-run<br/>no runtime or state mutation"]
+  Plan --> Apply["compose apply"]
+  Apply --> Outcome{"All selected<br/>deployments succeed?"}
+  Outcome -->|Yes| Applied["APPLIED<br/>recoverable state recorded"]
+  Outcome -->|No| Rollback["Rollback previously<br/>started instances"]
+  Rollback -->|Complete| Failed["No retained<br/>runtime state"]
+  Rollback -->|Incomplete or keep-on-failure| Recoverable["PARTIAL<br/>recoverable state recorded"]
+  Recoverable --> Resume["compose apply --resume"]
+  Resume --> Outcome
+  Applied --> Status["compose status"]
+  Status --> Destroy["compose destroy<br/>reverse readiness order"]
+  Destroy --> Removed["State removed<br/>after successful cleanup"]
+
+  classDef source fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
+  classDef readonly fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
+  classDef mutation fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
+  classDef decision fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px;
+  classDef success fill:#e6f4ea,stroke:#2f7d45,color:#173c23,stroke-width:1.5px;
+  classDef recovery fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px;
+  classDef terminal fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
+  class Document source;
+  class Validate,Plan,DryRun,Status readonly;
+  class Apply,Resume,Destroy mutation;
+  class Outcome decision;
+  class Applied,Removed success;
+  class Rollback,Recoverable recovery;
+  class Failed terminal;

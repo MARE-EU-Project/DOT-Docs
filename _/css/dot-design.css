@@ -1,0 +1,252 @@
+/* Keep the desktop navigation aligned below the fixed header and sticky page toolbar. */
+@media screen and (min-width: 1024px) {
+  .nav-container {
+    align-self: flex-start;
+    height: calc(100vh - 3.5rem);
+    height: calc(100dvh - 3.5rem);
+    position: sticky;
+    top: 3.5rem;
+  }
+
+  .nav {
+    background: transparent;
+    height: calc(100% - 2.5rem);
+    top: 2.5rem;
+  }
+
+  .panels {
+    background: #fafafa;
+    height: auto;
+    max-height: 100%;
+  }
+
+  .nav-panel-menu.is-active {
+    flex: 0 1 auto;
+    height: auto;
+    max-height: calc(100vh - 8.5rem);
+    max-height: calc(100dvh - 8.5rem);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .nav-panel-explore:not(.is-active) {
+    flex: none;
+    max-height: none;
+    position: static;
+  }
+
+  /*
+   * The default UI caps articles at 46rem, leaving a large unused column on
+   * modern displays. Let the article grow with the remaining layout while
+   * keeping responsive gutters and a readable ultrawide limit.
+   */
+  .doc {
+    margin-left: clamp(1rem, 2vw, 2.5rem);
+    margin-right: clamp(1rem, 2vw, 2.5rem);
+    max-width: 80rem;
+  }
+}
+
+/* Interactive controls for the pre-rendered Mermaid SVG diagrams. */
+.interactive-diagram {
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+  position: relative;
+  width: 100%;
+}
+
+.diagram-toolbar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.diagram-toolbar-controls,
+.diagram-toolbar-group {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.diagram-toolbar-group {
+  border: 1px solid #d8dee4;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.diagram-toolbar button {
+  align-items: center;
+  background: #f6f8fa;
+  border: 0;
+  border-left: 1px solid #d8dee4;
+  color: #34495e;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.25rem;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 2.25rem;
+}
+
+.diagram-toolbar button:first-child {
+  border-left: 0;
+}
+
+.diagram-toolbar button:hover {
+  background: #e8f2f7;
+  color: #1f5565;
+}
+
+.diagram-toolbar button:focus-visible,
+.interactive-diagram > .content:focus-visible {
+  outline: 2px solid #2b6777;
+  outline-offset: 2px;
+}
+
+.diagram-toolbar button[aria-pressed="true"] {
+  background: #dceef3;
+  color: #174b5b;
+}
+
+.diagram-button-icon {
+  align-items: center;
+  display: inline-flex;
+  font-family: Arial, "Noto Sans Symbols 2", "DejaVu Sans", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  height: 1.25rem;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+  width: 1.25rem;
+}
+
+/* Draw zoom symbols with CSS so they do not depend on icon fonts or SVG rendering. */
+.diagram-button-icon.is-minus,
+.diagram-button-icon.is-plus {
+  position: relative;
+}
+
+.diagram-button-icon.is-minus::before,
+.diagram-button-icon.is-plus::before,
+.diagram-button-icon.is-plus::after {
+  background: currentColor;
+  border-radius: 999px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.diagram-button-icon.is-minus::before,
+.diagram-button-icon.is-plus::before {
+  height: 2px;
+  width: 12px;
+}
+
+.diagram-button-icon.is-plus::after {
+  height: 12px;
+  width: 2px;
+}
+
+.diagram-zoom-level {
+  color: #52616f;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 3.25rem;
+  text-align: right;
+}
+
+.interactive-diagram > .content {
+  align-items: center;
+  background: #fbfcfd;
+  border: 1px solid #d8dee4;
+  border-radius: 0.25rem;
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.interactive-diagram > .content.is-dragging {
+  cursor: grabbing;
+}
+
+.interactive-diagram > .content img {
+  display: block;
+  max-width: none;
+  min-width: 100%;
+  transform-origin: center center;
+  transition: transform 100ms ease;
+  user-select: none;
+  width: 100%;
+  will-change: transform;
+  -webkit-user-drag: none;
+}
+
+.interactive-diagram:fullscreen {
+  background: #fff;
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100% !important;
+}
+
+.interactive-diagram:fullscreen > .content {
+  height: calc(100vh - 5rem);
+  height: calc(100dvh - 5rem);
+}
+
+@media (max-width: 768px) {
+  .diagram-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .diagram-toolbar-controls {
+    align-items: stretch;
+  }
+
+  .diagram-toolbar-group {
+    flex: 1;
+  }
+
+  .diagram-toolbar button {
+    flex: 1;
+  }
+
+  .diagram-zoom-level {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-diagram > .content img {
+    transition: none;
+  }
+}
+
+@media print {
+  .diagram-toolbar {
+    display: none;
+  }
+
+  .interactive-diagram > .content {
+    border: 0;
+    overflow: visible;
+  }
+
+  .interactive-diagram > .content img {
+    transform: none !important;
+  }
+}
