@@ -166,7 +166,10 @@ topology may vary between environments.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A composition is a separate versioned document. It names concrete instances of
-DOT definitions and pins their identities independently of local paths:</p>
+DOT definitions and pins their identities through the authoritative
+<code>DOT-Repository</code> catalogue. The <code>repository://&lt;dot-id&gt;@&lt;version&gt;</code> form is stable
+across checkout locations and prevents a scenario-local copy from drifting away
+from the reviewed definition:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -177,12 +180,12 @@ name: api-gateway-oidc
 version: 1.0.0
 dots:
   - name: identity
-    source: ./keycloak
+    source: repository://d3000000-0000-4000-8000-000000000001@1.0.0
     dotId: d3000000-0000-4000-8000-000000000001
     dotVersion: 1.0.0
     deployment: kubernetes
   - name: gateway
-    source: ./apisix
+    source: repository://d4000000-0000-4000-8000-000000000001@1.0.0
     dotId: d4000000-0000-4000-8000-000000000001
     dotVersion: 1.0.0
     deployment: kubernetes
@@ -193,10 +196,21 @@ contracts:
 </div>
 </div>
 <div class="paragraph">
-<p><code>name</code> identifies an instance inside this composition. <code>dotId</code> and
-<code>dotVersion</code> must match the loaded <code>dot.json</code>; a path cannot silently substitute
-a different DOT. <code>deployment</code> selects a deployment by its stable deployment ID
-or unambiguous manifest alias.</p>
+<p><code>name</code> identifies an instance inside this composition. <code>source</code> selects the
+catalogued definition by UUID and exact version. <code>dotx compose</code> locates the
+nearest <code>DOT-Repository/dot-repository.yaml</code>, resolves the entry to its reviewed
+bundle, and then verifies that <code>dotId</code> and <code>dotVersion</code> match the loaded
+<code>dot.json</code>. Neither a catalogue entry nor a local path can silently substitute a
+different DOT. <code>deployment</code> selects a deployment by its stable deployment ID or
+unambiguous manifest alias.</p>
+</div>
+<div class="paragraph">
+<p>Relative paths remain supported for authoring experiments and external Contract
+documents. Reusable stable, sample, and test-only DOT definitions belong in
+<code>DOT-Repository</code>, under their corresponding catalogue scope. Contracts remain
+authoritative protocol documents and are referenced independently; placing a DOT
+in the repository does not copy OpenAPI, AsyncAPI, Protobuf, or GraphQL facts
+into its Anchors.</p>
 </div>
 <div class="paragraph">
 <p><code>dependsOn</code> is a readiness graph, not a connection graph. A wire does not imply
@@ -242,7 +256,8 @@ topologies without creating false dependency cycles.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes, at least one</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named deployment instances. Every entry pins <code>source</code>, <code>dotId</code>, and
-  <code>dotVersion</code>; <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
+  <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;uuid&gt;@&lt;version&gt;</code>
+  source. <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts[]</code></p></td>

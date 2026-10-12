@@ -245,6 +245,18 @@ never implies a higher one.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go; individual tests use doubles where appropriate</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:repository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every definition admitted by <code>DOT-Repository/dot-repository.yaml</code>: catalogue
+  identity, scope/path isolation, schema validity, CLI cross-references, and
+  uniqueness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go and the checked-out <code>DOT-CLI</code>, <code>DOT-Repository</code>, and <code>DOT-Schema</code> revisions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:cli:coverage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete DOT-CLI test suite plus a machine-readable statement-coverage profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go; writes reports below <code>DOT-Testing/e2e/target/</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:conformance</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cross-module Anchor and composition gate, including all deterministic PoC
   fixtures and lifecycle dry-runs</p></td>
@@ -279,8 +291,13 @@ never implies a higher one.</p>
 </div>
 <div class="paragraph">
 <p><code>testing</code> is repository-level infrastructure, not a Maven module and not a
-deployable DOT. Generated secrets, logs, reports, and materialized configuration
-belong under scenario-local <code>target/</code> directories and must not be committed.</p>
+deployable DOT. Authoritative test-only definitions live under
+<code>DOT-Repository/DOTs/testing/</code> and are selected from compositions with
+<code>repository://&lt;dot-id&gt;@&lt;version&gt;</code>. Intentionally invalid conformance inputs stay
+under <code>DOT-Testing/conformance/</code>; they must never be admitted to the repository
+catalogue. Generated secrets, logs, reports, coverage profiles, and materialized
+configuration belong under scenario-local <code>target/</code> directories and must not be
+committed.</p>
 </div>
 <div class="paragraph">
 <p>The focused <code>task testing:anchors:acceptance</code> gate verifies the published
@@ -291,11 +308,68 @@ deployed workload.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_coverage_claims_and_gates"><a class="anchor" href="#_coverage_claims_and_gates"></a>Coverage claims and gates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Coverage is reported by evidence dimension; the project does not collapse
+different meanings of “covered” into one percentage:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Dimension</th>
+<th class="tableblock halign-left valign-top">Gate</th>
+<th class="tableblock halign-left valign-top">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository inventory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx repository test</code> and the DOT repository conformance workflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be 100%: every catalogue entry is discovered, parsed, schema-valid,
+  cross-reference-valid, uniquely identified, and stored in its declared scope.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI statements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:cli:coverage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Measured and published as an artifact. The central repository-command package
+  has an 80% regression floor; the complete CLI percentage remains visible.
+  This is a code-execution metric, not proof that a workload or security control works.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition scenarios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:e2e:all:dry-run</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every listed deterministic scenario must validate, plan, and complete its
+  supported lifecycle dry-run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PoC interoperability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/interoperability/pocs.yaml</code> plus scenario-specific live workflows</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each of the eleven PoCs has traceable evidence, while remaining adapters,
+  unavailable partner components, and unproved production behavior stay explicit.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The repository gate fails on partial inventory, duplicate identities,
+mis-scoped definitions, or invalid DOTs. The statement report deliberately has
+no artificial 100% threshold: a high line percentage cannot replace negative
+tests, lifecycle checks, live probes, or partner acceptance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_canonical_anchor_scenario"><a class="anchor" href="#_canonical_anchor_scenario"></a>Canonical Anchor scenario</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>DOT-Testing/e2e/api-gateway-oidc/</code> is the primary tutorial and lifecycle fixture.
-It contains three independently valid DOTs:</p>
+Its composition resolves three independently valid, test-scoped definitions
+from <code>DOT-Repository</code>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -461,6 +535,11 @@ support the proposed composition.</p>
 </li>
 <li>
 <p>Document what the source actually produces and consumes.</p>
+</li>
+<li>
+<p>Add reusable deployable definitions to <code>DOT-Repository/DOTs/testing/</code>, record
+their evidence and purpose in <code>dot-repository.yaml</code>, and select them by exact
+<code>repository://&lt;uuid&gt;@&lt;version&gt;</code> identity.</p>
 </li>
 <li>
 <p>Define Contracts only for supported, observable interactions.</p>
