@@ -257,7 +257,7 @@ the Maven <code>verify</code> phase.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_build_and_test_dotx"><a class="anchor" href="#_build_and_test_dotx"></a>Build and test dotx</h2>
+<h2 id="_install_and_test_dotx"><a class="anchor" href="#_install_and_test_dotx"></a>Install and test dotx</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>DOT-CLI</code> is an independent Go module and is not part of the Maven reactor:</p>
@@ -266,12 +266,15 @@ the Maven <code>verify</code> phase.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:build
 task cli:test
-DOT-CLI/bin/dotx --version</code></pre>
+task cli:install
+dotx --version</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The binary is written to <code>DOT-CLI/bin/dotx</code>. Use <code>task cli:install</code> only when
-you want to install it into <code>GOBIN</code> or <code>GOPATH/bin</code> and install Bash completion.</p>
+<p><code>task cli:install</code> installs the pinned checkout into <code>GOBIN</code> or <code>GOPATH/bin</code>
+and installs Bash completion. Keep that directory on <code>PATH</code>; project tasks,
+test harnesses, examples, and CI all invoke the same <code>dotx</code> command rather than
+a repository-local binary.</p>
 </div>
 </div>
 </div>
@@ -286,9 +289,9 @@ scripts are not inferred.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-CLI/bin/dotx validate DOT-Testing/conformance/anchors/valid \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Testing/conformance/anchors/valid \
   --schema DOT-Schema/schema.json
-DOT-CLI/bin/dotx inspect DOT-Testing/conformance/anchors/valid --json</code></pre>
+dotx inspect DOT-Testing/conformance/anchors/valid --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -305,16 +308,16 @@ a normalized, machine-readable view without deploying anything.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-CLI/bin/dotx compose validate \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose validate \
   DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
 
-DOT-CLI/bin/dotx compose plan \
+dotx compose plan \
   DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
 
-DOT-CLI/bin/dotx compose plan \
+dotx compose plan \
   DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --json
 
-DOT-CLI/bin/dotx compose apply \
+dotx compose apply \
   DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --dry-run</code></pre>
 </div>
 </div>

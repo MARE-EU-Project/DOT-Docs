@@ -373,12 +373,12 @@ supported composition profile</a> for the exact boundary.</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Domain unit tests; no MongoDB required
 mvn -pl DOT-Domain test
 
-# Build the CLI
-task cli:build
+# Install the pinned CLI checkout on PATH
+task cli:install
 
 # Validate and inspect the canonical composition example
-DOT-CLI/bin/dotx compose validate DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
-DOT-CLI/bin/dotx compose plan DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
+dotx compose validate DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
+dotx compose plan DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
 
 # Run the complete Anchor/composition repository gate
 task testing:conformance</code></pre>
