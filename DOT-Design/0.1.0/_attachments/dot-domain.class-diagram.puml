@@ -265,6 +265,17 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
 
       }
 
+      package "validation" as package_eu_mare6g_dot_domain_deployment_config_validation #FFF7ED {
+        class "ConfigFileSensitiveDefaultValidator" as eu_mare6g_dot_domain_deployment_config_validation_ConfigFileSensitiveDefaultValidator #FFF7ED {
+          + isValid(configFile: ConfigFile, context: ConstraintValidatorContext): boolean
+        }
+
+        class "EnvironmentVariableSensitiveDefaultValidator" as eu_mare6g_dot_domain_deployment_config_validation_EnvironmentVariableSensitiveDefaultValidator #FFF7ED {
+          + isValid(variable: EnvironmentVariable, context: ConstraintValidatorContext): boolean
+        }
+
+      }
+
     }
 
     package "manifest" as package_eu_mare6g_dot_domain_deployment_manifest #FEF3C7 {
@@ -381,6 +392,7 @@ package_eu_mare6g_dot_domain_contract -[hidden]down- package_eu_mare6g_dot_domai
 package_eu_mare6g_dot_domain_deployment -[hidden]down- package_eu_mare6g_dot_domain_runtime
 package_eu_mare6g_dot_domain_deployment_config -[hidden]down- package_eu_mare6g_dot_domain_deployment_manifest
 package_eu_mare6g_dot_domain_deployment_config_cdi -[hidden]down- package_eu_mare6g_dot_domain_deployment_config_oci
+package_eu_mare6g_dot_domain_deployment_config_oci -[hidden]down- package_eu_mare6g_dot_domain_deployment_config_validation
 package_eu_mare6g_dot_domain_deployment_manifest_docker -[hidden]down- package_eu_mare6g_dot_domain_deployment_manifest_helm
 package_eu_mare6g_dot_domain_deployment_manifest_helm -[hidden]down- package_eu_mare6g_dot_domain_deployment_manifest_k8s
 package_eu_mare6g_dot_domain_deployment_manifest_k8s -[hidden]down- package_eu_mare6g_dot_domain_deployment_manifest_vagrant
@@ -402,6 +414,7 @@ eu_mare6g_dot_domain_deployment_config_ConfigFile -[hidden]down- eu_mare6g_dot_d
 eu_mare6g_dot_domain_deployment_config_DeploymentConfig -[hidden]down- eu_mare6g_dot_domain_deployment_config_EnvironmentVariable
 eu_mare6g_dot_domain_deployment_config_EnvironmentVariable -[hidden]down- eu_mare6g_dot_domain_deployment_config_VolumeMount
 eu_mare6g_dot_domain_deployment_config_oci_OciLinuxNamespace -[hidden]down- eu_mare6g_dot_domain_deployment_config_oci_OciRuntimeRequirements
+eu_mare6g_dot_domain_deployment_config_validation_ConfigFileSensitiveDefaultValidator -[hidden]down- eu_mare6g_dot_domain_deployment_config_validation_EnvironmentVariableSensitiveDefaultValidator
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerCompose -[hidden]down- eu_mare6g_dot_domain_deployment_manifest_docker_DockerImage
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerImage -[hidden]down- eu_mare6g_dot_domain_deployment_manifest_docker_DockerImageTag
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerImageTag -[hidden]down- eu_mare6g_dot_domain_deployment_manifest_docker_EnvFile
