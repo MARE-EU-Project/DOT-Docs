@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="152" height="20" viewBox="0 0 152 20" role="img" aria-label="Compose profile: failed" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Compose profile: failed</title>
-  <defs><clipPath id="badge-clip"><rect width="152" height="20" rx="3"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="158" height="20" viewBox="0 0 158 20" role="img" aria-label="Compose profile: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Compose profile: passing</title>
+  <defs><clipPath id="badge-clip"><rect width="158" height="20" rx="3"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="102" height="20" fill="#30363D"/>
-    <rect x="102" width="50" height="20" fill="#FFEBE9"/>
+    <rect x="102" width="56" height="20" fill="#DAFBE1"/>
   </g>
-  <rect x="0.5" y="0.5" width="151" height="19" rx="2.5" fill="none" stroke="#D0D7DE"/>
+  <rect x="0.5" y="0.5" width="157" height="19" rx="2.5" fill="none" stroke="#D0D7DE"/>
   <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
     <text x="51" y="14" fill="#F0F6FC">Compose profile</text>
-    <text x="127" y="14" fill="#82071E">failed</text>
+    <text x="130" y="14" fill="#116329">passing</text>
   </g>
 </svg>
