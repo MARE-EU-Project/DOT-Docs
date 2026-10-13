@@ -327,7 +327,27 @@ dotx compose destroy scenario.yaml</code></pre>
 instances on failure, and preserves recoverable state when rollback is
 incomplete or <code>--keep-on-failure</code> is selected. <code>apply --resume</code> requires an
 identical composition source, resolved plan, runtime options, inputs, ordering,
-and previously applied runtime state.</p>
+and previously applied runtime state. Resume also reconciles an interrupted
+composition-network creation: it reuses the correctly owned network or creates
+the still-missing network before continuing. Destroy checkpoints every
+successfully removed instance, so a retry targets only cleanup that did not
+finish.</p>
+</div>
+<div class="paragraph">
+<p>The deterministic recovery profile injects an interruption immediately before
+and after network creation, instance deployment, instance destruction, and
+network removal. It also verifies lock contention, lock release after a panic,
+partial cleanup, idempotent resume, and fail-closed plan/runtime drift:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:lifecycle-recovery</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The task writes revision-pinned, secret-free JSON evidence under
+<code>DOT-Testing/e2e/target/</code> and is enforced by the Composition lifecycle recovery
+workflow.</p>
 </div>
 <div class="paragraph">
 <p>Apply, probe, status, and destroy acquire a private per-composition process lock. A
