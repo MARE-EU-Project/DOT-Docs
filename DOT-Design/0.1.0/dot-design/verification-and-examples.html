@@ -247,6 +247,15 @@ never implies a higher one.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:acceptance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1alpha1</code> command/schema parity, every committed lock, twelve
+  Contract wires, contractless compatibility, all six runtime dry-runs,
+  service-scoped configuration, recovery/status/destroy, and focused
+  fail-closed controls; emits revision-pinned JSON evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A globally installed <code>dotx</code> from the checked-out CLI revision, Go, Task, and
+  fixture-specific dry-run CLIs</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:contracts:standards</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extracts the same twelve payloads and validates them with dated official OAI
   schemas, the official AsyncAPI CLI, <code>protoc</code>, and GraphQL.js; each family also
@@ -336,6 +345,14 @@ committed.</p>
 <a href="integration-handoff.html" class="xref page">DOT Anchor consumer profile</a>. It resolves pinned
 test definitions from <code>DOT-Repository</code>, verifies the composition lock, and
 asserts the complete cross-standard plan without a deployed workload.</p>
+</div>
+<div class="paragraph">
+<p>The separate <code>task testing:compose:acceptance</code> gate freezes the complete
+<code>dot.mare6g.eu/v1alpha1</code> production profile. Its machine-readable source is
+<code>DOT-Testing/acceptance/composition/v1alpha1/profile.json</code>; the gate binds that
+source to CLI help, the tracked schema, repository locks, positive evidence, and
+negative fail-closed behavior. Runtime rows distinguish underlying single-DOT
+live lifecycle proof from multi-DOT composition lifecycle proof.</p>
 </div>
 <div class="paragraph">
 <p>The focused <code>task testing:compose:contract-standards</code> gate complements that API

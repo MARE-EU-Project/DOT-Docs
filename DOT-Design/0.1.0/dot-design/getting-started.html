@@ -289,7 +289,10 @@ a normalized, machine-readable view without deploying anything.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose validate \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock \
+  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --check
+
+dotx compose validate \
   DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
 
 dotx compose plan \
@@ -303,7 +306,8 @@ dotx compose apply \
 </div>
 </div>
 <div class="paragraph">
-<p>All four commands above are non-mutating. <code>validate</code> answers whether references
+<p>All five commands above are non-mutating. <code>lock --check</code> verifies the committed
+content-addressed input graph; <code>validate</code> answers whether references
 and compatibility can be resolved; <code>plan</code> shows the exact instances, endpoints,
 security status, and materializers; <code>apply --dry-run</code> renders supported runtime
 actions without writing composition state.</p>
@@ -343,6 +347,18 @@ dotx repository inspect \
 validation, Contract checks, composition validation/planning, and dry-run
 scenario checks. It does not claim that external partner systems or production
 networks were exercised.</p>
+</div>
+<div class="paragraph">
+<p>Run only the versioned composition production profile with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:acceptance</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This gate writes revision-pinned, secret-free JSON evidence below
+<code>DOT-Testing/e2e/target/</code>.</p>
 </div>
 </div>
 </div>
