@@ -193,6 +193,18 @@ different DOT. <code>deployment</code> selects a deployment by its stable deploy
 unambiguous manifest alias.</p>
 </div>
 <div class="paragraph">
+<p>Local discovery is the convenience default. <code>--repository &lt;path-or-Git-URL&gt;</code>
+selects another authoritative catalogue and <code>--git-ref &lt;revision&gt;</code> selects a
+Git revision. Locked and runtime-mutating commands require a full 40-character
+commit SHA for remote repositories; branch and tag names are allowed only for
+unlocked, read-only exploration. Exact commits are cached in a private user
+cache by normalized repository identity and commit, so the same plan and lock
+can be reproduced offline. Plans, locks, and lifecycle state record only the
+credential-free identity and resolved commit. Credential-bearing URLs are
+rejected; authentication remains external through Git credential helpers, SSH
+agents, or environment-backed CI credentials.</p>
+</div>
+<div class="paragraph">
 <p>Relative paths remain supported for authoring experiments and external Contract
 documents. Reusable stable, sample, and test-only DOT definitions belong in
 <code>DOT-Repository</code>, under their corresponding catalogue scope. Contracts remain

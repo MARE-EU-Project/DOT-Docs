@@ -253,11 +253,12 @@ read-only makes them suitable for review and CI.</p>
 <p><code>lock</code> makes those answers reproducible. Its JSON output preserves the original
 <code>repository://</code> and relative references while recording SHA-256 digests for the
 composition, every resolved <code>dot.json</code>, every supplied Contract, configuration
-inputs, and the portable resolved plan. It never records secret values, runtime
-addresses, or checkout-local absolute paths. Validate, plan, and apply verify an
-adjacent lock automatically; <code>--locked</code> additionally requires it, and
-<code>--lock &lt;path&gt;</code> selects an explicit file. Any mismatch fails before runtime
-mutation.</p>
+inputs, and the portable resolved plan. For an explicit remote repository it
+also records the normalized repository identity and exact commit. It never
+records secret values, runtime addresses, or checkout-local absolute paths.
+Validate, plan, and apply verify an adjacent lock automatically; <code>--locked</code>
+additionally requires it, and <code>--lock &lt;path&gt;</code> selects an explicit file. Any
+mismatch fails before runtime mutation.</p>
 </div>
 <div class="paragraph">
 <p><code>probe</code> deliberately derives its request from the selected OpenAPI operation
@@ -304,6 +305,11 @@ dotx compose validate scenario.yaml --locked
 # Deterministic resolved topology; no runtime mutation
 dotx compose plan scenario.yaml --locked
 dotx compose plan scenario.yaml --locked --json
+
+# Resolve the catalogue from one immutable remote Git revision
+dotx compose plan scenario.yaml --locked --json \
+  --repository https://github.com/MARE-EU-Project/DOT-Repository.git \
+  --git-ref &lt;40-character-commit&gt;
 
 # Render runtime actions without state or runtime mutation
 dotx compose apply scenario.yaml --locked --dry-run
