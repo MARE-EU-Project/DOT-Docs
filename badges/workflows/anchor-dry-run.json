@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "label": "Dry-run E2E",
+  "label": "Scenario dry-run",
   "message": "passing",
   "color": "#1B5E20",
   "cacheSeconds": 300

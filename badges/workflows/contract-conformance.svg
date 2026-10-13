@@ -1,13 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="122" height="20" viewBox="0 0 122 20" role="img" aria-label="Contracts: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Contracts: passing</title>
-  <defs><clipPath id="badge-clip"><rect width="122" height="20" rx="3"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="229" height="24" viewBox="0 0 229 24" role="img" aria-label="Contract standards: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Contract standards: passing</title>
+  <defs><clipPath id="badge-clip"><rect width="229" height="24" rx="4"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
-    <rect width="66" height="20" fill="#30363D"/>
-    <rect x="66" width="56" height="20" fill="#DAFBE1"/>
+    <rect width="146" height="24" fill="#003399"/>
+    <rect x="146" width="83" height="24" fill="#E8F5EE"/>
   </g>
-  <rect x="0.5" y="0.5" width="121" height="19" rx="2.5" fill="none" stroke="#D0D7DE"/>
-  <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
-    <text x="33" y="14" fill="#F0F6FC">Contracts</text>
-    <text x="94" y="14" fill="#116329">passing</text>
+  <rect x="0.5" y="0.5" width="228" height="23" rx="3.5" fill="none" stroke="#B8C2CC"/>
+  <line x1="146" y1="1" x2="146" y2="23" stroke="#B8C2CC"/>
+  <circle cx="159" cy="12" r="3.5" fill="#16834F"/>
+  <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="11" font-weight="600" text-anchor="middle">
+    <text x="73" y="15.5" fill="#FFFFFF">Contract standards</text>
+    <text x="194" y="15.5" fill="#176B45">passing</text>
   </g>
 </svg>

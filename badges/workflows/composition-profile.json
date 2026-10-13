@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "label": "Compose profile",
+  "label": "Composition v1alpha1",
   "message": "passing",
   "color": "#1B5E20",
   "cacheSeconds": 300
