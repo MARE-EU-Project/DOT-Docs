@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="122" height="20" viewBox="0 0 122 20" role="img" aria-label="Contracts: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Contracts: passing</title>
-  <defs><clipPath id="badge-clip"><rect width="122" height="20" rx="3"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="146" height="20" viewBox="0 0 146 20" role="img" aria-label="Contracts: in progress" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Contracts: in progress</title>
+  <defs><clipPath id="badge-clip"><rect width="146" height="20" rx="3"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="66" height="20" fill="#30363D"/>
-    <rect x="66" width="56" height="20" fill="#DAFBE1"/>
+    <rect x="66" width="80" height="20" fill="#DDF4FF"/>
   </g>
-  <rect x="0.5" y="0.5" width="121" height="19" rx="2.5" fill="none" stroke="#D0D7DE"/>
+  <rect x="0.5" y="0.5" width="145" height="19" rx="2.5" fill="none" stroke="#D0D7DE"/>
   <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
     <text x="33" y="14" fill="#F0F6FC">Contracts</text>
-    <text x="94" y="14" fill="#116329">passing</text>
+    <text x="106" y="14" fill="#0550AE">in progress</text>
   </g>
 </svg>
