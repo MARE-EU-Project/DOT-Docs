@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="265" height="28" viewBox="0 0 265 28" role="img" aria-label="Composition v1alpha1: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Composition v1alpha1: passing</title>
-  <defs><clipPath id="badge-clip"><rect width="265" height="28" rx="5"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="293" height="28" viewBox="0 0 293 28" role="img" aria-label="Composition v1alpha1: in progress" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Composition v1alpha1: in progress</title>
+  <defs><clipPath id="badge-clip"><rect width="293" height="28" rx="5"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="170" height="28" fill="#003399"/>
-    <rect x="170" width="95" height="28" fill="#ECFDF3"/>
+    <rect x="170" width="123" height="28" fill="#EFF8FF"/>
     <rect width="3" height="28" fill="#FFCC00"/>
   </g>
-  <rect x="0.5" y="0.5" width="264" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
+  <rect x="0.5" y="0.5" width="292" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
   <line x1="170" y1="1" x2="170" y2="27" stroke="#CBD5E1"/>
-  <circle cx="186" cy="14" r="6" fill="#079455"/><path d="M 183 14 l2 2 4 -5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="186" cy="14" r="6" fill="#2E90FA"/><circle cx="186" cy="14" r="2" fill="#FFFFFF"/>
   <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
     <text x="86" y="18.25" fill="#FFFFFF">Composition v1alpha1</text>
-    <text x="233" y="18.25" fill="#067647">passing</text>
+    <text x="247" y="18.25" fill="#175CD3">in progress</text>
   </g>
 </svg>
