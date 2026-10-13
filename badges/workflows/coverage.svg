@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="195" height="28" viewBox="0 0 195 28" role="img" aria-label="Coverage: cancelled" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Coverage: cancelled</title>
-  <defs><clipPath id="badge-clip"><rect width="195" height="28" rx="5"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="181" height="28" viewBox="0 0 181 28" role="img" aria-label="Coverage: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Coverage: passing</title>
+  <defs><clipPath id="badge-clip"><rect width="181" height="28" rx="5"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="86" height="28" fill="#003399"/>
-    <rect x="86" width="109" height="28" fill="#FEF3F2"/>
+    <rect x="86" width="95" height="28" fill="#ECFDF3"/>
     <rect width="3" height="28" fill="#FFCC00"/>
   </g>
-  <rect x="0.5" y="0.5" width="194" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
+  <rect x="0.5" y="0.5" width="180" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
   <line x1="86" y1="1" x2="86" y2="27" stroke="#CBD5E1"/>
-  <circle cx="102" cy="14" r="6" fill="#D92D20"/><path d="M 100 12 l4 4 M 104 12 l-4 4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="102" cy="14" r="6" fill="#079455"/><path d="M 99 14 l2 2 4 -5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
   <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
     <text x="44" y="18.25" fill="#FFFFFF">Coverage</text>
-    <text x="156" y="18.25" fill="#B42318">cancelled</text>
+    <text x="149" y="18.25" fill="#067647">passing</text>
   </g>
 </svg>
