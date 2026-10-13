@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="279" height="28" viewBox="0 0 279 28" role="img" aria-label="Multi-service isolation: failed" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Multi-service isolation: failed</title>
-  <defs><clipPath id="badge-clip"><rect width="279" height="28" rx="5"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="314" height="28" viewBox="0 0 314 28" role="img" aria-label="Multi-service isolation: in progress" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Multi-service isolation: in progress</title>
+  <defs><clipPath id="badge-clip"><rect width="314" height="28" rx="5"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="191" height="28" fill="#003399"/>
-    <rect x="191" width="88" height="28" fill="#FEF3F2"/>
+    <rect x="191" width="123" height="28" fill="#EFF8FF"/>
     <rect width="3" height="28" fill="#FFCC00"/>
   </g>
-  <rect x="0.5" y="0.5" width="278" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
+  <rect x="0.5" y="0.5" width="313" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
   <line x1="191" y1="1" x2="191" y2="27" stroke="#CBD5E1"/>
-  <circle cx="207" cy="14" r="6" fill="#D92D20"/><path d="M 205 12 l4 4 M 209 12 l-4 4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="207" cy="14" r="6" fill="#2E90FA"/><circle cx="207" cy="14" r="2" fill="#FFFFFF"/>
   <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
     <text x="97" y="18.25" fill="#FFFFFF">Multi-service isolation</text>
-    <text x="250" y="18.25" fill="#B42318">failed</text>
+    <text x="268" y="18.25" fill="#175CD3">in progress</text>
   </g>
 </svg>
