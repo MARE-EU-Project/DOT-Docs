@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="209" height="28" viewBox="0 0 209 28" role="img" aria-label="Coverage: in progress" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Coverage: in progress</title>
-  <defs><clipPath id="badge-clip"><rect width="209" height="28" rx="5"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="174" height="28" viewBox="0 0 174 28" role="img" aria-label="Coverage: failed" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Coverage: failed</title>
+  <defs><clipPath id="badge-clip"><rect width="174" height="28" rx="5"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="86" height="28" fill="#003399"/>
-    <rect x="86" width="123" height="28" fill="#EFF8FF"/>
+    <rect x="86" width="88" height="28" fill="#FEF3F2"/>
     <rect width="3" height="28" fill="#FFCC00"/>
   </g>
-  <rect x="0.5" y="0.5" width="208" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
+  <rect x="0.5" y="0.5" width="173" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
   <line x1="86" y1="1" x2="86" y2="27" stroke="#CBD5E1"/>
-  <circle cx="102" cy="14" r="6" fill="#2E90FA"/><circle cx="102" cy="14" r="2" fill="#FFFFFF"/>
+  <circle cx="102" cy="14" r="6" fill="#D92D20"/><path d="M 100 12 l4 4 M 104 12 l-4 4" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
   <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
     <text x="44" y="18.25" fill="#FFFFFF">Coverage</text>
-    <text x="163" y="18.25" fill="#175CD3">in progress</text>
+    <text x="145" y="18.25" fill="#B42318">failed</text>
   </g>
 </svg>
