@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="81" height="28" viewBox="0 0 81 28" role="img" aria-label="Coverage: 78.5% (target met)" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Coverage: 78.5% (target met; target 75%)</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="81" height="28" viewBox="0 0 81 28" role="img" aria-label="Coverage: 78.6% (target met)" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Coverage: 78.6% (target met; target 75%)</title>
   <defs><clipPath id="badge-clip"><rect width="81" height="28" rx="5"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="81" height="28" fill="#ECFDF3"/>
@@ -8,5 +8,5 @@
   <rect x="0.5" y="0.5" width="80" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
   <circle cx="14" cy="14" r="6" fill="#079455"/>
   <path d="M 12 14 l2 2 4 -5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="56" y="18.25" fill="#067647" text-anchor="middle" font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600">78.5%</text>
+  <text x="56" y="18.25" fill="#067647" text-anchor="middle" font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600">78.6%</text>
 </svg>
