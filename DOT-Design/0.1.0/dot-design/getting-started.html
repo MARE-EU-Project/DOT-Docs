@@ -180,7 +180,7 @@ domain, repository, and CLI checks before running live deployment scenarios.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional but recommended</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Kubernetes tools, Helm, or Vagrant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Kubernetes tools, Helm, or Vagrant with libvirt/KVM</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Only the matching deployment adapters and live scenarios</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Install only what you intend to execute</p></td>
 </tr>
@@ -256,6 +256,23 @@ dotx --version</code></pre>
 and installs Bash completion. Keep that directory on <code>PATH</code>; project tasks,
 test harnesses, examples, and CI all invoke the same <code>dotx</code> command rather than
 a repository-local binary.</p>
+</div>
+<div class="paragraph">
+<p>For a Vagrant runtime on Ubuntu, install or reconcile the complete provider
+boundary and then open a new login session so the <code>libvirt</code> and <code>kvm</code> groups
+are active:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx tool install vagrant
+dotx tool check vagrant</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The installer selects <code>qemu-kvm</code> when the distribution provides it and falls
+back to <code>qemu-system-x86</code> on releases such as Ubuntu 26.04. The readiness check
+also verifies the pinned <code>vagrant-libvirt</code> plugin, the <code>qemu:///system</code>
+connection, the default libvirt network, and <code>/dev/kvm</code> access.</p>
 </div>
 </div>
 </div>
