@@ -1,6 +1,6 @@
 flowchart LR
   accTitle: DOT-Design system context and supported runtime mappings
-  accDescr: DOT authors combine capabilities, contracts, anchors, service bindings, configuration, and runtime declarations in dot.json. DOT-Schema and dotx validate the reusable definition, DOT-Registry publishes and resolves it, and a separate composition pins instances and wires. The dotx lifecycle layer deploys Docker images, Docker Compose, Kubernetes manifests, Helm charts, and Vagrantfiles. WebAssembly modules are represented by the domain model but require an external lifecycle adapter.
+  accDescr: DOT authors combine capabilities, contracts, anchors, service bindings, configuration, and runtime declarations in dot.json. DOT-Schema and dotx validate the reusable definition, DOT-Registry publishes and resolves it, and a separate composition pins instances and wires. The dotx lifecycle layer deploys Docker images, Docker Compose, Kubernetes manifests, Helm charts, Vagrantfiles, and SHA-256-pinned WebAssembly modules through Wasmtime and WASI.
 
   subgraph DesignTime["1–2 · Reusable model, validation, discovery, and composition"]
     direction TB
@@ -27,17 +27,17 @@ flowchart LR
     Docker["Docker platform<br/>Docker Image · Docker Compose<br/>docker · docker compose"]
     Kubernetes["Kubernetes platform<br/>Kubernetes Manifest · Helm Chart<br/>kubectl · helm"]
     Vagrant["Vagrant platform<br/>Vagrantfile<br/>vagrant · provider-managed VM"]
-    Wasm["WebAssembly platform<br/>WASM Module<br/>external lifecycle adapter required"]
+    Wasm["WebAssembly platform<br/>WASM Module · WASI CLI/HTTP<br/>wasmtime"]
     Native["Platform-native resources<br/>workloads · services · endpoints · live state"]
 
     Adapters --> Docker
     Adapters --> Kubernetes
     Adapters --> Vagrant
-    Adapters -.->|model support; external adapter| Wasm
+    Adapters --> Wasm
     Docker --> Native
     Kubernetes --> Native
     Vagrant --> Native
-    Wasm -.-> Native
+    Wasm --> Native
   end
 
   DesignTime -->|selects a compatible deployment| Execution
@@ -48,5 +48,4 @@ flowchart LR
   classDef pending fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px,stroke-dasharray:5 4;
   class Authored,Dot,Document artifact;
   class Schema,Validation,Registry,Compose service;
-  class Adapters,Docker,Kubernetes,Vagrant,Native runtime;
-  class Wasm pending;
+  class Adapters,Docker,Kubernetes,Vagrant,Wasm,Native runtime;

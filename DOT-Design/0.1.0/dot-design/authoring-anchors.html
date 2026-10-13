@@ -637,6 +637,11 @@ executable <code>dotx</code> deployment adapter:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Vagrant process/provisioner environment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Files provisioned into the managed VM and exposed to the Vagrantfile</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WASM_MODULE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allow-listed WASI guest environment; sensitive values inherited by name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staged configuration root plus explicit Wasmtime directory preopens</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -673,11 +678,17 @@ composer must not translate a host bind path into a cluster volume or silently
 grant privileged mode.</p>
 </div>
 <div class="paragraph">
-<p><code>WASM_MODULE</code> is a domain extension point, not an executable <code>dotx</code> adapter yet.
-It remains fail-closed until a reviewed WASI component/runtime profile defines
-environment, preopened directories, networking, secrets, and lifecycle
-semantics. The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
-matrix exercises the same catalogued DOT through every executable adapter. The
+<p><code>WASM_MODULE</code> uses a reviewed Wasmtime/WASI profile. Each module is SHA-256
+pinned and loaded from a relative/file or HTTPS URI. <code>WASI_CLI</code> executes command
+modules/components; <code>WASI_HTTP</code> serves a component on one declared TCP/HTTP
+service port bound to loopback. Dotx exposes only declared environment values,
+staged configuration files, and explicitly bound host directories. It does not
+translate OCI capabilities, host namespaces, or CDI devices into broader WASI
+permissions. Sensitive values are never printed or persisted. Because the
+Wasmtime CLI cannot enforce read-only permissions on a directory preopen, that
+request fails closed unless the host filesystem already supplies the boundary.
+The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
+matrix exercises every executable adapter. The
 <code>DOT-Testing/composition/service-workloads/</code> matrix verifies isolation between
 two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
 </div>

@@ -253,8 +253,8 @@ never implies a higher one.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Two real DOT definitions connected through OpenAPI YAML/JSON, AsyncAPI
-  YAML/JSON, Protobuf/gRPC, and GraphQL SDL; asserts selectors, participant
+<td class="tableblock halign-left valign-top"><p class="tableblock">Two real DOT definitions connected through OpenAPI 3.0/3.1/3.2 and AsyncAPI
+  3.0/3.1 YAML/JSON, Protobuf/gRPC, and GraphQL SDL; asserts selectors, participant
   interactions, endpoints, and materializers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions</p></td>
 </tr>
@@ -262,7 +262,7 @@ never implies a higher one.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:runtime-configuration</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The same catalogued DOT receives declared environment and configuration-file
   inputs through Docker image, Docker Compose, Kubernetes manifest, Helm chart,
-  and Vagrantfile dry-run adapters</p></td>
+  Vagrantfile, and Wasmtime/WASI dry-run adapters</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and runtime CLIs in dry-run rendering mode</p></td>
 </tr>
 <tr>

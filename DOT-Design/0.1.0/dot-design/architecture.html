@@ -209,10 +209,10 @@ and six compatible manifest mappings:</p>
 </div>
 <div class="paragraph">
 <p>The current <code>dotx</code> lifecycle implements Docker Image, Docker Compose,
-Kubernetes manifest, Helm chart, and Vagrantfile execution. <code>WASM_MODULE</code> is a
-portable model surface, but deploying it requires a future or external
-WebAssembly lifecycle adapter. This distinction prevents schema support from
-being mistaken for reference-executor support.</p>
+Kubernetes manifest, Helm chart, Vagrantfile, and WebAssembly execution. The
+WebAssembly adapter uses Wasmtime with an explicit <code>WASI_CLI</code> or <code>WASI_HTTP</code>
+world, verifies the module&#8217;s SHA-256 before execution, and grants only declared
+guest environment and directory capabilities.</p>
 </div>
 </div>
 </div>

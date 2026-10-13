@@ -346,8 +346,18 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       }
 
       package "wasm" as package_eu_mare6g_dot_domain_deployment_manifest_wasm #FFFBEB {
+        enum "WebAssemblyExecution" as eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyExecution #FFF7ED {
+          WASI_CLI
+          WASI_HTTP
+          --
+          - uri: URI {readOnly}
+        }
+
         class "WebAssemblyModule" as eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyModule #FFFBEB {
-          - module: URI
+          - module: String
+          - execution: WebAssemblyExecution
+          - arguments: List<String>
+          - sha256: String
         }
 
       }
@@ -419,6 +429,7 @@ eu_mare6g_dot_domain_deployment_manifest_docker_DockerCompose -[hidden]down- eu_
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerImage -[hidden]down- eu_mare6g_dot_domain_deployment_manifest_docker_DockerImageTag
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerImageTag -[hidden]down- eu_mare6g_dot_domain_deployment_manifest_docker_EnvFile
 eu_mare6g_dot_domain_deployment_manifest_helm_HelmChart -[hidden]down- eu_mare6g_dot_domain_deployment_manifest_helm_HelmValues
+eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyExecution -[hidden]down- eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyModule
 eu_mare6g_dot_domain_runtime_platform_Platform -[hidden]down- eu_mare6g_dot_domain_runtime_platform_PlatformEngine
 eu_mare6g_dot_domain_Metadata -[hidden]right- eu_mare6g_dot_domain_Skill
 eu_mare6g_dot_domain_Skill -[hidden]right- eu_mare6g_dot_domain_Version
@@ -474,6 +485,7 @@ eu_mare6g_dot_domain_deployment_manifest_helm_HelmChart "1" *-[#2563EB]down- "1"
 eu_mare6g_dot_domain_deployment_manifest_helm_HelmChart "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_manifest_helm_HelmValues : values
 eu_mare6g_dot_domain_deployment_manifest_helm_HelmValues "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
 eu_mare6g_dot_domain_deployment_manifest_k8s_KubernetesManifest "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
+eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyModule "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyExecution : execution
 eu_mare6g_dot_domain_runtime_Runtime "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_deployment_Deployment : deployments
 eu_mare6g_dot_domain_runtime_Runtime "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_runtime_platform_Platform : platform
 eu_mare6g_dot_domain_runtime_platform_Platform "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
