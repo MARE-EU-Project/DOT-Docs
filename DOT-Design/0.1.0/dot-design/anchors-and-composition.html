@@ -145,7 +145,7 @@
 <p>This guide explains how independently authored Dynamic Open Trust (DOT)
 components participate in composition by referring to authoritative Contracts
 rather than duplicating contract-defined facts. It distinguishes the stable
-DOT Anchor model from the provisional <code>dotx compose</code> reference format and
+DOT Anchor model from the stable, versioned <code>dotx compose</code> format and
 follows the complete path from a logical capability to a deployed connection.</p>
 </div>
 <div class="paragraph">
@@ -245,7 +245,7 @@ Anchor.</p>
 <p>The DOT-owned Anchor model, contract selectors, service-port bindings,
 validation, generated schema, repository resolution, and conformance fixtures are
 release candidates. The separate composition document and its local lifecycle
-executor remain <code>dot.mare6g.eu/v1alpha1</code> reference functionality.</p>
+executor implement the stable <code>dot.mare6g.eu/v1</code> profile.</p>
 </div>
 <div class="paragraph">
 <p>The current executable profile supports:</p>
@@ -287,16 +287,15 @@ pinned by UUID, in the composition;</p>
 </div>
 <div class="paragraph">
 <p>The authoritative machine-readable boundary is
-<code>DOT-Testing/acceptance/composition/v1alpha1/profile.json</code>. Run
+<code>DOT-Testing/acceptance/composition/v1/profile.json</code>. Run
 <code>task testing:compose:acceptance</code> to compare the installed CLI help and emitted
 schema with that profile, verify every committed lock, exercise all twelve
 cross-standard wires and six runtime dry-run adapters, and emit revision-pinned,
 secret-free JSON evidence.</p>
 </div>
 <div class="paragraph">
-<p>It is not yet a general multi-host production orchestrator. Remote catalogue
-resolution, shared state, cross-platform network bindings, repeated-instance
-isolation for every deployment mechanism, external secret-store plugins, and
+<p>It is not a general multi-host production orchestrator. Shared state,
+cross-platform network bindings, external secret-store plugins, and
 mutating, multi-scheme, event-driven, or cross-platform probe adapters remain
 outside this profile. Safe anonymous OpenAPI probes and single-scheme OAuth 2.0
 client-credentials probes within a shared Docker network or Kubernetes
