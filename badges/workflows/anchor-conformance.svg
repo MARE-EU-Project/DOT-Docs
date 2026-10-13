@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="209" height="28" viewBox="0 0 209 28" role="img" aria-label="Anchor model: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Anchor model: passing</title>
-  <defs><clipPath id="badge-clip"><rect width="209" height="28" rx="5"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="237" height="28" viewBox="0 0 237 28" role="img" aria-label="Anchor model: in progress" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Anchor model: in progress</title>
+  <defs><clipPath id="badge-clip"><rect width="237" height="28" rx="5"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="114" height="28" fill="#003399"/>
-    <rect x="114" width="95" height="28" fill="#ECFDF3"/>
+    <rect x="114" width="123" height="28" fill="#EFF8FF"/>
     <rect width="3" height="28" fill="#FFCC00"/>
   </g>
-  <rect x="0.5" y="0.5" width="208" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
+  <rect x="0.5" y="0.5" width="236" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
   <line x1="114" y1="1" x2="114" y2="27" stroke="#CBD5E1"/>
-  <circle cx="130" cy="14" r="6" fill="#079455"/><path d="M 127 14 l2 2 4 -5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="130" cy="14" r="6" fill="#2E90FA"/><circle cx="130" cy="14" r="2" fill="#FFFFFF"/>
   <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
     <text x="58" y="18.25" fill="#FFFFFF">Anchor model</text>
-    <text x="177" y="18.25" fill="#067647">passing</text>
+    <text x="191" y="18.25" fill="#175CD3">in progress</text>
   </g>
 </svg>

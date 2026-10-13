@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="244" height="28" viewBox="0 0 244 28" role="img" aria-label="Kubernetes + Helm: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>Kubernetes + Helm: passing</title>
-  <defs><clipPath id="badge-clip"><rect width="244" height="28" rx="5"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="28" viewBox="0 0 272 28" role="img" aria-label="Kubernetes + Helm: in progress" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>Kubernetes + Helm: in progress</title>
+  <defs><clipPath id="badge-clip"><rect width="272" height="28" rx="5"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="149" height="28" fill="#003399"/>
-    <rect x="149" width="95" height="28" fill="#ECFDF3"/>
+    <rect x="149" width="123" height="28" fill="#EFF8FF"/>
     <rect width="3" height="28" fill="#FFCC00"/>
   </g>
-  <rect x="0.5" y="0.5" width="243" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
+  <rect x="0.5" y="0.5" width="271" height="27" rx="4.5" fill="none" stroke="#CBD5E1"/>
   <line x1="149" y1="1" x2="149" y2="27" stroke="#CBD5E1"/>
-  <circle cx="165" cy="14" r="6" fill="#079455"/><path d="M 162 14 l2 2 4 -5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="165" cy="14" r="6" fill="#2E90FA"/><circle cx="165" cy="14" r="2" fill="#FFFFFF"/>
   <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="12" font-weight="600" text-anchor="middle">
     <text x="76" y="18.25" fill="#FFFFFF">Kubernetes + Helm</text>
-    <text x="212" y="18.25" fill="#067647">passing</text>
+    <text x="226" y="18.25" fill="#175CD3">in progress</text>
   </g>
 </svg>
