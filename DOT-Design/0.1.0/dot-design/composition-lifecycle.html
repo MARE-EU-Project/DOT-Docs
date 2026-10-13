@@ -217,6 +217,22 @@ execution recoverable and auditable.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose upgrade --dry-run</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact current and target locks resolve, the target SemVer increases, and
+  a deterministic per-instance <code>ADD</code>/<code>UPDATE</code>/<code>REMOVE</code>/<code>UNCHANGED</code> diff passes
+  runtime, storage, ownership, and recovery preflights.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">That an application-specific persistent-data migration is safe.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose upgrade</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The target revision was applied through a checkpointed transaction and the
+  last-known-good control-plane revision remained available until promotion.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reversal of application data writes; stateful mutations are rejected.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes; failures automatically restore the verified previous revision, while
+  interrupted transactions require <code>--resume</code> or <code>--rollback</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose probe</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation is reachable from the composition&#8217;s shared
   Docker network or Kubernetes namespace. Anonymous results match a declared
@@ -319,7 +335,17 @@ dotx compose apply scenario.yaml --locked
 dotx compose probe scenario.yaml --locked --wire oidc-provider-to-gateway
 dotx compose probe scenario.yaml --locked --wire protected-gateway-to-client
 dotx compose status scenario.yaml
-dotx compose destroy scenario.yaml</code></pre>
+dotx compose destroy scenario.yaml
+
+# Review and execute a locked upgrade
+dotx compose upgrade scenario-v2.yaml \
+  --from scenario-v1.yaml \
+  --from-lock scenario-v1.lock.json \
+  --locked --dry-run --json
+dotx compose upgrade scenario-v2.yaml \
+  --from scenario-v1.yaml \
+  --from-lock scenario-v1.lock.json \
+  --locked</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -334,6 +360,17 @@ successfully removed instance, so a retry targets only cleanup that did not
 finish.</p>
 </div>
 <div class="paragraph">
+<p>Upgrade is a separate lifecycle; <code>apply</code> never mutates an already recorded
+plan. Upgrade requires the exact previous and target locks, the same
+composition UUID, and a strictly greater target SemVer. Existing instance names
+must retain their platform and deployment mechanism. Docker image, Docker
+Compose, Kubernetes manifest, Helm, Vagrantfile, and WASM module instances use
+their stable managed identities. The private transaction journal stores only
+paths, identifiers, phases, and digests—not resolved secrets or input payloads.
+Stateful and host-bound mutations fail before the first runtime action because
+restoring a deployment specification cannot undo workload data changes.</p>
+</div>
+<div class="paragraph">
 <p>The deterministic recovery profile injects an interruption immediately before
 and after network creation, instance deployment, instance destruction, and
 network removal. It also verifies lock contention, lock release after a panic,
@@ -341,7 +378,8 @@ partial cleanup, idempotent resume, and fail-closed plan/runtime drift:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:lifecycle-recovery</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:lifecycle-recovery
+task testing:compose:upgrade</code></pre>
 </div>
 </div>
 <div class="paragraph">
