@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "label": "Anchor live E2E",
+  "label": "Live E2E",
   "message": "passing",
   "color": "#1B5E20",
   "cacheSeconds": 300

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "label": "WebAssembly E2E",
+  "label": "WASM E2E",
   "message": "passing",
   "color": "#1B5E20",
   "cacheSeconds": 300

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "label": "Anchor dry-run",
+  "label": "Dry-run E2E",
   "message": "passing",
   "color": "#1B5E20",
   "cacheSeconds": 300
