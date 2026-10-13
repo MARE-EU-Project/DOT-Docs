@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "label": "Scenario dry-run",
-  "message": "passing",
-  "color": "#1B5E20",
+  "message": "in progress",
+  "color": "#0D47A1",
   "cacheSeconds": 300
 }
