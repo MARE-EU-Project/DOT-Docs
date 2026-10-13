@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DOT Anchor consumer acceptance :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-registry/anchor-consumer-acceptance.html">
-    <link rel="prev" href="index.html">
-    <link rel="next" href="sfc-anchor-handoff.html">
-    <meta name="description" content="Versioned, executable acceptance contract for systems that consume DOT Anchors from the Registry.">
+    <title>Integration handoff :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/integration-handoff.html">
+    <link rel="prev" href="verification-and-examples.html">
+    <link rel="next" href="../dot-domain/index.html">
+    <meta name="description" content="Technology-neutral requirements for catalogues, composers, and Security Function Composition consumers of DOT Anchors.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -50,41 +50,44 @@
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
     <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
-    <h3 class="title"><a href="../dot-design/index.html">DOT-Design</a></h3>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">DOT-Design</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/index.html">Overview</a>
+    <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
+    <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/architecture.html">Architecture</a>
+    <a class="nav-link" href="architecture.html">Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../dot-design/anchors-and-composition.html">DOT Anchors and Composition</a>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Authoring Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/composition-documents.html">Composition Documents and DOT Instances</a>
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/wiring-and-security.html">Wiring, Materialization, and Security</a>
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
   </li>
 </ul>
   </li>
@@ -94,21 +97,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Registry service</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -122,10 +110,10 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../dot-design/index.html">0.1.0</a>
+          <a href="index.html">0.1.0</a>
         </li>
       </ul>
     </li>
@@ -137,12 +125,11 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../dot-design/index.html" class="home-link"></a>
+  <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../dot-design/index.html">DOT-Design</a></li>
-    <li>DOT-Registry</li>
-    <li><a href="anchor-consumer-acceptance.html">Anchor consumer acceptance</a></li>
+    <li>DOT-Design</li>
+    <li><a href="integration-handoff.html">Integration handoff</a></li>
   </ul>
 </nav>
 </div>
@@ -151,226 +138,119 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">DOT Anchor consumer acceptance</h1>
+<h1 class="page">Integration handoff</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The DOT Anchor consumer profile turns the Registry integration boundary into a
-repeatable acceptance contract. It is intended for composition engines,
-catalogues, deployment controllers, and the Security Function Composer team.
-It does not prescribe their internal wire or orchestration model.</p>
-</div>
-<div class="paragraph">
-<p>The current profile is <strong>DOT Anchors consumer profile v1</strong>. Its status is
-release-candidate and its Registry response version is <code>apiVersion: "1"</code>.</p>
+<p>This handoff defines the interoperability boundary for a team implementing a
+catalogue, composer, Security Function Composer adapter, or other DOT consumer.
+It intentionally does not prescribe a service, database, API style, language,
+or framework.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_profile_contents"><a class="anchor" href="#_profile_contents"></a>Profile contents</h2>
+<h2 id="_authoritative_inputs"><a class="anchor" href="#_authoritative_inputs"></a>Authoritative inputs</h2>
 <div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Artifact</th>
-<th class="tableblock halign-left valign-top">Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/acceptance/dot-anchors/v1/profile.yaml</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Machine-readable manifest that binds the profile version to its source
-  fixture, golden responses, error families, and verification gates.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="_attachments/dot-anchor-registry-v1.openapi.yaml">DOT Registry Anchor Read API v1</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI 3.1 contract for raw and resolved Anchor reads, schemas, status codes,
-  and stable error codes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/acceptance/dot-anchors/v1/expected/</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Complete resolved-Anchor responses generated from the OpenAPI, AsyncAPI,
-  Protobuf, GraphQL, and contractless conformance Anchors.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/acceptance/dot-anchors/v1/consumer-checklist.md</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Manual checklist for discovery, resolution, composition-boundary checks, and
-  joint runtime acceptance.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AnchorConsumerAcceptanceTests</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Executable drift guard connecting the profile to the Java DTOs, Contract
-  resolvers, error taxonomy, and OpenAPI document.</p></td>
-</tr>
-</tbody>
-</table>
 <div class="paragraph">
-<p>The profile reuses <code>DOT-Testing/conformance/anchors/valid/</code>; it does not copy the
-authoritative Contract payloads into a second fixture. The golden responses are
-consumer-facing outputs, not alternative Contract definitions.</p>
+<p>The reference source of reusable definitions is <code>DOT-Repository</code>. Resolve a DOT
+by its immutable UUID and pinned version, then verify the returned <code>dot.json</code>
+matches both. Resolve referenced Contract payloads without copying their
+protocol, schema, media, or security facts into an Anchor.</p>
+</div>
+<div class="paragraph">
+<p>Use these commands as executable reference behavior:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
+dotx repository test --repository DOT-Repository --schema DOT-Schema/schema.json
+dotx compose validate composition.yaml
+dotx compose plan composition.yaml --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An implementation may expose equivalent behavior through REST, gRPC, events,
+an SDK, or an embedded library. Its external contract should be versioned and
+tested independently from the DOT model.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_what_a_conforming_consumer_must_do"><a class="anchor" href="#_what_a_conforming_consumer_must_do"></a>What a conforming consumer must do</h2>
+<h2 id="_required_semantics"><a class="anchor" href="#_required_semantics"></a>Required semantics</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A conforming v1 consumer must:</p>
+<p>An interoperable consumer must:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>address DOTs and Anchors by UUID and reject missing references;</p>
+<p>address DOTs, Contracts, and Anchors by stable UUID and pin DOT versions;</p>
 </li>
 <li>
-<p>recognize resolved response version <code>1</code>;</p>
+<p>resolve contract-backed selectors against the authoritative OpenAPI,
+AsyncAPI, Protocol Buffers, or GraphQL document;</p>
 </li>
 <li>
-<p>distinguish contract-backed and contractless Anchors;</p>
+<p>use <code>anchorBindings</code> to map a logical Anchor to a named service port;</p>
 </li>
 <li>
-<p>use the selected Contract element instead of expecting duplicated protocol,
-schema, media-type, or security metadata in a contract-backed Anchor;</p>
+<p>keep instance topology, endpoints, parameter values, credentials, and policy
+outside reusable DOT definitions;</p>
 </li>
 <li>
-<p>support the stable <code>404</code> and <code>422</code> error families;</p>
+<p>evaluate compatibility conservatively and preserve <code>UNKNOWN</code> as distinct
+from <code>COMPATIBLE</code>; and</p>
 </li>
 <li>
-<p>fail closed on selectors or Contract features it cannot resolve;</p>
-</li>
-<li>
-<p>keep runtime endpoints, credentials, wires, parameter values, readiness, and
-policy outside the DOT Anchor; and</p>
-</li>
-<li>
-<p>distinguish <code>UNKNOWN</code> compatibility from <code>COMPATIBLE</code>.</p>
+<p>keep secret values out of DOTs, plans, persisted state, and logs.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The complete operational checklist is maintained with the executable profile
-so that it can be attached to an integration report without copying this page.</p>
+<p>Contractless Anchors are valid only when a supported Contract standard cannot
+describe the interaction. Their explicit direction, protocols, media types,
+and semantic types must be complementary before a wire is accepted.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_run_the_acceptance_gate"><a class="anchor" href="#_run_the_acceptance_gate"></a>Run the acceptance gate</h2>
+<h2 id="_acceptance_evidence"><a class="anchor" href="#_acceptance_evidence"></a>Acceptance evidence</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From the repository root:</p>
+<p>The versioned consumer profile is under
+<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
+verifies the committed composition lock, and plans 12 compatible wires across
+all supported Contract standards and versions.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:anchors:acceptance</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:anchors:acceptance
+task testing:conformance</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This focused gate requires Java and Maven but no MongoDB or deployed security
-function. It proves that every golden response can still be produced from the
-authoritative conformance fixture and that the published OpenAPI operations are
-resolvable by the same Contract resolver used by the Registry.</p>
-</div>
-<div class="paragraph">
-<p>For the full deterministic cross-module gate, including DOT JSON Schema, CLI,
-composition planning, and lifecycle dry-runs:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:conformance</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For behavioral evidence, continue with the APISIX, Keycloak, and OAuth-client
-scenario documented in <a href="../dot-design/verification-and-examples.html" class="xref page">Verification and examples</a>.</p>
+<p>Passing the deterministic profile proves discovery and planning semantics. A
+joint live test must separately prove endpoint reachability, credential and
+token handling, authorization, policy enforcement, and application behavior.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_versioning_policy"><a class="anchor" href="#_versioning_policy"></a>Versioning policy</h2>
+<h2 id="_future_implementation_freedom"><a class="anchor" href="#_future_implementation_freedom"></a>Future implementation freedom</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The profile version and <code>ResolvedAnchor.apiVersion</code> are explicit compatibility
-boundaries:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>compatible clarifications, additional fixtures, and new optional examples may
-extend <code>v1</code> without changing its response version;</p>
-</li>
-<li>
-<p>removing or renaming a response field, changing its meaning or nullability,
-changing stable error semantics, or narrowing an accepted value requires a
-new response and acceptance-profile version;</p>
-</li>
-<li>
-<p>adding a Contract standard or a new normalized interaction requires a v1
-golden case before it can be claimed as supported;</p>
-</li>
-<li>
-<p>old profiles remain executable during a migration window; and</p>
-</li>
-<li>
-<p>individual DOT semantic versions do not replace the consumer profile version.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Anchor UUID continuity is evaluated independently: the same logical connection
-capability keeps its UUID across compatible DOT revisions. An incompatible
-replacement receives a new UUID and must not be hidden by a profile-version
-change.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_joint_sfc_acceptance"><a class="anchor" href="#_joint_sfc_acceptance"></a>Joint SFC acceptance</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>DOT-Design owns and executes this profile. The Security Function Composer
-remains unchanged until its maintainers choose to integrate it. A joint session
-should record:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>the exact DOT-Design and SFC revisions;</p>
-</li>
-<li>
-<p>the profile version and Registry API version;</p>
-</li>
-<li>
-<p>the completed consumer checklist;</p>
-</li>
-<li>
-<p>the DOT and Anchor UUIDs used by each wire;</p>
-</li>
-<li>
-<p>the Contract operation selected for each side;</p>
-</li>
-<li>
-<p>planning, deployment, and active runtime-probe results separately; and</p>
-</li>
-<li>
-<p>every unsupported requirement or adapter boundary.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Passing the deterministic profile is necessary but does not prove endpoint
-reachability, credential validity, authorization policy, or live security
-behavior. Those claims require explicit runtime probes and remain separate from
-the Anchor model.</p>
+<p>The removed catalogue-service prototype is not part of the production architecture. A
+future team may replace it or implement discovery elsewhere in a
+different language or framework. Compatibility is judged by the stable DOT
+model and executable acceptance profile, not by reproducing the prototype&#8217;s
+internal classes or former HTTP response shapes.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Registry service</a></span>
-  <span class="next"><a href="sfc-anchor-handoff.html">SFC integration handoff</a></span>
+  <span class="prev"><a href="verification-and-examples.html">Verification and examples</a></span>
+  <span class="next"><a href="../dot-domain/index.html">Domain model</a></span>
 </nav>
 </article>
   </div>

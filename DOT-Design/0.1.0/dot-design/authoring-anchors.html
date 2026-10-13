@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/authoring-anchors.html">
     <link rel="prev" href="anchors-and-composition.html">
     <link rel="next" href="composition-documents.html">
-    <meta name="description" content="Define contract-backed or contractless Anchors, give them stable identities, bind them to deployable services, and resolve them through the Registry.">
+    <meta name="description" content="Define contract-backed or contractless Anchors, give them stable identities, bind them to deployable services, and resolve them from authoritative definitions.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -86,6 +86,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -94,21 +97,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -696,71 +684,31 @@ two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="discovering-anchors-through-the-registry"><a class="anchor" href="#discovering-anchors-through-the-registry"></a>Discovering Anchors through the Registry</h2>
+<h2 id="discovering-and-resolving-anchors"><a class="anchor" href="#discovering-and-resolving-anchors"></a>Discovering and resolving Anchors</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A composer that obtains DOTs from the Registry should prefer resolved Anchors:</p>
+<p>The authoritative test and reference definitions are catalogued in
+<code>DOT-Repository</code> and addressed as <code>repository://&lt;dot-id&gt;@&lt;version&gt;</code>. Consumers
+can inspect one immutable entry or validate the complete catalogue:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-http hljs" data-lang="http">GET /dots/\{dotId}/anchors
-GET /dots/\{dotId}/anchors/\{anchorId}
-GET /dots/\{dotId}/anchors/resolved
-GET /dots/\{dotId}/anchors/\{anchorId}/resolved
-GET /contracts/\{contractId}</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
+dotx repository test --repository DOT-Repository --schema DOT-Schema/schema.json</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The unresolved endpoints return the DOT-authored Anchor. A resolved response
-adds versioned Contract metadata and the normalized selected element:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "apiVersion": "1",
-  "anchor": {
-    "id": "a0000000-0000-4000-8000-000000000001",
-    "name": "submit-alert-http",
-    "role": "PROVIDES",
-    "semanticTypes": ["urn:mare:security:alert"],
-    "contract": {
-      "id": "11111111-1111-4111-8111-111111111111",
-      "selector": "#/paths/~1alerts/post"
-    }
-  },
-  "contract": {
-    "id": "11111111-1111-4111-8111-111111111111",
-    "name": "alert-http-api",
-    "version": "1.0.0",
-    "standard": "OPENAPI",
-    "format": "YAML"
-  },
-  "selectedElement": {
-    "selector": "#/paths/~1alerts/post",
-    "identifier": "submitAlert",
-    "interaction": "REQUEST_RESPONSE",
-    "protocols": ["HTTPS"],
-    "mediaTypes": ["application/json"],
-    "inputSchemas": ["#/components/schemas/Alert"],
-    "outputSchemas": ["#/components/schemas/Receipt"],
-    "securitySchemes": ["oauth2"]
-  }
-}</code></pre>
-</div>
+<p><code>dotx compose validate</code> and <code>dotx compose plan --json</code> resolve Anchor UUIDs,
+service-port bindings, and selected Contract elements conservatively. The plan
+reports <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>; missing evidence is never
+treated as a match. Contract payloads remain authoritative and are not copied
+into Anchors or composition wires.</p>
 </div>
 <div class="paragraph">
-<p>Resolved responses omit the potentially large Contract payload. Fetch it from
-<code>/contracts/{contractId}</code> only when the composer must inspect the authoritative
-document. For a contractless Anchor, <code>contract</code> and <code>selectedElement</code> are
-<code>null</code>. A dangling Contract reference is an error, not a contractless Anchor.</p>
-</div>
-<div class="paragraph">
-<p>The compatibility evaluator is not currently a public Registry endpoint.
-<code>dotx compose</code> performs the equivalent conservative evaluation for its local
-sources; another composer should use the normalized resolved facts and the
-three-state rules described above rather than treating missing evidence as a
-match. See <a href="../dot-registry/sfc-anchor-handoff.html" class="xref page">the SFC handoff</a> for the
-complete response and error contract.</p>
+<p>This command boundary is the reference behavior, not a requirement to embed
+dotx. Another catalogue or composer may use any language, framework, storage,
+or API shape if it preserves the same identities, fail-closed resolution, and
+ownership boundaries. See <a href="integration-handoff.html" class="xref page">integration handoff</a>.</p>
 </div>
 <div class="paragraph">
 <p>Next, define the concrete participants and topology in a

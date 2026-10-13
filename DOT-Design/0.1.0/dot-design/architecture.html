@@ -86,6 +86,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -94,21 +97,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -182,9 +170,10 @@ optional, indirect, or evidence-only relationships.</p>
 <p><a href="_attachments/diagrams/dot-system-context.mmd" class="xref attachment">View the Mermaid source</a>.</p>
 </div>
 <div class="paragraph">
-<p>The Registry is a discovery and normalization service. <code>dotx</code> is the reference
-authoring, deployment, and composition client. Platform-native systems remain
-responsible for workload execution and live state.</p>
+<p><code>DOT-Repository</code> is the authoritative catalogue of reusable definitions.
+<code>dotx</code> is the reference validation, resolution, deployment, and composition
+client. Platform-native systems remain responsible for workload execution and
+live state.</p>
 </div>
 <div class="paragraph">
 <p>The runtime portion deliberately distinguishes <strong>where</strong> a workload runs from
@@ -279,19 +268,19 @@ guest environment and directory capabilities.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT-Design
 ├── DOT-Domain       Java model and validation
-├── DOT-Registry     Spring Boot read API and MongoDB persistence
 ├── DOT-Schema       generated dot.json schema
 ├── DOT-CLI          independent Go CLI and reference executor
 ├── DOT-Repository   reusable DOT definitions (submodule)
 ├── DOT-Skills       Skills catalogue (submodule)
 ├── testing          conformance, composition, interoperability, and E2E evidence
-└── docs             Antora sources and supplemental UI</code></pre>
+└── DOT-Docs         Antora sources, UI, playbooks, and generated diagrams</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The Maven reactor contains <code>DOT-Domain</code> and <code>DOT-Registry</code>. <code>DOT-CLI</code> has its own
-Go module and lifecycle. <code>testing</code> is deliberately outside both build-module
-hierarchies.</p>
+<p>The Maven build contains the <code>DOT-Domain</code> Java module. <code>DOT-CLI</code> has its own Go
+module and lifecycle. <code>testing</code> is deliberately outside both module
+hierarchies. <code>DOT-Repository</code> is the only admitted source for valid deployable
+DOT definitions used by shared tests.</p>
 </div>
 </div>
 </div>
@@ -319,7 +308,7 @@ hierarchies.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><code>Skill</code> and <code>Contract</code> are standalone MongoDB documents referenced by ID.
+<p><code>Skill</code> and <code>Contract</code> are independently identified domain entities referenced by ID.
 Anchors, Runtimes, Deployments, services, bindings, and configuration
 declarations are embedded values owned by the DOT aggregate.</p>
 </div>
@@ -420,7 +409,7 @@ service-scoped; there is no deployment-level shared configuration surface.</p>
 <h2 id="_contract_resolution"><a class="anchor" href="#_contract_resolution"></a>Contract resolution</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Registry resolves an Anchor selector into a normalized Contract element:</p>
+<p>The reference resolver maps an Anchor selector to an authoritative Contract element:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -533,13 +522,15 @@ after deployment.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_persistence_and_api_boundaries"><a class="anchor" href="#_persistence_and_api_boundaries"></a>Persistence and API boundaries</h2>
+<h2 id="_catalogue_and_api_boundaries"><a class="anchor" href="#_catalogue_and_api_boundaries"></a>Catalogue and API boundaries</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>DOT-Registry</code> stores root documents in MongoDB and uses standard UUID
-representation. It exposes read-only Contract and Anchor endpoints, including
-normalized resolved Anchors. The compatibility evaluator is internal until a
-stable public request identity and policy boundary are defined.</p>
+<p><code>DOT-Repository</code> versions reusable definitions and its catalogue metadata in
+Git. <code>dotx repository</code> validates and resolves those entries; <code>dotx compose</code>
+provides the executable compatibility reference. A future remote catalogue or
+API is free to use another language, framework, storage engine, and transport
+provided it preserves the domain semantics and passes the consumer acceptance
+profile.</p>
 </div>
 <div class="paragraph">
 <p><code>dotx compose</code> stores private, local lifecycle state under the user&#8217;s cache

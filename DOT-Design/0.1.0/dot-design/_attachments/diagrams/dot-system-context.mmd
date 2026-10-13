@@ -1,6 +1,6 @@
 flowchart LR
   accTitle: DOT-Design system context and supported runtime mappings
-  accDescr: DOT authors combine capabilities, contracts, anchors, service bindings, configuration, and runtime declarations in dot.json. DOT-Schema and dotx validate the reusable definition, DOT-Registry publishes and resolves it, and a separate composition pins instances and wires. The dotx lifecycle layer deploys Docker images, Docker Compose, Kubernetes manifests, Helm charts, Vagrantfiles, and SHA-256-pinned WebAssembly modules through Wasmtime and WASI.
+  accDescr: DOT authors combine capabilities, contracts, anchors, service bindings, configuration, and runtime declarations in dot.json. DOT-Schema and dotx validate the reusable definition, DOT-Repository versions it, and a separate composition pins instances and wires. The dotx lifecycle layer deploys Docker images, Docker Compose, Kubernetes manifests, Helm charts, Vagrantfiles, and SHA-256-pinned WebAssembly modules through Wasmtime and WASI.
 
   subgraph DesignTime["1–2 · Reusable model, validation, discovery, and composition"]
     direction TB
@@ -9,16 +9,16 @@ flowchart LR
     Authored --> Dot
 
     Schema["DOT-Schema<br/>JSON Schema 2020-12"] -.->|constrains| Validation["dotx validate<br/>schema + domain relationships"]
-    Registry["DOT-Registry<br/>publish · discover · resolve Anchors"]
+    Repository[("DOT-Repository<br/>catalogue · versioned definitions")]
     Document["Composition document<br/>pinned DOT instances · wires<br/>inputs · dependencies · exposures"]
     Compose["dotx compose<br/>validate · plan · apply<br/>status · destroy"]
 
     Dot -->|validated as one DOT| Validation
-    Dot -->|published and versioned| Registry
+    Dot -->|reviewed and versioned| Repository
     Dot -.->|identity and version pinned| Document
     Document --> Compose
     Validation -->|validated definition| Compose
-    Registry -.->|optional discovery and resolution| Compose
+    Repository -->|repository URI resolution| Compose
   end
 
   subgraph Execution["3 · Selected deployment and runtime execution"]
@@ -47,5 +47,6 @@ flowchart LR
   classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   classDef pending fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px,stroke-dasharray:5 4;
   class Authored,Dot,Document artifact;
-  class Schema,Validation,Registry,Compose service;
+  class Schema,Validation,Compose service;
+  class Repository artifact;
   class Adapters,Docker,Kubernetes,Vagrant,Wasm,Native runtime;

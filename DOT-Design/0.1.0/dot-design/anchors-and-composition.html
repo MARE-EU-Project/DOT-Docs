@@ -86,6 +86,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -94,21 +97,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -161,8 +149,8 @@ DOT Anchor model from the provisional <code>dotx compose</code> reference format
 follows the complete path from a logical capability to a deployed connection.</p>
 </div>
 <div class="paragraph">
-<p>For the exact Registry response and error contract, see
-<a href="../dot-registry/sfc-anchor-handoff.html" class="xref page">Security Function Composer handoff</a>.</p>
+<p>For a technology-neutral consumer boundary, see
+<a href="integration-handoff.html" class="xref page">integration handoff</a>.</p>
 </div>
 </div>
 </div>
@@ -255,7 +243,7 @@ Anchor.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The DOT-owned Anchor model, contract selectors, service-port bindings,
-validation, generated schema, Registry resolution, and conformance fixtures are
+validation, generated schema, repository resolution, and conformance fixtures are
 release candidates. The separate composition document and its local lifecycle
 executor remain <code>dot.mare6g.eu/v1alpha1</code> reference functionality.</p>
 </div>
@@ -298,7 +286,7 @@ pinned by UUID, in the composition;</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>It is not yet a general multi-host production orchestrator. Registry/Git source
+<p>It is not yet a general multi-host production orchestrator. Remote catalogue
 resolution, shared state, cross-platform network bindings, repeated-instance
 isolation for every deployment mechanism, external secret-store plugins, and
 mutating, multi-scheme, event-driven, or cross-platform probe adapters remain
@@ -485,7 +473,7 @@ was attempted.</p>
 </table>
 <div class="paragraph">
 <p>Readers implementing a separate composer should also consult the
-<a href="../dot-registry/sfc-anchor-handoff.html" class="xref page">Registry handoff specification</a>.</p>
+<a href="integration-handoff.html" class="xref page">integration handoff</a>.</p>
 </div>
 </div>
 </div>

@@ -6,7 +6,7 @@
     <title>DOT-Design :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/index.html">
     <link rel="next" href="getting-started.html">
-    <meta name="description" content="Architecture, domain model, Registry APIs, and composition tooling for Dynamic Open Trust components.">
+    <meta name="description" content="Architecture, domain model, repository catalogue, and composition tooling for Dynamic Open Trust components.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -85,6 +85,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -93,21 +96,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -240,9 +228,9 @@ policy results never become Anchor fields.</p>
   and deployment manifests.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../dot-registry/index.html" class="xref page">DOT-Registry</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use the read API, resolved-Anchor representation, error contract, persistence,
-  or Registry tests.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="integration-handoff.html" class="xref page">Integration handoff</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implement a catalogue, composer, or SFC adapter without coupling to a
+  specific service, language, framework, or storage technology.</p></td>
 </tr>
 </tbody>
 </table>
@@ -269,12 +257,6 @@ policy results never become Anchor fields.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Domain</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java domain model and validation library. It is not a web application.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maven / Java 26</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Registry</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Boot service for MongoDB persistence, Anchor discovery, Contract
-  retrieval, and normalized Contract-element resolution.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maven / Spring Boot 4</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-CLI</code></p></td>
@@ -351,7 +333,7 @@ explicitly.</p>
 <h2 id="_maturity_and_scope"><a class="anchor" href="#_maturity_and_scope"></a>Maturity and scope</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The DOT-owned Anchor model, service-port binding, generated schema, Registry
+<p>The DOT-owned Anchor model, service-port binding, generated schema, repository
 resolution, and conformance fixtures are release-candidate surfaces. The
 separate <code>dot.mare6g.eu/v1alpha1</code> composition document and <code>dotx compose</code>
 executor remain a reference implementation.</p>

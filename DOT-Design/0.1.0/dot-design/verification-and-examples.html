@@ -6,7 +6,7 @@
     <title>Verification and examples :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/verification-and-examples.html">
     <link rel="prev" href="composition-lifecycle.html">
-    <link rel="next" href="../dot-domain/index.html">
+    <link rel="next" href="integration-handoff.html">
     <meta name="description" content="Test layers, evidence levels, conformance commands, and MARE PoC-derived DOT composition scenarios.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -86,6 +86,9 @@
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -94,21 +97,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -300,14 +288,14 @@ never implies a higher one.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:conformance</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-module Anchor and composition gate, including all deterministic PoC
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-language Anchor and composition gate, including all deterministic PoC
   fixtures and lifecycle dry-runs</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java, Maven, Go, Task, and fixture-specific local tools</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mvn clean install</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Full Maven reactor, Registry integration tests, schema generation, and SBOMs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB for Registry tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full Java domain build, schema generation, coverage gates, and SBOMs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven only</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:e2e:&lt;scenario&gt;</code></p></td>
@@ -324,7 +312,7 @@ never implies a higher one.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT-Testing/
-├── acceptance/        versioned consumer profiles and golden API responses
+├── acceptance/        versioned, implementation-neutral consumer profiles
 ├── conformance/       deterministic valid and invalid DOT fixtures
 ├── composition/       read-only validate, plan, and dry-run scenarios
 ├── coverage/          executable code-coverage ratchets
@@ -344,10 +332,10 @@ configuration belong under scenario-local <code>target/</code> directories and m
 committed.</p>
 </div>
 <div class="paragraph">
-<p>The focused <code>task testing:anchors:acceptance</code> gate verifies the published
-<a href="../dot-registry/anchor-consumer-acceptance.html" class="xref page">DOT Anchor consumer profile</a>
-and its complete cross-standard golden Registry responses without MongoDB or a
-deployed workload.</p>
+<p>The focused <code>task testing:anchors:acceptance</code> gate verifies the versioned
+<a href="integration-handoff.html" class="xref page">DOT Anchor consumer profile</a>. It resolves pinned
+test definitions from <code>DOT-Repository</code>, verifies the composition lock, and
+asserts the complete cross-standard plan without a deployed workload.</p>
 </div>
 <div class="paragraph">
 <p>The focused <code>task testing:compose:contract-standards</code> gate complements that API
@@ -411,7 +399,7 @@ different meanings of “covered” into one percentage:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java instructions and branches</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mvn verify</code> through JaCoCo 0.8.15</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Every Java module must retain at least 85% instruction and 70% branch coverage.
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Java domain module must retain at least 95% instruction and 78% branch coverage.
   JaCoCo HTML/XML/CSV reports are uploaded with the Java build evidence.</p></td>
 </tr>
 <tr>
@@ -685,7 +673,7 @@ worked as intended.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a></span>
-  <span class="next"><a href="../dot-domain/index.html">Domain model</a></span>
+  <span class="next"><a href="integration-handoff.html">Integration handoff</a></span>
 </nav>
 </article>
   </div>

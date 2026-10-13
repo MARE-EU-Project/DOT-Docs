@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOT-Domain model :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-domain/index.html">
-    <link rel="prev" href="../dot-design/verification-and-examples.html">
-    <link rel="next" href="../dot-registry/index.html">
+    <link rel="prev" href="../dot-design/integration-handoff.html">
     <meta name="description" content="Java domain model for DOT identity, capabilities, Contracts, Anchors, Runtimes, deployments, and configuration declarations.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -86,6 +85,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -94,21 +96,6 @@
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -155,8 +142,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>DOT-Domain</code> is the Java library that defines the portable DOT aggregate and
-its validation rules. It contains no Spring Boot application or web layer.</p>
+<p><code>DOT-Domain</code> is the persistence-neutral Java library that defines the portable
+DOT aggregate and its validation rules. It contains no application, web, or
+storage-adapter layer.</p>
 </div>
 </div>
 </div>
@@ -208,8 +196,9 @@ its validation rules. It contains no Spring Boot application or web layer.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p><code>Dot</code>, <code>Skill</code>, and <code>Contract</code> are MongoDB root documents. Other types are
-embedded value objects owned by a DOT.</p>
+<p><code>Dot</code>, <code>Skill</code>, and <code>Contract</code> are independently identified domain entities.
+Other types are embedded values owned by a DOT. The module carries no database
+or ORM annotations; persistence is an adapter concern.</p>
 </div>
 </div>
 </div>
@@ -217,7 +206,7 @@ embedded value objects owned by a DOT.</p>
 <h2 id="_identity_versioning_and_references"><a class="anchor" href="#_identity_versioning_and_references"></a>Identity, versioning, and references</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Root document IDs are UUIDs. Equality for <code>Dot</code>, <code>Skill</code>, and <code>Contract</code> is
+<p>Root entity IDs are UUIDs. Equality for <code>Dot</code>, <code>Skill</code>, and <code>Contract</code> is
 ID-based so changes to mutable metadata or collections do not destabilize sets
 or persistence identity.</p>
 </div>
@@ -229,13 +218,12 @@ while <code>Platform.version</code> defaults to <code>latest</code> so no platfo
 implied.</p>
 </div>
 <div class="paragraph">
-<p><code>Dot.skills</code>, <code>Dot.contracts</code>, and <code>DeploymentService.contracts</code> use Spring Data
-MongoDB document references. JSON serializes those references as ID-only
-objects. Referenced documents must be saved independently; persistence does not
-cascade automatically.</p>
+<p>JSON serializes <code>Dot.skills</code>, <code>Dot.contracts</code>, and
+<code>DeploymentService.contracts</code> as ID-only objects. Consumers resolve those UUIDs
+against authoritative definitions rather than relying on object embedding.</p>
 </div>
 <div class="paragraph">
-<p>Uniqueness rules are:</p>
+<p>Catalogue uniqueness rules are:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -293,7 +281,7 @@ cascade automatically.</p>
 </table>
 <div class="paragraph">
 <p><code>Contract.isFormatCompatibleWithStandard()</code> rejects mismatched standard/format
-pairs. Payload parsing and selected-element existence are Registry concerns;
+pairs. Payload parsing and selected-element existence are resolver concerns;
 the domain model validates selector syntax and references within the aggregate.</p>
 </div>
 </div>
@@ -516,7 +504,7 @@ authorization remain operator responsibilities.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_serialization_and_persistence"><a class="anchor" href="#_serialization_and_persistence"></a>Serialization and persistence</h2>
+<h2 id="_serialization_and_persistence_adapters"><a class="anchor" href="#_serialization_and_persistence_adapters"></a>Serialization and persistence adapters</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -525,16 +513,16 @@ authorization remain operator responsibilities.</p>
 constructed through Lombok builders.</p>
 </li>
 <li>
-<p><code>Version</code> is JSON-serialized and MongoDB-persisted as a normalized string.</p>
+<p><code>Version</code> is JSON-serialized as a normalized string.</p>
 </li>
 <li>
-<p>Both Registry application configurations use standard UUID representation.</p>
+<p>Persistence adapters must preserve UUID and version representations.</p>
 </li>
 <li>
 <p>Referenced <code>Skill</code> and <code>Contract</code> objects expose only <code>id</code> when nested in DOT JSON.</p>
 </li>
 <li>
-<p>Embedded values do not carry MongoDB <code>@Document</code> annotations.</p>
+<p>Domain values carry no database or ORM annotations.</p>
 </li>
 </ul>
 </div>
@@ -559,7 +547,7 @@ constructed through Lombok builders.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Unit tests only; no Spring context or MongoDB
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Unit tests only; no service or database required
 mvn -pl DOT-Domain test
 
 # Regenerate schema and diagram through the reactor lifecycle
@@ -585,15 +573,14 @@ Anchor rules, and entity equality.</p>
 <p><a href="../dot-design/anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a></p>
 </li>
 <li>
-<p><a href="../dot-registry/index.html" class="xref page">DOT-Registry</a></p>
+<p><a href="../dot-design/integration-handoff.html" class="xref page">Integration handoff</a></p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../dot-design/verification-and-examples.html">Verification and examples</a></span>
-  <span class="next"><a href="../dot-registry/index.html">Registry service</a></span>
+  <span class="prev"><a href="../dot-design/integration-handoff.html">Integration handoff</a></span>
 </nav>
 </article>
   </div>

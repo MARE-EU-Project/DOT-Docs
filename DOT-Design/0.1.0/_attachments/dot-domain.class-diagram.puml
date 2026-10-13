@@ -61,7 +61,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     - extension: String {readOnly}
   }
 
-  class "Dot" as eu_mare6g_dot_domain_Dot <<AggregateRoot>> <<Document>> #BFDBFE {
+  class "Dot" as eu_mare6g_dot_domain_Dot <<AggregateRoot>> #BFDBFE {
     - id: UUID
     - name: String
     - version: Version
@@ -79,7 +79,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     - updated: Instant
   }
 
-  class "Skill" as eu_mare6g_dot_domain_Skill <<Document>> #DBEAFE {
+  class "Skill" as eu_mare6g_dot_domain_Skill #FFFFFF {
     - id: UUID
     - name: String
     - description: String
@@ -136,7 +136,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
   }
 
   package "contract" as package_eu_mare6g_dot_domain_contract #EDE9FE {
-    class "Contract" as eu_mare6g_dot_domain_contract_Contract <<Document>> #DBEAFE {
+    class "Contract" as eu_mare6g_dot_domain_contract_Contract #F5F3FF {
       - id: UUID
       - name: String
       - version: Version

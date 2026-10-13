@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.1.0/dot-design/getting-started.html">
     <link rel="prev" href="index.html">
     <link rel="next" href="architecture.html">
-    <meta name="description" content="Build DOT-Design, validate a DOT, inspect a composition plan, run the Registry, and generate the documentation.">
+    <meta name="description" content="Build DOT-Design, validate repository DOTs, inspect a composition plan, and generate the documentation.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -86,6 +86,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
@@ -94,21 +97,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DOT-Registry</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/index.html">Registry service</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/anchor-consumer-acceptance.html">Anchor consumer acceptance</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-registry/sfc-anchor-handoff.html">SFC integration handoff</a>
   </li>
 </ul>
   </li>
@@ -155,8 +143,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>This page establishes a small, reproducible development path. Start with the
-domain and CLI checks, which do not require MongoDB, before running the Registry
-integration tests or live deployment scenarios.</p>
+domain, repository, and CLI checks before running live deployment scenarios.</p>
 </div>
 </div>
 </div>
@@ -179,18 +166,13 @@ integration tests or live deployment scenarios.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Domain</code>, <code>DOT-Registry</code>, schema generation, and Java tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Domain</code>, schema generation, and Java tests</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java 26; Maven 3.9+</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Building and testing <code>dotx</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.25+</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Running <code>DOT-Registry</code> and its integration tests</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accessible on <code>localhost:27017</code> by default</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Task</p></td>
@@ -232,8 +214,7 @@ require a separate checkout.</p>
 <h2 id="_verify_the_domain_model"><a class="anchor" href="#_verify_the_domain_model"></a>Verify the domain model</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The domain module uses plain JUnit tests and does not start Spring or require
-MongoDB:</p>
+<p>The domain module uses plain JUnit tests and does not start a service:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -241,7 +222,7 @@ MongoDB:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Use the full Maven reactor only when MongoDB is available for Registry tests:</p>
+<p>Run the complete Java build with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -289,9 +270,9 @@ scripts are not inferred.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Testing/conformance/anchors/valid \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository/DOTs/testing/contract-standards/provider \
   --schema DOT-Schema/schema.json
-dotx inspect DOT-Testing/conformance/anchors/valid --json</code></pre>
+dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -334,29 +315,18 @@ planning, and lifecycle</a> before a live apply.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_run_dot_registry"><a class="anchor" href="#_run_dot_registry"></a>Run DOT-Registry</h2>
+<h2 id="_verify_the_authoritative_repository"><a class="anchor" href="#_verify_the_authoritative_repository"></a>Verify the authoritative repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Start MongoDB first, then run the Spring Boot application:</p>
+<p>Validate every admitted definition and inspect one pinned entry:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -pl DOT-Registry spring-boot:run</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository test --repository DOT-Repository --schema DOT-Schema/schema.json
+dotx repository inspect \
+  d4a70000-0000-4000-8000-000000000001@1.0.0 \
+  --repository DOT-Repository --json</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The default application database is <code>dots</code>. Integration tests use the separate
-<code>dots-test</code> database:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd DOT-Registry
-./mvnw test</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The Registry currently exposes read-only Anchor and Contract endpoints. See
-<a href="../dot-registry/index.html" class="xref page">DOT-Registry</a> for the routes and response model.</p>
 </div>
 </div>
 </div>
@@ -369,8 +339,8 @@ planning, and lifecycle</a> before a live apply.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This gate combines Java domain and Registry tests, Go tests, generated-schema
-validation, fixture inspection, composition validation/planning, and dry-run
+<p>This gate combines Java domain tests, Go tests, repository-wide schema
+validation, Contract checks, composition validation/planning, and dry-run
 scenario checks. It does not claim that external partner systems or production
 networks were exercised.</p>
 </div>
@@ -444,7 +414,7 @@ levels and MARE PoC scenarios.</p>
 <p><a href="../dot-domain/index.html" class="xref page">DOT-Domain</a> for Java model details.</p>
 </li>
 <li>
-<p><a href="../dot-registry/index.html" class="xref page">DOT-Registry</a> for persistence and read APIs.</p>
+<p><a href="integration-handoff.html" class="xref page">Integration handoff</a> for catalogue and composer implementers.</p>
 </li>
 </ul>
 </div>
