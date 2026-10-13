@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "label": "Anchor conformance",
-  "message": "passing",
-  "color": "#1B5E20",
+  "message": "failure",
+  "color": "#8B1E1E",
   "cacheSeconds": 300
 }
