@@ -177,6 +177,47 @@ tested independently from the DOT model.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_disposition_of_legacy_sfc_requests"><a class="anchor" href="#_disposition_of_legacy_sfc_requests"></a>Disposition of legacy SFC requests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The original SFC issues 6 through 9 predate the stable repository-backed model.
+Their consumer needs are handled at the integration boundary without creating
+parallel sources of truth:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Parameter forms:</strong> derive an SFC-facing form from exact service-scoped
+environment and configuration declarations plus authoritative Contract
+schemas. Composition validation rejects missing or ambiguous required inputs
+before runtime mutation. A duplicate root <code>params</code> model is not defined.</p>
+</li>
+<li>
+<p><strong>Skill search:</strong> resolve stable <code>Skill</code> UUID references through DOT-Skills and
+index the resulting catalogue projection. Names or categories are not copied
+into every DOT as a second controlled vocabulary.</p>
+</li>
+<li>
+<p><strong>Catalogue API:</strong> <code>DOT-Repository</code> and <code>dotx repository</code> define reference
+behavior. A catalogue team may expose equivalent queries through any
+versioned API; DOT-Design does not own or prescribe that service.</p>
+</li>
+<li>
+<p><strong>Low-barrier authoring:</strong> a DOT author may hand-write one <code>dot.json</code>, validate
+it with <code>dotx validate</code>, and onboard its folder through <code>dotx repository
+test</code>. This path requires no Maven, Jsonnet, MongoDB, or running service.
+<code>dot.json</code> remains the sole deployment definition; a parallel YAML format and
+inline copies of referenced entities are intentionally not introduced.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These dispositions settle DOT-side model ownership. They do not replace joint
+SFC acceptance or prove a partner catalogue/search implementation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_required_semantics"><a class="anchor" href="#_required_semantics"></a>Required semantics</h2>
 <div class="sectionbody">
 <div class="paragraph">
