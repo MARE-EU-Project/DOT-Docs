@@ -1,6 +1,6 @@
 flowchart LR
   accTitle: DOT-Design system context and supported runtime mappings
-  accDescr: DOT authors combine capabilities, contracts, anchors, service bindings, configuration, and runtime declarations in dot.json. DOT-Schema and dotx validate the reusable definition, DOT-Repository versions it, and a separate composition pins instances and wires. The dotx lifecycle layer deploys Docker images, Docker Compose, Kubernetes manifests, Helm charts, Vagrantfiles, and SHA-256-pinned WebAssembly modules through Wasmtime and WASI.
+  accDescr: DOT authors combine capabilities, contracts, anchors, service bindings, configuration, and runtime declarations in dot.json. DOT-Repository co-versions definitions, the generated schema, and high-level skill classifications; dotx validates the reusable definition, and a separate composition pins instances and wires. The dotx lifecycle layer deploys Docker images, Docker Compose, Kubernetes manifests, Helm charts, Vagrantfiles, and SHA-256-pinned WebAssembly modules through Wasmtime and WASI.
 
   subgraph DesignTime["1–2 · Reusable model, validation, discovery, and composition"]
     direction TB
@@ -8,8 +8,8 @@ flowchart LR
     Dot[("dot.json<br/>portable source of truth")]
     Authored --> Dot
 
-    Schema["DOT-Schema<br/>JSON Schema 2020-12"] -.->|constrains| Validation["dotx validate<br/>schema + domain relationships"]
-    Repository[("DOT-Repository<br/>catalogue · versioned definitions")]
+    Schema["DOT-Repository/Schema<br/>JSON Schema 2020-12"] -.->|constrains| Validation["dotx validate<br/>schema + domain relationships"]
+    Repository[("DOT-Repository<br/>DOTs · Skills · Schema")]
     Document["Composition document<br/>pinned DOT instances · wires<br/>inputs · dependencies · exposures"]
     Compose["dotx compose<br/>validate · plan · apply<br/>status · destroy"]
 

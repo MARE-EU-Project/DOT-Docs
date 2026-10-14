@@ -277,19 +277,19 @@ guest environment and directory capabilities.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT-Design
 ├── DOT-Domain       Java model and validation
-├── DOT-Schema       generated dot.json schema
 ├── DOT-CLI          independent Go CLI and reference executor
-├── DOT-Repository   reusable DOT definitions (submodule)
-├── DOT-Skills       Skills catalogue (submodule)
-├── testing          conformance, composition, interoperability, and E2E evidence
+├── DOT-Repository   DOTs, high-level Skills, and generated Schema (submodule)
+├── DOT-Testing      conformance, composition, interoperability, and E2E evidence
 └── DOT-Docs         Antora sources, UI, playbooks, and generated diagrams</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The Maven build contains the <code>DOT-Domain</code> Java module. <code>DOT-CLI</code> has its own Go
-module and lifecycle. <code>testing</code> is deliberately outside both module
+module and lifecycle. <code>DOT-Testing</code> is deliberately outside both module
 hierarchies. <code>DOT-Repository</code> is the only admitted source for valid deployable
-DOT definitions used by shared tests.</p>
+DOT definitions used by shared tests. It also owns the generated JSON Schema
+and the optional high-level Skill classification catalogue, avoiding separate
+repositories for assets that evolve with the DOT catalogue.</p>
 </div>
 </div>
 </div>

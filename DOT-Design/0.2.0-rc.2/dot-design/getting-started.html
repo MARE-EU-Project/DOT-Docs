@@ -213,9 +213,10 @@ git submodule update --init --recursive</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The source repository and its submodules may require access granted by the
-MARE-EU-Project organization. <code>DOT-Schema</code> is tracked directly and does not
-require a separate checkout.</p>
+<p>The source repository and its two submodules may require access granted by the
+MARE-EU-Project organization. <code>DOT-CLI</code> and <code>DOT-Repository</code> remain separately
+cloneable; the generated Schema and high-level Skill classifications are
+tracked inside <code>DOT-Repository</code> and require no additional checkout.</p>
 </div>
 </div>
 </div>
@@ -297,9 +298,9 @@ scripts are not inferred.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository/DOTs/testing/contract-standards/provider \
-  --schema DOT-Schema/schema.json
+  --schema DOT-Repository/Schema/schema.json
 dotx validate DOT-Repository/DOTs/external/Keycloak-DOT \
-  --schema DOT-Schema/schema.json --profile reusable
+  --schema DOT-Repository/Schema/schema.json --profile reusable
 dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</code></pre>
 </div>
 </div>
@@ -369,7 +370,7 @@ profile to stable external/internal entries from their category path:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository --schema DOT-Schema/schema.json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository
 dotx repository inspect \
   d4a70000-0000-4000-8000-000000000001@1.0.0 \
   --repository DOT-Repository --json</code></pre>
