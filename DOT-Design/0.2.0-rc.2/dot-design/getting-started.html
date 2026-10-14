@@ -298,12 +298,28 @@ scripts are not inferred.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository/DOTs/testing/contract-standards/provider \
   --schema DOT-Schema/schema.json
+dotx validate DOT-Repository/DOTs/external/Keycloak-DOT \
+  --schema DOT-Schema/schema.json --profile reusable
 dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Validation checks the JSON Schema and domain relationships. Inspection provides
-a normalized, machine-readable view without deploying anything.</p>
+<p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
+service-port, CDI, and sensitive-default relationships. Use <code>--profile
+reusable</code> before publishing a stable reusable DOT. That profile additionally
+requires every Anchor to be Contract-backed, resolves every selector against
+the complete Contract, rejects unused Contracts, and requires every deployment
+to bind every Anchor exactly once through a service that declares the same
+Contract.</p>
+</div>
+<div class="paragraph">
+<p>Reusable Contract wrappers live below the DOT bundle&#8217;s <code>contracts/</code> directory.
+They carry the Contract identity plus an absolute HTTPS provenance source,
+immutable revision, and SHA-256 of either an inline payload or a safe relative
+<code>payloadFile</code>. This permits an exact, unmodified official OpenAPI, AsyncAPI,
+Protocol Buffers, or GraphQL artifact to be stored separately while validation
+remains deterministic and offline. Inspection provides a normalized,
+machine-readable view without deploying anything.</p>
 </div>
 </div>
 </div>
@@ -348,15 +364,22 @@ planning, and lifecycle</a> before a live apply.</p>
 <h2 id="_verify_the_authoritative_repository"><a class="anchor" href="#_verify_the_authoritative_repository"></a>Verify the authoritative repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Validate every admitted definition and inspect one pinned entry:</p>
+<p>Validate every admitted definition directly through <code>dotx validate</code>, enforce
+the reusable profile for stable external/internal entries, and then check the
+catalogue as a whole:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository test --repository DOT-Repository --schema DOT-Schema/schema.json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-Repository/scripts/validate-dots.sh DOT-Schema/schema.json
 dotx repository inspect \
   d4a70000-0000-4000-8000-000000000001@1.0.0 \
   --repository DOT-Repository --json</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The same script is the required DOT-Repository GitHub Actions gate for every
+change below <code>DOTs/</code> or to the catalogue. <code>dotx repository test</code> remains its
+final aggregate identity, uniqueness, path, and schema check.</p>
 </div>
 </div>
 </div>

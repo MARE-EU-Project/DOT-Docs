@@ -164,9 +164,28 @@ composition API remains <code>dot.mare6g.eu/v1</code>.</p>
 multi-service Docker Compose, Kubernetes-manifest, and Helm deployments.</p>
 </li>
 <li>
-<p>Same-DOT alternative deployment mechanisms for the external Keycloak, Loki,
-Prometheus, and Wireshark examples. The matrix covers Helm, Docker Compose,
-and Docker image adapters without duplicating a DOT definition per mechanism.</p>
+<p>Exact official, digest-pinned OpenAPI Contracts and Contract-backed Anchors
+for reusable Keycloak and Prometheus external DOTs, with every Helm and
+Docker Compose deployment binding the same interface.</p>
+</li>
+<li>
+<p><code>dotx validate --profile reusable</code> now enforces declared HTTPS Contract
+provenance, payload integrity, selector resolution, Contract use, and per-
+deployment Anchor binding. Catalogue review establishes that the pinned
+source is the official upstream artifact. DOT-Repository applies <code>dotx
+validate</code> directly to every catalogued DOT in its own GitHub Actions
+workflow.</p>
+</li>
+<li>
+<p>Same-DOT alternative deployment mechanisms for the Keycloak, Loki,
+Prometheus, and Wireshark external-product examples. Loki and Wireshark are
+explicitly retained as runtime-tested samples rather than reusable external
+DOTs because their exposed surfaces lack suitable official machine-readable
+Contracts.</p>
+</li>
+<li>
+<p>A locked Keycloak/Prometheus/consumer composition proves that both stable
+external Anchors resolve and materialize the exact official operations.</p>
 </li>
 <li>
 <p>A repeated hosted-Linux run covering all eight external-DOT mechanism cells:

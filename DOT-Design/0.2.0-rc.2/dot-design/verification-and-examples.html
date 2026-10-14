@@ -243,25 +243,35 @@ never implies a higher one.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:repository</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Every definition admitted by <code>DOT-Repository/dot-repository.yaml</code>: catalogue
-  identity, scope/path isolation, schema validity, CLI cross-references, and
-  uniqueness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every definition admitted by <code>DOT-Repository/dot-repository.yaml</code>: a direct
+  <code>dotx validate</code> invocation, the reusable profile for stable external/internal
+  entries, then catalogue identity, scope/path isolation, schema validity, CLI
+  cross-references, and uniqueness</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go and the checked-out <code>DOT-CLI</code>, <code>DOT-Repository</code>, and <code>DOT-Schema</code> revisions</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:external:dry-run</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Every stable external DOT: schema validation, inspection, deployment dry-run,
-  exact-version Helm rendering, expected service/workload shape, and pinned OCI
-  image metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Keycloak/Prometheus DOTs plus Loki/Wireshark runtime samples: profile-
+  appropriate validation, inspection, deployment dry-run, exact-version Helm
+  rendering, expected service/workload shape, and pinned OCI image metadata</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, Helm, Python/PyYAML, Docker, and network access to the pinned public artifacts</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:external:stress</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repeated Linux deployment, readiness, HTTP/HTTPS access, destroy, and cleanup
-  across two mechanisms per external DOT: three Helm/Compose pairs plus the
-  Wireshark Docker-image/Compose pair</p></td>
+  across two mechanisms per external product: three Helm/Compose pairs plus the
+  Wireshark Docker-image/Compose pair; Keycloak and Prometheus additionally call
+  the exact operations selected from their official Contracts</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Minikube/Kubernetes, Helm, network access, and enough resources for
   Keycloak, Loki, Prometheus, and Wireshark; emits revision-pinned evidence</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:official-external-contracts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable-profile validation and a locked three-DOT plan proving the stable
+  Keycloak and Prometheus Anchors resolve against exact official OpenAPI payloads,
+  compose compatibly, bind the Keycloak realm parameter, and materialize the
+  expected consumer operation URLs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions; no live runtime</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>

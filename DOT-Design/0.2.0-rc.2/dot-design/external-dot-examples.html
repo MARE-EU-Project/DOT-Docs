@@ -152,20 +152,26 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The external catalogue demonstrates how an existing open-source workload can
-be described as a DOT without modifying that workload. The upstream project
-remains authoritative for the software and its configuration; the DOT
-descriptor selects a pinned artifact and declares the portable service surface
-that <code>dotx</code> can validate and deploy.</p>
+<p>The external-product examples demonstrate how an existing open-source workload
+can be described as a DOT without modifying that workload. The upstream project
+remains authoritative for the software, configuration, and interface Contract.
+The DOT descriptor selects a pinned artifact and declares the portable service
+surface that <code>dotx</code> can validate and deploy.</p>
 </div>
 <div class="paragraph">
 <p>Upstream documentation is useful source evidence, but it is not acceptance
-evidence. DOT-Design therefore tests each example at four separate levels:</p>
+evidence. DOT-Design therefore tests each example at separate levels:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>offline schema, inspection, and deployment rendering;</p>
+<p>direct <code>dotx validate</code>, using the reusable publication profile where applicable;</p>
+</li>
+<li>
+<p>Contract-selector and DOT-to-DOT Anchor composition for reusable definitions;</p>
+</li>
+<li>
+<p>offline inspection and deployment rendering;</p>
 </li>
 <li>
 <p>networked rendering of the exact pinned Helm charts;</p>
@@ -185,49 +191,59 @@ evidence. DOT-Design therefore tests each example at four separate levels:</p>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 30%;">
-<col style="width: 20%;">
-<col style="width: 30%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 21.4285%;">
+<col style="width: 21.4285%;">
+<col style="width: 28.5716%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">DOT</th>
+<th class="tableblock halign-left valign-top">Catalogue status</th>
 <th class="tableblock halign-left valign-top">Mechanisms in the same DOT</th>
-<th class="tableblock halign-left valign-top">Declared service</th>
+<th class="tableblock halign-left valign-top">Contract/Anchor surface</th>
 <th class="tableblock halign-left valign-top">Live assertions</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bitnami <code>HELM_CHART</code> <code>25.2.0</code>; official Keycloak <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Helm HTTP 80; Compose HTTP 8080</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and forwarded HTTP; Compose <code>start-dev</code>, required sensitive bootstrap input, HTTP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.3.3 Admin REST OpenAPI; <code>GET /admin/realms/{realm}</code> provider Anchor; bound in both deployments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and Compose <code>start-dev</code>; readiness; obtain an admin token and assert <code>GET /admin/realms/master</code> returns the master realm through both mechanisms</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Loki-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime sample, not reusable</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Grafana Community <code>HELM_CHART</code> <code>18.15.1</code>; official Loki <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Helm HTTP 3100 and gRPC/TCP 9095; Compose HTTP 3100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No fabricated Contract: the pinned release has HTTP documentation and internal multi-file protobuf APIs, but no supported self-contained machine-readable Contract for the exposed public HTTP surface</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact single-binary StatefulSet binding and <code>/ready</code>; Compose <code>/ready</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Prometheus-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Community <code>HELM_CHART</code> <code>29.37.0</code>; official Prometheus <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Helm HTTP 80; Compose HTTP 9090</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact server Deployment binding and <code>/-/ready</code>; Compose <code>/-/ready</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Prometheus 3.15.0 OpenAPI 3.1 artifact; <code>GET /status/buildinfo</code> provider Anchor; bound in both deployments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact server Deployment binding; readiness; assert <code>/api/v1/status/buildinfo</code> reports version <code>3.15.0</code> through both mechanisms</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Wireshark-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime sample, not reusable</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LinuxServer versioned <code>DOCKER_IMAGE</code>; equivalent <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 3000 and HTTPS 3001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No fabricated Contract: the image exposes a human web desktop, not a supported machine API</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Container state/environment/volume/ports plus HTTPS for both mechanisms</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Each descriptor is version <code>0.1.0</code>, with both supported deployment mechanisms in
-the same <code>dot.json</code>. Chart versions, Compose image indexes, and the direct
+<p>Each descriptor is version <code>0.1.0</code>, with both tested deployment mechanisms in
+the same <code>dot.json</code>. Keycloak and Prometheus are admitted under
+<code>DOTs/external/</code> only because their exact official Contract artifacts pass
+<code>dotx validate --profile reusable</code>. Loki and Wireshark remain under
+<code>DOTs/sample/</code>: their deployment evidence stays valuable, but it must not be
+misrepresented as interface interoperability. Chart versions, Compose image indexes, and the direct
 Wireshark image tag are deliberately pinned. <code>latest</code> is convenient
 for exploration but unsuitable for release evidence because a repeated run
 could execute different bytes. The Wireshark OCI index currently contains
@@ -239,13 +255,13 @@ Linux amd64 and arm64 manifests, matching the <code>0.2.0-rc.2</code> platform s
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/bitnami/charts/tree/main/bitnami/keycloak">Bitnami Keycloak chart</a> and <a href="https://www.keycloak.org/server/containers">Keycloak containers</a></p>
+<p><a href="https://github.com/keycloak/keycloak/releases/tag/26.3.3">Keycloak 26.3.3 release assets</a>, <a href="https://www.keycloak.org/docs-api/latest/rest-api/index.html">Keycloak Admin REST API</a>, <a href="https://github.com/bitnami/charts/tree/main/bitnami/keycloak">Bitnami Keycloak chart</a>, and <a href="https://www.keycloak.org/server/containers">Keycloak containers</a></p>
 </li>
 <li>
 <p><a href="https://grafana.com/docs/loki/latest/setup/install/helm/">Grafana Loki Helm documentation</a></p>
 </li>
 <li>
-<p><a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus">Prometheus Community chart</a> and <a href="https://prometheus.io/docs/prometheus/latest/installation/">Prometheus installation</a></p>
+<p><a href="https://github.com/prometheus/prometheus/blob/v3.15.0/web/api/v1/testdata/openapi_3.1_golden.yaml">Prometheus 3.15.0 official OpenAPI 3.1 artifact</a>, <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus">Prometheus Community chart</a>, and <a href="https://prometheus.io/docs/prometheus/latest/installation/">Prometheus installation</a></p>
 </li>
 <li>
 <p><a href="https://docs.linuxserver.io/images/docker-wireshark/">LinuxServer Wireshark image</a></p>
@@ -315,6 +331,19 @@ namespace, Wireshark container, or any of the four Compose projects still exists
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>This is a runtime-mechanism matrix, not a reusable-interface count. Only the
+Keycloak and Prometheus cells carry official machine-readable Contracts and
+Contract-backed Anchors. A separate locked three-DOT composition wires those
+two providers to a headless consumer, resolves the exact official selectors,
+binds the Keycloak <code>{realm}</code> parameter, and asserts the resulting operation
+paths and environment materializers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:official-external-contracts</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOTX_E2E_STRESS_REPEATS=5 task testing:dots:external:stress</code></pre>
@@ -351,7 +380,9 @@ revision.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A pass means the pinned public artifacts satisfied the assertions executed in
-the disposable test environment. It does not establish production sizing,
+the disposable test environment. For Keycloak and Prometheus this includes a
+successful request to the exact operation selected by the DOT Anchor, in
+addition to readiness. It does not establish production sizing,
 availability, security hardening, backup/restore, or every upstream feature.
 In particular, the Wireshark example checks its web application surface; it
 does not grant packet-capture capabilities, host networking, or a CDI device.
@@ -359,10 +390,14 @@ Those requirements must be declared and explicitly authorized in a separate
 acceptance profile.</p>
 </div>
 <div class="paragraph">
-<p>When adding another external DOT, provide an immutable artifact reference, an
-upstream documentation link, portable service/config declarations, offline
-validation, and a live readiness assertion. Add production claims only after a
-test explicitly proves them.</p>
+<p>When adding another stable external DOT, provide an immutable runtime artifact,
+an exact official machine-readable Contract with provenance and SHA-256,
+Contract-backed Anchors, complete per-deployment bindings, portable
+service/config declarations, <code>dotx validate --profile reusable</code>, a locked
+composition fixture, and a live assertion against a selected Contract
+operation. If upstream exposes only a human interface or prose documentation,
+keep the definition under <code>DOTs/sample/</code> instead of inventing a Contract. Add
+production claims only after a test explicitly proves them.</p>
 </div>
 </div>
 </div>
