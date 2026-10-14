@@ -696,14 +696,14 @@ two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
 <h2 id="discovering-and-resolving-anchors"><a class="anchor" href="#discovering-and-resolving-anchors"></a>Discovering and resolving Anchors</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The authoritative test and reference definitions are catalogued in
+<p>The authoritative test and reference definitions are stored in
 <code>DOT-Repository</code> and addressed as <code>repository://&lt;dot-id&gt;@&lt;version&gt;</code>. Consumers
-can inspect one immutable entry or validate the complete catalogue:</p>
+can inspect one immutable definition or validate the complete repository:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
-dotx repository test --repository DOT-Repository --schema DOT-Schema/schema.json</code></pre>
+dotx validate DOT-Repository --schema DOT-Schema/schema.json</code></pre>
 </div>
 </div>
 <div class="paragraph">

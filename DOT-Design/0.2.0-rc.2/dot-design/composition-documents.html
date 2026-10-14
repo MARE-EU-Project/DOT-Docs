@@ -194,11 +194,12 @@ contracts:
 </div>
 <div class="paragraph">
 <p><code>name</code> identifies an instance inside this composition. <code>source</code> selects the
-catalogued definition by UUID and exact version. <code>dotx compose</code> locates the
-nearest <code>DOT-Repository/dot-repository.yaml</code>, resolves the entry to its reviewed
-bundle, and then verifies that <code>dotId</code> and <code>dotVersion</code> match the loaded
-<code>dot.json</code>. Neither a catalogue entry nor a local path can silently substitute a
-different DOT. <code>deployment</code> selects a deployment by its stable deployment ID or
+repository definition by UUID and exact version. <code>dotx compose</code> locates the
+nearest <code>DOT-Repository</code> containing a <code>DOTs/</code> directory, discovers its
+definitions recursively, resolves the UUID/version to its reviewed bundle, and
+then verifies that <code>dotId</code> and <code>dotVersion</code> match the loaded <code>dot.json</code>. Neither
+a repository definition nor a local path can silently substitute a different
+DOT. <code>deployment</code> selects a deployment by its stable deployment ID or
 unambiguous manifest alias.</p>
 </div>
 <div class="paragraph">

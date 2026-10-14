@@ -171,10 +171,11 @@ Docker Compose deployment binding the same interface.</p>
 <li>
 <p><code>dotx validate --profile reusable</code> now enforces declared HTTPS Contract
 provenance, payload integrity, selector resolution, Contract use, and per-
-deployment Anchor binding. Catalogue review establishes that the pinned
-source is the official upstream artifact. DOT-Repository applies <code>dotx
-validate</code> directly to every catalogued DOT in its own GitHub Actions
-workflow.</p>
+deployment Anchor binding. Review establishes that the pinned source is the
+official upstream artifact. <code>dotx validate &lt;repository-root&gt;</code> recursively
+discovers every <code>dot.json</code>, derives validation policy from its category path,
+and is the single DOT-Repository GitHub Actions gate; no duplicate inventory
+or shell wrapper is required.</p>
 </li>
 <li>
 <p>Same-DOT alternative deployment mechanisms for the Keycloak, Loki,

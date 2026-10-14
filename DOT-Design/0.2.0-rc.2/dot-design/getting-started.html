@@ -364,22 +364,21 @@ planning, and lifecycle</a> before a live apply.</p>
 <h2 id="_verify_the_authoritative_repository"><a class="anchor" href="#_verify_the_authoritative_repository"></a>Verify the authoritative repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Validate every admitted definition directly through <code>dotx validate</code>, enforce
-the reusable profile for stable external/internal entries, and then check the
-catalogue as a whole:</p>
+<p>Recursively discover and validate every definition, applying the reusable
+profile to stable external/internal entries from their category path:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT-Repository/scripts/validate-dots.sh DOT-Schema/schema.json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository --schema DOT-Schema/schema.json
 dotx repository inspect \
   d4a70000-0000-4000-8000-000000000001@1.0.0 \
   --repository DOT-Repository --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The same script is the required DOT-Repository GitHub Actions gate for every
-change below <code>DOTs/</code> or to the catalogue. <code>dotx repository test</code> remains its
-final aggregate identity, uniqueness, path, and schema check.</p>
+<p>The same command is the required DOT-Repository GitHub Actions gate for every
+change below <code>DOTs/</code> or <code>.gitmodules</code>. The filesystem is authoritative; no
+separate inventory or validation wrapper is maintained.</p>
 </div>
 </div>
 </div>

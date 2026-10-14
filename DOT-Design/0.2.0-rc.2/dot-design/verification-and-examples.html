@@ -243,10 +243,9 @@ never implies a higher one.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:repository</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Every definition admitted by <code>DOT-Repository/dot-repository.yaml</code>: a direct
-  <code>dotx validate</code> invocation, the reusable profile for stable external/internal
-  entries, then catalogue identity, scope/path isolation, schema validity, CLI
-  cross-references, and uniqueness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every <code>dot.json</code> discovered recursively below <code>DOT-Repository/DOTs/</code>, with the
+  reusable profile for stable external/internal entries, category-path
+  isolation, schema validity, CLI cross-references, and identity uniqueness</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go and the checked-out <code>DOT-CLI</code>, <code>DOT-Repository</code>, and <code>DOT-Schema</code> revisions</p></td>
 </tr>
 <tr>
@@ -461,9 +460,10 @@ different meanings of “covered” into one percentage:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repository inventory</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx repository test</code>, <code>dotx repository audit</code>, and the DOT repository conformance workflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be 100%: every catalogue entry is discovered, parsed, schema-valid,
-  cross-reference-valid, uniquely identified, and stored in its declared scope;
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx validate DOT-Repository</code>, <code>dotx repository audit</code>, and the DOT
+  repository conformance workflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be 100%: every filesystem definition is discovered, parsed, schema-valid,
+  cross-reference-valid, uniquely identified, and stored in a supported category;
   no deployable copy may remain outside <code>DOT-Repository</code>.</p></td>
 </tr>
 <tr>
@@ -695,8 +695,8 @@ support the proposed composition.</p>
 </li>
 <li>
 <p>Add reusable deployable definitions to <code>DOT-Repository/DOTs/testing/</code>, record
-their evidence and purpose in <code>dot-repository.yaml</code>, and select them by exact
-<code>repository://&lt;uuid&gt;@&lt;version&gt;</code> identity.</p>
+their evidence and purpose in the applicable test evidence ledger, and select
+them by exact <code>repository://&lt;uuid&gt;@&lt;version&gt;</code> identity.</p>
 </li>
 <li>
 <p>Define Contracts only for supported, observable interactions.</p>
