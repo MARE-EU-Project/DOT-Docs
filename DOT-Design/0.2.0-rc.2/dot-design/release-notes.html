@@ -188,6 +188,11 @@ Contracts.</p>
 external Anchors resolve and materialize the exact official operations.</p>
 </li>
 <li>
+<p>Failed Kubernetes/Helm workloads now retain pod, event, workload, and bounded
+log diagnostics before cleanup; causally blocked endpoint assertions are
+skipped rather than counted as independent failures.</p>
+</li>
+<li>
 <p>A repeated hosted-Linux run covering all eight external-DOT mechanism cells:
 two complete lifecycle cycles, 42 checks, zero failures, verified cleanup,
 pinned DOT-CLI/DOT-Repository revisions, and checksummed evidence.</p>

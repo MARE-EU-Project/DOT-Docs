@@ -310,7 +310,12 @@ uses a new namespace, Docker runtime name, Compose project names, marker, and
 host-port range. It executes validation again before runtime mutation, selects
 each mechanism explicitly, verifies workload readiness and HTTP/HTTPS
 reachability, and destroys all resources. The runner then fails if the cycle
-namespace, Wireshark container, or any of the four Compose projects still exists.</p>
+namespace, Wireshark container, or any of the four Compose projects still exists.
+If a Kubernetes deployment or readiness check fails, the runner records pod,
+workload, event, and bounded container-log diagnostics before cleanup and skips
+only the assertions that are causally blocked by that failed workload. The root
+failure still fails the cycle; dependent timeout noise is not counted as
+independent evidence.</p>
 </div>
 <div class="paragraph">
 <p>The resulting matrix contains eight cells:</p>
