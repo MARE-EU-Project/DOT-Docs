@@ -269,6 +269,10 @@ pinned by UUID, in the composition;</p>
 <p>explicit environment-variable and config-file materializers;</p>
 </li>
 <li>
+<p>explicit externally owned gateway bindings for cross-platform wires, with
+ownership and no-cleanup semantics recorded in plan, lock, and state;</p>
+</li>
+<li>
 <p>Docker Image composition networking and per-instance identity;</p>
 </li>
 <li>
@@ -295,11 +299,11 @@ secret-free JSON evidence.</p>
 </div>
 <div class="paragraph">
 <p>It is not a general multi-host production orchestrator. Shared state,
-cross-platform network bindings, external secret-store plugins, and
-mutating, multi-scheme, event-driven, or cross-platform probe adapters remain
-outside this profile. Safe anonymous OpenAPI probes and single-scheme OAuth 2.0
-client-credentials probes within a shared Docker network or Kubernetes
-namespace are supported.</p>
+composition-owned cross-platform gateways, tunnels, or brokers, external
+secret-store plugins, and mutating, multi-scheme, event-driven, or
+cross-platform probe adapters remain outside this profile. Safe anonymous
+OpenAPI probes and single-scheme OAuth 2.0 client-credentials probes within a
+shared Docker network or Kubernetes namespace are supported.</p>
 </div>
 <div class="paragraph">
 <p>Single-DOT live lifecycle evidence for a runtime adapter is not automatically
@@ -401,7 +405,7 @@ for each adapter.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Concrete runtime address and port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved deployment plan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit composition network binding or resolved deployment plan</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Materializer or exposed-Anchor forwarding</p></td>
 </tr>
 <tr>

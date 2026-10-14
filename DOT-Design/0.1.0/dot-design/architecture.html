@@ -470,7 +470,8 @@ element.</p>
 <p>Evaluate three-state compatibility: <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>.</p>
 </li>
 <li>
-<p>Derive connection endpoints, parameter values, security status, and materializers.</p>
+<p>Derive connection endpoints, explicit cross-platform network ownership,
+parameter values, security status, and materializers.</p>
 </li>
 <li>
 <p>Build a deterministic plan and readiness order.</p>
@@ -509,6 +510,10 @@ DOT declarations and exact operator grants.</p>
 <li>
 <p>A configured wire does not prove credential validity, authorization, remote
 attestation, policy compliance, or network reachability.</p>
+</li>
+<li>
+<p>An <code>EXTERNAL_GATEWAY</code> binding records operator ownership and <code>NONE</code> cleanup;
+it does not assert that <code>dotx</code> provisioned or verified the gateway.</p>
 </li>
 <li>
 <p>Cross-domain admission decisions belong to deployment or policy systems.</p>

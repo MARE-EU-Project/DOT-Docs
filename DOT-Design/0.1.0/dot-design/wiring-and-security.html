@@ -207,6 +207,38 @@ configurable.</p>
 <p>The resulting URL is deployment data. It is never copied back into <code>dot.json</code>
 or the Anchor.</p>
 </div>
+<div class="sect2">
+<h3 id="cross-platform-external-gateway"><a class="anchor" href="#cross-platform-external-gateway"></a>Cross-platform external gateway</h3>
+<div class="paragraph">
+<p>A wire whose participants use different runtime platforms must declare a
+reviewed network adapter. The first supported adapter represents a gateway that
+the operator provisions outside <code>dotx</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
+  - name: identity-discovery-to-proxy
+    from: {instance: identity, anchorId: a3000000-0000-4000-8000-000000000001}
+    to: {instance: proxy, anchorId: aa100000-0000-4000-8000-000000000002}
+    network:
+      adapter: EXTERNAL_GATEWAY
+      host: identity-gateway.example.net
+      port: 8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Contract and bound service port remain authoritative for protocol and
+interaction semantics. The binding replaces only the deployment-specific host
+and port used by materializers. The plan, lock, and private lifecycle state
+record <code>ownership=EXTERNAL</code> and <code>cleanup=NONE</code>; apply, resume, status, and
+destroy never claim to create, inspect, or remove the gateway. Cross-platform
+wires without a binding, same-platform wires with a redundant binding, unknown
+adapters, URL-shaped hosts, and invalid ports fail before runtime mutation.</p>
+</div>
+<div class="paragraph">
+<p>Composition-owned gateways, ingresses, tunnels, and brokers require dedicated
+lifecycle adapters and remain unsupported.</p>
+</div>
 <div class="paragraph">
 <p>A wire and a materializer are intentionally separate. The wire says <em>these
 Anchors are connected</em>; the materializer says <em>write this derived value into
@@ -239,6 +271,7 @@ instance and Anchor references, compatibility reasons, the selected Contract,
 resolved endpoint, derived operation/channel value, materializer targets,
 security status, and exposed-Anchor endpoints. Consumers should parse JSON
 rather than scrape the human-readable form.</p>
+</div>
 </div>
 </div>
 </div>
