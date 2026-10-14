@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "label": "Compatibility",
-  "message": "not ready",
-  "color": "#455A64",
+  "message": "queued",
+  "color": "#0D47A1",
   "cacheSeconds": 300
 }
