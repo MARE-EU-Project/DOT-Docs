@@ -1,16 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="250" height="32" viewBox="0 0 250 32" role="img" aria-label="DOT Repository: passing" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
-  <title>DOT Repository: passing</title>
-  <defs><clipPath id="badge-clip"><rect width="250" height="32" rx="6"/></clipPath></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="282" height="32" viewBox="0 0 282 32" role="img" aria-label="DOT Repository: in progress" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <title>DOT Repository: in progress</title>
+  <defs><clipPath id="badge-clip"><rect width="282" height="32" rx="6"/></clipPath></defs>
   <g clip-path="url(#badge-clip)">
     <rect width="144" height="32" fill="#003399"/>
-    <rect x="144" width="106" height="32" fill="#ECFDF3"/>
+    <rect x="144" width="138" height="32" fill="#EFF8FF"/>
     <rect width="3" height="32" fill="#FFCC00"/>
   </g>
-  <rect x="0.5" y="0.5" width="249" height="31" rx="5.5" fill="none" stroke="#CBD5E1"/>
+  <rect x="0.5" y="0.5" width="281" height="31" rx="5.5" fill="none" stroke="#CBD5E1"/>
   <line x1="144" y1="1" x2="144" y2="31" stroke="#CBD5E1"/>
-  <circle cx="161" cy="16" r="6" fill="#079455"/><path d="M 158 16 l2 2 4 -5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="161" cy="16" r="6" fill="#2E90FA"/><circle cx="161" cy="16" r="2" fill="#FFFFFF"/>
   <g font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle">
     <text x="73" y="20.5" fill="#FFFFFF">DOT Repository</text>
-    <text x="213" y="20.5" fill="#067647">passing</text>
+    <text x="229" y="20.5" fill="#175CD3">in progress</text>
   </g>
 </svg>
