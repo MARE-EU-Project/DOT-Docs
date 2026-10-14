@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "label": "Coverage",
-  "message": "in progress",
-  "color": "#0D47A1",
+  "message": "passing",
+  "color": "#1B5E20",
   "cacheSeconds": 300
 }
