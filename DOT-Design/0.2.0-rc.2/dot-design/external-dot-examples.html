@@ -381,6 +381,45 @@ revision.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_recorded_0_2_0_rc_2_evidence"><a class="anchor" href="#_recorded_0_2_0_rc_2_evidence"></a>Recorded <code>0.2.0-rc.2</code> evidence</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/38600327954">
+External DOT examples run 38600327954</a> completed two independent Linux
+lifecycle cycles against DOT-CLI
+<code>848b2d56e9e416ae87fa46d221c9649041b64541</code> and DOT-Repository
+<code>b681c937422fa3db13ad16587cf271700eff5d79</code>. Each cycle passed all 46 checks
+and cleaned up its resources. The complete eight-cell mechanism matrix was:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keycloak: Helm chart and Docker Compose;</p>
+</li>
+<li>
+<p>Loki: Helm chart and Docker Compose;</p>
+</li>
+<li>
+<p>Prometheus: Helm chart and Docker Compose; and</p>
+</li>
+<li>
+<p>Wireshark: Docker image and Docker Compose.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For both Keycloak mechanisms, the test invoked the exact Admin REST operation
+selected from the pinned official Contract. For both Prometheus mechanisms, it
+invoked the exact build-information operation selected from the pinned
+official Contract. The uploaded evidence contains <code>cycle-1.log</code>,
+<code>cycle-2.log</code>, <code>summary.json</code>, and <code>SHA256SUMS</code>; local checksum verification of
+the downloaded artifact passed for all three covered files. This evidence
+supersedes the earlier 42-check run because it adds the four Contract-derived
+runtime requests to every cycle.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_interpreting_a_pass"><a class="anchor" href="#_interpreting_a_pass"></a>Interpreting a pass</h2>
 <div class="sectionbody">
 <div class="paragraph">
