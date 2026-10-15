@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "label": "WebAssembly",
-  "message": "cancelled",
-  "color": "#8B1E1E",
+  "message": "queued",
+  "color": "#0D47A1",
   "cacheSeconds": 300
 }
