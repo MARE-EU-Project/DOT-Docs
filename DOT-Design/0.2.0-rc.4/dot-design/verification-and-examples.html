@@ -244,8 +244,9 @@ never implies a higher one.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:repository</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Every <code>dot.json</code> discovered recursively below <code>DOT-Repository/DOTs/</code>, with the
-  reusable profile for stable external/internal entries, category-path
-  isolation, schema validity, CLI cross-references, and identity uniqueness</p></td>
+  reusable profile for external/internal bundles that publish adjacent Contract
+  evidence, ownership-path isolation, mandatory per-bundle README files, schema
+  validity, CLI cross-references, and identity uniqueness</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go and the checked-out <code>DOT-CLI</code> and <code>DOT-Repository</code> revisions; repository
 validation uses its co-versioned <code>Schema/</code>, validates the authoritative
 <code>Skills/</code> catalogue, and resolves every DOT Skill UUID to one categorized
@@ -253,7 +254,7 @@ capability</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:external:dry-run</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Keycloak/Prometheus DOTs plus Loki/Wireshark runtime samples: profile-
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Keycloak/Prometheus DOTs plus runtime-only external Loki/Wireshark definitions: profile-
   appropriate validation, inspection, deployment dry-run, exact-version Helm
   rendering, expected service/workload shape, and pinned OCI image metadata</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, Helm, Python/PyYAML, Docker, and network access to the pinned public artifacts</p></td>
@@ -698,9 +699,12 @@ support the proposed composition.</p>
 <p>Document what the source actually produces and consumes.</p>
 </li>
 <li>
-<p>Add reusable deployable definitions to <code>DOT-Repository/DOTs/testing/</code>, record
-their evidence and purpose in the applicable test evidence ledger, and select
-them by exact <code>repository://&lt;uuid&gt;@&lt;version&gt;</code> identity.</p>
+<p>Add deployable definitions according to ownership: third-party software under
+<code>DOT-Repository/DOTs/external/</code>, MARE-owned software under
+<code>DOT-Repository/DOTs/internal/</code>, and only synthetic fixtures under
+<code>DOT-Repository/DOTs/testing/</code>. Record their evidence and purpose in the
+applicable test evidence ledger and select them by exact
+<code>repository://&lt;uuid&gt;@&lt;version&gt;</code> identity.</p>
 </li>
 <li>
 <p>Define Contracts only for supported, observable interactions.</p>

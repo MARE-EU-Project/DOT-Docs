@@ -238,12 +238,12 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Each descriptor is version <code>0.1.0</code>, with both tested deployment mechanisms in
-the same <code>dot.json</code>. Keycloak and Prometheus are admitted under
-<code>DOTs/external/</code> only because their exact official Contract artifacts pass
-<code>dotx validate --profile reusable</code>. Loki and Wireshark remain under
-<code>DOTs/sample/</code>: their deployment evidence stays valuable, but it must not be
-misrepresented as interface interoperability. Chart versions, Compose image indexes, and the direct
+<p>Each product is kept under <code>DOTs/external/</code> because it is owned outside MARE,
+with both tested deployment mechanisms in the same <code>dot.json</code>. Ownership does
+not imply interoperability maturity. Keycloak and Prometheus publish adjacent
+official Contract evidence and pass the strict reusable profile. Loki and
+Wireshark currently provide runtime evidence only; they must not be
+misrepresented as Contract-backed interface interoperability. Chart versions, Compose image indexes, and the direct
 Wireshark image tag are deliberately pinned. <code>latest</code> is convenient
 for exploration but unsuitable for release evidence because a repeated run
 could execute different bytes. The Wireshark OCI index currently contains
@@ -437,14 +437,14 @@ Those requirements must be declared and explicitly authorized in a separate
 acceptance profile.</p>
 </div>
 <div class="paragraph">
-<p>When adding another stable external DOT, provide an immutable runtime artifact,
-an exact official machine-readable Contract with provenance and SHA-256,
-Contract-backed Anchors, complete per-deployment bindings, portable
-service/config declarations, <code>dotx validate --profile reusable</code>, a locked
-composition fixture, and a live assertion against a selected Contract
-operation. If upstream exposes only a human interface or prose documentation,
-keep the definition under <code>DOTs/sample/</code> instead of inventing a Contract. Add
-production claims only after a test explicitly proves them.</p>
+<p>When adding another external DOT, place it under <code>DOTs/external/</code> because of its
+ownership and provide an immutable runtime artifact. Use a vendor/project-
+official Contract whenever available. Otherwise either pin a runtime-extracted
+Contract, maintain a clearly identified derived Contract with live conformance,
+or expose an adapter-owned Contract. Every Contract asset declares its authority,
+source revision, license, and SHA-256. A runtime-only external DOT remains valid
+without a <code>contracts/</code> evidence directory but makes no interoperability claim.
+Add production claims only after a test explicitly proves them.</p>
 </div>
 </div>
 </div>

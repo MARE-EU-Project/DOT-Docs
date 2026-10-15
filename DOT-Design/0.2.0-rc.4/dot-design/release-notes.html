@@ -164,8 +164,8 @@ capabilities, duplicate references, and invalid category links.
 <code>dotx repository list --skill &lt;uuid-or-name&gt;</code> and <code>--category
 &lt;uuid-or-name&gt;</code> provide resolved, machine-readable discovery without copying
 category fields into every <code>dot.json</code>. The exact pinned revisions are DOT-CLI
-<code>59957e84e1699e61abfa3f8fd3b5c6012e747bab</code> and DOT-Repository
-<code>88d59327e2bd301ce573d242c31bac1dda4a3080</code>.</p>
+<code>7554d0b0e98f50e094cd93edcc092baf82399cdb</code> and DOT-Repository
+<code>8e2938393f9f890477f80a3567729bd7830572ca</code>.</p>
 </div>
 <div class="paragraph">
 <p>The audit also reconfirmed the existing DOT-side dispositions for stable
@@ -173,6 +173,18 @@ Anchor identity and semantics, authoritative payload Contracts,
 service-scoped pre-deployment configuration validation, and single-file
 <code>dot.json</code> authoring. The separate DOT-Registry REST API remains outside this
 candidate, and joint SFC/partner acceptance remains a manual gate.</p>
+</div>
+<div class="paragraph">
+<p>Catalogue placement now records ownership rather than Contract maturity:
+third-party software is under <code>DOTs/external/</code>, MARE-owned/developed software
+is under <code>DOTs/internal/</code>, and only synthetic fixtures remain under
+<code>DOTs/testing/</code>. Every DOT bundle includes a local quickstart <code>README.md</code>.
+External/internal bundles opt into strict reusable validation by publishing a
+<code>contracts/</code> evidence directory whose assets identify their authority as
+upstream-official, runtime-extracted, DOT-ecosystem-derived, or adapter-owned,
+along with source revision, license, and SHA-256. Loki and Wireshark are now
+correctly classified as external runtime-only definitions without fabricated
+vendor Contracts.</p>
 </div>
 </div>
 </div>
@@ -246,16 +258,16 @@ Docker Compose deployment binding the same interface.</p>
 provenance, payload integrity, selector resolution, Contract use, and per-
 deployment Anchor binding. Review establishes that the pinned source is the
 official upstream artifact. <code>dotx validate &lt;repository-root&gt;</code> recursively
-discovers every <code>dot.json</code>, derives validation policy from its category path,
+discovers every <code>dot.json</code>; the later rc.4 ownership migration derives strict
+reusable validation from adjacent Contract evidence rather than category path,
 and is the single DOT-Repository GitHub Actions gate; no duplicate inventory
 or shell wrapper is required.</p>
 </li>
 <li>
 <p>Same-DOT alternative deployment mechanisms for the Keycloak, Loki,
-Prometheus, and Wireshark external-product examples. Loki and Wireshark are
-explicitly retained as runtime-tested samples rather than reusable external
-DOTs because their exposed surfaces lack suitable official machine-readable
-Contracts.</p>
+Prometheus, and Wireshark external-product examples. Loki and Wireshark were
+initially retained as runtime-tested samples; rc.4 reclassifies them as
+external runtime-only DOTs without claiming Contract-backed interoperability.</p>
 </li>
 <li>
 <p>A locked Keycloak/Prometheus/consumer composition proves that both stable
