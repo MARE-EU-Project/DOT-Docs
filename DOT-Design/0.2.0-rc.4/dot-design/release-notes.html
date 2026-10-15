@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Integration handoff :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.3/dot-design/integration-handoff.html">
-    <link rel="prev" href="external-dot-examples.html">
-    <link rel="next" href="release-notes.html">
-    <meta name="description" content="Technology-neutral requirements for catalogues, composers, and Security Function Composition consumers of DOT Anchors.">
+    <title>Release notes :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.4/dot-design/release-notes.html">
+    <link rel="prev" href="integration-handoff.html">
+    <link rel="next" href="../dot-domain/index.html">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -33,9 +32,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.0-rc.3/_exports/DOT-Design-0.2.0-rc.3.pdf"
-              download="DOT-Design-0.2.0-rc.3.pdf"
-              title="Download DOT-Design 0.2.0-rc.3 as PDF"
+              href="../../../DOT-Design/0.2.0-rc.4/_exports/DOT-Design-0.2.0-rc.4.pdf"
+              download="DOT-Design-0.2.0-rc.4.pdf"
+              title="Download DOT-Design 0.2.0-rc.4 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -44,7 +43,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.3">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.4">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -92,10 +91,10 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="release-notes.html">Release notes</a>
   </li>
 </ul>
@@ -115,14 +114,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.0-rc.3</span>
+    <span class="version">0.2.0-rc.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.0-rc.3</a>
+          <a href="index.html">0.2.0-rc.4</a>
         </li>
       </ul>
     </li>
@@ -138,171 +137,261 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="integration-handoff.html">Integration handoff</a></li>
+    <li><a href="release-notes.html">Release notes</a></li>
   </ul>
 </nav>
 </div>
   <div class="content">
-<aside class="toc sidebar" data-title="Contents" data-levels="3">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Integration handoff</h1>
-<div id="preamble">
+<h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="_0_2_0_rc_4"><a class="anchor" href="#_0_2_0_rc_4"></a>0.2.0-rc.4</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This handoff defines the interoperability boundary for a team implementing a
-catalogue, composer, Security Function Composer adapter, or other DOT consumer.
-It intentionally does not prescribe a service, database, API style, language,
-or framework.</p>
+<p><code>0.2.0-rc.4</code> retains the runtime and lifecycle profile accepted in
+<code>0.2.0-rc.3</code> and completes the closed SFC-requirement audit with
+repository-backed Skill discovery. <code>DOT-Repository/Skills/</code> now contains an
+authoritative asset for every capability UUID referenced by the catalogue and
+links each capability to one of the five controlled MARE categories.</p>
+</div>
+<div class="paragraph">
+<p><code>dotx validate DOT-Repository</code> resolves all 80 DOT definitions against that
+catalogue and rejects missing capabilities, category assets used as
+capabilities, duplicate references, and invalid category links.
+<code>dotx repository list --skill &lt;uuid-or-name&gt;</code> and <code>--category
+&lt;uuid-or-name&gt;</code> provide resolved, machine-readable discovery without copying
+category fields into every <code>dot.json</code>. The exact pinned revisions are DOT-CLI
+<code>59957e84e1699e61abfa3f8fd3b5c6012e747bab</code> and DOT-Repository
+<code>88d59327e2bd301ce573d242c31bac1dda4a3080</code>.</p>
+</div>
+<div class="paragraph">
+<p>The audit also reconfirmed the existing DOT-side dispositions for stable
+Anchor identity and semantics, authoritative payload Contracts,
+service-scoped pre-deployment configuration validation, and single-file
+<code>dot.json</code> authoring. The separate DOT-Registry REST API remains outside this
+candidate, and joint SFC/partner acceptance remains a manual gate.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_authoritative_inputs"><a class="anchor" href="#_authoritative_inputs"></a>Authoritative inputs</h2>
+<h2 id="_0_2_0_rc_3"><a class="anchor" href="#_0_2_0_rc_3"></a>0.2.0-rc.3</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The reference source of reusable definitions is <code>DOT-Repository</code>. Resolve a DOT
-by its immutable UUID and pinned version, then verify the returned <code>dot.json</code>
-matches both. Resolve referenced Contract payloads without copying their
-protocol, schema, media, or security facts into an Anchor.</p>
+<p><code>0.2.0-rc.3</code> supersedes <code>0.2.0-rc.2</code> after post-publication, exact-pin
+lifecycle acceptance found that the Keycloak Helm workload could not reliably
+complete Quarkus augmentation within its declared 1536-MiB container limit.
+Three independent real-cluster runs retained pod and event diagnostics showing
+<code>OOMKilled</code> exit 137; the runner had 62 GiB of host memory and Minikube exposed
+16.8 GB and 20 CPUs, isolating the defect to the DOT resource declaration.</p>
 </div>
 <div class="paragraph">
-<p>Use these commands as executable reference behavior:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
-dotx validate DOT-Repository
-dotx compose validate composition.yaml
-dotx compose plan composition.yaml --json</code></pre>
-</div>
+<p>Keycloak-DOT <code>0.1.1</code> declares a 2-GiB memory request and 4-GiB limit while
+retaining the same official Keycloak 26.3.3 Contract, Anchor selectors, chart,
+image, service, and Docker Compose mechanism. The external-DOT render suite now
+inspects the real upstream chart output and rejects any mismatch in the
+Keycloak container&#8217;s CPU or memory requests and limits before live deployment.
+The official external-Contract composition and content-addressed lock resolve
+the versioned <code>0.1.1</code> definition.</p>
 </div>
 <div class="paragraph">
-<p>An implementation may expose equivalent behavior through REST, gRPC, events,
-an SDK, or an embedded library. Its external contract should be versioned and
-tested independently from the DOT model.</p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/38708940363">
+External DOT examples run 38708940363</a> passed both the non-mutating chart
+conformance job and two complete Linux lifecycle cycles. Each cycle passed all
+47 checks with zero failures and cleanup verification across Keycloak, Loki,
+Prometheus, and Wireshark&#8217;s eight deployment-mechanism cells. The downloaded,
+checksum-verified evidence pins DOT-CLI
+<code>f8cf796afd985cc0514d42fb149ef67b6a1b7b53</code> and DOT-Repository
+<code>76585f6ec68a892f6cc6d48c9b2acdce6b08d48d</code>.</p>
+</div>
+<div class="paragraph">
+<p>This candidate also adds a post-publication workflow that downloads the actual
+checksummed Linux amd64 <code>dotx</code> release asset, verifies its release manifest and
+source revisions, then runs repository validation, Anchor acceptance,
+Composition v1 acceptance, and two complete external-DOT lifecycle cycles.
+Maven dependency submission is now an explicit self-hosted workflow; the
+billing-blocked GitHub-managed automatic submission feature is disabled.
+Linux amd64 is the release-accepted executable target. The cross-built arm64
+asset remains preview-only until equivalent native arm64 evidence exists.
+Joint SFC/partner acceptance remains a separate manual gate and is not claimed
+by this candidate.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_disposition_of_legacy_sfc_requests"><a class="anchor" href="#_disposition_of_legacy_sfc_requests"></a>Disposition of legacy SFC requests</h2>
+<h2 id="_0_2_0_rc_2"><a class="anchor" href="#_0_2_0_rc_2"></a>0.2.0-rc.2</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The original SFC issues 6 through 9 predate the stable repository-backed model.
-Their consumer needs are handled at the integration boundary without creating
-parallel sources of truth:</p>
+<p><code>0.2.0-rc.2</code> supersedes the first candidate with the fixes and acceptance
+evidence completed after <code>0.2.0-rc.1</code> was tagged. The stable serialized
+composition API remains <code>dot.mare6g.eu/v1</code>.</p>
 </div>
+<div class="sect2">
+<h3 id="_changes_since_rc_1"><a class="anchor" href="#_changes_since_rc_1"></a>Changes since rc.1</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Parameter forms:</strong> derive an SFC-facing form from exact service-scoped
-environment and configuration declarations plus authoritative Contract
-schemas. Composition validation rejects missing or ambiguous required inputs
-before runtime mutation. A duplicate root <code>params</code> model is not defined.</p>
+<p>Exact service-to-workload selection and configuration isolation for
+multi-service Docker Compose, Kubernetes-manifest, and Helm deployments.</p>
 </li>
 <li>
-<p><strong>Skill search:</strong> resolve stable <code>Skill</code> UUID references from the DOT
-definitions and optionally enrich discovery with the broad classifications in
-<code>DOT-Repository/Skills/</code>. Those high-level classifications are not an
-exhaustive registry of every DOT-local Skill UUID, and names or categories are
-not copied into every DOT as a second controlled vocabulary.</p>
+<p>Exact official, digest-pinned OpenAPI Contracts and Contract-backed Anchors
+for reusable Keycloak and Prometheus external DOTs, with every Helm and
+Docker Compose deployment binding the same interface.</p>
 </li>
 <li>
-<p><strong>Catalogue API:</strong> <code>DOT-Repository</code> and <code>dotx repository</code> define reference
-behavior. A catalogue team may expose equivalent queries through any
-versioned API; DOT-Design does not own or prescribe that service.</p>
+<p><code>dotx validate --profile reusable</code> now enforces declared HTTPS Contract
+provenance, payload integrity, selector resolution, Contract use, and per-
+deployment Anchor binding. Review establishes that the pinned source is the
+official upstream artifact. <code>dotx validate &lt;repository-root&gt;</code> recursively
+discovers every <code>dot.json</code>, derives validation policy from its category path,
+and is the single DOT-Repository GitHub Actions gate; no duplicate inventory
+or shell wrapper is required.</p>
 </li>
 <li>
-<p><strong>Low-barrier authoring:</strong> a DOT author may hand-write one <code>dot.json</code>, validate
-it with <code>dotx validate</code>, and onboard its folder through <code>dotx repository
-test</code>. This path requires no Maven, Jsonnet, MongoDB, or running service.
-<code>dot.json</code> remains the sole deployment definition; a parallel YAML format and
-inline copies of referenced entities are intentionally not introduced.</p>
+<p>Same-DOT alternative deployment mechanisms for the Keycloak, Loki,
+Prometheus, and Wireshark external-product examples. Loki and Wireshark are
+explicitly retained as runtime-tested samples rather than reusable external
+DOTs because their exposed surfaces lack suitable official machine-readable
+Contracts.</p>
+</li>
+<li>
+<p>A locked Keycloak/Prometheus/consumer composition proves that both stable
+external Anchors resolve and materialize the exact official operations.</p>
+</li>
+<li>
+<p>Failed Kubernetes/Helm workloads now retain pod, event, workload, and bounded
+log diagnostics before cleanup; causally blocked endpoint assertions are
+skipped rather than counted as independent failures.</p>
+</li>
+<li>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/38600327954">
+Repeated hosted-Linux acceptance run 38600327954</a> covering all eight
+external-DOT mechanism cells: two complete lifecycle cycles, 46 checks per
+cycle, zero failures, verified cleanup, and four successful official-
+Contract operation checks per cycle. The checksummed evidence pins DOT-CLI
+<code>848b2d56e9e416ae87fa46d221c9649041b64541</code> and DOT-Repository
+<code>b681c937422fa3db13ad16587cf271700eff5d79</code>.</p>
+</li>
+<li>
+<p>Portable evidence checksums and retained GitHub Actions artifacts.</p>
+</li>
+<li>
+<p>Separate workflow concurrency lanes for push conformance and manually
+requested live stress, preventing one evidence class from canceling the
+other.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>These dispositions settle DOT-side model ownership. They do not replace joint
-SFC acceptance or prove a partner catalogue/search implementation.</p>
+<p>Linux amd64 is the release-accepted executable target. The published arm64
+executable is a cross-built preview and is not a supported final-release target
+until equivalent native arm64 evidence exists. Producer/partner acceptance,
+non-Linux executables, multi-host orchestration, general stateful migration,
+and automatic provisioning of cross-platform gateways remain outside this
+candidate. GraphQL, gRPC, and event-driven runtime probes beyond the documented
+safe profile remain standards-led roadmap work rather than an <code>rc.2</code> blocker.</p>
+</div>
+<div class="paragraph">
+<p>The candidate assets and verification procedure are the same classes described
+for <code>rc.1</code> below, with filenames versioned as <code>0.2.0-rc.2</code>. The tag workflow
+rebuilds the Java artifact, both schemas, SBOMs, and Linux <code>dotx</code> binaries from
+the immutable revisions recorded in <code>release-manifest.json</code>, then verifies
+reproducibility and <code>SHA256SUMS</code> before publication.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_required_semantics"><a class="anchor" href="#_required_semantics"></a>Required semantics</h2>
+<h2 id="_0_2_0_rc_1"><a class="anchor" href="#_0_2_0_rc_1"></a>0.2.0-rc.1</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An interoperable consumer must:</p>
+<p><code>0.2.0-rc.1</code> is the first integrated release candidate for the stable
+<code>dot.mare6g.eu/v1</code> composition profile. It replaces the narrower 0.1.0 artifact
+set with a traceable domain model, both machine-readable schemas, and
+version-stamped <code>dotx</code> binaries built from the exact DOT-CLI revision pinned by
+this repository.</p>
 </div>
+<div class="sect2">
+<h3 id="_highlights"><a class="anchor" href="#_highlights"></a>Highlights</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>address DOTs, Contracts, and Anchors by stable UUID and pin DOT versions;</p>
+<p>Stable, repository-backed Composition v1 lifecycle, probe, and upgrade
+commands.</p>
 </li>
 <li>
-<p>resolve contract-backed selectors against the authoritative OpenAPI,
-AsyncAPI, Protocol Buffers, or GraphQL document;</p>
+<p>Contract-driven Anchors for OpenAPI 3.0/3.1/3.2, AsyncAPI 3.0/3.1,
+Protobuf/gRPC, GraphQL, and declared contractless interactions.</p>
 </li>
 <li>
-<p>use <code>anchorBindings</code> to map a logical Anchor to a named service port;</p>
+<p>Immutable repository resolution, content-addressed locks, resumable
+lifecycle operations, and last-known-good upgrade rollback.</p>
 </li>
 <li>
-<p>keep instance topology, endpoints, parameter values, credentials, and policy
-outside reusable DOT definitions;</p>
+<p>Managed Docker image, Docker Compose, Kubernetes manifest, Helm chart,
+Vagrant/libvirt, and Wasmtime/WASI profiles.</p>
 </li>
 <li>
-<p>evaluate compatibility conservatively and preserve <code>UNKNOWN</code> as distinct
-from <code>COMPATIBLE</code>; and</p>
+<p>Explicit cross-platform networking through externally owned gateway
+bindings with pinned host, port, ownership, and no-cleanup semantics.</p>
 </li>
 <li>
-<p>keep secret values out of DOTs, plans, persisted state, and logs.</p>
+<p>Service-scoped configuration, secrets, OCI requirements, CDI devices, and
+exact native-workload bindings.</p>
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_assets_and_verification"><a class="anchor" href="#_assets_and_verification"></a>Assets and verification</h3>
 <div class="paragraph">
-<p>Contractless Anchors are valid only when a supported Contract standard cannot
-describe the interaction. Their explicit direction, protocols, media types,
-and semantic types must be complementary before a wire is accepted.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_acceptance_evidence"><a class="anchor" href="#_acceptance_evidence"></a>Acceptance evidence</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The versioned consumer profile is under
-<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
-verifies the committed composition lock, and plans 12 compatible wires across
-all supported Contract standards and versions.</p>
+<p>The candidate includes the DOT-Domain JAR, DOT and Composition v1 schemas,
+CycloneDX SBOMs, and <code>dotx</code> binaries for Linux amd64 and arm64.
+<code>release-manifest.json</code> records the immutable DOT-Design, DOT-CLI, and
+DOT-Repository revisions. The repository revision pins its <code>DOTs/</code>, <code>Skills/</code>,
+and <code>Schema/</code> assets together. Verify the download set with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:anchors:acceptance
-task testing:conformance</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sha256sum --check SHA256SUMS</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Passing the deterministic profile proves discovery and planning semantics. A
-joint live test must separately prove endpoint reachability, credential and
-token handling, authorization, policy enforcement, and application behavior.</p>
+<p>The tag workflow publishes only after the Java build, generated-schema drift
+check, DOT-CLI tests, repository test, Composition v1 acceptance suite,
+deterministic packaging comparison, manifest validation, and checksum
+verification pass.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_future_implementation_freedom"><a class="anchor" href="#_future_implementation_freedom"></a>Future implementation freedom</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_compatibility_and_boundaries"><a class="anchor" href="#_compatibility_and_boundaries"></a>Compatibility and boundaries</h3>
 <div class="paragraph">
-<p>The removed catalogue-service prototype is not part of the production architecture. A
-future team may replace it or implement discovery elsewhere in a
-different language or framework. Compatibility is judged by the stable DOT
-model and executable acceptance profile, not by reproducing the prototype&#8217;s
-internal classes or former HTTP response shapes.</p>
+<p>The serialized composition API is <code>dot.mare6g.eu/v1</code>; breaking serialized
+changes require a new API version. The experimental local catalogue/registry
+prototype from the 0.1.0 era is not included: DOT-Repository is authoritative.</p>
+</div>
+<div class="paragraph">
+<p>This candidate does not claim multi-host orchestration, automatic provisioning
+of cross-platform gateways/tunnels/brokers, general stateful data migration,
+arbitrary privileged workloads, non-Linux <code>dotx</code> executables, or
+producer/partner acceptance. The current CLI includes Linux process controls
+for its managed WASI runtime, so this candidate publishes Linux amd64 and arm64
+binaries only. Closed legacy SFC issues record DOT-side disposition; joint
+consumer acceptance remains a separate manual gate.</p>
+</div>
+<div class="paragraph">
+<p>See the repository-root <code>RELEASE_NOTES.md</code> included with the source for the
+complete candidate notes and upgrade guidance.</p>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="external-dot-examples.html">External DOT examples</a></span>
-  <span class="next"><a href="release-notes.html">Release notes</a></span>
+  <span class="prev"><a href="integration-handoff.html">Integration handoff</a></span>
+  <span class="next"><a href="../dot-domain/index.html">Domain model</a></span>
 </nav>
 </article>
   </div>
