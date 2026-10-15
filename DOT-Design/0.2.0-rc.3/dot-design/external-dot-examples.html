@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>External DOT examples and stress profile :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.2/dot-design/external-dot-examples.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.3/dot-design/external-dot-examples.html">
     <link rel="prev" href="verification-and-examples.html">
     <link rel="next" href="integration-handoff.html">
     <meta name="description" content="Reproducible Linux examples and repeated lifecycle acceptance for open-source external DOTs.">
@@ -33,9 +33,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.0-rc.2/_exports/DOT-Design-0.2.0-rc.2.pdf"
-              download="DOT-Design-0.2.0-rc.2.pdf"
-              title="Download DOT-Design 0.2.0-rc.2 as PDF"
+              href="../../../DOT-Design/0.2.0-rc.3/_exports/DOT-Design-0.2.0-rc.3.pdf"
+              download="DOT-Design-0.2.0-rc.3.pdf"
+              title="Download DOT-Design 0.2.0-rc.3 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -44,7 +44,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.2">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.3">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -115,14 +115,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.0-rc.2</span>
+    <span class="version">0.2.0-rc.3</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.0-rc.2</a>
+          <a href="index.html">0.2.0-rc.3</a>
         </li>
       </ul>
     </li>
@@ -247,7 +247,9 @@ misrepresented as interface interoperability. Chart versions, Compose image inde
 Wireshark image tag are deliberately pinned. <code>latest</code> is convenient
 for exploration but unsuitable for release evidence because a repeated run
 could execute different bytes. The Wireshark OCI index currently contains
-Linux amd64 and arm64 manifests, matching the <code>0.2.0-rc.2</code> platform scope.</p>
+Linux amd64 and arm64 manifests. Automated release acceptance currently
+executes Linux amd64; the cross-built <code>dotx</code> arm64 asset remains a preview until
+equivalent native arm64 evidence exists.</p>
 </div>
 <div class="paragraph">
 <p>Authoritative upstream references:</p>
@@ -381,14 +383,14 @@ revision.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_recorded_0_2_0_rc_2_evidence"><a class="anchor" href="#_recorded_0_2_0_rc_2_evidence"></a>Recorded <code>0.2.0-rc.2</code> evidence</h2>
+<h2 id="_recorded_0_2_0_rc_3_evidence"><a class="anchor" href="#_recorded_0_2_0_rc_3_evidence"></a>Recorded <code>0.2.0-rc.3</code> evidence</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/38600327954">
-External DOT examples run 38600327954</a> completed two independent Linux
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/38708940363">
+External DOT examples run 38708940363</a> completed two independent Linux
 lifecycle cycles against DOT-CLI
-<code>848b2d56e9e416ae87fa46d221c9649041b64541</code> and DOT-Repository
-<code>b681c937422fa3db13ad16587cf271700eff5d79</code>. Each cycle passed all 46 checks
+<code>f8cf796afd985cc0514d42fb149ef67b6a1b7b53</code> and DOT-Repository
+<code>76585f6ec68a892f6cc6d48c9b2acdce6b08d48d</code>. Each cycle passed all 47 checks
 and cleaned up its resources. The complete eight-cell mechanism matrix was:</p>
 </div>
 <div class="ulist">
@@ -413,9 +415,10 @@ selected from the pinned official Contract. For both Prometheus mechanisms, it
 invoked the exact build-information operation selected from the pinned
 official Contract. The uploaded evidence contains <code>cycle-1.log</code>,
 <code>cycle-2.log</code>, <code>summary.json</code>, and <code>SHA256SUMS</code>; local checksum verification of
-the downloaded artifact passed for all three covered files. This evidence
-supersedes the earlier 42-check run because it adds the four Contract-derived
-runtime requests to every cycle.</p>
+the downloaded artifact passed for both cycle logs and <code>summary.json</code>. This
+evidence supersedes the earlier <code>rc.2</code> run because it exercises Keycloak-DOT
+<code>0.1.1</code> with the corrected Helm resource profile and pins the exact candidate
+CLI and repository revisions.</p>
 </div>
 </div>
 </div>

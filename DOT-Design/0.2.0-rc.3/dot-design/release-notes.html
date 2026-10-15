@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Release notes :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.2/dot-design/release-notes.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.3/dot-design/release-notes.html">
     <link rel="prev" href="integration-handoff.html">
     <link rel="next" href="../dot-domain/index.html">
     <meta name="generator" content="Antora 3.2.1">
@@ -32,9 +32,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.0-rc.2/_exports/DOT-Design-0.2.0-rc.2.pdf"
-              download="DOT-Design-0.2.0-rc.2.pdf"
-              title="Download DOT-Design 0.2.0-rc.2 as PDF"
+              href="../../../DOT-Design/0.2.0-rc.3/_exports/DOT-Design-0.2.0-rc.3.pdf"
+              download="DOT-Design-0.2.0-rc.3.pdf"
+              title="Download DOT-Design 0.2.0-rc.3 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -43,7 +43,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.2">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.3">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -114,14 +114,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.0-rc.2</span>
+    <span class="version">0.2.0-rc.3</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.0-rc.2</a>
+          <a href="index.html">0.2.0-rc.3</a>
         </li>
       </ul>
     </li>
@@ -147,6 +147,50 @@
 </aside>
 <article class="doc">
 <h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="_0_2_0_rc_3"><a class="anchor" href="#_0_2_0_rc_3"></a>0.2.0-rc.3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>0.2.0-rc.3</code> supersedes <code>0.2.0-rc.2</code> after post-publication, exact-pin
+lifecycle acceptance found that the Keycloak Helm workload could not reliably
+complete Quarkus augmentation within its declared 1536-MiB container limit.
+Three independent real-cluster runs retained pod and event diagnostics showing
+<code>OOMKilled</code> exit 137; the runner had 62 GiB of host memory and Minikube exposed
+16.8 GB and 20 CPUs, isolating the defect to the DOT resource declaration.</p>
+</div>
+<div class="paragraph">
+<p>Keycloak-DOT <code>0.1.1</code> declares a 2-GiB memory request and 4-GiB limit while
+retaining the same official Keycloak 26.3.3 Contract, Anchor selectors, chart,
+image, service, and Docker Compose mechanism. The external-DOT render suite now
+inspects the real upstream chart output and rejects any mismatch in the
+Keycloak container&#8217;s CPU or memory requests and limits before live deployment.
+The official external-Contract composition and content-addressed lock resolve
+the versioned <code>0.1.1</code> definition.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/38708940363">
+External DOT examples run 38708940363</a> passed both the non-mutating chart
+conformance job and two complete Linux lifecycle cycles. Each cycle passed all
+47 checks with zero failures and cleanup verification across Keycloak, Loki,
+Prometheus, and Wireshark&#8217;s eight deployment-mechanism cells. The downloaded,
+checksum-verified evidence pins DOT-CLI
+<code>f8cf796afd985cc0514d42fb149ef67b6a1b7b53</code> and DOT-Repository
+<code>76585f6ec68a892f6cc6d48c9b2acdce6b08d48d</code>.</p>
+</div>
+<div class="paragraph">
+<p>This candidate also adds a post-publication workflow that downloads the actual
+checksummed Linux amd64 <code>dotx</code> release asset, verifies its release manifest and
+source revisions, then runs repository validation, Anchor acceptance,
+Composition v1 acceptance, and two complete external-DOT lifecycle cycles.
+Maven dependency submission is now an explicit self-hosted workflow; the
+billing-blocked GitHub-managed automatic submission feature is disabled.
+Linux amd64 is the release-accepted executable target. The cross-built arm64
+asset remains preview-only until equivalent native arm64 evidence exists.
+Joint SFC/partner acceptance remains a separate manual gate and is not claimed
+by this candidate.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_0_2_0_rc_2"><a class="anchor" href="#_0_2_0_rc_2"></a>0.2.0-rc.2</h2>
 <div class="sectionbody">
@@ -213,12 +257,13 @@ other.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The supported release scope remains Linux amd64 and arm64. Producer/partner
-acceptance, non-Linux executables, multi-host orchestration, general stateful
-migration, and automatic provisioning of cross-platform gateways remain
-outside this candidate. GraphQL, gRPC, and event-driven runtime probes beyond
-the documented safe profile remain standards-led roadmap work rather than an
-<code>rc.2</code> blocker.</p>
+<p>Linux amd64 is the release-accepted executable target. The published arm64
+executable is a cross-built preview and is not a supported final-release target
+until equivalent native arm64 evidence exists. Producer/partner acceptance,
+non-Linux executables, multi-host orchestration, general stateful migration,
+and automatic provisioning of cross-platform gateways remain outside this
+candidate. GraphQL, gRPC, and event-driven runtime probes beyond the documented
+safe profile remain standards-led roadmap work rather than an <code>rc.2</code> blocker.</p>
 </div>
 <div class="paragraph">
 <p>The candidate assets and verification procedure are the same classes described
