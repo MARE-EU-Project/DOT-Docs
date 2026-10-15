@@ -308,10 +308,12 @@ dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</cod
 <p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
 service-port, CDI, and sensitive-default relationships. Use <code>--profile
 reusable</code> before publishing a stable reusable DOT. That profile additionally
-requires every Anchor to be Contract-backed, resolves every selector against
-the complete Contract, rejects unused Contracts, and requires every deployment
-to bind every Anchor exactly once through a service that declares the same
-Contract.</p>
+requires at least one pinned Contract, resolves every Contract-backed Anchor
+selector against the complete Contract, rejects unused Contracts, and requires
+every deployment to bind each Contract-backed provided Anchor exactly once
+through a service that declares the same Contract. Explicit contractless
+Anchors retain base-validation evidence only; they are never silently promoted
+to Contract-backed interoperability.</p>
 </div>
 <div class="paragraph">
 <p>Reusable Contract wrappers live below the DOT bundle&#8217;s <code>contracts/</code> directory.

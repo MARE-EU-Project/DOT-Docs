@@ -158,14 +158,14 @@ authoritative asset for every capability UUID referenced by the catalogue and
 links each capability to one of the five controlled MARE categories.</p>
 </div>
 <div class="paragraph">
-<p><code>dotx validate DOT-Repository</code> resolves all 80 DOT definitions against that
+<p><code>dotx validate DOT-Repository</code> resolves all 67 DOT definitions against that
 catalogue and rejects missing capabilities, category assets used as
 capabilities, duplicate references, and invalid category links.
 <code>dotx repository list --skill &lt;uuid-or-name&gt;</code> and <code>--category
 &lt;uuid-or-name&gt;</code> provide resolved, machine-readable discovery without copying
 category fields into every <code>dot.json</code>. The exact pinned revisions are DOT-CLI
-<code>7554d0b0e98f50e094cd93edcc092baf82399cdb</code> and DOT-Repository
-<code>5264765f63fa0f6baa242871e88d44d17ef413d2</code>.</p>
+<code>036133f708b93a36a8bc7607dcaec07812db0719</code> and DOT-Repository
+<code>8a5e08b0e31306b52aa951d879e5fc7a72ca4207</code>.</p>
 </div>
 <div class="paragraph">
 <p>The audit also reconfirmed the existing DOT-side dispositions for stable
@@ -173,6 +173,23 @@ Anchor identity and semantics, authoritative payload Contracts,
 service-scoped pre-deployment configuration validation, and single-file
 <code>dot.json</code> authoring. The separate DOT-Registry REST API remains outside this
 candidate, and joint SFC/partner acceptance remains a manual gate.</p>
+</div>
+<div class="paragraph">
+<p>External products now have one canonical reusable DOT root rather than
+PoC-specific identities. Seventeen product roots plus two shared external test
+fixtures replace the former duplicated Keycloak, OPA, Prometheus,
+Elasticsearch, and APISIX definitions. PoC realms, policies, routes, scrape
+targets, data sources, secrets, and files remain composition-owned inputs;
+unavoidable source adaptations are named deployment variants under the same
+product UUID. Repository validation rejects any new deployable definition
+below <code>DOTs/external/pocs/</code>.</p>
+</div>
+<div class="paragraph">
+<p>Composition lifecycle commands preserve the exact deployment ID rather than
+reducing it to a manifest type. The <code>--deployment</code> selector prefers an exact ID
+and accepts a manifest type or alias only when it identifies one deployment,
+so source-adapted and upstream deployments of the same type cannot be selected
+silently.</p>
 </div>
 <div class="paragraph">
 <p>Catalogue placement now records ownership rather than Contract maturity:

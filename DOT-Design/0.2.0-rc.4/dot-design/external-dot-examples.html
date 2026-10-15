@@ -187,7 +187,25 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_catalogued_examples"><a class="anchor" href="#_catalogued_examples"></a>Catalogued examples</h2>
+<h2 id="_canonical_external_catalogue"><a class="anchor" href="#_canonical_external_catalogue"></a>Canonical external catalogue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The external catalogue currently has one root for each of these 17 products:
+APISIX, cAdvisor, Elasticsearch, Filebeat, Grafana, GraphDB, InfluxDB,
+Keycloak, Kibana, Loki, Eclipse Mosquitto, Prometheus node-exporter, OPA,
+OpenTelemetry Collector, Oxigraph, Prometheus, and Wireshark. PoC compositions
+reuse those identities and supply routes, realms, policies, scrape targets,
+data sources, credentials, files, and deployment selection as instance inputs.
+They do not create <code>pocN-*</code> copies of the product.</p>
+</div>
+<div class="paragraph">
+<p>The following four products form the bounded release stress matrix. They are
+not the complete external catalogue.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_release_stress_matrix"><a class="anchor" href="#_release_stress_matrix"></a>Release stress matrix</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -210,8 +228,8 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak-DOT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bitnami <code>HELM_CHART</code> <code>25.2.0</code>; official Keycloak <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.3.3 Admin REST OpenAPI; <code>GET /admin/realms/{realm}</code> provider Anchor; bound in both deployments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitnami <code>HELM_CHART</code> <code>25.2.0</code>; official Keycloak <code>DOCKER_COMPOSE</code>; official and PoC1 evidence <code>DOCKER_IMAGE</code> variants</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.3.3 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Anchors</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and Compose <code>start-dev</code>; readiness; obtain an admin token and assert <code>GET /admin/realms/master</code> returns the master realm through both mechanisms</p></td>
 </tr>
 <tr>
@@ -224,8 +242,8 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Prometheus-DOT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Community <code>HELM_CHART</code> <code>29.37.0</code>; official Prometheus <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Prometheus 3.15.0 OpenAPI 3.1 artifact; <code>GET /status/buildinfo</code> provider Anchor; bound in both deployments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Community <code>HELM_CHART</code> <code>29.37.0</code>; official Prometheus <code>DOCKER_COMPOSE</code> image pinned by digest; <code>DOCKER_IMAGE</code> for composition-owned scrape configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Prometheus 3.15.0 OpenAPI 3.1 artifact for build information and PromQL; explicit contractless scrape-target requirement materialized through <code>prometheus.yml</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact server Deployment binding; readiness; assert <code>/api/v1/status/buildinfo</code> reports version <code>3.15.0</code> through both mechanisms</p></td>
 </tr>
 <tr>
@@ -239,7 +257,7 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 </table>
 <div class="paragraph">
 <p>Each product is kept under <code>DOTs/external/</code> because it is owned outside MARE,
-with both tested deployment mechanisms in the same <code>dot.json</code>. Ownership does
+with its supported deployment mechanisms in the same <code>dot.json</code>. Ownership does
 not imply interoperability maturity. Keycloak and Prometheus publish adjacent
 official Contract evidence and pass the strict reusable profile. Loki and
 Wireshark currently provide runtime evidence only; they must not be
