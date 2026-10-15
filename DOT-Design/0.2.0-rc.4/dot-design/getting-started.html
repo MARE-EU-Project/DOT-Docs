@@ -306,10 +306,14 @@ dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</cod
 </div>
 <div class="paragraph">
 <p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
-service-port, CDI, and sensitive-default relationships. Use <code>--profile
+service-port, CDI, and sensitive-default relationships. Every declared Contract
+ID must resolve to an adjacent pinned asset below <code>contracts/</code> or the containing
+repository&#8217;s canonical <code>Contracts/</code> catalogue, including in testing and sample
+DOTs; missing IDs, invalid provenance or digests, and unresolved Anchor
+selectors always fail validation. Adjacent assets take precedence for bundles
+that must remain independently distributable. Use <code>--profile
 reusable</code> before publishing a stable reusable DOT. That profile additionally
-requires at least one pinned Contract, resolves every Contract-backed Anchor
-selector against the complete Contract, rejects unused Contracts, and requires
+requires at least one pinned Contract, rejects unused Contracts, and requires
 every deployment to bind each Contract-backed provided Anchor exactly once
 through a service that declares the same Contract. Explicit contractless
 Anchors retain base-validation evidence only; they are never silently promoted
