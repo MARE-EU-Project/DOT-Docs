@@ -143,7 +143,10 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - standard: ContractStandard
       - format: DataFormat
       - payload: String
+      - payloadUrl: URI
+      - payloadSha256: String
       --
+      + isPayloadSourceValid(): boolean
       + isFormatCompatibleWithStandard(): boolean
     }
 
@@ -455,7 +458,7 @@ eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Metadata 
 eu_mare6g_dot_domain_Dot "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_Skill : skills (ref)
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_anchor_Anchor : anchors
-eu_mare6g_dot_domain_Dot "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_contract_Contract : contracts (ref)
+eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_contract_Contract : contracts
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]left- "0..*" eu_mare6g_dot_domain_runtime_Runtime : runtimes
 eu_mare6g_dot_domain_anchor_Anchor "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_anchor_AnchorContract : contract
 eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_anchor_AnchorDirection : direction

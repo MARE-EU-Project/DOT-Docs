@@ -307,11 +307,13 @@ dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</cod
 <div class="paragraph">
 <p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
 service-port, CDI, and sensitive-default relationships. Every declared Contract
-ID must resolve to an adjacent pinned asset below <code>contracts/</code> or the containing
-repository&#8217;s canonical <code>Contracts/</code> catalogue, including in testing and sample
-DOTs; missing IDs, invalid provenance or digests, and unresolved Anchor
-selectors always fail validation. Adjacent assets take precedence for bundles
-that must remain independently distributable. Use <code>--profile
+must either be complete in <code>dot.json</code> or resolve to a transition asset below
+<code>contracts/</code> or the containing repository&#8217;s legacy <code>Contracts/</code> catalogue.
+A URL-backed definition declares <code>payloadUrl</code> and <code>payloadSha256</code>; validation
+downloads the exact bytes, rejects non-HTTPS or mutable raw-GitHub branch URLs,
+verifies the digest, parses the declared standard/format, and resolves Anchor
+selectors. Missing IDs, incomplete declarations, digest mismatches, and
+unresolved selectors always fail validation. Use <code>--profile
 reusable</code> before publishing a stable reusable DOT. That profile additionally
 requires at least one pinned Contract, rejects unused Contracts, and requires
 every deployment to bind each Contract-backed provided Anchor exactly once
@@ -320,13 +322,18 @@ Anchors retain base-validation evidence only; they are never silently promoted
 to Contract-backed interoperability.</p>
 </div>
 <div class="paragraph">
-<p>Reusable Contract wrappers live below the DOT bundle&#8217;s <code>contracts/</code> directory.
-They carry the Contract identity plus an absolute HTTPS provenance source,
-immutable revision, and SHA-256 of either an inline payload or a safe relative
-<code>payloadFile</code>. This permits an exact, unmodified official OpenAPI, AsyncAPI,
-Protocol Buffers, or GraphQL artifact to be stored separately while validation
-remains deterministic and offline. Inspection provides a normalized,
-machine-readable view without deploying anything.</p>
+<p>For an external product, prefer a complete root Contract declaration pointing
+to an official versioned vendor raw file. A full Git commit or release-version
+tag is accepted for <code>raw.githubusercontent.com</code>; <code>main</code>, <code>master</code>, and other
+mutable branch names are rejected. When no official raw machine-readable
+Contract exists, do not fabricate vendor provenance: retain a clearly attributed
+derived/adapter Contract until it can be migrated. Adjacent wrappers remain a
+transition mechanism for internal, testing, sample, and composition fixtures.
+Use <code>dotx validate --offline</code> only when a matching local wrapper is present;
+offline validation verifies that its identity, metadata, and payload SHA-256
+match the URL-backed declaration without contacting the vendor.
+Inspection provides a normalized, machine-readable view without deploying
+anything.</p>
 </div>
 </div>
 </div>
