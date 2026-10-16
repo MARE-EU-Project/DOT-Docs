@@ -306,10 +306,13 @@ task ci:all</code></pre>
 </div>
 <div class="paragraph">
 <p>The live gate requires Docker, Minikube, Kubernetes, Helm, Wasmtime,
-Vagrant/libvirt, writable KVM access, and <code>WASI_HTTP_COMPONENT</code> pointing to the
-built, pinned official <code>sample-wasi-http-rust</code> component. The variable is
-required so a local run cannot silently omit the WASI HTTP assertions that run
-in GitHub Actions. The live gate performs runtime mutation and cleanup;
+Vagrant/libvirt, writable KVM access, Rust 1.86.0 with the <code>wasm32-wasip2</code>
+target, and network access for the first official WASI HTTP sample build. The
+shared task fetches the exact pinned <code>sample-wasi-http-rust</code> revision into an
+ignored test cache, builds it with Cargo, and passes it to the runtime test, so
+local and GitHub executions cannot silently omit the WASI HTTP assertions.
+Set <code>WASI_HTTP_COMPONENT</code> only to reuse an already built component. The live
+gate performs runtime mutation and cleanup;
 <code>ci:deterministic</code> is the normal pre-push default.</p>
 </div>
 <div class="paragraph">
