@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Integration handoff :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.8/dot-design/integration-handoff.html">
-    <link rel="prev" href="external-dot-examples.html">
-    <link rel="next" href="release-notes.html">
-    <meta name="description" content="Technology-neutral requirements for catalogues, composers, and Security Function Composition consumers of DOT Anchors.">
+    <title>DOT-Design :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0/dot-design/index.html">
+    <link rel="next" href="getting-started.html">
+    <meta name="description" content="Architecture, domain model, repository catalogue, and composition tooling for Dynamic Open Trust components.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -33,9 +32,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.0-rc.8/_exports/DOT-Design-0.2.0-rc.8.pdf"
-              download="DOT-Design-0.2.0-rc.8.pdf"
-              title="Download DOT-Design 0.2.0-rc.8 as PDF"
+              href="../../../DOT-Design/0.2.0/_exports/DOT-Design-0.2.0.pdf"
+              download="DOT-Design-0.2.0.pdf"
+              title="Download DOT-Design 0.2.0 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -44,7 +43,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.8">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -56,7 +55,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">DOT-Design</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -92,7 +91,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -115,14 +114,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.0-rc.8</span>
+    <span class="version">0.2.0</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.0-rc.8</a>
+          <a href="index.html">0.2.0</a>
         </li>
       </ul>
     </li>
@@ -134,177 +133,264 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="index.html" class="home-link"></a>
+  <a href="index.html" class="home-link is-current"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="integration-handoff.html">Integration handoff</a></li>
+    <li><a href="index.html">Overview</a></li>
   </ul>
 </nav>
 </div>
   <div class="content">
-<aside class="toc sidebar" data-title="Contents" data-levels="3">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Integration handoff</h1>
+<h1 class="page">DOT-Design</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This handoff defines the interoperability boundary for a team implementing a
-catalogue, composer, Security Function Composer adapter, or other DOT consumer.
-It intentionally does not prescribe a service, database, API style, language,
-or framework.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_authoritative_inputs"><a class="anchor" href="#_authoritative_inputs"></a>Authoritative inputs</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The reference source of reusable definitions is <code>DOT-Repository</code>. Resolve a DOT
-by its immutable UUID and pinned version, then verify the returned <code>dot.json</code>
-matches both. Resolve referenced Contract payloads without copying their
-protocol, schema, media, or security facts into an Anchor.</p>
+<p>DOT-Design defines the portable model and reference tooling used to describe,
+validate, deploy, and compose Dynamic Open Trust (DOT) components in the MARE
+6G security ecosystem.</p>
 </div>
 <div class="paragraph">
-<p>Use these commands as executable reference behavior:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
-dotx validate DOT-Repository
-dotx compose validate composition.yaml
-dotx compose plan composition.yaml --json</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>An implementation may expose equivalent behavior through REST, gRPC, events,
-an SDK, or an embedded library. Its external contract should be versioned and
-tested independently from the DOT model.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_disposition_of_legacy_sfc_requests"><a class="anchor" href="#_disposition_of_legacy_sfc_requests"></a>Disposition of legacy SFC requests</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The original SFC issues 6 through 9 predate the stable repository-backed model.
-Their consumer needs are handled at the integration boundary without creating
-parallel sources of truth:</p>
+<p>A DOT packages four concerns without collapsing them into one runtime-specific
+description:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Parameter forms:</strong> derive an SFC-facing form from exact service-scoped
-environment and configuration declarations plus authoritative Contract
-schemas. Composition validation rejects missing or ambiguous required inputs
-before runtime mutation. A duplicate root <code>params</code> model is not defined.</p>
+<p><strong>capability</strong>&#8201;&#8212;&#8201;Skills describe what the component does;</p>
 </li>
 <li>
-<p><strong>Skill search:</strong> resolve stable <code>Skill</code> UUID references through the
-authoritative <code>DOT-Repository/Skills/</code> catalogue. Every referenced capability
-has one category there; <code>dotx repository list --skill &lt;uuid-or-name&gt;</code> and
-<code>--category &lt;uuid-or-name&gt;</code> expose the tested consumer projection without
-copying names or categories into every DOT as a second controlled vocabulary.</p>
+<p><strong>contract</strong>&#8201;&#8212;&#8201;OpenAPI, AsyncAPI, Protobuf, or GraphQL documents describe
+authoritative interactions;</p>
 </li>
 <li>
-<p><strong>Catalogue API:</strong> <code>DOT-Repository</code> and <code>dotx repository</code> define reference
-behavior. A catalogue team may expose equivalent queries through any
-versioned API; DOT-Design does not own or prescribe that service.</p>
+<p><strong>composition</strong>&#8201;&#8212;&#8201;Anchors give selected Contract operations stable identities
+and <code>PROVIDES</code> or <code>REQUIRES</code> roles; and</p>
 </li>
 <li>
-<p><strong>Low-barrier authoring:</strong> a DOT author may hand-write one <code>dot.json</code>, place its
-folder under the appropriate recursive <code>DOT-Repository/DOTs/</code> category, and
-validate the whole filesystem catalogue with <code>dotx validate DOT-Repository</code>.
-There is no duplicate inventory file or wrapper script. This path requires no
-Maven, Jsonnet, MongoDB, or running service.
-<code>dot.json</code> remains the sole deployment definition; a parallel YAML format and
-inline copies of referenced entities are intentionally not introduced.</p>
+<p><strong>deployment</strong>&#8201;&#8212;&#8201;Runtimes and deployment manifests describe where and how the
+component can run.</p>
 </li>
 </ul>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>These dispositions settle DOT-side model ownership. They do not replace joint
-SFC acceptance or prove a partner catalogue/search implementation.</p>
+<p><code>dot.json</code> is the deployable DOT definition and the only source inspected by
+<code>dotx deploy</code>. Connections between deployed DOT instances are described in a
+separate composition document. Concrete addresses, credentials, and live
+policy results never become Anchor fields.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_required_semantics"><a class="anchor" href="#_required_semantics"></a>Required semantics</h2>
+<h2 id="_documentation_map"><a class="anchor" href="#_documentation_map"></a>Documentation map</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>An interoperable consumer must:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Read</th>
+<th class="tableblock halign-left valign-top">When you need to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="getting-started.html" class="xref page">Getting started</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build the project, validate a DOT, inspect a composition plan, or generate
+  this documentation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="architecture.html" class="xref page">Architecture</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Understand repository boundaries, sources of truth, runtime/deployment
+  separation, and the composition resolution path.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Author Anchors, bind them to services, connect DOT instances, materialize
+  configuration, handle security inputs, and operate a composition.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="verification-and-examples.html" class="xref page">Verification and examples</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose conformance, dry-run, source-adapted, or live evidence and find the
+  executable MARE PoC scenarios.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../dot-domain/index.html" class="xref page">DOT-Domain</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Work with the Java aggregate, value objects, validation, Contracts, Runtimes,
+  and deployment manifests.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="integration-handoff.html" class="xref page">Integration handoff</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implement a catalogue, composer, or SFC adapter without coupling to a
+  specific service, language, framework, or storage technology.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>address DOTs, Contracts, and Anchors by stable UUID and pin DOT versions;</p>
-</li>
-<li>
-<p>resolve contract-backed selectors against the authoritative OpenAPI,
-AsyncAPI, Protocol Buffers, or GraphQL document;</p>
-</li>
-<li>
-<p>use <code>anchorBindings</code> to map a logical Anchor to a named service port;</p>
-</li>
-<li>
-<p>keep instance topology, endpoints, parameter values, credentials, and policy
-outside reusable DOT definitions;</p>
-</li>
-<li>
-<p>evaluate compatibility conservatively and preserve <code>UNKNOWN</code> as distinct
-from <code>COMPATIBLE</code>; and</p>
-</li>
-<li>
-<p>keep secret values out of DOTs, plans, persisted state, and logs.</p>
-</li>
-</ul>
 </div>
+<div class="sect1">
+<h2 id="_repository_components"><a class="anchor" href="#_repository_components"></a>Repository components</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 50%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Responsibility</th>
+<th class="tableblock halign-left valign-top">Build ecosystem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Domain</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java domain model and validation library. It is not a web application.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maven 3.10.0 / Java 27</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-CLI</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Independent <code>dotx</code> CLI for authoring support, validation, inspection,
+  deployment, runtime lifecycle, and the provisional composition executor.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.27.2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Repository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Independently cloneable Git submodule containing reusable DOT definitions,
+the generated JSON Schema, and optional high-level Skill classifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Git submodule</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository-level conformance, composition, interoperability, and end-to-end
+  evidence. It is test infrastructure, not a Maven module.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maven, Go, shell, container tools</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supported_contract_standards"><a class="anchor" href="#_supported_contract_standards"></a>Supported Contract standards</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Standard</th>
+<th class="tableblock halign-left valign-top">Anchor selector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protobuf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified service method</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root-field schema coordinate</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>Contractless Anchors are valid only when a supported Contract standard cannot
-describe the interaction. Their explicit direction, protocols, media types,
-and semantic types must be complementary before a wire is accepted.</p>
+<p>Contractless Anchors remain available for interactions that cannot be described
+by one of these standards. They must declare direction, protocol, and media type
+explicitly.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acceptance_evidence"><a class="anchor" href="#_acceptance_evidence"></a>Acceptance evidence</h2>
+<h2 id="_maturity_and_scope"><a class="anchor" href="#_maturity_and_scope"></a>Maturity and scope</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The versioned consumer profile is under
-<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
-verifies the committed composition lock, and plans 12 compatible wires across
-all supported Contract standards and versions.</p>
+<p>The DOT-owned Anchor model, service-port binding, generated schema, repository
+resolution, conformance fixtures, <code>dot.mare6g.eu/v1</code> composition document, and
+<code>dotx compose</code> executor form the stable 0.2.0 Composition v1 profile.</p>
 </div>
+<div class="paragraph">
+<p>The reference executor is intentionally fail-closed. It does not claim to be a
+general multi-host orchestrator, trust-policy engine, active security scanner,
+or replacement for Kubernetes, Helm, Docker, Vagrant, or an SFC implementation.
+See <a href="anchors-and-composition.html#release-status-and-supported-profile" class="xref page">the
+supported composition profile</a> for the exact boundary.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_first_steps"><a class="anchor" href="#_first_steps"></a>First steps</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:anchors:acceptance
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Domain unit tests; no MongoDB required
+mvn -pl DOT-Domain test
+
+# Install the pinned CLI checkout on PATH
+task cli:install
+
+# Validate and inspect the canonical composition example
+dotx compose validate DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
+dotx compose plan DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
+
+# Run the complete Anchor/composition repository gate
 task testing:conformance</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Passing the deterministic profile proves discovery and planning semantics. A
-joint live test must separately prove endpoint reachability, credential and
-token handling, authorization, policy enforcement, and application behavior.</p>
+<p>Continue with <a href="getting-started.html" class="xref page">Getting started</a> for prerequisites and
+command context.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_future_implementation_freedom"><a class="anchor" href="#_future_implementation_freedom"></a>Future implementation freedom</h2>
+<h2 id="_project_links"><a class="anchor" href="#_project_links"></a>Project links</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The removed catalogue-service prototype is not part of the production architecture. A
-future team may replace it or implement discovery elsewhere in a
-different language or framework. Compatibility is judged by the stable DOT
-model and executable acceptance profile, not by reproducing the prototype&#8217;s
-internal classes or former HTTP response shapes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://mare6g.eu/">MARE project</a></p>
+</li>
+<li>
+<p><a href="https://mare6g.eu/pocs/">MARE proof-of-concept catalogue</a></p>
+</li>
+<li>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design">DOT-Design source repository</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="external-dot-examples.html">External DOT examples</a></span>
-  <span class="next"><a href="release-notes.html">Release notes</a></span>
+  <span class="next"><a href="getting-started.html">Getting started</a></span>
 </nav>
 </article>
   </div>

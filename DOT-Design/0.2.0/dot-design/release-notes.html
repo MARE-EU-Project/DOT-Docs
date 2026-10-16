@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Release notes :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.8/dot-design/release-notes.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0/dot-design/release-notes.html">
     <link rel="prev" href="integration-handoff.html">
     <link rel="next" href="../dot-domain/index.html">
     <meta name="generator" content="Antora 3.2.1">
@@ -32,9 +32,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.0-rc.8/_exports/DOT-Design-0.2.0-rc.8.pdf"
-              download="DOT-Design-0.2.0-rc.8.pdf"
-              title="Download DOT-Design 0.2.0-rc.8 as PDF"
+              href="../../../DOT-Design/0.2.0/_exports/DOT-Design-0.2.0.pdf"
+              download="DOT-Design-0.2.0.pdf"
+              title="Download DOT-Design 0.2.0 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -43,7 +43,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.8">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -114,14 +114,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.0-rc.8</span>
+    <span class="version">0.2.0</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.0-rc.8</a>
+          <a href="index.html">0.2.0</a>
         </li>
       </ul>
     </li>
@@ -147,6 +147,29 @@
 </aside>
 <article class="doc">
 <h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="_0_2_0"><a class="anchor" href="#_0_2_0"></a>0.2.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>0.2.0</code> promotes the fully accepted <code>0.2.0-rc.8</code> candidate as the first stable
+release of the <code>dot.mare6g.eu/v1</code> composition profile. There are no behavioral
+changes from that candidate: the stable tag regenerates the versioned domain
+artifact, schemas, SBOMs, documentation, and Linux CLI assets from the same
+pinned DOT-CLI
+<code>4f415d43f08bb546d333ab61d6de272e92113903</code> and DOT-Repository
+<code>2fe0ecc81f9caea43c5bf6e0dc824c3e0faf34e3</code> revisions.</p>
+</div>
+<div class="paragraph">
+<p>The release pipeline classifies <code>0.2.0</code> as stable and publishes it as the
+latest GitHub release. Before promotion, <code>0.2.0-rc.8</code> passed the full pushed
+commit matrix, reproducible release packaging, and post-publication Linux amd64
+acceptance using the downloaded checksummed binary, including two repeated
+external-DOT lifecycle and cleanup cycles. Arm64 remains a cross-built preview
+until equivalent native evidence exists, and joint SFC acceptance remains a
+separate integration activity.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_0_2_0_rc_8"><a class="anchor" href="#_0_2_0_rc_8"></a>0.2.0-rc.8</h2>
 <div class="sectionbody">
