@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Getting started :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.7/dot-design/getting-started.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.8/dot-design/getting-started.html">
     <link rel="prev" href="index.html">
     <link rel="next" href="architecture.html">
     <meta name="description" content="Build DOT-Design, validate repository DOTs, inspect a composition plan, and generate the documentation.">
@@ -33,9 +33,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.0-rc.7/_exports/DOT-Design-0.2.0-rc.7.pdf"
-              download="DOT-Design-0.2.0-rc.7.pdf"
-              title="Download DOT-Design 0.2.0-rc.7 as PDF"
+              href="../../../DOT-Design/0.2.0-rc.8/_exports/DOT-Design-0.2.0-rc.8.pdf"
+              download="DOT-Design-0.2.0-rc.8.pdf"
+              title="Download DOT-Design 0.2.0-rc.8 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -44,7 +44,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.7">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.8">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -115,14 +115,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.0-rc.7</span>
+    <span class="version">0.2.0-rc.8</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.0-rc.7</a>
+          <a href="index.html">0.2.0-rc.8</a>
         </li>
       </ul>
     </li>
@@ -181,7 +181,7 @@ domain, repository, and CLI checks before running live deployment scenarios.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Building and testing <code>dotx</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.25+</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.27.2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Task</p></td>
@@ -196,7 +196,8 @@ domain, repository, and CLI checks before running live deployment scenarios.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Antora, the Antora PDF extension, Asciidoctor PDF, and Mermaid CLI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Building the HTML/PDF documentation site and Mermaid diagrams</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="#build-the-documentation">Build the documentation</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node.js 26 and Ruby 4.0 plus the versions checked by <code>task docs:check</code>; see
+  <a href="#build-the-documentation">Build the documentation</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -306,7 +307,7 @@ task ci:all</code></pre>
 </div>
 <div class="paragraph">
 <p>The live gate requires Docker, Minikube, Kubernetes, Helm, Wasmtime,
-Vagrant/libvirt, writable KVM access, Rust 1.86.0 with the <code>wasm32-wasip2</code>
+Vagrant/libvirt, writable KVM access, Rust 1.98.1 with the <code>wasm32-wasip2</code>
 target, and network access for the first official WASI HTTP sample build. The
 shared task fetches the exact pinned <code>sample-wasi-http-rust</code> revision into an
 ignored test cache, builds it with Cargo, and passes it to the runtime test, so
