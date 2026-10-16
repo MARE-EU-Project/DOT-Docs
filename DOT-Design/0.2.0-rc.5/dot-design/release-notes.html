@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Release notes :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.4/dot-design/release-notes.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.0-rc.5/dot-design/release-notes.html">
     <link rel="prev" href="integration-handoff.html">
     <link rel="next" href="../dot-domain/index.html">
     <meta name="generator" content="Antora 3.2.1">
@@ -32,9 +32,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.0-rc.4/_exports/DOT-Design-0.2.0-rc.4.pdf"
-              download="DOT-Design-0.2.0-rc.4.pdf"
-              title="Download DOT-Design 0.2.0-rc.4 as PDF"
+              href="../../../DOT-Design/0.2.0-rc.5/_exports/DOT-Design-0.2.0-rc.5.pdf"
+              download="DOT-Design-0.2.0-rc.5.pdf"
+              title="Download DOT-Design 0.2.0-rc.5 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -43,7 +43,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.4">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0-rc.5">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -114,14 +114,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.0-rc.4</span>
+    <span class="version">0.2.0-rc.5</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.0-rc.4</a>
+          <a href="index.html">0.2.0-rc.5</a>
         </li>
       </ul>
     </li>
@@ -148,6 +148,54 @@
 <article class="doc">
 <h1 class="page">Release notes</h1>
 <div class="sect1">
+<h2 id="_0_2_0_rc_5"><a class="anchor" href="#_0_2_0_rc_5"></a>0.2.0-rc.5</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>0.2.0-rc.5</code> supersedes <code>0.2.0-rc.4</code> with one fail-closed representation for
+complete Contract payloads. The stable <code>dot.mare6g.eu/v1</code> composition profile,
+runtime adapters, lifecycle behavior, Skill taxonomy, and reusable catalogue
+structure are unchanged. The exact pinned revisions are DOT-CLI
+<code>b01f736393caa1a93d32e2c5593e032e854052ac</code> and DOT-Repository
+<code>d0b7fc1f3aac13a2b785482b07d5529f1d53404f</code>.</p>
+</div>
+<div class="paragraph">
+<p>Complete Contract declarations now carry a structured <code>payload</code> object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"payload": {
+  "url": "https://vendor.example/contracts/service-openapi.yaml",
+  "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The URL must be absolute HTTPS without user information or a fragment, and the
+digest must be exactly 64 lowercase hexadecimal characters. Raw embedded
+Contract documents and the former flat <code>payloadUrl</code>/<code>payloadSha256</code> fields now
+fail schema and <code>dotx validate</code> checks. UUID-only Contract references remain a
+migration-compatible form for verified repository-local wrapper definitions.</p>
+</div>
+<div class="paragraph">
+<p><code>dotx validate</code> downloads the authoritative bytes, verifies their digest, and
+uses <code>MARE_READ_ONLY_TOKEN</code> or <code>GITHUB_TOKEN</code> only for
+<code>raw.githubusercontent.com</code>. Authorization is removed before following a
+cross-host redirect. Unit and repository tests cover malformed URLs and
+digests, unavailable assets, digest mismatch, authentication scoping, redirect
+credential leakage, inline payload rejection, flat-field rejection, and the
+official external Contract composition. The standalone DOT-Repository gate
+also runs the pinned validator directly for every catalogue revision.</p>
+</div>
+<div class="paragraph">
+<p>GitHub Actions and local pre-push verification now share root <code>ci:*</code> Taskfile
+gates. <code>task ci:deterministic</code> covers the deterministic non-live release
+boundary; <code>task ci:live</code> covers the mutable Linux runtime workflows and
+requires the same official WASI HTTP component exercised by Actions,
+preventing a reduced local test path from being mistaken for workflow parity.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_0_2_0_rc_4"><a class="anchor" href="#_0_2_0_rc_4"></a>0.2.0-rc.4</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -163,9 +211,9 @@ catalogue and rejects missing capabilities, category assets used as
 capabilities, duplicate references, and invalid category links.
 <code>dotx repository list --skill &lt;uuid-or-name&gt;</code> and <code>--category
 &lt;uuid-or-name&gt;</code> provide resolved, machine-readable discovery without copying
-category fields into every <code>dot.json</code>. The exact pinned revisions are DOT-CLI
-<code>b01f736393caa1a93d32e2c5593e032e854052ac</code> and DOT-Repository
-<code>d0b7fc1f3aac13a2b785482b07d5529f1d53404f</code>.</p>
+category fields into every <code>dot.json</code>. The exact published revisions were
+DOT-CLI <code>3069f907bfd2056b16b92800bb5b98552c28832d</code> and DOT-Repository
+<code>3117a18da3004c57f4edf3714494fd3954225ae7</code>.</p>
 </div>
 <div class="paragraph">
 <p>The audit also reconfirmed the existing DOT-side dispositions for stable
@@ -183,14 +231,6 @@ targets, data sources, secrets, and files remain composition-owned inputs;
 unavoidable source adaptations are named deployment variants under the same
 product UUID. Repository validation rejects any new deployable definition
 below <code>DOTs/external/pocs/</code>.</p>
-</div>
-<div class="paragraph">
-<p>Complete Contract declarations now use one structured <code>payload</code> object with
-an HTTPS <code>url</code> and mandatory lowercase <code>sha256</code>. Raw embedded Contract strings
-and the former flat <code>payloadUrl</code>/<code>payloadSha256</code> fields fail schema validation.
-<code>dotx validate</code> verifies the downloaded bytes and can authenticate private raw
-GitHub assets with <code>MARE_READ_ONLY_TOKEN</code> (or <code>GITHUB_TOKEN</code>); credentials are
-not persisted and authorization is removed from cross-host redirects.</p>
 </div>
 <div class="paragraph">
 <p>Composition lifecycle commands preserve the exact deployment ID rather than
