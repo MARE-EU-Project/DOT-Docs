@@ -142,12 +142,17 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - version: Version
       - standard: ContractStandard
       - format: DataFormat
-      - payload: String
-      - payloadUrl: URI
-      - payloadSha256: String
+      - payload: ContractPayload
       --
       + isPayloadSourceValid(): boolean
       + isFormatCompatibleWithStandard(): boolean
+    }
+
+    class "ContractPayload" as eu_mare6g_dot_domain_contract_ContractPayload #F5F3FF {
+      - url: URI
+      - sha256: String
+      --
+      + isUrlValid(): boolean
     }
 
     enum "ContractStandard" as eu_mare6g_dot_domain_contract_ContractStandard #FFF7ED {
@@ -418,7 +423,8 @@ eu_mare6g_dot_domain_anchor_Anchor -[hidden]down- eu_mare6g_dot_domain_anchor_An
 eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorDirection
 eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorRole
 eu_mare6g_dot_domain_anchor_validation_AnchorSelectorSyntax -[hidden]down- eu_mare6g_dot_domain_anchor_validation_AnchorValidator
-eu_mare6g_dot_domain_contract_Contract -[hidden]down- eu_mare6g_dot_domain_contract_ContractStandard
+eu_mare6g_dot_domain_contract_Contract -[hidden]down- eu_mare6g_dot_domain_contract_ContractPayload
+eu_mare6g_dot_domain_contract_ContractPayload -[hidden]down- eu_mare6g_dot_domain_contract_ContractStandard
 eu_mare6g_dot_domain_deployment_AnchorBinding -[hidden]down- eu_mare6g_dot_domain_deployment_Deployment
 eu_mare6g_dot_domain_deployment_Deployment -[hidden]down- eu_mare6g_dot_domain_deployment_DeploymentManifestType
 eu_mare6g_dot_domain_deployment_DeploymentManifestType -[hidden]down- eu_mare6g_dot_domain_deployment_DeploymentService
@@ -465,6 +471,7 @@ eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_dom
 eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_anchor_AnchorRole : role
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
 eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
+eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_contract_ContractPayload : payload
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_contract_ContractStandard : standard
 eu_mare6g_dot_domain_deployment_DeploymentManifestType "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_runtime_platform_PlatformEngine : platform
 eu_mare6g_dot_domain_deployment_DeploymentService "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_contract_Contract : contracts (ref)

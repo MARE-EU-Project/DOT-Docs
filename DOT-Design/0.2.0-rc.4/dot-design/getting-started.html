@@ -309,8 +309,19 @@ dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</cod
 service-port, CDI, and sensitive-default relationships. Every declared Contract
 must either be complete in <code>dot.json</code> or resolve to a transition asset below
 <code>contracts/</code> or the containing repository&#8217;s legacy <code>Contracts/</code> catalogue.
-A URL-backed definition declares <code>payloadUrl</code> and <code>payloadSha256</code>; validation
-downloads the exact bytes, rejects non-HTTPS or mutable raw-GitHub branch URLs,
+A URL-backed definition declares one structured payload:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"payload": {
+  "url": "https://raw.githubusercontent.com/vendor/project/v1.2.3/openapi.yaml",
+  "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Raw Contract text and the former flat <code>payloadUrl</code>/<code>payloadSha256</code> shape are
+rejected. Validation downloads the exact bytes, rejects non-HTTPS or mutable raw-GitHub branch URLs,
 verifies the digest, parses the declared standard/format, and resolves Anchor
 selectors. Missing IDs, incomplete declarations, digest mismatches, and
 unresolved selectors always fail validation. Use <code>--profile
@@ -332,6 +343,9 @@ transition mechanism for internal, testing, sample, and composition fixtures.
 Use <code>dotx validate --offline</code> only when a matching local wrapper is present;
 offline validation verifies that its identity, metadata, and payload SHA-256
 match the URL-backed declaration without contacting the vendor.
+For private raw GitHub URLs, <code>dotx</code> reads <code>MARE_READ_ONLY_TOKEN</code>, falling back
+to <code>GITHUB_TOKEN</code>, and sends it only to <code>raw.githubusercontent.com</code>; credentials
+must never appear in <code>payload.url</code>.
 Inspection provides a normalized, machine-readable view without deploying
 anything.</p>
 </div>

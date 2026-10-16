@@ -164,8 +164,8 @@ capabilities, duplicate references, and invalid category links.
 <code>dotx repository list --skill &lt;uuid-or-name&gt;</code> and <code>--category
 &lt;uuid-or-name&gt;</code> provide resolved, machine-readable discovery without copying
 category fields into every <code>dot.json</code>. The exact pinned revisions are DOT-CLI
-<code>3069f907bfd2056b16b92800bb5b98552c28832d</code> and DOT-Repository
-<code>3117a18da3004c57f4edf3714494fd3954225ae7</code>.</p>
+<code>b01f736393caa1a93d32e2c5593e032e854052ac</code> and DOT-Repository
+<code>2ecd42f95b66a4635aabbb9e4276579dc3f98442</code>.</p>
 </div>
 <div class="paragraph">
 <p>The audit also reconfirmed the existing DOT-side dispositions for stable
@@ -183,6 +183,14 @@ targets, data sources, secrets, and files remain composition-owned inputs;
 unavoidable source adaptations are named deployment variants under the same
 product UUID. Repository validation rejects any new deployable definition
 below <code>DOTs/external/pocs/</code>.</p>
+</div>
+<div class="paragraph">
+<p>Complete Contract declarations now use one structured <code>payload</code> object with
+an HTTPS <code>url</code> and mandatory lowercase <code>sha256</code>. Raw embedded Contract strings
+and the former flat <code>payloadUrl</code>/<code>payloadSha256</code> fields fail schema validation.
+<code>dotx validate</code> verifies the downloaded bytes and can authenticate private raw
+GitHub assets with <code>MARE_READ_ONLY_TOKEN</code> (or <code>GITHUB_TOKEN</code>); credentials are
+not persisted and authorization is removed from cross-host redirects.</p>
 </div>
 <div class="paragraph">
 <p>Composition lifecycle commands preserve the exact deployment ID rather than
