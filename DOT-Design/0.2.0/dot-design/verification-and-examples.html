@@ -473,15 +473,15 @@ different meanings of “covered” into one percentage:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CLI statements</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:cli:coverage</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Measured and published as an artifact. The whole CLI has a 35% baseline, with
-  independent repository (80%), composition (75%), inspection (70%), Vagrant
-  (70%), and WebAssembly (60%) package ratchets. This is a code-execution metric,
-  not proof that a workload or security control works.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The whole CLI and every package containing executable statements must retain
+  100% statement coverage. The constant-only <code>feature/sources</code> package has no
+  testable statements. This is a code-execution metric, not proof that a
+  workload or security control works.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java instructions and branches</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mvn verify</code> through JaCoCo 0.8.15</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Java domain module must retain at least 95% instruction and 78% branch coverage.
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Java domain module must retain 100% instruction and branch coverage.
   JaCoCo HTML/XML/CSV reports are uploaded with the Java build evidence.</p></td>
 </tr>
 <tr>
