@@ -243,11 +243,13 @@ execution recoverable and auditable.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose probe</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation is reachable from the composition&#8217;s shared
-  Docker network or Kubernetes namespace. Anonymous results match a declared
-  response; supported OAuth results must match a declared <code>2xx</code> response.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Response-body conformance, mutating or multi-scheme operations,
-  authorization-policy quality, AsyncAPI delivery, or full application semantics.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation, GraphQL lifecycle, unary side-effect-free
+  gRPC method, or correlated AsyncAPI/MQTT message is observable from the
+  composition&#8217;s shared Docker network or Kubernetes namespace. GraphQL
+  mutations/subscriptions include mandatory verification or trigger and cleanup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete application semantics, streaming gRPC, non-MQTT AsyncAPI protocols,
+  multi-scheme authentication, authorization-policy quality, or unprobed
+  operations.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Creates and removes an ephemeral probe runner without changing member
   workloads; writes redacted probe evidence to composition state</p></td>
 </tr>
@@ -286,34 +288,77 @@ additionally requires it, and <code>--lock &lt;path&gt;</code> selects an explic
 mismatch fails before runtime mutation.</p>
 </div>
 <div class="paragraph">
-<p><code>probe</code> deliberately derives its request from the selected OpenAPI operation
-instead of introducing health-check fields in an Anchor. It accepts only
-<code>GET</code>, <code>HEAD</code>, and <code>OPTIONS</code>, requires one fully bound path, and executes a
-digest-pinned curl runner inside the common Docker network or Kubernetes
-namespace. The OAuth 2.0 adapter reuses one configured RFC 6749
+<p><code>probe</code> deliberately reuses the interaction selected by the wire instead of
+introducing health-check fields in an Anchor or DOT. For OpenAPI, it derives the
+request from the authoritative operation, accepts only <code>GET</code>, <code>HEAD</code>, and
+<code>OPTIONS</code>, and requires one fully bound path. The OAuth 2.0 adapter reuses one
+configured RFC 6749
 client-credentials binding that satisfies a complete, single-scheme OpenAPI
 Security Requirement alternative. It resolves the provider-derived token URL,
 client ID, scopes, and client-secret reference at execution time, then requires
 a Contract-declared <code>2xx</code> response from the protected operation. Kubernetes
 Secret values remain <code>secretKeyRef</code> references; Docker secrets are supplied
-only through the runner environment. Neither client-secret values nor bearer
-token values appear in the runner argument vector or state. Contractless, mutating,
-multi-scheme, non-HTTP, unresolved, and cross-platform wires are reported as
-unsupported rather than inferred healthy. Transport diagnostics and response
-bodies are not persisted; state contains only the wire, Contract, operation,
-adapter, security-mechanism identifier, status, outcome, normalized failure
-code, and UTC timestamp.</p>
+only through the runner environment.</p>
 </div>
 <div class="paragraph">
-<p>The non-HTTP standards are fully covered for definition, selector resolution,
-compatibility, endpoint selection, materialization, locking, and deterministic
-planning. They are intentionally not treated as generically live-probeable:
-AsyncAPI needs broker/protocol delivery semantics and an observable receiver;
-gRPC needs a request encoded against the selected method and must account for
-streaming; GraphQL needs a valid operation document, variables, selection set,
-and inspection of the response <code>errors</code> member. Those values are interaction
-fixtures or application inputs, not Anchor fields. A protocol adapter must add
-that explicit evidence before claiming live acceptance.</p>
+<p>For GraphQL, the composition supplies the deployment-specific HTTP path and a
+non-sensitive operation document with optional operation name and variables.
+Before planning succeeds, <code>dotx</code> parses the authoritative SDL, validates every
+document and variable set, requires exactly one direct top-level field, and
+requires that field to equal the Anchor-selected coordinate. It never guesses
+<code>/graphql</code>. Queries use HTTP directly. Mutations additionally declare an
+observable verification query and cleanup mutation. Subscriptions use the
+GraphQL-over-SSE protocol on a connection established before a separate trigger
+mutation and finish with a cleanup mutation. Every phase must return HTTP <code>2xx</code>
+without GraphQL errors; the expectation is evaluated against the query
+response, mutation verification result, or delivered subscription event.</p>
+</div>
+<div class="paragraph">
+<p>For gRPC, the composition supplies a protobuf-JSON request and optional JSON
+response expectation. The selected Proto3 RPC must be unary, declare the
+standard <code>NO_SIDE_EFFECTS</code> idempotency level, and be discoverable through
+explicitly enabled server reflection. Requests are validated against the input
+message descriptor before the pinned <code>grpcurl</code> runner starts. Streaming and
+unclassified methods fail closed.</p>
+</div>
+<div class="paragraph">
+<p>For AsyncAPI, the current active adapter requires a provider <code>send</code> operation,
+an explicit MQTT channel binding, a concrete non-wildcard channel address, and
+a JSON-Schema message payload. The composition declares the message, QoS, and
+RFC 6901 correlation pointer. The pinned Mosquitto runner subscribes before it
+publishes a fresh UUID-correlated, non-retained message and requires exact
+delivery within the timeout.</p>
+</div>
+<div class="paragraph">
+<p>All adapters execute digest-pinned runners inside the common Docker network or
+Kubernetes namespace. GraphQL responses are capped at 1 MiB before parsing.
+Secrets and bearer tokens never appear in the argument vector or state.
+Contractless, unresolved, unsupported-protocol, and cross-platform wires are
+reported as unsupported rather than inferred healthy. Diagnostics, documents,
+variables, requests, messages, and response bodies are not persisted; state
+contains only normalized identifiers, adapter, result metadata, failure code,
+and timestamp.</p>
+</div>
+<div class="paragraph">
+<p>The live contract-probe fixture runs a real GraphQL.js producer with distinct
+GraphQL-over-SSE connections, a reflected <code>grpc-js</code> server, and Eclipse
+Mosquitto. It demonstrates the full supported boundary; it does not turn those
+test services or interaction fixtures into reusable DOT metadata.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Composition-level probe input; the DOT and Anchor still contain only the
+# authoritative Contract reference and selector Query.health.
+probe:
+  graphql:
+    path: /graphql
+    operationName: Health
+    document: |
+      query Health {
+        health
+      }
+    expect: {pointer: /data/health, equals: true}</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">

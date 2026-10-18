@@ -280,12 +280,19 @@ capability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Two real DOT definitions connected through OpenAPI 3.0/3.1/3.2 and AsyncAPI
   3.0/3.1 YAML/JSON, Protocol Buffers (including gRPC service declarations), and GraphQL SDL; asserts selectors, participant
-  interactions, endpoints, and materializers</p></td>
+  interactions, endpoints, probe fixtures, and materializers across fifteen wires</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-probes:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A real producer and broker prove GraphQL query, mutation verification/cleanup,
+  GraphQL-over-SSE delivery, side-effect-free unary gRPC through reflection, and
+  correlated non-retained AsyncAPI/MQTT delivery; emits redacted evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, network access for pinned images, and the checked-out <code>dotx</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:acceptance</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, twelve
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, fifteen
   Contract wires, contractless compatibility, all six runtime dry-runs,
   service-scoped configuration, recovery/status/destroy, and focused
   fail-closed controls; emits revision-pinned JSON evidence</p></td>
@@ -294,7 +301,7 @@ capability</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:contracts:standards</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts the same twelve payloads and validates them with dated official OAI
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts the twelve distinct Contract payloads and validates them with dated official OAI
   schemas, the official AsyncAPI CLI, <code>protoc</code>, and GraphQL.js; each family also
   has an invalid control which must be rejected</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Python with PyYAML/jsonschema, Node.js, network access for pinned validators,

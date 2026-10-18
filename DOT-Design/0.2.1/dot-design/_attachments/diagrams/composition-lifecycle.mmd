@@ -14,8 +14,8 @@ flowchart TD
   Rollback -->|Incomplete or keep-on-failure| Recoverable["PARTIAL<br/>recoverable state recorded"]
   Recoverable --> Resume["compose apply --resume"]
   Resume --> Outcome
-  Applied --> Probe["compose probe<br/>safe OpenAPI operation<br/>runtime network scope"]
-  Probe --> Evidence{"Declared response<br/>status matched?"}
+  Applied --> Probe["compose probe<br/>OpenAPI · GraphQL · gRPC · MQTT<br/>runtime network scope"]
+  Probe --> Evidence{"Contract-derived<br/>result matched?"}
   Evidence -->|Yes| Passed["PASSED evidence<br/>status · adapter · timestamp"]
   Evidence -->|No| ProbeFailed["FAILED evidence<br/>redacted failure code"]
   Passed --> Status["compose status"]
