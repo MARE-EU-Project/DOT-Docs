@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Release notes :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.1/dot-design/release-notes.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.2/dot-design/release-notes.html">
     <link rel="prev" href="integration-handoff.html">
     <link rel="next" href="../dot-domain/index.html">
     <meta name="generator" content="Antora 3.2.1">
@@ -32,9 +32,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/0.2.1/_exports/DOT-Design-0.2.1.pdf"
-              download="DOT-Design-0.2.1.pdf"
-              title="Download DOT-Design 0.2.1 as PDF"
+              href="../../../DOT-Design/0.2.2/_exports/DOT-Design-0.2.2.pdf"
+              download="DOT-Design-0.2.2.pdf"
+              title="Download DOT-Design 0.2.2 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -43,7 +43,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="0.2.1">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.2">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -114,14 +114,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">0.2.1</span>
+    <span class="version">0.2.2</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.2.1</a>
+          <a href="index.html">0.2.2</a>
         </li>
       </ul>
     </li>
@@ -147,6 +147,49 @@
 </aside>
 <article class="doc">
 <h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="_0_2_2"><a class="anchor" href="#_0_2_2"></a>0.2.2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>0.2.2</code> is a backward-compatible extension of the stable
+<code>dot.mare6g.eu/v1</code> single-host composition profile. It retains the DOT,
+Contract, Anchor, composition-schema, repository-layout, and deployment
+interfaces from <code>0.2.1</code> while completing the standards-authorized active-probe
+profile. The exact pinned revisions are DOT-CLI
+<code>2dafb492bb657da4d6e6dfe3eab4e9ee4ee229c9</code> and DOT-Repository
+<code>31357e57ab1332e93de6afc25a2b0d67aafed857</code>.</p>
+</div>
+<div class="paragraph">
+<p>GraphQL query probes validate documents, variables, and optional exact response
+expectations against the authoritative SDL. Mutations require verification and
+cleanup operations; GraphQL-over-SSE subscriptions require a separately
+triggered event plus cleanup. Unary gRPC probes require server reflection,
+protobuf-JSON request validation, and the Proto3 <code>NO_SIDE_EFFECTS</code> option.
+AsyncAPI MQTT probes require an explicit binding, concrete topic,
+JSON-Schema-valid correlated message, QoS, subscribe-before-publish ordering,
+bounded timeout, and exact non-retained delivery. All fixtures remain
+composition-owned and persisted evidence remains redacted.</p>
+</div>
+<div class="paragraph">
+<p>The fifteen-wire deterministic matrix covers OpenAPI 3.0/3.1/3.2, AsyncAPI
+3.0/3.1, Proto3, and GraphQL. A real GraphQL.js/gRPC producer and Eclipse
+Mosquitto broker provide live Docker acceptance. The complete pushed workflow
+matrix passed on <code>70b0e94760d60bc0fc37f887db0466796627829a</code>, including
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39097839973">Contract active probes</a>,
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39097839918">coverage</a>,
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39097840088">compatibility</a>,
+and
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39097839962">Antora publication</a>.</p>
+</div>
+<div class="paragraph">
+<p>Existing <code>0.2.0</code> and <code>0.2.1</code> definitions and compositions remain valid; probe
+fields are optional and additive. Streaming or safety-unclassified gRPC,
+non-MQTT AsyncAPI transports, multi-scheme probe authentication, native arm64,
+non-Linux executables, multi-host orchestration, DOT-Registry REST API work,
+and joint SFC/partner acceptance remain outside this Linux-amd64 release.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_0_2_1"><a class="anchor" href="#_0_2_1"></a>0.2.1</h2>
 <div class="sectionbody">
