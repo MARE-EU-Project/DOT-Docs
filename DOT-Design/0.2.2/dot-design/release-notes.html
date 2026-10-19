@@ -120,8 +120,17 @@
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
+        <li class="version">
+          <a href="../../next/dot-design/index.html">Development</a>
+        </li>
         <li class="version is-current is-latest">
           <a href="index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
         </li>
       </ul>
     </li>
@@ -140,6 +149,15 @@
     <li><a href="release-notes.html">Release notes</a></li>
   </ul>
 </nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.2.2</button>
+  <div class="version-menu">
+    <a class="version" href="../../next/dot-design/release-notes.html">Development</a>
+    <a class="version is-current" href="release-notes.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/release-notes.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/release-notes.html">0.2.0</a>
+  </div>
+</div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -147,53 +165,6 @@
 </aside>
 <article class="doc">
 <h1 class="page">Release notes</h1>
-<div class="sect1">
-<h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The cross-runtime configuration matrix now exercises every executable adapter
-through separate default-only and explicit-override paths. It verifies
-non-sensitive <code>defaultValue</code> and <code>defaultContent</code> materialization, explicit
-environment/file precedence, resolved service targeting, and redacted dry-run
-diagnostics.</p>
-</div>
-<div class="paragraph">
-<p>Contract-authorized gRPC probes now cover unary, server-streaming,
-client-streaming, and bidirectional methods. All methods still require the
-Proto3 <code>NO_SIDE_EFFECTS</code> option and server reflection. Streaming fixtures must
-declare an exact finite response count; input and output messages are validated
-against the authoritative descriptors; and expectations explicitly select
-<code>ALL</code>, <code>ANY</code>, <code>FIRST</code>, or <code>LAST</code> response matching.</p>
-</div>
-<div class="paragraph">
-<p>AsyncAPI delivery now supports NATS core messaging beside MQTT. NATS fixtures
-require the official channel binding and a concrete non-wildcard subject, then
-prove UUID-correlated subscribe-before-publish delivery through digest-pinned
-official NATS client and server images. The live standards fixture exercises
-all four gRPC shapes plus MQTT and NATS while retaining redacted state evidence.</p>
-</div>
-<div class="paragraph">
-<p>AsyncAPI delivery also supports Kafka through the official 0.5.0 channel
-binding. <code>dotx</code> honors a binding-level <code>topic</code> override, rejects invalid Kafka
-topic names and MQTT-only QoS, waits for a correlation-scoped consumer-group
-assignment before publishing, and verifies the exact correlated record through
-the digest-pinned official Apache Kafka 4.3.1 JVM image. The ephemeral consumer
-group is removed; the record itself remains subject to the topic&#8217;s broker
-retention policy. The canonical runtime-only Kafka DOT expands the locked
-standards composition to twenty wires and three real message brokers.</p>
-</div>
-<div class="paragraph">
-<p>AsyncAPI delivery now also supports AMQP 0-9-1 through the official 0.3.0
-binding. <code>dotx</code> validates exact exchange, routing-key, virtual-host, durability,
-auto-delete, and delivery-mode semantics; binds an exclusive auto-delete probe
-queue before publish; acknowledges and correlation-matches the delivered JSON;
-and obtains RabbitMQ credentials only through a secret reference. Queue-bound
-channels, headers exchanges, AMQPS, and AMQP 1.0 fail closed. The canonical
-digest-pinned RabbitMQ 4.3.6 runtime DOT expands the locked standards
-composition to twenty-one wires and four real message brokers.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="_0_2_2"><a class="anchor" href="#_0_2_2"></a>0.2.2</h2>
 <div class="sectionbody">

@@ -1,0 +1,52 @@
+flowchart LR
+  accTitle: DOT-Design system context and supported runtime mappings
+  accDescr: DOT authors combine capabilities, contracts, anchors, service bindings, configuration, and runtime declarations in dot.json. DOT-Repository co-versions definitions, the generated schema, and high-level skill classifications; dotx validates the reusable definition, and a separate composition pins instances and wires. The dotx lifecycle layer deploys Docker images, Docker Compose, Kubernetes manifests, Helm charts, Vagrantfiles, and SHA-256-pinned WebAssembly modules through Wasmtime and WASI.
+
+  subgraph DesignTime["1–2 · Reusable model, validation, discovery, and composition"]
+    direction TB
+    Authored["Author-owned DOT model<br/><br/>Skills · Contracts<br/>Anchors · service-port bindings<br/>Runtimes · deployments · services · configuration"]
+    Dot[("dot.json<br/>portable source of truth")]
+    Authored --> Dot
+
+    Schema["DOT-Repository/Schema<br/>JSON Schema 2020-12"] -.->|constrains| Validation["dotx validate<br/>schema + domain relationships"]
+    Repository[("DOT-Repository<br/>DOTs · Skills · Schema")]
+    Document["Composition document<br/>pinned DOT instances · wires<br/>inputs · dependencies · exposures"]
+    Compose["dotx compose<br/>validate · plan · apply<br/>status · destroy"]
+
+    Dot -->|validated as one DOT| Validation
+    Dot -->|reviewed and versioned| Repository
+    Dot -.->|identity and version pinned| Document
+    Document --> Compose
+    Validation -->|validated definition| Compose
+    Repository -->|repository URI resolution| Compose
+  end
+
+  subgraph Execution["3 · Selected deployment and runtime execution"]
+    direction TB
+    Adapters["dotx lifecycle adapters<br/>deploy · start · stop · status · destroy"]
+    Docker["Docker platform<br/>Docker Image · Docker Compose<br/>docker · docker compose"]
+    Kubernetes["Kubernetes platform<br/>Kubernetes Manifest · Helm Chart<br/>kubectl · helm"]
+    Vagrant["Vagrant platform<br/>Vagrantfile<br/>vagrant · provider-managed VM"]
+    Wasm["WebAssembly platform<br/>WASM Module · WASI CLI/HTTP<br/>wasmtime"]
+    Native["Platform-native resources<br/>workloads · services · endpoints · live state"]
+
+    Adapters --> Docker
+    Adapters --> Kubernetes
+    Adapters --> Vagrant
+    Adapters --> Wasm
+    Docker --> Native
+    Kubernetes --> Native
+    Vagrant --> Native
+    Wasm --> Native
+  end
+
+  DesignTime -->|selects a compatible deployment| Execution
+
+  classDef artifact fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
+  classDef service fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
+  classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
+  classDef pending fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px,stroke-dasharray:5 4;
+  class Authored,Dot,Document artifact;
+  class Schema,Validation,Compose service;
+  class Repository artifact;
+  class Adapters,Docker,Kubernetes,Vagrant,Wasm,Native runtime;

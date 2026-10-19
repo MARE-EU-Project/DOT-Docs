@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Verification and examples :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.2/dot-design/verification-and-examples.html">
+    <link rel="prev" href="composition-lifecycle.html">
+    <link rel="next" href="external-dot-examples.html">
+    <meta name="description" content="Test layers, evidence levels, conformance commands, and MARE PoC-derived DOT composition scenarios.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Development</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.2/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Development</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../0.2.2/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="verification-and-examples.html">Verification and examples</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <div class="version-menu">
+    <a class="version is-current" href="verification-and-examples.html">Development</a>
+    <a class="version" href="../../0.2.2/dot-design/verification-and-examples.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/verification-and-examples.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/verification-and-examples.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Verification and examples</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOT-Design keeps model correctness, resolved planning, deployment dry-runs, and
+live behavioral acceptance as separate evidence levels. A passing lower level
+never implies a higher one.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_evidence_model"><a class="anchor" href="#_evidence_model"></a>Evidence model</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 42.8571%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Level</th>
+<th class="tableblock halign-left valign-top">Demonstrates</th>
+<th class="tableblock halign-left valign-top">Does not demonstrate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Model and schema conformance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dot.json</code> shape, Bean Validation constraints, stable references, selectors,
+  service-port bindings, and generated-model compatibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract payload resolution or multi-DOT topology</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract resolution and compatibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected operations exist and normalized semantic, interaction, protocol,
+  media, schema, and security facts can be evaluated conservatively</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime reachability or valid credentials</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition validation and plan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pinned DOTs, wires, endpoints, materializers, parameters, grants, and
+  readiness ordering resolve deterministically</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Successful deployment</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lifecycle dry-run</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The reference executor accepts the supported profile and renders runtime
+  actions without writing composition state</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Workload startup or traffic</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source-adapted E2E</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pinned upstream logic or artifacts execute behind explicit test adapters and
+  satisfy the assertions documented by that scenario</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unmodified partner runtime, production infrastructure, or full PoC acceptance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live production acceptance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The intended workloads, network, identity, policy, and Contract operations
+  work in the target environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nothing beyond the probes and acceptance criteria actually executed</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_primary_verification_commands"><a class="anchor" href="#_primary_verification_commands"></a>Primary verification commands</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">External requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mvn -pl DOT-Domain test</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain value objects, manifests, Anchors, and aggregate validation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven only</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>go -C DOT-CLI test ./&#8230;&#8203;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI parsing, validation, planning, deployment adapters, and lifecycle behavior</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go; individual tests use doubles where appropriate</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:repository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every <code>dot.json</code> discovered recursively below <code>DOT-Repository/DOTs/</code>, with the
+  reusable profile for external/internal bundles that publish adjacent Contract
+  evidence, ownership-path isolation, mandatory per-bundle README files, schema
+  validity, CLI cross-references, and identity uniqueness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go and the checked-out <code>DOT-CLI</code> and <code>DOT-Repository</code> revisions; repository
+validation uses its co-versioned <code>Schema/</code>, validates the authoritative
+<code>Skills/</code> catalogue, and resolves every DOT Skill UUID to one categorized
+capability</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:external:dry-run</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable Keycloak/Prometheus DOTs plus runtime-only external Loki/Wireshark definitions: profile-
+  appropriate validation, inspection, deployment dry-run, exact-version Helm
+  rendering, expected service/workload shape, and pinned OCI image metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, Helm, Python/PyYAML, Docker, and network access to the pinned public artifacts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:external:stress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeated Linux deployment, readiness, HTTP/HTTPS access, destroy, and cleanup
+  across two mechanisms per external product: three Helm/Compose pairs plus the
+  Wireshark Docker-image/Compose pair; Keycloak and Prometheus additionally call
+  the exact operations selected from their official Contracts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Minikube/Kubernetes, Helm, network access, and enough resources for
+  Keycloak, Loki, Prometheus, and Wireshark; emits revision-pinned evidence</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:official-external-contracts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable-profile validation and a locked three-DOT plan proving the stable
+  Keycloak and Prometheus Anchors resolve against exact official OpenAPI payloads,
+  compose compatibly, bind the Keycloak realm parameter, and materialize the
+  expected consumer operation URLs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions; no live runtime</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Two real DOT definitions connected through OpenAPI 3.0/3.1/3.2 and AsyncAPI
+  3.0/3.1 YAML/JSON, Protocol Buffers (including gRPC service declarations), and GraphQL SDL; asserts selectors, participant
+  interactions, endpoints, probe fixtures, and materializers across twenty-one wires</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-probes:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A real producer and three brokers prove GraphQL query, mutation verification/cleanup,
+  GraphQL-over-SSE delivery, all four finite side-effect-free gRPC shapes through
+  reflection, correlated non-retained AsyncAPI MQTT/NATS delivery,
+  correlation-scoped Kafka delivery under broker retention, and acknowledged
+  AMQP 0-9-1 delivery through an exclusive probe queue; emits redacted evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, network access for pinned images, and the checked-out <code>dotx</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:acceptance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, twenty-one
+  Contract wires, contractless compatibility, all six runtime dry-runs,
+  service-scoped configuration, recovery/status/destroy, and focused
+  fail-closed controls; emits revision-pinned JSON evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A globally installed <code>dotx</code> from the checked-out CLI revision, Go, Task, and
+  fixture-specific dry-run CLIs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:contracts:standards</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts the twelve distinct Contract payloads and validates them with dated official OAI
+  schemas, the official AsyncAPI CLI, <code>protoc</code>, and GraphQL.js; each family also
+  has an invalid control which must be rejected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python with PyYAML/jsonschema, Node.js, network access for pinned validators,
+  and <code>protoc</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:runtime-configuration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The same catalogued DOT receives declared environment and configuration-file
+  inputs through Docker image, Docker Compose, Kubernetes manifest, Helm chart,
+  Vagrantfile, and Wasmtime/WASI dry-run adapters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and runtime CLIs in dry-run rendering mode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:service-workloads</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A two-service DOT receives isolated defaults, overrides, configuration files,
+  and secret references through exact Compose, Kubernetes, and Helm workload
+  bindings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and runtime CLIs in dry-run rendering mode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:service-workloads:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Two concurrent copies of the same multi-service workload prove exact
+  environment, secret, config-file, and volume isolation plus readiness,
+  status, resume, selective destroy, surviving-peer health, and cleanup across
+  Docker Compose, Kubernetes, and Helm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker Compose, Minikube/Kubernetes, Helm, and network access for runtime
+  images; emits redacted revision-pinned evidence</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:runtime-isolation:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Two locked instances of one Vagrant DOT and one WASI CLI DOT prove distinct
+  runtime identities, concurrent state, status, selective destroy, peer
+  survival, and cleanup. Repeated fixed-port WASI HTTP fails before mutation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vagrant 2.4.9 with libvirt/KVM and Wasmtime 49.0.2; emits redacted,
+  revision-pinned evidence</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:cli:coverage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete DOT-CLI test suite plus machine-readable total and high-value package
+  statement-coverage profiles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go; writes reports below <code>DOT-Testing/e2e/target/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:runtime:kubernetes-helm:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Real Kubernetes-manifest and Helm-chart deploy, rollout readiness, status,
+  service-scoped environment materialization, and destroy lifecycle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Minikube, Kubernetes, Helm, and network access for runtime images</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bash DOT-Testing/runtime/wasm/live.sh</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Real Wasmtime lifecycle for WASI CLI; CI additionally builds the pinned
+  Bytecode Alliance <code>wasi:http/proxy</code> sample and proves an HTTP response</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, Wasmtime, and the optional prebuilt HTTP component path</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:conformance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-language Anchor and composition gate, including all deterministic PoC
+  fixtures and lifecycle dry-runs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java, Maven, Go, Task, and fixture-specific local tools</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mvn clean install</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full Java domain build, schema generation, coverage gates, and SBOMs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven only</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:e2e:&lt;scenario&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scenario-specific live behavior</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read that scenario&#8217;s README first; commonly Docker and network access</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_asset_layout"><a class="anchor" href="#_test_asset_layout"></a>Test asset layout</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT-Testing/
+├── acceptance/        versioned, implementation-neutral consumer profiles
+├── conformance/       deterministic valid and invalid DOT fixtures
+├── composition/       read-only validate, plan, and dry-run scenarios
+├── coverage/          executable code-coverage ratchets
+├── e2e/               opt-in deployable behavioral scenarios
+├── interoperability/  revision-pinned evidence and remaining-gap ledger
+└── runtime/           isolated native-runtime lifecycle harnesses</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>testing</code> is repository-level infrastructure, not a Maven module and not a
+deployable DOT. Authoritative test-only definitions live under
+<code>DOT-Repository/DOTs/testing/</code> and are selected from compositions with
+<code>repository://&lt;dot-id&gt;@&lt;version&gt;</code>. Intentionally invalid conformance inputs stay
+under <code>DOT-Testing/conformance/</code>; they must never be admitted to the repository
+catalogue. Generated secrets, logs, reports, coverage profiles, and materialized
+configuration belong under scenario-local <code>target/</code> directories and must not be
+committed.</p>
+</div>
+<div class="paragraph">
+<p>The focused <code>task testing:anchors:acceptance</code> gate verifies the versioned
+<a href="integration-handoff.html" class="xref page">DOT Anchor consumer profile</a>. It resolves pinned
+test definitions from <code>DOT-Repository</code>, verifies the composition lock, and
+asserts the complete cross-standard plan without a deployed workload.</p>
+</div>
+<div class="paragraph">
+<p>The separate <code>task testing:compose:acceptance</code> gate freezes the complete
+<code>dot.mare6g.eu/v1</code> production profile. Its machine-readable source is
+<code>DOT-Testing/acceptance/composition/v1/profile.json</code>; the gate binds that
+source to CLI help, the tracked schema, repository locks, positive evidence, and
+negative fail-closed behavior. Runtime rows distinguish underlying single-DOT
+live lifecycle proof from multi-DOT composition lifecycle proof.</p>
+</div>
+<div class="paragraph">
+<p>The focused <code>task testing:compose:contract-standards</code> gate complements that API
+profile with an executable composition matrix. It proves all six supported
+standard/format representations between the same provider and consumer DOTs;
+it does not promote planning evidence to live protocol or application
+acceptance.</p>
+</div>
+<div class="paragraph">
+<p>The separate <code>task testing:contracts:standards</code> gate validates those payloads
+outside the DOT resolvers with standards-native tooling. The positive fixtures
+must pass and deliberately malformed OpenAPI, AsyncAPI, Protobuf, and GraphQL
+controls must fail. This catches both invalid examples and accidentally
+permissive validator invocations.</p>
+</div>
+<div class="paragraph">
+<p>The runtime-configuration gate separately proves that selecting another
+executable deployment does not discard a service&#8217;s declared environment or
+configuration-file surface. Each adapter is exercised first with its declared
+<code>defaultValue</code> and <code>defaultContent</code>, then with explicit composition overrides;
+the gate validates the cached default document, resolved service id, override
+values, and runtime-specific dry-run. Runtime-native storage, secret,
+privilege, and device semantics retain dedicated tests rather than being
+flattened into a misleading universal volume abstraction.</p>
+</div>
+<div class="paragraph">
+<p>The multi-service live profile is the higher evidence layer for the exact
+workload bindings. Compose projects and their named volumes are keyed by the
+composition runtime identity; Kubernetes repetitions use separate namespaces;
+Helm repetitions use identity-derived release names in one namespace. The
+profile verifies that destroying one copy leaves the other healthy and that
+dotx-created ConfigMaps/Secrets are cleaned without deleting referenced
+operator-owned Secrets. The tracked Helm chart is packaged from the pinned
+checkout, and its SHA-256 is included in the redacted evidence artifact.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_coverage_claims_and_gates"><a class="anchor" href="#_coverage_claims_and_gates"></a>Coverage claims and gates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Coverage is reported by evidence dimension; the project does not collapse
+different meanings of “covered” into one percentage:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Dimension</th>
+<th class="tableblock halign-left valign-top">Gate</th>
+<th class="tableblock halign-left valign-top">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository inventory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx validate DOT-Repository</code>, <code>dotx repository audit</code>, and the DOT
+  repository conformance workflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be 100%: every filesystem definition is discovered, parsed, schema-valid,
+  cross-reference-valid, uniquely identified, and stored in a supported category;
+  no deployable copy may remain outside <code>DOT-Repository</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI statements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:cli:coverage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The whole CLI and every package containing executable statements must retain
+  100% statement coverage. The constant-only <code>feature/sources</code> package has no
+  testable statements. This is a code-execution metric, not proof that a
+  workload or security control works.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java instructions and branches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mvn verify</code> through JaCoCo 0.8.15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Java domain module must retain 100% instruction and branch coverage.
+  JaCoCo HTML/XML/CSV reports are uploaded with the Java build evidence.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native runtime lifecycle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WebAssembly and Kubernetes/Helm runtime E2E workflows</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proves real Wasmtime CLI and HTTP behavior plus Minikube manifest/Helm
+  lifecycle. It does not imply that every external DOT workload is accepted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition scenarios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:e2e:all:dry-run</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every listed deterministic scenario must validate, plan, and complete its
+  supported lifecycle dry-run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PoC interoperability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/interoperability/pocs.yaml</code> plus scenario-specific live workflows</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each of the eleven PoCs has traceable evidence, while remaining adapters,
+  unavailable partner components, and unproved production behavior stay explicit.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The repository validation gate fails on duplicate identities, mis-scoped
+definitions, invalid DOTs, invalid Skill/category assets, or unresolved DOT
+Skill references. The workspace audit separately
+classifies uncatalogued, identical, divergent, and malformed definitions and
+fails on every deployable <code>dot.json</code> outside <code>DOT-Repository</code>.
+<code>DOT-Testing/conformance/</code> fixtures are reported but exempt because invalid
+definitions are their purpose. During the staged migration, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository audit --repository DOT-Repository --workspace . --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The statement report deliberately has
+no artificial 100% threshold: a high line percentage cannot replace negative
+tests, lifecycle checks, live probes, or partner acceptance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_canonical_anchor_scenario"><a class="anchor" href="#_canonical_anchor_scenario"></a>Canonical Anchor scenario</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOT-Testing/e2e/api-gateway-oidc/</code> is the primary tutorial and lifecycle fixture.
+Its composition resolves three independently valid, test-scoped definitions
+from <code>DOT-Repository</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keycloak provides OpenID Connect discovery and token operations;</p>
+</li>
+<li>
+<p>APISIX requires discovery information and provides a protected operation; and</p>
+</li>
+<li>
+<p>an OAuth client requires the token and protected operations.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The composition uses three OpenAPI Contracts, three wires, explicit security
+configuration, Kubernetes Secret references, configuration-file and environment
+materializers, readiness dependencies, and one exposed Anchor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:api-gateway-oidc
+task testing:e2e:anchors:api-gateway-oidc:dry-run
+
+# Opt-in live execution
+task testing:e2e:anchors:api-gateway-oidc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Read <a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> alongside
+<code>DOT-Testing/e2e/api-gateway-oidc/scenario.yaml</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mare_poc_derived_coverage"><a class="anchor" href="#_mare_poc_derived_coverage"></a>MARE PoC-derived coverage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The interoperability ledger pins the source revision used for every analysis,
+records the modeled interactions, identifies the executable fixtures, and keeps
+remaining acceptance gaps explicit. The current repository contains
+source-adapted evidence for all eleven PoCs; this is not a claim of unmodified
+partner-runtime acceptance.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 42.8571%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">PoC</th>
+<th class="tableblock halign-left valign-top">Composition focus</th>
+<th class="tableblock halign-left valign-top">Fixture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OIDC identity, OPA authorization, RIC forwarding, metrics feedback, and deny-list update</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc1-ric-aaa/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeated Flower trainers over gRPC/Protobuf and exposed BentoML inference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc2-federated-inference/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Five-stage contractless JSON insider-threat analytics dataflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc3-insider-threat-pipeline/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus metrics, Elasticsearch logs, Grafana, and Kibana configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc4-continuous-monitoring/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Monitoring-to-analysis-to-assessment-to-mitigation security pipeline</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc5-security-pipeline/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI plus brokered AsyncAPI/MQTT, CACAO, OpenC2, and NWDAF remediation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc6-closed-loop/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Least-privilege packet capture, explicit CloudEvents mediation, and trust scoring</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc7-trust-scoring/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cAdvisor/Prometheus observability and physical/twin integrity checks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc8-ndt-observability/</code> and <code>poc8-twin-integrity/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amarisoft/Open5GS collection, InfluxDB storage, and data export</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc9-edge-ddos-collection/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OIDC-protected capability exposure, SPARQL, OPA policy decisions, and observability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/poc10-secure-capability-exposure/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reciprocal federation peers and local-core adapters with separate readiness edges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Testing/composition/federation-peers/</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The authoritative coverage and gap list is
+<code>DOT-Testing/interoperability/pocs.yaml</code>. The official project descriptions are
+available from <a href="https://mare6g.eu/pocs/">the MARE PoC catalogue</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_negative_evidence_is_intentional"><a class="anchor" href="#_negative_evidence_is_intentional"></a>Negative evidence is intentional</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rejected fixtures are part of the design evidence. They demonstrate that the
+model does not invent connectivity where the pinned source lacks a declared
+consumer input, does not treat stdout or a host path as a portable connection,
+and does not silently grant privileged runtime access.</p>
+</div>
+<div class="paragraph">
+<p>Examples include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PoC7 rejects a collector-to-scorer wire when the collector declares no such
+Anchor or configuration input;</p>
+</li>
+<li>
+<p>PoC8 rejects an undeclared Prometheus-to-NDT handoff; and</p>
+</li>
+<li>
+<p>invalid conformance fixtures cover missing Contracts, selectors, ports,
+duplicate bindings, and incompatible Anchor pairs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Failing closed is a successful test outcome when the available evidence cannot
+support the proposed composition.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_or_promoting_a_scenario"><a class="anchor" href="#_adding_or_promoting_a_scenario"></a>Adding or promoting a scenario</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Pin the exact external source revision used as evidence.</p>
+</li>
+<li>
+<p>Document what the source actually produces and consumes.</p>
+</li>
+<li>
+<p>Add deployable definitions according to ownership: third-party software under
+<code>DOT-Repository/DOTs/external/</code>, MARE-owned software under
+<code>DOT-Repository/DOTs/internal/</code>, and only synthetic fixtures under
+<code>DOT-Repository/DOTs/testing/</code>. Record their evidence and purpose in the
+applicable test evidence ledger and select them by exact
+<code>repository://&lt;uuid&gt;@&lt;version&gt;</code> identity.</p>
+</li>
+<li>
+<p>Define Contracts only for supported, observable interactions.</p>
+</li>
+<li>
+<p>Use contractless Anchors only when no supported Contract standard applies.</p>
+</li>
+<li>
+<p>Declare all service ports, configuration targets, privileges, and devices.</p>
+</li>
+<li>
+<p>Add negative fixtures for tempting but unsupported connections.</p>
+</li>
+<li>
+<p>Start under <code>DOT-Testing/composition/</code> with validate and plan assertions.</p>
+</li>
+<li>
+<p>Add a lifecycle dry-run before any live execution.</p>
+</li>
+<li>
+<p>Promote to <code>DOT-Testing/e2e/</code> only with isolated resources, explicit prerequisites,
+reliable cleanup, and externally observable assertions.</p>
+</li>
+<li>
+<p>Record what remains unproved in the interoperability ledger.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interpreting_results"><a class="anchor" href="#_interpreting_results"></a>Interpreting results</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A successful plan proves model consistency. A successful apply proves that the
+supported deployment adapters completed. Only an active scenario probe can
+prove that traffic, authentication, authorization, policy, or security behavior
+worked as intended.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a></span>
+  <span class="next"><a href="external-dot-examples.html">External DOT examples</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

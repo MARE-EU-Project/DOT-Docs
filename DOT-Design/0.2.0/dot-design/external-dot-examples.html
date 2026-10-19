@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>External DOT examples and stress profile :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.2/dot-design/external-dot-examples.html">
+    <link rel="prev" href="verification-and-examples.html">
+    <link rel="next" href="integration-handoff.html">
+    <meta name="description" content="Reproducible Linux examples and repeated lifecycle acceptance for open-source external DOTs.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.2.0/_exports/DOT-Design-0.2.0.pdf"
+              download="DOT-Design-0.2.0.pdf"
+              title="Download DOT-Design 0.2.0 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.2.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.2/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../next/dot-design/index.html">Development</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../0.2.2/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="verification-and-examples.html">Verification and examples</a></li>
+    <li><a href="external-dot-examples.html">External DOT examples</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.2.0</button>
+  <div class="version-menu">
+    <a class="version" href="../../next/dot-design/external-dot-examples.html">Development</a>
+    <a class="version" href="../../0.2.2/dot-design/external-dot-examples.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/external-dot-examples.html">0.2.1</a>
+    <a class="version is-current" href="external-dot-examples.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">External DOT examples and stress profile</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The external-product examples demonstrate how an existing open-source workload
+can be described as a DOT without modifying that workload. The upstream project
+remains authoritative for the software, configuration, and interface Contract.
+The DOT descriptor selects a pinned artifact and declares the portable service
+surface that <code>dotx</code> can validate and deploy.</p>
+</div>
+<div class="paragraph">
+<p>Upstream documentation is useful source evidence, but it is not acceptance
+evidence. DOT-Design therefore tests each example at separate levels:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>direct <code>dotx validate</code>, using the reusable publication profile where applicable;</p>
+</li>
+<li>
+<p>Contract-selector and DOT-to-DOT Anchor composition for reusable definitions;</p>
+</li>
+<li>
+<p>offline inspection and deployment rendering;</p>
+</li>
+<li>
+<p>networked rendering of the exact pinned Helm charts;</p>
+</li>
+<li>
+<p>one real Linux lifecycle on Kubernetes/Helm or Docker; and</p>
+</li>
+<li>
+<p>bounded repeated lifecycle stress with cleanup verification.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_canonical_external_catalogue"><a class="anchor" href="#_canonical_external_catalogue"></a>Canonical external catalogue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The external catalogue currently has one root for each of these 17 products:
+APISIX, cAdvisor, Elasticsearch, Filebeat, Grafana, GraphDB, InfluxDB,
+Keycloak, Kibana, Loki, Eclipse Mosquitto, Prometheus node-exporter, OPA,
+OpenTelemetry Collector, Oxigraph, Prometheus, and Wireshark. PoC compositions
+reuse those identities and supply routes, realms, policies, scrape targets,
+data sources, credentials, files, and deployment selection as instance inputs.
+They do not create <code>pocN-*</code> copies of the product.</p>
+</div>
+<div class="paragraph">
+<p>The following four products form the bounded release stress matrix. They are
+not the complete external catalogue.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_release_stress_matrix"><a class="anchor" href="#_release_stress_matrix"></a>Release stress matrix</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 21.4285%;">
+<col style="width: 21.4285%;">
+<col style="width: 28.5716%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">DOT</th>
+<th class="tableblock halign-left valign-top">Catalogue status</th>
+<th class="tableblock halign-left valign-top">Mechanisms in the same DOT</th>
+<th class="tableblock halign-left valign-top">Contract/Anchor surface</th>
+<th class="tableblock halign-left valign-top">Live assertions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitnami <code>HELM_CHART</code> <code>25.2.0</code>; official Keycloak <code>DOCKER_COMPOSE</code>; official and PoC1 evidence <code>DOCKER_IMAGE</code> variants</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.3.3 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Anchors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and Compose <code>start-dev</code>; readiness; obtain an admin token and assert <code>GET /admin/realms/master</code> returns the master realm through both mechanisms</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Loki-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime sample, not reusable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grafana Community <code>HELM_CHART</code> <code>18.15.1</code>; official Loki <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No fabricated Contract: the pinned release has HTTP documentation and internal multi-file protobuf APIs, but no supported self-contained machine-readable Contract for the exposed public HTTP surface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact single-binary StatefulSet binding and <code>/ready</code>; Compose <code>/ready</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Prometheus-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Community <code>HELM_CHART</code> <code>29.37.0</code>; official Prometheus <code>DOCKER_COMPOSE</code> image pinned by digest; <code>DOCKER_IMAGE</code> for composition-owned scrape configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Prometheus 3.15.0 OpenAPI 3.1 artifact for build information and PromQL; explicit contractless scrape-target requirement materialized through <code>prometheus.yml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact server Deployment binding; readiness; assert <code>/api/v1/status/buildinfo</code> reports version <code>3.15.0</code> through both mechanisms</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Wireshark-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime sample, not reusable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LinuxServer versioned <code>DOCKER_IMAGE</code>; equivalent <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No fabricated Contract: the image exposes a human web desktop, not a supported machine API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container state/environment/volume/ports plus HTTPS for both mechanisms</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each product is kept under <code>DOTs/external/</code> because it is owned outside MARE,
+with its supported deployment mechanisms in the same <code>dot.json</code>. Ownership does
+not imply interoperability maturity. Keycloak and Prometheus publish adjacent
+official Contract evidence and pass the strict reusable profile. Loki and
+Wireshark currently provide runtime evidence only; they must not be
+misrepresented as Contract-backed interface interoperability. Chart versions, Compose image indexes, and the direct
+Wireshark image tag are deliberately pinned. <code>latest</code> is convenient
+for exploration but unsuitable for release evidence because a repeated run
+could execute different bytes. The Wireshark OCI index currently contains
+Linux amd64 and arm64 manifests. Automated release acceptance currently
+executes Linux amd64; the cross-built <code>dotx</code> arm64 asset remains a preview until
+equivalent native arm64 evidence exists.</p>
+</div>
+<div class="paragraph">
+<p>Authoritative upstream references:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/keycloak/keycloak/releases/tag/26.3.3">Keycloak 26.3.3 release assets</a>, <a href="https://www.keycloak.org/docs-api/latest/rest-api/index.html">Keycloak Admin REST API</a>, <a href="https://github.com/bitnami/charts/tree/main/bitnami/keycloak">Bitnami Keycloak chart</a>, and <a href="https://www.keycloak.org/server/containers">Keycloak containers</a></p>
+</li>
+<li>
+<p><a href="https://grafana.com/docs/loki/latest/setup/install/helm/">Grafana Loki Helm documentation</a></p>
+</li>
+<li>
+<p><a href="https://github.com/prometheus/prometheus/blob/v3.15.0/web/api/v1/testdata/openapi_3.1_golden.yaml">Prometheus 3.15.0 official OpenAPI 3.1 artifact</a>, <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus">Prometheus Community chart</a>, and <a href="https://prometheus.io/docs/prometheus/latest/installation/">Prometheus installation</a></p>
+</li>
+<li>
+<p><a href="https://docs.linuxserver.io/images/docker-wireshark/">LinuxServer Wireshark image</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_the_examples"><a class="anchor" href="#_run_the_examples"></a>Run the examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Run commands from the <code>DOT-Design</code> root with a <code>dotx</code> built from the checked-out
+<code>DOT-CLI</code> revision.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Fully offline and non-mutating
+task testing:dots:external:offline
+
+# Downloads and renders the pinned charts, but does not deploy them
+task testing:dots:external:dry-run
+
+# Deploys each example once and cleans it up
+task testing:dots:external:live
+
+# Repeats the complete lifecycle three times by default
+task testing:dots:external:stress</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The live profiles require Linux, Docker, Kubernetes, Helm, <code>kubectl</code>, <code>curl</code>,
+<code>jq</code>, and network access to the pinned public artifacts. <code>dotx tool check</code>
+starts Minikube when the current environment has no selected cluster. Set
+<code>DOTX_E2E_SKIP_HELM=1</code> or <code>DOTX_E2E_SKIP_DOCKER=1</code> only for focused local
+diagnosis; a release acceptance run must not skip either runtime.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_the_stress_profile_adds"><a class="anchor" href="#_what_the_stress_profile_adds"></a>What the stress profile adds</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOTX_E2E_STRESS_REPEATS</code> accepts a bounded value from 1 through 5. Every cycle
+uses a new namespace, Docker runtime name, Compose project names, marker, and
+host-port range. It executes validation again before runtime mutation, selects
+each mechanism explicitly, verifies workload readiness and HTTP/HTTPS
+reachability, and destroys all resources. The runner then fails if the cycle
+namespace, Wireshark container, or any of the four Compose projects still exists.
+If a Kubernetes deployment or readiness check fails, the runner records pod,
+workload, event, and bounded container-log diagnostics before cleanup and skips
+only the assertions that are causally blocked by that failed workload. The root
+failure still fails the cycle; dependent timeout noise is not counted as
+independent evidence.</p>
+</div>
+<div class="paragraph">
+<p>The resulting matrix contains eight cells:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keycloak: <code>HELM_CHART</code> and <code>DOCKER_COMPOSE</code>;</p>
+</li>
+<li>
+<p>Loki: <code>HELM_CHART</code> and <code>DOCKER_COMPOSE</code>;</p>
+</li>
+<li>
+<p>Prometheus: <code>HELM_CHART</code> and <code>DOCKER_COMPOSE</code>; and</p>
+</li>
+<li>
+<p>Wireshark: <code>DOCKER_IMAGE</code> and <code>DOCKER_COMPOSE</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is a runtime-mechanism matrix, not a reusable-interface count. Only the
+Keycloak and Prometheus cells carry official machine-readable Contracts and
+Contract-backed Anchors. A separate locked three-DOT composition wires those
+two providers to a headless consumer, resolves the exact official selectors,
+binds the Keycloak <code>{realm}</code> parameter, and asserts the resulting operation
+paths and environment materializers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:official-external-contracts</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOTX_E2E_STRESS_REPEATS=5 task testing:dots:external:stress</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Evidence is written to <code>DOT-Testing/e2e/target/external-dots/</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>one log per cycle;</p>
+</li>
+<li>
+<p><code>summary.json</code>, including the DOT-CLI and DOT-Repository revisions; and</p>
+</li>
+<li>
+<p><code>SHA256SUMS</code> covering the summary and logs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The dedicated <code>External DOT examples</code> GitHub Actions workflow runs the
+non-mutating profile for relevant changes. Its weekly and manually dispatched
+Linux job runs the stress profile and uploads the evidence bundle. Push,
+schedule, and manual runs use distinct concurrency lanes, so requesting a live
+stress run cannot cancel the required push conformance result for the same
+revision.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_recorded_0_2_0_rc_3_evidence"><a class="anchor" href="#_recorded_0_2_0_rc_3_evidence"></a>Recorded <code>0.2.0-rc.3</code> evidence</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/38708940363">
+External DOT examples run 38708940363</a> completed two independent Linux
+lifecycle cycles against DOT-CLI
+<code>f8cf796afd985cc0514d42fb149ef67b6a1b7b53</code> and DOT-Repository
+<code>76585f6ec68a892f6cc6d48c9b2acdce6b08d48d</code>. Each cycle passed all 47 checks
+and cleaned up its resources. The complete eight-cell mechanism matrix was:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keycloak: Helm chart and Docker Compose;</p>
+</li>
+<li>
+<p>Loki: Helm chart and Docker Compose;</p>
+</li>
+<li>
+<p>Prometheus: Helm chart and Docker Compose; and</p>
+</li>
+<li>
+<p>Wireshark: Docker image and Docker Compose.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For both Keycloak mechanisms, the test invoked the exact Admin REST operation
+selected from the pinned official Contract. For both Prometheus mechanisms, it
+invoked the exact build-information operation selected from the pinned
+official Contract. The uploaded evidence contains <code>cycle-1.log</code>,
+<code>cycle-2.log</code>, <code>summary.json</code>, and <code>SHA256SUMS</code>; local checksum verification of
+the downloaded artifact passed for both cycle logs and <code>summary.json</code>. This
+evidence supersedes the earlier <code>rc.2</code> run because it exercises Keycloak-DOT
+<code>0.1.1</code> with the corrected Helm resource profile and pins the exact candidate
+CLI and repository revisions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interpreting_a_pass"><a class="anchor" href="#_interpreting_a_pass"></a>Interpreting a pass</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A pass means the pinned public artifacts satisfied the assertions executed in
+the disposable test environment. For Keycloak and Prometheus this includes a
+successful request to the exact operation selected by the DOT Anchor, in
+addition to readiness. It does not establish production sizing,
+availability, security hardening, backup/restore, or every upstream feature.
+In particular, the Wireshark example checks its web application surface; it
+does not grant packet-capture capabilities, host networking, or a CDI device.
+Those requirements must be declared and explicitly authorized in a separate
+acceptance profile.</p>
+</div>
+<div class="paragraph">
+<p>When adding another external DOT, place it under <code>DOTs/external/</code> because of its
+ownership and provide an immutable runtime artifact. Use a vendor/project-
+official Contract whenever available. Otherwise either pin a runtime-extracted
+Contract, maintain a clearly identified derived Contract with live conformance,
+or expose an adapter-owned Contract. Every Contract asset declares its authority,
+source revision, license, and SHA-256. A runtime-only external DOT remains valid
+without a <code>contracts/</code> evidence directory but makes no interoperability claim.
+Add production claims only after a test explicitly proves them.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="verification-and-examples.html">Verification and examples</a></span>
+  <span class="next"><a href="integration-handoff.html">Integration handoff</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

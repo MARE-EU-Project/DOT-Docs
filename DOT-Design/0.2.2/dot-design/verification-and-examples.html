@@ -121,8 +121,17 @@
     <li class="component is-current">
       <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
+        <li class="version">
+          <a href="../../next/dot-design/index.html">Development</a>
+        </li>
         <li class="version is-current is-latest">
           <a href="index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
         </li>
       </ul>
     </li>
@@ -141,6 +150,15 @@
     <li><a href="verification-and-examples.html">Verification and examples</a></li>
   </ul>
 </nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.2.2</button>
+  <div class="version-menu">
+    <a class="version" href="../../next/dot-design/verification-and-examples.html">Development</a>
+    <a class="version is-current" href="verification-and-examples.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/verification-and-examples.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/verification-and-examples.html">0.2.0</a>
+  </div>
+</div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="3">
@@ -280,21 +298,19 @@ capability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Two real DOT definitions connected through OpenAPI 3.0/3.1/3.2 and AsyncAPI
   3.0/3.1 YAML/JSON, Protocol Buffers (including gRPC service declarations), and GraphQL SDL; asserts selectors, participant
-  interactions, endpoints, probe fixtures, and materializers across twenty-one wires</p></td>
+  interactions, endpoints, probe fixtures, and materializers across fifteen wires</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-probes:live</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A real producer and three brokers prove GraphQL query, mutation verification/cleanup,
-  GraphQL-over-SSE delivery, all four finite side-effect-free gRPC shapes through
-  reflection, correlated non-retained AsyncAPI MQTT/NATS delivery,
-  correlation-scoped Kafka delivery under broker retention, and acknowledged
-  AMQP 0-9-1 delivery through an exclusive probe queue; emits redacted evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A real producer and broker prove GraphQL query, mutation verification/cleanup,
+  GraphQL-over-SSE delivery, side-effect-free unary gRPC through reflection, and
+  correlated non-retained AsyncAPI/MQTT delivery; emits redacted evidence</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docker, network access for pinned images, and the checked-out <code>dotx</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:acceptance</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, twenty-one
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, fifteen
   Contract wires, contractless compatibility, all six runtime dry-runs,
   service-scoped configuration, recovery/status/destroy, and focused
   fail-closed controls; emits revision-pinned JSON evidence</p></td>
@@ -434,12 +450,9 @@ permissive validator invocations.</p>
 <div class="paragraph">
 <p>The runtime-configuration gate separately proves that selecting another
 executable deployment does not discard a service&#8217;s declared environment or
-configuration-file surface. Each adapter is exercised first with its declared
-<code>defaultValue</code> and <code>defaultContent</code>, then with explicit composition overrides;
-the gate validates the cached default document, resolved service id, override
-values, and runtime-specific dry-run. Runtime-native storage, secret,
-privilege, and device semantics retain dedicated tests rather than being
-flattened into a misleading universal volume abstraction.</p>
+configuration-file surface. Runtime-native storage, secret, privilege, and
+device semantics retain dedicated tests rather than being flattened into a
+misleading universal volume abstraction.</p>
 </div>
 <div class="paragraph">
 <p>The multi-service live profile is the higher evidence layer for the exact
