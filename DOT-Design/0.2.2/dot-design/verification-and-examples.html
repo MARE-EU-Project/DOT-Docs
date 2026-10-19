@@ -280,19 +280,21 @@ capability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Two real DOT definitions connected through OpenAPI 3.0/3.1/3.2 and AsyncAPI
   3.0/3.1 YAML/JSON, Protocol Buffers (including gRPC service declarations), and GraphQL SDL; asserts selectors, participant
-  interactions, endpoints, probe fixtures, and materializers across fifteen wires</p></td>
+  interactions, endpoints, probe fixtures, and materializers across twenty-one wires</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-probes:live</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A real producer and broker prove GraphQL query, mutation verification/cleanup,
-  GraphQL-over-SSE delivery, side-effect-free unary gRPC through reflection, and
-  correlated non-retained AsyncAPI/MQTT delivery; emits redacted evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A real producer and three brokers prove GraphQL query, mutation verification/cleanup,
+  GraphQL-over-SSE delivery, all four finite side-effect-free gRPC shapes through
+  reflection, correlated non-retained AsyncAPI MQTT/NATS delivery,
+  correlation-scoped Kafka delivery under broker retention, and acknowledged
+  AMQP 0-9-1 delivery through an exclusive probe queue; emits redacted evidence</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docker, network access for pinned images, and the checked-out <code>dotx</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:acceptance</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, fifteen
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, twenty-one
   Contract wires, contractless compatibility, all six runtime dry-runs,
   service-scoped configuration, recovery/status/destroy, and focused
   fail-closed controls; emits revision-pinned JSON evidence</p></td>

@@ -243,11 +243,11 @@ execution recoverable and auditable.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose probe</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation, GraphQL lifecycle, unary side-effect-free
-  gRPC method, or correlated AsyncAPI/MQTT message is observable from the
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation, GraphQL lifecycle, finite side-effect-free
+  gRPC method, or correlated AsyncAPI MQTT/NATS/Kafka/AMQP message is observable from the
   composition&#8217;s shared Docker network or Kubernetes namespace. GraphQL
   mutations/subscriptions include mandatory verification or trigger and cleanup.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Complete application semantics, streaming gRPC, non-MQTT AsyncAPI protocols,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete application semantics, unsafe or unbounded gRPC, other AsyncAPI protocols,
   multi-scheme authentication, authorization-policy quality, or unprobed
   operations.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Creates and removes an ephemeral probe runner without changing member
@@ -314,24 +314,40 @@ without GraphQL errors; the expectation is evaluated against the query
 response, mutation verification result, or delivered subscription event.</p>
 </div>
 <div class="paragraph">
-<p>For gRPC, the composition supplies a protobuf-JSON request and optional JSON
-response expectation. The selected Proto3 RPC must be unary, declare the
-standard <code>NO_SIDE_EFFECTS</code> idempotency level, and be discoverable through
-explicitly enabled server reflection. Requests are validated against the input
-message descriptor before the pinned <code>grpcurl</code> runner starts. Streaming and
-unclassified methods fail closed.</p>
+<p>For gRPC, the composition supplies one protobuf-JSON <code>request</code> for unary and
+server-streaming methods, or an ordered <code>requests</code> sequence for client and
+bidirectional streams. The selected Proto3 RPC must declare the standard
+<code>NO_SIDE_EFFECTS</code> idempotency level and be discoverable through explicitly
+enabled server reflection. Every streaming fixture declares a positive exact
+<code>responseCount</code>; an optional expectation uses <code>ALL</code>, <code>ANY</code>, <code>FIRST</code>, or <code>LAST</code>
+matching. Requests are checked against the authoritative input descriptor
+before the pinned <code>grpcurl</code> runner starts, then every returned document is
+checked against the authoritative output descriptor. Unsafe, unbounded, wrong-
+count, or descriptor-incompatible calls fail closed.</p>
 </div>
 <div class="paragraph">
-<p>For AsyncAPI, the current active adapter requires a provider <code>send</code> operation,
-an explicit MQTT channel binding, a concrete non-wildcard channel address, and
-a JSON-Schema message payload. The composition declares the message, QoS, and
-RFC 6901 correlation pointer. The pinned Mosquitto runner subscribes before it
-publishes a fresh UUID-correlated, non-retained message and requires exact
-delivery within the timeout.</p>
+<p>For AsyncAPI, the active adapters require a provider <code>send</code> operation, an
+explicit MQTT/MQTT5, NATS, Kafka, or AMQP channel binding, one concrete destination,
+and a JSON-Schema message payload. The composition declares the message and RFC
+6901 correlation pointer; MQTT additionally declares QoS. The Kafka adapter
+honors the official binding-level <code>topic</code> override and restricts topics to the
+Kafka-supported ASCII alphanumeric, dot, underscore, and hyphen syntax. The
+digest-pinned official Mosquitto or NATS client subscribes before publishing a
+fresh UUID-correlated non-retained message. Kafka creates a unique consumer
+group, waits for its topic assignment before publishing the exact correlated
+record through the official Apache Kafka JVM image, and removes the group after
+the bounded check. Kafka records remain subject to broker/topic retention and
+are never represented as transient. The AMQP 0-9-1 adapter applies the official
+0.3.0 channel and operation bindings, declares the exact direct/topic/fanout
+exchange, binds an exclusive auto-delete queue before publishing, acknowledges
+the correlated delivery, and closes the connection to remove the queue. It
+accepts credentials only as a password secret reference. Queue-bound channels,
+headers exchanges, AMQPS, AMQP 1.0, a binding/protocol mismatch, or MQTT-only
+QoS on NATS/Kafka/AMQP fail closed.</p>
 </div>
 <div class="paragraph">
 <p>All adapters execute digest-pinned runners inside the common Docker network or
-Kubernetes namespace. GraphQL responses are capped at 1 MiB before parsing.
+Kubernetes namespace. Runner output is capped at 1 MiB before parsing.
 Secrets and bearer tokens never appear in the argument vector or state.
 Contractless, unresolved, unsupported-protocol, and cross-platform wires are
 reported as unsupported rather than inferred healthy. Diagnostics, documents,
@@ -341,9 +357,10 @@ and timestamp.</p>
 </div>
 <div class="paragraph">
 <p>The live contract-probe fixture runs a real GraphQL.js producer with distinct
-GraphQL-over-SSE connections, a reflected <code>grpc-js</code> server, and Eclipse
-Mosquitto. It demonstrates the full supported boundary; it does not turn those
-test services or interaction fixtures into reusable DOT metadata.</p>
+GraphQL-over-SSE connections, a reflected <code>grpc-js</code> server implementing all
+four RPC shapes, Eclipse Mosquitto, NATS, Apache Kafka, and RabbitMQ. It demonstrates the full supported
+boundary; it does not turn those test services or interaction fixtures into
+reusable DOT metadata.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -358,6 +375,45 @@ probe:
         health
       }
     expect: {pointer: /data/health, equals: true}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Finite bidirectional gRPC probe. The selected Proto method in the Contract
+# declares stream input/output and NO_SIDE_EFFECTS; these fields supply only
+# instance-specific test messages and acceptance criteria.
+probe:
+  grpc:
+    plaintext: true
+    serverReflection: true
+    requests:
+      - {component: contract-provider, count: 1}
+      - {component: contract-consumer, count: 1}
+    responseCount: 2
+    responseMatch: LAST
+    expect: {pointer: /sequence, equals: 2}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># NATS transport delivery. The selected AsyncAPI channel owns the subject,
+# NATS binding, message schema, and send/receive semantics.
+probe:
+  asyncapi:
+    protocol: NATS
+    correlationPointer: /id
+    message: {id: replaced-at-runtime, severity: critical}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Kafka retained-stream delivery. The selected AsyncAPI Kafka 0.5.0 channel
+# binding owns the physical topic override and the message schema.
+probe:
+  asyncapi:
+    protocol: KAFKA
+    correlationPointer: /id
+    message: {id: replaced-at-runtime, severity: critical}</code></pre>
 </div>
 </div>
 <div class="listingblock">

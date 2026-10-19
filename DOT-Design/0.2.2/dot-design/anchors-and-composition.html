@@ -295,9 +295,9 @@ ownership and no-cleanup semantics recorded in plan, lock, and state;</p>
 </li>
 <li>
 <p>contract-authorized active probes for safe OpenAPI operations, GraphQL
-query/mutation/SSE lifecycles, side-effect-free unary gRPC calls, and
-correlated AsyncAPI/MQTT delivery within one Docker network or Kubernetes
-namespace; and</p>
+query/mutation/SSE lifecycles, finite side-effect-free unary/client/server/
+bidirectional gRPC calls, and correlated AsyncAPI MQTT/NATS/Kafka/AMQP delivery within
+one Docker network or Kubernetes namespace; and</p>
 </li>
 <li>
 <p>fail-closed handling of ambiguity, unknown compatibility, unsupported privilege grants, and unreachable cross-platform materialization.</p>
@@ -308,19 +308,20 @@ namespace; and</p>
 <p>The authoritative machine-readable boundary is
 <code>DOT-Testing/acceptance/composition/v1/profile.json</code>. Run
 <code>task testing:compose:acceptance</code> to compare the installed CLI help and emitted
-schema with that profile, verify every committed lock, exercise all fifteen
+schema with that profile, verify every committed lock, exercise all twenty-one
 cross-standard wires and six runtime dry-run adapters, and emit revision-pinned,
 secret-free JSON evidence.</p>
 </div>
 <div class="paragraph">
 <p>It is not a general multi-host production orchestrator. Shared state,
 composition-owned cross-platform gateways or tunnels, external secret-store
-plugins, multi-scheme authentication, streaming gRPC, non-MQTT event protocols,
-and cross-platform probe adapters remain outside this profile. Safe anonymous
+plugins, multi-scheme authentication, unsafe or unbounded gRPC, AsyncAPI event
+protocols other than MQTT, NATS, Kafka, and AMQP 0-9-1, AMQPS/AMQP 1.0, and cross-platform probe adapters remain
+outside this profile. Safe anonymous
 OpenAPI probes, single-scheme OAuth 2.0 client-credentials probes, GraphQL
-query/mutation/SSE probes, side-effect-free unary gRPC, and AsyncAPI/MQTT
-delivery probes within a shared Docker network or Kubernetes namespace are
-supported.</p>
+query/mutation/SSE probes, all four finite side-effect-free gRPC shapes, and
+AsyncAPI MQTT/NATS/Kafka/AMQP delivery probes within a shared Docker network or Kubernetes
+namespace are supported.</p>
 </div>
 <div class="paragraph">
 <p>Single-DOT live lifecycle evidence for a runtime adapter is not automatically
