@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Authoring Anchors :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.3/dot-design/authoring-anchors.html">
+    <link rel="prev" href="anchors-and-composition.html">
+    <link rel="next" href="composition-documents.html">
+    <meta name="description" content="Define contract-backed or contractless Anchors, give them stable identities, bind them to deployable services, and resolve them from authoritative definitions.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.2.3/_exports/DOT-Design-0.2.3.pdf"
+              download="DOT-Design-0.2.3.pdf"
+              title="Download DOT-Design 0.2.3 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.3">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.2.3</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../next/dot-design/index.html">Development</a>
+        </li>
+        <li class="version is-current is-latest">
+          <a href="index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="anchors-and-composition.html">DOT Anchors and Composition</a></li>
+    <li><a href="authoring-anchors.html">Authoring Anchors</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.2.3</button>
+  <div class="version-menu">
+    <a class="version" href="../../next/dot-design/authoring-anchors.html">Development</a>
+    <a class="version is-current" href="authoring-anchors.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-design/authoring-anchors.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/authoring-anchors.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/authoring-anchors.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Authoring Anchors</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page covers the DOT publisher&#8217;s side of composition. Start with
+<a href="anchors-and-composition.html" class="xref page">the model overview</a> if the distinction between
+Contracts, Anchors, bindings, and wires is not yet familiar.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="authoring-two-composable-dots"><a class="anchor" href="#authoring-two-composable-dots"></a>Authoring two composable DOTs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use this sequence when introducing a new connection:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Put the operation or message boundary in an OpenAPI, AsyncAPI, Protobuf, or
+GraphQL Contract. Use the contractless form only when none of those standards
+can describe the boundary.</p>
+</li>
+<li>
+<p>Add a stable <code>PROVIDES</code> Anchor to the provider DOT and a stable <code>REQUIRES</code>
+Anchor to the consumer DOT. Select the authoritative Contract element from
+each Anchor; do not copy its protocol or payload fields.</p>
+</li>
+<li>
+<p>On every deployable implementation, bind each Anchor UUID to the named
+<code>ServicePort</code> that implements it.</p>
+</li>
+<li>
+<p>Declare every consumer configuration input on its <code>DeploymentService</code>,
+including sensitivity. This declaration is the allow-list for composition.</p>
+</li>
+<li>
+<p>Validate each DOT independently with <code>dotx validate</code> before writing a
+composition.</p>
+</li>
+<li>
+<p>Add named, UUID/version-pinned DOT instances and UUID-pinned Contract inputs
+to a separate composition document.</p>
+</li>
+<li>
+<p>Connect the Anchor UUIDs with a wire. Add an explicit broker endpoint,
+parameter values, security binding, or materializer only when the connection
+requires it.</p>
+</li>
+<li>
+<p>Run <code>dotx compose lock</code> and commit the generated lock beside the composition.
+Review digest changes as changes to the resolved DOT-to-DOT graph.</p>
+</li>
+<li>
+<p>Run <code>dotx compose validate</code> to check the document and <code>dotx compose plan</code> to
+inspect the resolved topology. Treat <code>UNKNOWN</code> compatibility as missing
+evidence, not as success.</p>
+</li>
+<li>
+<p>Use <code>apply --dry-run</code> before execution. After apply, use <code>compose probe</code> for
+safe Contract-derived traffic and <code>status</code> for native runtime status,
+configuration evidence, and the latest redacted probe evidence. Dedicated
+acceptance tests remain necessary for authentication, authorization, mutable
+operations, and application-specific outcomes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The complete three-DOT worked example is under
+<code>DOT-Testing/e2e/api-gateway-oidc/</code>: its <code>keycloak/</code>, <code>apisix/</code>, and
+<code>oauth-client/</code> directories contain independently valid DOTs; <code>contracts/</code>
+contains the authoritative APIs; and <code>scenario.yaml</code> owns the wiring.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Concrete identifiers in this guide use the canonical lowercase UUID text form
+with UUIDv4 version and IETF variant bits defined by
+<a href="https://www.rfc-editor.org/rfc/rfc9562.html">RFC 9562</a>. Deterministic
+values are retained where they identify executable repository fixtures, making
+the documentation traceable to the tested examples. Generate new UUIDs for
+production DOTs; do not reuse documentation or fixture identifiers.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contract-backed-anchors"><a class="anchor" href="#contract-backed-anchors"></a>Contract-backed Anchors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A contract-backed Anchor carries stable identity and selects one authoritative
+contract element. It deliberately omits protocol, direction, media type,
+payload schema, and security fields that the Contract already defines.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "a0000000-0000-4000-8000-000000000001",
+  "name": "submit-alert-http",
+  "role": "PROVIDES",
+  "semanticTypes": ["urn:mare:security:alert"],
+  "contract": {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "selector": "#/paths/~1alerts/post"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The opposite DOT declares its own <code>REQUIRES</code> Anchor. It may select the same
+Contract UUID or an independently authored Contract. Compatibility is
+deterministic when authoritative facts are comparable; otherwise the result is
+<code>UNKNOWN</code>, never an invented match.</p>
+</div>
+<div class="sect2">
+<h3 id="reading-compatibility-results"><a class="anchor" href="#reading-compatibility-results"></a>Reading compatibility results</h3>
+<div class="paragraph">
+<p>The plan compares the provider and consumer across independently explainable
+dimensions:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Dimension</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role and direction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The connection is from <code>PROVIDES</code> to <code>REQUIRES</code>, and the selected interaction
+  directions can communicate.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semantics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declared semantic-type URIs intersect when both sides provide them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protocol and media</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved protocol and media-type sets have a usable intersection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interaction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Request/response, publish/subscribe, streaming, query, mutation, or
+  subscription behavior agrees.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider output and consumer input schema identities are compared in the
+  correct direction when both select the same authoritative Contract;
+  cross-Contract structural comparison remains <code>UNKNOWN</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract requirements are understood and, for execution, a complete
+  supported binding has all required declared inputs.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>INCOMPATIBLE</code> means comparable evidence conflicts. <code>UNKNOWN</code> means evidence is
+missing or the current resolver cannot prove the dimension. Validate and plan
+may explain <code>UNKNOWN</code>; apply rejects it. An explicit mediator DOT is preferable
+to weakening compatibility when protocols or payloads genuinely differ.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selector-syntax"><a class="anchor" href="#selector-syntax"></a>Selector syntax</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Standard</th>
+<th class="tableblock halign-left valign-top">Selector</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#/paths/~1alerts/post</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#/operations/publishAlert</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protobuf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified service method</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mare.security.AlertService.PublishAlert</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root-field schema coordinate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Mutation.publishAlert</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For OpenAPI and AsyncAPI, <code>/</code> in a JSON Pointer token becomes <code>~1</code> and <code>~</code>
+becomes <code>~0</code>. Concrete path or channel template values belong to a composition
+wire&#8217;s <code>parameters</code>, not to the Anchor.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="supported-contract-representation-matrix"><a class="anchor" href="#supported-contract-representation-matrix"></a>Supported Contract representation matrix</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Standard</th>
+<th class="tableblock halign-left valign-top">Contract <code>format</code></th>
+<th class="tableblock halign-left valign-top">Authoritative interaction</th>
+<th class="tableblock halign-left valign-top">Composition evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Request/response operation, including path and security requirements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One shared selector; <code>REQUEST_RESPONSE</code> for both participants</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message operation and Channel Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distinct complementary selectors; <code>SEND</code> and <code>RECEIVE</code>, plus the resolved channel address</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protocol Buffers (Proto3; including gRPC service declarations)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROTOBUF</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified RPC and unary or streaming shape</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One shared method selector; <code>REQUEST_RESPONSE</code>, <code>CLIENT_STREAM</code>,
+  <code>SERVER_STREAM</code>, or <code>BIDIRECTIONAL_STREAM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDL root field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One shared schema coordinate; <code>QUERY</code>, <code>MUTATION</code>, or <code>SUBSCRIPTION</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>dotx compose plan --json</code> exposes the resolved <code>contractStandard</code>,
+<code>contractFormat</code>, <code>providerInteraction</code>, and <code>consumerInteraction</code> on each
+contract-backed wire. These fields are derived from the supplied Contract and
+therefore do not duplicate authoring metadata in either Anchor or composition.
+The deterministic <code>DOT-Testing/composition/contract-standards/</code> matrix connects
+one provider DOT to one consumer DOT through every row above.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="semantic-types"><a class="anchor" href="#semantic-types"></a>Semantic types</h3>
+<div class="paragraph">
+<p><code>semanticTypes</code> is a list of URI identifiers describing the security or domain
+meaning of the interaction independently of its transport. Prefer stable,
+governed ontology or vocabulary URIs when one exists; a project URN is suitable
+for concepts that have no external vocabulary yet.</p>
+</div>
+<div class="paragraph">
+<p>Current matching is deliberately conservative: both Anchors must declare at
+least one semantic type and their sets must intersect exactly. Missing values
+produce <code>UNKNOWN</code>; different values produce <code>INCOMPATIBLE</code>. The evaluator does
+not infer subclass, equivalence, or broader/narrower ontology relations. Such
+reasoning belongs in a separately reviewed semantic-policy layer.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contractless-anchors"><a class="anchor" href="#contractless-anchors"></a>Contractless Anchors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use a contractless Anchor only when no supported authoritative contract exists,
+for example a raw packet stream or a legacy metrics boundary. It must state the
+facts that cannot otherwise be derived:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "a0000000-0000-4000-8000-000000000006",
+  "name": "packet-stream",
+  "role": "PROVIDES",
+  "semanticTypes": ["urn:mare:security:packet-stream"],
+  "direction": "EGRESS",
+  "protocols": ["TCP"],
+  "mediaTypes": ["application/octet-stream"]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Contract-backed and contractless forms are mutually exclusive. A
+contract-backed Anchor must not repeat <code>direction</code>, <code>protocols</code>, or
+<code>mediaTypes</code>. A contractless Anchor must declare all three.</p>
+</div>
+<div class="sect2">
+<h3 id="role-is-not-traffic-direction"><a class="anchor" href="#role-is-not-traffic-direction"></a>Role is not traffic direction</h3>
+<div class="paragraph">
+<p><code>role</code> answers who offers the selected capability:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PROVIDES</code> means this DOT makes the capability available;</p>
+</li>
+<li>
+<p><code>REQUIRES</code> means this DOT depends on that capability.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It does not mean that bytes move in only one direction. An OpenAPI
+request/response operation has a providing server and requiring client while
+both send data. An AsyncAPI provider may select a <code>send</code> operation and its
+consumer a complementary <code>receive</code> operation. For a contract-backed Anchor,
+the resolver derives that interaction from the selected operation. Only a
+contractless Anchor states <code>INGRESS</code>, <code>EGRESS</code>, or <code>BIDIRECTIONAL</code> explicitly.</p>
+</div>
+<div class="paragraph">
+<p>When two DOTs implement the same published Contract, referencing the same
+Contract UUID gives the strongest deterministic evidence. Independently
+authored Contracts are allowed, but identical-looking schema names do not prove
+structural compatibility across Contract identities; that comparison remains
+<code>UNKNOWN</code> until a schema-aware adapter or policy evaluates it.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stable-identity-and-version-evolution"><a class="anchor" href="#stable-identity-and-version-evolution"></a>Stable identity and version evolution</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The UUID, not <code>name</code>, identifies an Anchor in a wire.</p>
+</li>
+<li>
+<p>A rename or documentation correction preserves the UUID.</p>
+</li>
+<li>
+<p>A compatible DOT version preserves the UUID for the same logical Anchor.</p>
+</li>
+<li>
+<p>An incompatible semantic replacement receives a new UUID.</p>
+</li>
+<li>
+<p>Removal and any future <code>deprecated</code>/<code>replacedBy</code> metadata are publishing governance decisions; they are not inferred from contract changes.</p>
+</li>
+<li>
+<p>Names remain useful in logs and displays but are never foreign keys.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="binding-an-anchor-to-a-deployment"><a class="anchor" href="#binding-an-anchor-to-a-deployment"></a>Binding an Anchor to a deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An Anchor is logical until a selected deployment maps it to a named service
+port:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "security-function",
+  "name": "Security Function",
+  "host": "security-function",
+  "ports": [
+    {"name": "http", "protocol": "HTTP", "port": 8080}
+  ],
+  "anchorBindings": [
+    {
+      "anchorId": "a0000000-0000-4000-8000-000000000001",
+      "port": "http"
+    }
+  ],
+  "config": {
+    "environment": [],
+    "configFiles": [],
+    "volumes": []
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This says which logical service and named port implement the Anchor. The
+deployer still decides the concrete container DNS name, cluster Service,
+allocated address, forwarded port, certificate, or network path.</p>
+</div>
+<div class="paragraph">
+<p><code>@ValidAnchor</code> and <code>AnchorValidator</code> reject duplicate Anchor UUIDs, undeclared
+Contract references, invalid selector syntax, undeclared ports, undeclared
+Anchor bindings, and duplicate service-local bindings.</p>
+</div>
+<div class="sect2">
+<h3 id="runtime-configuration-portability"><a class="anchor" href="#runtime-configuration-portability"></a>Runtime configuration portability</h3>
+<div class="paragraph">
+<p>Every <code>DeploymentService</code> declares its supported configuration surface through
+<code>environment</code>, <code>configFiles</code>, and logical <code>volumes</code>. A composition may supply
+only values whose names or target paths the selected service declares. Required
+environment variables and files without defaults fail before runtime mutation;
+sensitive environment values require a <code>secretRef</code> instead of a literal.
+When an input is omitted, <code>dotx</code> reuses the non-sensitive <code>defaultValue</code> or
+<code>defaultContent</code> declared by that service. Explicit composition values and wire
+materializers override defaults; conflicting explicit inputs fail closed.
+Declarations marked <code>sensitive</code> are forbidden from embedding either kind of
+default and must use a deployment-time secret reference or runtime-native
+secret facility. Dry runs print resolved environment values in stable name
+order for every adapter, but replace every value declared sensitive with
+<code>&lt;redacted&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Each composition input carries the stable <code>service</code> id it targets. Authors may
+omit <code>service</code> only when exactly one service in the selected deployment declares
+that environment name, file path, or volume name; planning resolves and records
+the service explicitly. If two services declare the same item, omission is an
+error. Duplicate detection is service-local, so two services can intentionally
+receive different values for the same environment-variable name.</p>
+</div>
+<div class="paragraph">
+<p>Environment variables and configuration files are rendered by every currently
+executable <code>dotx</code> deployment adapter:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Manifest</th>
+<th class="tableblock halign-left valign-top">Environment</th>
+<th class="tableblock halign-left valign-top">Configuration files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_IMAGE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only bind mounts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_COMPOSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-service override using process-environment staging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generated per-service Compose override mounts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KUBERNETES_MANIFEST</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact workload/container patch; existing Secret keys remain <code>secretKeyRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service-qualified ConfigMap or Secret plus exact workload/mount patch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HELM_CHART</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact post-install workload/container patch; existing Secret keys remain native</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service-qualified ConfigMap or Secret plus exact workload/mount patch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VAGRANTFILE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vagrant process/provisioner environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Files provisioned into the managed VM and exposed to the Vagrantfile</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WASM_MODULE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allow-listed WASI guest environment; sensitive values inherited by name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Staged configuration root plus explicit Wasmtime directory preopens</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Configuration remains service-scoped. A Docker image or Vagrant deployment is
+one workload or VM, so several logical services may safely share its declared
+configuration surface. Docker Compose, Kubernetes, and Helm may materialize
+several independent workloads. Their composition therefore supplies
+<code>deploymentInputs.workloads</code>: a Compose binding names one native service; a
+Kubernetes/Helm binding supplies exact native labels and optionally a container.
+Dotx intersects those labels with its composition-owned instance label and
+requires exactly one workload. Missing, duplicate, cross-runtime, ambiguous
+workload, and ambiguous container bindings fail closed. This prevents
+environment values, secrets, or mounted files from reaching the wrong security
+function without adding platform-specific selectors to the reusable DOT model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deploymentInputs:
+  workloads:
+    - service: api
+      kubernetes:
+        matchLabels:
+          app.kubernetes.io/component: api
+        container: api</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Storage and privilege configuration is deliberately runtime-native. Docker
+image deployments support composition-scoped named volumes, explicit OCI bind
+sources, exact capability/host-namespace grants, and CNCF CDI devices. Compose
+payloads own their volume graph; Kubernetes and Helm own claims, storage
+classes, and volume topology; Vagrantfiles own disks and synced folders. A
+composer must not translate a host bind path into a cluster volume or silently
+grant privileged mode.</p>
+</div>
+<div class="paragraph">
+<p><code>WASM_MODULE</code> uses a reviewed Wasmtime/WASI profile. Each module is SHA-256
+pinned and loaded from a relative/file or HTTPS URI. <code>WASI_CLI</code> executes command
+modules/components; <code>WASI_HTTP</code> serves a component on one declared TCP/HTTP
+service port bound to loopback. Dotx exposes only declared environment values,
+staged configuration files, and explicitly bound host directories. It does not
+translate OCI capabilities, host namespaces, or CDI devices into broader WASI
+permissions. Sensitive values are never printed or persisted. Because the
+Wasmtime CLI cannot enforce read-only permissions on a directory preopen, that
+request fails closed unless the host filesystem already supplies the boundary.
+The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
+matrix exercises every executable adapter twice: once using only declared
+non-sensitive defaults and once using explicit composition overrides. It checks
+the materialized default configuration document, the resolved service-scoped
+plan, and the runtime-specific dry-run renderer. The
+<code>DOT-Testing/composition/service-workloads/</code> matrix verifies isolation between
+two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="discovering-and-resolving-anchors"><a class="anchor" href="#discovering-and-resolving-anchors"></a>Discovering and resolving Anchors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The authoritative test and reference definitions are stored in
+<code>DOT-Repository</code> and addressed as <code>repository://&lt;dot-id&gt;@&lt;version&gt;</code>. Consumers
+can inspect one immutable definition or validate the complete repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
+dotx validate DOT-Repository</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>dotx compose validate</code> and <code>dotx compose plan --json</code> resolve Anchor UUIDs,
+service-port bindings, and selected Contract elements conservatively. The plan
+reports <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>; missing evidence is never
+treated as a match. Contract payloads remain authoritative and are not copied
+into Anchors or composition wires.</p>
+</div>
+<div class="paragraph">
+<p>This command boundary is the reference behavior, not a requirement to embed
+dotx. Another catalogue or composer may use any language, framework, storage,
+or API shape if it preserves the same identities, fail-closed resolution, and
+ownership boundaries. See <a href="integration-handoff.html" class="xref page">integration handoff</a>.</p>
+</div>
+<div class="paragraph">
+<p>Next, define the concrete participants and topology in a
+<a href="composition-documents.html" class="xref page">composition document</a>.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="anchors-and-composition.html">DOT Anchors and Composition</a></span>
+  <span class="next"><a href="composition-documents.html">Composition Documents and DOT Instances</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

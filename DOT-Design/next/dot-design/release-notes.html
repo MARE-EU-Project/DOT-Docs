@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Release notes :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.2/dot-design/release-notes.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.3/dot-design/release-notes.html">
     <link rel="prev" href="integration-handoff.html">
     <link rel="next" href="../dot-domain/index.html">
     <meta name="generator" content="Antora 3.2.1">
@@ -118,12 +118,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.2.2/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.2.3/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Development</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
           <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
         </li>
         <li class="version">
@@ -142,7 +145,7 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../0.2.2/dot-design/index.html" class="home-link"></a>
+  <a href="../../0.2.3/dot-design/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
@@ -153,6 +156,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Development</button>
   <div class="version-menu">
     <a class="version is-current" href="release-notes.html">Development</a>
+    <a class="version" href="../../0.2.3/dot-design/release-notes.html">0.2.3</a>
     <a class="version" href="../../0.2.2/dot-design/release-notes.html">0.2.2</a>
     <a class="version" href="../../0.2.1/dot-design/release-notes.html">0.2.1</a>
     <a class="version" href="../../0.2.0/dot-design/release-notes.html">0.2.0</a>
@@ -168,6 +172,24 @@
 <div class="sect1">
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>No unreleased changes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_0_2_3"><a class="anchor" href="#_0_2_3"></a>0.2.3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>0.2.3</code> is a backward-compatible production-hardening release for the stable
+<code>dot.mare6g.eu/v1</code> single-host composition profile. It preserves the DOT,
+Contract, Anchor, composition-schema, repository-layout, and deployment
+interfaces published in <code>0.2.2</code> while broadening standards-authorized runtime
+evidence and strengthening deployment-configuration acceptance. The exact
+pinned revisions are DOT-CLI
+<code>b07ec3b568b59cb25631a9b51700a14ee124bb05</code> and DOT-Repository
+<code>247606d4a55c5e85a822f1f82eca52a3574b5a04</code>.</p>
+</div>
 <div class="paragraph">
 <p>The cross-runtime configuration matrix now exercises every executable adapter
 through separate default-only and explicit-override paths. It verifies
@@ -209,6 +231,34 @@ and obtains RabbitMQ credentials only through a secret reference. Queue-bound
 channels, headers exchanges, AMQPS, and AMQP 1.0 fail closed. The canonical
 digest-pinned RabbitMQ 4.3.6 runtime DOT expands the locked standards
 composition to twenty-one wires and four real message brokers.</p>
+</div>
+<div class="paragraph">
+<p>The complete pushed workflow matrix passed on
+<code>79807aacebe7aab1112fe82104898ab4a0929db0</code>, including
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/actions/runs/39296754056">DOT-CLI CI</a>,
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39298870384">Contract active probes</a>,
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39298870258">compatibility matrix</a>,
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39298870242">coverage</a>,
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39298870225">Kubernetes and Helm runtime E2E</a>,
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39298870710">DOT repository conformance</a>,
+and
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39298870609">versioned Antora publication</a>.</p>
+</div>
+<div class="paragraph">
+<p>The release publishes the versioned domain JAR, DOT and Composition v1
+schemas, CycloneDX JSON/XML SBOMs, Linux-amd64 <code>dotx</code> binary, immutable release
+manifest, and checksums. The tag workflow performs deterministic two-build
+packaging before publication, and post-publication acceptance downloads and
+exercises the released binary.</p>
+</div>
+<div class="paragraph">
+<p>Existing <code>0.2.0</code> through <code>0.2.2</code> definitions, compositions, and locks remain
+valid. Unsafe or unbounded gRPC, AsyncAPI transports other than MQTT, NATS,
+Kafka, and AMQP 0-9-1, AMQPS/AMQP 1.0, multi-scheme authentication,
+multi-host orchestration, automatic cross-platform gateway provisioning,
+general stateful-data migration, native arm64, non-Linux executables,
+DOT-Registry REST API work, and joint SFC/partner acceptance remain outside
+this Linux-amd64 release.</p>
 </div>
 </div>
 </div>

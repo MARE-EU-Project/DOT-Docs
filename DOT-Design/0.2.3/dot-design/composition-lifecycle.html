@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Composition Lifecycle and Design Guidance :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.3/dot-design/composition-lifecycle.html">
+    <link rel="prev" href="wiring-and-security.html">
+    <link rel="next" href="verification-and-examples.html">
+    <meta name="description" content="Lock, validate, plan, apply, actively probe, inspect, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.2.3/_exports/DOT-Design-0.2.3.pdf"
+              download="DOT-Design-0.2.3.pdf"
+              title="Download DOT-Design 0.2.3 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.3">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.2.3</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../next/dot-design/index.html">Development</a>
+        </li>
+        <li class="version is-current is-latest">
+          <a href="index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="anchors-and-composition.html">DOT Anchors and Composition</a></li>
+    <li><a href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.2.3</button>
+  <div class="version-menu">
+    <a class="version" href="../../next/dot-design/composition-lifecycle.html">Development</a>
+    <a class="version is-current" href="composition-lifecycle.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-design/composition-lifecycle.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/composition-lifecycle.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/composition-lifecycle.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Composition Lifecycle and Design Guidance</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The lifecycle deliberately separates reproducible input locking, model
+validation, deterministic planning, runtime mutation, recorded state, and
+active acceptance evidence. This keeps review and CI read-only while making
+execution recoverable and auditable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="validation-planning-and-lifecycle"><a class="anchor" href="#validation-planning-and-lifecycle"></a>Validation, planning, and lifecycle</h2>
+<div class="sectionbody">
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/composition-lifecycle.svg" alt="Locking, validation, planning, apply, active probing, recovery, status, and destroy lifecycle">
+</div>
+<div class="title">Figure 1. Composition lifecycle</div>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/composition-lifecycle.mmd" class="xref attachment">View the Mermaid source</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="what-each-command-proves"><a class="anchor" href="#what-each-command-proves"></a>What each command proves</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Proves</th>
+<th class="tableblock halign-left valign-top">Does not prove</th>
+<th class="tableblock halign-left valign-top">Mutates runtime/state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose lock</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact composition, selected DOT definitions and deployments, Contracts,
+  configuration inputs, and portable resolved plan are content-addressed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime availability, credentials, or policy acceptance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Writes only the requested lock file; <code>--check</code> is read-only</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose validate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The strict document shape, references, selected deployments, Anchors,
+  Contracts, compatibility evidence, and materializer declarations resolve.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact runtime actions or live availability.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose plan</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Everything validated above plus the deterministic instance order, runtime
+  identities, endpoints, Contract standard/format and participant interaction,
+  derived values, security status, and materializers.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">That the planned hosts are reachable or credentials work.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose apply --dry-run</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The composition reaches lifecycle preparation and can render supported
+  deployment actions without persisting composition state.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Successful deployment or application-level traffic.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose apply</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The supported deployment adapters completed and recoverable state was
+  recorded, subject to rollback behavior.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">End-to-end Contract behavior unless separately probed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose upgrade --dry-run</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact current and target locks resolve, the target SemVer increases, and
+  a deterministic per-instance <code>ADD</code>/<code>UPDATE</code>/<code>REMOVE</code>/<code>UNCHANGED</code> diff passes
+  runtime, storage, ownership, and recovery preflights.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">That an application-specific persistent-data migration is safe.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose upgrade</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The target revision was applied through a checkpointed transaction and the
+  last-known-good control-plane revision remained available until promotion.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reversal of application data writes; stateful mutations are rejected.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes; failures automatically restore the verified previous revision, while
+  interrupted transactions require <code>--resume</code> or <code>--rollback</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose probe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selected safe OpenAPI operation, GraphQL lifecycle, finite side-effect-free
+  gRPC method, or correlated AsyncAPI MQTT/NATS/Kafka/AMQP message is observable from the
+  composition&#8217;s shared Docker network or Kubernetes namespace. GraphQL
+  mutations/subscriptions include mandatory verification or trigger and cleanup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete application semantics, unsafe or unbounded gRPC, other AsyncAPI protocols,
+  multi-scheme authentication, authorization-policy quality, or unprobed
+  operations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creates and removes an ephemeral probe runner without changing member
+  workloads; writes redacted probe evidence to composition state</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances, wire/exposure configuration evidence,
+  and the latest recorded active-probe outcomes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current reachability after the probe timestamp, authentication mechanisms not
+  explicitly identified by the evidence, authorization semantics, response
+  bodies, or policy compliance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No runtime mutation; reads state while holding the lifecycle lock</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose destroy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Owned instances were destroyed in reverse order and successful cleanup
+  removed composition state.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cleanup of resources not owned or recorded by this composition.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>validate</code> answers <em>is this composition internally resolvable?</em> <code>plan</code> answers
+<em>what exactly would be connected and materialized?</em> Keeping both commands
+read-only makes them suitable for review and CI.</p>
+</div>
+<div class="paragraph">
+<p><code>lock</code> makes those answers reproducible. Its JSON output preserves the original
+<code>repository://</code> and relative references while recording SHA-256 digests for the
+composition, every resolved <code>dot.json</code>, every supplied Contract, configuration
+inputs, and the portable resolved plan. For an explicit remote repository it
+also records the normalized repository identity and exact commit. It never
+records secret values, runtime addresses, or checkout-local absolute paths.
+Validate, plan, and apply verify an adjacent lock automatically; <code>--locked</code>
+additionally requires it, and <code>--lock &lt;path&gt;</code> selects an explicit file. Any
+mismatch fails before runtime mutation.</p>
+</div>
+<div class="paragraph">
+<p><code>probe</code> deliberately reuses the interaction selected by the wire instead of
+introducing health-check fields in an Anchor or DOT. For OpenAPI, it derives the
+request from the authoritative operation, accepts only <code>GET</code>, <code>HEAD</code>, and
+<code>OPTIONS</code>, and requires one fully bound path. The OAuth 2.0 adapter reuses one
+configured RFC 6749
+client-credentials binding that satisfies a complete, single-scheme OpenAPI
+Security Requirement alternative. It resolves the provider-derived token URL,
+client ID, scopes, and client-secret reference at execution time, then requires
+a Contract-declared <code>2xx</code> response from the protected operation. Kubernetes
+Secret values remain <code>secretKeyRef</code> references; Docker secrets are supplied
+only through the runner environment.</p>
+</div>
+<div class="paragraph">
+<p>For GraphQL, the composition supplies the deployment-specific HTTP path and a
+non-sensitive operation document with optional operation name and variables.
+Before planning succeeds, <code>dotx</code> parses the authoritative SDL, validates every
+document and variable set, requires exactly one direct top-level field, and
+requires that field to equal the Anchor-selected coordinate. It never guesses
+<code>/graphql</code>. Queries use HTTP directly. Mutations additionally declare an
+observable verification query and cleanup mutation. Subscriptions use the
+GraphQL-over-SSE protocol on a connection established before a separate trigger
+mutation and finish with a cleanup mutation. Every phase must return HTTP <code>2xx</code>
+without GraphQL errors; the expectation is evaluated against the query
+response, mutation verification result, or delivered subscription event.</p>
+</div>
+<div class="paragraph">
+<p>For gRPC, the composition supplies one protobuf-JSON <code>request</code> for unary and
+server-streaming methods, or an ordered <code>requests</code> sequence for client and
+bidirectional streams. The selected Proto3 RPC must declare the standard
+<code>NO_SIDE_EFFECTS</code> idempotency level and be discoverable through explicitly
+enabled server reflection. Every streaming fixture declares a positive exact
+<code>responseCount</code>; an optional expectation uses <code>ALL</code>, <code>ANY</code>, <code>FIRST</code>, or <code>LAST</code>
+matching. Requests are checked against the authoritative input descriptor
+before the pinned <code>grpcurl</code> runner starts, then every returned document is
+checked against the authoritative output descriptor. Unsafe, unbounded, wrong-
+count, or descriptor-incompatible calls fail closed.</p>
+</div>
+<div class="paragraph">
+<p>For AsyncAPI, the active adapters require a provider <code>send</code> operation, an
+explicit MQTT/MQTT5, NATS, Kafka, or AMQP channel binding, one concrete destination,
+and a JSON-Schema message payload. The composition declares the message and RFC
+6901 correlation pointer; MQTT additionally declares QoS. The Kafka adapter
+honors the official binding-level <code>topic</code> override and restricts topics to the
+Kafka-supported ASCII alphanumeric, dot, underscore, and hyphen syntax. The
+digest-pinned official Mosquitto or NATS client subscribes before publishing a
+fresh UUID-correlated non-retained message. Kafka creates a unique consumer
+group, waits for its topic assignment before publishing the exact correlated
+record through the official Apache Kafka JVM image, and removes the group after
+the bounded check. Kafka records remain subject to broker/topic retention and
+are never represented as transient. The AMQP 0-9-1 adapter applies the official
+0.3.0 channel and operation bindings, declares the exact direct/topic/fanout
+exchange, binds an exclusive auto-delete queue before publishing, acknowledges
+the correlated delivery, and closes the connection to remove the queue. It
+accepts credentials only as a password secret reference. Queue-bound channels,
+headers exchanges, AMQPS, AMQP 1.0, a binding/protocol mismatch, or MQTT-only
+QoS on NATS/Kafka/AMQP fail closed.</p>
+</div>
+<div class="paragraph">
+<p>All adapters execute digest-pinned runners inside the common Docker network or
+Kubernetes namespace. Runner output is capped at 1 MiB before parsing.
+Secrets and bearer tokens never appear in the argument vector or state.
+Contractless, unresolved, unsupported-protocol, and cross-platform wires are
+reported as unsupported rather than inferred healthy. Diagnostics, documents,
+variables, requests, messages, and response bodies are not persisted; state
+contains only normalized identifiers, adapter, result metadata, failure code,
+and timestamp.</p>
+</div>
+<div class="paragraph">
+<p>The live contract-probe fixture runs a real GraphQL.js producer with distinct
+GraphQL-over-SSE connections, a reflected <code>grpc-js</code> server implementing all
+four RPC shapes, Eclipse Mosquitto, NATS, Apache Kafka, and RabbitMQ. It demonstrates the full supported
+boundary; it does not turn those test services or interaction fixtures into
+reusable DOT metadata.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Composition-level probe input; the DOT and Anchor still contain only the
+# authoritative Contract reference and selector Query.health.
+probe:
+  graphql:
+    path: /graphql
+    operationName: Health
+    document: |
+      query Health {
+        health
+      }
+    expect: {pointer: /data/health, equals: true}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Finite bidirectional gRPC probe. The selected Proto method in the Contract
+# declares stream input/output and NO_SIDE_EFFECTS; these fields supply only
+# instance-specific test messages and acceptance criteria.
+probe:
+  grpc:
+    plaintext: true
+    serverReflection: true
+    requests:
+      - {component: contract-provider, count: 1}
+      - {component: contract-consumer, count: 1}
+    responseCount: 2
+    responseMatch: LAST
+    expect: {pointer: /sequence, equals: 2}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># NATS transport delivery. The selected AsyncAPI channel owns the subject,
+# NATS binding, message schema, and send/receive semantics.
+probe:
+  asyncapi:
+    protocol: NATS
+    correlationPointer: /id
+    message: {id: replaced-at-runtime, severity: critical}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Kafka retained-stream delivery. The selected AsyncAPI Kafka 0.5.0 channel
+# binding owns the physical topic override and the message schema.
+probe:
+  asyncapi:
+    protocol: KAFKA
+    correlationPointer: /id
+    message: {id: replaced-at-runtime, severity: critical}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Emit the canonical strict Draft 2020-12 schema
+dotx compose schema &gt; composition-v1.schema.json
+
+# Generate once, commit, and verify without rewriting
+dotx compose lock scenario.yaml
+dotx compose lock scenario.yaml --check
+
+# Structure, references, selectors, compatibility, and materializer declarations
+dotx compose validate scenario.yaml --locked
+
+# Deterministic resolved topology; no runtime mutation
+dotx compose plan scenario.yaml --locked
+dotx compose plan scenario.yaml --locked --json
+
+# Resolve the catalogue from one immutable remote Git revision
+dotx compose plan scenario.yaml --locked --json \
+  --repository https://github.com/MARE-EU-Project/DOT-Repository.git \
+  --git-ref &lt;40-character-commit&gt;
+
+# Render runtime actions without state or runtime mutation
+dotx compose apply scenario.yaml --locked --dry-run
+
+# Execute, inspect recorded evidence, and clean up owned resources
+dotx compose apply scenario.yaml --locked
+dotx compose probe scenario.yaml --locked --wire oidc-provider-to-gateway
+dotx compose probe scenario.yaml --locked --wire protected-gateway-to-client
+dotx compose status scenario.yaml
+dotx compose destroy scenario.yaml
+
+# Review and execute a locked upgrade
+dotx compose upgrade scenario-v2.yaml \
+  --from scenario-v1.yaml \
+  --from-lock scenario-v1.lock.json \
+  --locked --dry-run --json
+dotx compose upgrade scenario-v2.yaml \
+  --from scenario-v1.yaml \
+  --from-lock scenario-v1.lock.json \
+  --locked</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apply records each pending instance before runtime mutation, rolls back earlier
+instances on failure, and preserves recoverable state when rollback is
+incomplete or <code>--keep-on-failure</code> is selected. <code>apply --resume</code> requires an
+identical composition source, resolved plan, runtime options, inputs, ordering,
+and previously applied runtime state. Resume also reconciles an interrupted
+composition-network creation: it reuses the correctly owned network or creates
+the still-missing network before continuing. Destroy checkpoints every
+successfully removed instance, so a retry targets only cleanup that did not
+finish.</p>
+</div>
+<div class="paragraph">
+<p>Upgrade is a separate lifecycle; <code>apply</code> never mutates an already recorded
+plan. Upgrade requires the exact previous and target locks, the same
+composition UUID, and a strictly greater target SemVer. Existing instance names
+must retain their platform and deployment mechanism. Docker image, Docker
+Compose, Kubernetes manifest, Helm, Vagrantfile, and WASM module instances use
+their stable managed identities. The private transaction journal stores only
+paths, identifiers, phases, and digests—not resolved secrets or input payloads.
+Stateful and host-bound mutations fail before the first runtime action because
+restoring a deployment specification cannot undo workload data changes.</p>
+</div>
+<div class="paragraph">
+<p>The deterministic recovery profile injects an interruption immediately before
+and after network creation, instance deployment, instance destruction, and
+network removal. It also verifies lock contention, lock release after a panic,
+partial cleanup, idempotent resume, and fail-closed plan/runtime drift:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:lifecycle-recovery
+task testing:compose:upgrade</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The task writes revision-pinned, secret-free JSON evidence under
+<code>DOT-Testing/e2e/target/</code> and is enforced by the Composition lifecycle recovery
+workflow.</p>
+</div>
+<div class="paragraph">
+<p>Apply, probe, status, and destroy acquire a private per-composition process lock. A
+concurrent lifecycle command fails immediately rather than racing local state
+or runtime mutations.</p>
+</div>
+<div class="paragraph">
+<p><code>compose status</code> reports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the recorded phase and native runtime status of each DOT instance;</p>
+</li>
+<li>
+<p>recorded wire compatibility, security configuration, selected endpoint, and materializer count; and</p>
+</li>
+<li>
+<p>recorded exposed-Anchor bindings; and</p>
+</li>
+<li>
+<p>the latest redacted active Contract-probe result for each probed wire.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Wire and exposure entries remain configuration evidence. Only entries under
+active Contract-probe evidence demonstrate a runtime request and declared
+OpenAPI response match, bounded by their timestamp and adapter scope.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fail-closed-rules"><a class="anchor" href="#fail-closed-rules"></a>Fail-closed rules</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apply rejects:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>UNKNOWN</code> wire compatibility;</p>
+</li>
+<li>
+<p>missing, duplicate, or mismatched IDs and versions;</p>
+</li>
+<li>
+<p>ambiguous deployments, bindings, services, ports, or OpenAPI server paths;</p>
+</li>
+<li>
+<p>unresolved OpenAPI paths or AsyncAPI channel templates;</p>
+</li>
+<li>
+<p>undeclared materializer targets and conflicting target values;</p>
+</li>
+<li>
+<p>readiness dependency cycles;</p>
+</li>
+<li>
+<p>unsupported secret-store/runtime combinations;</p>
+</li>
+<li>
+<p>ungranted OCI capabilities, host namespaces, volumes, or CDI devices;</p>
+</li>
+<li>
+<p>repeated DOT instances on deployment mechanisms that cannot isolate their resource names; and</p>
+</li>
+<li>
+<p>materialized cross-platform wires without an explicit network binding.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Planning may retain <code>UNKNOWN</code> to explain incomplete evidence. Execution never
+silently upgrades <code>UNKNOWN</code> to compatible.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-does-not-belong-in-an-anchor"><a class="anchor" href="#what-does-not-belong-in-an-anchor"></a>What does not belong in an Anchor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Do not add these as optional Anchor fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>hosts, URLs, numeric ports, broker addresses, or Kubernetes names;</p>
+</li>
+<li>
+<p>credentials, tokens, certificates, or secret values;</p>
+</li>
+<li>
+<p>Camel/Kamelet route syntax;</p>
+</li>
+<li>
+<p>transformation logic;</p>
+</li>
+<li>
+<p>placement, slice, tenant, trust-zone, latency, or availability policy;</p>
+</li>
+<li>
+<p>current health or live authorization state;</p>
+</li>
+<li>
+<p>host paths or operator device names; or</p>
+</li>
+<li>
+<p>orchestration dependencies.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use Contracts for interaction semantics, service bindings for deployable ports,
+composition inputs for operator-controlled configuration, wires for topology,
+materializers or mediator DOTs for explicit adaptation, and policy engines for
+deployment/security decisions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="choosing-an-extension-point"><a class="anchor" href="#choosing-an-extension-point"></a>Choosing an extension point</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Requirement</th>
+<th class="tableblock halign-left valign-top">Preferred representation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">New API/message operation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add or update the authoritative Contract and select it from an Anchor.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consumer needs a provider address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wire materializer targeting declared service configuration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload/protocol transformation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit mediator DOT with two Contracts and two Anchors.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Startup/readiness ordering</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition <code>dependsOn</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secret or certificate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference-only deployment input and platform/external secret provider.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Privileged runtime resource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typed deployment requirement plus exact composition grant.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broker service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit wire <code>endpoint</code> selecting the broker service port.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network attachment, eBPF/XDP, WASM import/export, or lifecycle event</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Separately reviewed polymorphic binding type when a real use case requires it;
+  do not grow <code>Anchor</code> with nullable fields.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6g-security-composition-patterns"><a class="anchor" href="#6g-security-composition-patterns"></a>6G security composition patterns</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The same model supports security-function composition without baking one
+orchestrator&#8217;s topology language into every DOT:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Zero-trust API chain:</strong> identity-provider and policy-decision DOTs expose
+token, discovery, and authorization Anchors; an API gateway consumes them and
+exposes a protected application Anchor. Contracts carry OAuth/OpenID Connect
+and application semantics, while the composition supplies client-specific
+secret references and issuer URLs.</p>
+</li>
+<li>
+<p><strong>Closed-loop detection and response:</strong> telemetry, inference, CACAO
+interpretation, and OpenC2 actuation remain separate DOTs. HTTP and MQTT
+Contracts define the boundaries; the wire selects the broker endpoint and
+supplies only deployment-specific channel values.</p>
+</li>
+<li>
+<p><strong>Multi-domain federation:</strong> peer DOT instances can have reciprocal wires while
+<code>dependsOn</code> contains only real readiness dependencies. Trust-domain, roaming,
+and federation policy belongs in policy inputs or a dedicated policy DOT, not
+in the Anchor.</p>
+</li>
+<li>
+<p><strong>Near-real-time RAN control:</strong> E2 or management APIs are Contract-backed
+Anchors. Host networking, accelerators, eBPF/XDP attachments, and radio-device
+access are explicit deployment requirements and grants, never inferred from
+a wire.</p>
+</li>
+<li>
+<p><strong>Observability and digital twins:</strong> metrics, logs, events, and integrity APIs
+are distinct Anchors. A storage or message broker is selected explicitly as a
+connection endpoint; a shared host path is not treated as a portable
+integration boundary.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For cross-domain 6G deployments, a successful plan proves model consistency,
+not trust. Admission policy must still evaluate publisher identity, artifact
+provenance, attestation, slice/tenant placement, data-sovereignty constraints,
+and least-privilege grants before execution. Runtime acceptance should then
+probe the selected Contract operation over the actual network path.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="troubleshooting"><a class="anchor" href="#troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Symptom</th>
+<th class="tableblock halign-left valign-top">What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor UUID is not found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The wire references the pinned DOT version, the UUID is stable, and the
+  Anchor is present in that version&#8217;s <code>dot.json</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract or selector cannot be resolved</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The composition maps the exact Contract UUID to a readable source, the source
+  document&#8217;s <code>id</code> matches it, and the selector uses the standard-specific syntax.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor has no deployable endpoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The selected deployment contains exactly one service binding for the Anchor,
+  and its named port exists on that same service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility is <code>UNKNOWN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect <code>compatibilityReasons</code> in <code>compose plan --json</code>; add authoritative
+  Contract evidence or use an explicit mediator. Do not override the result.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Materializer target is rejected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The target service declares the environment variable or config-file path,
+  the JSON Pointer is valid, and no other wire writes a conflicting value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security remains unresolved</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bind a Contract-required supported scheme, declare all participant variables,
+  and supply sensitive values by <code>secretRef</code> rather than plaintext.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Apply reports the composition is busy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Another apply, status, or destroy holds the per-composition lock. Let that
+  command finish; do not delete the lock while a lifecycle process is running.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status shows a configured wire but no active evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run <code>dotx compose probe scenario.yaml --wire &lt;wire&gt;</code>. If the wire is skipped,
+  its operation requires a dedicated adapter or application-level acceptance
+  test. Configuration evidence alone is not reachability evidence.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An OAuth probe reports <code>AUTHENTICATION_ERROR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the bound token URL and client ID, the referenced Secret name/key or
+  environment-store source, required scopes, issuer reachability, and client
+  authorization. Dotx deliberately does not persist the token endpoint&#8217;s body.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="executable-examples"><a class="anchor" href="#executable-examples"></a>Executable examples</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>DOT-Testing/conformance/anchors/</code> covers all four Contract standards,
+contractless Anchors, validation failures, bindings, and compatibility.</p>
+</li>
+<li>
+<p><code>DOT-Testing/e2e/api-gateway-oidc/</code> is the canonical authenticated request/response lifecycle example.</p>
+</li>
+<li>
+<p><code>DOT-Testing/composition/poc6-closed-loop/</code> demonstrates an explicit MQTT broker endpoint and OpenC2/AsyncAPI operations.</p>
+</li>
+<li>
+<p><code>DOT-Testing/composition/federation-peers/</code> demonstrates reciprocal wires without false readiness cycles.</p>
+</li>
+<li>
+<p><code>DOT-Testing/e2e/poc1-ric-aaa/</code> demonstrates identity, OPA authorization, forwarding, metrics feedback, and deny-list update across seven wires.</p>
+</li>
+<li>
+<p><code>DOT-Testing/interoperability/pocs.yaml</code> is the evidence ledger for all eleven MARE PoCs and records every remaining acceptance gap.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Run the repository gate with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:conformance</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The source-adapted E2E tests prove only their documented boundaries. They do
+not claim partner-runtime, live-RIC, production-network, trust-policy, or SFC
+acceptance unless that exact behavior is asserted by the scenario.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="wiring-and-security.html">Wiring, Materialization, and Security</a></span>
+  <span class="next"><a href="verification-and-examples.html">Verification and examples</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>
