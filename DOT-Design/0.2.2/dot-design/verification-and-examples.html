@@ -434,9 +434,12 @@ permissive validator invocations.</p>
 <div class="paragraph">
 <p>The runtime-configuration gate separately proves that selecting another
 executable deployment does not discard a service&#8217;s declared environment or
-configuration-file surface. Runtime-native storage, secret, privilege, and
-device semantics retain dedicated tests rather than being flattened into a
-misleading universal volume abstraction.</p>
+configuration-file surface. Each adapter is exercised first with its declared
+<code>defaultValue</code> and <code>defaultContent</code>, then with explicit composition overrides;
+the gate validates the cached default document, resolved service id, override
+values, and runtime-specific dry-run. Runtime-native storage, secret,
+privilege, and device semantics retain dedicated tests rather than being
+flattened into a misleading universal volume abstraction.</p>
 </div>
 <div class="paragraph">
 <p>The multi-service live profile is the higher evidence layer for the exact

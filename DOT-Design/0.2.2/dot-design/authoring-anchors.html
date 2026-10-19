@@ -581,7 +581,9 @@ When an input is omitted, <code>dotx</code> reuses the non-sensitive <code>defau
 materializers override defaults; conflicting explicit inputs fail closed.
 Declarations marked <code>sensitive</code> are forbidden from embedding either kind of
 default and must use a deployment-time secret reference or runtime-native
-secret facility.</p>
+secret facility. Dry runs print resolved environment values in stable name
+order for every adapter, but replace every value declared sensitive with
+<code>&lt;redacted&gt;</code>.</p>
 </div>
 <div class="paragraph">
 <p>Each composition input carries the stable <code>service</code> id it targets. Authors may
@@ -685,7 +687,10 @@ permissions. Sensitive values are never printed or persisted. Because the
 Wasmtime CLI cannot enforce read-only permissions on a directory preopen, that
 request fails closed unless the host filesystem already supplies the boundary.
 The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
-matrix exercises every executable adapter. The
+matrix exercises every executable adapter twice: once using only declared
+non-sensitive defaults and once using explicit composition overrides. It checks
+the materialized default configuration document, the resolved service-scoped
+plan, and the runtime-specific dry-run renderer. The
 <code>DOT-Testing/composition/service-workloads/</code> matrix verifies isolation between
 two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
 </div>

@@ -151,6 +151,13 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>The cross-runtime configuration matrix now exercises every executable adapter
+through separate default-only and explicit-override paths. It verifies
+non-sensitive <code>defaultValue</code> and <code>defaultContent</code> materialization, explicit
+environment/file precedence, resolved service targeting, and redacted dry-run
+diagnostics.</p>
+</div>
+<div class="paragraph">
 <p>Contract-authorized gRPC probes now cover unary, server-streaming,
 client-streaming, and bidirectional methods. All methods still require the
 Proto3 <code>NO_SIDE_EFFECTS</code> option and server reflection. Streaming fixtures must
