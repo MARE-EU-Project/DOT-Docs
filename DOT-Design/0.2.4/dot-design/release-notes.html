@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Release notes :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.3/dot-design/release-notes.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-design/release-notes.html">
     <link rel="prev" href="integration-handoff.html">
     <link rel="next" href="../dot-domain/index.html">
     <meta name="generator" content="Antora 3.2.1">
@@ -32,9 +32,9 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
-              download="DOT-Design-next.pdf"
-              title="Download DOT-Design next as PDF"
+              href="../../../DOT-Design/0.2.4/_exports/DOT-Design-0.2.4.pdf"
+              download="DOT-Design-0.2.4.pdf"
+              title="Download DOT-Design 0.2.4 as PDF"
             >Download PDF</a>
           </span>
         </div>
@@ -43,7 +43,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="DOT-Design" data-version="next">
+<div class="nav-container" data-component="DOT-Design" data-version="0.2.4">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -114,16 +114,16 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">Development</span>
+    <span class="version">0.2.4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.2.3/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="index.html">DOT-Design</a></div>
       <ul class="versions">
-        <li class="version is-current">
-          <a href="index.html">Development</a>
+        <li class="version is-current is-latest">
+          <a href="index.html">0.2.4</a>
         </li>
-        <li class="version is-latest">
+        <li class="version">
           <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
         </li>
         <li class="version">
@@ -145,7 +145,7 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../../0.2.3/dot-design/index.html" class="home-link"></a>
+  <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
@@ -153,9 +153,9 @@
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <button class="version-menu-toggle" title="Show other versions of page">0.2.4</button>
   <div class="version-menu">
-    <a class="version is-current" href="release-notes.html">Development</a>
+    <a class="version is-current" href="release-notes.html">0.2.4</a>
     <a class="version" href="../../0.2.3/dot-design/release-notes.html">0.2.3</a>
     <a class="version" href="../../0.2.2/dot-design/release-notes.html">0.2.2</a>
     <a class="version" href="../../0.2.1/dot-design/release-notes.html">0.2.1</a>
@@ -170,8 +170,16 @@
 <article class="doc">
 <h1 class="page">Release notes</h1>
 <div class="sect1">
-<h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
+<h2 id="_0_2_4"><a class="anchor" href="#_0_2_4"></a>0.2.4</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><code>0.2.4</code> is a backward-compatible Linux-amd64 hardening release for the stable
+<code>dot.mare6g.eu/v1</code> single-host composition profile. It preserves the DOT,
+Contract, Anchor, composition-schema, repository-layout, deployment, and CLI
+interfaces published in <code>0.2.3</code>. The exact pinned revisions are DOT-CLI
+<code>e88daa83221ae5d49a1317b7412045ab2b78315f</code> and DOT-Repository
+<code>247606d4a55c5e85a822f1f82eca52a3574b5a04</code>.</p>
+</div>
 <div class="paragraph">
 <p>DOT-CLI now exposes a local/GitHub <code>task ci:security</code> gate using the pinned
 stable OSV-Scanner release. It checks the module dependency graph and performs
@@ -198,6 +206,31 @@ bounded interval in which Linux procfs may expose an empty process command line
 during <code>exec</code>. A non-empty command line that does not match the recorded
 Wasmtime module identity is still rejected immediately, preventing lifecycle
 operations from acting on a reused PID.</p>
+</div>
+<div class="paragraph">
+<p>Antora publication now deduplicates an exact stable tag from its identical
+release-commit worktree, closing the tag-push race while preserving immutable
+stable documentation. Current-profile documentation is guarded against the
+machine-readable acceptance profile: twenty-one wires, all four finite
+side-effect-free gRPC shapes, and MQTT, NATS, Kafka, and AMQP 0-9-1 delivery.</p>
+</div>
+<div class="paragraph">
+<p>The complete pushed workflow matrix passed on
+<code>77d8f099e5f42430f1d30e8d01c27b2c534b8d49</code>. It includes 100% DOT-Domain
+instruction and branch coverage, 100% DOT-CLI aggregate and per-executable-
+package statement coverage, repository conformance, all twenty-one
+cross-standard wires, real-producer and real-broker active probes, Docker,
+Kubernetes, Helm, Vagrant, and WebAssembly lifecycle evidence, and versioned
+Antora publication. DOT-CLI <code>v0.2.4</code> additionally passed two-pass reproducible
+packaging and downloaded-binary acceptance.</p>
+</div>
+<div class="paragraph">
+<p>The release publishes the versioned DOT-Domain JAR, DOT and Composition v1 JSON
+Schemas, JSON and XML CycloneDX SBOMs, the Linux-amd64 <code>dotx</code> binary, an exact
+source manifest, and checksums. Linux amd64 remains the only supported release
+target. DOT-Registry REST API work, native arm64, non-Linux targets, multi-host
+orchestration, and joint Security Function Composer or partner acceptance
+remain outside this release boundary.</p>
 </div>
 </div>
 </div>
