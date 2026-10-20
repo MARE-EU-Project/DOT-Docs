@@ -173,7 +173,24 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>No unreleased changes.</p>
+<p>DOT-CLI now exposes a local/GitHub <code>task ci:security</code> gate using the pinned
+stable OSV-Scanner release. It checks the module dependency graph and performs
+Go call analysis against the current OSV database. The network-backed scan is
+kept separate from deterministic <code>task ci</code> because vulnerability data changes
+independently of a source revision.</p>
+</div>
+<div class="paragraph">
+<p>Standalone DOT-CLI packaging now emits a deterministic CycloneDX 1.6 SBOM for
+the exact Linux-amd64, CGO-disabled build profile. Release tests validate the
+SBOM identity, platform properties, dependency content, omitted timestamp and
+serial number, checksum coverage, and byte-for-byte equality across two package
+builds. Downloaded-binary acceptance retains the published SBOM as evidence.</p>
+</div>
+<div class="paragraph">
+<p>Readable workflow badge publication now refreshes the complete status set on a
+coalesced 15-minute schedule, with manual dispatch available for immediate
+refresh. It no longer consumes one self-hosted-runner job for every completed
+workflow in the already large validation matrix.</p>
 </div>
 </div>
 </div>

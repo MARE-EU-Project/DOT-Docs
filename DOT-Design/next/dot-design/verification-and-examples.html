@@ -369,6 +369,12 @@ capability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go; writes reports below <code>DOT-Testing/e2e/target/</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cd DOT-CLI &amp;&amp; task ci:security</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scans the Go module dependency graph and reachable code against the current
+  OSV vulnerability database with the exact pinned scanner used by CI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go and network access; intentionally separate from deterministic <code>task ci</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:runtime:kubernetes-helm:live</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Real Kubernetes-manifest and Helm-chart deploy, rollout readiness, status,
   service-scoped environment materialization, and destroy lifecycle</p></td>
