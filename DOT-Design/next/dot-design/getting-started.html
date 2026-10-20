@@ -276,6 +276,21 @@ the Maven <code>verify</code> phase.</p>
 <div class="paragraph">
 <p><code>DOT-CLI</code> is an independent Go module and is not part of the Maven reactor:</p>
 </div>
+<div class="paragraph">
+<p>Install the version-aligned standalone release with Go 1.27 or later:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.2.3
+dotx version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The GitHub release also provides a checksummed Linux-amd64 binary, build
+metadata, and a manifest that pins the exact DOT-CLI source plus the
+DOT-Design and DOT-Repository acceptance revisions. For source development or
+the complete cross-repository suite, build the checked-out submodule instead:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:build
