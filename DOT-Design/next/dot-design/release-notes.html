@@ -192,6 +192,13 @@ coalesced 15-minute schedule, with manual dispatch available for immediate
 refresh. It no longer consumes one self-hosted-runner job for every completed
 workflow in the already large validation matrix.</p>
 </div>
+<div class="paragraph">
+<p>Wasmtime lifecycle status and inventory checks now tolerate the short,
+bounded interval in which Linux procfs may expose an empty process command line
+during <code>exec</code>. A non-empty command line that does not match the recorded
+Wasmtime module identity is still rejected immediately, preventing lifecycle
+operations from acting on a reused PID.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
