@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DOT Anchors and Composition :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-design/anchors-and-composition.html">
+    <link rel="prev" href="architecture.html">
+    <link rel="next" href="authoring-anchors.html">
+    <meta name="description" content="Understand the ownership boundaries, supported profile, and resolution model for composing independently authored DOTs.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Development</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.4/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Development</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../0.2.4/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="anchors-and-composition.html">DOT Anchors and Composition</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <div class="version-menu">
+    <a class="version is-current" href="anchors-and-composition.html">Development</a>
+    <a class="version" href="../../0.2.4/dot-design/anchors-and-composition.html">0.2.4</a>
+    <a class="version" href="../../0.2.3/dot-design/anchors-and-composition.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-design/anchors-and-composition.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/anchors-and-composition.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/anchors-and-composition.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">DOT Anchors and Composition</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide explains how independently authored Dynamic Open Trust (DOT)
+components participate in composition by referring to authoritative Contracts
+rather than duplicating contract-defined facts. It distinguishes the stable
+DOT Anchor model from the stable, versioned <code>dotx compose</code> format and
+follows the complete path from a logical capability to a deployed connection.</p>
+</div>
+<div class="paragraph">
+<p>For a technology-neutral consumer boundary, see
+<a href="integration-handoff.html" class="xref page">integration handoff</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="read-this-first"><a class="anchor" href="#read-this-first"></a>Read this first</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Keep these three boundaries intact:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <strong>Contract</strong> describes what can be exchanged.</p>
+</li>
+<li>
+<p>An <strong>Anchor</strong> gives one Contract operation a stable DOT-local identity and role.</p>
+</li>
+<li>
+<p>A <strong>wire</strong> connects deployed DOT instances and remains outside both DOTs.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If a value changes between installations&#8212;&#8203;for example a host, URL, port,
+credential, realm, broker, namespace, or device&#8212;&#8203;it does not belong in an
+Anchor.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">If you want to&#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">Start with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Publish a composable DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="authoring-anchors.html#authoring-two-composable-dots" class="xref page">Authoring two
+  composable DOTs</a>, then <a href="authoring-anchors.html#contract-backed-anchors" class="xref page">Contract-backed
+  Anchors</a> and <a href="authoring-anchors.html#binding-an-anchor-to-a-deployment" class="xref page">deployment binding</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connect existing DOTs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-documents.html#composition-documents-and-dot-instances" class="xref page">Composition
+  documents and DOT instances</a>, <a href="wiring-and-security.html#direct-requestresponse-wire" class="xref page">direct
+  request/response wires</a>, and <a href="wiring-and-security.html#materializers" class="xref page">materializers</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Model messaging through a broker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wiring-and-security.html#brokered-wire" class="xref page">Brokered wires</a> and
+  <a href="wiring-and-security.html#path-and-channel-parameters" class="xref page">path and channel parameters</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle authentication or secrets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wiring-and-security.html#security-and-secrets" class="xref page">Security and secrets</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operate a composition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-lifecycle.html#validation-planning-and-lifecycle" class="xref page">Validation,
+  planning, and lifecycle</a> and <a href="composition-lifecycle.html#troubleshooting" class="xref page">troubleshooting</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Design a new 6G integration type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-lifecycle.html#what-does-not-belong-in-an-anchor" class="xref page">Anchor
+  boundaries</a>, <a href="composition-lifecycle.html#choosing-an-extension-point" class="xref page">extension
+  points</a>, and <a href="composition-lifecycle.html#6g-security-composition-patterns" class="xref page">6G
+  security composition patterns</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-status-and-supported-profile"><a class="anchor" href="#release-status-and-supported-profile"></a>Release status and supported profile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The DOT-owned Anchor model, contract selectors, service-port bindings,
+validation, generated schema, repository resolution, and conformance fixtures are
+release candidates. The separate composition document and its local lifecycle
+executor implement the stable <code>dot.mare6g.eu/v1</code> profile.</p>
+</div>
+<div class="paragraph">
+<p>The current executable profile supports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>local DOT sources pinned by UUID and version, and local Contract payloads
+pinned by UUID, in the composition;</p>
+</li>
+<li>
+<p>OpenAPI, AsyncAPI, Protobuf, and GraphQL contract selectors;</p>
+</li>
+<li>
+<p>contractless protocol/media declarations when no supported contract exists;</p>
+</li>
+<li>
+<p>named deployment selection and service-port bindings;</p>
+</li>
+<li>
+<p>explicit environment-variable and config-file materializers;</p>
+</li>
+<li>
+<p>explicit externally owned gateway bindings for cross-platform wires, with
+ownership and no-cleanup semantics recorded in plan, lock, and state;</p>
+</li>
+<li>
+<p>Docker Image composition networking and per-instance identity;</p>
+</li>
+<li>
+<p>Kubernetes and Helm deployment/readiness through the existing single-DOT lifecycle;</p>
+</li>
+<li>
+<p>reference-only process-environment and Kubernetes Secret inputs;</p>
+</li>
+<li>
+<p>rollback, private local state, resumable partial apply, status, and reverse-order destroy;</p>
+</li>
+<li>
+<p>contract-authorized active probes for safe OpenAPI operations, GraphQL
+query/mutation/SSE lifecycles, finite side-effect-free unary/client/server/
+bidirectional gRPC calls, and correlated AsyncAPI MQTT/NATS/Kafka/AMQP delivery within
+one Docker network or Kubernetes namespace; and</p>
+</li>
+<li>
+<p>fail-closed handling of ambiguity, unknown compatibility, unsupported privilege grants, and unreachable cross-platform materialization.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The authoritative machine-readable boundary is
+<code>DOT-Testing/acceptance/composition/v1/profile.json</code>. Run
+<code>task testing:compose:acceptance</code> to compare the installed CLI help and emitted
+schema with that profile, verify every committed lock, exercise all twenty-one
+cross-standard wires and six runtime dry-run adapters, and emit revision-pinned,
+secret-free JSON evidence.</p>
+</div>
+<div class="paragraph">
+<p>It is not a general multi-host production orchestrator. Shared state,
+composition-owned cross-platform gateways or tunnels, external secret-store
+plugins, multi-scheme authentication, unsafe or unbounded gRPC, AsyncAPI event
+protocols other than MQTT, NATS, Kafka, and AMQP 0-9-1, AMQPS/AMQP 1.0, and cross-platform probe adapters remain
+outside this profile. Safe anonymous
+OpenAPI probes, single-scheme OAuth 2.0 client-credentials probes, GraphQL
+query/mutation/SSE probes, all four finite side-effect-free gRPC shapes, and
+AsyncAPI MQTT/NATS/Kafka/AMQP delivery probes within a shared Docker network or Kubernetes
+namespace are supported.</p>
+</div>
+<div class="paragraph">
+<p>Single-DOT live lifecycle evidence for a runtime adapter is not automatically
+multi-DOT composition acceptance. The profile records validation, planning,
+dry-run, single-DOT live lifecycle, and composition live lifecycle separately
+for each adapter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-five-distinct-objects"><a class="anchor" href="#the-five-distinct-objects"></a>The five distinct objects</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Object</th>
+<th class="tableblock halign-left valign-top">Owner</th>
+<th class="tableblock halign-left valign-top">Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT author</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative operation, message, payload, protocol, and security description
+  in OpenAPI, AsyncAPI, Protobuf, or GraphQL.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT author</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable UUID and composition role selecting one contract element, or declaring
+  explicit communication facts when no contract exists.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor binding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT author</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maps one Anchor UUID to a named port of a deployment service. It does not
+  contain a live address.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wire</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composer/operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connects one named DOT instance and Anchor UUID to another. It may select a
+  provider, consumer, or broker service-port endpoint.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Materializer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composer/operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicitly writes a resolved connection value into configuration declared by
+  a participating service.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="where-each-fact-lives"><a class="anchor" href="#where-each-fact-lives"></a>Where each fact lives</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Fact</th>
+<th class="tableblock halign-left valign-top">Source of truth</th>
+<th class="tableblock halign-left valign-top">Referenced by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API operation, message, schemas, protocol, media type, security requirement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract payload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Anchor.contract.selector</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical composition point and provider/consumer role</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot.anchors[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wire <code>from</code> or <code>to</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service and named port implementing an Anchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService.anchorBindings[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved plan endpoint</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration the service permits a deployer to supply</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService.config</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment input or materializer target</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected DOT version, topology, readiness, parameter values, and secret references</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition document</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx compose</code> plan and lifecycle</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Concrete runtime address and port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit composition network binding or resolved deployment plan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Materializer or exposed-Anchor forwarding</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live reachability, authentication result, and policy decision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime probe or external policy system</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operational evidence; never persisted as an Anchor fact</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The ownership chain is:</p>
+</div>
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/dot-ownership-chain.svg" alt="Ownership chain across provider DOT, composition, runtime endpoint, and consumer DOT">
+</div>
+<div class="title">Figure 1. Provider-to-consumer ownership chain</div>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/dot-ownership-chain.mmd" class="xref attachment">View the Mermaid source</a>.</p>
+</div>
+<div class="paragraph">
+<p>These objects must not collapse into one schema. In particular, a wire is not
+part of either DOT, and a live URL is not part of an Anchor.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="resolution-pipeline"><a class="anchor" href="#resolution-pipeline"></a>Resolution pipeline</h3>
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/composition-resolution-stages.svg" alt="Authoring declarations resolved into a deterministic plan and runtime deployment facts">
+</div>
+<div class="title">Figure 2. Authoring, planning, and runtime resolution</div>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/composition-resolution-stages.mmd" class="xref attachment">View the Mermaid source</a>.</p>
+</div>
+<div class="paragraph">
+<p>This resembles compilation: validate the independently authored inputs, link
+stable references, produce a deterministic deployment plan, and only then
+mutate runtime state. A failure at one phase is not evidence that a later phase
+was attempted.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="continue-through-the-workflow"><a class="anchor" href="#continue-through-the-workflow"></a>Continue through the workflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The detailed guide is organized around the work being performed:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Task</th>
+<th class="tableblock halign-left valign-top">Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Publish stable composition points in a DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="authoring-anchors.html" class="xref page">Authoring Anchors</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define pinned DOT instances and composition topology</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-documents.html" class="xref page">Composition documents and instances</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connect endpoints, provide security inputs, and materialize configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wiring-and-security.html" class="xref page">Wiring, materialization, and security</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validate, plan, apply, inspect, and evolve a composition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-lifecycle.html" class="xref page">Composition lifecycle and design guidance</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Readers implementing a separate composer should also consult the
+<a href="integration-handoff.html" class="xref page">integration handoff</a>.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="architecture.html">Architecture</a></span>
+  <span class="next"><a href="authoring-anchors.html">Authoring Anchors</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

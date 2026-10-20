@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DOT-Domain model :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-domain/index.html">
+    <link rel="prev" href="../dot-design/release-notes.html">
+    <meta name="description" content="Java domain model for DOT identity, capabilities, Contracts, Anchors, Runtimes, deployments, and configuration declarations.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../dot-design/index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Development</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.4/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../dot-design/index.html">Development</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../0.2.4/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../dot-design/index.html">DOT-Design</a></li>
+    <li>DOT-Domain</li>
+    <li><a href="index.html">Domain model</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <div class="version-menu">
+    <a class="version is-current" href="index.html">Development</a>
+    <a class="version" href="../../0.2.4/dot-domain/index.html">0.2.4</a>
+    <a class="version" href="../../0.2.3/dot-domain/index.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-domain/index.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-domain/index.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-domain/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">DOT-Domain model</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOT-Domain</code> is the persistence-neutral Java library that defines the portable
+DOT aggregate and its validation rules. It contains no application, web, or
+storage-adapter layer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aggregate_overview"><a class="anchor" href="#_aggregate_overview"></a>Aggregate overview</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate root: identity, version, description, classification groups,
+  metadata, Skills, Contracts, Anchors, and Runtimes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Skill</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standalone human-readable capability description.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Contract</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standalone authoritative OpenAPI, AsyncAPI, Protobuf, or GraphQL document.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Anchor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Embedded stable logical point through which the DOT participates in composition.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Runtime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A target <code>Platform</code> plus one or more compatible deployment definitions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Deployment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable deployment ID, one polymorphic manifest, and the logical services it materializes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service identity, host, named ports, Contract references, Anchor bindings, and
+  its supported configuration surface.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>Dot</code>, <code>Skill</code>, and <code>Contract</code> are independently identified domain entities.
+Other types are embedded values owned by a DOT. The module carries no database
+or ORM annotations; persistence is an adapter concern.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_identity_versioning_and_references"><a class="anchor" href="#_identity_versioning_and_references"></a>Identity, versioning, and references</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Root entity IDs are UUIDs. Equality for <code>Dot</code>, <code>Skill</code>, and <code>Contract</code> is
+ID-based so changes to mutable metadata or collections do not destabilize sets
+or persistence identity.</p>
+</div>
+<div class="paragraph">
+<p><code>Version</code> accepts Semantic Versioning 2.0.0 values and the special <code>latest</code>
+selector. It serializes as a string and implements SemVer precedence; <code>latest</code>
+sorts after concrete versions. A new <code>Dot</code> or <code>Contract</code> defaults to <code>0.0.0</code>,
+while <code>Platform.version</code> defaults to <code>latest</code> so no platform-specific release is
+implied.</p>
+</div>
+<div class="paragraph">
+<p>JSON serializes <code>Dot.skills</code>, <code>Dot.contracts</code>, and
+<code>DeploymentService.contracts</code> as ID-only objects. Consumers resolve those UUIDs
+against authoritative definitions rather than relying on object embedding.</p>
+</div>
+<div class="paragraph">
+<p>Catalogue uniqueness rules are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Skill.name</code> is globally unique;</p>
+</li>
+<li>
+<p><code>Dot</code> is unique by <code>(name, version)</code>; and</p>
+</li>
+<li>
+<p><code>Contract</code> is unique by <code>(name, version)</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contracts"><a class="anchor" href="#_contracts"></a>Contracts</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Standard</th>
+<th class="tableblock halign-left valign-top">Payload format</th>
+<th class="tableblock halign-left valign-top">Anchor selector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OPENAPI</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ASYNCAPI</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROTOBUF</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROTOBUF</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified service method</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root-field schema coordinate</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>Contract.isFormatCompatibleWithStandard()</code> rejects mismatched standard/format
+pairs. Payload parsing and selected-element existence are resolver concerns;
+the domain model validates selector syntax and references within the aggregate.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_anchors_and_bindings"><a class="anchor" href="#_anchors_and_bindings"></a>Anchors and bindings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A contract-backed Anchor contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a stable UUID and display name;</p>
+</li>
+<li>
+<p>a <code>PROVIDES</code> or <code>REQUIRES</code> role;</p>
+</li>
+<li>
+<p>optional semantic-type URIs; and</p>
+</li>
+<li>
+<p>a Contract UUID plus standard-specific selector.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It omits direction, protocol, and media type because those facts come from the
+selected Contract operation. A contractless Anchor must declare <code>direction</code>, at
+least one protocol, and at least one media type explicitly.</p>
+</div>
+<div class="paragraph">
+<p><code>DeploymentService.anchorBindings</code> maps an Anchor UUID to a named <code>ServicePort</code>
+on that same service. An Anchor contains no host, numeric port, credential,
+placement, or live policy state.</p>
+</div>
+<div class="paragraph">
+<p>The class-level <code>@ValidAnchor</code> constraint delegates cross-reference validation
+to <code>AnchorValidator</code>. It rejects:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>duplicate Anchor UUIDs within one DOT;</p>
+</li>
+<li>
+<p>Contract references not declared by the same DOT;</p>
+</li>
+<li>
+<p>selectors invalid for the referenced Contract standard;</p>
+</li>
+<li>
+<p>bindings to undeclared Anchors;</p>
+</li>
+<li>
+<p>bindings to port names absent from that service; and</p>
+</li>
+<li>
+<p>duplicate bindings of one Anchor within the same service.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="../dot-design/anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a>
+for authoring and wiring examples.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_runtime_two_layer_model"><a class="anchor" href="#_runtime_two_layer_model"></a>Runtime two-layer model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>Runtime</code> separates infrastructure from deployment mechanism:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Enum</th>
+<th class="tableblock halign-left valign-top">Used by</th>
+<th class="tableblock halign-left valign-top">Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PlatformEngine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Platform.engine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where the workload runs: <code>DOCKER</code>, <code>KUBERNETES</code>, <code>VAGRANT</code>, or <code>WEBASSEMBLY</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentManifestType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentManifest.type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How it is deployed: Docker image, Docker Compose, Kubernetes manifest, Helm
+  chart, Vagrantfile, or WASM module.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Every <code>DeploymentManifestType</code> declares its required <code>PlatformEngine</code>.
+<code>Runtime.isDeploymentPlatformAligned()</code> validates every deployment against the
+runtime platform. <code>Runtime.isDeploymentIdsUnique()</code> enforces stable deployment
+selection within that runtime.</p>
+</div>
+<div class="paragraph">
+<p><code>Deployment.services</code> is a set. <code>DeploymentService</code> uses ID-based equality, so
+logical service IDs remain unique within the deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment_manifests"><a class="anchor" href="#_deployment_manifests"></a>Deployment manifests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DeploymentManifest</code> is polymorphic JSON dispatched by its existing <code>type</code>
+property.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Java subtype</th>
+<th class="tableblock halign-left valign-top">Important fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_IMAGE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DockerImage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image reference and ordered dotenv payloads</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_COMPOSE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DockerCompose</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete YAML/JSON payload and ordered dotenv payloads</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KUBERNETES_MANIFEST</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KubernetesManifest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete YAML/JSON manifest payload</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HELM_CHART</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HelmChart</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository, chart or OCI reference, version, and ordered values payloads</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VAGRANTFILE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Vagrantfile</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete Ruby DSL payload</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WASM_MODULE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WebAssemblyModule</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relative/file or HTTPS module URI, WASI execution world, command arguments,
+  and required SHA-256 integrity pin</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Docker Compose and Kubernetes manifest payloads accept YAML or JSON only. Helm
+values also preserve YAML/JSON order: later entries override earlier entries as
+with repeated Helm <code>-f</code> arguments.</p>
+</div>
+<div class="paragraph">
+<p>Runtime instance concerns do not belong in a manifest. For example, a Helm
+release name and namespace are selected by deployment tooling, not embedded in
+<code>HelmChart</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_service_configuration_declarations"><a class="anchor" href="#_service_configuration_declarations"></a>Service configuration declarations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every <code>DeploymentService</code> owns one <code>DeploymentConfig</code> containing:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>environment variables, including default, required, and sensitive metadata;</p>
+</li>
+<li>
+<p>configuration-file paths, content type, defaults, and sensitivity;</p>
+</li>
+<li>
+<p>logical volume mounts;</p>
+</li>
+<li>
+<p>logical CNCF CDI device requirements; and</p>
+</li>
+<li>
+<p>optional OCI capability and host-namespace requirements.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are supported inputs and requirements, not applied runtime state.
+Operator values, host paths, concrete CDI device names, and permission grants
+belong to deployment or composition input.</p>
+</div>
+<div class="paragraph">
+<p>OCI requirements use standard <code>CAP_*</code> capability names and typed Linux
+namespaces. The model deliberately has no unrestricted <code>privileged</code> flag.</p>
+</div>
+<div class="paragraph">
+<p>A CDI requirement declares a stable logical name and a
+<code>vendor.example/class</code> kind. A composition binds it to one exact
+<code>vendor.example/class=device</code> identifier. CDI installation, allocation, and
+authorization remain operator responsibilities.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_serialization_and_persistence_adapters"><a class="anchor" href="#_serialization_and_persistence_adapters"></a>Serialization and persistence adapters</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Collections have initialized builder defaults and do not become <code>null</code> when
+constructed through Lombok builders.</p>
+</li>
+<li>
+<p><code>Version</code> is JSON-serialized as a normalized string.</p>
+</li>
+<li>
+<p>Persistence adapters must preserve UUID and version representations.</p>
+</li>
+<li>
+<p>Referenced <code>Skill</code> and <code>Contract</code> objects expose only <code>id</code> when nested in DOT JSON.</p>
+</li>
+<li>
+<p>Domain values carry no database or ORM annotations.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_class_diagram"><a class="anchor" href="#_class_diagram"></a>Class diagram</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<a class="image" href="../_images/dot-domain.class-diagram.svg" target="_blank" rel="noopener"><img src="../_images/dot-domain.class-diagram.svg" alt="DOT-Domain class diagram"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>The diagram is generated from current domain sources during the
+<code>DOT-Domain</code> build. Open it separately for the full-resolution view.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build_and_test"><a class="anchor" href="#_build_and_test"></a>Build and test</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Unit tests only; no service or database required
+mvn -pl DOT-Domain test
+
+# Regenerate schema and diagram through the reactor lifecycle
+mvn -pl DOT-Domain clean install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Representative tests cover version precedence, reference serialization,
+manifest polymorphism, runtime/manifest alignment, deployment configuration,
+Anchor rules, and entity equality.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related_pages"><a class="anchor" href="#_related_pages"></a>Related pages</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../dot-design/architecture.html" class="xref page">Architecture</a></p>
+</li>
+<li>
+<p><a href="../dot-design/anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a></p>
+</li>
+<li>
+<p><a href="../dot-design/integration-handoff.html" class="xref page">Integration handoff</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../dot-design/release-notes.html">Release notes</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

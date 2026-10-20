@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Composition Documents and DOT Instances :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-design/composition-documents.html">
+    <link rel="prev" href="authoring-anchors.html">
+    <link rel="next" href="wiring-and-security.html">
+    <meta name="description" content="Define a strict, versioned composition document with pinned DOT definitions, independently named runtime instances, contracts, wires, and exposed Anchors.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Development</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.4/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Development</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../0.2.4/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="anchors-and-composition.html">DOT Anchors and Composition</a></li>
+    <li><a href="composition-documents.html">Composition Documents and DOT Instances</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <div class="version-menu">
+    <a class="version is-current" href="composition-documents.html">Development</a>
+    <a class="version" href="../../0.2.4/dot-design/composition-documents.html">0.2.4</a>
+    <a class="version" href="../../0.2.3/dot-design/composition-documents.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-design/composition-documents.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/composition-documents.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/composition-documents.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Composition Documents and DOT Instances</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>A composition document is owned by the composer or operator, not by any member
+DOT. It selects immutable DOT identities and creates deployment instances whose
+topology may vary between environments.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="composition-documents-and-dot-instances"><a class="anchor" href="#composition-documents-and-dot-instances"></a>Composition documents and DOT instances</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A composition is a separate versioned document. It names concrete instances of
+DOT definitions and pins their identities through the authoritative
+<code>DOT-Repository</code> catalogue. The <code>repository://&lt;dot-id&gt;@&lt;version&gt;</code> form is stable
+across checkout locations and prevents a scenario-local copy from drifting away
+from the reviewed definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: dot.mare6g.eu/v1
+kind: Composition
+id: e3000000-0000-4000-8000-000000000001
+name: api-gateway-oidc
+version: 1.0.0
+dots:
+  - name: identity
+    source: repository://d3000000-0000-4000-8000-000000000001@1.0.0
+    dotId: d3000000-0000-4000-8000-000000000001
+    dotVersion: 1.0.0
+    deployment: kubernetes
+  - name: gateway
+    source: repository://d3a00000-0000-4000-8000-000000000002@1.0.0
+    dotId: d3a00000-0000-4000-8000-000000000002
+    dotVersion: 1.0.0
+    deployment: kubernetes
+    dependsOn: [identity]
+contracts:
+  - id: c3000000-0000-4000-8000-000000000001
+    source: ./contracts/oidc-discovery.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>name</code> identifies an instance inside this composition. <code>source</code> selects the
+repository definition by UUID and exact version. <code>dotx compose</code> locates the
+nearest <code>DOT-Repository</code> containing a <code>DOTs/</code> directory, discovers its
+definitions recursively, resolves the UUID/version to its reviewed bundle, and
+then verifies that <code>dotId</code> and <code>dotVersion</code> match the loaded <code>dot.json</code>. Neither
+a repository definition nor a local path can silently substitute a different
+DOT. <code>deployment</code> selects a deployment by its stable deployment ID or
+unambiguous manifest alias.</p>
+</div>
+<div class="paragraph">
+<p>Local discovery is the convenience default. <code>--repository &lt;path-or-Git-URL&gt;</code>
+selects another authoritative catalogue and <code>--git-ref &lt;revision&gt;</code> selects a
+Git revision. Locked and runtime-mutating commands require a full 40-character
+commit SHA for remote repositories; branch and tag names are allowed only for
+unlocked, read-only exploration. Exact commits are cached in a private user
+cache by normalized repository identity and commit, so the same plan and lock
+can be reproduced offline. Plans, locks, and lifecycle state record only the
+credential-free identity and resolved commit. Credential-bearing URLs are
+rejected; authentication remains external through Git credential helpers, SSH
+agents, or environment-backed CI credentials.</p>
+</div>
+<div class="paragraph">
+<p>Relative paths remain supported for authoring experiments and external Contract
+documents. Reusable stable, sample, and test-only DOT definitions belong in
+<code>DOT-Repository</code>, under their corresponding catalogue scope. Contracts remain
+authoritative protocol documents and are referenced independently; placing a DOT
+in the repository does not copy OpenAPI, AsyncAPI, Protobuf, or GraphQL facts
+into its Anchors.</p>
+</div>
+<div class="paragraph">
+<p><code>dependsOn</code> is a readiness graph, not a connection graph. A wire does not imply
+startup order. This distinction permits reciprocal peer wires and brokered
+topologies without creating false dependency cycles.</p>
+</div>
+<div class="sect2">
+<h3 id="composition-field-reference"><a class="anchor" href="#composition-field-reference"></a>Composition field reference</h3>
+<div class="paragraph">
+<p>The emitted Draft 2020-12 JSON Schema is normative for the serialized
+<code>v1</code> shape. This table is the study guide for its top-level ownership:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiVersion</code>, <code>kind</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed discriminators: <code>dot.mare6g.eu/v1</code> and <code>Composition</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable UUID of this composition, also used to derive local state and runtime identities.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code>, <code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Human-readable identity and version of the composition document.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, at least one</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named deployment instances. Every entry pins <code>source</code>, <code>dotId</code>, and
+  <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;uuid&gt;@&lt;version&gt;</code>
+  source. <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When a referenced Contract is needed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maps an exact Contract UUID to a local Contract document. The document&#8217;s
+  embedded <code>id</code> must match.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wires[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connections between one <code>PROVIDES</code> and one <code>REQUIRES</code> Anchor. A composition
+  with no wires can still expose a standalone capability.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedAnchors[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local names for member Anchors that an operator may expose or forward.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each wire requires <code>name</code>, <code>from</code>, and <code>to</code>. Both ends contain an instance name
+and Anchor UUID. Optional <code>endpoint</code> selects a third-party or otherwise
+non-default service port; <code>parameters</code> supplies only Contract-declared template
+values; <code>materializer</code> or <code>materializers</code> writes resolved values; and <code>security</code>
+binds Contract security requirements to declared participant configuration.
+Unknown fields are rejected.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deployment-inputs-and-native-workload-bindings"><a class="anchor" href="#deployment-inputs-and-native-workload-bindings"></a>Deployment inputs and native workload bindings</h3>
+<div class="paragraph">
+<p><code>deploymentInputs.environment</code>, <code>configFiles</code>, and <code>volumes</code> identify the
+logical <code>DeploymentService</code> that owns each input. <code>ociRuntime</code> and <code>cdiDevices</code>
+authorize only requirements already declared by that selected DOT deployment.
+These fields supply instance values and grants; they do not expand the DOT&#8217;s
+declared configuration surface.</p>
+</div>
+<div class="paragraph">
+<p>When a Docker Compose, Kubernetes, or Helm deployment contains several logical
+services with configuration, <code>deploymentInputs.workloads</code> is required for every
+configured service. The binding is deliberately instance-owned because native
+service names, labels, and containers can differ between deployment variants or
+environments:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deploymentInputs:
+  workloads:
+    - service: api
+      compose:
+        service: backend</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Kubernetes/Helm form uses exact-match standard labels and may select one
+container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deploymentInputs:
+  workloads:
+    - service: api
+      kubernetes:
+        matchLabels:
+          app.kubernetes.io/component: api
+        container: api</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Labels are combined with dotx&#8217;s instance ownership selector. A live apply must
+resolve exactly one Deployment, StatefulSet, or DaemonSet, and an omitted
+container is accepted only when that workload has one container. Two logical
+services cannot target the same Compose service or the same Kubernetes
+workload/container pair. Plans expose the binding and secret identifiers, and
+locks cryptographically pin them; neither contains resolved secret values.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dot-definition-versus-dot-instance"><a class="anchor" href="#dot-definition-versus-dot-instance"></a>DOT definition versus DOT instance</h3>
+<div class="paragraph">
+<p>One pinned DOT definition can appear more than once in a composition. Each
+entry has a distinct composition-local <code>name</code>, runtime identity, deployment
+inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersion</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
+  - name: site-a
+    source: ./federation-agent
+    dotId: d5000000-0000-4000-8000-000000000001
+    dotVersion: 1.0.0
+    deployment: docker
+    deploymentInputs:
+      environment:
+        - {service: federation-agent, name: FEDERATION_NODE_ID, value: site-a}
+  - name: site-b
+    source: ./federation-agent
+    dotId: d5000000-0000-4000-8000-000000000001
+    dotVersion: 1.0.0
+    deployment: docker
+    deploymentInputs:
+      environment:
+        - {service: federation-agent, name: FEDERATION_NODE_ID, value: site-b}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wires reference <code>site-a</code> or <code>site-b</code>, never the source path. Docker Image
+deployments receive deterministic per-instance container, DNS, network, and
+named-volume identities. Apply rejects repeated instances for deployment
+mechanisms whose manifest-owned resource names cannot yet be isolated safely.</p>
+</div>
+<div class="paragraph">
+<p>The executable example is <code>DOT-Testing/composition/federation-peers/scenario.yaml</code>.</p>
+</div>
+<div class="paragraph">
+<p>After defining the participants, <a href="wiring-and-security.html" class="xref page">wire and
+configure their selected Anchors</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="authoring-anchors.html">Authoring Anchors</a></span>
+  <span class="next"><a href="wiring-and-security.html">Wiring, Materialization, and Security</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>
