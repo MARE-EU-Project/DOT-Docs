@@ -67,7 +67,7 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="live-multi-runtime-demo.html">Live multi-runtime composition</a>
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
   </li>
 </ul>
   </li>
@@ -202,8 +202,8 @@ topology may vary between environments.</p>
 <div class="paragraph">
 <p><code>DOT-Repository/Compositions/</code> distributes reusable multi-DOT graphs, reviewed
 locks, READMEs, and non-secret deployment inputs. Start with
-<code>authenticated-api-gateway/</code> (Keycloak, APISIX, OAuth client) or
-<code>official-external-contracts/</code> (official Keycloak and Prometheus OpenAPI operations).
+<code>keycloak-apisix-oauth/</code> (Keycloak, APISIX, OAuth client) or
+<code>keycloak-prometheus-openapi-planning/</code> (official Keycloak and Prometheus OpenAPI operations).
 Each directory has <code>composition.yaml</code> and <code>composition.lock.json</code>.</p>
 </div>
 <div class="paragraph">
@@ -212,7 +212,7 @@ Each directory has <code>composition.yaml</code> and <code>composition.lock.json
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate . --offline
-composition=Compositions/authenticated-api-gateway/composition.yaml
+composition=Compositions/keycloak-apisix-oauth/composition.yaml
 dotx compose plan "$composition" --locked --json
 dotx compose apply "$composition" --locked --dry-run</code></pre>
 </div>

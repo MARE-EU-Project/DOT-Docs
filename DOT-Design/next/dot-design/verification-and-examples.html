@@ -67,7 +67,7 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="live-multi-runtime-demo.html">Live multi-runtime composition</a>
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
   </li>
 </ul>
   </li>
@@ -320,7 +320,7 @@ capability</p></td>
   Keycloak, Loki, Prometheus, and Wireshark; emits revision-pinned evidence</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:official-external-contracts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:keycloak-prometheus-openapi-planning</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reusable-profile validation and a locked three-DOT plan proving the stable
   Keycloak and Prometheus Anchors resolve against exact official OpenAPI payloads,
   compose compatibly, bind the Keycloak realm parameter, and materialize the
@@ -622,16 +622,16 @@ materializers, readiness dependencies, and one exposed Anchor.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:api-gateway-oidc
-task testing:e2e:anchors:api-gateway-oidc:dry-run
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:keycloak-apisix-oauth
+task testing:demo:keycloak-apisix-oauth:dry-run
 
 # Opt-in live execution
-task testing:e2e:anchors:api-gateway-oidc</code></pre>
+task testing:demo:keycloak-apisix-oauth:live</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Read <a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> alongside
-<code>DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml</code>.</p>
+<code>DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml</code>.</p>
 </div>
 </div>
 </div>

@@ -67,7 +67,7 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="live-multi-runtime-demo.html">Live multi-runtime composition</a>
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
   </li>
 </ul>
   </li>
@@ -396,7 +396,7 @@ From the <strong>DOT-Design root</strong>, with <code>dotx</code> on <code>PATH<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
 dotx compose lock "$composition" --check
 dotx compose plan "$composition" --locked
 dotx compose apply "$composition" --locked --dry-run</code></pre>

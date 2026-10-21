@@ -66,7 +66,7 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="live-multi-runtime-demo.html">Live multi-runtime composition</a>
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
   </li>
 </ul>
   </li>
@@ -405,7 +405,7 @@ mvn -pl DOT-Domain test
 task cli:install
 
 # Validate and inspect the canonical composition example
-composition=DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml
+composition=DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
 dotx compose validate "$composition"
 dotx compose plan "$composition"
 

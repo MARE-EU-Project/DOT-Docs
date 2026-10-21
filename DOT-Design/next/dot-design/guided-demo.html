@@ -66,7 +66,7 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="live-multi-runtime-demo.html">Live multi-runtime composition</a>
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
   </li>
 </ul>
   </li>
@@ -224,7 +224,7 @@ the observed protocol exchange.</p>
 <div class="paragraph">
 <p>For a fully executable local presentation spanning Docker, Kubernetes, and
 OpenAPI/GraphQL/Protobuf/AsyncAPI wires, follow
-<a href="live-multi-runtime-demo.html" class="xref page">Live composition across runtimes and Contracts</a>.
+<a href="live-multi-runtime-demo.html" class="xref page">Docker/Kubernetes four-Contract composition</a>.
 It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -500,10 +500,10 @@ readiness, and an exposed Anchor:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock \
-  DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml --check
+  DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml --check
 
 dotx compose apply \
-  DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml \
+  DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml \
   --locked \
   --namespace dot-guided-demo \
   --dry-run \
@@ -695,7 +695,7 @@ lifecycle details.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="getting-started.html">Getting started</a></span>
-  <span class="next"><a href="live-multi-runtime-demo.html">Live multi-runtime composition</a></span>
+  <span class="next"><a href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a></span>
 </nav>
 </article>
   </div>
