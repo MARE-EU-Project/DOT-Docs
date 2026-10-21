@@ -222,6 +222,19 @@ follows the complete path from a logical capability to a deployed connection.</p
 </ol>
 </div>
 <div class="paragraph">
+<p>A structurally valid, deployable DOT is not automatically interoperability-ready.
+<code>dotx validate &lt;bundle&gt; --offline --profile interoperable</code> additionally requires
+a Contract for every Anchor and a Contract-backed provided Anchor for each
+exposed service port. The older <code>reusable</code> profile preserves mixed evidence
+during migration. Neither profile discovers undeclared implementation endpoints
+or replaces live producer acceptance. The
+<a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/CONTRACT-AUDIT.md">catalogue Contract audit</a>
+records official sources, source-derived internal descriptions, licensing
+boundaries, and remaining gaps. From DOT-Design,
+<code>task testing:contracts:readiness</code> produces a per-bundle strict-profile report;
+known gaps remain failures, not an interoperability certification.</p>
+</div>
+<div class="paragraph">
 <p>If a value changes between installations&#8212;&#8203;for example a host, URL, port,
 credential, realm, broker, namespace, or device&#8212;&#8203;it does not belong in an
 Anchor.</p>
