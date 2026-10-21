@@ -396,9 +396,10 @@ From the <strong>DOT-Design root</strong>, with <code>dotx</code> on <code>PATH<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --check
-dotx compose plan DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --locked
-dotx compose apply DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --locked --dry-run</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml
+dotx compose lock "$composition" --check
+dotx compose plan "$composition" --locked
+dotx compose apply "$composition" --locked --dry-run</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -500,10 +500,10 @@ readiness, and an exposed Anchor:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock \
-  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --check
+  DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml --check
 
 dotx compose apply \
-  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml \
+  DOT-Repository/Compositions/authenticated-api-gateway/composition.yaml \
   --locked \
   --namespace dot-guided-demo \
   --dry-run \

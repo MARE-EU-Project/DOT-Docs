@@ -197,6 +197,44 @@ topology may vary between environments.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="reusable-composition-catalogue"><a class="anchor" href="#reusable-composition-catalogue"></a>Reusable composition catalogue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOT-Repository/Compositions/</code> distributes reusable multi-DOT graphs, reviewed
+locks, READMEs, and non-secret deployment inputs. Start with
+<code>authenticated-api-gateway/</code> (Keycloak, APISIX, OAuth client) or
+<code>official-external-contracts/</code> (official Keycloak and Prometheus OpenAPI operations).
+Each directory has <code>composition.yaml</code> and <code>composition.lock.json</code>.</p>
+</div>
+<div class="paragraph">
+<p>From the standalone DOT-Repository checkout root:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate . --offline
+composition=Compositions/authenticated-api-gateway/composition.yaml
+dotx compose plan "$composition" --locked --json
+dotx compose apply "$composition" --locked --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Repository-wide composition validation requires the current source-built CLI;
+the released 0.2.4 binary predates this gate. It recursively checks declarations,
+semantic plans, adjacent locks, and READMEs without deploying or resolving Secrets.
+<code>task compositions:render</code> additionally renders every catalogue composition.
+There is no separate composition inventory or Scenario domain type.</p>
+</div>
+<div class="paragraph">
+<p>A scenario is the broader use-case narrative and acceptance procedure described
+by the README. Synthetic matrices, negative controls, source-adapted PoC
+fixtures, executable harnesses, and evidence remain in DOT-Design&#8217;s <code>DOT-Testing/</code>.
+See <a href="getting-started.html" class="xref page">Getting started</a> for the gateway&#8217;s three Wires and
+<a href="guided-demo.html" class="xref page">Guided demo</a> for live acceptance. Catalogue inclusion or
+a valid plan never implies production or live producer acceptance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="composition-documents-and-dot-instances"><a class="anchor" href="#composition-documents-and-dot-instances"></a>Composition documents and DOT instances</h2>
 <div class="sectionbody">
 <div class="paragraph">

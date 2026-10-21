@@ -254,10 +254,11 @@ operations, and application-specific outcomes.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The complete three-DOT worked example is under
-<code>DOT-Testing/e2e/api-gateway-oidc/</code>: its <code>keycloak/</code>, <code>apisix/</code>, and
-<code>oauth-client/</code> directories contain independently valid DOTs; <code>contracts/</code>
-contains the authoritative APIs; and <code>scenario.yaml</code> owns the wiring.</p>
+<p>The reusable three-DOT worked example is under
+<code>DOT-Repository/Compositions/authenticated-api-gateway/</code>: <code>composition.yaml</code>
+owns the wiring and references canonical DOT definitions and their local
+Contracts; <code>runtime/</code> holds non-secret instance inputs. The executable acceptance
+harness remains in <code>DOT-Testing/e2e/api-gateway-oidc/</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
