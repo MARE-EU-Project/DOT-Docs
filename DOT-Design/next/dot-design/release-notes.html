@@ -183,6 +183,14 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>Contracts now resolve only from their declaring DOT bundle or a complete
+digest-pinned URL declaration. The repository-level Contract catalogue and
+validator fallback have been removed; all remaining assets live in their
+owning bundles. Repository validation still rejects conflicting definitions
+of the same Contract UUID. The shared local/GitHub repository gate additionally
+validates every bundle in isolation and offline.</p>
+</div>
+<div class="paragraph">
 <p>Getting started now begins with a checksummed Linux-amd64 CLI installation and
 a complete Prometheus Docker Compose lifecycle, with API/version verification,
 cleanup, and troubleshooting. Contributor toolchains and shared CI gates have

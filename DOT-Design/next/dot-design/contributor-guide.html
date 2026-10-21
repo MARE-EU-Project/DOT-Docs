@@ -403,8 +403,10 @@ dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</cod
 <div class="paragraph">
 <p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
 service-port, CDI, and sensitive-default relationships. Every declared Contract
-must either be complete in <code>dot.json</code> or resolve to a transition asset below
-<code>contracts/</code> or the containing repository&#8217;s legacy <code>Contracts/</code> catalogue.
+must either be complete in <code>dot.json</code> or resolve to an asset below that DOT&#8217;s
+<code>contracts/</code> directory. The validator never searches repository-level Contract
+directories or sibling DOTs. A bundle can therefore be copied and validated
+independently with an explicit schema path.
 A URL-backed definition declares one structured payload:</p>
 </div>
 <div class="listingblock">
@@ -434,8 +436,10 @@ to an official versioned vendor raw file. A full Git commit or release-version
 tag is accepted for <code>raw.githubusercontent.com</code>; <code>main</code>, <code>master</code>, and other
 mutable branch names are rejected. When no official raw machine-readable
 Contract exists, do not fabricate vendor provenance: retain a clearly attributed
-derived/adapter Contract until it can be migrated. Adjacent wrappers remain a
-transition mechanism for internal, testing, sample, and composition fixtures.
+derived/adapter Contract until it can be migrated. Adjacent wrappers keep
+internal, testing, sample, and composition fixtures self-contained. Shared
+Contract UUIDs must resolve to identical metadata and payload bytes in every
+bundle; repository validation rejects conflicts.
 Use <code>dotx validate --offline</code> only when a matching local wrapper is present;
 offline validation verifies that its identity, metadata, and payload SHA-256
 match the URL-backed declaration without contacting the vendor.
@@ -504,6 +508,12 @@ dotx repository inspect \
 <p>The same command is the required DOT-Repository GitHub Actions gate for every
 change below <code>DOTs/</code> or <code>.gitmodules</code>. The filesystem is authoritative; no
 separate inventory or validation wrapper is maintained.</p>
+</div>
+<div class="paragraph">
+<p>Run <code>task testing:contracts:portability</code> to copy every bundle into an isolated
+temporary directory and validate it offline against the explicit catalogue
+schema. This is also part of <code>ci:repository-conformance</code>; it prevents a valid
+repository checkout from concealing a DOT&#8217;s missing local Contract asset.</p>
 </div>
 </div>
 </div>
