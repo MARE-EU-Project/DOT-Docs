@@ -66,6 +66,9 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="architecture.html">Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -287,6 +290,19 @@ capability</p></td>
   appropriate validation, inspection, deployment dry-run, exact-version Helm
   rendering, expected service/workload shape, and pinned OCI image metadata</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, Helm, Python/PyYAML, Docker, and network access to the pinned public artifacts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:quickstart:dry-run</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execute the command blocks included by Getting started: validate and render
+  Prometheus, then check the locked gateway composition plan and dry-run</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, initialized catalogue, and network access for official Contracts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:quickstart:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run Prometheus at the default and overridden port, assert the build-information
+  API/version, and verify container/network/volume cleanup on success and injected failure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker Compose, <code>dotx</code>, <code>curl</code>, <code>jq</code>, network access, and free host ports
+  <code>18909</code>, <code>18919</code>, and <code>18929</code>; all example metrics are deleted</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:dots:external:stress</code></p></td>

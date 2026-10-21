@@ -65,6 +65,9 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="architecture.html">Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -179,6 +182,16 @@
 <div class="sect1">
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Getting started now begins with a checksummed Linux-amd64 CLI installation and
+a complete Prometheus Docker Compose lifecycle, with API/version verification,
+cleanup, and troubleshooting. Contributor toolchains and shared CI gates have
+their own guide. Antora includes the same command blocks executed by
+<code>testing:quickstart:dry-run</code> and <code>testing:quickstart:live</code>; the external-DOT
+workflow rehearses both, including port overrides and cleanup after failure.
+Development pages now export their own PDF alongside the latest stable PDF,
+matching the existing download link in the site header.</p>
+</div>
 <div class="paragraph">
 <p>The Antora site now includes a guided demo for presentations and onboarding,
 with a tested five-minute read-only path, expected evidence, an optional live

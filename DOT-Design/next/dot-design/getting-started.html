@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-design/getting-started.html">
     <link rel="prev" href="index.html">
     <link rel="next" href="guided-demo.html">
-    <meta name="description" content="Build DOT-Design, validate repository DOTs, inspect a composition plan, and generate the documentation.">
+    <meta name="description" content="Install dotx, deploy Prometheus with Docker Compose, verify its API, and clean up.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -64,6 +64,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="architecture.html">Architecture</a>
@@ -180,433 +183,295 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This page establishes a small, reproducible development path. Start with the
-domain, repository, and CLI checks before running live deployment scenarios.</p>
+<p>Run your first DOT on Linux amd64 using the released CLI and the existing
+Prometheus definition. You need Bash, Git, GitHub CLI (<code>gh</code>), <code>curl</code>, <code>jq</code>,
+SHA-256 utilities, and Docker with Docker Compose. No Java, Go, Kubernetes, or
+Task is needed for this path.</p>
+</div>
+<div class="paragraph">
+<p>This example runs Prometheus 3.15.0 on port <code>18909</code>. Allow time for initial
+image and Contract downloads. Use an isolated development host: the Compose
+manifest publishes unauthenticated HTTP on all host interfaces. Restrict
+access using your host firewall. Cleanup deletes the example&#8217;s metrics data.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_install_the_released_cli"><a class="anchor" href="#_install_the_released_cli"></a>Install the released CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Authenticate with an account granted access to the private MARE repositories
+and releases. From a workspace directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login
+gh auth setup-git
+mkdir -p dot-quickstart-download
+cd dot-quickstart-download
+gh release download v0.2.4 --repo MARE-EU-Project/DOT-CLI \
+  --pattern dotx-0.2.4-linux-amd64 --pattern SHA256SUMS
+sha256sum --check --ignore-missing SHA256SUMS
+mkdir -p "$HOME/.local/bin"
+install -m 0755 dotx-0.2.4-linux-amd64 "$HOME/.local/bin/dotx"
+export PATH="$HOME/.local/bin:$PATH"
+dotx version
+cd ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Stop if checksum verification fails. Expected version: <code>dotx 0.2.4</code>.
+Add the <code>PATH</code> export to your shell profile for future sessions. The
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.4">release</a>
+also provides an SBOM and build/acceptance revision manifest.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_out_the_catalogue"><a class="anchor" href="#_check_out_the_catalogue"></a>Check out the catalogue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Only the independently cloneable catalogue is needed. Pin the revision used by
+this walkthrough, then check your Docker access:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository
+cd DOT-Repository
+git checkout --detach 247606d4a55c5e85a822f1f82eca52a3574b5a04
+docker info
+docker compose version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the following blocks in the same Bash shell from the <strong>DOT-Repository root</strong>.
+Run each block only after the preceding block succeeds. The selected descriptor
+embeds its Compose manifest; no neighbouring Compose file is inferred.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_select_and_validate"><a class="anchor" href="#_select_and_validate"></a>Select and validate</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose an unused runtime name. For a different host port, run
+<code>export DOTX_HTTP_PORT=18919</code> before the selection block.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD}"
+DOT_BUNDLE="$DOT_REPOSITORY/DOTs/external/Prometheus-DOT"
+DOT_NAME="${DOT_NAME:-dot-quickstart}"
+DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}"
+DOT_PROJECT_FILTER="label=com.docker.compose.project=$DOT_NAME"
+export DOTX_HTTP_PORT</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate "$DOT_BUNDLE" --schema "$DOT_REPOSITORY/Schema/schema.json" \
+  --profile reusable
+dotx inspect "$DOT_BUNDLE" --json
+dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validation checks the schema, official HTTPS OpenAPI Contract and SHA-256,
+Anchor selectors, and reusable deployment bindings. Inspection shows deployment
+choices. The exact ID <code>docker-compose</code> selects only that mechanism. Dry-run
+prints its commands; it does not prove that a service is running.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_and_verify"><a class="anchor" href="#_deploy_and_verify"></a>Deploy and verify</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
+  --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait up to 60 attempts (each HTTP attempt has a two-second timeout), then verify
+the service&#8217;s build-information API and version:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ready=false
+for ((attempt=0; attempt&lt;60; attempt++)); do
+  if curl --fail --silent --max-time 2 \
+    "http://127.0.0.1:$DOTX_HTTP_PORT/-/ready"; then
+    ready=true
+    break
+  fi
+  sleep 1
+done
+test "$ready" = true
+curl --fail --silent --show-error --max-time 5 \
+  "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
+  jq -e '.status == "success" and .data.version == "3.15.0"'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: <code>Prometheus Server is Ready.</code>, followed by <code>true</code> from <code>jq</code>.
+Check runtime status:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx ps</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect a running workload. Open <code><a href="http://localhost:18909" class="bare">http://localhost:18909</a></code> (or your chosen port)
+to view Prometheus.</p>
+</div>
+<div class="paragraph">
+<p>The <code>build-information</code> Anchor selects the official OpenAPI operation whose
+server prefix produces <code>/api/v1/status/buildinfo</code>. The <code>promql-query-api</code>
+Anchor selects query operations; both bind to the deployed service&#8217;s <code>http</code>
+port. Its explicit contractless scrape-target requirement describes metrics
+ingestion; this example does not configure another DOT as a scrape target.</p>
+</div>
+<div class="paragraph">
+<p>The pinned image&#8217;s default configuration starts the service. The descriptor
+declares a Compose-managed <code>prometheus-data</code> volume. Data survives container
+restarts until the volume is deleted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clean_up"><a class="anchor" href="#_clean_up"></a>Clean up</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For Compose, <code>dotx destroy</code> runs <code>down --volumes</code>: it deletes this instance&#8217;s
+containers, network, and named volume, including collected metrics. Use the
+same <code>DOT_NAME</code> as deployment. Never target another user&#8217;s instance.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx destroy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" &amp;&amp;
+remaining="$(docker ps -aq --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
+test -z "$remaining" &amp;&amp;
+remaining="$(docker network ls -q --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
+test -z "$remaining" &amp;&amp;
+remaining="$(docker volume ls -q --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
+test -z "$remaining"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The final checks succeed silently. If interrupted, restore your original
+selection variables and repeat cleanup. Downloaded images remain cached.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_connect_existing_dots"><a class="anchor" href="#_next_connect_existing_dots"></a>Next: connect existing DOTs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For the existing Keycloak/APISIX/OAuth composition, use a full DOT-Design
+checkout with initialized submodules; see <a href="contributor-guide.html" class="xref page">Contributor guide</a>.
+From the <strong>DOT-Design root</strong>, with <code>dotx</code> on <code>PATH</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --check
+dotx compose plan DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --locked
+dotx compose apply DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --locked --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The three wires connect Keycloak discovery to APISIX, Keycloak&#8217;s token endpoint
+to the OAuth client, and APISIX&#8217;s protected operation to that client. The plan
+resolves endpoints and configuration. Live acceptance additionally proves
+anonymous rejection and authenticated access; the harness prepares Kubernetes,
+native Secrets, and workloads. Follow <a href="guided-demo.html" class="xref page">Guided demo</a> and
+<a href="verification-and-examples.html" class="xref page">Verification and examples</a> for that path.</p>
+</div>
+<div class="paragraph">
+<p>To author a component, continue with <a href="authoring-anchors.html" class="xref page">Authoring Anchors</a>.
+For development toolchains and local/GitHub CI gates, use
+<a href="contributor-guide.html" class="xref page">Contributor guide</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>Troubleshooting</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 28.5714%;">
-<col style="width: 42.8571%;">
-<col style="width: 28.5715%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Tool</th>
-<th class="tableblock halign-left valign-top">Required for</th>
-<th class="tableblock halign-left valign-top">Project baseline</th>
+<th class="tableblock halign-left valign-top">Symptom</th>
+<th class="tableblock halign-left valign-top">Action</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Domain</code>, schema generation, and Java tests</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java 27 (<code>27.0.0+35-open</code> in <code>.sdkmanrc</code>); Maven 3.10.0 from <code>PATH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Release or clone returns 404/403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>gh auth status</code> and organization repository access, including SSO
+authorization if required. Run <code>gh auth setup-git</code> for HTTPS cloning.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Go</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Building and testing <code>dotx</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.27.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI missing or wrong version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>command -v dotx</code>; put <code>$HOME/.local/bin</code> first on <code>PATH</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Task</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Repository command aliases</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optional but recommended</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker permission denied</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>docker info</code> as your user. Ask the administrator for the intended
+Docker access, then log in again. Docker group access grants host-level power.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Kubernetes tools, Helm, or Vagrant with libvirt/KVM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Only the matching deployment adapters and live scenarios</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Install only what you intend to execute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compose unavailable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install the Compose plugin/package for your Docker distribution and verify
+<code>docker compose version</code>. The legacy <code>docker-compose</code> executable is insufficient.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Antora, the Antora PDF extension, Asciidoctor PDF, and Mermaid CLI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Building the HTML/PDF documentation site and Mermaid diagrams</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CI uses Node.js 26 and Ruby 4.0; <code>task docs:check</code> reports the locally
-  installed tool versions; see <a href="#build-the-documentation">Build the documentation</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port already allocated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean up the failed example, select a free <code>DOTX_HTTP_PORT</code>, and deploy again
+with the same name and explicit <code>--env</code> override.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract download or digest check fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check network/proxy access to the declared URL. Never bypass its digest.
+Private raw GitHub URLs require <code>MARE_READ_ONLY_TOKEN</code> or <code>GITHUB_TOKEN</code>;
+<code>gh</code> login alone does not supply those to <code>dotx</code>. Use <code>--offline</code> only with
+matching verified local Contract assets.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Readiness or version fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect <code>docker compose -p "$DOT_NAME" logs --tail=100</code> and <code>dotx ps --all</code>,
+check the selected image/port, then clean up.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interrupted cleanup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restore the original name and catalogue path, repeat cleanup, and inspect
+resources carrying <code>com.docker.compose.project=$DOT_NAME</code>.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_check_out_the_repository"><a class="anchor" href="#_check_out_the_repository"></a>Check out the repository</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Design.git
-cd DOT-Design
-git submodule update --init --recursive</code></pre>
-</div>
-</div>
 <div class="paragraph">
-<p>The source repository and its two submodules may require access granted by the
-MARE-EU-Project organization. <code>DOT-CLI</code> and <code>DOT-Repository</code> remain separately
-cloneable; the generated Schema and high-level Skill classifications are
-tracked inside <code>DOT-Repository</code> and require no additional checkout.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_verify_the_domain_model"><a class="anchor" href="#_verify_the_domain_model"></a>Verify the domain model</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The domain module uses plain JUnit tests and does not start a service:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -pl DOT-Domain test</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Run the complete Java build with:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn clean install
-# equivalent Task alias
-task mci</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The build generates CycloneDX JSON and XML software bills of materials during
-the Maven <code>verify</code> phase.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_install_and_test_dotx"><a class="anchor" href="#_install_and_test_dotx"></a>Install and test dotx</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>DOT-CLI</code> is an independent Go module and is not part of the Maven reactor:</p>
-</div>
-<div class="paragraph">
-<p>Install the version-aligned standalone release with Go 1.27 or later:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.2.4
-dotx version</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The GitHub release also provides a checksummed Linux-amd64 binary, build
-metadata, and a manifest that pins the exact DOT-CLI source plus the
-DOT-Design and DOT-Repository acceptance revisions. For source development or
-the complete cross-repository suite, build the checked-out submodule instead:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:build
-task cli:test
-task cli:install
-dotx --version</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>task cli:install</code> installs the pinned checkout into <code>GOBIN</code> or <code>GOPATH/bin</code>
-and installs Bash completion. Keep that directory on <code>PATH</code>; project tasks,
-test harnesses, examples, and CI all invoke the same <code>dotx</code> command rather than
-a repository-local binary.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_run_github_workflow_gates_locally"><a class="anchor" href="#_run_github_workflow_gates_locally"></a>Run GitHub workflow gates locally</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>GitHub Actions and local pre-push validation share the root Taskfile test
-bodies. Actions still provisions clean toolchains and publishes artifacts, but
-the build, validation, conformance, coverage, runtime, and documentation
-commands are not CI-only shell fragments.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task ci:prepare
-task ci:deterministic
-task ci:compatibility-matrix</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>ci:prepare</code> installs the pinned DOT-CLI checkout and verifies that <code>dotx
-version</code> matches the root <code>VERSION</code>. <code>ci:deterministic</code> runs every deterministic
-non-live release workflow gate, including Java and Go tests, schema drift, official
-Contract validation, repository and Anchor conformance, Composition v1,
-lifecycle recovery, upgrade, all PoC dry-runs, external-DOT rendering,
-coverage, Antora, and PDF generation. Individual equivalents are available as
-<code>ci:build</code>, <code>ci:contract-conformance</code>, <code>ci:repository-conformance</code>,
-<code>ci:coverage</code>, and <code>ci:docs</code>.</p>
-</div>
-<div class="paragraph">
-<p>On a Linux host with all runtime prerequisites, run the mutable workflows too:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task ci:live
-task ci:all</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The live gate requires Docker, Minikube, Kubernetes, Helm, Wasmtime,
-Vagrant/libvirt, writable KVM access, Rust 1.98.1 with the <code>wasm32-wasip2</code>
-target, and network access for the first official WASI HTTP sample build. The
-shared task fetches the exact pinned <code>sample-wasi-http-rust</code> revision into an
-ignored test cache, builds it with Cargo, and passes it to the runtime test, so
-local and GitHub executions cannot silently omit the WASI HTTP assertions.
-Set <code>WASI_HTTP_COMPONENT</code> only to reuse an already built component. The live
-gate performs runtime mutation and cleanup;
-<code>ci:deterministic</code> is the normal pre-push default.</p>
-</div>
-<div class="paragraph">
-<p>For a Vagrant runtime on Ubuntu, install or reconcile the complete provider
-boundary and then open a new login session so the <code>libvirt</code> and <code>kvm</code> groups
-are active:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx tool install vagrant
-dotx tool check vagrant</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The installer selects <code>qemu-kvm</code> when the distribution provides it and falls
-back to <code>qemu-system-x86</code> on releases such as Ubuntu 26.04. The readiness check
-also verifies the pinned <code>vagrant-libvirt</code> plugin, the <code>qemu:///system</code>
-connection, the default libvirt network, and <code>/dev/kvm</code> access.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_validate_a_dot"><a class="anchor" href="#_validate_a_dot"></a>Validate a DOT</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>dotx validate</code> reads <code>dot.json</code> at the project root, falling back to
-<code>dot/dot.json</code>. The selected file is the unique DOT deployment definition;
-unreferenced Dockerfiles, Compose files, Kubernetes manifests, Helm charts, and
-scripts are not inferred.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository/DOTs/testing/contract-standards/provider \
-  --schema DOT-Repository/Schema/schema.json
-dotx validate DOT-Repository/DOTs/external/Keycloak-DOT \
-  --schema DOT-Repository/Schema/schema.json --profile reusable
-dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
-service-port, CDI, and sensitive-default relationships. Every declared Contract
-must either be complete in <code>dot.json</code> or resolve to a transition asset below
-<code>contracts/</code> or the containing repository&#8217;s legacy <code>Contracts/</code> catalogue.
-A URL-backed definition declares one structured payload:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"payload": {
-  "url": "https://raw.githubusercontent.com/vendor/project/v1.2.3/openapi.yaml",
-  "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Raw Contract text and the former flat <code>payloadUrl</code>/<code>payloadSha256</code> shape are
-rejected. Validation downloads the exact bytes, rejects non-HTTPS or mutable raw-GitHub branch URLs,
-verifies the digest, parses the declared standard/format, and resolves Anchor
-selectors. Missing IDs, incomplete declarations, digest mismatches, and
-unresolved selectors always fail validation. Use <code>--profile
-reusable</code> before publishing a stable reusable DOT. That profile additionally
-requires at least one pinned Contract, rejects unused Contracts, and requires
-every deployment to bind each Contract-backed provided Anchor exactly once
-through a service that declares the same Contract. Explicit contractless
-Anchors retain base-validation evidence only; they are never silently promoted
-to Contract-backed interoperability.</p>
-</div>
-<div class="paragraph">
-<p>For an external product, prefer a complete root Contract declaration pointing
-to an official versioned vendor raw file. A full Git commit or release-version
-tag is accepted for <code>raw.githubusercontent.com</code>; <code>main</code>, <code>master</code>, and other
-mutable branch names are rejected. When no official raw machine-readable
-Contract exists, do not fabricate vendor provenance: retain a clearly attributed
-derived/adapter Contract until it can be migrated. Adjacent wrappers remain a
-transition mechanism for internal, testing, sample, and composition fixtures.
-Use <code>dotx validate --offline</code> only when a matching local wrapper is present;
-offline validation verifies that its identity, metadata, and payload SHA-256
-match the URL-backed declaration without contacting the vendor.
-For private raw GitHub URLs, <code>dotx</code> reads <code>MARE_READ_ONLY_TOKEN</code>, falling back
-to <code>GITHUB_TOKEN</code>, and sends it only to <code>raw.githubusercontent.com</code>; credentials
-must never appear in <code>payload.url</code>.
-Inspection provides a normalized, machine-readable view without deploying
-anything.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_validate_and_plan_a_composition"><a class="anchor" href="#_validate_and_plan_a_composition"></a>Validate and plan a composition</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The canonical example connects Keycloak, APISIX, and an OAuth client:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock \
-  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --check
-
-dotx compose validate \
-  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
-
-dotx compose plan \
-  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml
-
-dotx compose plan \
-  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --json
-
-dotx compose apply \
-  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --dry-run</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>All five commands above are non-mutating. <code>lock --check</code> verifies the committed
-content-addressed input graph; <code>validate</code> answers whether references
-and compatibility can be resolved; <code>plan</code> shows the exact instances, endpoints,
-security status, and materializers; <code>apply --dry-run</code> renders supported runtime
-actions without writing composition state.</p>
-</div>
-<div class="paragraph">
-<p>Read <a href="composition-lifecycle.html#validation-planning-and-lifecycle" class="xref page">Validation,
-planning, and lifecycle</a> before a live apply.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_verify_the_authoritative_repository"><a class="anchor" href="#_verify_the_authoritative_repository"></a>Verify the authoritative repository</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Recursively discover and validate every definition. External/internal paths
-record ownership; an adjacent <code>contracts/</code> evidence directory opts a bundle
-into the strict reusable profile:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository
-dotx repository inspect \
-  d4a70000-0000-4000-8000-000000000001@1.3.0 \
-  --repository DOT-Repository --json</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The same command is the required DOT-Repository GitHub Actions gate for every
-change below <code>DOTs/</code> or <code>.gitmodules</code>. The filesystem is authoritative; no
-separate inventory or validation wrapper is maintained.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_run_the_composition_conformance_gate"><a class="anchor" href="#_run_the_composition_conformance_gate"></a>Run the composition conformance gate</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:conformance</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This gate combines Java domain tests, Go tests, repository-wide schema
-validation, Contract checks, composition validation/planning, and dry-run
-scenario checks. It does not claim that external partner systems or production
-networks were exercised.</p>
-</div>
-<div class="paragraph">
-<p>Run only the versioned composition production profile with:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:acceptance</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This gate writes revision-pinned, secret-free JSON evidence below
-<code>DOT-Testing/e2e/target/</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="build-the-documentation"><a class="anchor" href="#build-the-documentation"></a>Build the documentation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Install the documentation toolchain once:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:setup</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Then generate the Antora HTML site and PDF export:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:check
-task docs:build</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Generated artifacts are written under <code>DOT-Docs/build/site</code> and are intentionally
-ignored by Git. To build and serve the site locally:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:run</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Open <code><a href="http://localhost:8000" class="bare">http://localhost:8000</a></code>. Do not edit files under <code>DOT-Docs/build</code>; update the
-AsciiDoc sources instead.</p>
-</div>
-<div class="paragraph">
-<p>Mermaid sources are stored as Antora attachments and rendered locally by
-<code>task docs:diagrams</code>. The renderer produces SVG for the HTML site and
-high-resolution PNG for PDF export; both outputs are committed so a clean
-checkout can resolve every Antora resource. Each source includes an accessible
-title and description, and each AsciiDoc image macro supplies alternative text.</p>
-</div>
-<div class="paragraph">
-<p><code>task docs:build</code> regenerates the diagrams before building either output. The
-toolchain is version-pinned and does not send architecture content to an
-external rendering service. Edit the <code>.mmd</code> source, never the generated SVG or
-PNG, then run the full documentation build to verify both renderers.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_where_to_continue"><a class="anchor" href="#_where_to_continue"></a>Where to continue</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="guided-demo.html" class="xref page">Guided demo</a> for a presentation-ready walkthrough from
-catalogue validation to cross-standard planning and optional live probes.</p>
-</li>
-<li>
-<p><a href="architecture.html" class="xref page">Architecture</a> for system and ownership boundaries.</p>
-</li>
-<li>
-<p><a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> for the model
-overview and task-oriented composition guides.</p>
-</li>
-<li>
-<p><a href="verification-and-examples.html" class="xref page">Verification and examples</a> for evidence
-levels and MARE PoC scenarios.</p>
-</li>
-<li>
-<p><a href="../dot-domain/index.html" class="xref page">DOT-Domain</a> for Java model details.</p>
-</li>
-<li>
-<p><a href="integration-handoff.html" class="xref page">Integration handoff</a> for catalogue and composer implementers.</p>
-</li>
-</ul>
+<p>Download <a href="_attachments/quickstart/prometheus.sh" class="xref attachment">the shared command blocks</a>.
+Contributors rehearse them from DOT-Design with
+<code>task testing:quickstart:dry-run</code> or the opt-in <code>task testing:quickstart:live</code>.</p>
 </div>
 </div>
 </div>
