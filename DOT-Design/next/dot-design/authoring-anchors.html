@@ -723,6 +723,21 @@ matrix exercises every executable adapter twice: once using only declared
 non-sensitive defaults and once using explicit composition overrides. It checks
 the materialized default configuration document, the resolved service-scoped
 plan, and the runtime-specific dry-run renderer. The
+five native cases reuse the external Prometheus DOT; WASI retains a separate
+conformance fixture. The real Prometheus acceptance runner verifies loaded
+configuration and environment through its official status APIs, PromQL results
+and invalid-query responses, stop/start, Git acquisition, and failure cleanup:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:runtime-configuration
+task testing:compose:runtime-configuration:live RUNTIME=docker-image</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Select <code>docker-compose</code>, <code>kubernetes-manifest</code>, <code>helm-chart</code>, or <code>vagrantfile</code>
+for the other native mechanisms. These are ephemeral single-server examples,
+not production monitoring configurations. The
 <code>DOT-Testing/composition/service-workloads/</code> matrix verifies isolation between
 two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
 </div>
