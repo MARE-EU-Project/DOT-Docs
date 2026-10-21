@@ -62,6 +62,9 @@
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="architecture.html">Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -177,7 +180,14 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>No unreleased changes.</p>
+<p>The Antora site now includes a guided demo for presentations and onboarding,
+with a tested five-minute read-only path, expected evidence, an optional live
+Contract-probe path, and explicit support boundaries.</p>
+</div>
+<div class="paragraph">
+<p><code>dotx compose apply --dry-run</code> no longer creates or changes the composition
+state/lock directory. Lifecycle rendering therefore works with a read-only
+cache while retaining the same fail-closed planning and runtime checks.</p>
 </div>
 </div>
 </div>

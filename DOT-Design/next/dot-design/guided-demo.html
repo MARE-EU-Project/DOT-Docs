@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Guided demo :: MARE DOT-Design</title>
+    <link rel="prev" href="getting-started.html">
+    <link rel="next" href="architecture.html">
+    <meta name="description" content="A reproducible DOT-Design walkthrough for onboarding, workshops, and live presentations.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Development</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.4/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Development</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../0.2.4/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="guided-demo.html">Guided demo</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <div class="version-menu">
+    <a class="version is-current" href="guided-demo.html">Development</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Guided demo</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guided demo turns the stable Composition v1 profile into a short,
+reproducible story. It starts with a real reusable external DOT, follows a
+Contract through Anchors and a composition wire, and finishes by rendering a
+multi-DOT lifecycle without changing a runtime.</p>
+</div>
+<div class="paragraph">
+<p>The core path takes about five minutes on an existing checkout. It is
+read-only apart from temporary files created and removed by the CLI. The
+optional live path uses Docker and performs deployment, protocol probes, and
+cleanup.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Run the commands from the DOT-Design repository root. Keep evidence levels
+separate: a valid plan proves deterministic resolution, a dry-run proves that
+the executor can render supported runtime actions, and only a live probe proves
+the observed protocol exchange.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_choose_a_path"><a class="anchor" href="#_choose_a_path"></a>Choose a path</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 22.2222%;">
+<col style="width: 22.2222%;">
+<col style="width: 33.3333%;">
+<col style="width: 22.2223%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Time</th>
+<th class="tableblock halign-left valign-top">Demonstrates</th>
+<th class="tableblock halign-left valign-top">Runtime mutation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Presenter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">About 5 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository validation, a reusable external DOT, 21 cross-standard wires, and
+  a Kubernetes lifecycle rendering</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">New developer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">About 15 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The presenter path plus selected plan details, authoritative Contract facts,
+  endpoint materialization, and evidence boundaries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live acceptance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on image downloads and host capacity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL, all four finite gRPC shapes, and MQTT, NATS, Kafka, and AMQP 0-9-1
+  delivery against real producers and brokers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disposable Docker resources</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_story_in_one_diagram"><a class="anchor" href="#_the_story_in_one_diagram"></a>The story in one diagram</h2>
+<div class="sectionbody">
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/contract-anchor-wire-chain.svg" alt="Contract to Anchor to binding to wire resolution chain">
+</div>
+<div class="title">Figure 1. From an authoritative Contract operation to a deployed connection</div>
+</div>
+<div class="paragraph">
+<p>The Contract owns protocol semantics. An Anchor gives one selected Contract
+operation a stable logical identity. A deployment-service binding identifies
+the service port that implements the Anchor. A composition wire connects two
+named DOT instances and may materialize the resolved endpoint into configuration
+already declared by the consumer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prepare_the_checkout"><a class="anchor" href="#_prepare_the_checkout"></a>Prepare the checkout</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Complete <a href="getting-started.html" class="xref page">Getting started</a> first, or use an existing
+checkout with initialized <code>DOT-CLI</code> and <code>DOT-Repository</code> submodules. The demo
+needs <code>dotx</code>, <code>jq</code>, and network access when URL-backed Contracts are not already
+cached.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git submodule update --init --recursive
+task cli:install
+dotx version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the version-aligned stable release, the last command reports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dotx 0.2.4</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The independently released Linux-amd64 binary, its SBOM, release manifest, and
+checksums are also available from the
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.4">DOT-CLI v0.2.4 release</a>.
+Use <code>sha256sum --check SHA256SUMS</code> before executing a downloaded release asset.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stage_1_validate_the_authoritative_catalogue"><a class="anchor" href="#_stage_1_validate_the_authoritative_catalogue"></a>Stage 1: validate the authoritative catalogue</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This recursively discovers every <code>dot.json</code>; there is no separate inventory.
+The command validates schema shape, identities, Skills, Contract payload
+integrity, selectors, service ports, Anchor bindings, repository placement,
+and catalogue-wide uniqueness. Contract-backed external and internal bundles
+also receive the strict reusable profile.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">What this proves</div>
+<div class="paragraph">
+<p>The checked-out catalogue is internally consistent and every declared
+reference resolves. It does not deploy a workload or claim that a third-party
+service is reachable.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stage_2_inspect_a_reusable_external_dot"><a class="anchor" href="#_stage_2_inspect_a_reusable_external_dot"></a>Stage 2: inspect a reusable external DOT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Keycloak is a useful example because its canonical DOT uses official,
+digest-pinned Contracts while offering multiple deployment mechanisms.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx inspect DOT-Repository/DOTs/external/Keycloak-DOT --json |
+  jq '{name, version,
+       skills: (.skills | length),
+       contracts: (.contracts | length),
+       anchors: (.anchors | length),
+       deployments: (.deployments | length),
+       supportedDeploymentSystems}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>0.2.4</code> catalogue produces this compact projection:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "Keycloak-DOT",
+  "version": "0.2.0",
+  "skills": 2,
+  "contracts": 3,
+  "anchors": 4,
+  "deployments": 4,
+  "supportedDeploymentSystems": [
+    "DOCKER_COMPOSE",
+    "DOCKER_IMAGE",
+    "HELM_CHART"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">What this proves</div>
+<div class="paragraph">
+<p>One reusable DOT root can describe several supported deployment choices without
+forking its identity for each PoC. Deployment-instance realms, routes,
+credentials, and endpoints remain composition inputs rather than copied DOTs.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stage_3_resolve_the_cross_standard_composition"><a class="anchor" href="#_stage_3_resolve_the_cross_standard_composition"></a>Stage 3: resolve the cross-standard composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The canonical Contract matrix connects six DOT instances with 21 compatible
+wires. Its committed lock pins every DOT, Contract, configuration input, and
+portable resolved plan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock \
+  DOT-Testing/composition/contract-standards/scenario.yaml --check
+
+dotx compose validate \
+  DOT-Testing/composition/contract-standards/scenario.yaml --locked
+
+dotx compose plan \
+  DOT-Testing/composition/contract-standards/scenario.yaml --locked --json |
+  jq '{apiVersion, name, version,
+       dotInstances: (.dots | length),
+       wires: (.wires | length),
+       compatibleWires: ([.wires[] |
+         select(.compatibility == "COMPATIBLE")] | length),
+       standards: ([.wires[].contractStandard] | unique),
+       interactions: ([.wires[].providerInteraction] | unique)}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected summary:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "apiVersion": "dot.mare6g.eu/v1",
+  "name": "contract-standards-matrix",
+  "version": "1.0.0",
+  "dotInstances": 6,
+  "wires": 21,
+  "compatibleWires": 21,
+  "standards": ["ASYNCAPI", "GRAPHQL", "OPENAPI", "PROTOBUF"],
+  "interactions": [
+    "BIDIRECTIONAL_STREAM", "CLIENT_STREAM", "MUTATION", "QUERY",
+    "REQUEST_RESPONSE", "SEND", "SERVER_STREAM", "SUBSCRIPTION"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The project gate asserts the complete result rather than only printing a
+summary:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:contract-standards</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">What this proves</div>
+<div class="paragraph">
+<p>Every provider and consumer selector resolves against its authoritative
+Contract; all 21 pairs are compatible; endpoints, interactions, probes, and
+materializers can be derived without copying standard-specific semantics into
+Anchors.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_follow_one_asyncapi_wire"><a class="anchor" href="#_follow_one_asyncapi_wire"></a>Follow one AsyncAPI wire</h3>
+<div class="paragraph">
+<p>Inspect the Kafka wire to see how standard-derived facts and deployment facts
+remain separate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose plan \
+  DOT-Testing/composition/contract-standards/scenario.yaml --locked --json |
+  jq '.wires[] | select(.name == "asyncapi-kafka") |
+      {name, compatibility, contractStandard, contractFormat,
+       providerInteraction, consumerInteraction, channelAddress,
+       connectionEndpoint, materializers, probe}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The AsyncAPI Contract supplies the complementary send/receive operations,
+channel, message schema, Kafka binding, and correlation field. The composition
+selects the broker instance and materializes its resolved address and topic for
+the consumer. A plan still does not claim that a message was delivered.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stage_4_render_a_lifecycle_without_mutating_it"><a class="anchor" href="#_stage_4_render_a_lifecycle_without_mutating_it"></a>Stage 4: render a lifecycle without mutating it</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The APISIX, Keycloak, and OAuth-client scenario demonstrates dependency order,
+configuration materialization, native Kubernetes Secret references, rollout
+readiness, and an exposed Anchor:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock \
+  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml --check
+
+dotx compose apply \
+  DOT-Testing/e2e/api-gateway-oidc/scenario.yaml \
+  --locked \
+  --namespace dot-guided-demo \
+  --dry-run \
+  --forward protected-metadata-through-gateway=19080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The rendering ends with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Dry run complete; composition state was not written.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command may create bounded temporary rendering files and removes them when
+it exits. It does not create Kubernetes resources, start a port forward, or
+write composition state. The rendered order is Keycloak, APISIX, then the OAuth
+client, matching the declared readiness dependencies.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">What this proves</div>
+<div class="paragraph">
+<p>The reference executor accepts the locked inputs and can derive the exact
+platform-native actions. It does not prove rollout success, credentials, or
+HTTP behavior; those require the live acceptance layer.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stage_5_connect_claims_to_evidence"><a class="anchor" href="#_stage_5_connect_claims_to_evidence"></a>Stage 5: connect claims to evidence</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Claim</th>
+<th class="tableblock halign-left valign-top">Executable evidence</th>
+<th class="tableblock halign-left valign-top">Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Catalogue correctness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx validate DOT-Repository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static and Contract resolution evidence; no deployment</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-standard interoperability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21 deterministic compatible plans; no live traffic</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live Contract probes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-probes:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Real producer and brokers on disposable Docker resources</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime configuration portability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:runtime-configuration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dry-run rendering across six adapters</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Workload isolation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:service-workloads:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live repeated Compose, Kubernetes, and Helm instances</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portable-runtime isolation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:runtime-isolation:live</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live Vagrant/libvirt and WASI CLI instances</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Released-product acceptance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39504667195">0.2.4 downloaded-binary acceptance</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux amd64, single-host supported profile</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>See <a href="verification-and-examples.html" class="xref page">Verification and examples</a> for the
+complete test matrix and the distinction between model, plan, dry-run,
+source-adapted, and live production evidence.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_optional_run_the_live_contract_probes"><a class="anchor" href="#_optional_run_the_live_contract_probes"></a>Optional: run the live Contract probes</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This path builds images, starts disposable Docker workloads, and downloads
+pinned images when absent. Use the presenter path when time, network, or host
+capacity is uncertain.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:contract-probes:live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The harness builds a standards-native GraphQL/gRPC producer and an independent
+consumer, then deploys the canonical Mosquitto, NATS, Kafka, and RabbitMQ DOTs.
+It proves GraphQL query, mutation verification/cleanup, and GraphQL-over-SSE;
+all four finite Proto3 <code>NO_SIDE_EFFECTS</code> gRPC shapes through reflection; and
+correlated MQTT, NATS, Kafka, and AMQP 0-9-1 delivery. It records redacted
+evidence and destroys composition-owned resources on success, failure, or
+interruption.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_five_minute_presenter_script"><a class="anchor" href="#_five_minute_presenter_script"></a>Five-minute presenter script</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Show the Contract-to-Anchor-to-wire diagram and explain the four ownership
+boundaries.</p>
+</li>
+<li>
+<p>Run <code>dotx validate DOT-Repository</code> to establish that the catalogue is the
+checked source of truth.</p>
+</li>
+<li>
+<p>Inspect Keycloak to demonstrate one reusable product identity with several
+deployment choices.</p>
+</li>
+<li>
+<p>Print the 21-wire plan summary and highlight the four Contract standards and
+eight interaction forms.</p>
+</li>
+<li>
+<p>Inspect the Kafka wire to distinguish Contract semantics from its resolved
+broker endpoint.</p>
+</li>
+<li>
+<p>Render the APISIX/Keycloak/OAuth lifecycle with <code>--dry-run</code>.</p>
+</li>
+<li>
+<p>Finish on the evidence table and state the supported boundary explicitly.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Keep the published
+<a href="release-notes.html" class="xref page">release notes</a> and
+<a href="verification-and-examples.html" class="xref page">verification matrix</a> open as fallback
+evidence if a local network or runtime is unavailable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supported_boundary"><a class="anchor" href="#_supported_boundary"></a>Supported boundary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The stable profile supports Linux amd64 and private single-host composition
+state. Multi-host orchestration, automatic cross-platform gateway provisioning,
+general stateful-data migration, AMQPS, AMQP 1.0, native arm64 and non-Linux
+executables, the DOT-Registry REST API, and joint SFC or partner acceptance are
+separate activities. Unsupported combinations fail closed rather than being
+silently approximated.</p>
+</div>
+<div class="paragraph">
+<p>All eleven MARE PoCs have planning or source-adapted evidence. That evidence is
+not presented as acceptance of every unmodified partner workload. Continue with
+<a href="architecture.html" class="xref page">Architecture</a> for system boundaries or
+<a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> for authoring and
+lifecycle details.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="getting-started.html">Getting started</a></span>
+  <span class="next"><a href="architecture.html">Architecture</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>
