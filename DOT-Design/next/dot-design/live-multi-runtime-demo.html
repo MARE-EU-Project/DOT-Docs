@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Live composition across runtimes and Contracts :: MARE DOT-Design</title>
+    <link rel="prev" href="guided-demo.html">
+    <link rel="next" href="contributor-guide.html">
+    <meta name="description" content="Three DOTs, Docker and Kubernetes, four Contract standards, real exchanges and verified cleanup.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Live multi-runtime composition</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Development</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.4/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Development</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../0.2.4/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="guided-demo.html">Guided demo</a></li>
+    <li><a href="live-multi-runtime-demo.html">Live multi-runtime composition</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <div class="version-menu">
+    <a class="version is-current" href="live-multi-runtime-demo.html">Development</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Live composition across runtimes and Contracts</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This <code>next</code> development walkthrough reuses three canonical catalogue definitions:
+the standards-native provider, consumer, and official Mosquitto broker. Named
+deployment variants select Kubernetes for provider/broker and Docker for consumer.
+No product descriptor is duplicated.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Provider and consumer are explicitly test-only components, not MARE analytics or
+vendor products. Real HTTP, GraphQL.js, gRPC-js and Mosquitto exchanges demonstrate
+interoperability mechanics, not producer acceptance, production security, or
+automatic protocol conversion. Probe clients use the actual consumer&#8217;s Docker
+network namespace; its application process is an inert deployment target. MQTT
+traffic is generated by the correlated delivery probe, not the GraphQL application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_runs_where"><a class="anchor" href="#_what_runs_where"></a>What runs where</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Wire</th>
+<th class="tableblock halign-left valign-top">Authoritative Contract</th>
+<th class="tableblock halign-left valign-top">Kubernetes endpoint</th>
+<th class="tableblock halign-left valign-top">Docker-side assertion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rest-alerts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI 3.1, <code>GET /alerts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider, NodePort <code>31080</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected HTTP status</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>graphql-health</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL SDL, <code>Query.health</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider, NodePort <code>31400</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/data/health</code> equals <code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grpc-health</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protobuf, side-effect-free <code>AlertService.Check</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider, NodePort <code>31551</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reflected response has <code>serving: true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mqtt-alert-delivery</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPI 3.0, MQTT-bound alert channel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mosquitto, NodePort <code>31883</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schema-valid, uniquely correlated QoS 1 delivery</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Anchors select Contract operations. Wires select participants and materialize
+resolved endpoints into the consumer&#8217;s declared environment. Each wire declares
+<code>EXTERNAL_GATEWAY</code>: the selected DOT declares the NodePort Service, and Minikube
+provides the reachable node address. Docker normally isolates its bridge
+networks: the harness explicitly attaches only its disposable consumer to the
+existing <code>minikube</code> Docker network. Cross-runtime probes use
+<code>--network container:&lt;consumer&gt;</code> so they exercise that actual consumer route,
+not a different runner&#8217;s network. The attachment is external to <code>dotx</code> state,
+and consumer destruction removes it; the harness verifies its removal. No host
+listener, firewall change, tunnel, or Minikube-container modification is made.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prepare_before_presenting"><a class="anchor" href="#_prepare_before_presenting"></a>Prepare before presenting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use the full checkout in <a href="contributor-guide.html" class="xref page">Contributor guide</a>, and run
+commands from its root. Requirements: Linux amd64, Go and Task to install this
+checkout&#8217;s CLI, Git, Bash, jq, curl, GNU coreutils, Docker with Compose, kubectl,
+and a running local Minikube cluster using its Docker driver and <code>minikube</code>
+Docker network. The Kubernetes context must be <code>minikube</code>.
+The introductory <a href="getting-started.html" class="xref page">Prometheus quickstart</a> still needs no
+Go or Kubernetes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git submodule update --init --recursive
+task ci:prepare
+git rev-parse HEAD
+git -C DOT-CLI rev-parse HEAD
+git -C DOT-Repository rev-parse HEAD
+go version -m "$(command -v dotx)"
+docker info --format '{{.ServerVersion}}'
+docker compose version
+kubectl config current-context
+kubectl get nodes --request-timeout=10s
+minikube ip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>dotx 0.2.4</code> alone is insufficient: this example uses post-release development
+changes. Install the pinned submodule and keep the checkout fixed. Evidence
+records revisions, CLI binary SHA-256, tracked working-tree patch hashes, and
+provider/consumer image IDs. Non-empty patches mean the commit alone does not
+describe the tested checkout. Broker/probe images use digest references; the test
+images are locally built from pinned Dockerfiles/dependency locks, not claimed
+published immutable images. The provider uses <code>imagePullPolicy: Never</code> after
+explicit loading; the harness verifies actual running image IDs. Rehearse with
+network access for metadata/dependency/image downloads; caching does not promise
+fully offline execution.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use an isolated demo machine/network. NodePorts are plaintext; MQTT permits
+anonymous access and disables persistence. Do not expose them to untrusted
+networks. These are demo defaults, not production authentication, TLS, retention,
+or availability settings. Never delete an unrelated namespace or Service.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inspect_without_deploying"><a class="anchor" href="#_inspect_without_deploying"></a>Inspect without deploying</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Testing/e2e/multi-runtime-demo/test.sh --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This resolves three DOTs/four wires, writes and verifies a lock, checks both
+platforms and all four standards, and renders deployment actions in a private
+directory under <code>DOT-Testing/e2e/target/multi-runtime-demo/</code>. The template uses
+documentation-only address <code>192.0.2.1</code>; never manually apply that template.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_the_working_example"><a class="anchor" href="#_run_the_working_example"></a>Run the working example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Testing/e2e/multi-runtime-demo/test.sh --live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Equivalent Task alias: <code>task testing:demo:multi-runtime:live</code>. The harness locks
+the real Minikube address, builds/loads images, creates an isolated namespace and
+state cache, deploys through <code>dotx compose apply --locked</code>, checks readiness, and
+probes each wire with a 45-second timeout. It verifies recorded status, destroys
+the composition, removes its namespace, and checks for owned Docker leftovers.</p>
+</div>
+<div class="paragraph">
+<p>Expect <code>PASSED</code> lines for <code>rest-alerts</code>, <code>graphql-health</code>, <code>grpc-health</code>, and
+<code>mqtt-alert-delivery</code>, plus exit zero and <code>cleanup=PASSED</code>. Inspect the printed
+run directory&#8217;s <code>plan.json</code>, <code>render.txt</code>, <code>status.txt</code>, and <code>evidence.json</code> to
+explain the locked plan, endpoint materialization and observations. Evidence JSON
+contains no passwords/tokens or response bodies. Each run retains its evidence;
+the top-level <code>evidence.json</code> is only the latest result, possibly an injected failure.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rehearse_the_complete_presentation"><a class="anchor" href="#_rehearse_the_complete_presentation"></a>Rehearse the complete presentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Present Prometheus first, authenticated Keycloak/APISIX/OAuth second, then the
+cross-runtime standards example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:dry-run
+task testing:demo:rehearse</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rehearsal repeats all three live paths twice. Prometheus covers default/overridden
+ports and failure cleanup. OAuth verifies HTTP 401 without a token, token
+acquisition, protected access, native Secret references, status, and cleanup.
+Its ephemeral credentials and Keycloak development mode are not production defaults.
+The final mixed-runtime run deliberately fails after deployment: exit 42 and
+successful cleanup are required. This is pre-presentation acceptance, not the
+short live talk itself. Do not run overlapping instances of this composition.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_recover_safely"><a class="anchor" href="#_recover_safely"></a>Recover safely</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Normal failure, Ctrl-C and termination attempt cleanup. Do not use <code>kill -9</code> or
+delete state while cleanup runs. After interruption, use the exact printed path:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">RUN_DIR=/absolute/path/printed/by/the/failed/run
+XDG_CACHE_HOME="$RUN_DIR/cache" dotx compose status "$RUN_DIR/scenario.yaml"
+XDG_CACHE_HOME="$RUN_DIR/cache" dotx compose destroy "$RUN_DIR/scenario.yaml"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inspect the namespace in that run&#8217;s <code>render.txt</code>; delete only that test-owned
+namespace if it remains. An apply failure may already have rolled back with no
+applied state; independently verify resource absence. Never prune Docker, remove
+Minikube, or delete unrelated volumes. Find the owner of an occupied NodePort
+before proceeding. Fix Docker user permissions before rerunning. Gateway timeouts
+require checking node IP, routing/firewall, readiness and Services; planning does
+not prove reachability. Contract download failures require repository access or
+verified bundle-local assets, never bypassing SHA-256 checks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_catalogue_readiness_appendix"><a class="anchor" href="#_catalogue_readiness_appendix"></a>Catalogue readiness appendix</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:contracts:readiness
+jq '.dots | group_by(.status) | map({status: .[0].status, count: length})' \
+  DOT-Testing/e2e/target/catalogue-contract-readiness.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Audit baseline: 69 valid definitions, 29 strict interface-profile passes and 40
+gaps. Use the generated report for the actual checkout. Broker-only and negative
+fixtures do not necessarily need a business API. Official/source-derived
+Contracts, source-adapted PoCs, planning fixtures, stubs and producer doubles
+remain distinct evidence levels. See catalogue <code>CONTRACT-AUDIT.md</code> and
+<a href="verification-and-examples.html" class="xref page">Verification and examples</a>. This demonstration
+does not promote the entire catalogue to production-ready.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="guided-demo.html">Guided demo</a></span>
+  <span class="next"><a href="contributor-guide.html">Contributor guide</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>
