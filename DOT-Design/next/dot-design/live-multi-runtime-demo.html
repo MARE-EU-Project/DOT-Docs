@@ -280,7 +280,7 @@ listener, firewall change, tunnel, or Minikube-container modification is made.</
 <div class="paragraph">
 <p>Use the full checkout in <a href="contributor-guide.html" class="xref page">Contributor guide</a>, and run
 commands from its root. Requirements: Linux amd64, Go and Task to install this
-checkout&#8217;s CLI, Git, Bash, jq, curl, GNU coreutils, Docker with Compose, kubectl,
+checkout&#8217;s CLI, Git, Bash, jq, curl, GNU coreutils, <code>flock</code> (util-linux), Docker with Compose, kubectl,
 and a running local Minikube cluster using its Docker driver and <code>minikube</code>
 Docker network. The Kubernetes context must be <code>minikube</code>.
 The introductory <a href="getting-started.html" class="xref page">Prometheus quickstart</a> still needs no
@@ -393,7 +393,10 @@ acquisition, protected access, native Secret references, status, and cleanup.
 Its ephemeral credentials and Keycloak development mode are not production defaults.
 The final mixed-runtime run deliberately fails after deployment: exit 42 and
 successful cleanup are required. This is pre-presentation acceptance, not the
-short live talk itself. Do not run overlapping instances of this composition.</p>
+short live talk itself. A per-user live-run lock rejects overlapping instances
+before deployment, including across checkouts using the same runtime/cache
+environment. <code>DOTX_DEMO_LOCK_DIR</code> is an override for isolated lock tests only;
+do not override it to run concurrent copies of this composition.</p>
 </div>
 </div>
 </div>
