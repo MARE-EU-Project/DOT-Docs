@@ -66,6 +66,9 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
@@ -387,8 +390,16 @@ again after all four real probes and recorded status checks pass.</p>
 <div class="paragraph">
 <p>Only then does the harness pause. Use the printed, shell-quoted recovery/status
 command in a second terminal to inspect the exact live composition. <code>plan.json</code>,
-<code>topology.txt</code>, <code>topology.mmd</code>, probe logs, <code>status.txt</code> and <code>result.json</code> remain in the printed
+<code>topology.txt</code>, <code>topology.mmd</code>, probe logs, <code>status.txt</code>, <code>results.txt</code> and <code>result.json</code> remain in the printed
 private run directory. The result is a probe summary, not fabricated API data.
+Presenter mode shows concise numbered progress and an aligned results table
+with separate Contract, protocol, observed assertion and outcome columns.
+Each row requires both completed probe and recorded status evidence. Detailed
+build/deployment/cleanup output remains in owner-only <code>details.log</code>; a failure
+prints the original failing stage, exit code and its log location. Do not share
+raw private logs. Normal live acceptance keeps its verbose output.
+See <a href="guided-demo.html#audience-faq" class="xref page">the audience FAQ</a> for the model&#8217;s value,
+reuse, standards and evidence boundaries.
 The graph deliberately omits endpoint hosts, configuration and credential values.
 <code>topology.mmd</code> can also be rendered in Antora. <code>NO_COLOR=1</code> disables colours;
 <code>DOTX_TOPOLOGY_COLOR=auto|always|never</code> controls them (<code>NO_COLOR</code> or <code>TERM=dumb</code>

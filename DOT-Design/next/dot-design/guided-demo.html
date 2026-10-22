@@ -66,6 +66,9 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -197,7 +200,7 @@ Contract through Anchors and a composition wire, and finishes by rendering a
 multi-DOT lifecycle without changing a runtime.</p>
 </div>
 <div class="paragraph">
-<p>The core path takes about five minutes on an existing checkout. It is
+<p>The read-only core path takes about five minutes on an existing checkout. It is
 read-only apart from temporary files created and removed by the CLI. The
 optional live path uses Docker and performs deployment, protocol probes, and
 cleanup.</p>
@@ -255,11 +258,18 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Presenter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only overview</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">About 5 minutes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repository validation, a reusable external DOT, 21 cross-standard wires, and
   a Kubernetes lifecycle rendering</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live presenter route</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">About 10-15 minutes after preparation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Six core concepts, one traced wire, four Contract standards across Docker and
+  Kubernetes, and a real MARE use-case graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disposable Docker and Kubernetes resources</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">New developer</p></td>
@@ -277,6 +287,390 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="presenter-route"><a class="anchor" href="#presenter-route"></a>10-15-minute live presenter route</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use this route for an audience new to DOTs. The detailed stages below remain
+the reference walkthrough; this section is the talk track, not another harness.
+For a ten-minute slot, shorten the wire inspection and show the MARE graph as
+the closing example rather than starting a second deployment.</p>
+</div>
+<div class="sect2">
+<h3 id="_before_the_audience_arrives"><a class="anchor" href="#_before_the_audience_arrives"></a>Before the audience arrives</h3>
+<div class="paragraph">
+<p>Follow <a href="live-multi-runtime-demo.html#_prepare_before_presenting" class="xref page">the mixed-runtime prerequisites</a>
+and rehearse on the same Linux-amd64 checkout, installed CLI, Docker and local
+Minikube context that you will present. Install this checkout&#8217;s CLI: the released
+<code>0.2.4</code> binary predates the topology command and these presenter improvements;
+the version string alone does not identify the tested binary.
+Record the three checkout revisions as shown in that walkthrough.</p>
+</div>
+<div class="paragraph">
+<p>Pre-download/build the images by completing the existing live acceptance task
+before the talk, and require successful cleanup:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:docker-kubernetes-four-contracts:live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The timing below is a speaking budget, not a deployment-time guarantee. Cold
+downloads, image builds and a slow cluster can exceed it. Keep the previously
+recorded, revision-matched rehearsal evidence available and label it as such
+if the live run fails; never describe a plan or saved result as a new live pass.
+Use an isolated demo network: the example&#8217;s plaintext NodePorts and anonymous
+MQTT are not safe public production defaults. Do not run competing acceptance
+or cleanup tasks during the presentation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minutes_0_2_the_problem_and_the_six_concepts"><a class="anchor" href="#_minutes_0_2_the_problem_and_the_six_concepts"></a>Minutes 0-2: the problem and the six concepts</h3>
+<div class="paragraph">
+<p><strong>Say:</strong> "We want to describe a component once and reuse it across deployments
+and MARE use cases. DOT-Design connects existing interface standards to explicit
+deployment and composition choices; it does not replace those standards."</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Concept</th>
+<th class="tableblock halign-left valign-top">Audience meaning</th>
+<th class="tableblock halign-left valign-top">In this demonstration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable software component description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider, consumer and Mosquitto use canonical catalogue definitions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative description of an interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI, GraphQL SDL, Protobuf and AsyncAPI describe different interactions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named provided or required interaction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The provider and consumer select the REST alerts operation from its Contract.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wire</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connection between compatible Anchors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rest-alerts</code> connects the provider&#8217;s Anchor to the consumer&#8217;s Anchor.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How a DOT runs on a selected platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider and broker run on Kubernetes; consumer runs on Docker.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Participants, connections and deployment-instance inputs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One locked graph selects those DOTs, deployments, wires and configuration.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Point out the ownership:</strong> <code>DOT-Repository</code> stores reusable DOT bundles and
+compositions; <code>dotx</code> in <code>DOT-CLI</code> validates, plans and executes them;
+<code>DOT-Domain</code> defines the shared model. <code>DOT-Design</code> brings together documentation
+and executable acceptance harnesses. The synthetic demo graph stays in
+<code>DOT-Testing</code>; it is not a new production product.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minutes_2_4_read_the_topology_before_deploying"><a class="anchor" href="#_minutes_2_4_read_the_topology_before_deploying"></a>Minutes 2-4: read the topology before deploying</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology DOT-Testing/composition/docker-kubernetes-four-contracts/scenario.yaml --locked --color always</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Show:</strong> three DOTs and four logical wires. Match the diagram&#8217;s <code>N</code> and <code>W</code>
+identifiers to the aligned DOT and connection tables. <code>CONTRACT</code> names the
+interface standard; the separate <code>PROTOCOL</code> column names the transport protocol.
+Explain provider versus
+consumer and the selected runtime, rather than reading UUIDs aloud.
+The separate <code>T4</code> connection identifies MQTT&#8217;s broker transport endpoint;
+it is not a fifth Anchor wire. Arrows mean logical PROVIDES-to-REQUIRES,
+not packet direction: an HTTP consumer may initiate the request.</p>
+</div>
+<div class="paragraph">
+<p><strong>Expected observation:</strong> the graph is available without deploying anything.
+Parallel wires may share one arrow, but every wire remains in the table.
+This is a locked plan view, not a live health display.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minutes_4_6_trace_one_wire_from_contract_to_configuration"><a class="anchor" href="#_minutes_4_6_trace_one_wire_from_contract_to_configuration"></a>Minutes 4-6: trace one wire from Contract to configuration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose plan DOT-Testing/composition/docker-kubernetes-four-contracts/scenario.yaml --locked --json |
+  jq '.wires[] | select(.name == "rest-alerts") |
+      {name, from, to, contractStandard, selector, operationPath,
+       compatibility, materializer}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Say:</strong> "The OpenAPI Contract owns <code>GET /alerts</code>. The Anchors select that
+operation; the wire names the two participants. The materializer puts the
+resolved operation URL into the consumer&#8217;s declared <code>OPENAPI_YAML_URL</code>
+environment variable. We are not copying the API definition into the wire."</p>
+</div>
+<div class="paragraph">
+<p><strong>Expected observation:</strong> <code>OPENAPI</code>, the selected operation, provider/consumer
+Anchor references, <code>COMPATIBLE</code> and the environment-variable materializer.
+The template&#8217;s <code>192.0.2.1</code> address is deliberately not a live target. The
+existing harness substitutes the actual Minikube address and locks that
+run-specific graph before applying it. Do not manually apply the template.</p>
+</div>
+<div class="paragraph">
+<p><strong>Limit:</strong> compatibility is checked against declared interfaces. It is not proof
+of reachability, delivery or application correctness. There is no automatic
+OpenAPI-to-gRPC-to-MQTT protocol translation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minutes_6_11_deploy_verify_and_inspect_the_live_composition"><a class="anchor" href="#_minutes_6_11_deploy_verify_and_inspect_the_live_composition"></a>Minutes 6-11: deploy, verify and inspect the live composition</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:docker-kubernetes-four-contracts:present</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the existing acceptance path with an inspection pause, not a parallel
+demo implementation. It deploys through <code>dotx</code>, checks readiness and executes
+probes from the actual Docker consumer&#8217;s network namespace to Kubernetes.
+Presenter mode keeps build and deployment chatter in the printed, owner-only
+<code>details.log</code>. The terminal shows the numbered plan, deployment, probe,
+inspection and cleanup stages; a failure still reports its stage, exit code
+and diagnostic-log location. Ordinary noninteractive acceptance remains verbose.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Standard</th>
+<th class="tableblock halign-left valign-top">Explain the expected live result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The REST alerts endpoint returns the expected HTTP status.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Query.health</code> returns <code>true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protobuf / gRPC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The selected health RPC returns <code>serving: true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPI / MQTT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The broker delivers the exact uniquely correlated,
+  schema-valid message after subscription acknowledgement.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Show:</strong> the verified pause appears only after all four live assertions and
+recorded status checks pass. Keep the first terminal at this pause. In a second
+terminal, copy the exact recovery/status command printed by the harness; it
+selects this run&#8217;s private cache and Kubernetes configuration. Inspect the
+per-wire outcomes and redacted <code>result.json</code>, not access tokens or Secrets.
+The final live-results table separates <code>CONTRACT</code>, <code>PROTOCOL</code>, <code>OBSERVED</code> and
+<code>OUTCOME</code>. It is generated only after each successful probe is also present in
+recorded lifecycle status; <code>COMPATIBLE</code> and running workloads do not populate it.
+The observations summarize checked assertions, not raw API responses. The same
+four rows are saved in <code>result.json</code> and the plain-text <code>results.txt</code>.
+The reprinted topology is still a plan view; use status and probe evidence
+for live results.</p>
+</div>
+<div class="paragraph">
+<p><strong>State the boundary:</strong> Mosquitto is a real external broker, but provider and
+consumer are test-only DOTs with standards-native fixture Contracts, not
+vendor-official or MARE producer APIs. The consumer application process is
+inert; explicit probes make these exchanges from its network namespace.
+The MQTT probe subscribes and publishes to prove broker delivery, not a
+provider application&#8217;s business-event publication. This verifies interoperability
+mechanics across runtimes, not a production application or the whole MARE stack.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minutes_11_13_relate_the_mechanism_to_a_real_mare_use_case"><a class="anchor" href="#_minutes_11_13_relate_the_mechanism_to_a_real_mare_use_case"></a>Minutes 11-13: relate the mechanism to a real MARE use case</h3>
+<div class="paragraph">
+<p>Keep the live demo paused and show this separate, read-only catalogue graph:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml --locked --color always</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Say:</strong> "The same model expresses a PoC10-derived protected data service:
+Keycloak supplies identity, APISIX gates access, OPA decides policy, Oxigraph
+serves SPARQL and a client obtains a token and requests the protected capability."
+Point to the five wires, then explain that this graph has not been deployed by
+the four-Contract demo.</p>
+</div>
+<div class="paragraph">
+<p>For a longer session, use the existing
+<code>task testing:pocs:present:secure-api</code> in a separate, rehearsed run. Its live
+checks require anonymous HTTP <code>401</code>, authenticated POST <code>403</code>, and an authorized
+GET reading the stored <code>mare-poc10</code> value. See
+<a href="mare-poc-compositions.html" class="xref page">MARE PoC composition walkthroughs</a> for prerequisites
+and commands. This is source-adapted evidence: Oxigraph substitutes for GraphDB,
+the client is synthetic, and SPARQL/OPA use explicit protocol interfaces rather
+than fabricated official OpenAPI Contracts. It does not accept the complete
+producer deployment, LDAP, telemetry or automated response.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_minutes_13_15_clean_up_and_leave_a_reproducible_next_step"><a class="anchor" href="#_minutes_13_15_clean_up_and_leave_a_reproducible_next_step"></a>Minutes 13-15: clean up and leave a reproducible next step</h3>
+<div class="paragraph">
+<p>Return to the paused demo terminal and press Enter. Expect a receipt with
+<code>cleanup=PASSED</code> and <code>exit=0</code>; the harness checks its owned resources for
+leftovers. Ctrl-C also invokes cleanup and exits <code>130</code>. EOF, timeout and SIGTERM
+are non-success exits with cleanup, not successful acceptance. The inspection
+pause defaults to ten minutes; see the mixed-runtime walkthrough for its bound.
+If cleanup fails, retain the receipt and use that walkthrough&#8217;s recovery
+instructions. Never delete unrelated namespaces, containers or volumes.</p>
+</div>
+<div class="paragraph">
+<p>Close with: "A valid definition is not a running workload; a compatible plan
+is not a successful exchange. We have shown the live results and their limits."</p>
+</div>
+<div class="paragraph">
+<p>Direct attendees to <a href="getting-started.html" class="xref page">Getting started</a> to deploy real
+Prometheus, <a href="mare-poc-compositions.html" class="xref page">the reusable PoC walkthroughs</a> to
+explore compositions, and <a href="anchors-and-composition.html" class="xref page">Anchors and Composition</a>
+to author their own integration. Keep the <a href="verification-and-examples.html" class="xref page">verification matrix</a>
+available for questions; do not equate catalogue validity with production
+readiness or claim DOT-Registry REST API or joint SFC acceptance.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="audience-faq"><a class="anchor" href="#audience-faq"></a>Audience FAQ</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_why_not_just_use_docker_compose_kubernetes_or_helm"><a class="anchor" href="#_why_not_just_use_docker_compose_kubernetes_or_helm"></a>Why not just use Docker Compose, Kubernetes or Helm?</h3>
+<div class="paragraph">
+<p>Those tools remain the native deployment mechanisms. DOT adds a reusable
+component description, authoritative interface references, named interactions,
+explicit cross-component wiring and a checked composition plan. <code>dotx</code> delegates
+supported deployment actions rather than replacing those platforms. If an
+existing Compose file is all a use case needs, DOT&#8217;s additional value is the
+shared catalogue and interoperability description, not a different container
+scheduler.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_is_reused_and_what_changes_between_pocs"><a class="anchor" href="#_what_is_reused_and_what_changes_between_pocs"></a>What is reused, and what changes between PoCs?</h3>
+<div class="paragraph">
+<p>The product&#8217;s canonical <code>dot.json</code>, Contracts and Anchor identities are reused.
+A composition selects participants and deployments and supplies use-case-specific
+configuration: routes, policies, scrape targets and credential references.
+There is no need to create another Keycloak DOT for every PoC. Runtime platform
+means <em>where</em> it runs; deployment mechanism means <em>how</em> it is deployed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_does_connecting_two_anchors_make_incompatible_apis_work_together"><a class="anchor" href="#_does_connecting_two_anchors_make_incompatible_apis_work_together"></a>Does connecting two Anchors make incompatible APIs work together?</h3>
+<div class="paragraph">
+<p>No. Wires connect declared compatible interactions; they do not translate
+OpenAPI, GraphQL, gRPC or MQTT automatically. An application-specific adapter,
+if required, must be implemented and described explicitly. The four-Contract
+demo verifies four separate standards-native exchanges, not one message
+automatically converted through four protocols.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_is_a_contract_the_same_as_a_protocol_are_all_contracts_official"><a class="anchor" href="#_is_a_contract_the_same_as_a_protocol_are_all_contracts_official"></a>Is a Contract the same as a protocol? Are all Contracts official?</h3>
+<div class="paragraph">
+<p>No. OpenAPI is an interface-description standard; HTTP is a protocol used by
+the selected operation. Protobuf describes messages/services used by the gRPC
+profile; AsyncAPI describes messaging interactions and transport bindings.
+The topology table separates <code>CONTRACT</code> from <code>PROTOCOL</code> for that reason.
+Use vendor/project-official documents when available. Source-derived Contracts
+and test-fixture Contracts must be labelled, not advertised as official.
+An explicit protocol interface is not an invented official Contract; the
+topology labels that case <code>explicit interface</code>. A <code>-</code> on a transport-only
+<code>T</code> link does not create another Contract-backed Anchor wire.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_does_validation_mean_a_dot_is_production_ready"><a class="anchor" href="#_does_validation_mean_a_dot_is_production_ready"></a>Does validation mean a DOT is production-ready?</h3>
+<div class="paragraph">
+<p>No. Base validation checks definitions and declared references; stricter
+interface checks assess declaration completeness. A locked compatible plan
+checks the selected graph. A successful deployment establishes a runtime state.
+A live probe verifies a particular observed exchange. None alone proves full
+business functionality, resilience, security hardening, scale or acceptance
+of an unmodified PoC producer. Read the declared scope with each result.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_does_the_lock_file_guarantee"><a class="anchor" href="#_what_does_the_lock_file_guarantee"></a>What does the lock file guarantee?</h3>
+<div class="paragraph">
+<p>It pins the composition&#8217;s portable definition inputs and resolved plan so that
+unreviewed definition changes are detected. It does not freeze runtime health,
+network addresses, credentials or upstream service behavior. Contract payload
+digests verify the referenced bytes; a downloadable URL is not itself evidence
+that the live implementation conforms to the whole Contract.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_where_do_credentials_and_configuration_belong"><a class="anchor" href="#_where_do_credentials_and_configuration_belong"></a>Where do credentials and configuration belong?</h3>
+<div class="paragraph">
+<p>DOTs declare supported service configuration. Compositions provide deployment
+inputs and secret references; secret values and concrete runtime state are not
+part of a reusable public interface description. The PoC10 rehearsal uses
+native Kubernetes Secret references. Do not display Secret contents, tokens,
+raw deployment state or private diagnostic logs during the talk. The
+four-Contract fixture uses plaintext/anonymous demo settings and is not an
+example of production security hardening.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_did_this_presentation_actually_demonstrate"><a class="anchor" href="#_what_did_this_presentation_actually_demonstrate"></a>What did this presentation actually demonstrate?</h3>
+<div class="paragraph">
+<p>The Docker/Kubernetes demo runs test-only provider/consumer components and
+Mosquitto, then verifies four exchanges from the consumer&#8217;s network namespace.
+The PoC10 topology relates the same concepts to a source-adapted use case;
+showing that graph does not deploy or accept it. Its separate live rehearsal
+checks authentication, denial and a stored-data read. A producer double, stub,
+planning fixture or source adaptation must remain visibly labelled. DOT-Registry
+REST API and joint SFC/partner acceptance are not claimed by either demo.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_can_an_attendee_try_this_afterwards"><a class="anchor" href="#_how_can_an_attendee_try_this_afterwards"></a>How can an attendee try this afterwards?</h3>
+<div class="paragraph">
+<p>Start with <a href="getting-started.html" class="xref page">the real Prometheus quickstart</a>, which needs
+neither a Java/Go development toolchain nor Kubernetes when using the supported
+released binary. Then explore <a href="mare-poc-compositions.html" class="xref page">reusable compositions</a>
+and <a href="anchors-and-composition.html" class="xref page">the authoring guide</a>. The new topology and
+presenter features require the installed development checkout described above;
+do not assume an older release contains them.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
