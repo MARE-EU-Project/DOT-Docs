@@ -349,7 +349,8 @@ capability</p></td>
   GraphQL-over-SSE delivery, all four finite side-effect-free gRPC shapes through
   reflection, correlated non-retained AsyncAPI MQTT/NATS delivery,
   correlation-scoped Kafka delivery under broker retention, and acknowledged
-  AMQP 0-9-1 delivery through an exclusive probe queue; emits redacted evidence</p></td>
+  AMQP 0-9-1 delivery through an exclusive probe queue; rejects existing resources
+  and emits redacted success evidence only after verified cleanup</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docker, network access for pinned images, and the checked-out <code>dotx</code></p></td>
 </tr>
 <tr>
