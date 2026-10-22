@@ -1,0 +1,45 @@
+classDiagram
+  direction TB
+  accTitle: Simplified DOT domain model
+  accDescr: Dot references Skills, declares Contracts, and contains Anchors and Runtime alternatives. An Anchor selects a Contract operation. Each Runtime targets a Platform and contains Deployments. A Deployment contains one manifest and its logical services. Composition instances and wires live outside this Java aggregate.
+
+  class Dot {
+    id
+    name
+    version
+  }
+  class Skill {
+    name
+  }
+  class Contract {
+    standard
+    payload
+  }
+  class Anchor {
+    role
+    contract
+  }
+  class Runtime
+  class Platform {
+    engine
+  }
+  class Deployment {
+    id
+  }
+  class DeploymentManifest {
+    <<abstract>>
+    type
+  }
+  class DeploymentService {
+    id
+  }
+
+  Dot --> Skill : references
+  Dot --> Contract : declares
+  Dot *-- Anchor : anchors
+  Dot *-- Runtime : runtimes
+  Anchor ..> Contract : selects operation
+  Runtime *-- Platform : target
+  Runtime *-- Deployment : alternatives
+  Deployment *-- DeploymentManifest : manifest
+  Deployment *-- DeploymentService : services

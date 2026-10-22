@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DOT-Design :: MARE DOT-Design</title>
+    <title>DOT-Design overview :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-design/index.html">
     <link rel="next" href="getting-started.html">
-    <meta name="description" content="Architecture, domain model, repository catalogue, and composition tooling for Dynamic Open Trust components.">
+    <meta name="description" content="Understand DOTs, Contracts, Anchors and deployments, then run a tool or compose a MARE use case.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -135,14 +135,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">DOT-Design</span>
-    <span class="version">Development</span>
+    <span class="version">Next</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="../../0.2.4/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
-          <a href="index.html">Development</a>
+          <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
           <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
@@ -177,9 +177,9 @@
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">Development</button>
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
-    <a class="version is-current" href="index.html">Development</a>
+    <a class="version is-current" href="index.html">Next</a>
     <a class="version" href="../../0.2.4/dot-design/index.html">0.2.4</a>
     <a class="version" href="../../0.2.3/dot-design/index.html">0.2.3</a>
     <a class="version" href="../../0.2.2/dot-design/index.html">0.2.2</a>
@@ -193,36 +193,191 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">DOT-Design</h1>
+<h1 class="page">DOT-Design overview</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>DOT-Design defines the portable model and reference tooling used to describe,
-validate, deploy, and compose Dynamic Open Trust (DOT) components in the MARE
-6G security ecosystem.</p>
+<p><strong>Describe a tool once. Reuse it in different deployments and compositions.</strong></p>
 </div>
 <div class="paragraph">
-<p>A DOT packages four concerns without collapsing them into one runtime-specific
-description:</p>
+<p>DOT-Design provides a portable description of software components and the
+<code>dotx</code> command-line tool to validate, deploy and connect them in the MARE 6G
+security ecosystem. A Dynamic Open Trust component (<strong>DOT</strong>) is a reusable
+definition, not a particular running container, VM or Kubernetes Pod.</p>
 </div>
+<div class="paragraph">
+<p>For example, one Prometheus DOT can describe its API and supported deployment
+choices. A composition can then use it to scrape a selected metrics exporter,
+without creating a second Prometheus product definition for that use case.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_choose_your_first_step"><a class="anchor" href="#_choose_your_first_step"></a>Choose your first step</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><strong>capability</strong>&#8201;&#8212;&#8201;Skills describe what the component does;</p>
+<p><strong>Use an existing tool:</strong> <a href="getting-started.html" class="xref page">Getting started</a> takes you
+from CLI installation to a running Prometheus service, a verified API response
+and cleanup. Java and contributor tooling are not required.</p>
 </li>
 <li>
-<p><strong>contract</strong>&#8201;&#8212;&#8201;OpenAPI, AsyncAPI, Protobuf, or GraphQL documents describe
-authoritative interactions;</p>
+<p><strong>Watch or present the ecosystem:</strong> <a href="guided-demo.html#presenter-route" class="xref page">the
+10-15-minute guided demo</a> connects the concepts to executable evidence.</p>
 </li>
 <li>
-<p><strong>composition</strong>&#8201;&#8212;&#8201;Anchors give selected Contract operations stable identities
-and <code>PROVIDES</code> or <code>REQUIRES</code> roles; and</p>
-</li>
-<li>
-<p><strong>deployment</strong>&#8201;&#8212;&#8201;Runtimes and deployment manifests describe where and how the
-component can run.</p>
+<p><strong>Integrate your own component:</strong> start with the model below, then use
+<a href="developer-demo.html" class="xref page">the developer tour</a> and
+<a href="anchors-and-composition.html" class="xref page">the authoring and composition guide</a>.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The bottom-left version selector offers <strong>Next</strong>, the current development
+documentation, alongside immutable stable releases. Select <strong>Next</strong> to follow
+the latest walkthrough and examples.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_model_in_one_minute"><a class="anchor" href="#_the_model_in_one_minute"></a>The model in one minute</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Question</th>
+<th class="tableblock halign-left valign-top">Model</th>
+<th class="tableblock halign-left valign-top">Plain-language meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">What is this component?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable identity and version, described by <code>dot.json</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">What can it do?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Skill</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional high-level capability classification, not executable code or an API.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">What interface does it implement or require?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Contract</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An authoritative OpenAPI, AsyncAPI, Protobuf or GraphQL document. Complete
+  declarations identify its raw HTTPS payload and SHA-256 integrity pin.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Which interaction can another DOT connect to?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Anchor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A stable <code>PROVIDES</code> or <code>REQUIRES</code> point, normally selecting an operation
+  from a declared Contract rather than copying its interface metadata.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where and how can it run?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Runtime</code>, <code>Platform</code>, <code>Deployment</code>, <code>DeploymentManifest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A platform is <strong>where</strong> it runs; a deployment selects <strong>how</strong> to launch it.
+  Kubernetes may offer both manifest and Helm alternatives.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Which service implements the interface?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical services, named ports, Anchor bindings and supported configuration
+  inside a selected deployment.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/dot-domain-overview.svg" alt="Dot, Skills, Contracts, Anchors, Runtimes, platforms, deployments, manifests and services">
+</div>
+<div class="title">Figure 1. Simplified DOT domain model: a reusable definition, not a running instance</div>
+</div>
+<div class="paragraph">
+<p>Diamonds indicate embedded values; arrows indicate declarations or references.
+The dashed arrow applies to Contract-backed Anchors. Collection sizes,
+configuration, ports, binding helpers and audit metadata are omitted for
+readability; see the full <a href="../dot-domain/index.html#_class_diagram" class="xref page">generated class diagram</a>
+for implementation detail. <code>Composition</code> and <code>Wire</code> are deliberately absent:
+they belong to a separate composition document, not to the Java <code>Dot</code> aggregate.</p>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>
+</div>
+<div class="paragraph">
+<p>Read the runtime branch as <strong>alternatives</strong>, not a requirement to deploy
+everything: choose one supported deployment for each composition instance.
+An Anchor binding maps the logical Anchor to a named port of a deployment
+service; concrete reachable addresses are resolved for the running instance.</p>
+</div>
+<div class="paragraph">
+<p>Groups, descriptions and metadata help classify or audit a definition. They
+do not change API semantics or grant runtime permissions. For field-level
+validation and the complete generated model, continue to
+<a href="../dot-domain/index.html" class="xref page">DOT-Domain</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_from_one_dot_to_a_working_composition"><a class="anchor" href="#_from_one_dot_to_a_working_composition"></a>From one DOT to a working composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>A DOT describes a reusable component; a composition describes one use case.</strong>
+A separate <code>composition.yaml</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Selects named DOT instances with pinned identities and versions.</p>
+</li>
+<li>
+<p>Chooses a supported deployment for each instance.</p>
+</li>
+<li>
+<p>Connects a provider Anchor to a consumer Anchor with a <strong>wire</strong>.</p>
+</li>
+<li>
+<p>Supplies use-case configuration and Secret references; a reviewed lock pins
+the resolved definitions, Contracts and inputs.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, the <a href="mare-poc-compositions.html" class="xref page">PoC10 walkthrough</a> connects
+Keycloak, APISIX, OPA, Oxigraph and a machine client. Realm configuration,
+gateway routes, authorization policy and credentials belong to that use case,
+not to separate copies of those products' DOTs.</p>
+</div>
+<div class="sect2">
+<h3 id="_follow_one_api_call"><a class="anchor" href="#_follow_one_api_call"></a>Follow one API call</h3>
+<div class="paragraph">
+<p>In the <a href="getting-started.html" class="xref page">Prometheus quickstart</a>, the official Contract
+describes the build-information operation. The <code>build-information</code> Anchor
+selects it, and the chosen deployment binds that Anchor to a service port.
+The verified response comes from the running Prometheus instance at
+<code><a href="http://127.0.0.1:18909/api/v1/status/buildinfo" class="bare">http://127.0.0.1:18909/api/v1/status/buildinfo</a></code>.</p>
+</div>
+<div class="paragraph">
+<p>The Contract describes the interaction; the Anchor gives it a stable
+composable identity; the binding makes it reachable. None of these is the
+same thing as a successful live call.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -234,12 +389,14 @@ component can run.</p>
 <div class="paragraph">
 <p><code>dot.json</code> is the deployable DOT definition and the only source inspected by
 <code>dotx deploy</code>. Connections between deployed DOT instances are described in a
-separate composition document. Concrete addresses, credentials, and live
-policy results never become Anchor fields.</p>
+separate composition document. A wire does not create an API, translate
+protocols automatically or prove production readiness. Concrete addresses,
+credentials and live policy results never become Anchor fields.</p>
 </div>
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -331,13 +488,14 @@ policy results never become Anchor fields.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-CLI</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Independent <code>dotx</code> CLI for authoring support, validation, inspection,
-  deployment, runtime lifecycle, and the provisional composition executor.</p></td>
+  deployment, runtime lifecycle, and the Composition v1 reference executor.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.27.2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Repository</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Independently cloneable Git submodule containing reusable DOT definitions,
-the generated JSON Schema, and optional high-level Skill classifications.</p></td>
+  reusable compositions, generated JSON Schema, and optional high-level Skill
+  classifications. The filesystem is the catalogue index.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Git submodule</p></td>
 </tr>
 <tr>
@@ -386,7 +544,9 @@ the generated JSON Schema, and optional high-level Skill classifications.</p></t
 <div class="paragraph">
 <p>Contractless Anchors remain available for interactions that cannot be described
 by one of these standards. They must declare direction, protocol, and media type
-explicitly.</p>
+explicitly, and they do not pass the strict <code>interoperable</code> interface profile.
+An explicit SPARQL or metrics interface is not an invented OpenAPI document;
+a runtime-only broker does not own its applications' message Contracts.</p>
 </div>
 </div>
 </div>
@@ -396,7 +556,8 @@ explicitly.</p>
 <div class="paragraph">
 <p>The DOT-owned Anchor model, service-port binding, generated schema, repository
 resolution, conformance fixtures, <code>dot.mare6g.eu/v1</code> composition document, and
-<code>dotx compose</code> executor form the stable 0.2.4 Composition v1 profile.</p>
+<code>dotx compose</code> executor form the stable Composition v1 profile. The Java
+domain and the independently released CLI need not share a release number.</p>
 </div>
 <div class="paragraph">
 <p>The reference executor is intentionally fail-closed. It does not claim to be a
@@ -410,27 +571,26 @@ supported composition profile</a> for the exact boundary.</p>
 <div class="sect1">
 <h2 id="_first_steps"><a class="anchor" href="#_first_steps"></a>First steps</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>After <a href="getting-started.html" class="xref page">installing the CLI and checking out the
+catalogue</a>, these commands run from the <code>DOT-Design</code> checkout without deploying
+anything. Topology rendering requires DOT-CLI <code>0.2.5</code> or a newer pinned checkout.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Domain unit tests; no MongoDB required
-mvn -pl DOT-Domain test
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Validate the real catalogue using verified local Contract assets
+dotx validate DOT-Repository --schema DOT-Repository/Schema/schema.json --offline
 
-# Install the pinned CLI checkout on PATH
-task cli:install
-
-# Validate and inspect the canonical composition example
-composition=DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
-dotx compose validate "$composition"
-dotx compose plan "$composition"
-
-# Run the complete Anchor/composition repository gate
-task testing:conformance</code></pre>
+# Inspect the reviewed five-DOT PoC10 plan, not live traffic
+composition=DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml
+dotx compose validate "$composition" --locked
+dotx compose topology "$composition" --locked --color auto</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Continue with <a href="getting-started.html" class="xref page">Getting started</a> for prerequisites and
-command context, then use <a href="guided-demo.html" class="xref page">Guided demo</a> for a reproducible
-end-to-end walkthrough.</p>
+<p>Use <a href="guided-demo.html" class="xref page">the guided demo</a> for live execution and cleanup.
+Build toolchains, Java tests and the full local/GitHub CI route belong in the
+<a href="contributor-guide.html" class="xref page">contributor guide</a>.</p>
 </div>
 </div>
 </div>
