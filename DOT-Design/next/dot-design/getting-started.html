@@ -224,20 +224,20 @@ and releases. From a workspace directory:</p>
 gh auth setup-git
 mkdir -p dot-quickstart-download
 cd dot-quickstart-download
-gh release download v0.2.4 --repo MARE-EU-Project/DOT-CLI \
-  --pattern dotx-0.2.4-linux-amd64 --pattern SHA256SUMS
+gh release download v0.2.5 --repo MARE-EU-Project/DOT-CLI \
+  --pattern dotx-0.2.5-linux-amd64 --pattern SHA256SUMS
 sha256sum --check --ignore-missing SHA256SUMS
 mkdir -p "$HOME/.local/bin"
-install -m 0755 dotx-0.2.4-linux-amd64 "$HOME/.local/bin/dotx"
+install -m 0755 dotx-0.2.5-linux-amd64 "$HOME/.local/bin/dotx"
 export PATH="$HOME/.local/bin:$PATH"
 dotx version
 cd ..</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Stop if checksum verification fails. Expected version: <code>dotx 0.2.4</code>.
+<p>Stop if checksum verification fails. Expected version: <code>dotx 0.2.5</code>.
 Add the <code>PATH</code> export to your shell profile for future sessions. The
-<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.4">release</a>
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.5">release</a>
 also provides an SBOM and build/acceptance revision manifest.</p>
 </div>
 </div>

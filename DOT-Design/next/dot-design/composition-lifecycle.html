@@ -319,6 +319,18 @@ execution recoverable and auditable.</p>
 </tbody>
 </table>
 <div class="paragraph">
+<p>Current-source upgrade admission inspects the selected deployment in both the
+previous and target revisions, not unrelated deployment alternatives. Compose
+YAML/JSON is parsed structurally; Kubernetes persistent volumes, claims,
+StatefulSets and non-ephemeral volume sources are refused. Missing, ambiguous
+or malformed inputs fail closed. Changed Helm and Vagrant instances are refused
+until chart defaults and dynamic Ruby storage can be established safely;
+unchanged instances and normal apply/status/destroy remain supported.
+This hardening is newer than the published CLI <code>v0.2.5</code>: use the reviewed fixed
+source for upgrades until a later release includes it. No control-plane rollback
+promises to undo application writes or preserve data in writable container layers.</p>
+</div>
+<div class="paragraph">
 <p><code>validate</code> answers <em>is this composition internally resolvable?</em> <code>plan</code> answers
 <em>what exactly would be connected and materialized?</em> Keeping both commands
 read-only makes them suitable for review and CI.</p>

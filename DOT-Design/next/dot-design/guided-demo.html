@@ -327,9 +327,10 @@ demonstrate rejection of an invalid wire, and show where a PoC contribution belo
 <div class="paragraph">
 <p>Follow <a href="live-multi-runtime-demo.html#_prepare_before_presenting" class="xref page">the mixed-runtime prerequisites</a>
 and rehearse on the same Linux-amd64 checkout, installed CLI, Docker and local
-Minikube context that you will present. Install this checkout&#8217;s CLI: the released
-<code>0.2.4</code> binary predates the topology command and these presenter improvements;
-the version string alone does not identify the tested binary.
+Minikube context that you will present. Install this checkout&#8217;s CLI for the exact
+pinned acceptance suite. Published <code>v0.2.5</code> includes native topology and presenter
+support; a release binary does not include later source fixes, and the version
+string alone does not identify the tested binary.
 Record the three checkout revisions as shown in that walkthrough.</p>
 </div>
 <div class="paragraph">
@@ -734,17 +735,17 @@ dotx version</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For the version-aligned stable release, the last command reports:</p>
+<p>For this checkout&#8217;s independently versioned CLI, the last command reports:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dotx 0.2.4</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dotx 0.2.5</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The independently released Linux-amd64 binary, its SBOM, release manifest, and
 checksums are also available from the
-<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.4">DOT-CLI v0.2.4 release</a>.
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.5">DOT-CLI v0.2.5 release</a>.
 Use <code>sha256sum --check SHA256SUMS</code> before executing a downloaded release asset.</p>
 </div>
 </div>
