@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Guided demo :: MARE DOT-Design</title>
     <link rel="prev" href="getting-started.html">
-    <link rel="next" href="mare-poc-compositions.html">
+    <link rel="next" href="developer-demo.html">
     <meta name="description" content="A reproducible DOT-Design walkthrough for onboarding, workshops, and live presentations.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -67,6 +67,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
@@ -194,16 +197,16 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guided demo turns the stable Composition v1 profile into a short,
-reproducible story. It starts with a real reusable external DOT, follows a
-Contract through Anchors and a composition wire, and finishes by rendering a
-multi-DOT lifecycle without changing a runtime.</p>
+<p>This guided demo explains how a reusable DOT becomes part of a checked
+composition. Choose the 10-15-minute live route below, or the five-minute
+read-only stages later on this page. Both connect authoritative Contracts,
+Anchors, deployment choices and explicit wires; they prove different things.</p>
 </div>
 <div class="paragraph">
 <p>The read-only core path takes about five minutes on an existing checkout. It is
 read-only apart from temporary files created and removed by the CLI. The
-optional live path uses Docker and performs deployment, protocol probes, and
-cleanup.</p>
+live presenter route uses Docker and Kubernetes and performs deployment,
+protocol probes, inspection and cleanup.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -274,7 +277,7 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">New developer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">About 15 minutes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The presenter path plus selected plan details, authoritative Contract facts,
+<td class="tableblock halign-left valign-top"><p class="tableblock">The read-only overview plus selected plan details, authoritative Contract facts,
   endpoint materialization, and evidence boundaries</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
@@ -282,7 +285,7 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 <td class="tableblock halign-left valign-top"><p class="tableblock">Live acceptance</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Depends on image downloads and host capacity</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL, all four finite gRPC shapes, and MQTT, NATS, Kafka, and AMQP 0-9-1
-  delivery against real producers and brokers</p></td>
+  delivery against standards-native test producers and real brokers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disposable Docker resources</p></td>
 </tr>
 </tbody>
@@ -297,6 +300,27 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 the reference walkthrough; this section is the talk track, not another harness.
 For a ten-minute slot, shorten the wire inspection and show the MARE graph as
 the closing example rather than starting a second deployment.</p>
+</div>
+<div class="paragraph">
+<p><strong>The three messages to leave with the audience:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reuse a product definition; put PoC-specific configuration in the composition.</p>
+</li>
+<li>
+<p>Keep existing interface standards authoritative; wires are not protocol translators.</p>
+</li>
+<li>
+<p>Distinguish a compatible plan from a verified live exchange and production acceptance.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For technical Q&amp;A, add <a href="developer-demo.html" class="xref page">the five-minute developer extension</a>:
+inspect a real product&#8217;s deployment choices and official Contract provenance,
+demonstrate rejection of an invalid wire, and show where a PoC contribution belongs.</p>
 </div>
 <div class="sect2">
 <h3 id="_before_the_audience_arrives"><a class="anchor" href="#_before_the_audience_arrives"></a>Before the audience arrives</h3>
@@ -971,7 +995,7 @@ HTTP behavior; those require the live acceptance layer.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Live Contract probes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-probes:live</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Real producer and brokers on disposable Docker resources</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standards-native test producer and real brokers on disposable Docker resources</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Runtime configuration portability</p></td>
@@ -1100,7 +1124,7 @@ lifecycle details.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="getting-started.html">Getting started</a></span>
-  <span class="next"><a href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a></span>
+  <span class="next"><a href="developer-demo.html">Developer demo: reuse and extend</a></span>
 </nav>
 </article>
   </div>
