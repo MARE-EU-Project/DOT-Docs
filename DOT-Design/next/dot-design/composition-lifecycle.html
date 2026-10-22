@@ -360,6 +360,31 @@ Secret values remain <code>secretKeyRef</code> references; Docker secrets are su
 only through the runner environment.</p>
 </div>
 <div class="paragraph">
+<p>Development builds newer than the published CLI <code>v0.2.5</code> also accept an
+optional native JSON response assertion on safe OpenAPI <code>GET</code> or <code>OPTIONS</code>
+wires:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">probe:
+  openapi:
+    expect: {pointer: /data/status, equals: success}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The existing Contract remains authoritative for the operation and declared
+status codes. With this fixture, the response must additionally be <code>2xx</code>, have
+<code>application/json</code> or <code>application/*+json</code> content type, and contain valid JSON
+whose RFC 6901 pointer equals the non-sensitive expected value. Array indices
+are supported; an empty pointer compares the entire document. Redirects are
+not followed, execution uses the probe timeout, and runner output is limited
+to 1 MiB. Only redacted outcomes and failure codes are recorded, never response
+bodies or actual values. This is explicit value checking, not complete OpenAPI
+response-schema validation. Without the fixture, existing status-only behavior
+is unchanged. The assertion is a lock-covered composition input, not a new DOT
+or Anchor property. <code>HEAD</code> cannot carry a JSON body assertion.</p>
+</div>
+<div class="paragraph">
 <p>For GraphQL, the composition supplies the deployment-specific HTTP path and a
 non-sensitive operation document with optional operation name and variables.
 Before planning succeeds, <code>dotx</code> parses the authoritative SDL, validates every

@@ -295,7 +295,10 @@ listener, firewall change, tunnel, or Minikube-container modification is made.</
 <div class="paragraph">
 <p>The REST provider returns one deterministic, read-only synthetic alert:
 <code>a4a70000-0000-4000-8000-000000000099</code>, severity <code>critical</code>.
-After the native OpenAPI status-code probe, a separate application assertion
+The native <code>probe.openapi.expect</code> assertion compares the complete JSON array,
+requiring a declared successful status, JSON media type, and the expected
+identity/severity. Use the installed development CLI; the released <code>v0.2.5</code>
+binary predates this feature. A supplementary independent application assertion
 reads <code>OPENAPI_YAML_URL</code> from the deployed consumer and fetches it from that
 consumer&#8217;s actual network namespace. It requires HTTP 200, JSON content type,
 exactly one alert, and the expected identity/severity. Redirects, wrong data,
@@ -303,7 +306,8 @@ oversized bodies and a stalled response fail acceptance. The 10-second,
 1-MiB-bounded Node.js client uses the already-built provider image; it is a test
 client, not a new DOT or an implicit GraphQL-to-REST translator. Only its fixed
 redacted summary is saved as <code>rest-body.json</code>; arbitrary response fields are not
-printed. This does not change the CLI OpenAPI probe&#8217;s status-only semantics.</p>
+printed. The independent check also verifies the actual materialized consumer
+configuration; it is not needed to enable the native CLI response assertion.</p>
 </div>
 </div>
 </div>
