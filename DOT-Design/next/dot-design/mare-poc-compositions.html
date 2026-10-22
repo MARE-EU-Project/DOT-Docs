@@ -225,6 +225,33 @@ inspect the redacted <code>result.json</code>; the secure API must still deny an
 requests. Do not paste access tokens or Secret values into the presentation.</p>
 </div>
 <div class="paragraph">
+<p>The topology is generated from the locked plan by <code>dotx compose topology</code>, using
+the MIT-licensed <code>mermaid-ascii</code> 1.6.1 Go library embedded in the binary.
+There is no Python renderer or separate executable to install. DOTs appear once, with connected
+Unicode boxes. Parallel wires share a connection labelled <code>W1,W2,&#8230;&#8203;</code>; the
+connection legend lists every wire, Contract standard and protocol separately.
+<code>T</code> links show broker transport endpoints, not extra Anchor wires or invented
+application publishers. Aligned tables show full instance names, platforms,
+deployments and versions, plus each connection&#8217;s provider, consumer, Contract
+standard, protocol and name. Long values wrap inside their columns without
+truncation, using the same width as the graph.
+Arrows mean logical PROVIDES-to-REQUIRES relationships,
+not packet direction. The graph reappears after successful live verification.</p>
+</div>
+<div class="paragraph">
+<p>Interactive diagrams use cyan Kubernetes, magenta Docker and amber connection
+IDs. Set <code>NO_COLOR=1</code> or <code>DOTX_TOPOLOGY_COLOR=never</code> for plain output; <code>always</code>
+forces colour when capturing a demonstration (<code>NO_COLOR</code> and <code>TERM=dumb</code> still
+disable it). Logs are plain by default. <code>DOTX_TOPOLOGY_WIDTH=80</code> controls width
+(40-240 columns). The renderer tries vertical/compact layouts for narrow screens
+and fails clearly if it cannot show every connection; it never silently clips.</p>
+</div>
+<div class="paragraph">
+<p>For all four Contract standards across Docker and Kubernetes, use
+<code>task testing:demo:docker-kubernetes-four-contracts:present</code>; see
+<a href="live-multi-runtime-demo.html" class="xref page">the mixed-runtime presenter walkthrough</a>.</p>
+</div>
+<div class="paragraph">
 <p>Press Enter to destroy owned resources and verify cleanup. Ctrl-C also cleans
 up and returns 130; SIGTERM returns 143. The default inspection limit is ten
 minutes (<code>DOTX_POC_PRESENT_TIMEOUT</code>, integer 1-1800 seconds). Timeout returns
@@ -262,7 +289,10 @@ not evidence that a new live exchange occurred during the talk.</p>
 Bash, flock, Python 3 and Task; ShellCheck checks their regressions. PoC10 needs
 kubectl and a Ready local Docker-driver Minikube node with context <code>minikube</code>.
 PoC6 additionally needs Docker BuildKit and read access to the pinned private
-producer through Git/<code>gh</code>, or <code>POC6_SOURCE_DIR</code> at the exact revision below.</p>
+producer through Git/<code>gh</code>, or <code>POC6_SOURCE_DIR</code> at the exact revision below.
+Automatically acquired PoC6 source uses the private run directory&#8217;s filesystem,
+not shared <code>/tmp</code>, and is removed after the run. A caller-supplied source checkout
+remains untouched.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -273,6 +303,14 @@ git rev-parse HEAD
 git -C DOT-CLI rev-parse HEAD
 git -C DOT-Repository rev-parse HEAD
 task testing:pocs:dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To display just the graph without running the acceptance harness:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml --locked --color always</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -321,6 +359,14 @@ detection and mitigation remain outside this slice.</p>
 <div class="sect1">
 <h2 id="_2_poc10_authenticated_policy_controlled_sparql"><a class="anchor" href="#_2_poc10_authenticated_policy_controlled_sparql"></a>2. PoC10: authenticated, policy-controlled SPARQL</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The harness now seeds a known RDF triple into the disposable backend, then reads
+that stored value through the authenticated gateway. Acceptance requires exactly
+one expected literal, rather than a constant <code>SELECT</code> expression that would work
+with an empty database. An authenticated INSERT attempt must be rejected with
+403. Seeding is explicit out-of-band test setup in the owned namespace; it is
+not a claim that the public read-only interface authorizes writes.</p>
+</div>
 <div class="paragraph">
 <p>These arrows show logical PROVIDES-to-REQUIRES wires, not HTTP packet direction:</p>
 </div>

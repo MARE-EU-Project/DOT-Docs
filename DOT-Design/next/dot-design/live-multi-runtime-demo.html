@@ -353,7 +353,7 @@ or availability settings. Never delete an unrelated namespace or Service.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Testing/e2e/multi-runtime-demo/test.sh --dry-run</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">exec bash DOT-Testing/e2e/multi-runtime-demo/test.sh --dry-run</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -367,9 +367,65 @@ documentation-only address <code>192.0.2.1</code>; never manually apply that tem
 <div class="sect1">
 <h2 id="_run_the_working_example"><a class="anchor" href="#_run_the_working_example"></a>Run the working example</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_presenter_mode_inspect_before_cleanup"><a class="anchor" href="#_presenter_mode_inspect_before_cleanup"></a>Presenter mode: inspect before cleanup</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Testing/e2e/multi-runtime-demo/test.sh --live</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:docker-kubernetes-four-contracts:present</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run in a real interactive terminal. The plan-derived Mermaid graph is laid out
+by the Go <code>mermaid-ascii</code> library embedded in <code>dotx</code>: Unicode boxes, cyan Kubernetes labels,
+magenta Docker labels and amber connection IDs. Parallel wires share a labelled
+arrow and each retains its own legend entry. The node inventory shows selected
+runtimes/deployments/versions; a <code>T4</code> link identifies the MQTT transport endpoint,
+not another Anchor wire or an application publisher. Arrows mean logical
+PROVIDES-to-REQUIRES relationships, not packet direction. The graph is printed
+again after all four real probes and recorded status checks pass.</p>
+</div>
+<div class="paragraph">
+<p>Only then does the harness pause. Use the printed, shell-quoted recovery/status
+command in a second terminal to inspect the exact live composition. <code>plan.json</code>,
+<code>topology.txt</code>, <code>topology.mmd</code>, probe logs, <code>status.txt</code> and <code>result.json</code> remain in the printed
+private run directory. The result is a probe summary, not fabricated API data.
+The graph deliberately omits endpoint hosts, configuration and credential values.
+<code>topology.mmd</code> can also be rendered in Antora. <code>NO_COLOR=1</code> disables colours;
+<code>DOTX_TOPOLOGY_COLOR=auto|always|never</code> controls them (<code>NO_COLOR</code> or <code>TERM=dumb</code>
+takes precedence). <code>DOTX_TOPOLOGY_WIDTH=80</code> sets a 40-240-column target; narrower
+screens use vertical/compact layouts. No connection may disappear to fit.
+The saved <code>topology.txt</code> is always plain text. Rendering needs only the <code>dotx</code>
+binary: no Python, Node, browser or separate <code>mermaid-ascii</code> executable.
+The Go module pins the upstream 1.6.1 source revision and verifies dependencies
+through <code>go.sum</code>; no renderer is downloaded at runtime.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Read-only topology preview; Docker/Kubernetes need not be running.
+dotx compose topology DOT-Testing/composition/docker-kubernetes-four-contracts/scenario.yaml --locked
+dotx compose topology DOT-Testing/composition/docker-kubernetes-four-contracts/scenario.yaml --locked --color always --width 80
+dotx compose topology DOT-Testing/composition/docker-kubernetes-four-contracts/scenario.yaml --locked --format mermaid</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Press Enter to clean up normally. Ctrl-C exits 130, SIGTERM 143, EOF 1 and
+timeout 124, all through the existing ownership-checked cleanup path. Inspection
+defaults to 600 seconds; set <code>DOTX_POC_PRESENT_TIMEOUT</code> to an integer from 1 to
+1800 to change it. Headless presenter launches and <code>DOTX_E2E_KEEP=1</code> are rejected
+before runtime mutation. CI and the normal live task never pause, even when
+presenter environment variables are inherited.</p>
+</div>
+<div class="paragraph">
+<p><code>task testing:demo:present:rehearse</code> drives all five terminal outcomes against
+the real composition, verifies status while resources are still running, and
+requires verified cleanup. It is an acceptance preparation task, not the talk.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_noninteractive_acceptance"><a class="anchor" href="#_noninteractive_acceptance"></a>Noninteractive acceptance</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">exec bash DOT-Testing/e2e/multi-runtime-demo/test.sh --live</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -387,6 +443,7 @@ run directory&#8217;s <code>plan.json</code>, <code>render.txt</code>, <code>sta
 explain the locked plan, endpoint materialization and observations. Evidence JSON
 contains no passwords/tokens or response bodies. Each run retains its evidence;
 the top-level <code>evidence.json</code> is only the latest result, possibly an injected failure.</p>
+</div>
 </div>
 </div>
 </div>

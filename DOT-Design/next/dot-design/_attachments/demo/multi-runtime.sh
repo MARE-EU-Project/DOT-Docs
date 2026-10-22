@@ -4,13 +4,18 @@ set -euo pipefail
 case "${1:---dry-run}" in
   --dry-run)
 # tag::dry-run[]
-bash DOT-Testing/e2e/multi-runtime-demo/test.sh --dry-run
+exec bash DOT-Testing/e2e/multi-runtime-demo/test.sh --dry-run
 # end::dry-run[]
     ;;
   --live)
 # tag::live[]
-bash DOT-Testing/e2e/multi-runtime-demo/test.sh --live
+exec bash DOT-Testing/e2e/multi-runtime-demo/test.sh --live
 # end::live[]
     ;;
-  *) echo "Usage: $0 [--dry-run|--live]" >&2; exit 2 ;;
+  --present)
+# tag::present[]
+exec bash DOT-Testing/e2e/multi-runtime-demo/test.sh --present
+# end::present[]
+    ;;
+  *) echo "Usage: $0 [--dry-run|--live|--present]" >&2; exit 2 ;;
 esac
