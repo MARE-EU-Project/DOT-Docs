@@ -334,6 +334,15 @@ string alone does not identify the tested binary.
 Record the three checkout revisions as shown in that walkthrough.</p>
 </div>
 <div class="paragraph">
+<p>For the Keycloak/APISIX/OPA/SPARQL follow-up, use
+<code>task testing:demo:preflight</code> before deployment. This read-only gate checks the
+exact installed CLI revision, local Contracts, cluster readiness, cached images
+and namespace/port conflicts. Follow
+<a href="mare-poc-compositions.html#_presentation_preflight" class="xref page">the secure-API preflight instructions</a>
+to keep the same overrides in the presentation terminal. It is not a preflight
+for the separate four-Contract fixture and does not replace live acceptance.</p>
+</div>
+<div class="paragraph">
 <p>Pre-download/build the images by completing the existing live acceptance task
 before the talk, and require successful cleanup:</p>
 </div>
