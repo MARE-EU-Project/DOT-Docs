@@ -495,7 +495,8 @@ and diagnostic-log location. Ordinary noninteractive acceptance remains verbose.
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The REST alerts endpoint returns the expected HTTP status.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 200 plus the expected JSON alert; the running consumer derives
+  <code>REVIEW_REQUIRED</code> from its wired endpoint.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
@@ -523,14 +524,21 @@ The final live-results table separates <code>CONTRACT</code>, <code>PROTOCOL</co
 recorded lifecycle status; <code>COMPATIBLE</code> and running workloads do not populate it.
 The observations summarize checked assertions, not raw API responses. The same
 four rows are saved in <code>result.json</code> and the plain-text <code>results.txt</code>.
+Before the pause, point out the controlled negative step: the owned fixture
+temporarily returns HTTP 200 with severity <code>low</code>, the native assertion records
+<code>RESPONSE_MISMATCH</code>, and the running consumer changes its decision. The harness
+then restores the critical alert and requires a newer <code>REVIEW_REQUIRED</code> receipt
+and successful native assertion. This distinguishes endpoint health from
+correct application data; it is not a claim of complete schema or policy validation.
 The reprinted topology is still a plan view; use status and probe evidence
 for live results.</p>
 </div>
 <div class="paragraph">
 <p><strong>State the boundary:</strong> Mosquitto is a real external broker, but provider and
 consumer are test-only DOTs with standards-native fixture Contracts, not
-vendor-official or MARE producer APIs. The consumer application process is
-inert; explicit probes make these exchanges from its network namespace.
+vendor-official or MARE producer APIs. The consumer now executes the REST
+exchange and derives a synthetic review decision; explicit probes exercise
+GraphQL, gRPC and MQTT from its network namespace.
 The MQTT probe subscribes and publishes to prove broker delivery, not a
 provider application&#8217;s business-event publication. This verifies interoperability
 mechanics across runtimes, not a production application or the whole MARE stack.</p>
