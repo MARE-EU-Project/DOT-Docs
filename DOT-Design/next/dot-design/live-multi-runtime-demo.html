@@ -258,7 +258,7 @@ not an application-level request/response implementation.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>rest-alerts</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI 3.1, <code>GET /alerts</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Provider, NodePort <code>31080</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Expected HTTP status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 200 plus the expected fixture alert UUID and <code>critical</code> severity</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>graphql-health</code></p></td>
@@ -291,6 +291,19 @@ existing <code>minikube</code> Docker network. Cross-runtime probes use
 not a different runner&#8217;s network. The attachment is external to <code>dotx</code> state,
 and consumer destruction removes it; the harness verifies its removal. No host
 listener, firewall change, tunnel, or Minikube-container modification is made.</p>
+</div>
+<div class="paragraph">
+<p>The REST provider returns one deterministic, read-only synthetic alert:
+<code>a4a70000-0000-4000-8000-000000000099</code>, severity <code>critical</code>.
+After the native OpenAPI status-code probe, a separate application assertion
+reads <code>OPENAPI_YAML_URL</code> from the deployed consumer and fetches it from that
+consumer&#8217;s actual network namespace. It requires HTTP 200, JSON content type,
+exactly one alert, and the expected identity/severity. Redirects, wrong data,
+oversized bodies and a stalled response fail acceptance. The 10-second,
+1-MiB-bounded Node.js client uses the already-built provider image; it is a test
+client, not a new DOT or an implicit GraphQL-to-REST translator. Only its fixed
+redacted summary is saved as <code>rest-body.json</code>; arbitrary response fields are not
+printed. This does not change the CLI OpenAPI probe&#8217;s status-only semantics.</p>
 </div>
 </div>
 </div>
@@ -394,13 +407,19 @@ again after all four real probes and recorded status checks pass.</p>
 <p>Only then does the harness pause. Use the printed, shell-quoted recovery/status
 command in a second terminal to inspect the exact live composition. <code>plan.json</code>,
 <code>topology.txt</code>, <code>topology.mmd</code>, probe logs, <code>status.txt</code>, <code>results.txt</code> and <code>result.json</code> remain in the printed
-private run directory. The result is a probe summary, not fabricated API data.
+private run directory. The result summarizes checked fixture assertions, not
+real MARE analytics. <code>rest-body.json</code> holds the separate REST data assertion.
 Presenter mode shows concise numbered progress and an aligned results table
 with separate Contract, protocol, observed assertion and outcome columns.
 Each row requires both completed probe and recorded status evidence. Detailed
 build/deployment/cleanup output remains in owner-only <code>details.log</code>; a failure
 prints the original failing stage, exit code and its log location. Do not share
 raw private logs. Normal live acceptance keeps its verbose output.
+Both normal and presenter runs save <code>result.json</code> and <code>results.txt</code>; summaries
+are published only after all probes, the REST data assertion and recorded
+status checks pass. A failed recheck removes earlier result summaries rather
+than leaving stale green output. Cleanup is reported separately in <code>evidence.json</code>;
+an assertion summary alone never proves successful cleanup.
 See <a href="guided-demo.html#audience-faq" class="xref page">the audience FAQ</a> for the model&#8217;s value,
 reuse, standards and evidence boundaries.
 The graph deliberately omits endpoint hosts, configuration and credential values.
