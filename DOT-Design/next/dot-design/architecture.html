@@ -264,6 +264,15 @@ guest environment and directory capabilities.</p>
 <div class="sect1">
 <h2 id="_source_of_truth_boundaries"><a class="anchor" href="#_source_of_truth_boundaries"></a>Source-of-truth boundaries</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>All portable model definitions originate in <code>DOT-Domain</code>, including the
+separate <code>Composition</code> aggregate. The existing generation pipeline is
+Java/Jackson/Jakarta constraints → Victools JSON Schemas → quicktype Go input
+bindings. <code>DOT-Repository/Schema/</code> stores the generated artifacts; the CLI
+embeds the same Composition schema. There is no independent CLI input model or
+hand-authored production schema to keep in sync. Plans, locks and runtime
+state are executor representations, not alternative domain definitions.</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">

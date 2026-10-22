@@ -135,6 +135,230 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
 
   }
 
+  package "composition" as package_eu_mare6g_dot_domain_composition #EFF6FF {
+    class "AnchorReference" as eu_mare6g_dot_domain_composition_AnchorReference #FFFFFF {
+      - instance: String
+      - anchorId: UUID
+    }
+
+    class "AsyncAPIProbe" as eu_mare6g_dot_domain_composition_AsyncAPIProbe #FFFFFF {
+      - protocol: String
+      - message: Map<String, Object>
+      - correlationPointer: String
+      - qos: Integer
+      - authentication: AsyncAPIProbeAuthentication
+    }
+
+    class "AsyncAPIProbeAuthentication" as eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication #FFFFFF {
+      - username: String
+      - passwordSecretRef: SecretReference
+    }
+
+    class "CdiDeviceBinding" as eu_mare6g_dot_domain_composition_CdiDeviceBinding #FFFFFF {
+      - requirement: String
+      - device: String
+    }
+
+    class "ComposeWorkloadBinding" as eu_mare6g_dot_domain_composition_ComposeWorkloadBinding #FFFFFF {
+      - service: String
+    }
+
+    class "Composition" as eu_mare6g_dot_domain_composition_Composition #FFFFFF {
+      - apiVersion: String
+      - kind: String
+      - id: UUID
+      - name: String
+      - version: String
+      - dots: List<DotInstance>
+      - contracts: List<ContractInput>
+      - wires: List<Wire>
+      - exposedAnchors: List<ExposedAnchor>
+    }
+
+    class "ContractInput" as eu_mare6g_dot_domain_composition_ContractInput #FFFFFF {
+      - id: UUID
+      - source: String
+    }
+
+    class "DeploymentConfigFile" as eu_mare6g_dot_domain_composition_DeploymentConfigFile #FFFFFF {
+      - service: String
+      - source: String
+      - target: String
+    }
+
+    class "DeploymentEnvironment" as eu_mare6g_dot_domain_composition_DeploymentEnvironment #FFFFFF {
+      - service: String
+      - name: String
+      - value: String
+      - secretRef: SecretReference
+    }
+
+    class "DeploymentInputs" as eu_mare6g_dot_domain_composition_DeploymentInputs #FFFFFF {
+      - environment: List<DeploymentEnvironment>
+      - configFiles: List<DeploymentConfigFile>
+      - volumes: List<DeploymentVolumeSource>
+      - workloads: List<ServiceWorkloadBinding>
+      - ociRuntime: OciRuntimeGrant
+      - cdiDevices: List<CdiDeviceBinding>
+    }
+
+    class "DeploymentVolumeSource" as eu_mare6g_dot_domain_composition_DeploymentVolumeSource #FFFFFF {
+      - service: String
+      - name: String
+      - type: String
+      - source: String
+    }
+
+    class "DotInstance" as eu_mare6g_dot_domain_composition_DotInstance #FFFFFF {
+      - name: String
+      - source: String
+      - dotId: UUID
+      - dotVersion: String
+      - deployment: String
+      - dependsOn: List<String>
+      - deploymentInputs: DeploymentInputs
+    }
+
+    class "ExposedAnchor" as eu_mare6g_dot_domain_composition_ExposedAnchor #FFFFFF {
+      - name: String
+      - target: AnchorReference
+    }
+
+    class "GRPCProbe" as eu_mare6g_dot_domain_composition_GRPCProbe #FFFFFF {
+      - plaintext: Boolean
+      - serverReflection: Boolean
+      - request: Map<String, Object>
+      - requests: List<Map<String, Object>>
+      - responseCount: Integer
+      - responseMatch: String
+      - expect: JSONExpectation
+    }
+
+    class "GraphQLOperation" as eu_mare6g_dot_domain_composition_GraphQLOperation #FFFFFF {
+      - document: String
+      - operationName: String
+      - variables: Map<String, Object>
+    }
+
+    class "GraphQLProbe" as eu_mare6g_dot_domain_composition_GraphQLProbe #FFFFFF {
+      - path: String
+      - document: String
+      - operationName: String
+      - variables: Map<String, Object>
+      - transport: String
+      - expect: JSONExpectation
+      - verify: GraphQLOperation
+      - trigger: GraphQLOperation
+      - cleanup: GraphQLOperation
+    }
+
+    class "JSONExpectation" as eu_mare6g_dot_domain_composition_JSONExpectation #FFFFFF {
+      - pointer: String
+      - expectedValue: Object
+    }
+
+    class "KubernetesWorkloadBinding" as eu_mare6g_dot_domain_composition_KubernetesWorkloadBinding #FFFFFF {
+      - matchLabels: Map<String, String>
+      - container: String
+    }
+
+    class "Materializer" as eu_mare6g_dot_domain_composition_Materializer #FFFFFF {
+      - type: String
+      - source: String
+      - valueFrom: String
+      - uriTemplate: String
+      - target: MaterializerTarget
+    }
+
+    class "MaterializerTarget" as eu_mare6g_dot_domain_composition_MaterializerTarget #FFFFFF {
+      - instance: String
+      - service: String
+      - path: String
+      - jsonPointer: String
+      - environmentVariable: String
+    }
+
+    class "NetworkBinding" as eu_mare6g_dot_domain_composition_NetworkBinding #FFFFFF {
+      - adapter: String
+      - host: String
+      - port: Integer
+    }
+
+    class "OciRuntimeGrant" as eu_mare6g_dot_domain_composition_OciRuntimeGrant #FFFFFF {
+      - capabilities: List<String>
+      - hostNamespaces: List<OciLinuxNamespace>
+    }
+
+    class "OpenAPIProbe" as eu_mare6g_dot_domain_composition_OpenAPIProbe #FFFFFF {
+      - expect: JSONExpectation
+    }
+
+    class "OperationParameterBinding" as eu_mare6g_dot_domain_composition_OperationParameterBinding #FFFFFF {
+      - value: String
+    }
+
+    class "SecretReference" as eu_mare6g_dot_domain_composition_SecretReference #FFFFFF {
+      - store: String
+      - name: String
+      - key: String
+      - version: String
+    }
+
+    class "SecurityBinding" as eu_mare6g_dot_domain_composition_SecurityBinding #FFFFFF {
+      - scheme: String
+      - mechanism: String
+      - participant: ServiceReference
+      - parameters: Map<String, SecurityParameterBinding>
+      - scopes: List<String>
+    }
+
+    class "SecurityParameterBinding" as eu_mare6g_dot_domain_composition_SecurityParameterBinding #FFFFFF {
+      - environmentVariable: String
+    }
+
+    class "ServicePortReference" as eu_mare6g_dot_domain_composition_ServicePortReference #FFFFFF {
+      - instance: String
+      - service: String
+      - port: String
+    }
+
+    class "ServiceReference" as eu_mare6g_dot_domain_composition_ServiceReference #FFFFFF {
+      - instance: String
+      - service: String
+    }
+
+    class "ServiceWorkloadBinding" as eu_mare6g_dot_domain_composition_ServiceWorkloadBinding #FFFFFF {
+      - service: String
+      - compose: ComposeWorkloadBinding
+      - kubernetes: KubernetesWorkloadBinding
+    }
+
+    class "Wire" as eu_mare6g_dot_domain_composition_Wire #FFFFFF {
+      - name: String
+      - from: AnchorReference
+      - to: AnchorReference
+      - parameters: Map<String, OperationParameterBinding>
+      - endpoint: ServicePortReference
+      - network: NetworkBinding
+      - materializer: Materializer
+      - materializers: List<Materializer>
+      - security: WireSecurity
+      - probe: WireProbe
+    }
+
+    class "WireProbe" as eu_mare6g_dot_domain_composition_WireProbe #FFFFFF {
+      - openapi: OpenAPIProbe
+      - graphql: GraphQLProbe
+      - grpc: GRPCProbe
+      - asyncapi: AsyncAPIProbe
+    }
+
+    class "WireSecurity" as eu_mare6g_dot_domain_composition_WireSecurity #FFFFFF {
+      - bindings: List<SecurityBinding>
+    }
+
+  }
+
   package "contract" as package_eu_mare6g_dot_domain_contract #EDE9FE {
     class "Contract" as eu_mare6g_dot_domain_contract_Contract #F5F3FF {
       - id: UUID
@@ -405,7 +629,8 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
 }
 
 ' Layout hints (hidden)
-package_eu_mare6g_dot_domain_anchor -[hidden]down- package_eu_mare6g_dot_domain_contract
+package_eu_mare6g_dot_domain_anchor -[hidden]down- package_eu_mare6g_dot_domain_composition
+package_eu_mare6g_dot_domain_composition -[hidden]down- package_eu_mare6g_dot_domain_contract
 package_eu_mare6g_dot_domain_contract -[hidden]down- package_eu_mare6g_dot_domain_deployment
 package_eu_mare6g_dot_domain_deployment -[hidden]down- package_eu_mare6g_dot_domain_runtime
 package_eu_mare6g_dot_domain_deployment_config -[hidden]down- package_eu_mare6g_dot_domain_deployment_manifest
@@ -423,6 +648,38 @@ eu_mare6g_dot_domain_anchor_Anchor -[hidden]down- eu_mare6g_dot_domain_anchor_An
 eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorDirection
 eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorRole
 eu_mare6g_dot_domain_anchor_validation_AnchorSelectorSyntax -[hidden]down- eu_mare6g_dot_domain_anchor_validation_AnchorValidator
+eu_mare6g_dot_domain_composition_AnchorReference -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProbe
+eu_mare6g_dot_domain_composition_AsyncAPIProbe -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication
+eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication -[hidden]down- eu_mare6g_dot_domain_composition_CdiDeviceBinding
+eu_mare6g_dot_domain_composition_CdiDeviceBinding -[hidden]down- eu_mare6g_dot_domain_composition_ComposeWorkloadBinding
+eu_mare6g_dot_domain_composition_ComposeWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Composition
+eu_mare6g_dot_domain_composition_Composition -[hidden]down- eu_mare6g_dot_domain_composition_ContractInput
+eu_mare6g_dot_domain_composition_ContractInput -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentConfigFile
+eu_mare6g_dot_domain_composition_DeploymentConfigFile -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentEnvironment
+eu_mare6g_dot_domain_composition_DeploymentEnvironment -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentInputs
+eu_mare6g_dot_domain_composition_DeploymentInputs -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentVolumeSource
+eu_mare6g_dot_domain_composition_DeploymentVolumeSource -[hidden]down- eu_mare6g_dot_domain_composition_DotInstance
+eu_mare6g_dot_domain_composition_DotInstance -[hidden]down- eu_mare6g_dot_domain_composition_ExposedAnchor
+eu_mare6g_dot_domain_composition_ExposedAnchor -[hidden]down- eu_mare6g_dot_domain_composition_GRPCProbe
+eu_mare6g_dot_domain_composition_GRPCProbe -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLOperation
+eu_mare6g_dot_domain_composition_GraphQLOperation -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLProbe
+eu_mare6g_dot_domain_composition_GraphQLProbe -[hidden]down- eu_mare6g_dot_domain_composition_JSONExpectation
+eu_mare6g_dot_domain_composition_JSONExpectation -[hidden]down- eu_mare6g_dot_domain_composition_KubernetesWorkloadBinding
+eu_mare6g_dot_domain_composition_KubernetesWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Materializer
+eu_mare6g_dot_domain_composition_Materializer -[hidden]down- eu_mare6g_dot_domain_composition_MaterializerTarget
+eu_mare6g_dot_domain_composition_MaterializerTarget -[hidden]down- eu_mare6g_dot_domain_composition_NetworkBinding
+eu_mare6g_dot_domain_composition_NetworkBinding -[hidden]down- eu_mare6g_dot_domain_composition_OciRuntimeGrant
+eu_mare6g_dot_domain_composition_OciRuntimeGrant -[hidden]down- eu_mare6g_dot_domain_composition_OpenAPIProbe
+eu_mare6g_dot_domain_composition_OpenAPIProbe -[hidden]down- eu_mare6g_dot_domain_composition_OperationParameterBinding
+eu_mare6g_dot_domain_composition_OperationParameterBinding -[hidden]down- eu_mare6g_dot_domain_composition_SecretReference
+eu_mare6g_dot_domain_composition_SecretReference -[hidden]down- eu_mare6g_dot_domain_composition_SecurityBinding
+eu_mare6g_dot_domain_composition_SecurityBinding -[hidden]down- eu_mare6g_dot_domain_composition_SecurityParameterBinding
+eu_mare6g_dot_domain_composition_SecurityParameterBinding -[hidden]down- eu_mare6g_dot_domain_composition_ServicePortReference
+eu_mare6g_dot_domain_composition_ServicePortReference -[hidden]down- eu_mare6g_dot_domain_composition_ServiceReference
+eu_mare6g_dot_domain_composition_ServiceReference -[hidden]down- eu_mare6g_dot_domain_composition_ServiceWorkloadBinding
+eu_mare6g_dot_domain_composition_ServiceWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Wire
+eu_mare6g_dot_domain_composition_Wire -[hidden]down- eu_mare6g_dot_domain_composition_WireProbe
+eu_mare6g_dot_domain_composition_WireProbe -[hidden]down- eu_mare6g_dot_domain_composition_WireSecurity
 eu_mare6g_dot_domain_contract_Contract -[hidden]down- eu_mare6g_dot_domain_contract_ContractPayload
 eu_mare6g_dot_domain_contract_ContractPayload -[hidden]down- eu_mare6g_dot_domain_contract_ContractStandard
 eu_mare6g_dot_domain_deployment_AnchorBinding -[hidden]down- eu_mare6g_dot_domain_deployment_Deployment
@@ -444,6 +701,23 @@ eu_mare6g_dot_domain_Metadata -[hidden]right- eu_mare6g_dot_domain_Skill
 eu_mare6g_dot_domain_Skill -[hidden]right- eu_mare6g_dot_domain_Version
 eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorDirection
 eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorRole
+eu_mare6g_dot_domain_composition_ContractInput -[hidden]right- eu_mare6g_dot_domain_composition_DotInstance
+eu_mare6g_dot_domain_composition_DotInstance -[hidden]right- eu_mare6g_dot_domain_composition_ExposedAnchor
+eu_mare6g_dot_domain_composition_ExposedAnchor -[hidden]right- eu_mare6g_dot_domain_composition_Wire
+eu_mare6g_dot_domain_composition_CdiDeviceBinding -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentConfigFile
+eu_mare6g_dot_domain_composition_DeploymentConfigFile -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentEnvironment
+eu_mare6g_dot_domain_composition_DeploymentEnvironment -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentVolumeSource
+eu_mare6g_dot_domain_composition_DeploymentVolumeSource -[hidden]right- eu_mare6g_dot_domain_composition_OciRuntimeGrant
+eu_mare6g_dot_domain_composition_OciRuntimeGrant -[hidden]right- eu_mare6g_dot_domain_composition_ServiceWorkloadBinding
+eu_mare6g_dot_domain_composition_AsyncAPIProbe -[hidden]right- eu_mare6g_dot_domain_composition_GRPCProbe
+eu_mare6g_dot_domain_composition_GRPCProbe -[hidden]right- eu_mare6g_dot_domain_composition_GraphQLProbe
+eu_mare6g_dot_domain_composition_GraphQLProbe -[hidden]right- eu_mare6g_dot_domain_composition_OpenAPIProbe
+eu_mare6g_dot_domain_composition_AnchorReference -[hidden]right- eu_mare6g_dot_domain_composition_Materializer
+eu_mare6g_dot_domain_composition_Materializer -[hidden]right- eu_mare6g_dot_domain_composition_NetworkBinding
+eu_mare6g_dot_domain_composition_NetworkBinding -[hidden]right- eu_mare6g_dot_domain_composition_OperationParameterBinding
+eu_mare6g_dot_domain_composition_OperationParameterBinding -[hidden]right- eu_mare6g_dot_domain_composition_ServicePortReference
+eu_mare6g_dot_domain_composition_ServicePortReference -[hidden]right- eu_mare6g_dot_domain_composition_WireProbe
+eu_mare6g_dot_domain_composition_WireProbe -[hidden]right- eu_mare6g_dot_domain_composition_WireSecurity
 eu_mare6g_dot_domain_deployment_AnchorBinding -[hidden]right- eu_mare6g_dot_domain_deployment_ServicePort
 eu_mare6g_dot_domain_deployment_ServicePort -[hidden]right- eu_mare6g_dot_domain_deployment_config_DeploymentConfig
 eu_mare6g_dot_domain_deployment_config_ConfigFile -[hidden]right- eu_mare6g_dot_domain_deployment_config_EnvironmentVariable
@@ -469,6 +743,47 @@ eu_mare6g_dot_domain_Dot "1" *-[#2563EB]left- "0..*" eu_mare6g_dot_domain_runtim
 eu_mare6g_dot_domain_anchor_Anchor "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_anchor_AnchorContract : contract
 eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_anchor_AnchorDirection : direction
 eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_anchor_AnchorRole : role
+eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_SecretReference : passwordSecretRef
+eu_mare6g_dot_domain_composition_AsyncAPIProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication : authentication
+eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ContractInput : contracts
+eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_DotInstance : dots
+eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ExposedAnchor : exposedAnchors
+eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_Wire : wires
+eu_mare6g_dot_domain_composition_DeploymentEnvironment "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_SecretReference : secretRef
+eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_CdiDeviceBinding : cdiDevices
+eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_DeploymentConfigFile : configFiles
+eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_DeploymentEnvironment : environment
+eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_DeploymentVolumeSource : volumes
+eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_OciRuntimeGrant : ociRuntime
+eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ServiceWorkloadBinding : workloads
+eu_mare6g_dot_domain_composition_DotInstance "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_DeploymentInputs : deploymentInputs
+eu_mare6g_dot_domain_composition_ExposedAnchor "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_AnchorReference : target
+eu_mare6g_dot_domain_composition_GRPCProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_JSONExpectation : expect
+eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GraphQLOperation : cleanup
+eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GraphQLOperation : trigger
+eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GraphQLOperation : verify
+eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_JSONExpectation : expect
+eu_mare6g_dot_domain_composition_Materializer "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_MaterializerTarget : target
+eu_mare6g_dot_domain_composition_OciRuntimeGrant "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_deployment_config_oci_OciLinuxNamespace : hostNamespaces
+eu_mare6g_dot_domain_composition_OpenAPIProbe "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_JSONExpectation : expect
+eu_mare6g_dot_domain_composition_SecurityBinding "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_SecurityParameterBinding : parameters
+eu_mare6g_dot_domain_composition_SecurityBinding "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_ServiceReference : participant
+eu_mare6g_dot_domain_composition_ServiceWorkloadBinding "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_ComposeWorkloadBinding : compose
+eu_mare6g_dot_domain_composition_ServiceWorkloadBinding "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_KubernetesWorkloadBinding : kubernetes
+eu_mare6g_dot_domain_composition_WireProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_AsyncAPIProbe : asyncapi
+eu_mare6g_dot_domain_composition_WireProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GRPCProbe : grpc
+eu_mare6g_dot_domain_composition_WireProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GraphQLProbe : graphql
+eu_mare6g_dot_domain_composition_WireProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_OpenAPIProbe : openapi
+eu_mare6g_dot_domain_composition_WireSecurity "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_SecurityBinding : bindings
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_AnchorReference : from
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_AnchorReference : to
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_Materializer : materializer
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_Materializer : materializers
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_NetworkBinding : network
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_OperationParameterBinding : parameters
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_ServicePortReference : endpoint
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireProbe : probe
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireSecurity : security
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
 eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
 eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_contract_ContractPayload : payload

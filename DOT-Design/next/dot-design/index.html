@@ -302,21 +302,28 @@ the latest walkthrough and examples.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Logical services, named ports, Anchor bindings and supported configuration
   inside a selected deployment.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How do components work together?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Composition</code>, <code>DotInstance</code>, <code>Wire</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A separate domain aggregate selects pinned DOTs and connects their Anchors;
+  it does not copy or embed the reusable DOT definitions.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/dot-domain-overview.svg" alt="Dot, Skills, Contracts, Anchors, Runtimes, platforms, deployments, manifests and services">
+<img src="_images/diagrams/dot-domain-overview.svg" alt="Composition instances and Wires referencing reusable Dot definitions, Contracts, Anchors and deployments">
 </div>
-<div class="title">Figure 1. Simplified DOT domain model: a reusable definition, not a running instance</div>
+<div class="title">Figure 1. Simplified domain model: reusable DOT definitions and a separate Composition</div>
 </div>
 <div class="paragraph">
 <p>Diamonds indicate embedded values; arrows indicate declarations or references.
 The dashed arrow applies to Contract-backed Anchors. Collection sizes,
 configuration, ports, binding helpers and audit metadata are omitted for
 readability; see the full <a href="../dot-domain/index.html#_class_diagram" class="xref page">generated class diagram</a>
-for implementation detail. <code>Composition</code> and <code>Wire</code> are deliberately absent:
-they belong to a separate composition document, not to the Java <code>Dot</code> aggregate.</p>
+for implementation detail. <code>Composition</code> is a separate DOT-Domain aggregate:
+its instances reference DOTs and its Wires reference their Anchors. Neither is
+embedded in the reusable Java <code>Dot</code> aggregate.</p>
 </div>
 <div class="paragraph">
 <p><a href="_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>

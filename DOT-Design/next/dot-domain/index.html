@@ -6,7 +6,7 @@
     <title>DOT-Domain model :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-domain/index.html">
     <link rel="prev" href="../dot-design/release-notes.html">
-    <meta name="description" content="Java domain model for DOT identity, capabilities, Contracts, Anchors, Runtimes, deployments, and configuration declarations.">
+    <meta name="description" content="Java domain models for reusable DOT definitions, Contracts, Anchors, deployments, and separate multi-DOT Compositions.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -213,17 +213,18 @@ the main relationships without the configuration and validation details below.</
 </div>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="../dot-design/_images/diagrams/dot-domain-overview.svg" alt="Dot, Skills, Contracts, Anchors, Runtimes, platforms, deployments, manifests and services">
+<img src="../dot-design/_images/diagrams/dot-domain-overview.svg" alt="Composition instances and Wires referencing reusable Dot definitions, Contracts, Anchors and deployments">
 </div>
-<div class="title">Figure 1. Simplified DOT domain model: a reusable definition, not a running instance</div>
+<div class="title">Figure 1. Simplified domain model: reusable DOT definitions and a separate Composition</div>
 </div>
 <div class="paragraph">
 <p>Diamonds indicate embedded values; arrows indicate declarations or references.
 The dashed arrow applies to Contract-backed Anchors. Collection sizes,
 configuration, ports, binding helpers and audit metadata are omitted for
 readability; see the full <a href="#_class_diagram">generated class diagram</a>
-for implementation detail. <code>Composition</code> and <code>Wire</code> are deliberately absent:
-they belong to a separate composition document, not to the Java <code>Dot</code> aggregate.</p>
+for implementation detail. <code>Composition</code> is a separate DOT-Domain aggregate:
+its instances reference DOTs and its Wires reference their Anchors. Neither is
+embedded in the reusable Java <code>Dot</code> aggregate.</p>
 </div>
 <div class="paragraph">
 <p><a href="../dot-design/_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>
@@ -250,6 +251,11 @@ they belong to a separate composition document, not to the Java <code>Dot</code>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Standalone human-readable capability description.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Composition</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Separate aggregate: pinned DOT instances, Anchor Wires, exposed Anchors,
+  deployment inputs, Secret references and active probe expectations.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Contract</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Standalone authoritative OpenAPI, AsyncAPI, Protobuf, or GraphQL document.</p></td>
 </tr>
@@ -273,9 +279,51 @@ they belong to a separate composition document, not to the Java <code>Dot</code>
 </tbody>
 </table>
 <div class="paragraph">
-<p><code>Dot</code>, <code>Skill</code>, and <code>Contract</code> are independently identified domain entities.
-Other types are embedded values owned by a DOT. The module carries no database
+<p><code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> are independently identified domain entities.
+Other types are embedded values owned by these aggregates. The module carries no database
 or ORM annotations; persistence is an adapter concern.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_one_model_authority"><a class="anchor" href="#_one_model_authority"></a>One model authority</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOT-Domain defines <strong>all</strong> portable models, including Composition, not just
+<code>Dot</code>. The existing Victools build generates <code>Schema/schema.json</code> for DOTs,
+<code>Schema/composition-v1.schema.json</code> for Composition v1, and standalone
+<code>Schema/models/*.schema.json</code> files for every public domain data class and enum.
+Jackson reference views remain intentional: a Skill reference containing only
+<code>id</code> is not the full standalone Skill entity.</p>
+</div>
+<div class="paragraph">
+<p>The CLI consumes generated Go input types and embeds the generated Composition
+schema. It does not require Java at runtime. From DOT-Design, regenerate with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -pl DOT-Domain process-test-classes
+task cli:domain:generate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Never edit generated files manually. <code>task testing:composition:model</code> checks
+generation drift and v1 compatibility after the Contract validator bootstrap.</p>
+</div>
+<div class="paragraph">
+<p><code>Composition</code> references reusable DOTs; it neither inherits from <code>Dot</code> nor
+copies its runtimes or Contracts. Resolved execution plans, lock digests,
+private lifecycle state, endpoint allocation and runtime policy enforcement
+remain CLI/executor concerns. Standard Jakarta constraints and Jackson shape
+annotations describe fields; model-owned JSON Schema annotations express
+conditional input rules such as exactly one literal value or Secret reference.
+Cross-DOT resolution, secret authorization and ownership checks still run in
+the CLI after schema validation.</p>
+</div>
+<div class="paragraph">
+<p>This migration preserves <code>dot.mare6g.eu/v1</code>, existing documents and reviewed
+locks. Composition <code>version</code> and <code>dotVersion</code> retain the existing v1 string
+semantics; they have not silently become stricter Java <code>Version</code> fields.</p>
 </div>
 </div>
 </div>
@@ -283,7 +331,7 @@ or ORM annotations; persistence is an adapter concern.</p>
 <h2 id="_identity_versioning_and_references"><a class="anchor" href="#_identity_versioning_and_references"></a>Identity, versioning, and references</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Root entity IDs are UUIDs. Equality for <code>Dot</code>, <code>Skill</code>, and <code>Contract</code> is
+<p>Root entity IDs are UUIDs. Equality for <code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> is
 ID-based so changes to mutable metadata or collections do not destabilize sets
 or persistence identity.</p>
 </div>
