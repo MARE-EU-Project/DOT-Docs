@@ -200,6 +200,61 @@ mechanics, use <a href="live-multi-runtime-demo.html" class="xref page">the Dock
 </div>
 </div>
 <div class="sect1">
+<h2 id="_presenter_route_inspect_run_prove_clean_up"><a class="anchor" href="#_presenter_route_inspect_run_prove_clean_up"></a>Presenter route: inspect, run, prove, clean up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For a 15-20 minute presentation, show PoC4 first, PoC10 second, and PoC6 only
+with its adapter/double boundary visible. Avoid new feature changes on the day.
+Each presenter command uses the same locked composition and live assertions as
+acceptance; there is no second set of DOT definitions or demo-only success path.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Run from a real interactive terminal, one example at a time.
+task testing:pocs:present:monitoring
+task testing:pocs:present:secure-api
+task testing:pocs:present:remediation</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each follows five stages: <strong>inspect topology &#8594; deploy &#8594; verify &#8594; inspect the
+running result &#8594; clean up</strong>. The terminal prints resolved DOT versions,
+deployments, wires and evidence boundaries. It pauses only <strong>after</strong> every API
+assertion passes. While paused, open the printed Prometheus targets page or
+inspect the redacted <code>result.json</code>; the secure API must still deny anonymous
+requests. Do not paste access tokens or Secret values into the presentation.</p>
+</div>
+<div class="paragraph">
+<p>Press Enter to destroy owned resources and verify cleanup. Ctrl-C also cleans
+up and returns 130; SIGTERM returns 143. The default inspection limit is ten
+minutes (<code>DOTX_POC_PRESENT_TIMEOUT</code>, integer 1-1800 seconds). Timeout returns
+124 and EOF returns 1, both after cleanup: neither is reported as a successful
+presentation. Headless launches are rejected before deployment, and
+<code>DOTX_E2E_KEEP=1</code> is forbidden in presenter mode.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Safe headless previews: print the real graph and render without deployment.
+task testing:pocs:present:monitoring -- --dry-run
+task testing:pocs:present:secure-api -- --dry-run
+task testing:pocs:present:remediation -- --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The noninteractive <code>testing:pocs:*:live</code> tasks remain unpaused. Use the
+presenter tasks above, not the full failure-injection suite, in front of an
+audience. For preparation, <code>task testing:pocs:present:controls</code> exercises Enter,
+EOF, timeout and real signals with live Prometheus on overridden port 19041.
+<code>task testing:pocs:present:rehearse</code> requires clean commits, drives all three
+presenter flows through a real terminal, inspects live status during each pause,
+then verifies cleanup. It preserves checkout/CLI fingerprints and redacted
+results under ignored <code>DOT-Testing/e2e/target/presenter/</code> and <code>poc-rehearsals/</code>.
+Keep those receipts and the exported PDF as an explicitly labelled fallback,
+not evidence that a new live exchange occurred during the talk.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_prerequisites_and_fixed_inputs"><a class="anchor" href="#_prerequisites_and_fixed_inputs"></a>Prerequisites and fixed inputs</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -231,6 +286,11 @@ IDs, selected deployments and materializers; <code>COMPATIBLE</code> is not a li
 <div class="sect1">
 <h2 id="_1_poc4_node_exporter_to_prometheus"><a class="anchor" href="#_1_poc4_node_exporter_to_prometheus"></a>1. PoC4: Node Exporter to Prometheus</h2>
 <div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Node Exporter -- metrics scrape wire --&gt; Prometheus -- query API --&gt; presenter</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Graph: <code>DOT-Repository/Compositions/node-exporter-prometheus-monitoring/composition.yaml</code>.
 Producer context: PoC4 <code>c03eca71a9d87358603a1d89fa0eca58a9dabe03</code>.
@@ -261,6 +321,16 @@ detection and mitigation remain outside this slice.</p>
 <div class="sect1">
 <h2 id="_2_poc10_authenticated_policy_controlled_sparql"><a class="anchor" href="#_2_poc10_authenticated_policy_controlled_sparql"></a>2. PoC10: authenticated, policy-controlled SPARQL</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>These arrows show logical PROVIDES-to-REQUIRES wires, not HTTP packet direction:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Keycloak -- discovery --&gt; APISIX &lt;-- SPARQL -- Oxigraph
+OPA ----- decisions ---&gt; APISIX -- protected capability --&gt; Client
+Keycloak ---------------- token -------------------------&gt; Client</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Graph: <code>DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml</code>.
 Producer context: PoC10 <code>e6a755145bbb71551916163209c0be6e9e996f9c</code>.
@@ -318,6 +388,12 @@ not production security hardening.</p>
 <div class="sect1">
 <h2 id="_3_poc6_explicitly_adapted_remediation_rehearsal"><a class="anchor" href="#_3_poc6_explicitly_adapted_remediation_rehearsal"></a>3. PoC6: explicitly adapted remediation rehearsal</h2>
 <div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">CACAO interpreter [adapter] -- MQTT/OpenC2 via Mosquitto --&gt; actuator
+actuator -------------------- remediation call ---------&gt; NWDAF [DOUBLE]</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Graph: <code>DOT-Testing/e2e/poc6-cacao-openc2/scenario.yaml</code>, not a catalogue example.
 Producer revision: <code>cd359b25df1b010324869d7e1c755067070e42dd</code>.</p>
