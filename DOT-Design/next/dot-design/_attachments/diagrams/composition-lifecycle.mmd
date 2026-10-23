@@ -4,7 +4,7 @@ flowchart TD
 
   Document["Composition document<br/>DOT and Contract inputs"] --> Lock["compose lock<br/>content-addressed graph"]
   Lock --> Validate["compose validate --locked<br/>read-only verification"]
-  Validate --> Plan["compose plan<br/>read-only"]
+  Validate --> Plan["compose inspect<br/>read-only"]
   Plan -.->|preview| DryRun["compose apply --dry-run<br/>no runtime or state mutation"]
   Plan --> Apply["compose apply"]
   Apply --> Outcome{"All selected<br/>deployments succeed?"}

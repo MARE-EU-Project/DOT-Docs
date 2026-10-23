@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.2.4/dot-design/composition-lifecycle.html">
     <link rel="prev" href="wiring-and-security.html">
     <link rel="next" href="verification-and-examples.html">
-    <meta name="description" content="Lock, validate, plan, apply, actively probe, inspect, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
+    <meta name="description" content="Lock, validate, inspect, apply, actively probe, check status, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -237,6 +237,14 @@ validation, deterministic planning, runtime mutation, recorded state, and
 active acceptance evidence. This keeps review and CI read-only while making
 execution recoverable and auditable.</p>
 </div>
+<div class="paragraph">
+<p>Use <code>dotx compose inspect composition.yaml --locked</code> to explain the resolved
+DOTs, deployments, Contracts, wires, endpoints and configuration destinations
+before execution. It does not deploy workloads or probe services, although it
+may fetch and cache referenced definitions and Contracts. Use <code>topology</code> for a
+graph, <code>apply --dry-run</code> for deployment commands, and <code>status</code> for recorded
+runtime state. <code>inspect --json</code> retains the existing execution-plan JSON format.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -284,7 +292,7 @@ execution recoverable and auditable.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose plan</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose inspect</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Everything validated above plus the deterministic instance order, runtime
   identities, endpoints, Contract standard/format and participant interaction,
   derived values, security status, and materializers.</p></td>
@@ -546,11 +554,11 @@ dotx compose lock scenario.yaml --check
 dotx compose validate scenario.yaml --locked
 
 # Deterministic resolved topology; no runtime mutation
-dotx compose plan scenario.yaml --locked
-dotx compose plan scenario.yaml --locked --json
+dotx compose inspect scenario.yaml --locked
+dotx compose inspect scenario.yaml --locked --json
 
 # Resolve the catalogue from one immutable remote Git revision
-dotx compose plan scenario.yaml --locked --json \
+dotx compose inspect scenario.yaml --locked --json \
   --repository https://github.com/MARE-EU-Project/DOT-Repository.git \
   --git-ref &lt;40-character-commit&gt;
 
@@ -869,7 +877,7 @@ probe the selected Contract operation over the actual network path.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility is <code>UNKNOWN</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect <code>compatibilityReasons</code> in <code>compose plan --json</code>; add authoritative
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect <code>compatibilityReasons</code> in <code>compose inspect --json</code>; add authoritative
   Contract evidence or use an explicit mediator. Do not override the result.</p></td>
 </tr>
 <tr>

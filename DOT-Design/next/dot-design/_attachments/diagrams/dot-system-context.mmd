@@ -11,7 +11,7 @@ flowchart LR
     Schema["DOT-Repository/Schema<br/>JSON Schema 2020-12"] -.->|constrains| Validation["dotx validate<br/>schema + domain relationships"]
     Repository[("DOT-Repository<br/>DOTs · Skills · Schema")]
     Document["Composition document<br/>pinned DOT instances · wires<br/>inputs · dependencies · exposures"]
-    Compose["dotx compose<br/>validate · plan · apply<br/>status · destroy"]
+    Compose["dotx compose<br/>validate · inspect · apply<br/>status · destroy"]
 
     Dot -->|validated as one DOT| Validation
     Dot -->|reviewed and versioned| Repository

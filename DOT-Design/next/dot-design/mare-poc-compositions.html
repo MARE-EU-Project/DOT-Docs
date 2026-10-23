@@ -380,7 +380,7 @@ its DOT-local Contract. OpenMetrics is not a fabricated OpenAPI operation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose plan DOT-Repository/Compositions/node-exporter-prometheus-monitoring/composition.yaml --locked --json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose inspect DOT-Repository/Compositions/node-exporter-prometheus-monitoring/composition.yaml --locked --json
 task testing:pocs:monitoring:live</code></pre>
 </div>
 </div>
@@ -537,7 +537,7 @@ protocol interfaces, not invented official vendor OpenAPI documents.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl config current-context
 kubectl get nodes
-dotx compose plan \
+dotx compose inspect \
   DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml \
   --locked --json
 task testing:pocs:secure-api:live</code></pre>

@@ -231,6 +231,12 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p><code>dotx compose inspect</code> replaces <code>compose plan</code> as the read-only command for
+resolving and explaining a composition. Flags, resolved JSON, locks and runtime
+state remain unchanged. Old invocations report the new command name. Use an
+installed development checkout; the original v0.2.5 binary retains the old name.</p>
+</div>
+<div class="paragraph">
 <p>The official ecosystem presenter route now connects reuse across Docker and
 Kubernetes, secure multi-DOT policy enforcement and native stateless recovery.
 Shared preparation/preflight cover five lanes; the full clean-source rehearsal

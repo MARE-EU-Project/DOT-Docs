@@ -436,11 +436,17 @@ selection variables and repeat cleanup. Downloaded images remain cached.</p>
 checkout with initialized submodules; see <a href="contributor-guide.html" class="xref page">Contributor guide</a>.
 From the <strong>DOT-Design root</strong>, with <code>dotx</code> on <code>PATH</code>:</p>
 </div>
+<div class="paragraph">
+<p>This follow-up uses the development CLI&#8217;s <code>compose inspect</code> command; the
+original v0.2.5 release calls it <code>compose plan</code>. Install the checked-out CLI
+using the contributor toolchain before continuing.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
+task cli:install
 dotx compose lock "$composition" --check
-dotx compose plan "$composition" --locked
+dotx compose inspect "$composition" --locked
 dotx compose apply "$composition" --locked --dry-run</code></pre>
 </div>
 </div>

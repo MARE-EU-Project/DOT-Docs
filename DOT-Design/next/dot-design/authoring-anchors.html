@@ -282,7 +282,7 @@ requires it.</p>
 Review digest changes as changes to the resolved DOT-to-DOT graph.</p>
 </li>
 <li>
-<p>Run <code>dotx compose validate</code> to check the document and <code>dotx compose plan</code> to
+<p>Run <code>dotx compose validate</code> to check the document and <code>dotx compose inspect</code> to
 inspect the resolved topology. Treat <code>UNKNOWN</code> compatibility as missing
 evidence, not as success.</p>
 </li>
@@ -497,7 +497,7 @@ wire&#8217;s <code>parameters</code>, not to the Anchor.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p><code>dotx compose plan --json</code> exposes the resolved <code>contractStandard</code>,
+<p><code>dotx compose inspect --json</code> exposes the resolved <code>contractStandard</code>,
 <code>contractFormat</code>, <code>providerInteraction</code>, and <code>consumerInteraction</code> on each
 contract-backed wire. These fields are derived from the supplied Contract and
 therefore do not duplicate authoring metadata in either Anchor or composition.
@@ -808,7 +808,7 @@ dotx validate DOT-Repository</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>dotx compose validate</code> and <code>dotx compose plan --json</code> resolve Anchor UUIDs,
+<p><code>dotx compose validate</code> and <code>dotx compose inspect --json</code> resolve Anchor UUIDs,
 service-port bindings, and selected Contract elements conservatively. The plan
 reports <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>; missing evidence is never
 treated as a match. Contract payloads remain authoritative and are not copied
