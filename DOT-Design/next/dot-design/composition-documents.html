@@ -81,6 +81,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -495,7 +498,12 @@ inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersi
 <p>Wires reference <code>site-a</code> or <code>site-b</code>, never the source path. Docker Image
 deployments receive deterministic per-instance container, DNS, network, and
 named-volume identities. Apply rejects repeated instances for deployment
-mechanisms whose manifest-owned resource names cannot yet be isolated safely.</p>
+mechanisms whose manifest-owned resource names cannot yet be isolated safely.
+One native Kubernetes instance may coexist with isolated Docker Image/Compose
+instances of that same DOT because they occupy separate resource scopes.
+Two native Kubernetes instances of the same DOT remain rejected, including
+when a Docker instance separates them in document order. See
+<a href="portability-demo.html" class="xref page">the Prometheus portability demonstration</a>.</p>
 </div>
 <div class="paragraph">
 <p>The executable example is <code>DOT-Testing/composition/federation-peers/scenario.yaml</code>.</p>

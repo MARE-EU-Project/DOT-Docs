@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -618,6 +621,12 @@ producer deployment, LDAP, telemetry or automated response.</p>
 </div>
 <div class="sect2">
 <h3 id="_minutes_13_15_clean_up_and_leave_a_reproducible_next_step"><a class="anchor" href="#_minutes_13_15_clean_up_and_leave_a_reproducible_next_step"></a>Minutes 13-15: clean up and leave a reproducible next step</h3>
+<div class="paragraph">
+<p>For deployment reuse, <a href="portability-demo.html" class="xref page">the Prometheus portability lane</a>
+runs one canonical DOT and official Contract on Docker Compose and Kubernetes,
+with the same pinned image and fresh API/self-scrape checks. It compares two
+independent servers; it does not claim a wire, replication or data migration.</p>
+</div>
 <div class="paragraph">
 <p>For a separate technical follow-up, <a href="upgrade-demo.html" class="xref page">the stateless upgrade
 lane</a> reuses the canonical OPA DOT, changes a policy configuration through native
