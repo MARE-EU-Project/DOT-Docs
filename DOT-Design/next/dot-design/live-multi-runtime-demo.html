@@ -603,8 +603,31 @@ delete state while cleanup runs. After interruption, use the exact printed path:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">RUN_DIR=/absolute/path/printed/by/the/failed/run
-XDG_CACHE_HOME="$RUN_DIR/cache" dotx compose status "$RUN_DIR/scenario.yaml"
-XDG_CACHE_HOME="$RUN_DIR/cache" dotx compose destroy "$RUN_DIR/scenario.yaml"</code></pre>
+(
+  test -f "$RUN_DIR/kubeconfig" &amp;&amp; test -f "$RUN_DIR/scenario.yaml" || exit 1
+  XDG_CACHE_HOME="$RUN_DIR/cache" KUBECONFIG="$RUN_DIR/kubeconfig" \
+    dotx compose status "$RUN_DIR/scenario.yaml"
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Keep the saved kubeconfig private; it contains credentials. These commands use
+the run&#8217;s frozen Kubernetes context, not whichever context is currently selected
+in another terminal. If either required file is missing, stop: do not substitute
+the default cache/context or guess a namespace. Execute the commands one at a
+time and stop on an unexpected error.</p>
+</div>
+<div class="paragraph">
+<p>Only after the original harness has stopped and ownership is confirmed, request
+cleanup separately (using the same <code>RUN_DIR</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+  test -f "$RUN_DIR/kubeconfig" &amp;&amp; test -f "$RUN_DIR/scenario.yaml" || exit 1
+  XDG_CACHE_HOME="$RUN_DIR/cache" KUBECONFIG="$RUN_DIR/kubeconfig" \
+    dotx compose destroy "$RUN_DIR/scenario.yaml"
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -616,6 +639,28 @@ before proceeding. Fix Docker user permissions before rerunning. Gateway timeout
 require checking node IP, routing/firewall, readiness and Services; planning does
 not prove reachability. Contract download failures require repository access or
 verified bundle-local assets, never bypassing SHA-256 checks.</p>
+</div>
+<div class="sect2">
+<h3 id="_after_a_manually_cancelled_github_job"><a class="anchor" href="#_after_a_manually_cancelled_github_job"></a>After a manually cancelled GitHub job</h3>
+<div class="paragraph">
+<p>The live workflow queues subsequent pushes rather than cancelling a rehearsal
+mid-cleanup. Manual cancellation or loss of the runner can still interrupt
+teardown. An occupied-name/network preflight failure is not a request to delete
+whatever was found, and rerunning the job alone cannot repair those leftovers.</p>
+</div>
+<div class="paragraph">
+<p>First confirm that no job or local demo still owns the resources. Correlate the
+cancelled attempt&#8217;s private run path and timestamps with the container&#8217;s exact
+name, image and <code>dotx.runtime.identity</code> label, the dedicated network&#8217;s
+<code>dotx.composition.id</code> label and attached containers, and the namespace&#8217;s workloads.
+Inspect mounts before considering removal. If the runner checkout no longer
+contains the run&#8217;s state, do not use a new run&#8217;s cache for recovery: an operator
+must verify each exact leftover independently. Remove only confirmed test-owned
+resources, verify their absence, and rerun the failed job on the fixed revision.
+Leave the shared Minikube network/container, cached images, unrelated volumes
+and namespace finalizers untouched. Successful recovery is not successful live
+acceptance; the subsequent workflow must still finish its probes and cleanup.</p>
+</div>
 </div>
 </div>
 </div>
@@ -630,8 +675,10 @@ jq '.dots | group_by(.status) | map({status: .[0].status, count: length})' \
 </div>
 </div>
 <div class="paragraph">
-<p>Audit baseline: 69 valid definitions, 29 strict interface-profile passes and 40
-gaps. Use the generated report for the actual checkout. Broker-only and negative
+<p>Audited snapshot after product-root consolidation: 67 valid definitions,
+27 strict interface-profile passes and 40 gaps. Removing duplicate demo products
+reduces the definition/pass counts; it does not resolve the remaining gaps.
+Use the generated report for the actual checkout. Broker-only and negative
 fixtures do not necessarily need a business API. Official/source-derived
 Contracts, source-adapted PoCs, planning fixtures, stubs and producer doubles
 remain distinct evidence levels. See catalogue <code>CONTRACT-AUDIT.md</code> and

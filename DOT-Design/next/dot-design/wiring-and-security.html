@@ -216,9 +216,11 @@ configurable.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
   - name: oauth-token-to-client
+    parameters:
+      realm: {value: dotx}
     from:
       instance: identity
-      anchorId: a3000000-0000-4000-8000-000000000002
+      anchorId: a1000000-0000-4000-8000-000000000002
     to:
       instance: client
       anchorId: a5000000-0000-4000-8000-000000000001
@@ -274,7 +276,7 @@ the operator provisions outside <code>dotx</code>:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
   - name: identity-discovery-to-proxy
-    from: {instance: identity, anchorId: a3000000-0000-4000-8000-000000000001}
+    from: {instance: identity, anchorId: a1000000-0000-4000-8000-000000000003}
     to: {instance: proxy, anchorId: aa100000-0000-4000-8000-000000000002}
     network:
       adapter: EXTERNAL_GATEWAY
@@ -312,12 +314,12 @@ inspectable before apply:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">oauth-token-to-client:
-  identity/a3000000-0000-4000-8000-000000000002
+  identity/a1000000-0000-4000-8000-000000000002
     -&gt; client/a5000000-0000-4000-8000-000000000001 [COMPATIBLE]
   endpoint: keycloak:8080
     (HTTP, instance=identity service=keycloak port=http)
-  contract: c3000000-0000-4000-8000-000000000002
-    selector=#/paths/~1realms~1dotx~1protocol~1openid-connect~1token/post
+  contract: c1000000-0000-4000-8000-000000000001
+    selector=#/paths/~1realms~1%7Brealm%7D~1protocol~1openid-connect~1token/post
   materializer: OPERATION_URL -&gt; client/oauth-client env:TOKEN_URL</code></pre>
 </div>
 </div>

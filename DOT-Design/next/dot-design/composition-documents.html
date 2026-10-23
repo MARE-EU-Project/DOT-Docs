@@ -253,28 +253,33 @@ DOT definitions and pins their identities through the authoritative
 across checkout locations and prevents a scenario-local copy from drifting away
 from the reviewed definition:</p>
 </div>
+<div class="paragraph">
+<p>This structural excerpt omits the required instance inputs and wires. Use
+<code>DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml</code> for the
+complete runnable document; Contract paths below are relative to that directory.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: dot.mare6g.eu/v1
 kind: Composition
 id: e3000000-0000-4000-8000-000000000001
-name: api-gateway-oidc
+name: keycloak-apisix-oauth
 version: 1.0.0
 dots:
   - name: identity
-    source: repository://d3000000-0000-4000-8000-000000000001@1.0.0
-    dotId: d3000000-0000-4000-8000-000000000001
-    dotVersion: 1.0.0
+    source: repository://49b0c883-e77a-535e-8589-d8a5c01b0a59@0.2.0
+    dotId: 49b0c883-e77a-535e-8589-d8a5c01b0a59
+    dotVersion: 0.2.0
     deployment: kubernetes
   - name: gateway
-    source: repository://d3a00000-0000-4000-8000-000000000002@1.0.0
-    dotId: d3a00000-0000-4000-8000-000000000002
+    source: repository://da100000-0000-4000-8000-000000000002@1.0.0
+    dotId: da100000-0000-4000-8000-000000000002
     dotVersion: 1.0.0
     deployment: kubernetes
     dependsOn: [identity]
 contracts:
   - id: c3000000-0000-4000-8000-000000000001
-    source: ./contracts/oidc-discovery.yaml</code></pre>
+    source: ../../DOTs/external/Keycloak-DOT/contracts/c3000000-0000-4000-8000-000000000001.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">

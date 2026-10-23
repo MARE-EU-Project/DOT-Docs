@@ -560,7 +560,9 @@ mechanics across runtimes, not a production application or the whole MARE stack.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml --locked --color always</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology \
+  DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml \
+  --locked --color always</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -573,7 +575,8 @@ the four-Contract demo.</p>
 <div class="paragraph">
 <p>For a longer session, use the existing
 <code>task testing:pocs:present:secure-api</code> in a separate, rehearsed run. Its live
-checks require anonymous HTTP <code>401</code>, authenticated POST <code>403</code>, and an authorized
+checks require HTTP <code>401</code> for missing and malformed bearer tokens,
+authenticated POST <code>403</code>, and an authorized
 GET reading the stored <code>mare-poc10</code> value. See
 <a href="mare-poc-compositions.html" class="xref page">MARE PoC composition walkthroughs</a> for prerequisites
 and commands. This is source-adapted evidence: Oxigraph substitutes for GraphDB,

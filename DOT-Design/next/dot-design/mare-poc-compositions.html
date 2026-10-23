@@ -316,7 +316,9 @@ task testing:pocs:dry-run</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml --locked --color always</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology \
+  DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml \
+  --locked --color always</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -393,8 +395,10 @@ catalogue validation, and resolves the reviewed composition lock.</p>
 <p>It then checks Docker/Compose access, the <code>minikube</code> context, one Ready
 Linux-amd64 node without resource pressure, an unused namespace and TCP port,
 and every selected manifest image in the Docker-driver Minikube cache.
-Image IDs are printed; tag-only references are explicitly identified as mutable,
-not misrepresented as immutable digest pins. This is cache availability, not a
+All five selected images are digest-pinned at their rehearsed versions; tags
+remain in the reference for readability. Preflight rejects tag-only references
+and cached images whose reported platform is not Linux amd64. It prints the
+resolved image IDs without dumping image configuration. This is cache availability, not a
 remote registry/Contract URL check, image vulnerability scan, or API acceptance.
 The check is bounded and does not start tools, pull images, create Secrets,
 deploy, adopt resources or clean anything up. Read-only CLI planning can use
@@ -465,12 +469,15 @@ protocol interfaces, not invented official vendor OpenAPI documents.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl config current-context
 kubectl get nodes
-dotx compose plan DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml --locked --json
+dotx compose plan \
+  DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml \
+  --locked --json
 task testing:pocs:secure-api:live</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expect a fresh namespace and native test Secrets, anonymous HTTP <code>401</code>,
+<p>Expect a fresh namespace and native test Secrets, HTTP <code>401</code> for missing and
+malformed bearer tokens,
 authenticated POST <code>403</code>, and an authenticated GET returning <code>mare-poc10</code> from
 the real SPARQL engine. Every required client input is checked. The harness
 destroys its namespace and forward; the receipt must say <code>cleanup=PASSED</code>.
@@ -493,6 +500,10 @@ Override <code>DOTX_POC10_FORWARD_PORT</code> if 19010 is busy.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HTTP <code>401</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deliberately malformed public test token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP <code>401</code>; redirects/transport errors are not acceptance</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OAuth client-credentials token</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Acquired inside the client pod; never printed</p></td>
 </tr>
@@ -513,11 +524,18 @@ Override <code>DOTX_POC10_FORWARD_PORT</code> if 19010 is busy.</p>
 <div class="paragraph">
 <p>During the presenter pause, inspect the printed private-cache <code>compose status</code>
 command and <code>result.json</code>. The five compatible wires are plan/configuration
-evidence; the three HTTP assertions above are the live end-to-end evidence.
+evidence; the four HTTP assertions above are the live end-to-end evidence.
 They are not five independent native Contract probes or full response-schema
 validation. Press Enter to clean up and retain the receipt. Re-run from the
 cleaned state to check repeatability; never treat a previous receipt as a new
 live exchange.</p>
+</div>
+<div class="paragraph">
+<p>The invalid token is fixed public test data; real access tokens are never
+printed. <code>invalidBearerHttpStatus</code> in <code>result.json</code> records the checked 401.
+The bounded check ignores local curl configuration and does not follow redirects.
+It proves rejection of this malformed token, not expiry/revocation handling,
+issuer/audience isolation, signing-key rotation, or a security certification.</p>
 </div>
 <div class="paragraph">
 <p>Oxigraph substitutes for GraphDB; a synthetic machine client uses client
@@ -586,7 +604,10 @@ records <code>SKIPPED</code> cleanup and cannot pass acceptance.</p>
 </div>
 <div class="paragraph">
 <p>If cleanup fails, preserve the printed run directory. Set <code>XDG_CACHE_HOME</code> to
-its <code>cache</code> directory and inspect <code>dotx compose status &lt;composition&gt;</code>, then
+its <code>cache</code> directory and, for Kubernetes runs, set <code>KUBECONFIG</code> to that run&#8217;s
+private <code>kubeconfig</code>. Do not follow a later global context change or share the
+saved kubeconfig. Stop if the original run files are missing; a new run&#8217;s state
+does not authorize recovery. Inspect <code>dotx compose status &lt;composition&gt;</code>, then
 retry <code>destroy</code> on the same graph. Inspect only recorded namespaces and planned
 identities. Never strip finalizers or delete unrelated workloads. Select an
 unused port instead of killing another service. Review missing Contracts,
