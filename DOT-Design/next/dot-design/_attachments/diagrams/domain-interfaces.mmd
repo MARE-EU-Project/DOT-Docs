@@ -1,7 +1,7 @@
 classDiagram
   direction TB
   accTitle: DOT identity and interoperable interfaces
-  accDescr: A DOT references Skills, declares Contracts, and owns Anchors. Complete Contracts use HTTPS payloads pinned by SHA-256. Contract-backed Anchors select operations by Contract UUID and selector.
+  accDescr: A DOT references Skills, declares Contracts, and owns Anchors. Complete Contracts use HTTPS payloads pinned by SHA-256. Contract-backed Anchors select operations by Contract ID and selector.
 
   class Dot {
     UUID id
@@ -10,12 +10,12 @@ classDiagram
     List~String~ groups
   }
   class Skill {
-    UUID id
+    String id
     String name
     String description
   }
   class Contract {
-    UUID id
+    String id
     String name
     Version version
     ContractStandard standard

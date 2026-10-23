@@ -269,7 +269,7 @@ including sensitivity. This declaration is the allow-list for composition.</p>
 composition.</p>
 </li>
 <li>
-<p>Add named, UUID/version-pinned DOT instances and UUID-pinned Contract inputs
+<p>Add named, UUID/version-pinned DOT instances and ID-pinned Contract inputs
 to a separate composition document.</p>
 </li>
 <li>
@@ -347,7 +347,7 @@ payload schema, and security fields that the Contract already defines.</p>
 </div>
 <div class="paragraph">
 <p>The opposite DOT declares its own <code>REQUIRES</code> Anchor. It may select the same
-Contract UUID or an independently authored Contract. Compatibility is
+Contract ID or an independently authored Contract. Compatibility is
 deterministic when authoritative facts are comparable; otherwise the result is
 <code>UNKNOWN</code>, never an invented match.</p>
 </div>
@@ -574,7 +574,7 @@ contractless Anchor states <code>INGRESS</code>, <code>EGRESS</code>, or <code>B
 </div>
 <div class="paragraph">
 <p>When two DOTs implement the same published Contract, referencing the same
-Contract UUID gives the strongest deterministic evidence. Independently
+Contract ID gives the strongest deterministic evidence. Independently
 authored Contracts are allowed, but identical-looking schema names do not prove
 structural compatibility across Contract identities; that comparison remains
 <code>UNKNOWN</code> until a schema-aware adapter or policy evaluates it.</p>

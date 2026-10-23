@@ -365,7 +365,13 @@ semantics; they have not silently become stricter Java <code>Version</code> fiel
 <h2 id="_identity_versioning_and_references"><a class="anchor" href="#_identity_versioning_and_references"></a>Identity, versioning, and references</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Root entity IDs are UUIDs. Equality for <code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> is
+<p><code>Dot</code>, <code>Anchor</code>, and <code>Composition</code> identities remain UUIDs. Skills and Contracts
+use stable, case-sensitive textual IDs such as <code>Metrics-Scraping</code> and
+<code>Prometheus-3.15.0-OpenAPI</code>. IDs start with an ASCII letter or digit and contain
+only letters, digits, dots, underscores and hyphens. Existing UUID-shaped IDs
+remain valid unchanged. IDs are not display names, URLs, or automatically derived
+from mutable fields; renaming one requires updating every reference.
+Equality for <code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> is
 ID-based so changes to mutable metadata or collections do not destabilize sets
 or persistence identity.</p>
 </div>
@@ -383,12 +389,12 @@ identity, standard, format, and a structured <code>payload</code> with an HTTPS 
 <code>sha256</code> pin. Raw API documents are not embedded in <code>dot.json</code>.
 Temporary root ID-only entries must resolve to verified assets in that DOT&#8217;s
 own <code>contracts/</code> directory; repository-level and sibling-DOT fallback are not
-allowed. An Anchor references the root declaration by Contract UUID and selector.</p>
+allowed. An Anchor references the root declaration by Contract ID and selector.</p>
 </div>
 <div class="paragraph">
 <p><code>dotx validate</code> enforces catalogue identity uniqueness, including DOT
 <code>(id, version)</code> and <code>(name, version)</code>, and rejects conflicting documents for one
-Contract UUID across bundles. These catalogue rules are not database indexes
+Contract ID across bundles. These catalogue rules are not database indexes
 or persistence requirements enforced by the Java entities.</p>
 </div>
 </div>
@@ -457,7 +463,7 @@ the domain model validates selector syntax and references within the aggregate.<
 <p>optional semantic-type URIs; and</p>
 </li>
 <li>
-<p>a Contract UUID plus standard-specific selector.</p>
+<p>a Contract ID plus standard-specific selector.</p>
 </li>
 </ul>
 </div>
@@ -669,7 +675,7 @@ constructed through Lombok builders.</p>
 <p><code>Version</code> is JSON-serialized as a normalized string.</p>
 </li>
 <li>
-<p>Persistence adapters must preserve UUID and version representations.</p>
+<p>Persistence adapters must preserve UUID, textual identifier and version representations.</p>
 </li>
 <li>
 <p>Skill and service-level Contract references expose only <code>id</code>; root

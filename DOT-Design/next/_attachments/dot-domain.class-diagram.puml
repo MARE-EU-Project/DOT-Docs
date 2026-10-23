@@ -80,7 +80,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
   }
 
   class "Skill" as eu_mare6g_dot_domain_Skill #FFFFFF {
-    - id: UUID
+    - id: String
     - name: String
     - description: String
   }
@@ -108,7 +108,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     }
 
     class "AnchorContract" as eu_mare6g_dot_domain_anchor_AnchorContract #FFFFFF {
-      - id: UUID
+      - id: String
       - selector: String
     }
 
@@ -176,7 +176,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     }
 
     class "ContractInput" as eu_mare6g_dot_domain_composition_ContractInput #FFFFFF {
-      - id: UUID
+      - id: String
       - source: String
     }
 
@@ -361,7 +361,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
 
   package "contract" as package_eu_mare6g_dot_domain_contract #EDE9FE {
     class "Contract" as eu_mare6g_dot_domain_contract_Contract #F5F3FF {
-      - id: UUID
+      - id: String
       - name: String
       - version: Version
       - standard: ContractStandard
