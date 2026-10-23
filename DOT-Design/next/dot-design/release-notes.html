@@ -228,6 +228,14 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>Development CLI builds add <code>compose topology --status</code>: a locked-plan graph
+with scoped, bounded runtime observations and a distinct historical probe
+table. Matching saved execution inputs are required before runtime queries.
+Presenter pauses use this view without treating running workloads or a recent
+probe receipt as current API acceptance. Mermaid export remains plan-only;
+there is no portable-model or schema change, and no new release is implied.</p>
+</div>
+<div class="paragraph">
 <p>Contracts now resolve only from their declaring DOT bundle or a complete
 digest-pinned URL declaration. The repository-level Contract catalogue and
 validator fallback have been removed; all remaining assets live in their

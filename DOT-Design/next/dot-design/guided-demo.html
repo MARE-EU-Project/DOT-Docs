@@ -573,8 +573,32 @@ temporarily returns HTTP 200 with severity <code>low</code>, the native assertio
 then restores the critical alert and requires a newer <code>REVIEW_REQUIRED</code> receipt
 and successful native assertion. This distinguishes endpoint health from
 correct application data; it is not a claim of complete schema or policy validation.
-The reprinted topology is still a plan view; use status and probe evidence
-for live results.</p>
+The graph remains the locked plan, not an inferred network map. Presenter lanes
+using the shared lifecycle helper, including the four-Contract lane, append
+timestamped runtime observations with <code>compose topology --locked --status</code>.
+Their results tables still provide the separate application assertions.</p>
+</div>
+<div class="paragraph">
+<p>For an applied composition, run the following from the same private cache and
+Kubernetes configuration printed by its harness (do not use another run&#8217;s state):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">COMPOSITION=DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml
+dotx compose topology "$COMPOSITION" --locked --status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Explain the layers separately: <code>APPLIED</code> is a recorded lifecycle phase;
+<code>RUNNING</code> describes a process, container or VM; <code>CONTROLLERS_AVAILABLE</code> describes
+selected Kubernetes controller status, not rollout or API acceptance. An empty
+selection is <code>NO_CONTROLLERS</code>; query failures are <code>UNKNOWN</code> and return nonzero.
+Historical wire probes show their original timestamps. <code>RECENT_RECORD</code> means
+recently recorded, never a fresh API call; <code>STALE_RECORD</code> requires a fresh probe
+before claiming current acceptance. The default record age boundary is five
+minutes, adjustable with <code>--probe-max-age 2m</code> (positive, at most 24 hours).
+This observation mode does not deploy, mutate configuration or run probes; it
+uses the lifecycle coordination lock. Mermaid export remains plan-only.</p>
 </div>
 <div class="paragraph">
 <p><strong>State the boundary:</strong> Mosquitto is a real external broker, but provider and
