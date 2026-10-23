@@ -1,0 +1,56 @@
+classDiagram
+  direction TB
+  accTitle: Runtime choices and service-scoped deployment configuration
+  accDescr: A DOT offers Runtime alternatives. Each Runtime targets one Platform and offers Deployments. A Deployment has one polymorphic manifest and logical services with ports, Anchor bindings, and their own configuration requirements.
+
+  class Runtime
+  class Platform {
+    PlatformEngine engine
+    Version version
+  }
+  class Deployment {
+    String id
+  }
+  class DeploymentManifest {
+    <<abstract>>
+    DeploymentManifestType type
+  }
+  class DeploymentService {
+    String id
+    String name
+    String host
+    List~Contract~ contracts
+  }
+  class ServicePort {
+    String name
+    String protocol
+    Integer port
+  }
+  class AnchorBinding {
+    UUID anchorId
+    String port
+  }
+  class DeploymentConfig {
+    List~EnvironmentVariable~ environment
+    List~ConfigFile~ configFiles
+    List~VolumeMount~ volumes
+    List~CdiDeviceRequirement~ cdiDevices
+    OciRuntimeRequirements ociRuntime
+  }
+
+  Runtime "1" *-- "1" Platform : where
+  Runtime "1" *-- "1..*" Deployment : deployment alternatives
+  Deployment "1" *-- "1" DeploymentManifest : how
+  Deployment "1" *-- "0..*" DeploymentService : logical services
+  DeploymentService "1" *-- "0..*" ServicePort : named ports
+  DeploymentService "1" *-- "0..*" AnchorBinding : binds logical interfaces
+  DeploymentService "1" *-- "1" DeploymentConfig : supported configuration
+
+  style Runtime fill:#fef3c7,stroke:#b45309,color:#78350f
+  style Platform fill:#fef3c7,stroke:#b45309,color:#78350f
+  style Deployment fill:#fef3c7,stroke:#b45309,color:#78350f
+  style DeploymentManifest fill:#fef3c7,stroke:#b45309,color:#78350f
+  style DeploymentService fill:#dcfce7,stroke:#15803d,color:#14532d
+  style ServicePort fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  style AnchorBinding fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  style DeploymentConfig fill:#f1f5f9,stroke:#64748b,color:#0f172a

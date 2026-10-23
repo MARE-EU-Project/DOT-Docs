@@ -1,0 +1,54 @@
+classDiagram
+  direction TB
+  accTitle: DOT identity and interoperable interfaces
+  accDescr: A DOT references Skills, declares Contracts, and owns Anchors. Complete Contracts use HTTPS payloads pinned by SHA-256. Contract-backed Anchors select operations by Contract UUID and selector.
+
+  class Dot {
+    UUID id
+    String name
+    Version version
+    List~String~ groups
+  }
+  class Skill {
+    UUID id
+    String name
+    String description
+  }
+  class Contract {
+    UUID id
+    String name
+    Version version
+    ContractStandard standard
+    DataFormat format
+  }
+  class ContractPayload {
+    URI url
+    String sha256
+  }
+  class Anchor {
+    UUID id
+    String name
+    AnchorRole role
+    List~URI~ semanticTypes
+    AnchorDirection direction
+    List~String~ protocols
+    List~String~ mediaTypes
+  }
+  class AnchorContract {
+    UUID id
+    String selector
+  }
+
+  Dot "1" --> "0..*" Skill : ID references
+  Dot "1" --> "0..*" Contract : authoritative declarations
+  Dot "1" *-- "0..*" Anchor : logical interfaces
+  Contract "1" *-- "1" ContractPayload : full definition
+  Anchor "1" *-- "0..1" AnchorContract : operation selection
+  Contract <.. AnchorContract : resolves id
+
+  style Dot fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:2px
+  style Skill fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  style ContractPayload fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  style AnchorContract fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  style Contract fill:#dcfce7,stroke:#15803d,color:#14532d
+  style Anchor fill:#f3e8ff,stroke:#9333ea,color:#581c87
