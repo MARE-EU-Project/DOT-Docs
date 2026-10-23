@@ -402,6 +402,13 @@ or persistence requirements enforced by the Java entities.</p>
 <div class="sect1">
 <h2 id="_contracts"><a class="anchor" href="#_contracts"></a>Contracts</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Contract <code>standard</code> accepts only the canonical JSON spellings <code>OpenAPI</code>,
+<code>AsyncAPI</code>, <code>Protobuf</code>, and <code>GraphQL</code>. Uppercase enum names, alternative casing,
+and surrounding whitespace are rejected. The Java enum constants remain
+uppercase; Jackson serialization and the generated JSON Schemas use their
+canonical values. <code>DataFormat</code> is a separate enum and is unchanged.</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -417,22 +424,22 @@ or persistence requirements enforced by the Java entities.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OPENAPI</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpenAPI</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ASYNCAPI</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AsyncAPI</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROTOBUF</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Protobuf</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROTOBUF</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified service method</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GraphQL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Root-field schema coordinate</p></td>
 </tr>

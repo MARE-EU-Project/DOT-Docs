@@ -231,6 +231,18 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>Contract <code>standard</code> now accepts only <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, and
+<code>GraphQL</code>, generated from the Java domain enum&#8217;s Jackson values. This is an
+intentional input-format change: uppercase values and case/whitespace aliases
+are rejected. Migrate Contract declarations and local asset wrappers, then
+explicitly regenerate and review affected composition locks with
+<code>dotx compose lock &lt;composition.yaml&gt;</code>. Existing locks fail closed; do not
+reuse saved runtime state against a changed graph. The <code>format</code> values remain
+<code>YAML</code>, <code>JSON</code>, <code>PROTOBUF</code>, and <code>GRAPHQL</code>. Use the pinned development CLI;
+previously released binaries retain the earlier vocabulary. Stable-tag docs
+remain unchanged.</p>
+</div>
+<div class="paragraph">
 <p><code>dotx compose inspect</code> replaces <code>compose plan</code> as the read-only command for
 resolving and explaining a composition. Flags, resolved JSON, locks and runtime
 state remain unchanged. Old invocations report the new command name. Use an

@@ -385,7 +385,10 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       PROTOBUF
       GRAPHQL
       --
+      - value: String {readOnly}
       - uri: URI {readOnly}
+      --
+      + getValue(): String
     }
 
   }

@@ -696,7 +696,7 @@ resolved operation URL into the consumer&#8217;s declared <code>OPENAPI_YAML_URL
 environment variable. We are not copying the API definition into the wire."</p>
 </div>
 <div class="paragraph">
-<p><strong>Expected observation:</strong> <code>OPENAPI</code>, the selected operation, provider/consumer
+<p><strong>Expected observation:</strong> <code>OpenAPI</code>, the selected operation, provider/consumer
 Anchor references, <code>COMPATIBLE</code> and the environment-variable materializer.
 The template&#8217;s <code>192.0.2.1</code> address is deliberately not a live target. The
 existing harness substitutes the actual Minikube address and locks that
@@ -1160,7 +1160,7 @@ dotx compose inspect \
   "dotInstances": 6,
   "wires": 21,
   "compatibleWires": 21,
-  "standards": ["ASYNCAPI", "GRAPHQL", "OPENAPI", "PROTOBUF"],
+  "standards": ["AsyncAPI", "GraphQL", "OpenAPI", "Protobuf"],
   "interactions": [
     "BIDIRECTIONAL_STREAM", "CLIENT_STREAM", "MUTATION", "QUERY",
     "REQUEST_RESPONSE", "SEND", "SERVER_STREAM", "SUBSCRIPTION"
