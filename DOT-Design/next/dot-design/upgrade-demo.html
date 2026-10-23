@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Stateless configuration upgrades and recovery :: MARE DOT-Design</title>
+    <link rel="prev" href="live-multi-runtime-demo.html">
+    <link rel="next" href="contributor-guide.html">
+    <meta name="description" content="Reuse the canonical OPA DOT, inspect a native upgrade diff, and recover from a deliberately broken policy revision.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.2.4/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="guided-demo.html">Guided demo</a></li>
+    <li><a href="upgrade-demo.html">Stateless upgrades and recovery</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="upgrade-demo.html">Next</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Stateless configuration upgrades and recovery</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This optional technical-demo lane demonstrates native <code>dotx compose upgrade</code>
+with the existing external OPA DOT&#8217;s Kubernetes deployment. The OPA image and
+DOT UUID/version stay unchanged; the <strong>composition version and policy input</strong>
+change. This is a configuration revision, not an OPA software-version upgrade.
+There are no copied product descriptors, persistent volumes or application-data
+migrations in this example.</p>
+</div>
+<div class="paragraph">
+<p>The focused test graph lives under <code>DOT-Testing/composition/opa-policy-upgrade/</code>,
+not the reusable production catalogue: one revision deliberately contains invalid
+Rego. Its three composition documents and locks resolve the same canonical
+<code>DOT-Repository/DOTs/external/OPA-DOT</code> bundle. This lane has one DOT and an exposed
+Anchor, not multiple wired DOTs; use the <a href="live-multi-runtime-demo.html" class="xref page">four-Contract</a>
+and <a href="mare-poc-compositions.html" class="xref page">secure-API</a> lanes for those claims.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites_and_preview"><a class="anchor" href="#_prerequisites_and_preview"></a>Prerequisites and preview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use the DOT-Design checkout root on Linux amd64, with its exact pinned CLI
+installed (<code>task cli:install</code>), Task, Bash, jq, curl, GNU coreutils, <code>ss</code>, Docker,
+kubectl and a Ready local Linux-amd64 Minikube node. Select context <code>minikube</code>.
+Building that pinned CLI requires Go; follow the
+<a href="contributor-guide.html" class="xref page">contributor installation instructions</a>. Go is not
+needed by the installed binary during this live lane.
+The canonical OPA image is digest-pinned; Kubernetes must have it cached or be
+able to obtain it. Use an isolated demo cluster: this OPA API intentionally has
+no production authentication policy and must not be exposed publicly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:upgrade:dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This checks all three locks and renders their native deployment commands without
+deploying anything. It does not parse Rego or prove upgrade/rollback acceptance:
+the invalid policy is intentionally a runtime-negative fixture. The native
+upgrade diff requires an applied baseline, so the live lane runs it after apply.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_inspect_and_clean_up"><a class="anchor" href="#_run_inspect_and_clean_up"></a>Run, inspect, and clean up</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Optional overrides; keep them in the same terminal.
+export DOTX_UPGRADE_PORT=19081
+export DOTX_UPGRADE_NAMESPACE=dotx-opa-upgrade-presentation
+task testing:demo:upgrade:present</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Choose a fresh namespace and a free port; the harness refuses existing resources
+and does not adopt them. <code>DOTX_UPGRADE_ROLLOUT_TIMEOUT</code> defaults to <code>90s</code> per
+Kubernetes rollout. Allow a few minutes: the broken revision intentionally waits
+for a rollout failure before native recovery.</p>
+</div>
+<div class="paragraph">
+<p>The task automatically executes this sequence:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Stage</th>
+<th class="tableblock halign-left valign-top">Native lifecycle operation</th>
+<th class="tableblock halign-left valign-top">Required observation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baseline <code>1.0.0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locked <code>compose apply</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A viewer&#8217;s GET authorization decision is HTTP <code>200</code>, <code>result: true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Review</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose upgrade --dry-run --json</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exactly one <code>UPDATE</code> for the existing OPA instance, with different input digests.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Target <code>1.1.0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locked <code>compose upgrade</code> from <code>1.0.0</code> and its exact lock</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Viewer decision becomes <code>false</code>; operator decision remains <code>true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broken target <code>1.2.0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locked <code>compose upgrade</code> from <code>1.1.0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact negative fixture fails parsing with the running OPA binary; its
+  deployment fails rollout and the native command reports automatic rollback.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recovered <code>1.1.0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native status plus fresh API requests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Last-known-good version remains <code>1.1.0</code>, no upgrade transaction is pending,
+  viewer remains denied and operator remains allowed.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>OPA&#8217;s decision API returns HTTP <code>200</code> for both boolean decisions; <code>false</code> is an
+authorization decision, not HTTP <code>403</code>. In the separate secure-API composition,
+APISIX enforces that decision and returns HTTP <code>403</code> to its caller.</p>
+</div>
+<div class="paragraph">
+<p><strong>Say:</strong> "A valid DOT and lock do not guarantee valid application configuration.
+The runtime rejected this policy, and the CLI restored the last verified
+configuration before reporting failure. We then tested the recovered service."</p>
+</div>
+<div class="paragraph">
+<p>The normal lane calls native CLI commands directly. It does not implement a
+second upgrade or rollback engine. Recovery is to the last successful <code>1.1.0</code>
+revision, not an undo of the previously successful promotion from <code>1.0.0</code>.
+The baseline and target locks are required for both changes.</p>
+</div>
+<div class="paragraph">
+<p>After successful recovery, presenter mode holds the running OPA instance for
+inspection. It prints the private run directory and a status command using that
+run&#8217;s cache and frozen kubeconfig. Inspect <code>upgrade-diff.json</code>, redacted
+<code>result.json</code>, API decision receipts and status snapshots. The saved
+<code>failed-upgrade.log</code> contains the expected failed rollout and native recovery;
+that failure is not silently treated as a successful upgrade.
+Routine native apply/upgrade output stays in private <code>apply.log</code>/<code>upgrade.log</code>;
+the terminal shows ordered progress stages and a final observed-decision table.</p>
+</div>
+<div class="paragraph">
+<p>Press Enter to clean up. EOF, Ctrl-C and the bounded presenter timeout also invoke
+owned-resource cleanup. Successful acceptance requires a final <code>cleanup=PASSED</code>
+receipt. For noninteractive rehearsal use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:upgrade:live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With Python 3 installed, <code>task testing:demo:upgrade:rehearse</code> uses the existing
+terminal-driven acceptance driver to verify the pause, inspect native status,
+send Enter and require verified cleanup. It records a summary and before/after
+checkout fingerprints; it fails if inputs change during rehearsal.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_boundaries_and_recovery"><a class="anchor" href="#_boundaries_and_recovery"></a>Boundaries and recovery</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This proves one stateless native-Kubernetes configuration update and automatic
+recovery, not database rollback, zero downtime, all deployment adapters, policy
+distribution security or production certification. The exposed API Contract is
+the bundle&#8217;s ecosystem-derived PoC1 normalization, not an official comprehensive
+OPA OpenAPI document. The live checks verify the actual boolean decisions.</p>
+</div>
+<div class="paragraph">
+<p>Current upgrade admission rejects changed stateful deployments and changed
+Helm/Vagrant deployments whose storage safety cannot be established. A pending
+transaction after interruption requires the native <code>--resume</code> or <code>--rollback</code>
+route documented in <a href="composition-lifecycle.html" class="xref page">Composition lifecycle</a>. Do
+not rewrite its state file, delete unrelated resources or bypass these checks.</p>
+</div>
+<div class="paragraph">
+<p>If cleanup is interrupted, inspect the printed run&#8217;s evidence and use <strong>both</strong>
+its <code>XDG_CACHE_HOME</code> and <code>KUBECONFIG</code> for status/destroy. Never substitute a new
+cache or a changed global cluster context. Do not force namespace finalizers.</p>
+</div>
+<div class="paragraph">
+<p>The existing <strong>Anchor live E2E</strong> workflow offers an explicit <code>opa-policy-upgrade</code>
+selection with the same harness and private evidence upload. The default PoC
+<code>all</code> matrix remains the established twelve scenarios; this optional technical
+lane is selected separately. Dry-run CI checks the fixtures through the existing
+presentation-validation job.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a></span>
+  <span class="next"><a href="contributor-guide.html">Contributor guide</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

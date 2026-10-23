@@ -77,6 +77,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -615,6 +618,13 @@ producer deployment, LDAP, telemetry or automated response.</p>
 </div>
 <div class="sect2">
 <h3 id="_minutes_13_15_clean_up_and_leave_a_reproducible_next_step"><a class="anchor" href="#_minutes_13_15_clean_up_and_leave_a_reproducible_next_step"></a>Minutes 13-15: clean up and leave a reproducible next step</h3>
+<div class="paragraph">
+<p>For a separate technical follow-up, <a href="upgrade-demo.html" class="xref page">the stateless upgrade
+lane</a> reuses the canonical OPA DOT, changes a policy configuration through native
+<code>compose upgrade</code>, and verifies automatic last-known-good recovery after a
+deliberately broken revision. Rehearse it separately; do not fit its intentional
+rollout timeout into this 10–15-minute route or imply application-data rollback.</p>
+</div>
 <div class="paragraph">
 <p>Return to the paused demo terminal and press Enter. Expect a receipt with
 <code>cleanup=PASSED</code> and <code>exit=0</code>; the harness checks its owned resources for
