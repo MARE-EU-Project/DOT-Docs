@@ -359,12 +359,16 @@ Record the three checkout revisions as shown in that walkthrough.</p>
 </div>
 <div class="paragraph">
 <p>For the Keycloak/APISIX/OPA/SPARQL follow-up, use
-<code>task testing:demo:preflight</code> before deployment. This read-only gate checks the
+<code>task testing:demo:preflight DEMO=secure-api</code> before deployment. This read-only gate checks the
 exact installed CLI revision, local Contracts, cluster readiness, cached images
 and namespace/port conflicts. Follow
 <a href="mare-poc-compositions.html#_presentation_preflight" class="xref page">the secure-API preflight instructions</a>
-to keep the same overrides in the presentation terminal. It is not a preflight
-for the separate four-Contract fixture and does not replace live acceptance.</p>
+to keep the same overrides in the presentation terminal.
+Select <code>DEMO=four-contracts</code> for the mixed-runtime fixture, or <code>DEMO=monitoring</code>
+for node-exporter/Prometheus. Without a selector, the task checks all three routes.
+These are point-in-time prerequisite checks, not live acceptance or resource
+reservations. In particular, four-Contract preflight checks cached images,
+Docker resource conflicts and selected NodePorts, not end-to-end gateway routing.</p>
 </div>
 <div class="paragraph">
 <p>Pre-download/build the images by completing the existing live acceptance task

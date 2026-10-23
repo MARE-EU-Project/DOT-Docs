@@ -437,6 +437,24 @@ explicit loading; the harness verifies actual running image IDs. Rehearse with
 network access for metadata/dependency/image downloads; caching does not promise
 fully offline execution.</p>
 </div>
+<div class="paragraph">
+<p>After a successful live rehearsal has built/loaded the fixture images and cleaned
+up, run the read-only check for this route:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:preflight DEMO=four-contracts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It checks the exact installed CLI revision, clean CLI/catalogue checkouts,
+offline Contract validation and locked plan, the Ready Linux-amd64 Minikube
+node, selected cached images, Docker identity/network conflicts, and existing
+Services occupying the four selected NodePorts. It does not build/pull images,
+reserve ports, attach networks, deploy anything or prove gateway reachability.
+The live acceptance below remains necessary. Use <code>DEMO=monitoring</code> for the
+node-exporter/Prometheus route or omit <code>DEMO</code> to check all three presenter routes.</p>
+</div>
 <div class="admonitionblock warning">
 <table>
 <tr>
