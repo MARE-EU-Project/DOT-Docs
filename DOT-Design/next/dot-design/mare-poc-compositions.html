@@ -450,6 +450,41 @@ with an empty database. An authenticated INSERT attempt must be rejected with
 not a claim that the public read-only interface authorizes writes.</p>
 </div>
 <div class="paragraph">
+<p>The same live task also requires a reversible authorization transition:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Authenticated query of the seeded data: HTTP <code>200</code> and the expected literal.</p>
+</li>
+<li>
+<p>Temporarily deny reads in this run&#8217;s OPA module: the same authenticated query
+must complete with HTTP <code>403</code>, not a redirect or transport failure.</p>
+</li>
+<li>
+<p>Restore the original module, read it back, then issue a fresh authenticated
+query: HTTP <code>200</code> with the same stored value.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The console prints these three stages. The redacted <code>result.json</code> contains
+<code>policyTransition.httpStatuses: [200, 403, 200]</code>, <code>restored: true</code> and
+<code>storedDataUnchanged: true</code> only after every assertion succeeds. The inspection
+pause happens after restoration, so the displayed composition remains usable.</p>
+</div>
+<div class="paragraph">
+<p>Policy administration is an explicit operator-side demonstration action using
+<a href="https://www.openpolicyagent.org/docs/rest-api#policy-api">OPA&#8217;s Policy API</a>,
+not a sixth Anchor wire, automatic remediation, or a production policy-management
+design. The harness requires ownership of the applied namespace and an exact
+match to the reviewed policy before mutation. A failed or ambiguous update
+triggers a restoration attempt; any failure still invokes the parent harness&#8217;s
+owned-resource cleanup. It never changes another namespace&#8217;s policy. In production,
+OPA recommends bundles for policy distribution; this local demonstration uses
+the API to make one bounded, observable transition.</p>
+</div>
+<div class="paragraph">
 <p>These arrows show logical PROVIDES-to-REQUIRES wires, not HTTP packet direction:</p>
 </div>
 <div class="listingblock">
