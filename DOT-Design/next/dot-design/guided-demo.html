@@ -66,6 +66,9 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#audience-faq">Audience FAQ</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -228,8 +231,9 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>This guided demo explains how a reusable DOT becomes part of a checked
-composition. Choose the 10-15-minute live route below, or the five-minute
-read-only stages later on this page. Both connect authoritative Contracts,
+composition. Start with the <a href="#official-demo-route">official ecosystem demo</a>,
+choose the shorter 10-15-minute standards route, or the five-minute
+read-only stages later on this page. These paths connect authoritative Contracts,
 Anchors, deployment choices and explicit wires; they prove different things.</p>
 </div>
 <div class="paragraph">
@@ -291,6 +295,13 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Official ecosystem demo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15-20 minutes of explanation, plus runtime waits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One DOT on two runtimes, secure policy enforcement and stateless recovery;
+  optional four-standard deep dive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disposable Docker and Kubernetes resources</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Read-only overview</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">About 5 minutes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repository validation, a reusable external DOT, 21 cross-standard wires, and
@@ -320,6 +331,194 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="official-demo-route"><a class="anchor" href="#official-demo-route"></a>Official ecosystem demo: reuse, compose, enforce, recover</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use this as the recommended presentation route. Budget 15-20 minutes of
+explanation for the first three chapters; provisioning, readiness and the
+intentional failed rollout add runtime-dependent waiting. The fourth chapter
+is an optional standards deep dive. For a short slot, show chapters 1 and 2.
+The shorter <a href="#presenter-route">standards-focused route</a> remains available below.</p>
+</div>
+<div class="paragraph">
+<p>The story is: <strong>one authoritative definition → explicit composition → observed
+behaviour → controlled recovery</strong>. DOT-Domain and its generated Schemas define
+the portable models; <code>dotx</code> resolves and executes them. Docker/Kubernetes remain
+the workload engines. A wire connects declared Anchors; it does not magically
+translate protocols or implement missing producer functionality.</p>
+</div>
+<div class="sect2">
+<h3 id="_prepare_and_qualify_one_exact_checkout"><a class="anchor" href="#_prepare_and_qualify_one_exact_checkout"></a>Prepare and qualify one exact checkout</h3>
+<div class="paragraph">
+<p>Run from the DOT-Design checkout root on Linux amd64, with repository access,
+Git, Go, Task, Python 3, Bash, jq, curl, <code>ss</code>, Docker/Compose, kubectl and a Ready
+local Docker-runtime Minikube node. Select context <code>minikube</code>. This advanced
+developer rehearsal uses the pinned source CLI, not the original <code>v0.2.5</code> binary.
+The simpler <a href="getting-started.html" class="xref page">Getting started</a> path still needs neither
+Go, Task nor Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>Commit reviewed source changes before using these qualification commands.
+Choose unused namespaces and ports; keep the same overrides for preflight,
+rehearsal and presentation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:install
+export DOTX_PORTABILITY_NAMESPACE=dotx-demo-portability
+export DOTX_PORTABILITY_KUBERNETES_PORT=19083
+export DOTX_POC10_NAMESPACE=dotx-demo-secure-api
+export DOTX_POC10_FORWARD_PORT=19010
+export DOTX_UPGRADE_NAMESPACE=dotx-demo-upgrade
+export DOTX_UPGRADE_PORT=19081
+task testing:demo:prepare
+task testing:demo:preflight
+task testing:demo:rehearse</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>prepare</code> explicitly pulls only selected digest-pinned official images, builds
+and tests the standards fixtures from this checkout, and imports their provider
+image. It may start disposable image-test containers, but never applies a
+composition or provisions credentials. Fixture preparation shares the live
+harness&#8217;s concurrency guard and label-scoped failure cleanup. Image caches and
+build cache intentionally persist. Registry access is needed; preparation does
+not promise offline operation. The command ends with read-only preflight.
+Use <code>DEMO=portability</code>, <code>upgrade</code>, <code>secure-api</code>, <code>monitoring</code> or <code>four-contracts</code>
+with either preparation or preflight for a focused lane; the default is all five.</p>
+</div>
+<div class="paragraph">
+<p><code>preflight</code> does not pull, build, deploy, adopt or delete resources. It checks
+the installed CLI provenance, local Contracts/locks, Ready Minikube, selected
+image caches and relevant namespace/port/runtime conflicts. It reserves nothing.
+The Compose comparison also needs the descriptor-declared port <code>18919</code> free.</p>
+</div>
+<div class="paragraph">
+<p><code>rehearse</code> runs the quickstart, monitoring, portability, secure API,
+upgrade/rollback, OAuth gateway and four-Contract paths <strong>twice each</strong>, followed by
+injected-failure and signal cleanup controls. It preserves every existing live
+assertion rather than replacing tests with a summary. All three checkouts must
+be clean; before/after revisions, tracked/untracked fingerprints and the binary
+SHA-256 must remain identical. Do not edit sources or reinstall <code>dotx</code> during it.
+This is qualification before the talk, not a command to start on stage.</p>
+</div>
+<div class="paragraph">
+<p>The printed <code>summary.json</code> and adjacent <code>results.txt</code> consolidate step exits,
+logs and hash-linked child receipts/results. Receipt-backed live lanes require
+successful assertions, exact CLI identity and <code>cleanup=PASSED</code>; prerequisite,
+cleanup-control and log-only quickstart evidence stay separately labelled.
+Preparation has its own report under <code>DOT-Testing/e2e/target/preparation/</code> and
+explicitly claims <strong>no live API acceptance</strong>. Qualification reports live under
+<code>DOT-Testing/e2e/target/rehearsal/</code>. A missing/failed receipt or source change
+fails the complete rehearsal. These local evidence directories are not published
+as though they were current online service health.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_chapter_1_reuse_one_dot_on_two_runtimes"><a class="anchor" href="#_chapter_1_reuse_one_dot_on_two_runtimes"></a>Chapter 1: reuse one DOT on two runtimes</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:portability:present</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Say:</strong> both nodes use the same Prometheus UUID, official OpenAPI Contract and
+immutable image, with two selected deployment mechanisms. There are <strong>zero wires</strong>
+between these independent servers: this proves reuse, not replication/migration.
+<strong>Show:</strong> both build-information API versions match the selected image, <code>GOGC=75</code>,
+the declared default configuration and a real self-scrape <code>up=1</code>. At the verified
+pause, compare the runtime observations and the localhost endpoints in the table.
+Press Enter and require cleanup to pass before chapter 2.
+See <a href="portability-demo.html" class="xref page">the complete comparison and storage boundaries</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_chapter_2_compose_and_enforce_a_real_api_boundary"><a class="anchor" href="#_chapter_2_compose_and_enforce_a_real_api_boundary"></a>Chapter 2: compose and enforce a real API boundary</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:pocs:present:secure-api</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Say:</strong> identity, gateway, policy engine, RDF service and client are independently
+reusable DOTs, connected by reviewed Anchors/wires and deployment-instance inputs.
+Existing Contracts remain authoritative where present; explicit interfaces are
+not misrepresented as vendor-official OpenAPI documents.
+<strong>Show:</strong> anonymous/invalid-bearer rejection, token acquisition and authenticated
+SPARQL access to stored RDF. The controlled policy change gives <code>200 → 403 → 200</code>
+and restores the original policy without changing the stored RDF data. Tokens
+stay out of printed results; native Secret references are inspected by name only.
+This is the source-adapted portable PoC10 slice, not acceptance of every producer
+or of the complete MARE security architecture. Enter verifies cleanup.
+See <a href="mare-poc-compositions.html" class="xref page">PoC walkthroughs and their remaining gaps</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_chapter_3_inspect_a_change_and_recover_safely"><a class="anchor" href="#_chapter_3_inspect_a_change_and_recover_safely"></a>Chapter 3: inspect a change and recover safely</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:upgrade:present</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Say:</strong> reuse the canonical OPA DOT; the change belongs to stateless composition
+configuration. <strong>Show:</strong> the native upgrade diff, successful stricter policy,
+deliberately invalid Rego, failed rollout and automatic last-known-good recovery.
+The recovered version is <code>1.1.0</code>, not the original <code>1.0.0</code>; a fresh API decision
+must pass with no pending transaction before the presenter pause appears.
+This does not demonstrate an OPA software-version upgrade, database migration
+or universal stateful rollback. Enter verifies cleanup.
+See <a href="upgrade-demo.html" class="xref page">the native lifecycle safety boundary and recovery</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_optional_chapter_4_cross_runtime_four_standard_interoperability"><a class="anchor" href="#_optional_chapter_4_cross_runtime_four_standard_interoperability"></a>Optional chapter 4: cross-runtime, four-standard interoperability</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:docker-kubernetes-four-contracts:present</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Show:</strong> real OpenAPI/HTTP, GraphQL/HTTP, Protobuf/gRPC and AsyncAPI/MQTT exchanges
+from the actual Docker consumer&#8217;s network boundary to Kubernetes. A controlled
+HTTP-200 value mismatch is rejected, changes the consumer decision, and is then
+restored and freshly verified. Mosquitto is real; the provider and consumer are
+labelled standards-native fixtures, <strong>not</strong> production producer acceptance or MARE
+analytics. See <a href="live-multi-runtime-demo.html" class="xref page">the protocol and network details</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_close_with_evidence_not_a_blanket_readiness_claim"><a class="anchor" href="#_close_with_evidence_not_a_blanket_readiness_claim"></a>Close with evidence, not a blanket readiness claim</h3>
+<div class="paragraph">
+<p>At every pause, the Mermaid graph is the <strong>locked plan</strong>. The new runtime table
+is a timestamped observation; a running container or available controller is
+not API acceptance. Historical probe records keep their own timestamps and age.
+The final application tables come from the separately completed live assertions.
+Use the printed cache/Kubernetes context for further inspection. Never substitute
+a fresh cache when recovering an interrupted run. Enter, Ctrl-C, EOF and timeout
+take the ownership-safe cleanup path; never delete unrelated resources or force
+namespace finalizers. Require the cleanup receipt, not just an empty terminal.</p>
+</div>
+<div class="paragraph">
+<p>Keep matching rehearsal reports as a clearly labelled fallback. Do not replay
+them as a claimed live result. For the catalogue-wide appendix, run
+<code>task testing:contracts:readiness</code> and consult the
+<a href="verification-and-examples.html" class="xref page">verification boundaries</a>. Interface
+declarations, source-derived Contracts, runtime-only brokers, planning fixtures,
+stubs and producer doubles do not become production-certified through this demo.
+DOT-Registry and partner/SFC acceptance remain separate integration work.</p>
+</div>
+<div class="paragraph">
+<p>The existing <strong>Kubernetes and Helm runtime E2E</strong> workflow accepts the optional
+<code>full_demo_readiness=true</code> manual input to run these same preparation and complete
+rehearsal Tasks. Ordinary pushes retain their focused runtime matrix; the long
+full-demo qualification is explicit. Uploaded reports are redacted evidence,
+not automatically a public live-service dashboard.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -371,7 +570,8 @@ and namespace/port conflicts. Follow
 <a href="mare-poc-compositions.html#_presentation_preflight" class="xref page">the secure-API preflight instructions</a>
 to keep the same overrides in the presentation terminal.
 Select <code>DEMO=four-contracts</code> for the mixed-runtime fixture, or <code>DEMO=monitoring</code>
-for node-exporter/Prometheus. Without a selector, the task checks all three routes.
+for node-exporter/Prometheus. Select <code>DEMO=portability</code> or <code>DEMO=upgrade</code> for the
+additional comparison/recovery lanes. Without a selector, all five are checked.
 These are point-in-time prerequisite checks, not live acceptance or resource
 reservations. In particular, four-Contract preflight checks cached images,
 Docker resource conflicts and selected NodePorts, not end-to-end gateway routing.</p>
@@ -767,13 +967,15 @@ example of production security hardening.</p>
 <div class="sect2">
 <h3 id="_what_did_this_presentation_actually_demonstrate"><a class="anchor" href="#_what_did_this_presentation_actually_demonstrate"></a>What did this presentation actually demonstrate?</h3>
 <div class="paragraph">
-<p>The Docker/Kubernetes demo runs test-only provider/consumer components and
-Mosquitto, then verifies four exchanges from the consumer&#8217;s network namespace.
-The PoC10 topology relates the same concepts to a source-adapted use case;
-showing that graph does not deploy or accept it. Its separate live rehearsal
-checks authentication, denial and a stored-data read. A producer double, stub,
-planning fixture or source adaptation must remain visibly labelled. DOT-Registry
-REST API and joint SFC/partner acceptance are not claimed by either demo.</p>
+<p>The official route verifies one Prometheus DOT on two runtimes, a source-adapted
+secure API with policy denial/restoration and unchanged stored RDF, and native
+stateless OPA upgrade/recovery. The optional standards chapter uses test-only
+provider/consumer components and real Mosquitto to verify four exchanges from
+the consumer&#8217;s network namespace. The shorter standards-focused route shows
+the PoC10 graph only unless its separate live task is run; a topology alone
+never accepts it. Producer doubles, stubs, planning fixtures and source adaptations
+remain labelled. DOT-Registry REST API, complete producer/PoC acceptance and
+joint SFC/partner acceptance are not claimed by these demonstrations.</p>
 </div>
 </div>
 <div class="sect2">

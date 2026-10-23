@@ -66,6 +66,9 @@
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -459,7 +462,8 @@ node, selected cached images, Docker identity/network conflicts, and existing
 Services occupying the four selected NodePorts. It does not build/pull images,
 reserve ports, attach networks, deploy anything or prove gateway reachability.
 The live acceptance below remains necessary. Use <code>DEMO=monitoring</code> for the
-node-exporter/Prometheus route or omit <code>DEMO</code> to check all three presenter routes.</p>
+node-exporter/Prometheus route, <code>DEMO=portability</code> or <code>DEMO=upgrade</code> for those
+lanes, or omit <code>DEMO</code> to check all five presenter routes.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -608,7 +612,11 @@ task testing:demo:rehearse</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Rehearsal repeats all three live paths twice. Prometheus covers default/overridden
+<p>The full rehearsal now repeats seven live paths twice: quickstart, monitoring,
+Prometheus portability, secure API, OPA upgrade/rollback, OAuth and this fixture.
+Use <a href="guided-demo.html#official-demo-route" class="xref page">the integrated ecosystem route</a>
+for explicit preparation, preflight and evidence interpretation.
+The quickstart covers default/overridden
 ports and failure cleanup. OAuth verifies HTTP 401 without a token, token
 acquisition, protected access, native Secret references, status, and cleanup.
 The separate MQTT regression uses the actual pinned client and a loopback-only
