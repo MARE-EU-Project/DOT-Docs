@@ -287,8 +287,8 @@ presenter pause for inspecting verified live results before cleanup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx deploy</code>, <code>status</code>, <code>start</code>, <code>stop</code>, <code>destroy</code>, <code>ps</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Validate, lock, plan and display a multi-DOT graph</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx compose validate</code>, <code>lock</code>, <code>plan</code>, <code>topology</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validate, lock, inspect and display a multi-DOT graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx compose validate</code>, <code>lock</code>, <code>inspect</code>, <code>topology</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Operate and verify a composition</p></td>
@@ -311,8 +311,49 @@ presenter pause for inspecting verified live results before cleanup.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version
 dotx help
-dotx compose --help</code></pre>
+dotx compose --help
+dotx compose inspect --help</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Composition subcommand help includes only that operation&#8217;s flags, an example,
+a suggested next step and its safety boundary. For example, <code>compose inspect</code>
+resolves declared inputs without deployment, <code>apply --dry-run</code> previews commands,
+and <code>status</code> reads recorded runtime state. The complete production profile remains
+available through <code>dotx compose --help</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understand_validation_failures"><a class="anchor" href="#_understand_validation_failures"></a>Understand validation failures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The current source CLI reports a diagnostic code, the affected file, an
+RFC 6901 JSON Pointer, a short explanation and a repair hint. Schema diagnostics
+use the selected generated schema to show expected types and exact enum
+spellings; there is no separate hand-maintained model definition. Input values,
+manifest contents and raw download errors are withheld to protect credentials.
+An empty pointer means a document-root or file-level failure. Some catalogue
+metadata failures identify a directory rather than an individual file.</p>
+</div>
+<div class="paragraph">
+<p>For editors, scripts and CI, request one JSON report on stdout, including failures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository --offline --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run this example from a DOT-Design checkout with its pinned catalogue and
+source-built CLI; from a standalone catalogue checkout use <code>.</code> instead of
+<code>DOT-Repository</code>. The report has <code>formatVersion: 1</code>, <code>valid</code>, <code>target</code>, <code>kind</code>,
+completed <code>dots</code>/<code>compositions</code> counts, and <code>diagnostics</code> containing <code>code</code>, <code>file</code>,
+<code>pointer</code>, <code>message</code>, <code>hint</code> and optional <code>keyword</code>/<code>expected</code> fields.
+Exit codes remain <code>0</code> (valid), <code>1</code> (invalid or unavailable), and <code>2</code> (usage error).
+Normal JSON-mode validation failures leave stderr empty. Validation stops at the
+first failing definition or phase, although a schema failure can report multiple
+constraints. It never repairs inputs or rewrites reviewed locks automatically.</p>
 </div>
 <div class="paragraph">
 <p>For reusable catalogue examples and explicit deployment selection, see
@@ -332,8 +373,8 @@ producers, source-adapted integrations and synthetic fixtures.</p>
 <h2 id="_versions_and_model_authority"><a class="anchor" href="#_versions_and_model_authority"></a>Versions and model authority</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The CLI release version is independent of DOT-Design. Release installation
-instructions use the published binary; development demos may require the
+<p>DOT-Design and its pinned DOT-CLI source versions are kept aligned. Release installation
+instructions use the published binary; development demos and the diagnostics above may require the
 exact source revision pinned by the DOT-Design checkout, even when its version
 label matches a release. See
 <a href="../dot-design/contributor-guide.html" class="xref page">Development and testing</a> for source
