@@ -231,6 +231,22 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>The catalogue now uses explicit readable IDs for its five Skill categories and
+eight capabilities. DOT references contain only <code>id</code>; labels and descriptions
+resolve from <code>Skills/</code>. Existing references and affected composition locks have
+been migrated together. UUID-shaped Skill IDs remain supported in independently
+authored or historical catalogues, but old UUIDs are not implicit aliases in the
+current catalogue. Contract IDs, DOT/Anchor/Composition UUIDs, and public domain
+models are unchanged by this step.</p>
+</div>
+<div class="paragraph">
+<p>Automated native Prometheus and quickstart acceptance now coordinate unused TCP
+ports with per-user leases, check IPv4/IPv6 listeners, and reject occupied
+explicit overrides without stopping existing services. Leases are released
+after cleanup, including controlled failures. The manually followed Prometheus
+walkthrough retains its documented port defaults.</p>
+</div>
+<div class="paragraph">
 <p>Contract <code>standard</code> now accepts only <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, and
 <code>GraphQL</code>, generated from the Java domain enum&#8217;s Jackson values. This is an
 intentional input-format change: uppercase values and case/whitespace aliases

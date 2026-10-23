@@ -376,6 +376,23 @@ ID-based so changes to mutable metadata or collections do not destabilize sets
 or persistence identity.</p>
 </div>
 <div class="paragraph">
+<p>The current catalogue uses readable IDs for its five Skill categories and eight
+capabilities. Prometheus, for example, contains only:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"skills": [{"id": "Metrics-Scraping"}, {"id": "Observability"}]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>dotx repository inspect &lt;uuid&gt;@&lt;version&gt; --repository DOT-Repository --json</code>
+resolves those IDs to the authoritative labels, descriptions and
+<code>Monitoring-and-Analysis</code> category. References require the exact ID; search
+filters may additionally match a name case-insensitively. A display-label change
+never implicitly changes identity. Existing Contract IDs are not migrated by
+this Skill-only catalogue change.</p>
+</div>
+<div class="paragraph">
 <p><code>Version</code> accepts Semantic Versioning 2.0.0 values and the special <code>latest</code>
 selector. It serializes as a string and implements SemVer precedence; <code>latest</code>
 sorts after concrete versions. A new <code>Dot</code> or <code>Contract</code> defaults to <code>0.0.0</code>,
