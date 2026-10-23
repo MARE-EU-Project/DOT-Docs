@@ -325,6 +325,42 @@ available through <code>dotx compose --help</code>.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_find_a_dot_without_copying_uuids"><a class="anchor" href="#_find_a_dot_without_copying_uuids"></a>Find a DOT without copying UUIDs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The current source-built CLI discovers the catalogue from your working directory.
+At each level, starting in the current directory and walking toward the filesystem
+root, it checks for <code>DOTs/</code> first, then <code>DOT-Repository/DOTs/</code>. Commands therefore
+work from DOT-Design, DOT-CLI, a standalone catalogue checkout, or a directory
+inside one of its DOTs/compositions. A renamed catalogue is recognized by its
+<code>DOTs/</code> directory, not by its Git remote or directory name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository list --skill Metrics-Scraping
+dotx repository inspect Prometheus-DOT@0.2.0 --json
+dotx repository resolve Prometheus-DOT@0.2.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>inspect</code> and <code>resolve</code> accept an exact, case-sensitive DOT <code>name@version</code>, as
+well as the existing UUID/version selector. The version is exact: no fuzzy name
+matching, automatic latest-version choice or identity migration is performed.
+The last <code>@</code> separates the version; quote names containing spaces. Ambiguous
+matches fail, and UUID matches take precedence over coincidentally UUID-shaped
+names. JSON output still reports the authoritative UUID and unchanged definition.</p>
+</div>
+<div class="paragraph">
+<p>Explicit <code>--repository &lt;path-or-git-url&gt;</code> overrides discovery. If the selected
+catalogue is malformed, unreadable or missing, the command fails rather than
+switching to a different catalogue. Without a discoverable catalogue, provide
+that flag explicitly. Composition sources remain
+<code>repository://&lt;uuid&gt;@&lt;version&gt;</code>; names do not replace immutable source identities,
+locks or runtime ownership checks. No separate catalogue inventory is required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_understand_validation_failures"><a class="anchor" href="#_understand_validation_failures"></a>Understand validation failures</h2>
 <div class="sectionbody">
 <div class="paragraph">
