@@ -335,7 +335,14 @@ the Maven <code>verify</code> phase.</p>
 <p><code>DOT-CLI</code> is an independent Go module and is not part of the Maven reactor:</p>
 </div>
 <div class="paragraph">
-<p>Install the independently versioned standalone release with Go 1.27 or later:</p>
+<p>DOT-Design <code>VERSION</code>, its Maven artifacts and the pinned <code>DOT-CLI/VERSION</code>
+share the same version number. Run <code>task testing:version:alignment</code> to verify
+the checkout. Independent repositories and publication jobs do not imply
+independent version numbers; source revisions still identify unreleased changes.
+Antora keeps current development content under <code>Next</code>, preserving stable tags.</p>
+</div>
+<div class="paragraph">
+<p>Install the standalone release with Go 1.27 or later:</p>
 </div>
 <div class="listingblock">
 <div class="content">
