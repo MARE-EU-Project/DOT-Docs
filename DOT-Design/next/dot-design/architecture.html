@@ -568,6 +568,10 @@ element.</p>
 <p>Load each Contract input and verify its case-sensitive textual ID.</p>
 </li>
 <li>
+<p>Resolve exact external Anchor Contract sources without copying their
+declarations or searching other bundles; lock the originating definitions.</p>
+</li>
+<li>
 <p>Select one deployment for every named DOT instance.</p>
 </li>
 <li>
@@ -575,6 +579,11 @@ element.</p>
 </li>
 <li>
 <p>Evaluate three-state compatibility: <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>.</p>
+</li>
+<li>
+<p>For provider-neutral OIDC requirements, verify the supported discovery profile
+against the actual selected provider Contract. Exact consumers retain strict
+same-Contract matching; this is not general OpenAPI substitutability.</p>
 </li>
 <li>
 <p>Derive connection endpoints, explicit cross-platform network ownership,

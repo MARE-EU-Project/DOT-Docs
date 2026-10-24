@@ -296,6 +296,14 @@ rewrite IDs, spelling, manifests or reviewed locks to make mismatched artifacts
 appear compatible. Follow the pinned source route in the
 <a href="contributor-guide.html" class="xref page">contributor guide</a> for current catalogue work.</p>
 </div>
+<div class="paragraph">
+<p>Current source also distinguishes owned Contract declarations, explicit external
+Anchor references and provider-neutral OIDC requirements. Consumer bundles no
+longer carry producer Contract copies. An external reference requires its exact
+originating DOT in the selected catalogue; missing dependencies fail validation,
+including offline validation. See <a href="anchors-and-composition.html" class="xref page">Anchors and
+composition</a> for syntax, resolution and the deliberately narrow OIDC profile.</p>
+</div>
 </div>
 </div>
 <div class="sect1">

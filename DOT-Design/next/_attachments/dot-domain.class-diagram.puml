@@ -102,6 +102,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - role: AnchorRole
       - semanticTypes: List<URI>
       - contract: AnchorContract
+      - requirement: AnchorRequirement
       - direction: AnchorDirection
       - protocols: List<String>
       - mediaTypes: List<String>
@@ -112,12 +113,19 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     class "AnchorContract" as eu_mare6g_dot_domain_anchor_AnchorContract #FFFFFF {
       - id: String
       - selector: String
+      - source: String
     }
 
     enum "AnchorDirection" as eu_mare6g_dot_domain_anchor_AnchorDirection #FFF7ED {
       INGRESS
       EGRESS
       BIDIRECTIONAL
+    }
+
+    enum "AnchorRequirement" as eu_mare6g_dot_domain_anchor_AnchorRequirement #FFF7ED {
+      OIDC_DISCOVERY_1_0
+      --
+      - uri: URI {readOnly}
     }
 
     enum "AnchorRole" as eu_mare6g_dot_domain_anchor_AnchorRole #FFF7ED {
@@ -652,7 +660,8 @@ eu_mare6g_dot_domain_Metadata -[hidden]down- eu_mare6g_dot_domain_Skill
 eu_mare6g_dot_domain_Skill -[hidden]down- eu_mare6g_dot_domain_Version
 eu_mare6g_dot_domain_anchor_Anchor -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorContract
 eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorDirection
-eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorRole
+eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorRequirement
+eu_mare6g_dot_domain_anchor_AnchorRequirement -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorRole
 eu_mare6g_dot_domain_anchor_validation_AnchorSelectorSyntax -[hidden]down- eu_mare6g_dot_domain_anchor_validation_AnchorValidator
 eu_mare6g_dot_domain_composition_AnchorReference -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProbe
 eu_mare6g_dot_domain_composition_AsyncAPIProbe -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication
@@ -706,7 +715,8 @@ eu_mare6g_dot_domain_runtime_platform_Platform -[hidden]down- eu_mare6g_dot_doma
 eu_mare6g_dot_domain_Metadata -[hidden]right- eu_mare6g_dot_domain_Skill
 eu_mare6g_dot_domain_Skill -[hidden]right- eu_mare6g_dot_domain_Version
 eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorDirection
-eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorRole
+eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorRequirement
+eu_mare6g_dot_domain_anchor_AnchorRequirement -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorRole
 eu_mare6g_dot_domain_composition_ContractInput -[hidden]right- eu_mare6g_dot_domain_composition_DotInstance
 eu_mare6g_dot_domain_composition_DotInstance -[hidden]right- eu_mare6g_dot_domain_composition_ExposedAnchor
 eu_mare6g_dot_domain_composition_ExposedAnchor -[hidden]right- eu_mare6g_dot_domain_composition_Wire
@@ -748,6 +758,7 @@ eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_contra
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]left- "0..*" eu_mare6g_dot_domain_runtime_Runtime : runtimes
 eu_mare6g_dot_domain_anchor_Anchor "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_anchor_AnchorContract : contract
 eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_anchor_AnchorDirection : direction
+eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_anchor_AnchorRequirement : requirement
 eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_anchor_AnchorRole : role
 eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_SecretReference : passwordSecretRef
 eu_mare6g_dot_domain_composition_AsyncAPIProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication : authentication

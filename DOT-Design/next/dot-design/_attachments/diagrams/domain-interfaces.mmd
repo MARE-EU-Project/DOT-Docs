@@ -29,14 +29,16 @@ classDiagram
     UUID id
     String name
     AnchorRole role
+    AnchorRequirement requirement
     List~URI~ semanticTypes
     AnchorDirection direction
     List~String~ protocols
     List~String~ mediaTypes
   }
   class AnchorContract {
-    UUID id
+    String id
     String selector
+    String source
   }
 
   Dot "1" --> "1..*" Skill : ID references

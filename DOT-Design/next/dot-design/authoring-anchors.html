@@ -359,10 +359,85 @@ UUID is illustrative, not a second catalogue definition.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The opposite DOT declares its own <code>REQUIRES</code> Anchor. It may select the same
-Contract ID or an independently authored Contract. Compatibility is
-deterministic when authoritative facts are comparable; otherwise the result is
-<code>UNKNOWN</code>, never an invented match.</p>
+<p>The opposite DOT declares its own <code>REQUIRES</code> Anchor. An exact consumer selects
+the same Contract ID and operation; independently authored Contracts are not
+automatically interchangeable. AsyncAPI additionally requires complementary
+operations. Unsupported matches fail rather than being inferred from names.</p>
+</div>
+<div class="sect2">
+<h3 id="ownership-is-not-consumption"><a class="anchor" href="#ownership-is-not-consumption"></a>Ownership is not consumption</h3>
+<div class="paragraph">
+<p><code>Dot.contracts</code> contains this product&#8217;s authoritative declarations. A consumer
+references an external interface on its Anchor without copying its Contract or
+payload. For example, a Prometheus API consumer uses:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "a0000000-0000-4000-8000-000000000002",
+  "name": "read-build-information",
+  "role": "REQUIRES",
+  "contract": {
+    "id": "Prometheus@3.15.0::OpenAPI::HTTP",
+    "selector": "#/paths/~1status~1buildinfo/get",
+    "source": "repository://Prometheus@3.15.0"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The exact origin must declare that ID. Validation resolves its verified asset
+and selector; another bundle&#8217;s copy cannot rescue a missing origin. Run from
+the matching catalogue context. A detached consumer with unavailable origins
+fails; <code>--offline</code> never skips these checks. A DOT implementing an externally
+defined interface may similarly reference its origin on a <code>PROVIDES</code> Anchor
+without claiming authorship. Service Contract bindings describe provided APIs,
+not every API the service calls.</p>
+</div>
+<div class="paragraph">
+<p>A local composition may be inspected against a separate immutable Git cache.
+Its Contract input must still belong to the explicitly referenced owner&#8217;s
+<code>contracts/</code> directory. The owner-relative path and wrapper bytes must match the
+pinned checkout exactly, in addition to the declaration and payload-hash checks.
+This does not authorize loose copies or consumer-owned dependency assets.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="provider-neutral-oidc-discovery"><a class="anchor" href="#provider-neutral-oidc-discovery"></a>Provider-neutral OIDC discovery</h3>
+<div class="paragraph">
+<p>APISIX accepts an OIDC provider; its reusable root must not select Keycloak or
+embed a Keycloak discovery Contract. Its discovery Anchor instead declares:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "aa100000-0000-4000-8000-000000000002",
+  "name": "oidc-discovery",
+  "role": "REQUIRES",
+  "requirement": "OIDC_DISCOVERY_1_0"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Contract, requirement and explicit protocol/media modes are mutually exclusive.
+The existing composition wire selects Keycloak&#8217;s provider Anchor, Contract and
+operation. The narrow profile verifies a GET configuration endpoint and a JSON
+HTTP-200 object schema requiring <code>issuer</code>, <code>authorization_endpoint</code>,
+<code>token_endpoint</code>, <code>jwks_uri</code>, <code>response_types_supported</code>,
+<code>subject_types_supported</code> and <code>id_token_signing_alg_values_supported</code>, with URI
+strings and string-array types as appropriate. It conservatively requires token
+endpoint metadata; unsupported schema shapes fail closed. This is not generic
+OpenAPI substitutability, full OIDC certification, or live issuer/TLS validation.</p>
+</div>
+<div class="paragraph">
+<p><code>dotx compose inspect --json</code> reports <code>requirementProfile</code> alongside the actual
+provider Contract. Locks pin external origin definitions and selected payloads.
+Unwired optional interfaces are not reported as connected. The unused APISIX
+forwarded-discovery example Anchor was removed. Protected-metadata routes are
+still explicitly derived, composition-configured examples, not a native APISIX
+Admin API or unconditional route. Use the matching source CLI; the original
+released v0.2.5 predates these fields and checks.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="reading-compatibility-results"><a class="anchor" href="#reading-compatibility-results"></a>Reading compatibility results</h3>
