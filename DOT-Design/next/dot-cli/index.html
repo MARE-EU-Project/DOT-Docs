@@ -365,18 +365,18 @@ definitions does not prove live readiness.</p>
 </div>
 <div class="paragraph">
 <p><code>inspect</code> and <code>resolve</code> accept an exact, case-sensitive DOT <code>name@version</code>, as
-well as the existing UUID/version selector. The version is exact: no fuzzy name
+well as the authoritative ID/version selector. The version is exact: no fuzzy name
 matching, automatic latest-version choice or identity migration is performed.
 The last <code>@</code> separates the version; quote names containing spaces. Ambiguous
-matches fail, and UUID matches take precedence over coincidentally UUID-shaped
-names. JSON output still reports the authoritative UUID and unchanged definition.</p>
+matches fail, and ID matches take precedence over coincidentally matching
+names. JSON output reports the authoritative case-sensitive ID and definition.</p>
 </div>
 <div class="paragraph">
 <p>Explicit <code>--repository &lt;path-or-git-url&gt;</code> overrides discovery. If the selected
 catalogue is malformed, unreadable or missing, the command fails rather than
 switching to a different catalogue. Without a discoverable catalogue, provide
 that flag explicitly. Composition sources remain
-<code>repository://&lt;uuid&gt;@&lt;version&gt;</code>; names do not replace immutable source identities,
+<code>repository://&lt;id&gt;@&lt;version&gt;</code>; display-name lookup does not replace source identities,
 locks or runtime ownership checks. No separate catalogue inventory is required.</p>
 </div>
 </div>
@@ -390,7 +390,7 @@ From the DOT-Design checkout:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.0 --name Prometheus --port http:9090 --output ./my-dot/dot.json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.0 --name Prometheus --skill Metrics-Scraping --port http:9090 --output ./my-dot/dot.json
 dotx validate ./my-dot --schema DOT-Repository/Schema/schema.json
 dotx inspect ./my-dot
 # Alternatively: dotx new --interactive</code></pre>
@@ -403,6 +403,13 @@ authoring is a starting point for a genuinely new DOT. Add authoritative
 Contracts and explicit Anchors/bindings before integration. The positional
 <code>dotx new &lt;name&gt;</code> mode remains a template-based project workflow requiring
 Git, Jsonnet and network access. See <code>dotx new --help</code> for both modes.</p>
+</div>
+<div class="paragraph">
+<p>Native authoring derives <code>&lt;name&gt;-&lt;version&gt;</code> as the DOT ID and requires at least
+one explicit <code>--skill &lt;id&gt;</code> (repeat the flag for multiple capabilities).
+Interactive authoring asks for a Skill when none was supplied. Declare the
+capability&#8217;s meaning in the selected catalogue&#8217;s <code>Skills/</code>; do not infer
+capabilities, interoperability or live readiness from the image alone.</p>
 </div>
 </div>
 </div>

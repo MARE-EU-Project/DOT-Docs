@@ -422,9 +422,13 @@ or copied Contract operation catalogue. Executor plans, locks and runtime state
 are CLI concerns rather than portable domain inputs.</p>
 </div>
 <div class="paragraph">
-<p>DOT, Anchor and Composition identities are UUIDs. Skill and Contract identities
-are case-sensitive textual IDs; legacy UUID-shaped strings remain accepted.
-IDs are not lookup labels or a replacement for the raw Contract URL plus SHA-256.
+<p>DOT, Skill and Contract identities are case-sensitive textual IDs; legacy
+UUID-shaped strings remain accepted. Catalogue DOT IDs use <code>&lt;name&gt;-&lt;version&gt;</code>;
+Contract IDs use <code>&lt;name&gt;-&lt;version&gt;-&lt;standard&gt;</code> with canonical standard spelling.
+Every DOT must reference at least one meaningful Skill. Anchor and Composition
+identities remain UUIDs. A DOT name or version change therefore changes its
+catalogue identity; update composition pins and regenerate reviewed locks.
+IDs are not a replacement for the raw Contract URL plus SHA-256.
 The <a href="integration-handoff.html" class="xref page">integration handoff</a> and
 <a href="verification-and-examples.html" class="xref page">executable acceptance profiles</a> document
 cross-reference, conservative compatibility and runtime boundaries.</p>

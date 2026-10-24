@@ -275,7 +275,7 @@ including sensitivity. This declaration is the allow-list for composition.</p>
 composition.</p>
 </li>
 <li>
-<p>Add named, UUID/version-pinned DOT instances and ID-pinned Contract inputs
+<p>Add named, ID/version-pinned DOT instances and ID-pinned Contract inputs
 to a separate composition document.</p>
 </li>
 <li>
@@ -316,12 +316,14 @@ harness remains in <code>DOT-Testing/e2e/api-gateway-oidc/</code>.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Concrete identifiers in this guide use the canonical lowercase UUID text form
-with UUIDv4 version and IETF variant bits defined by
+<p>Anchor and Composition identifiers in this guide use the canonical lowercase
+UUID text form with UUIDv4 version and IETF variant bits defined by
 <a href="https://www.rfc-editor.org/rfc/rfc9562.html">RFC 9562</a>. Deterministic
 values are retained where they identify executable repository fixtures, making
 the documentation traceable to the tested examples. Generate new UUIDs for
-production DOTs; do not reuse documentation or fixture identifiers.</p>
+new Anchors and Compositions; do not reuse documentation or fixture identities.
+Catalogue DOT IDs use <code>&lt;name&gt;-&lt;version&gt;</code> and Contract IDs use
+<code>&lt;name&gt;-&lt;version&gt;-&lt;standard&gt;</code>. Each DOT references at least one meaningful Skill.</p>
 </div>
 </td>
 </tr>

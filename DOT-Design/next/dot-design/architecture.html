@@ -523,7 +523,7 @@ service-scoped; there is no deployment-level shared configuration surface.</p>
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">AnchorContract(id, selector)
         |
         v
-load Contract by UUID
+load Contract by case-sensitive ID
         |
         v
 standard-specific resolver
@@ -562,10 +562,10 @@ element.</p>
 <p>Validate the strict Draft 2020-12 composition shape.</p>
 </li>
 <li>
-<p>Load each local DOT source and verify the pinned UUID and version.</p>
+<p>Load each local DOT source and verify the pinned textual ID and version.</p>
 </li>
 <li>
-<p>Load each Contract input and verify its UUID.</p>
+<p>Load each Contract input and verify its case-sensitive textual ID.</p>
 </li>
 <li>
 <p>Select one deployment for every named DOT instance.</p>

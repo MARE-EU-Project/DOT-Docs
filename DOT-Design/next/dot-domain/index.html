@@ -371,19 +371,23 @@ semantics; they have not silently become stricter Java <code>Version</code> fiel
 <h2 id="_identity_versioning_and_references"><a class="anchor" href="#_identity_versioning_and_references"></a>Identity, versioning, and references</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Dot</code>, <code>Anchor</code>, and <code>Composition</code> identities remain UUIDs. Skills and Contracts
-use stable, case-sensitive textual IDs such as <code>Metrics-Scraping</code> and
-<code>Prometheus-3.15.0-OpenAPI</code>. IDs start with an ASCII letter or digit and contain
-only letters, digits, dots, underscores and hyphens. Existing UUID-shaped IDs
-remain valid unchanged. IDs are not display names, URLs, or automatically derived
-from mutable fields; renaming one requires updating every reference.
+<p><code>Dot</code>, <code>Skill</code>, and <code>Contract</code> use case-sensitive textual IDs. The catalogue uses
+<code>Prometheus-DOT-0.2.0</code>, <code>Metrics-Scraping</code>, and <code>Prometheus-3.15.0-OpenAPI</code>,
+respectively. DOT IDs follow <code>&lt;name&gt;-&lt;version&gt;</code>; Contract IDs follow
+<code>&lt;name&gt;-&lt;version&gt;-&lt;standard&gt;</code>. IDs start with an ASCII letter or digit and contain
+letters, digits, dots, underscores and hyphens; DOT IDs additionally permit <code>+</code>
+for SemVer build metadata. Existing UUID-shaped strings remain accepted, without
+implicit aliases to migrated entries. Anchor and Composition identities remain
+UUIDs. IDs are not URLs. The catalogue naming convention requires an explicit
+identity/reference update when changing a DOT name or definition version;
+mutating a Java object&#8217;s fields does not silently regenerate its ID.
 Equality for <code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> is
 ID-based so changes to mutable metadata or collections do not destabilize sets
 or persistence identity.</p>
 </div>
 <div class="paragraph">
-<p>The current catalogue uses readable IDs for its five Skill categories and eight
-capabilities. Prometheus, for example, contains only:</p>
+<p>Every DOT must reference at least one meaningful Skill. The catalogue&#8217;s
+capability assets resolve through <code>Skills/</code>. Prometheus, for example, contains:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -391,12 +395,12 @@ capabilities. Prometheus, for example, contains only:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><code>dotx repository inspect &lt;uuid&gt;@&lt;version&gt; --repository DOT-Repository --json</code>
+<p><code>dotx repository inspect &lt;id&gt;@&lt;version&gt; --repository DOT-Repository --json</code>
 resolves those IDs to the authoritative labels, descriptions and
 <code>Monitoring-and-Analysis</code> category. References require the exact ID; search
 filters may additionally match a name case-insensitively. A display-label change
-never implicitly changes identity. Existing Contract IDs are not migrated by
-this Skill-only catalogue change.</p>
+never implicitly changes identity. See the catalogue&#8217;s <code>IDENTIFIER-MIGRATION.md</code>
+for the completed DOT/Contract migration and safe lock/state handling.</p>
 </div>
 <div class="paragraph">
 <p><code>Version</code> accepts Semantic Versioning 2.0.0 values and the special <code>latest</code>

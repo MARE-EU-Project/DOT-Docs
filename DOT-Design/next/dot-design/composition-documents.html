@@ -306,26 +306,26 @@ name: keycloak-apisix-oauth
 version: 1.0.0
 dots:
   - name: identity
-    source: repository://49b0c883-e77a-535e-8589-d8a5c01b0a59@0.2.0
-    dotId: 49b0c883-e77a-535e-8589-d8a5c01b0a59
+    source: repository://Keycloak-DOT-0.2.0@0.2.0
+    dotId: Keycloak-DOT-0.2.0
     dotVersion: 0.2.0
     deployment: kubernetes
   - name: gateway
-    source: repository://da100000-0000-4000-8000-000000000002@1.0.0
-    dotId: da100000-0000-4000-8000-000000000002
+    source: repository://APISIX-DOT-1.0.0@1.0.0
+    dotId: APISIX-DOT-1.0.0
     dotVersion: 1.0.0
     deployment: kubernetes
     dependsOn: [identity]
 contracts:
-  - id: c3000000-0000-4000-8000-000000000001
-    source: ../../DOTs/external/Keycloak-DOT/contracts/c3000000-0000-4000-8000-000000000001.yaml</code></pre>
+  - id: OpenID-Connect-Discovery-1.0.0-OpenAPI
+    source: ../../DOTs/external/Keycloak-DOT/contracts/OpenID-Connect-Discovery-1.0.0-OpenAPI.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><code>name</code> identifies an instance inside this composition. <code>source</code> selects the
-repository definition by UUID and exact version. <code>dotx compose</code> locates the
+repository definition by ID and exact version. <code>dotx compose</code> locates the
 nearest <code>DOT-Repository</code> containing a <code>DOTs/</code> directory, discovers its
-definitions recursively, resolves the UUID/version to its reviewed bundle, and
+definitions recursively, resolves the ID/version to its reviewed bundle, and
 then verifies that <code>dotId</code> and <code>dotVersion</code> match the loaded <code>dot.json</code>. Neither
 a repository definition nor a local path can silently substitute a different
 DOT. <code>deployment</code> selects a deployment by its stable deployment ID or
@@ -395,7 +395,7 @@ topologies without creating false dependency cycles.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes, at least one</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named deployment instances. Every entry pins <code>source</code>, <code>dotId</code>, and
-  <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;uuid&gt;@&lt;version&gt;</code>
+  <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;id&gt;@&lt;version&gt;</code>
   source. <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
 </tr>
 <tr>
@@ -487,7 +487,7 @@ inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersi
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
   - name: site-a
     source: ./federation-agent
-    dotId: d5000000-0000-4000-8000-000000000001
+    dotId: poc11-federation-agent-1.0.0
     dotVersion: 1.0.0
     deployment: docker
     deploymentInputs:
@@ -495,7 +495,7 @@ inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersi
         - {service: federation-agent, name: FEDERATION_NODE_ID, value: site-a}
   - name: site-b
     source: ./federation-agent
-    dotId: d5000000-0000-4000-8000-000000000001
+    dotId: poc11-federation-agent-1.0.0
     dotVersion: 1.0.0
     deployment: docker
     deploymentInputs:
@@ -513,6 +513,12 @@ instances of that same DOT because they occupy separate resource scopes.
 Two native Kubernetes instances of the same DOT remain rejected, including
 when a Docker instance separates them in document order. See
 <a href="portability-demo.html" class="xref page">the Prometheus portability demonstration</a>.</p>
+</div>
+<div class="paragraph">
+<p>Changing a DOT&#8217;s version-specific ID does not isolate fixed resource names or
+ports. Apply and upgrade retain exact-ID collision checks and also check
+name-version product families, including fixed-port WASI HTTP instances.
+This conservative guard is not an identifier alias and does not change locks.</p>
 </div>
 <div class="paragraph">
 <p>The executable example is <code>DOT-Testing/composition/federation-peers/scenario.yaml</code>.</p>

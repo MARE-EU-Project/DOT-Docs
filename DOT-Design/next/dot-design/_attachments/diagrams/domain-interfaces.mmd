@@ -4,7 +4,7 @@ classDiagram
   accDescr: A DOT references Skills, declares Contracts, and owns Anchors. Complete Contracts use HTTPS payloads pinned by SHA-256. Contract-backed Anchors select operations by Contract ID and selector.
 
   class Dot {
-    UUID id
+    String id
     String name
     Version version
     List~String~ groups
@@ -39,7 +39,7 @@ classDiagram
     String selector
   }
 
-  Dot "1" --> "0..*" Skill : ID references
+  Dot "1" --> "1..*" Skill : ID references
   Dot "1" --> "0..*" Contract : authoritative declarations
   Dot "1" *-- "0..*" Anchor : logical interfaces
   Contract "1" *-- "1" ContractPayload : full definition

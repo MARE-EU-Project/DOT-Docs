@@ -249,7 +249,7 @@ or framework.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The reference source of reusable definitions is <code>DOT-Repository</code>. Resolve a DOT
-by its immutable UUID and pinned version, then verify the returned <code>dot.json</code>
+by its exact textual ID and pinned version, then verify the returned <code>dot.json</code>
 matches both. Resolve referenced Contract payloads without copying their
 protocol, schema, media, or security facts into an Anchor.</p>
 </div>
@@ -325,12 +325,16 @@ SFC acceptance or prove a partner catalogue/search implementation.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>address DOTs, Anchors and Compositions by stable UUID and pin DOT versions;</p>
+<p>address DOTs by exact textual ID and pinned version; preserve Anchor and Composition UUIDs;</p>
 </li>
 <li>
 <p>resolve Skills and Contracts by their exact, case-sensitive textual IDs;
 legacy UUID-shaped IDs remain valid, but names and case-folded aliases do not
 replace identity;</p>
+</li>
+<li>
+<p>require at least one meaningful Skill reference per DOT and consume the
+generated nonempty-list constraint rather than a separate handwritten rule;</p>
 </li>
 <li>
 <p>resolve contract-backed selectors against the authoritative OpenAPI,

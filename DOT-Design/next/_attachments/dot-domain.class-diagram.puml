@@ -62,7 +62,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
   }
 
   class "Dot" as eu_mare6g_dot_domain_Dot <<AggregateRoot>> #BFDBFE {
-    - id: UUID
+    - id: String
     - name: String
     - version: Version
     - description: String
@@ -212,7 +212,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     class "DotInstance" as eu_mare6g_dot_domain_composition_DotInstance #FFFFFF {
       - name: String
       - source: String
-      - dotId: UUID
+      - dotId: String
       - dotVersion: String
       - deployment: String
       - dependsOn: List<String>
@@ -738,7 +738,7 @@ eu_mare6g_dot_domain_deployment_manifest_DeploymentManifest <|-[#7E22CE]down- eu
 
 ' Associations
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Metadata : metadata
-eu_mare6g_dot_domain_Dot "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_Skill : skills (ref)
+eu_mare6g_dot_domain_Dot "1" -[#64748B]down-> "1..*" eu_mare6g_dot_domain_Skill : skills (ref)
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_anchor_Anchor : anchors
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_contract_Contract : contracts

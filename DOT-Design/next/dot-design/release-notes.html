@@ -237,13 +237,27 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>Catalogue DOT IDs now follow <code>&lt;name&gt;-&lt;version&gt;</code> and all 50 distinct Contract IDs
+follow <code>&lt;name&gt;-&lt;version&gt;-&lt;standard&gt;</code>. For example, <code>Prometheus-DOT-0.2.0</code>
+declares <code>Prometheus-3.15.0-OpenAPI</code>. DOT and composition DOT-reference types
+are now textual, generated from DOT-Domain. Legacy UUID strings remain valid
+inputs, but migrated entries do not provide aliases. Anchor and Composition
+UUIDs are unchanged. Every DOT now requires at least one Skill reference;
+native authoring accepts repeated <code>--skill &lt;id&gt;</code> flags and prompts interactively.
+See the catalogue&#8217;s <code>IDENTIFIER-MIGRATION.md</code> for exact mappings and state safety.
+Destroy old instances using their original checkout and CLI before migrating;
+regenerate and review locks, then rehearse fresh deployments. Do not reuse old
+runtime state or treat previous rehearsal receipts as evidence for the new graph.
+This is a development-format migration, not a new published release.</p>
+</div>
+<div class="paragraph">
 <p>The catalogue now uses explicit readable IDs for its five Skill categories and
 eight capabilities. DOT references contain only <code>id</code>; labels and descriptions
 resolve from <code>Skills/</code>. Existing references and affected composition locks have
 been migrated together. UUID-shaped Skill IDs remain supported in independently
 authored or historical catalogues, but old UUIDs are not implicit aliases in the
-current catalogue. Contract IDs, DOT/Anchor/Composition UUIDs, and public domain
-models are unchanged by this step.</p>
+current catalogue. That earlier Skill-only migration did not change the other
+identities; the subsequent DOT/Contract migration is described above.</p>
 </div>
 <div class="paragraph">
 <p>Automated native Prometheus and quickstart acceptance now coordinate unused TCP
@@ -290,7 +304,7 @@ there is no portable-model or schema change, and no new release is implied.</p>
 digest-pinned URL declaration. The repository-level Contract catalogue and
 validator fallback have been removed; all remaining assets live in their
 owning bundles. Repository validation still rejects conflicting definitions
-of the same Contract UUID. The shared local/GitHub repository gate additionally
+of the same Contract ID. The shared local/GitHub repository gate additionally
 validates every bundle in isolation and offline.</p>
 </div>
 <div class="paragraph">
