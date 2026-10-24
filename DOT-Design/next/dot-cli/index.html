@@ -310,10 +310,17 @@ presenter pause for inspecting verified live results before cleanup.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version
+dotx version --verbose
 dotx help
 dotx compose --help
 dotx compose inspect --help</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><code>version --verbose</code> adds the source revision, modified-worktree status, Go
+version and OS/architecture without contacting a server. Missing build metadata
+is shown as <code>unknown</code>. Plain <code>version</code> remains a single line; the version number
+alone does not identify the exact source build used for a rehearsal.</p>
 </div>
 <div class="paragraph">
 <p>Composition subcommand help includes only that operation&#8217;s flags, an example,
@@ -338,9 +345,17 @@ inside one of its DOTs/compositions. A renamed catalogue is recognized by its
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository list --skill Metrics-Scraping
+dotx repository list --verbose
 dotx repository inspect Prometheus-DOT@0.2.0 --json
 dotx repository resolve Prometheus-DOT@0.2.0</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The default catalogue table starts with names, versions and scopes, followed by
+up to three Skill names. Every matching DOT remains visible; <code>+N more</code> indicates
+additional Skills. <code>--verbose</code> shows IDs, groups and categories. <code>--json</code> retains
+the complete structured report and takes precedence over <code>--verbose</code>. Listing
+definitions does not prove live readiness.</p>
 </div>
 <div class="paragraph">
 <p><code>inspect</code> and <code>resolve</code> accept an exact, case-sensitive DOT <code>name@version</code>, as
@@ -357,6 +372,31 @@ switching to a different catalogue. Without a discoverable catalogue, provide
 that flag explicitly. Composition sources remain
 <code>repository://&lt;uuid&gt;@&lt;version&gt;</code>; names do not replace immutable source identities,
 locks or runtime ownership checks. No separate catalogue inventory is required.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author_a_runtime_only_scaffold"><a class="anchor" href="#_author_a_runtime_only_scaffold"></a>Author a runtime-only scaffold</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Native authoring writes <code>dot.json</code> without Git, Jsonnet or template downloads.
+From the DOT-Design checkout:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.0 --name Prometheus --port http:9090 --output ./my-dot/dot.json
+dotx validate ./my-dot --schema DOT-Repository/Schema/schema.json
+dotx inspect ./my-dot
+# Alternatively: dotx new --interactive</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This does not infer Contracts or Anchors and does not prove interoperability or
+live readiness. Reuse complete catalogue bundles where available; native
+authoring is a starting point for a genuinely new DOT. Add authoritative
+Contracts and explicit Anchors/bindings before integration. The positional
+<code>dotx new &lt;name&gt;</code> mode remains a template-based project workflow requiring
+Git, Jsonnet and network access. See <code>dotx new --help</code> for both modes.</p>
 </div>
 </div>
 </div>

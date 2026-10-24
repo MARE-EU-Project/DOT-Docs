@@ -438,6 +438,42 @@ connection, the default libvirt network, and <code>/dev/kvm</code> access.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_editor_assistance_from_the_domain_schemas"><a class="anchor" href="#_editor_assistance_from_the_domain_schemas"></a>Editor assistance from the domain schemas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Core model and field descriptions are generated from DOT-Domain&#8217;s Jackson
+annotations. Editors can show these descriptions alongside the same types,
+required fields and exact enum spellings used by validation. Do not edit
+generated schemas to change model documentation.</p>
+</div>
+<div class="paragraph">
+<p>For a DOT-Design workspace, a VS Code JSON association can be configured in your
+local user/workspace settings (not in <code>dot.json</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "json.schemas": [
+    {
+      "fileMatch": ["**/dot.json"],
+      "url": "./DOT-Repository/Schema/schema.json"
+    }
+  ],
+  "yaml.schemas": {
+    "./DOT-Repository/Schema/composition-v1.schema.json": "**/composition.yaml"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The YAML association requires an editor YAML language extension. In a standalone
+DOT-Repository checkout, use <code>./Schema/</code> instead. Keep associations editor-side:
+adding <code>$schema</code> to a portable Composition is not supported. Editor hints do not
+replace <code>dotx validate</code>, semantic validation, reviewed locks or live acceptance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_validate_a_dot"><a class="anchor" href="#_validate_a_dot"></a>Validate a DOT</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -493,7 +529,7 @@ mutable branch names are rejected. When no official raw machine-readable
 Contract exists, do not fabricate vendor provenance: retain a clearly attributed
 derived/adapter Contract until it can be migrated. Adjacent wrappers keep
 internal, testing, sample, and composition fixtures self-contained. Shared
-Contract UUIDs must resolve to identical metadata and payload bytes in every
+Contract IDs must resolve to identical metadata and payload bytes in every
 bundle; repository validation rejects conflicts.
 Use <code>dotx validate --offline</code> only when a matching local wrapper is present;
 offline validation verifies that its identity, metadata, and payload SHA-256
