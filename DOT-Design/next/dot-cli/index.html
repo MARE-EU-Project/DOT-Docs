@@ -361,6 +361,37 @@ locks or runtime ownership checks. No separate catalogue inventory is required.<
 </div>
 </div>
 <div class="sect1">
+<h2 id="_inspect_deployment_choices"><a class="anchor" href="#_inspect_deployment_choices"></a>Inspect deployment choices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the DOT-Design checkout, use the current source-built CLI:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx inspect DOT-Repository/DOTs/external/Prometheus-DOT
+dotx inspect DOT-Repository/DOTs/external/Prometheus-DOT --verbose
+dotx inspect DOT-Repository/DOTs/external/Prometheus-DOT --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default overview lists every deployment&#8217;s ID, platform, manifest type,
+service count and required inputs, followed by short Contract, Anchor and Skill
+previews. It never automatically chooses a deployment. <code>INPUTS*</code> counts required
+environment/config-file declarations without defaults for each service; it is
+not a readiness result. Storage and host/device declarations are flagged
+separately so you can review persistence and permissions before deploying.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>--verbose</code> for IDs, all interfaces/selectors, service bindings and detailed
+configuration declarations. <code>--json</code> preserves the complete structured report
+and overrides <code>--verbose</code> when combined. Invalid sensitive defaults are rejected
+in every mode; provide secrets through deployment-instance inputs instead.
+Inspection does not start workloads, test runtime availability or prove live
+API acceptance. It does not replace <code>dotx validate</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_understand_validation_failures"><a class="anchor" href="#_understand_validation_failures"></a>Understand validation failures</h2>
 <div class="sectionbody">
 <div class="paragraph">
