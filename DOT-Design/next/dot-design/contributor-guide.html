@@ -441,6 +441,27 @@ connection, the default libvirt network, and <code>/dev/kvm</code> access.</p>
 <h2 id="_editor_assistance_from_the_domain_schemas"><a class="anchor" href="#_editor_assistance_from_the_domain_schemas"></a>Editor assistance from the domain schemas</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>After changing DOT-Domain, generate schemas with the Java build, then run these
+from the DOT-Design checkout:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:domain:generate
+task cli:domain:check
+task cli:domain:generation:test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The read-only check covers all generated Go domain bindings, embedded validation
+schemas, the authoring output projection and Composition artifacts. It reports
+changed, missing or orphaned generated files without repairing the checkout.
+Fix drift by regenerating and reviewing it, not by editing generated Go files.
+The authoring projection derives field names, types and order from the domain
+schemas/generated bindings; frozen outputs protect readable JSON and existing
+omission behavior. Node and quicktype remain build-time tools, not dependencies
+of the installed CLI.</p>
+</div>
+<div class="paragraph">
 <p>Core model and field descriptions are generated from DOT-Domain&#8217;s Jackson
 annotations. Editors can show these descriptions alongside the same types,
 required fields and exact enum spellings used by validation. Do not edit
