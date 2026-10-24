@@ -389,6 +389,23 @@ in every mode; provide secrets through deployment-instance inputs instead.
 Inspection does not start workloads, test runtime availability or prove live
 API acceptance. It does not replace <code>dotx validate</code>.</p>
 </div>
+<div class="paragraph">
+<p>ID-only Contract references display names, versions and standards from the same
+verified bundle-local <code>contracts/</code> assets used by validation. JSON includes this
+resolved metadata while retaining the report structure, IDs and ordering.
+Missing or tampered assets fail before output: inspection never downloads
+Contract payloads or searches sibling DOTs. Complete URL-backed declarations
+show their declared metadata without verifying the remote document. Deployment
+support comes from the same capability list used by deploy/lifecycle commands,
+including WebAssembly.</p>
+</div>
+<div class="paragraph">
+<p>Human output provides a validation command and a dry-run template. Choose an
+exact deployment ID from the displayed choices and replace <code>&lt;deployment-id&gt;</code>;
+inspection never selects one automatically. Remote Git targets instead require
+a persistent checkout for these next steps, since their inspection clone is
+temporary.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
