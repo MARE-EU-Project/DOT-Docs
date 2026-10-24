@@ -322,8 +322,11 @@ UUID text form with UUIDv4 version and IETF variant bits defined by
 values are retained where they identify executable repository fixtures, making
 the documentation traceable to the tested examples. Generate new UUIDs for
 new Anchors and Compositions; do not reuse documentation or fixture identities.
-Catalogue DOT IDs use <code>&lt;name&gt;-&lt;version&gt;</code> and Contract IDs use
-<code>&lt;name&gt;-&lt;version&gt;-&lt;standard&gt;</code>. Each DOT references at least one meaningful Skill.</p>
+Catalogue DOT IDs use <code>&lt;name&gt;@&lt;tool-release&gt;</code> and Contract IDs use
+<code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>, for example
+<code>Keycloak@26.7.3::OpenAPI::Admin</code>. The ID identifies the interface, not an
+operation: the Anchor&#8217;s separate selector chooses the operation/path.
+Consumers keep the originating Contract ID. Each DOT references at least one meaningful Skill.</p>
 </div>
 </td>
 </tr>
@@ -337,18 +340,20 @@ Catalogue DOT IDs use <code>&lt;name&gt;-&lt;version&gt;</code> and Contract IDs
 <div class="paragraph">
 <p>A contract-backed Anchor carries stable identity and selects one authoritative
 contract element. It deliberately omits protocol, direction, media type,
-payload schema, and security fields that the Contract already defines.</p>
+payload schema, and security fields that the Contract already defines.
+This excerpt selects Prometheus&#8217;s real build-information operation; the Anchor
+UUID is illustrative, not a second catalogue definition.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "id": "a0000000-0000-4000-8000-000000000001",
-  "name": "submit-alert-http",
+  "name": "build-information-http",
   "role": "PROVIDES",
-  "semanticTypes": ["urn:mare:security:alert"],
+  "semanticTypes": ["https://prometheus.io/docs/prometheus/latest/querying/api/#build-information"],
   "contract": {
-    "id": "11111111-1111-4111-8111-111111111111",
-    "selector": "#/paths/~1alerts/post"
+    "id": "Prometheus@3.15.0::OpenAPI::HTTP",
+    "selector": "#/paths/~1status~1buildinfo/get"
   }
 }</code></pre>
 </div>
@@ -806,12 +811,13 @@ two services across Compose, Kubernetes, and Helm dry-run adapters.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The authoritative test and reference definitions are stored in
-<code>DOT-Repository</code> and addressed as <code>repository://&lt;dot-id&gt;@&lt;version&gt;</code>. Consumers
+<code>DOT-Repository</code> and addressed as <code>repository://&lt;name&gt;@&lt;version&gt;</code> for qualified
+IDs (legacy unqualified IDs use <code>repository://&lt;id&gt;@&lt;version&gt;</code>). Consumers
 can inspect one immutable definition or validate the complete repository:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect Prometheus@3.15.0 --repository DOT-Repository --json
 dotx validate DOT-Repository</code></pre>
 </div>
 </div>

@@ -276,10 +276,11 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 <h2 id="_canonical_external_catalogue"><a class="anchor" href="#_canonical_external_catalogue"></a>Canonical external catalogue</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The external catalogue currently has one root for each of these 17 products:
+<p>The external catalogue currently has one root for each of these 20 products:
 APISIX, cAdvisor, Elasticsearch, Filebeat, Grafana, GraphDB, InfluxDB,
 Keycloak, Kibana, Loki, Eclipse Mosquitto, Prometheus node-exporter, OPA,
-OpenTelemetry Collector, Oxigraph, Prometheus, and Wireshark. PoC compositions
+OpenTelemetry Collector, Oxigraph, Prometheus, Wireshark, NATS, Kafka, and
+RabbitMQ. PoC compositions
 reuse those identities and supply routes, realms, policies, scrape targets,
 data sources, credentials, files, and deployment selection as instance inputs.
 They do not create <code>pocN-*</code> copies of the product.</p>
@@ -312,28 +313,28 @@ not the complete external catalogue.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak@26.3.3</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bitnami <code>HELM_CHART</code> <code>25.2.0</code>; official Keycloak <code>DOCKER_COMPOSE</code>; official and PoC1 evidence <code>DOCKER_IMAGE</code> variants</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitnami <code>HELM_CHART</code> <code>25.2.0</code>; official Keycloak <code>DOCKER_COMPOSE</code> (both tool release 26.3.3). Native Kubernetes 26.0.7 and Docker 26.7.3 have separate release bundles.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.3.3 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Anchors</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and Compose <code>start-dev</code>; readiness; obtain an admin token and assert <code>GET /admin/realms/master</code> returns the master realm through both mechanisms</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Loki-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Loki@3.7.8</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Runtime sample, not reusable</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Grafana Community <code>HELM_CHART</code> <code>18.15.1</code>; official Loki <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No fabricated Contract: the pinned release has HTTP documentation and internal multi-file protobuf APIs, but no supported self-contained machine-readable Contract for the exposed public HTTP surface</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact single-binary StatefulSet binding and <code>/ready</code>; Compose <code>/ready</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Prometheus-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Prometheus@3.15.0</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Community <code>HELM_CHART</code> <code>29.37.0</code>; official Prometheus <code>DOCKER_COMPOSE</code> image pinned by digest; <code>DOCKER_IMAGE</code> for composition-owned scrape configuration</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact Prometheus 3.15.0 OpenAPI 3.1 artifact for build information and PromQL; explicit contractless scrape-target requirement materialized through <code>prometheus.yml</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact server Deployment binding; readiness; assert <code>/api/v1/status/buildinfo</code> reports version <code>3.15.0</code> through both mechanisms</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Wireshark-DOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Wireshark@4.6.1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Runtime sample, not reusable</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LinuxServer versioned <code>DOCKER_IMAGE</code>; equivalent <code>DOCKER_COMPOSE</code> image pinned by digest</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No fabricated Contract: the image exposes a human web desktop, not a supported machine API</p></td>
@@ -343,7 +344,8 @@ not the complete external catalogue.</p>
 </table>
 <div class="paragraph">
 <p>Each product is kept under <code>DOTs/external/</code> because it is owned outside MARE,
-with its supported deployment mechanisms in the same <code>dot.json</code>. Ownership does
+with mechanisms for one actual tool release in the same <code>dot.json</code>; additional
+releases are self-contained <code>versions/&lt;release&gt;/</code> bundles. Ownership does
 not imply interoperability maturity. Keycloak and Prometheus publish adjacent
 official Contract evidence and pass the strict reusable profile. Loki and
 Wireshark currently provide runtime evidence only; they must not be

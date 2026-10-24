@@ -7,10 +7,11 @@ cd "$root"
 case "${1:-}" in
   --inspect)
 # tag::inspect[]
-dotx validate DOT-Repository/DOTs/external/Keycloak-DOT \
+KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT/versions/26.3.3
+dotx validate "$KEYCLOAK" \
   --schema DOT-Repository/Schema/schema.json --profile reusable --offline
 
-dotx inspect DOT-Repository/DOTs/external/Keycloak-DOT --json |
+dotx inspect "$KEYCLOAK" --json |
   jq -e '{name, version,
           deployments: [.deployments[] |
             {id, platformEngine, type, supported}],
@@ -20,7 +21,7 @@ dotx inspect DOT-Repository/DOTs/external/Keycloak-DOT --json |
            ["DOCKER", "KUBERNETES"])'
 
 sed -n '1,12p' \
-  DOT-Repository/DOTs/external/Keycloak-DOT/contracts/keycloak-admin-rest.yaml
+  "$KEYCLOAK/contracts/keycloak-admin-rest.yaml"
 # end::inspect[]
     ;;
   --guardrail)

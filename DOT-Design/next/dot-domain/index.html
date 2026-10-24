@@ -372,14 +372,16 @@ semantics; they have not silently become stricter Java <code>Version</code> fiel
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>Dot</code>, <code>Skill</code>, and <code>Contract</code> use case-sensitive textual IDs. The catalogue uses
-<code>Prometheus-DOT-0.2.0</code>, <code>Metrics-Scraping</code>, and <code>Prometheus-3.15.0-OpenAPI</code>,
-respectively. DOT IDs follow <code>&lt;name&gt;-&lt;version&gt;</code>; Contract IDs follow
-<code>&lt;name&gt;-&lt;version&gt;-&lt;standard&gt;</code>. IDs start with an ASCII letter or digit and contain
-letters, digits, dots, underscores and hyphens; DOT IDs additionally permit <code>+</code>
-for SemVer build metadata. Existing UUID-shaped strings remain accepted, without
+<code>Prometheus@3.15.0</code>, <code>Metrics-Scraping</code>, and <code>Prometheus@3.15.0::OpenAPI::HTTP</code>,
+respectively. DOT IDs follow <code>&lt;name&gt;@&lt;version&gt;</code> using the actual tool release;
+Contract IDs follow <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>. The local Contract name
+is <code>HTTP</code> in this example. Consumers retain the originating identity, even when
+their own DOT has a different name or version. Contract API versions and chart
+packaging versions are independent. IDs are explicit keys, not download URLs or
+filesystem paths. Existing UUID-shaped strings remain accepted, without
 implicit aliases to migrated entries. Anchor and Composition identities remain
 UUIDs. IDs are not URLs. The catalogue naming convention requires an explicit
-identity/reference update when changing a DOT name or definition version;
+identity/reference update when changing a DOT name or tool release;
 mutating a Java object&#8217;s fields does not silently regenerate its ID.
 Equality for <code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> is
 ID-based so changes to mutable metadata or collections do not destabilize sets

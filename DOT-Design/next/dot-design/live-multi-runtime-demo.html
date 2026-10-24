@@ -749,9 +749,9 @@ jq '.dots | group_by(.status) | map({status: .[0].status, count: length})' \
 </div>
 </div>
 <div class="paragraph">
-<p>Audited snapshot after product-root consolidation: 67 valid definitions,
-27 strict interface-profile passes and 40 gaps. Removing duplicate demo products
-reduces the definition/pass counts; it does not resolve the remaining gaps.
+<p>Audited release-qualified snapshot: 74 valid definitions,
+29 strict interface-profile passes and 45 gaps. Splitting mixed tool releases
+changes bundle counts, not product readiness; it does not resolve interface gaps.
 Use the generated report for the actual checkout. Broker-only and negative
 fixtures do not necessarily need a business API. Official/source-derived
 Contracts, source-adapted PoCs, planning fixtures, stubs and producer doubles

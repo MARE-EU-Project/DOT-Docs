@@ -357,7 +357,7 @@ inspectable before apply:</p>
     -&gt; client/a5000000-0000-4000-8000-000000000001 [COMPATIBLE]
   endpoint: keycloak:8080
     (HTTP, instance=identity service=keycloak port=http)
-  contract: Keycloak-OIDC-26.7.3-OpenAPI
+  contract: Keycloak@26.7.3::OpenAPI::OIDC
     selector=#/paths/~1realms~1%7Brealm%7D~1protocol~1openid-connect~1token/post
   materializer: OPERATION_URL -&gt; client/oauth-client env:TOKEN_URL</code></pre>
 </div>
@@ -602,8 +602,8 @@ DOT instance whose selected deployment consumes them:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
   - name: client
-    source: repository://oauth-client-1.0.0@1.0.0
-    dotId: oauth-client-1.0.0
+    source: repository://oauth-client@1.0.0
+    dotId: oauth-client@1.0.0
     dotVersion: 1.0.0
     deployment: kubernetes
     deploymentInputs:

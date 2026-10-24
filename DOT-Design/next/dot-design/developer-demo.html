@@ -257,10 +257,11 @@ deployment platforms, which parts should they share?"</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository/DOTs/external/Keycloak-DOT \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT/versions/26.3.3
+dotx validate "$KEYCLOAK" \
   --schema DOT-Repository/Schema/schema.json --profile reusable --offline
 
-dotx inspect DOT-Repository/DOTs/external/Keycloak-DOT --json |
+dotx inspect "$KEYCLOAK" --json |
   jq -e '{name, version,
           deployments: [.deployments[] |
             {id, platformEngine, type, supported}],
@@ -270,13 +271,15 @@ dotx inspect DOT-Repository/DOTs/external/Keycloak-DOT --json |
            ["DOCKER", "KUBERNETES"])'
 
 sed -n '1,12p' \
-  DOT-Repository/DOTs/external/Keycloak-DOT/contracts/keycloak-admin-rest.yaml</code></pre>
+  "$KEYCLOAK/contracts/keycloak-admin-rest.yaml"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Show:</strong> one <code>Keycloak-DOT</code> identity with Docker image, Docker Compose and
-Kubernetes/Helm deployment choices. A PoC-specific image is a named deployment
-variant, not a new product identity. The same selected <code>admin-realm-read</code>
+<p><strong>Show:</strong> one <code>Keycloak@26.3.3</code> identity with Docker Compose and Kubernetes/Helm
+deployment choices. Other actual releases remain explicit version bundles under
+the same product root; do not label a 26.0.7 image as 26.3.3. PoC-specific
+configuration stays in composition inputs or named deployments, not a cloned
+product identity. The selected <code>admin-realm-read</code>
 Anchor refers to the Admin REST Contract and its <code>GET</code> selector. The adjacent
 Contract metadata identifies the official release archive, extracted payload,
 revision and SHA-256; no API definition is copied into the Anchor.</p>
@@ -293,8 +296,8 @@ Prefer official documents and label derived ones.</p>
 <div class="paragraph">
 <p><strong>Explain the boundary:</strong> an inspector reporting a supported deployment is not
 live acceptance of every deployment variant. The PoC10 rehearsal selects
-pinned native Kubernetes deployments of this same <code>Keycloak-DOT</code> and the shared
-<code>APISIX-DOT</code>, with composition-owned realms, routes and policy. It does not
+pinned native Kubernetes deployments <code>Keycloak@26.0.7</code> and <code>APISIX@3.11.0</code>,
+with composition-owned realms, routes and policy. It does not
 certify every variant or every Admin REST operation. Compare each plan&#8217;s <code>dotId</code>, <code>dotVersion</code> and
 <code>deploymentId</code> when explaining provenance.</p>
 </div>

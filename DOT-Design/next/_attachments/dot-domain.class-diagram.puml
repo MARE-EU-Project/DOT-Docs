@@ -72,6 +72,8 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     - contracts: List<Contract>
     - anchors: List<Anchor>
     - runtimes: List<Runtime>
+    --
+    + isIdentityConsistent(): boolean
   }
 
   class "Metadata" as eu_mare6g_dot_domain_Metadata #FFFFFF {
@@ -368,6 +370,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - format: DataFormat
       - payload: ContractPayload
       --
+      + isIdentityConsistent(): boolean
       + isPayloadSourceValid(): boolean
       + isFormatCompatibleWithStandard(): boolean
     }

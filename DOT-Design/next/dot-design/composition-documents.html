@@ -306,19 +306,19 @@ name: keycloak-apisix-oauth
 version: 1.0.0
 dots:
   - name: identity
-    source: repository://Keycloak-DOT-0.2.0@0.2.0
-    dotId: Keycloak-DOT-0.2.0
-    dotVersion: 0.2.0
+    source: repository://Keycloak@26.0.7
+    dotId: Keycloak@26.0.7
+    dotVersion: 26.0.7
     deployment: kubernetes
   - name: gateway
-    source: repository://APISIX-DOT-1.0.0@1.0.0
-    dotId: APISIX-DOT-1.0.0
-    dotVersion: 1.0.0
+    source: repository://APISIX@3.11.0
+    dotId: APISIX@3.11.0
+    dotVersion: 3.11.0
     deployment: kubernetes
     dependsOn: [identity]
 contracts:
-  - id: OpenID-Connect-Discovery-1.0.0-OpenAPI
-    source: ../../DOTs/external/Keycloak-DOT/contracts/OpenID-Connect-Discovery-1.0.0-OpenAPI.yaml</code></pre>
+  - id: Keycloak@26.7.3::OpenAPI::Discovery
+    source: ../../DOTs/external/Keycloak-DOT/contracts/Keycloak-26.7.3-OpenAPI-Discovery.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -487,16 +487,16 @@ inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersi
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
   - name: site-a
     source: ./federation-agent
-    dotId: poc11-federation-agent-1.0.0
-    dotVersion: 1.0.0
+    dotId: poc11-federation-agent@0.0.0-source.g303b353
+    dotVersion: 0.0.0-source.g303b353
     deployment: docker
     deploymentInputs:
       environment:
         - {service: federation-agent, name: FEDERATION_NODE_ID, value: site-a}
   - name: site-b
     source: ./federation-agent
-    dotId: poc11-federation-agent-1.0.0
-    dotVersion: 1.0.0
+    dotId: poc11-federation-agent@0.0.0-source.g303b353
+    dotVersion: 0.0.0-source.g303b353
     deployment: docker
     deploymentInputs:
       environment:

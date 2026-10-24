@@ -462,7 +462,7 @@ as though they were current online service health.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Say:</strong> both nodes use the same Prometheus UUID, official OpenAPI Contract and
+<p><strong>Say:</strong> both nodes use the same Prometheus release ID, official OpenAPI Contract and
 immutable image, with two selected deployment mechanisms. There are <strong>zero wires</strong>
 between these independent servers: this proves reuse, not replication/migration.
 <strong>Show:</strong> both build-information API versions match the selected image, <code>GOGC=75</code>,
@@ -1133,7 +1133,8 @@ digest-pinned Contracts while offering multiple deployment mechanisms.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx inspect DOT-Repository/DOTs/external/Keycloak-DOT --json |
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT/versions/26.3.3
+dotx inspect "$KEYCLOAK" --json |
   jq '{name, version,
        skills: (.skills | length),
        contracts: (.contracts | length),
@@ -1143,20 +1144,19 @@ digest-pinned Contracts while offering multiple deployment mechanisms.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>0.2.4</code> catalogue produces this compact projection:</p>
+<p>The current source catalogue produces this compact projection:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "name": "Keycloak-DOT",
-  "version": "0.2.0",
+  "name": "Keycloak",
+  "version": "26.3.3",
   "skills": 2,
   "contracts": 3,
   "anchors": 4,
-  "deployments": 4,
+  "deployments": 2,
   "supportedDeploymentSystems": [
     "DOCKER_COMPOSE",
-    "DOCKER_IMAGE",
     "HELM_CHART"
   ]
 }</code></pre>
@@ -1168,7 +1168,9 @@ digest-pinned Contracts while offering multiple deployment mechanisms.</p>
 <div class="paragraph">
 <p>One reusable DOT root can describe several supported deployment choices without
 forking its identity for each PoC. Deployment-instance realms, routes,
-credentials, and endpoints remain composition inputs rather than copied DOTs.</p>
+credentials, and endpoints remain composition inputs rather than copied DOTs.
+Different actual tool releases are explicit sibling bundles, not mixed under
+one release identity. The native Kubernetes demo separately selects 26.0.7.</p>
 </div>
 </div>
 </div>
