@@ -63,6 +63,9 @@
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="guided-demo.html">Guided demo</a>
 <ul class="nav-list">
@@ -148,6 +151,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="adopting-dot.html">Compatibility, editor setup and preflight</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
@@ -282,10 +288,10 @@ schemas. Composition validation rejects missing or ambiguous required inputs
 before runtime mutation. A duplicate root <code>params</code> model is not defined.</p>
 </li>
 <li>
-<p><strong>Skill search:</strong> resolve stable <code>Skill</code> UUID references through the
+<p><strong>Skill search:</strong> resolve stable, case-sensitive textual <code>Skill</code> IDs through the
 authoritative <code>DOT-Repository/Skills/</code> catalogue. Every referenced capability
-has one category there; <code>dotx repository list --skill &lt;uuid-or-name&gt;</code> and
-<code>--category &lt;uuid-or-name&gt;</code> expose the tested consumer projection without
+has one category there; <code>dotx repository list --skill &lt;id-or-name&gt;</code> and
+<code>--category &lt;id-or-name&gt;</code> expose the tested consumer projection without
 copying names or categories into every DOT as a second controlled vocabulary.</p>
 </li>
 <li>
@@ -319,7 +325,12 @@ SFC acceptance or prove a partner catalogue/search implementation.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>address DOTs, Contracts, and Anchors by stable UUID and pin DOT versions;</p>
+<p>address DOTs, Anchors and Compositions by stable UUID and pin DOT versions;</p>
+</li>
+<li>
+<p>resolve Skills and Contracts by their exact, case-sensitive textual IDs;
+legacy UUID-shaped IDs remain valid, but names and case-folded aliases do not
+replace identity;</p>
 </li>
 <li>
 <p>resolve contract-backed selectors against the authoritative OpenAPI,
