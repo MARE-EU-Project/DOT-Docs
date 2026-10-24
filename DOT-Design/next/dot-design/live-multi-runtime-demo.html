@@ -471,6 +471,15 @@ The live acceptance below remains necessary. Use <code>DEMO=monitoring</code> fo
 node-exporter/Prometheus route, <code>DEMO=portability</code> or <code>DEMO=upgrade</code> for those
 lanes, or omit <code>DEMO</code> to check all five presenter routes.</p>
 </div>
+<div class="paragraph">
+<p>For a stage run without fixture rebuilds, first run explicit
+<code>task testing:demo:prepare DEMO=four-contracts</code>, then export
+<code>DOTX_DEMO_PREPARED=1</code> before the live/presenter command. This checks the prepared
+source/binary fingerprints and Docker/Minikube fixture IDs and refuses drift.
+It performs no build, pull, image import or cluster start in that mode. It does
+not guarantee offline probe execution; see the
+<a href="guided-demo.html#official-demo-route" class="xref page">qualification and sanitized fallback route</a>.</p>
+</div>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -614,7 +623,8 @@ cross-runtime standards example:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:dry-run
 task testing:demo:mqtt-suback:live
-task testing:demo:rehearse</code></pre>
+task testing:demo:prepare
+task testing:demo:qualify</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -622,6 +632,8 @@ task testing:demo:rehearse</code></pre>
 Prometheus portability, secure API, OPA upgrade/rollback, OAuth and this fixture.
 Use <a href="guided-demo.html#official-demo-route" class="xref page">the integrated ecosystem route</a>
 for explicit preparation, preflight and evidence interpretation.
+<code>qualify</code> additionally rehearses the four official terminal inspection pauses
+and Enter cleanup. The narrower <code>rehearse</code> Task retains noninteractive coverage.
 The quickstart covers default/overridden
 ports and failure cleanup. OAuth verifies HTTP 401 without a token, token
 acquisition, protected access, native Secret references, status, and cleanup.

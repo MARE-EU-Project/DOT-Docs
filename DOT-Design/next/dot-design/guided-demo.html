@@ -382,7 +382,7 @@ export DOTX_UPGRADE_NAMESPACE=dotx-demo-upgrade
 export DOTX_UPGRADE_PORT=19081
 task testing:demo:prepare
 task testing:demo:preflight
-task testing:demo:rehearse</code></pre>
+task testing:demo:qualify</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -410,6 +410,37 @@ assertion rather than replacing tests with a summary. All three checkouts must
 be clean; before/after revisions, tracked/untracked fingerprints and the binary
 SHA-256 must remain identical. Do not edit sources or reinstall <code>dotx</code> during it.
 This is qualification before the talk, not a command to start on stage.</p>
+</div>
+<div class="paragraph">
+<p><code>qualify</code> runs that same complete live rehearsal, then drives all four official
+chapters through a real terminal: wait for the verified inspection pause,
+inspect native status and topology, press Enter, and verify cleanup. It reuses
+the existing live harnesses and terminal driver rather than another deployment
+implementation. Application-result expectations are shared by both paths.
+Interrupted, timed-out and rejected-evidence steps remain visible as failures,
+even when the child command itself exited zero. The existing standalone
+<code>rehearse</code> Task remains useful when only noninteractive acceptance is wanted.</p>
+</div>
+<div class="paragraph">
+<p>For the optional four-Contract chapter, use the prepared fixture path on stage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export DOTX_DEMO_PREPARED=1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Preparation records source fingerprints, the installed binary hash, both Docker
+fixture image IDs and the imported Minikube provider image ID. <code>qualify</code> enables
+this mode automatically. With this variable set, the four-Contract live/presenter
+harness verifies that receipt before deploying and does <strong>not</strong> build, pull, import
+images or start Minikube. Missing preparation or changed sources/binary/images
+fail closed: re-run explicit preparation off stage and qualify again. Official
+digest-pinned images and probe-runner caches must still be available; this is
+not an air-gapped operation guarantee or a promise against registry outages.
+Do not retag images or switch Docker/Minikube contexts during the talk. Without
+this opt-in, the existing source-building live test path remains available;
+builds now have bounded five-minute timeouts.</p>
 </div>
 <div class="paragraph">
 <p>The printed <code>summary.json</code> and adjacent <code>results.txt</code> consolidate step exits,
@@ -509,8 +540,24 @@ take the ownership-safe cleanup path; never delete unrelated resources or force
 namespace finalizers. Require the cleanup receipt, not just an empty terminal.</p>
 </div>
 <div class="paragraph">
-<p>Keep matching rehearsal reports as a clearly labelled fallback. Do not replay
-them as a claimed live result. For the catalogue-wide appendix, run
+<p>Keep matching rehearsal reports as a clearly labelled fallback. After successful
+<code>qualify</code>, export only the sanitized audience summary using the exact printed
+receipt path:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:fallback RECEIPT=/absolute/path/to/summary.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The exporter requires complete, clean-source live and presenter qualification
+and checks linked artifact hashes. It writes only <code>fallback/summary.json</code> and
+<code>fallback/README.md</code> beside that receipt: fixed step outcomes, source revisions
+and binary/receipt hashes. It does not copy logs, arbitrary API fields, host
+paths, runtime state, tokens or kubeconfig. Keep the parent run directory private.
+The exported result is historical rehearsal evidence, not live service health
+or an independent adopter/producer certification. Do not replay it as a claimed
+live result. For the catalogue-wide appendix, run
 <code>task testing:contracts:readiness</code> and consult the
 <a href="verification-and-examples.html" class="xref page">verification boundaries</a>. Interface
 declarations, source-derived Contracts, runtime-only brokers, planning fixtures,
@@ -520,7 +567,7 @@ DOT-Registry and partner/SFC acceptance remain separate integration work.</p>
 <div class="paragraph">
 <p>The existing <strong>Kubernetes and Helm runtime E2E</strong> workflow accepts the optional
 <code>full_demo_readiness=true</code> manual input to run these same preparation and complete
-rehearsal Tasks. Ordinary pushes retain their focused runtime matrix; the long
+<code>qualify</code> Tasks. Ordinary pushes retain their focused runtime matrix; the long
 full-demo qualification is explicit. Uploaded reports are redacted evidence,
 not automatically a public live-service dashboard.</p>
 </div>
