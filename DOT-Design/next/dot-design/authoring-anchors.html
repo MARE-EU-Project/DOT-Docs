@@ -395,6 +395,24 @@ without claiming authorship. Service Contract bindings describe provided APIs,
 not every API the service calls.</p>
 </div>
 <div class="paragraph">
+<p>Qualified root Contract IDs must start with the <strong>exact</strong> owning <code>Dot.id</code> plus
+<code>::</code>, including the tool release. For example, <code>Prometheus@3.13.3</code> owns
+<code>Prometheus@3.13.3::OpenAPI::HTTP</code>, not <code>Prometheus@3.15.0::OpenAPI::HTTP</code>.
+The catalogue uses the official specification from the selected release where
+available, retaining upstream bytes and SHA-256 pins. A Contract document&#8217;s API
+version remains separate from the tool release; upstream <code>info.version</code> must
+not be edited merely to match an ID. Derived projections stay labelled as
+derived, and a minor-line specification is not exact patch-version acceptance.</p>
+</div>
+<div class="paragraph">
+<p>Exact consumers must select the originating release actually used by the wire.
+A reusable consumer can declare distinct optional required Anchors for supported
+releases; the composition selects one explicitly. This does not create version
+aliases, infer cross-release compatibility, or upgrade deployed software.
+After a declaration changes, regenerate and review the affected locks and rerun
+live acceptance; previous receipts do not qualify the changed graph.</p>
+</div>
+<div class="paragraph">
 <p>A local composition may be inspected against a separate immutable Git cache.
 Its Contract input must still belong to the explicitly referenced owner&#8217;s
 <code>contracts/</code> directory. The owner-relative path and wrapper bytes must match the
