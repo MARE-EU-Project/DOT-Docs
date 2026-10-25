@@ -325,6 +325,15 @@ of <code>"MQTT"</code> in builders/setters. Valid v1 JSON spellings and reviewed
 remain unchanged. Validate required-property presence before deserialization.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference and collection validation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID-only views validate identity, root declarations cascade payload validation,
+and dangling service Contracts/ambiguous logical keys are rejected. Root ID-only
+Contract JSON remains ID-only on a Java round trip.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repair invalid references and duplicate keys explicitly; no aliases,
+deduplication or lock repair is performed. Recompile Java callers of the old
+<code>setServices(Set)</code> signature for <code>setServices(Collection)</code>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Lifecycle safety</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unsupported stateful and changed Helm/Vagrant upgrades fail before mutation.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A valid historical deployment does not guarantee admission to an upgrade.

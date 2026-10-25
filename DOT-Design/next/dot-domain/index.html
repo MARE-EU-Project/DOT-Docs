@@ -420,11 +420,86 @@ composition inputs and all 128 materializer field combinations. These checks
 do not establish independent adoption or live producer acceptance.</p>
 </div>
 <div class="paragraph">
-<p>The freeze is not complete yet. Remaining model-review gates include ID-only
-reference validation without treating references as full entities, aggregate
-uniqueness and collection behavior, and a released compatibility corpus.
+<p>The freeze is not complete yet. Remaining model-review gates include the broader
+configuration-key/cross-model audit and a released compatibility corpus.
 Resolve these in DOT-Domain and its existing generation pipeline, not in
 independent CLI models. No final stable-model claim or new release is implied.</p>
+</div>
+<div class="sect2">
+<h3 id="_reference_aware_validation_and_collection_safety"><a class="anchor" href="#_reference_aware_validation_and_collection_safety"></a>Reference-aware validation and collection safety</h3>
+<div class="paragraph">
+<p>Use ordinary <code>validator.validate(dot)</code> to cascade validation. ID-only Skill and
+service Contract views use the portable Jakarta <code>IdentityReference</code> group;
+ignored entity metadata is not validated as a complete declaration. Validating
+a standalone <code>Skill</code> or <code>Contract</code> still requires a full entity. Root Contracts
+use the <code>ContractDeclaration</code> group, admitting either a complete declaration
+with validated payload/version or the existing ID-only migration reference.
+Partial declarations fail. Serializing a root ID-only reference does not add
+the Java default version to its JSON.</p>
+</div>
+<div class="paragraph">
+<p>Service Contract references must identify a root declaration or an explicitly
+sourced external Anchor Contract. A different release or similar name is not
+an alias. The model does no catalogue or network I/O: Skill existence, verified
+Contract assets and operation resolution remain CLI/resolver checks.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">Unique keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment IDs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service IDs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port names</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root Contract IDs and Anchor UUIDs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instance names, Contract-input IDs, wire names, exposed-Anchor names</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Jackson&#8217;s <code>Deployment.setServices(Collection&lt;DeploymentService&gt;)</code> rejects
+duplicate service IDs before constructing its ordered Set; it never silently
+chooses one conflicting service. Recompile Java callers of the former
+Set-specific setter. Validation also rechecks keys after in-place ID mutation.
+The CLI applies the corresponding semantic checks to raw definitions and emits
+field locations without copying the portable models into handwritten Go types.</p>
+</div>
+<div class="paragraph">
+<p>Dependencies, security scopes, CDI bindings and OCI grants retain their existing
+v1 <code>uniqueItems</code> constraints, now checked in Java lists too. Generated schemas
+also retain their annotated item-level nonempty-string/capability constraints.
+The portable <code>@UniqueElements</code> constraint drives both Jakarta validation and
+the shared Victools schema module; there is no separate hand-maintained list
+of unique fields.
+No blanket deduplication or reordering applies to arbitrary lists. Missing
+required values and null nested entries produce validation violations rather
+than aggregate-traversal exceptions. Validate raw required-property presence
+before deserialization, as described above.
+Optional null Dot/Skill fields serialize as absent, not schema-invalid nulls.
+Shared golden examples run through both Java round trips and generated-schema
+validation. The broader optional-value serialization audit remains open.</p>
+</div>
 </div>
 </div>
 </div>
