@@ -366,6 +366,9 @@ translate protocols or implement missing producer functionality.</p>
 Git, Go, Task, Python 3, Bash, jq, curl, <code>ss</code>, Docker/Compose, kubectl and a Ready
 local Docker-runtime Minikube node. Select context <code>minikube</code>. This advanced
 developer rehearsal uses the pinned source CLI, not the original <code>v0.2.5</code> binary.
+Put Go&#8217;s executable install directory (<code>GOBIN</code>, or <code>$(go env GOPATH)/bin</code> when
+unset) on <code>PATH</code>; the installation phase verifies that plain <code>dotx</code> resolves to
+the aligned version and records any PATH warning in its printed install log.
 The simpler <a href="getting-started.html" class="xref page">Getting started</a> path still needs neither
 Go, Task nor Kubernetes.</p>
 </div>
@@ -376,17 +379,40 @@ rehearsal and presentation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:install
-export DOTX_PORTABILITY_NAMESPACE=dotx-demo-portability
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export DOTX_PORTABILITY_NAMESPACE=dotx-demo-portability
 export DOTX_PORTABILITY_KUBERNETES_PORT=19083
 export DOTX_POC10_NAMESPACE=dotx-demo-secure-api
 export DOTX_POC10_FORWARD_PORT=19010
 export DOTX_UPGRADE_NAMESPACE=dotx-demo-upgrade
 export DOTX_UPGRADE_PORT=19081
-task testing:demo:prepare
-task testing:demo:preflight
-task testing:demo:qualify</code></pre>
+task testing:demo</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><code>task testing:demo</code> is the complete off-stage readiness command. Sequentially,
+it installs and verifies the aligned source CLI, runs the existing demo guards
+and locked validation/rendering, prepares all image caches with preflight,
+qualifies all seven live paths twice plus the four official presenter chapters,
+and exports sanitized fallback evidence from that exact successful receipt.
+It stops at the first failure; an older successful receipt is never substituted.
+Every lane is included regardless of a focused <code>DEMO</code> selector; namespace and
+port overrides still apply. Allow substantial runtime for builds, rollouts and
+cleanup; this is not a command to start during the talk. It needs the tools and
+already Ready Minikube listed above; it does not install system prerequisites.
+Successful qualification cleans up its test-owned workloads rather than leaving
+the presentation running. Start the chapter-specific presenter commands below
+when ready to show them. Keep sources and <code>dotx</code> unchanged throughout the run.
+The console explains five numbered phases and each live lane&#8217;s purpose, reports
+elapsed time and outcome, and finishes with a results table, exact evidence and
+fallback paths, and the next presenter commands. Detailed tool output stays in
+per-step logs rather than flooding the terminal. The umbrella&#8217;s own report and
+table live under <code>DOT-Testing/e2e/target/demo/run-*/</code>; preparation and live
+qualification retain their separate evidence scopes below. A failed or
+interrupted phase stops the run and names its logs; it never prints demo-ready
+success or exports a fallback from an older run.</p>
+</div>
+<div class="paragraph">
+<p>The granular commands remain available for investigation:</p>
 </div>
 <div class="paragraph">
 <p><code>prepare</code> explicitly pulls only selected digest-pinned official images, builds
@@ -543,9 +569,10 @@ take the ownership-safe cleanup path; never delete unrelated resources or force
 namespace finalizers. Require the cleanup receipt, not just an empty terminal.</p>
 </div>
 <div class="paragraph">
-<p>Keep matching rehearsal reports as a clearly labelled fallback. After successful
-<code>qualify</code>, export only the sanitized audience summary using the exact printed
-receipt path:</p>
+<p>Keep matching rehearsal reports as a clearly labelled fallback. The umbrella
+<code>task testing:demo</code> automatically exports the sanitized audience summary and
+prints its path. When using the granular <code>testing:demo:qualify</code> task instead,
+export it manually using the exact printed receipt path:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -569,8 +596,8 @@ DOT-Registry and partner/SFC acceptance remain separate integration work.</p>
 </div>
 <div class="paragraph">
 <p>The existing <strong>Kubernetes and Helm runtime E2E</strong> workflow accepts the optional
-<code>full_demo_readiness=true</code> manual input to run these same preparation and complete
-<code>qualify</code> Tasks. Ordinary pushes retain their focused runtime matrix; the long
+<code>full_demo_readiness=true</code> manual input to run the same <code>task testing:demo</code>
+entry point. Ordinary pushes retain their focused runtime matrix; the long
 full-demo qualification is explicit. Uploaded reports are redacted evidence,
 not automatically a public live-service dashboard.</p>
 </div>
