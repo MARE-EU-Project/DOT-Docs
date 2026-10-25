@@ -155,6 +155,9 @@
     <a class="nav-link" href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -390,7 +393,7 @@ From the DOT-Design checkout:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.0 --name Prometheus --skill Metrics-Scraping --port http:9090 --output ./my-dot/dot.json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.0 --name Prometheus --version 3.15.0 --skill Metrics-Scraping --port http:9090 --output ./my-dot/dot.json
 dotx validate ./my-dot --schema DOT-Repository/Schema/schema.json
 dotx inspect ./my-dot
 # Alternatively: dotx new --interactive</code></pre>
@@ -409,7 +412,15 @@ Git, Jsonnet and network access. See <code>dotx new --help</code> for both modes
 one explicit <code>--skill &lt;id&gt;</code> (repeat the flag for multiple capabilities).
 Interactive authoring asks for a Skill when none was supplied. Declare the
 capability&#8217;s meaning in the selected catalogue&#8217;s <code>Skills/</code>; do not infer
-capabilities, interoperability or live readiness from the image alone.</p>
+capabilities, interoperability or live readiness from the image alone.
+The actual tool release must be supplied explicitly; no <code>0.0.0</code> default is
+invented and Helm chart versions do not determine application versions.</p>
+</div>
+<div class="paragraph">
+<p>For an owned OpenAPI interface, native authoring can also verify a generated-model
+Contract declaration, select operations and generate Anchor UUIDs and named-port
+bindings. See <a href="authoring.html" class="xref page">the executable interface-authoring exercise</a>.
+Other standards and dependency references still use explicit domain-model authoring.</p>
 </div>
 </div>
 </div>
