@@ -63,7 +63,13 @@
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -153,7 +159,13 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
@@ -381,7 +393,7 @@ source for upgrades until a later release includes it. No control-plane rollback
 promises to undo application writes or preserve data in writable container layers.</p>
 </div>
 <div class="paragraph">
-<p><code>validate</code> answers <em>is this composition internally resolvable?</em> <code>plan</code> answers
+<p><code>validate</code> answers <em>is this composition internally resolvable?</em> <code>inspect</code> answers
 <em>what exactly would be connected and materialized?</em> Keeping both commands
 read-only makes them suitable for review and CI.</p>
 </div>
@@ -392,7 +404,7 @@ composition, every resolved <code>dot.json</code>, every supplied Contract, conf
 inputs, and the portable resolved plan. For an explicit remote repository it
 also records the normalized repository identity and exact commit. It never
 records secret values, runtime addresses, or checkout-local absolute paths.
-Validate, plan, and apply verify an adjacent lock automatically; <code>--locked</code>
+Validate, inspect, and apply verify an adjacent lock automatically; <code>--locked</code>
 additionally requires it, and <code>--lock &lt;path&gt;</code> selects an explicit file. Any
 mismatch fails before runtime mutation.</p>
 </div>

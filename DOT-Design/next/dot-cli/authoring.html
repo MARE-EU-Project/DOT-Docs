@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Author an interface-aware DOT :: MARE DOT-Design</title>
-    <link rel="prev" href="../dot-design/adopting-dot.html">
+    <link rel="prev" href="../dot-design/compatibility.html">
     <link rel="next" href="../dot-design/external-dot-examples.html">
     <meta name="description" content="Confirm the tool release, verify an owned OpenAPI Contract, and generate Anchors and service bindings with dotx.">
     <meta name="generator" content="Antora 3.2.1">
@@ -62,7 +62,13 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -152,7 +158,13 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="authoring.html">Author a DOT and its interfaces</a>
@@ -358,6 +370,61 @@ from the Contract and no compatibility or live-readiness claim is inferred.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_import_directly_from_the_official_raw_url"><a class="anchor" href="#_import_directly_from_the_official_raw_url"></a>Import directly from the official raw URL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alternatively, the same native authoring command can construct the generated
+Contract declaration from a raw HTTPS URL. Run this after the previous exercise
+so both temporary outputs can be inspected and cleaned up together:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Alternative: supply the official raw URL without hand-writing contract.json.
+# This exercise creates no second catalogue entry.
+AUTHORING_SPEC_BASE=https://raw.githubusercontent.com/prometheus/prometheus/v3.15.0
+dotx new --from docker-image prom/prometheus:v3.15.0 \
+  --name Prometheus --version 3.15.0 --skill Metrics-Scraping \
+  --service prometheus --port http:9090 \
+  --contract-url "$AUTHORING_SPEC_BASE/web/api/v1/testdata/openapi_3.1_golden.yaml" \
+  --contract-name HTTP --contract-version 3.15.0 --contract-format YAML \
+  --operation 'build-information=#/paths/~1status~1buildinfo/get' --bind http \
+  --output "$AUTHORING_DIR/url-bundle/dot.json"
+dotx validate "$AUTHORING_DIR/url-bundle" \
+  --schema "$DOT_REPOSITORY/Schema/schema.json" --profile reusable
+jq '.contracts[0]' "$AUTHORING_DIR/url-bundle/dot.json"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: the resulting ID is <code>Prometheus@3.15.0::OpenAPI::HTTP</code>, with the
+official URL and a 64-character lower-case SHA-256 in <code>payload</code>. No raw document
+is embedded. The example retains the existing catalogue&#8217;s interface-version
+label; <code>--contract-version</code> is independent of the tool&#8217;s <code>--version</code>. Do not
+infer either version from a filename or change upstream payload metadata.</p>
+</div>
+<div class="paragraph">
+<p>To require bytes already approved by your team, add
+<code>--contract-sha256 &lt;trusted-digest&gt;</code>. A mismatch fails without replacing output.
+Without that option, the command pins the bytes retrieved on first use: review
+the URL, upstream provenance, release match, license and resulting digest before
+committing. Computing a hash does not prove that the URL is vendor-owned or
+that its API matches a deployed producer.</p>
+</div>
+<div class="paragraph">
+<p>The downloader reuses validation&#8217;s HTTPS, public-address, redirect, timeout,
+size and credential-scoping controls. Mutable GitHub branch URLs are refused;
+use an official release tag or full commit. Transport failures withhold URL and
+credential details. <code>--contract</code> and <code>--contract-url</code> are mutually exclusive.
+URL import currently requires explicit <code>--contract-name</code>, <code>--contract-version</code>
+and <code>--contract-format JSON|YAML</code>; it does not guess a standard from the URL.</p>
+</div>
+<div class="paragraph">
+<p>Interactive authoring accepts either a declaration filename or an HTTPS URL,
+asks for missing metadata and offers the same verified operation/port menus.
+The digest selected during that prompt must still match at publication.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_recover_from_errors_and_clean_up"><a class="anchor" href="#_recover_from_errors_and_clean_up"></a>Recover from errors and clean up</h2>
 <div class="sectionbody">
 <div class="ulist">
@@ -404,6 +471,10 @@ the scaffold.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Only the files created by this exercise; unexpected extra files are retained.
 rm -- "$AUTHORING_DIR/bundle/dot.json" "$AUTHORING_DIR/contract.json"
+if [[ -d "$AUTHORING_DIR/url-bundle" ]]; then
+  rm -- "$AUTHORING_DIR/url-bundle/dot.json"
+  rmdir -- "$AUTHORING_DIR/url-bundle"
+fi
 rmdir -- "$AUTHORING_DIR/bundle" "$AUTHORING_DIR"</code></pre>
 </div>
 </div>
@@ -415,7 +486,7 @@ ownership-negative control with <code>task testing:authoring</code> from DOT-Des
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a></span>
+  <span class="prev"><a href="../dot-design/compatibility.html">Compatibility and migration policy</a></span>
   <span class="next"><a href="../dot-design/external-dot-examples.html">Deployments and examples</a></span>
 </nav>
 </article>
