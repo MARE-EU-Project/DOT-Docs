@@ -372,6 +372,8 @@ private lifecycle state, endpoint allocation and runtime policy enforcement
 remain CLI/executor concerns. Standard Jakarta constraints and Jackson shape
 annotations describe fields; model-owned JSON Schema annotations express
 conditional input rules such as exactly one literal value or Secret reference.
+Jakarta validation also checks the exclusive environment, workload, probe and
+gRPC request choices, and the fields allowed for each materializer destination.
 Cross-DOT resolution, secret authorization and ownership checks still run in
 the CLI after schema validation.</p>
 </div>
@@ -379,6 +381,50 @@ the CLI after schema validation.</p>
 <p>This migration preserves <code>dot.mare6g.eu/v1</code>, existing documents and reviewed
 locks. Composition <code>version</code> and <code>dotVersion</code> retain the existing v1 string
 semantics; they have not silently become stricter Java <code>Version</code> fields.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_domain_stabilization"><a class="anchor" href="#_domain_stabilization"></a>Domain stabilization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The immediate priority is a model compatibility freeze, before further CLI
+authoring features. Preserve valid Composition v1 JSON and reviewed locks while
+allowing targeted Java API improvements. Probe and materializer selections use
+typed Java enums: <code>AsyncAPIProtocol</code>, <code>GraphQLTransport</code>, <code>GRPCResponseMatch</code>,
+<code>MaterializerType</code>, and <code>MaterializerValueFrom</code>. Existing wire values remain
+unchanged and exact, for example <code>MQTT</code>, <code>SSE</code>, and <code>CONFIG_FILE</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">AsyncAPIProbe probe = AsyncAPIProbe.builder()
+    .protocol(AsyncAPIProtocol.MQTT)
+    .correlationPointer("/id")
+    .build();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This constructs a declaration, not a broker connection or successful delivery
+probe. Validate Java objects with Jakarta Bean Validation and raw input with the
+generated schema. Raw-input validation must precede deserialization when
+required-property presence matters: defaulted Java fields cannot distinguish an
+omitted required property from an explicitly supplied default. Optional empty
+Java Wire collections serialize as absent; explicit empty JSON collections
+remain invalid where the schema requires a nonempty value. Materializer target
+pointers such as <code>/routes/0/uri</code> remain accepted without rewriting.</p>
+</div>
+<div class="paragraph">
+<p>The Java build enforces 100% instruction and branch coverage. Compatibility
+tests compare generated schemas to the frozen v1 oracle, including existing
+composition inputs and all 128 materializer field combinations. These checks
+do not establish independent adoption or live producer acceptance.</p>
+</div>
+<div class="paragraph">
+<p>The freeze is not complete yet. Remaining model-review gates include ID-only
+reference validation without treating references as full entities, aggregate
+uniqueness and collection behavior, and a released compatibility corpus.
+Resolve these in DOT-Domain and its existing generation pipeline, not in
+independent CLI models. No final stable-model claim or new release is implied.</p>
 </div>
 </div>
 </div>

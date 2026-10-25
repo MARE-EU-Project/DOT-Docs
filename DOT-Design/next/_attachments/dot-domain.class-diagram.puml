@@ -152,7 +152,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     }
 
     class "AsyncAPIProbe" as eu_mare6g_dot_domain_composition_AsyncAPIProbe #FFFFFF {
-      - protocol: String
+      - protocol: AsyncAPIProtocol
       - message: Map<String, Object>
       - correlationPointer: String
       - qos: Integer
@@ -162,6 +162,13 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     class "AsyncAPIProbeAuthentication" as eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication #FFFFFF {
       - username: String
       - passwordSecretRef: SecretReference
+    }
+
+    enum "AsyncAPIProtocol" as eu_mare6g_dot_domain_composition_AsyncAPIProtocol #FFF7ED {
+      MQTT
+      NATS
+      KAFKA
+      AMQP
     }
 
     class "CdiDeviceBinding" as eu_mare6g_dot_domain_composition_CdiDeviceBinding #FFFFFF {
@@ -201,6 +208,8 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - name: String
       - value: String
       - secretRef: SecretReference
+      --
+      + isValueSourceValid(): boolean
     }
 
     class "DeploymentInputs" as eu_mare6g_dot_domain_composition_DeploymentInputs #FFFFFF {
@@ -240,8 +249,17 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - request: Map<String, Object>
       - requests: List<Map<String, Object>>
       - responseCount: Integer
-      - responseMatch: String
+      - responseMatch: GRPCResponseMatch
       - expect: JSONExpectation
+      --
+      + isRequestShapeValid(): boolean
+    }
+
+    enum "GRPCResponseMatch" as eu_mare6g_dot_domain_composition_GRPCResponseMatch #FFF7ED {
+      ALL
+      ANY
+      FIRST
+      LAST
     }
 
     class "GraphQLOperation" as eu_mare6g_dot_domain_composition_GraphQLOperation #FFFFFF {
@@ -255,11 +273,16 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - document: String
       - operationName: String
       - variables: Map<String, Object>
-      - transport: String
+      - transport: GraphQLTransport
       - expect: JSONExpectation
       - verify: GraphQLOperation
       - trigger: GraphQLOperation
       - cleanup: GraphQLOperation
+    }
+
+    enum "GraphQLTransport" as eu_mare6g_dot_domain_composition_GraphQLTransport #FFF7ED {
+      HTTP
+      SSE
     }
 
     class "JSONExpectation" as eu_mare6g_dot_domain_composition_JSONExpectation #FFFFFF {
@@ -273,11 +296,13 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
     }
 
     class "Materializer" as eu_mare6g_dot_domain_composition_Materializer #FFFFFF {
-      - type: String
+      - type: MaterializerType
       - source: String
-      - valueFrom: String
+      - valueFrom: MaterializerValueFrom
       - uriTemplate: String
       - target: MaterializerTarget
+      --
+      + isDestinationValid(): boolean
     }
 
     class "MaterializerTarget" as eu_mare6g_dot_domain_composition_MaterializerTarget #FFFFFF {
@@ -286,6 +311,20 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - path: String
       - jsonPointer: String
       - environmentVariable: String
+    }
+
+    enum "MaterializerType" as eu_mare6g_dot_domain_composition_MaterializerType #FFF7ED {
+      CONFIG_FILE
+      ENVIRONMENT_VARIABLE
+    }
+
+    enum "MaterializerValueFrom" as eu_mare6g_dot_domain_composition_MaterializerValueFrom #FFF7ED {
+      ENDPOINT_URL
+      OPERATION_URL
+      ENDPOINT_HOST
+      ENDPOINT_HOST_PORT
+      ENDPOINT_PORT
+      CHANNEL_ADDRESS
     }
 
     class "NetworkBinding" as eu_mare6g_dot_domain_composition_NetworkBinding #FFFFFF {
@@ -341,6 +380,8 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - service: String
       - compose: ComposeWorkloadBinding
       - kubernetes: KubernetesWorkloadBinding
+      --
+      + isWorkloadSelectionValid(): boolean
     }
 
     class "Wire" as eu_mare6g_dot_domain_composition_Wire #FFFFFF {
@@ -354,6 +395,8 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - materializers: List<Materializer>
       - security: WireSecurity
       - probe: WireProbe
+      --
+      + isMaterializerSelectionValid(): boolean
     }
 
     class "WireProbe" as eu_mare6g_dot_domain_composition_WireProbe #FFFFFF {
@@ -361,6 +404,8 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #DBEAFE {
       - graphql: GraphQLProbe
       - grpc: GRPCProbe
       - asyncapi: AsyncAPIProbe
+      --
+      + isStandardSelectionValid(): boolean
     }
 
     class "WireSecurity" as eu_mare6g_dot_domain_composition_WireSecurity #FFFFFF {
@@ -665,7 +710,8 @@ eu_mare6g_dot_domain_anchor_AnchorRequirement -[hidden]down- eu_mare6g_dot_domai
 eu_mare6g_dot_domain_anchor_validation_AnchorSelectorSyntax -[hidden]down- eu_mare6g_dot_domain_anchor_validation_AnchorValidator
 eu_mare6g_dot_domain_composition_AnchorReference -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProbe
 eu_mare6g_dot_domain_composition_AsyncAPIProbe -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication
-eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication -[hidden]down- eu_mare6g_dot_domain_composition_CdiDeviceBinding
+eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProtocol
+eu_mare6g_dot_domain_composition_AsyncAPIProtocol -[hidden]down- eu_mare6g_dot_domain_composition_CdiDeviceBinding
 eu_mare6g_dot_domain_composition_CdiDeviceBinding -[hidden]down- eu_mare6g_dot_domain_composition_ComposeWorkloadBinding
 eu_mare6g_dot_domain_composition_ComposeWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Composition
 eu_mare6g_dot_domain_composition_Composition -[hidden]down- eu_mare6g_dot_domain_composition_ContractInput
@@ -676,13 +722,17 @@ eu_mare6g_dot_domain_composition_DeploymentInputs -[hidden]down- eu_mare6g_dot_d
 eu_mare6g_dot_domain_composition_DeploymentVolumeSource -[hidden]down- eu_mare6g_dot_domain_composition_DotInstance
 eu_mare6g_dot_domain_composition_DotInstance -[hidden]down- eu_mare6g_dot_domain_composition_ExposedAnchor
 eu_mare6g_dot_domain_composition_ExposedAnchor -[hidden]down- eu_mare6g_dot_domain_composition_GRPCProbe
-eu_mare6g_dot_domain_composition_GRPCProbe -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLOperation
+eu_mare6g_dot_domain_composition_GRPCProbe -[hidden]down- eu_mare6g_dot_domain_composition_GRPCResponseMatch
+eu_mare6g_dot_domain_composition_GRPCResponseMatch -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLOperation
 eu_mare6g_dot_domain_composition_GraphQLOperation -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLProbe
-eu_mare6g_dot_domain_composition_GraphQLProbe -[hidden]down- eu_mare6g_dot_domain_composition_JSONExpectation
+eu_mare6g_dot_domain_composition_GraphQLProbe -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLTransport
+eu_mare6g_dot_domain_composition_GraphQLTransport -[hidden]down- eu_mare6g_dot_domain_composition_JSONExpectation
 eu_mare6g_dot_domain_composition_JSONExpectation -[hidden]down- eu_mare6g_dot_domain_composition_KubernetesWorkloadBinding
 eu_mare6g_dot_domain_composition_KubernetesWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Materializer
 eu_mare6g_dot_domain_composition_Materializer -[hidden]down- eu_mare6g_dot_domain_composition_MaterializerTarget
-eu_mare6g_dot_domain_composition_MaterializerTarget -[hidden]down- eu_mare6g_dot_domain_composition_NetworkBinding
+eu_mare6g_dot_domain_composition_MaterializerTarget -[hidden]down- eu_mare6g_dot_domain_composition_MaterializerType
+eu_mare6g_dot_domain_composition_MaterializerType -[hidden]down- eu_mare6g_dot_domain_composition_MaterializerValueFrom
+eu_mare6g_dot_domain_composition_MaterializerValueFrom -[hidden]down- eu_mare6g_dot_domain_composition_NetworkBinding
 eu_mare6g_dot_domain_composition_NetworkBinding -[hidden]down- eu_mare6g_dot_domain_composition_OciRuntimeGrant
 eu_mare6g_dot_domain_composition_OciRuntimeGrant -[hidden]down- eu_mare6g_dot_domain_composition_OpenAPIProbe
 eu_mare6g_dot_domain_composition_OpenAPIProbe -[hidden]down- eu_mare6g_dot_domain_composition_OperationParameterBinding
@@ -725,6 +775,10 @@ eu_mare6g_dot_domain_composition_DeploymentConfigFile -[hidden]right- eu_mare6g_
 eu_mare6g_dot_domain_composition_DeploymentEnvironment -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentVolumeSource
 eu_mare6g_dot_domain_composition_DeploymentVolumeSource -[hidden]right- eu_mare6g_dot_domain_composition_OciRuntimeGrant
 eu_mare6g_dot_domain_composition_OciRuntimeGrant -[hidden]right- eu_mare6g_dot_domain_composition_ServiceWorkloadBinding
+eu_mare6g_dot_domain_composition_GraphQLOperation -[hidden]right- eu_mare6g_dot_domain_composition_GraphQLTransport
+eu_mare6g_dot_domain_composition_GraphQLTransport -[hidden]right- eu_mare6g_dot_domain_composition_JSONExpectation
+eu_mare6g_dot_domain_composition_MaterializerTarget -[hidden]right- eu_mare6g_dot_domain_composition_MaterializerType
+eu_mare6g_dot_domain_composition_MaterializerType -[hidden]right- eu_mare6g_dot_domain_composition_MaterializerValueFrom
 eu_mare6g_dot_domain_composition_AsyncAPIProbe -[hidden]right- eu_mare6g_dot_domain_composition_GRPCProbe
 eu_mare6g_dot_domain_composition_GRPCProbe -[hidden]right- eu_mare6g_dot_domain_composition_GraphQLProbe
 eu_mare6g_dot_domain_composition_GraphQLProbe -[hidden]right- eu_mare6g_dot_domain_composition_OpenAPIProbe
@@ -762,6 +816,7 @@ eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_dom
 eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_anchor_AnchorRole : role
 eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_SecretReference : passwordSecretRef
 eu_mare6g_dot_domain_composition_AsyncAPIProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication : authentication
+eu_mare6g_dot_domain_composition_AsyncAPIProbe "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_composition_AsyncAPIProtocol : protocol
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ContractInput : contracts
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_DotInstance : dots
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ExposedAnchor : exposedAnchors
@@ -775,12 +830,16 @@ eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..1" eu
 eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ServiceWorkloadBinding : workloads
 eu_mare6g_dot_domain_composition_DotInstance "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_DeploymentInputs : deploymentInputs
 eu_mare6g_dot_domain_composition_ExposedAnchor "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_AnchorReference : target
+eu_mare6g_dot_domain_composition_GRPCProbe "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_composition_GRPCResponseMatch : responseMatch
 eu_mare6g_dot_domain_composition_GRPCProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_JSONExpectation : expect
 eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GraphQLOperation : cleanup
 eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GraphQLOperation : trigger
 eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_GraphQLOperation : verify
+eu_mare6g_dot_domain_composition_GraphQLProbe "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_composition_GraphQLTransport : transport
 eu_mare6g_dot_domain_composition_GraphQLProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_JSONExpectation : expect
 eu_mare6g_dot_domain_composition_Materializer "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_MaterializerTarget : target
+eu_mare6g_dot_domain_composition_Materializer "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_composition_MaterializerType : type
+eu_mare6g_dot_domain_composition_Materializer "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_composition_MaterializerValueFrom : valueFrom
 eu_mare6g_dot_domain_composition_OciRuntimeGrant "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_deployment_config_oci_OciLinuxNamespace : hostNamespaces
 eu_mare6g_dot_domain_composition_OpenAPIProbe "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_JSONExpectation : expect
 eu_mare6g_dot_domain_composition_SecurityBinding "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_SecurityParameterBinding : parameters
@@ -795,9 +854,9 @@ eu_mare6g_dot_domain_composition_WireSecurity "1" *-[#2563EB]down- "1..*" eu_mar
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_AnchorReference : from
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_AnchorReference : to
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_Materializer : materializer
-eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_Materializer : materializers
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_Materializer : materializers
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_NetworkBinding : network
-eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_OperationParameterBinding : parameters
+eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_OperationParameterBinding : parameters
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_ServicePortReference : endpoint
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireProbe : probe
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireSecurity : security

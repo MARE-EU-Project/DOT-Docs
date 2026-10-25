@@ -317,6 +317,14 @@ Do not copy a dependency Contract or relabel it as consumer-owned.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Update command callers. This rename does not itself change lock digests.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Composition API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe protocols/transports/response matching and materializer choices use
+typed enums instead of Strings; exclusive choices receive Bean Validation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recompile Java clients and use, for example, <code>AsyncAPIProtocol.MQTT</code> instead
+of <code>"MQTT"</code> in builders/setters. Valid v1 JSON spellings and reviewed lock inputs
+remain unchanged. Validate required-property presence before deserialization.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Lifecycle safety</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unsupported stateful and changed Helm/Vagrant upgrades fail before mutation.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A valid historical deployment does not guarantee admission to an upgrade.
