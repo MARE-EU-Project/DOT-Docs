@@ -504,6 +504,26 @@ first failing definition or phase, although a schema failure can report multiple
 constraints. It never repairs inputs or rewrites reviewed locks automatically.</p>
 </div>
 <div class="paragraph">
+<p>The same source CLI also reports failures from <code>dotx compose validate
+&lt;composition.yaml&gt; --json</code> and <code>dotx compose inspect &lt;composition.yaml&gt; --json</code>
+as one secret-safe JSON document on stdout, including usage errors. These
+failure reports have <code>formatVersion: 1</code>, <code>valid: false</code>, <code>kind: composition</code>,
+<code>target</code>, shared <code>diagnostics</code> and
+<code>evidence: composition-validation-not-live-acceptance</code>. Normal JSON failures
+leave stderr empty; output-write failures use stderr. Schema diagnostics retain
+exact field pointers, while resolution failures without finer context identify
+the composition file. Raw parser, document and transport values are withheld.</p>
+</div>
+<div class="paragraph">
+<p>Successful composition validation still returns its existing <code>valid</code>,
+<code>compositionId</code> and <code>unknownWires</code> summary, and successful inspection still
+returns the resolved execution plan. Check the exit code and result, not merely
+whether stdout contains JSON. These failure-report guarantees do not extend to
+runtime <code>apply</code>, <code>upgrade</code>, <code>probe</code> or <code>status</code> commands. No lock is regenerated
+automatically, and an unknown wire remains an explicit limitation rather than
+live acceptance.</p>
+</div>
+<div class="paragraph">
 <p>For reusable catalogue examples and explicit deployment selection, see
 <a href="../dot-design/external-dot-examples.html" class="xref page">Deployments and examples</a>. For
 Anchor selectors, Wires, native Secret references, locks and lifecycle safety,
