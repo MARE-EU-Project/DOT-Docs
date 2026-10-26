@@ -7,7 +7,7 @@ cd "$root"
 case "${1:-}" in
   --inspect)
 # tag::inspect[]
-KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT/versions/26.3.3
+KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT
 dotx validate "$KEYCLOAK" \
   --schema DOT-Repository/Schema/schema.json --profile reusable --offline
 

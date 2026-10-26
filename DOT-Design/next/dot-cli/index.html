@@ -320,6 +320,10 @@ presenter pause for inspecting verified live results before cleanup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx compose topology --status</code> (use the applied run&#8217;s cache/configuration)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Refresh or check composition README diagrams and Mermaid files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx compose topology Compositions --write</code> / <code>--check</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check deployment tools and runtime prerequisites</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx tool</code></p></td>
 </tr>
@@ -353,6 +357,37 @@ available through <code>dotx compose --help</code>.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_maintain_composition_topology_documentation"><a class="anchor" href="#_maintain_composition_topology_documentation"></a>Maintain composition topology documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From a standalone catalogue checkout, the source-built CLI can update every
+composition&#8217;s existing README topology block and adjacent <code>topology.mmd</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology Compositions --write
+dotx compose topology Compositions --check</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From DOT-Design, use <code>DOT-Repository/Compositions</code> instead. A single composition
+file is also accepted. Both modes require verified locks; no lock is repaired
+automatically. The command checks every graph and destination before writing,
+preserves authored text outside the marked block, and rejects symlinked files
+and malformed markers. <code>--check</code> writes nothing and exits nonzero on drift.
+Individual files are replaced atomically, not as a multi-file transaction;
+resolve any I/O failure and rerun. Display options such as <code>--format</code>, <code>--color</code>
+and <code>--status</code> cannot be combined with documentation modes.</p>
+</div>
+<div class="paragraph">
+<p>Only <code>dotx</code> is needed: the former Bash generator and its jq/awk dependencies are
+not required. The optional <code>task compositions:topology:generate</code> and <code>:check</code>
+wrappers remain available in both checkouts. A generated diagram is a locked
+plan view, not proof of live interoperability.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_find_a_dot_by_its_readable_release_coordinate"><a class="anchor" href="#_find_a_dot_by_its_readable_release_coordinate"></a>Find a DOT by its readable release coordinate</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -367,8 +402,8 @@ inside one of its DOTs/compositions. A renamed catalogue is recognized by its
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository list --skill Metrics-Scraping
 dotx repository list --verbose
-dotx repository inspect Prometheus@3.15.0 --json
-dotx repository resolve Prometheus@3.15.0</code></pre>
+dotx repository inspect Prometheus@3.15.1 --json
+dotx repository resolve Prometheus@3.15.1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -405,7 +440,7 @@ From the DOT-Design checkout:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.0 --name Prometheus --version 3.15.0 --skill Metrics-Scraping --port http:9090 --output ./my-dot/dot.json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.1 --name Prometheus --version 3.15.1 --skill Metrics-Scraping --port http:9090 --output ./my-dot/dot.json
 dotx validate ./my-dot --schema DOT-Repository/Schema/schema.json
 dotx inspect ./my-dot
 # Alternatively: dotx new --interactive</code></pre>

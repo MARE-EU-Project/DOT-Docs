@@ -321,19 +321,19 @@ name: keycloak-apisix-oauth
 version: 1.0.0
 dots:
   - name: identity
-    source: repository://Keycloak@26.0.7
-    dotId: Keycloak@26.0.7
-    dotVersion: 26.0.7
+    source: repository://Keycloak@26.8.1
+    dotId: Keycloak@26.8.1
+    dotVersion: 26.8.1
     deployment: kubernetes
   - name: gateway
-    source: repository://APISIX@3.11.0
-    dotId: APISIX@3.11.0
-    dotVersion: 3.11.0
+    source: repository://APISIX@3.19.0
+    dotId: APISIX@3.19.0
+    dotVersion: 3.19.0
     deployment: kubernetes
     dependsOn: [identity]
 contracts:
-  - id: Keycloak@26.7.3::OpenAPI::Discovery
-    source: ../../DOTs/external/Keycloak-DOT/versions/26.7.3/contracts/Keycloak-26.7.3-OpenAPI-Discovery.yaml</code></pre>
+  - id: Keycloak@26.8.1::OpenAPI::Discovery
+    source: ../../DOTs/external/Keycloak-DOT/contracts/Keycloak-26.8.1-OpenAPI-Discovery.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">

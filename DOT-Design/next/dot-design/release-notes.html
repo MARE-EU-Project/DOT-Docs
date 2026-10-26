@@ -252,12 +252,21 @@
 <h2 id="_unreleased"><a class="anchor" href="#_unreleased"></a>Unreleased</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p><code>dotx compose topology &lt;composition-or-directory&gt; --write</code> now maintains the
+README Mermaid block, wire legend and adjacent <code>topology.mmd</code> natively in Go.
+<code>--check</code> rejects drift without writing. Both require verified locks and
+preflight all graphs/targets; Task wrappers delegate to the command instead of
+the removed <code>Compositions/topology.sh</code> generator. These remain plan artifacts,
+not live acceptance evidence.</p>
+</div>
+<div class="paragraph">
 <p>Catalogue DOT IDs now follow <code>&lt;name&gt;@&lt;actual-tool-release&gt;</code> and all 50 distinct Contract IDs
-follow <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>. For example, <code>Prometheus@3.15.0</code>
-declares <code>Prometheus@3.15.0::OpenAPI::HTTP</code>. DOT and composition DOT-reference types
+follow <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>. For example, <code>Prometheus@3.15.1</code>
+declares <code>Prometheus@3.15.1::OpenAPI::HTTP</code>. DOT and composition DOT-reference types
 are now textual, generated from DOT-Domain. Legacy UUID strings remain valid
-inputs, but migrated entries do not provide aliases. Anchor and Composition
-UUIDs are unchanged. Every DOT now requires at least one Skill reference;
+inputs, but migrated entries do not provide aliases. Catalogue Anchors now use
+DOT-local kebab-case keys; Composition ownership UUIDs are unchanged. Every DOT
+now requires at least one Skill reference;
 native authoring accepts repeated <code>--skill &lt;id&gt;</code> flags and prompts interactively.
 See the catalogue&#8217;s <code>IDENTIFIER-MIGRATION.md</code> for exact mappings and state safety.
 Destroy old instances using their original checkout and CLI before migrating;
@@ -266,12 +275,16 @@ runtime state or treat previous rehearsal receipts as evidence for the new graph
 This is a development-format migration, not a new published release.</p>
 </div>
 <div class="paragraph">
-<p>The catalogue preserves 74 release-specific bundles from the former 67 mixed
-product/component definitions. Different tool releases remain under each product&#8217;s
-<code>versions/&lt;release&gt;/</code> folders with explicit selection, not PoC-specific copies.
-Unreleased internal/planning/demo components are labelled as such. Official raw
-Contract documents, URLs and digest pins remain unchanged; shared Contracts keep
-their producer namespace. This migration is not fresh producer certification.</p>
+<p>The catalogue has 67 canonical product/component definitions, each with one root
+<code>dot.json</code> containing all supported deployment choices. Nested <code>versions/</code>
+bundles and duplicate product definitions are rejected by catalogue CI. Tool
+upgrades update all mechanisms, release-matched Contracts, explicit references
+and reviewed locks together; Git retains previous releases. APISIX 3.19.0,
+Keycloak 26.8.1, Prometheus 3.15.1, OPA 1.21.4 and Elasticsearch 9.5.5 use stable
+upstream artifacts verified on 2026-10-26. Unreleased internal/planning/demo
+components remain labelled as such. Official Contract documents remain byte-for-byte
+upstream artifacts; derived configured-route/policy projections remain explicitly
+derived. Static validation does not establish full producer certification.</p>
 </div>
 <div class="paragraph">
 <p>The catalogue now uses explicit readable IDs for its five Skill categories and

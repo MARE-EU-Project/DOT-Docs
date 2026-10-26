@@ -308,8 +308,8 @@ specification where available. Never relabel another component&#8217;s Contract.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.0 \
-  --name Prometheus --version 3.15.0 --skill Metrics-Scraping \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx new --from docker-image prom/prometheus:v3.15.1 \
+  --name Prometheus --version 3.15.1 --skill Metrics-Scraping \
   --service prometheus --port http:9090 \
   --contract "$AUTHORING_DIR/contract.json" \
   --operation 'build-information=#/paths/~1status~1buildinfo/get' --bind http \
@@ -384,12 +384,12 @@ so both temporary outputs can be inspected and cleaned up together:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Alternative: supply the official raw URL without hand-writing contract.json.
 # This exercise creates no second catalogue entry.
-AUTHORING_SPEC_BASE=https://raw.githubusercontent.com/prometheus/prometheus/v3.15.0
-dotx new --from docker-image prom/prometheus:v3.15.0 \
-  --name Prometheus --version 3.15.0 --skill Metrics-Scraping \
+AUTHORING_SPEC_BASE=https://raw.githubusercontent.com/prometheus/prometheus/v3.15.1
+dotx new --from docker-image prom/prometheus:v3.15.1 \
+  --name Prometheus --version 3.15.1 --skill Metrics-Scraping \
   --service prometheus --port http:9090 \
   --contract-url "$AUTHORING_SPEC_BASE/web/api/v1/testdata/openapi_3.1_golden.yaml" \
-  --contract-name HTTP --contract-version 3.15.0 --contract-format YAML \
+  --contract-name HTTP --contract-version 0.0.1-undefined --contract-format YAML \
   --operation 'build-information=#/paths/~1status~1buildinfo/get' --bind http \
   --output "$AUTHORING_DIR/url-bundle/dot.json"
 dotx validate "$AUTHORING_DIR/url-bundle" \
@@ -398,10 +398,10 @@ jq '.contracts[0]' "$AUTHORING_DIR/url-bundle/dot.json"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: the resulting ID is <code>Prometheus@3.15.0::OpenAPI::HTTP</code>, with the
+<p>Expected: the resulting ID is <code>Prometheus@3.15.1::OpenAPI::HTTP</code>, with the
 official URL and a 64-character lower-case SHA-256 in <code>payload</code>. No raw document
 is embedded. The example retains the existing catalogue&#8217;s interface-version
-label; <code>--contract-version</code> is independent of the tool&#8217;s <code>--version</code>. Do not
+label <code>0.0.1-undefined</code>; <code>--contract-version</code> is independent of the tool&#8217;s <code>--version</code>. Do not
 infer either version from a filename or change upstream payload metadata.</p>
 </div>
 <div class="paragraph">

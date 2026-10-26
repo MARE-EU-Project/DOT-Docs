@@ -339,7 +339,7 @@ ownership identities. Existing Anchor UUID strings remain readable only when
 explicitly declared; they are not aliases for the migrated catalogue keys.
 Catalogue DOT IDs use <code>&lt;name&gt;@&lt;tool-release&gt;</code> and Contract IDs use
 <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>, for example
-<code>Keycloak@26.7.3::OpenAPI::Admin</code>. The ID identifies the interface, not an
+<code>Keycloak@26.8.1::OpenAPI::Admin</code>. The ID identifies the interface, not an
 operation: the Anchor&#8217;s separate selector chooses the operation/path.
 Consumers keep the originating Contract ID. Each DOT references at least one meaningful Skill.</p>
 </div>
@@ -367,7 +367,7 @@ key is DOT-local; this excerpt is not a second catalogue definition.</p>
   "role": "PROVIDES",
   "semanticTypes": ["https://prometheus.io/docs/prometheus/latest/querying/api/#build-information"],
   "contract": {
-    "id": "Prometheus@3.15.0::OpenAPI::HTTP",
+    "id": "Prometheus@3.15.1::OpenAPI::HTTP",
     "selector": "#/paths/~1status~1buildinfo/get"
   }
 }</code></pre>
@@ -393,9 +393,9 @@ payload. For example, a Prometheus API consumer uses:</p>
   "name": "read-build-information",
   "role": "REQUIRES",
   "contract": {
-    "id": "Prometheus@3.15.0::OpenAPI::HTTP",
+    "id": "Prometheus@3.15.1::OpenAPI::HTTP",
     "selector": "#/paths/~1status~1buildinfo/get",
-    "source": "repository://Prometheus@3.15.0"
+    "source": "repository://Prometheus@3.15.1"
   }
 }</code></pre>
 </div>
@@ -411,8 +411,8 @@ not every API the service calls.</p>
 </div>
 <div class="paragraph">
 <p>Qualified root Contract IDs must start with the <strong>exact</strong> owning <code>Dot.id</code> plus
-<code>::</code>, including the tool release. For example, <code>Prometheus@3.13.3</code> owns
-<code>Prometheus@3.13.3::OpenAPI::HTTP</code>, not <code>Prometheus@3.15.0::OpenAPI::HTTP</code>.
+<code>::</code>, including the tool release. For example, <code>Prometheus@3.15.1</code> owns
+<code>Prometheus@3.15.1::OpenAPI::HTTP</code>, not the older <code>Prometheus@3.15.0::OpenAPI::HTTP</code>.
 The catalogue uses the official specification from the selected release where
 available, retaining upstream bytes and SHA-256 pins. A Contract document&#8217;s API
 version remains separate from the tool release; upstream <code>info.version</code> must
@@ -938,7 +938,7 @@ can inspect one immutable definition or validate the complete repository:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect Prometheus@3.15.0 --repository DOT-Repository --json
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect Prometheus@3.15.1 --repository DOT-Repository --json
 dotx validate DOT-Repository</code></pre>
 </div>
 </div>

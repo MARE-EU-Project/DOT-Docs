@@ -328,10 +328,10 @@ not the complete external catalogue.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak@26.3.3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak@26.8.1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bitnami <code>HELM_CHART</code> <code>25.2.0</code>; official Keycloak <code>DOCKER_COMPOSE</code> (both tool release 26.3.3). Native Kubernetes 26.0.7 and Docker 26.7.3 have separate release bundles.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.3.3 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Anchors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Codecentric <code>HELM_CHART</code> <code>7.4.0</code>; official Keycloak <code>DOCKER_COMPOSE</code>, <code>DOCKER_IMAGE</code> and native Kubernetes deployments, all targeting 26.8.1 in one root definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.8.1 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Anchors</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and Compose <code>start-dev</code>; readiness; obtain an admin token and assert <code>GET /admin/realms/master</code> returns the master realm through both mechanisms</p></td>
 </tr>
 <tr>
@@ -342,11 +342,11 @@ not the complete external catalogue.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact single-binary StatefulSet binding and <code>/ready</code>; Compose <code>/ready</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Prometheus@3.15.0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Prometheus@3.15.1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Community <code>HELM_CHART</code> <code>29.37.0</code>; official Prometheus <code>DOCKER_COMPOSE</code> image pinned by digest; <code>DOCKER_IMAGE</code> for composition-owned scrape configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Prometheus 3.15.0 OpenAPI 3.1 artifact for build information and PromQL; explicit contractless scrape-target requirement materialized through <code>prometheus.yml</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact server Deployment binding; readiness; assert <code>/api/v1/status/buildinfo</code> reports version <code>3.15.0</code> through both mechanisms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus Community <code>HELM_CHART</code> <code>29.38.2</code>; official Prometheus <code>DOCKER_COMPOSE</code> image pinned by digest; <code>DOCKER_IMAGE</code> for composition-owned scrape configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Prometheus 3.15.1 OpenAPI 3.1 artifact for build information and PromQL; explicit contractless scrape-target requirement materialized through <code>prometheus.yml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact server Deployment binding; readiness; assert <code>/api/v1/status/buildinfo</code> reports version <code>3.15.1</code> through both mechanisms</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Wireshark@4.6.1</code></p></td>
@@ -359,8 +359,8 @@ not the complete external catalogue.</p>
 </table>
 <div class="paragraph">
 <p>Each product is kept under <code>DOTs/external/</code> because it is owned outside MARE,
-with mechanisms for one actual tool release in the same <code>dot.json</code>; additional
-releases are self-contained <code>versions/&lt;release&gt;/</code> bundles. Ownership does
+with every supported mechanism for its selected actual tool release in the same
+root <code>dot.json</code>. Older releases remain in Git history, not nested bundles. Ownership does
 not imply interoperability maturity. Keycloak and Prometheus publish adjacent
 official Contract evidence and pass the strict reusable profile. Loki and
 Wireshark currently provide runtime evidence only; they must not be
@@ -378,13 +378,13 @@ automated acceptance intentionally target Linux amd64 only.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/keycloak/keycloak/releases/tag/26.3.3">Keycloak 26.3.3 release assets</a>, <a href="https://www.keycloak.org/docs-api/latest/rest-api/index.html">Keycloak Admin REST API</a>, <a href="https://github.com/bitnami/charts/tree/main/bitnami/keycloak">Bitnami Keycloak chart</a>, and <a href="https://www.keycloak.org/server/containers">Keycloak containers</a></p>
+<p><a href="https://github.com/keycloak/keycloak/releases/tag/26.8.1">Keycloak 26.8.1 release assets</a>, <a href="https://www.keycloak.org/docs-api/latest/rest-api/index.html">Keycloak Admin REST API</a>, <a href="https://github.com/codecentric/helm-charts/tree/keycloakx-7.4.0/charts/keycloakx">Codecentric Keycloak chart</a>, and <a href="https://www.keycloak.org/server/containers">Keycloak containers</a></p>
 </li>
 <li>
 <p><a href="https://grafana.com/docs/loki/latest/setup/install/helm/">Grafana Loki Helm documentation</a></p>
 </li>
 <li>
-<p><a href="https://github.com/prometheus/prometheus/blob/v3.15.0/web/api/v1/testdata/openapi_3.1_golden.yaml">Prometheus 3.15.0 official OpenAPI 3.1 artifact</a>, <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus">Prometheus Community chart</a>, and <a href="https://prometheus.io/docs/prometheus/latest/installation/">Prometheus installation</a></p>
+<p><a href="https://github.com/prometheus/prometheus/blob/v3.15.1/web/api/v1/testdata/openapi_3.1_golden.yaml">Prometheus 3.15.1 official OpenAPI 3.1 artifact</a>, <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus">Prometheus Community chart</a>, and <a href="https://prometheus.io/docs/prometheus/latest/installation/">Prometheus installation</a></p>
 </li>
 <li>
 <p><a href="https://docs.linuxserver.io/images/docker-wireshark/">LinuxServer Wireshark image</a></p>

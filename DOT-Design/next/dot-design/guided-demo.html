@@ -1175,7 +1175,7 @@ digest-pinned Contracts while offering multiple deployment mechanisms.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT/versions/26.3.3
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT
 dotx inspect "$KEYCLOAK" --json |
   jq '{name, version,
        skills: (.skills | length),
@@ -1192,14 +1192,16 @@ dotx inspect "$KEYCLOAK" --json |
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "name": "Keycloak",
-  "version": "26.3.3",
+  "version": "26.8.1",
   "skills": 2,
   "contracts": 3,
   "anchors": 4,
-  "deployments": 2,
+  "deployments": 5,
   "supportedDeploymentSystems": [
     "DOCKER_COMPOSE",
-    "HELM_CHART"
+    "DOCKER_IMAGE",
+    "HELM_CHART",
+    "KUBERNETES_MANIFEST"
   ]
 }</code></pre>
 </div>
@@ -1211,8 +1213,8 @@ dotx inspect "$KEYCLOAK" --json |
 <p>One reusable DOT root can describe several supported deployment choices without
 forking its identity for each PoC. Deployment-instance realms, routes,
 credentials, and endpoints remain composition inputs rather than copied DOTs.
-Different actual tool releases are explicit sibling bundles, not mixed under
-one release identity. The native Kubernetes demo separately selects 26.0.7.</p>
+All five deployment choices target the same Keycloak 26.8.1 release in this
+one definition. Git preserves previous releases; there are no sibling version bundles.</p>
 </div>
 </div>
 </div>

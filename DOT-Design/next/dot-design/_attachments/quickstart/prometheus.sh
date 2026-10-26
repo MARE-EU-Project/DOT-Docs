@@ -35,7 +35,7 @@ done
 test "$ready" = true
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
-  jq -e '.status == "success" and .data.version == "3.15.0"'
+  jq -e '.status == "success" and .data.version == "3.15.1"'
 # end::verify[]
 
 # tag::status[]

@@ -259,7 +259,7 @@ its product definition when the deployment runtime changes?"</p>
 <p>The catalogue composition <code>prometheus-docker-kubernetes-portability</code> selects
 the existing <code>configuration-docker-compose</code> and
 <code>configuration-kubernetes-manifest</code> profiles of the <strong>same</strong> Prometheus DOT:
-ID <code>Prometheus@3.15.0</code>, upstream release <code>3.15.0</code>. Both resolve its
+ID <code>Prometheus@3.15.1</code>, upstream release <code>3.15.1</code>. Both resolve its
 official OpenAPI Contract, use the same digest-pinned upstream image, and declare
 the same default self-scrape configuration and <code>GOGC=75</code>. No product descriptors,
 Contracts or default configurations are copied for this demonstration.</p>
@@ -361,7 +361,7 @@ networks, volumes, namespace, forwards or composition state remain.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The default selected image currently reports Prometheus <code>3.15.0</code>; the assertion
+<p>The default selected image currently reports Prometheus <code>3.15.1</code>; the assertion
 derives the version from its pinned bytes rather than assuming that a version
 label or two matching server responses prove provenance. The runtime receipts
 record actual image IDs and observation timestamps. The terminal table reports
