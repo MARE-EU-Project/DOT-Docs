@@ -254,7 +254,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Wires express composition topology outside every participating DOT. They refer
-to stable Anchor UUIDs, resolve deployable endpoints through service bindings,
+to stable Anchor IDs, resolve deployable endpoints through service bindings,
 and materialize only values that the target service has declared as
 configurable.</p>
 </div>
@@ -264,7 +264,7 @@ configurable.</p>
 <h2 id="direct-requestresponse-wire"><a class="anchor" href="#direct-requestresponse-wire"></a>Direct request/response wire</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A wire uses instance names and stable Anchor UUIDs:</p>
+<p>A wire uses instance names and stable Anchor IDs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -274,10 +274,10 @@ configurable.</p>
       realm: {value: dotx}
     from:
       instance: identity
-      anchorId: a1000000-0000-4000-8000-000000000002
+      anchorId: client-credentials-token
     to:
       instance: client
-      anchorId: a5000000-0000-4000-8000-000000000001
+      anchorId: oauth-token
     materializer:
       type: ENVIRONMENT_VARIABLE
       valueFrom: OPERATION_URL
@@ -296,7 +296,7 @@ configurable.</p>
 <p>Resolve the two pinned DOT instances.</p>
 </li>
 <li>
-<p>Resolve both Anchor UUIDs and require complementary <code>PROVIDES</code>/<code>REQUIRES</code> roles.</p>
+<p>Resolve both Anchor IDs and require complementary <code>PROVIDES</code>/<code>REQUIRES</code> roles.</p>
 </li>
 <li>
 <p>Resolve the selected Contract elements.</p>
@@ -330,8 +330,8 @@ the operator provisions outside <code>dotx</code>:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
   - name: identity-discovery-to-proxy
-    from: {instance: identity, anchorId: a1000000-0000-4000-8000-000000000003}
-    to: {instance: proxy, anchorId: aa100000-0000-4000-8000-000000000002}
+    from: {instance: identity, anchorId: oidc-discovery}
+    to: {instance: proxy, anchorId: oidc-discovery}
     network:
       adapter: EXTERNAL_GATEWAY
       host: identity-gateway.example.net
@@ -368,8 +368,8 @@ inspectable before apply:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">oauth-token-to-client:
-  identity/a1000000-0000-4000-8000-000000000002
-    -&gt; client/a5000000-0000-4000-8000-000000000001 [COMPATIBLE]
+  identity/client-credentials-token
+    -&gt; client/oauth-token [COMPATIBLE]
   endpoint: keycloak:8080
     (HTTP, instance=identity service=keycloak port=http)
   contract: Keycloak@26.7.3::OpenAPI::OIDC
@@ -400,10 +400,10 @@ endpoint may be three different instances. Select the broker explicitly:</p>
   - name: openc2-command-via-mqtt
     from:
       instance: interpreter
-      anchorId: a6000000-0000-4000-8000-000000000003
+      anchorId: send-openc2-command
     to:
       instance: actuator
-      anchorId: a6000000-0000-4000-8000-000000000006
+      anchorId: receive-openc2-command
     endpoint:
       instance: broker
       service: mqtt
@@ -651,7 +651,7 @@ issuer trust, mTLS, workload identity, or remote attestation.</p>
   - name: protected-metadata-through-gateway
     target:
       instance: gateway
-      anchorId: a4000000-0000-4000-8000-000000000003</code></pre>
+      anchorId: protected-metadata</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -665,7 +665,7 @@ issuer trust, mTLS, workload identity, or remote attestation.</p>
 </div>
 <div class="paragraph">
 <p>The exposure name belongs to the composition boundary. It does not rename or
-replace the member Anchor UUID.</p>
+replace the member Anchor ID.</p>
 </div>
 <div class="paragraph">
 <p>Before runtime mutation, follow the

@@ -5,7 +5,7 @@ flowchart TB
   subgraph Definition["Reusable DOT definition"]
     direction LR
     Contract["1 · Contract operation<br/>authoritative interaction facts"]
-    Anchor["2 · Anchor<br/>stable UUID and role"]
+    Anchor["2 · Anchor<br/>stable local ID and role"]
     Binding["3 · Anchor binding<br/>service and named port"]
     Contract -->|selected by| Anchor
     Anchor -->|implemented by| Binding

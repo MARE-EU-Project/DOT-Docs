@@ -5,7 +5,7 @@ flowchart LR
   subgraph Authoring["Authoring time · reusable declarations"]
     direction TB
     Contract["Contract payload<br/>operation · protocol · schemas · security"]
-    Anchor["Anchor<br/>UUID · role · Contract selector"]
+    Anchor["Anchor<br/>local ID · role · Contract selector"]
     Binding["Anchor binding<br/>deployment service · named port"]
     Config["Service configuration<br/>declared materializer targets"]
     Contract --> Anchor

@@ -5,7 +5,7 @@ flowchart TB
   subgraph Provider["Provider DOT A · authored independently"]
     direction LR
     PContract["Contract operation<br/>authoritative interaction facts"]
-    PAnchor["PROVIDES Anchor<br/>stable UUID · role · selector"]
+    PAnchor["PROVIDES Anchor<br/>stable local ID · role · selector"]
     PBinding["Anchor binding<br/>deployment service · named port"]
     PContract -->|selected by| PAnchor
     PAnchor -->|implemented by| PBinding
@@ -23,7 +23,7 @@ flowchart TB
   subgraph Consumer["Consumer DOT B · authored independently"]
     direction LR
     CContract["Contract operation<br/>authoritative requirements"]
-    CAnchor["REQUIRES Anchor<br/>stable UUID · role · selector"]
+    CAnchor["REQUIRES Anchor<br/>stable local ID · role · selector"]
     CConfig["Declared service configuration<br/>allow-listed materializer target"]
     CContract -->|selected by| CAnchor
     CAnchor -.->|may require runtime handoff| CConfig

@@ -295,7 +295,7 @@ Review an explicit document migration and affected locks.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identifiers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Legacy textual/UUID DOT, Skill and Contract keys remain readable. Current
 catalogue coordinates use <code>name@actual-tool-release</code> and
-<code>origin-DOT.id::standard::name</code>; Anchor/Composition UUIDs retain their roles.</p></td>
+<code>origin-DOT.id::standard::name</code>; Anchors use DOT-local keys; Composition UUIDs retain their ownership role.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Renaming a catalogue identity changes references and lock inputs. It does not
 adopt existing runtime state or establish API compatibility.</p></td>
 </tr>
@@ -303,6 +303,14 @@ adopt existing runtime state or establish API compatibility.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required capabilities</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A DOT needs at least one meaningful Skill reference.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Older empty scaffolds need reviewed capability declarations, not guessed IDs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor identifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local kebab-case IDs and exact legacy UUID strings are accepted. Composition
+references still pair an instance with its Anchor ID; Composition ownership stays UUID-based.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Anchor IDs and references change from <code>UUID</code> to <code>String</code>; recompile callers.
+Migrate declarations, bindings, wires and exposed interfaces together, then review
+new locks. Old UUIDs and display names are never lookup aliases.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract ownership</p></td>
@@ -365,7 +373,7 @@ and application-data recovery instructions. Preserve the original files.</p>
 Contract-ownership notes before changing IDs, enum spellings or dependencies.</p>
 </li>
 <li>
-<p>Retain stable Anchor UUIDs for unchanged logical interfaces. <code>dotx new
+<p>Retain stable Anchor IDs for unchanged logical interfaces. <code>dotx new
 --force</code> creates a replacement scaffold; it is not an incremental editor.</p>
 </li>
 <li>

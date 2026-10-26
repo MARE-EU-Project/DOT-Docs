@@ -99,7 +99,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #EFF6FF {
 
 package "eu.mare6g.dot.domain.anchor" as package_eu_mare6g_dot_domain_anchor #EFF6FF {
   class "Anchor" as eu_mare6g_dot_domain_anchor_Anchor #FFFFFF {
-    - id: UUID
+    - id: String
     - name: String
     - role: AnchorRole
     - semanticTypes: List<URI>
@@ -150,7 +150,7 @@ package "eu.mare6g.dot.domain.anchor.validation" as package_eu_mare6g_dot_domain
 package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_composition #EFF6FF {
   class "AnchorReference" as eu_mare6g_dot_domain_composition_AnchorReference #FFFFFF {
     - instance: String
-    - anchorId: UUID
+    - anchorId: String
   }
 
   class "AsyncAPIProbe" as eu_mare6g_dot_domain_composition_AsyncAPIProbe #FFFFFF {
@@ -462,7 +462,7 @@ package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract
 
 package "eu.mare6g.dot.domain.deployment" as package_eu_mare6g_dot_domain_deployment #EFF6FF {
   class "AnchorBinding" as eu_mare6g_dot_domain_deployment_AnchorBinding #FFF7ED {
-    - anchorId: UUID
+    - anchorId: String
     - port: String
   }
 

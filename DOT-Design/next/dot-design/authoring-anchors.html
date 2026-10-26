@@ -278,7 +278,7 @@ Anchor to the consumer DOT. Select the authoritative Contract element from
 each Anchor; do not copy its protocol or payload fields.</p>
 </li>
 <li>
-<p>On every deployable implementation, bind each Anchor UUID to the named
+<p>On every deployable implementation, bind each Anchor ID to the named
 <code>ServicePort</code> that implements it.</p>
 </li>
 <li>
@@ -294,7 +294,7 @@ composition.</p>
 to a separate composition document.</p>
 </li>
 <li>
-<p>Connect the Anchor UUIDs with a wire. Add an explicit broker endpoint,
+<p>Connect the Anchor IDs with a wire. Add an explicit broker endpoint,
 parameter values, security binding, or materializer only when the connection
 requires it.</p>
 </li>
@@ -331,12 +331,12 @@ harness remains in <code>DOT-Testing/e2e/api-gateway-oidc/</code>.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Anchor and Composition identifiers in this guide use the canonical lowercase
-UUID text form with UUIDv4 version and IETF variant bits defined by
-<a href="https://www.rfc-editor.org/rfc/rfc9562.html">RFC 9562</a>. Deterministic
-values are retained where they identify executable repository fixtures, making
-the documentation traceable to the tested examples. Generate new UUIDs for
-new Anchors and Compositions; do not reuse documentation or fixture identities.
+<p>New Anchor IDs use explicit DOT-local kebab-case keys such as <code>build-information</code>.
+Composition ownership identifiers still use the canonical lowercase UUIDv4 text
+form defined by <a href="https://www.rfc-editor.org/rfc/rfc9562.html">RFC 9562</a>. Generate a
+fresh Composition UUID for a new independently owned graph; do not reuse demo
+ownership identities. Existing Anchor UUID strings remain readable only when
+explicitly declared; they are not aliases for the migrated catalogue keys.
 Catalogue DOT IDs use <code>&lt;name&gt;@&lt;tool-release&gt;</code> and Contract IDs use
 <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>, for example
 <code>Keycloak@26.7.3::OpenAPI::Admin</code>. The ID identifies the interface, not an
@@ -357,12 +357,12 @@ Consumers keep the originating Contract ID. Each DOT references at least one mea
 contract element. It deliberately omits protocol, direction, media type,
 payload schema, and security fields that the Contract already defines.
 This excerpt selects Prometheus&#8217;s real build-information operation; the Anchor
-UUID is illustrative, not a second catalogue definition.</p>
+key is DOT-local; this excerpt is not a second catalogue definition.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "a0000000-0000-4000-8000-000000000001",
+  "id": "build-information",
   "name": "build-information-http",
   "role": "PROVIDES",
   "semanticTypes": ["https://prometheus.io/docs/prometheus/latest/querying/api/#build-information"],
@@ -389,7 +389,7 @@ payload. For example, a Prometheus API consumer uses:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "a0000000-0000-4000-8000-000000000002",
+  "id": "read-build-information",
   "name": "read-build-information",
   "role": "REQUIRES",
   "contract": {
@@ -444,7 +444,7 @@ embed a Keycloak discovery Contract. Its discovery Anchor instead declares:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "aa100000-0000-4000-8000-000000000002",
+  "id": "oidc-discovery",
   "name": "oidc-discovery",
   "role": "REQUIRES",
   "requirement": "OIDC_DISCOVERY_1_0"
@@ -655,7 +655,7 @@ facts that cannot otherwise be derived:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "a0000000-0000-4000-8000-000000000006",
+  "id": "packet-stream",
   "name": "packet-stream",
   "role": "PROVIDES",
   "semanticTypes": ["urn:mare:security:packet-stream"],
@@ -709,16 +709,22 @@ structural compatibility across Contract identities; that comparison remains
 <div class="ulist">
 <ul>
 <li>
-<p>The UUID, not <code>name</code>, identifies an Anchor in a wire.</p>
+<p>The exact <code>id</code>, not <code>name</code>, identifies an Anchor in a wire. New catalogue IDs use DOT-local kebab-case keys such as <code>search-api</code>.</p>
 </li>
 <li>
-<p>A rename or documentation correction preserves the UUID.</p>
+<p>IDs are unique within their owning DOT. Composition references pair <code>instance</code> with <code>anchorId</code>; different DOTs may use the same local key.</p>
 </li>
 <li>
-<p>A compatible DOT version preserves the UUID for the same logical Anchor.</p>
+<p>A display-name rename or documentation correction preserves the ID. Do not derive an existing ID again from its current name.</p>
 </li>
 <li>
-<p>An incompatible semantic replacement receives a new UUID.</p>
+<p>A compatible DOT version preserves the key for the same logical Anchor.</p>
+</li>
+<li>
+<p>An incompatible semantic replacement receives a new ID.</p>
+</li>
+<li>
+<p>Legacy UUID strings remain valid explicit keys, not aliases for migrated catalogue IDs. Regenerate and review affected locks when migrating references.</p>
 </li>
 <li>
 <p>Removal and any future <code>deprecated</code>/<code>replacedBy</code> metadata are publishing governance decisions; they are not inferred from contract changes.</p>
@@ -727,6 +733,13 @@ structural compatibility across Contract identities; that comparison remains
 <p>Names remain useful in logs and displays but are never foreign keys.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>New keys follow <code>^[a-z]<strong class="a-z0-9">(-[a-z0-9]+)</strong>$</code>: no spaces, uppercase,
+underscores, repeated hyphens or path/fragment separators. The generated model
+also admits legacy UUID strings. Neither mode permits whitespace normalization.
+Contract identity, selector, protocol, role, tool release and deployment address
+remain separate; none is concatenated into the local Anchor key.</p>
 </div>
 </div>
 </div>
@@ -748,7 +761,7 @@ port:</p>
   ],
   "anchorBindings": [
     {
-      "anchorId": "a0000000-0000-4000-8000-000000000001",
+      "anchorId": "build-information",
       "port": "http"
     }
   ],
@@ -766,7 +779,7 @@ deployer still decides the concrete container DNS name, cluster Service,
 allocated address, forwarded port, certificate, or network path.</p>
 </div>
 <div class="paragraph">
-<p><code>@ValidAnchor</code> and <code>AnchorValidator</code> reject duplicate Anchor UUIDs, undeclared
+<p><code>@ValidAnchor</code> and <code>AnchorValidator</code> reject duplicate Anchor IDs, undeclared
 Contract references, invalid selector syntax, undeclared ports, undeclared
 Anchor bindings, and duplicate service-local bindings.</p>
 </div>
@@ -930,7 +943,7 @@ dotx validate DOT-Repository</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>dotx compose validate</code> and <code>dotx compose inspect --json</code> resolve Anchor UUIDs,
+<p><code>dotx compose validate</code> and <code>dotx compose inspect --json</code> resolve Anchor IDs,
 service-port bindings, and selected Contract elements conservatively. The plan
 reports <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>; missing evidence is never
 treated as a match. Contract payloads remain authoritative and are not copied

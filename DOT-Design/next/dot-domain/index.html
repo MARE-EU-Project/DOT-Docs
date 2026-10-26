@@ -428,6 +428,18 @@ independent CLI models. No final stable-model claim or new release is implied.</
 <div class="sect2">
 <h3 id="_reference_aware_validation_and_collection_safety"><a class="anchor" href="#_reference_aware_validation_and_collection_safety"></a>Reference-aware validation and collection safety</h3>
 <div class="paragraph">
+<p>Anchors use exact DOT-local kebab-case keys such as <code>search-api</code>, not generated
+UUIDs for new catalogue entries. <code>Anchor.ID_PATTERN</code> is shared by the Java
+definition, service bindings and composition references and exported to the
+generated schemas/Go inputs. A wire&#8217;s <code>instance</code> identifies the owning DOT, so
+two different DOTs may reuse the same local key. Display labels and operation
+selectors remain separate and never act as lookup aliases.
+Legacy UUID strings remain readable when explicitly declared. These three
+Java properties now use <code>String</code>; recompile callers and convert old UUID
+arguments explicitly. Composition ownership UUIDs are unchanged. Catalogue
+migration updates references and reviewed locks together, not private live state.</p>
+</div>
+<div class="paragraph">
 <p>Use ordinary <code>validator.validate(dot)</code> to cascade validation. ID-only Skill and
 service Contract views use the portable Jakarta <code>IdentityReference</code> group;
 ignored entity metadata is not validated as a complete declaration. Validating
@@ -469,7 +481,7 @@ Contract assets and operation resolution remain CLI/resolver checks.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root Contract IDs and Anchor UUIDs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root Contract IDs and Anchor IDs</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Composition</p></td>
@@ -626,7 +638,7 @@ the domain model validates selector syntax and references within the aggregate.<
 <div class="ulist">
 <ul>
 <li>
-<p>a stable UUID and display name;</p>
+<p>a stable DOT-local ID and a separate display name;</p>
 </li>
 <li>
 <p>a <code>PROVIDES</code> or <code>REQUIRES</code> role;</p>
@@ -645,7 +657,7 @@ selected Contract operation. A contractless Anchor must declare <code>direction<
 least one protocol, and at least one media type explicitly.</p>
 </div>
 <div class="paragraph">
-<p><code>DeploymentService.anchorBindings</code> maps an Anchor UUID to a named <code>ServicePort</code>
+<p><code>DeploymentService.anchorBindings</code> maps an exact Anchor ID to a named <code>ServicePort</code>
 on that same service. An Anchor contains no host, numeric port, credential,
 placement, or live policy state.</p>
 </div>
@@ -656,7 +668,7 @@ to <code>AnchorValidator</code>. It rejects:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>duplicate Anchor UUIDs within one DOT;</p>
+<p>duplicate Anchor IDs within one DOT;</p>
 </li>
 <li>
 <p>Contract references not declared by the same DOT;</p>

@@ -312,7 +312,7 @@ appear compatible. Follow the pinned source route in the
 <a href="contributor-guide.html" class="xref page">contributor guide</a> for current catalogue work.
 See <a href="compatibility.html" class="xref page">the compatibility and migration policy</a> for
 intentional spelling/identity boundaries, release-version rules and preservation
-of existing files, Anchor UUIDs and reviewed locks.</p>
+of existing files, Anchor IDs and reviewed locks.</p>
 </div>
 <div class="paragraph">
 <p>Current source also distinguishes owned Contract declarations, explicit external
@@ -459,8 +459,9 @@ are CLI concerns rather than portable domain inputs.</p>
 <p>DOT, Skill and Contract identities are case-sensitive textual IDs; legacy
 UUID-shaped strings remain accepted. Catalogue DOT IDs use <code>&lt;name&gt;@&lt;tool-release&gt;</code>;
 Contract IDs use <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code> with canonical standard spelling.
-Every DOT must reference at least one meaningful Skill. Anchor and Composition
-identities remain UUIDs. A DOT name or version change therefore changes its
+Every DOT must reference at least one meaningful Skill. Anchors use exact DOT-local
+kebab-case IDs (explicit legacy UUID strings remain readable); Composition
+ownership identities remain UUIDs. A DOT name or version change therefore changes its
 catalogue identity; update composition pins and regenerate reviewed locks.
 IDs are not a replacement for the raw Contract URL plus SHA-256.
 The <a href="integration-handoff.html" class="xref page">integration handoff</a> and

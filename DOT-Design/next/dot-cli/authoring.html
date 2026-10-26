@@ -321,12 +321,15 @@ specification where available. Never relabel another component&#8217;s Contract.
 declaration against the generated schema, checks exact ownership, downloads
 and verifies the payload using the ordinary bounded HTTPS/SHA-256 verifier,
 and resolves the selected operation using the composition resolver. It writes
-the complete Contract, a fresh Anchor UUID, its service Contract reference and
+the complete Contract, the explicit Anchor ID, its service Contract reference and
 the named-port binding into <code>dot.json</code> only after verification succeeds.</p>
 </div>
 <div class="paragraph">
-<p>The UUID remains the stable wire identity; <code>build-information</code> is its readable
-name. The selector remains separate from the Contract ID. Repeat <code>--operation</code>
+<p><code>build-information</code> is the stable DOT-local wire identity, not a generated UUID
+or a display-name alias. <code>--operation &lt;anchor-id&gt;=&lt;selector&gt;</code> uses that exact key
+for both the Anchor and its service binding; <code>name</code> initially has the same value
+but may subsequently change independently. Use kebab-case keys. The selector
+remains separate from the Contract ID. Repeat <code>--operation</code>
 for additional provided operations on the same declared TCP port. <code>--bind</code>
 requires an exact service port name and never guesses a listener.</p>
 </div>
@@ -462,7 +465,8 @@ unsupported filesystems fail closed rather than falling back to truncation.</p>
 </div>
 <div class="paragraph">
 <p><code>new</code> creates a fresh definition; it is not an incremental editor or migration
-command. <code>--force</code> replaces the whole scaffold and generates fresh Anchor UUIDs.
+command. <code>--force</code> replaces the whole scaffold using the supplied Anchor IDs;
+it does not preserve interfaces omitted from the new command.
 For an existing integrated DOT, edit its definition while retaining stable
 Anchor identities and review affected composition locks instead of regenerating
 the scaffold.</p>

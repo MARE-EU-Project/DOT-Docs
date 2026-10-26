@@ -1,7 +1,7 @@
 classDiagram
   direction TB
   accTitle: Composition instances, wires, and deployment inputs
-  accDescr: Composition is a separate aggregate that owns pinned DOT instances, wires, and exposed Anchors. Wires reference instance names and Anchor UUIDs, with optional materialization, security, and probes. Deployment inputs provide concrete configuration without copying reusable DOT definitions.
+  accDescr: Composition is a separate aggregate that owns pinned DOT instances, wires, and exposed Anchors. Wires reference instance names and Anchor IDs, with optional materialization, security, and probes. Deployment inputs provide concrete configuration without copying reusable DOT definitions.
 
   class Composition {
     UUID id
@@ -37,7 +37,7 @@ classDiagram
   }
   class AnchorReference {
     String instance
-    UUID anchorId
+    String anchorId
   }
   class Materializer {
     String type
