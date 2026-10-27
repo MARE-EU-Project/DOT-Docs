@@ -319,6 +319,80 @@ never implies a higher one.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="catalogue-readiness"><a class="anchor" href="#catalogue-readiness"></a>Read catalogue readiness correctly</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Catalogue validity, interface completeness and live acceptance are separate
+results. A green repository workflow validates declarations and renders locked
+compositions; it does not deploy every DOT or certify production readiness.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Result</th>
+<th class="tableblock halign-left valign-top">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base/reusable validation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Checks definition structure, exact references, verified Contract bytes and
+applicable bindings. It permits explicitly lower-evidence runtime-only entries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INTERFACE_PROFILE_PASSED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Passes <code>--profile interoperable</code> for declared Anchors and exposed ports. This
+is not live producer acceptance or proof of complete API coverage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INTERFACE_GAP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lacks machine-readable coverage required by that strict profile. It is not
+automatically a broken deployment or proof that no upstream specification exists.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live receipt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Records only the tested workloads, revisions, assertions and cleanup outcome.
+It does not qualify other deployments or the whole catalogue.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Also distinguish <strong>official Contracts</strong>, <strong>source-derived Contracts</strong>, <strong>runtime-only
+components and brokers</strong>, <strong>planning definitions and stubs</strong>, and <strong>test fixtures,
+adapters and producer doubles</strong>. Official provenance does not establish runtime
+behavior; source-derived documents need producer review; a broker&#8217;s protocol
+does not define application message semantics. Do not fabricate a Contract for
+a client-only worker or planning API just to turn a profile result green.
+An ownership folder is not an evidence level.</p>
+</div>
+<div class="paragraph">
+<p>From the <strong>DOT-Design checkout</strong>, warm the verified cache and regenerate the report:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:contracts:warm
+task testing:contracts:readiness
+jq '.dots | group_by(.status) | map({status: .[0].status, count: length})' \
+  DOT-Testing/e2e/target/catalogue-contract-readiness.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The report records <code>liveProducerAcceptance: false</code>, each definition&#8217;s SHA-256
+and its strict-profile diagnostic. Regenerate it after catalogue changes;
+counts describe that exact snapshot, not a permanent readiness percentage.
+These reporting Tasks do not belong to the standalone catalogue checkout.
+There, use <code>dotx validate .</code> and inspect the per-bundle README and
+<a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/CONTRACT-AUDIT.md">Contract audit</a>
+at the selected catalogue revision. For historical evidence, replace <code>main</code>
+in that link with the recorded commit; do not attribute today&#8217;s audit to an old run.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_primary_verification_commands"><a class="anchor" href="#_primary_verification_commands"></a>Primary verification commands</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">

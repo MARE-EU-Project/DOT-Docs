@@ -396,8 +396,12 @@ Contract-ownership notes before changing IDs, enum spellings or dependencies.</p
 --force</code> creates a replacement scaffold; it is not an incremental editor.</p>
 </li>
 <li>
-<p>Run offline definition validation where complete local assets exist, then
-<code>dotx compose validate</code> and <code>dotx compose inspect</code> on the reviewed target inputs.
+<p>Run online <code>dotx validate</code> against the pinned catalogue once to populate the
+verified Contract cache outside the DOT bundles. Then use <code>--offline</code> for
+definition validation, <code>dotx compose validate</code> and <code>dotx compose inspect</code> on
+the reviewed target inputs. A cold offline cache fails closed; it does not
+download Contracts or search for a local <code>contracts/</code> folder. Cached bytes are
+rehashed, and a digest mismatch requires investigation, not replacing the pin.
 Generate a new lock separately and review its differences; never repair the old
 lock to make it appear compatible with a changed graph.</p>
 </li>
@@ -409,10 +413,17 @@ editing private state. Stateful application migration remains application-owned.
 </ol>
 </div>
 <div class="paragraph">
-<p>There is currently <strong>no automatic migration command</strong>, incremental interface
-editor or general composition-creation wizard. Preserve manual review until
-those capabilities have their own preview, non-overwrite and identity-preserving
-regression acceptance. No automatic schema-version conversion is promised.</p>
+<p><code>dotx compose new</code> already creates a template-based draft from a reviewed,
+adjacent-lock-verified composition, with a fresh ownership UUID. It preserves
+the selected DOT releases and wires; it does not infer a new graph, isolate
+fixed ports or shared inputs, migrate state, or create a lock automatically.
+See <a href="../dot-cli/composition-authoring.html" class="xref page">Create a composition from a reviewed example</a>
+for preview, offline-cache requirements and explicit lock review.</p>
+</div>
+<div class="paragraph">
+<p>There is currently <strong>no automatic migration command</strong> or incremental interface
+editor. Template-based creation is not an arbitrary graph-creation wizard or
+schema-version conversion. Retain manual review of interfaces, inputs and locks.</p>
 </div>
 </div>
 </div>
