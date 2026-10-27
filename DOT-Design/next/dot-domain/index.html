@@ -457,9 +457,12 @@ composition inputs and all 128 materializer field combinations. These checks
 do not establish independent adoption or live producer acceptance.</p>
 </div>
 <div class="paragraph">
-<p>The freeze is not complete yet. A reviewed source corpus now covers all 77
-exported public model schemas. Publishing the compatibility baseline and the
-final cross-model invariant review remain release gates.</p>
+<p>The <code>0.3.0-rc.1</code> candidate freezes the reviewed portable model surface, not a
+permanent 1.0 API guarantee. <code>DOT-Domain/MODEL-SPEC.md</code> records the cross-model
+invariant review and validation boundaries. The reproducible, checksummed
+<code>dot-domain-models-0.3.0-rc.1.tar.gz</code> release asset contains all 77 exported
+schemas and shared compatibility corpora. Publication and full runtime
+qualification remain separate release gates.</p>
 </div>
 <div class="paragraph">
 <p>The service-configuration audit now rejects duplicate environment/CDI names,
