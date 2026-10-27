@@ -260,7 +260,8 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>This guided demo explains how a reusable DOT becomes part of a checked
-composition. Start with the <a href="#official-demo-route">official ecosystem demo</a>,
+composition. Start with the <a href="#one-command-demo">one-command guided experience</a>,
+then explore the <a href="#official-demo-route">official ecosystem demo</a>,
 choose the shorter 10-15-minute standards route, or the five-minute
 read-only stages later on this page. These paths connect authoritative Contracts,
 Anchors, deployment choices and explicit wires; they prove different things.</p>
@@ -324,6 +325,12 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One-command guided experience</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At your pace; actual startup time depends on the host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A real Prometheus API response first, then optional authenticated five-DOT composition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disposable Docker resources; Kubernetes only if you continue</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Official ecosystem demo</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">15-20 minutes of explanation, plus runtime waits</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">One DOT on two runtimes, secure policy enforcement and stateless recovery;
@@ -363,10 +370,84 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 </div>
 </div>
 <div class="sect1">
+<h2 id="one-command-demo"><a class="anchor" href="#one-command-demo"></a>One command, immediate explanation, real feedback</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task demo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run from this checkout in an interactive Linux-amd64 terminal. This is the
+on-stage experience, not another qualification suite. This wrapper is available
+in the current <strong>Next source checkout</strong>, not the immutable Design <code>0.3.0</code> tag;
+it reuses the pinned <code>0.3.0</code> CLI and adds no new <code>dotx</code> command or portable model.
+It immediately explains
+what will happen, checks prerequisites without deployment, and reuses the exact
+Prometheus quickstart commands from <a href="getting-started.html" class="xref page">Getting started</a>.
+It then shows the verified build-information version and a clickable localhost
+URL while Prometheus is running. Open the URL, explain the result, and press
+Enter to clean up. Type <code>d</code> then Enter at the inspection pause for the underlying
+deployment command and Contract ID; detailed tool logs stay private rather than
+flooding the screen. Green result headings respect <code>NO_COLOR</code> and plain terminals.</p>
+</div>
+<div class="paragraph">
+<p>After Docker cleanup passes, press <code>q</code> then Enter to finish, or simply press
+Enter to continue with Keycloak, APISIX, OPA, Oxigraph and the OAuth test client.
+Kubernetes is needed only for this optional chapter. A separate read-only
+preflight checks Ready Docker-driver Minikube, exact cached images, namespace and
+port conflicts before it deploys anything. The short results display explains
+anonymous/invalid-token rejection, authenticated reads, forbidden writes and the
+controlled <code>200 → 403 → 200</code> policy transition. Type <code>d</code> then Enter for the native
+<code>dotx compose topology</code> graph and status command. Tokens and raw API payloads are
+never printed by the guided display. The protected localhost URL must reject
+anonymous browser access; it is not a broken demo or a public unauthenticated UI.</p>
+</div>
+<div class="paragraph">
+<p>No long command needs to be copied. Enter requests cleanup at each inspection
+pause; Ctrl-C, EOF and the bounded timeout also trigger the original harness&#8217;s
+ownership-safe cleanup. Inspection defaults to 600 seconds, configured by the
+existing <code>DOTX_POC_PRESENT_TIMEOUT</code> (1–1800 seconds); the optional chapter choice
+also finishes after 600 seconds or EOF, when no demo workloads remain.
+The command stops on prerequisite, API or cleanup failure. It does not claim
+success from a compatible graph, a running container, or an earlier receipt.
+Private diagnostic logs are retained under
+<code>DOT-Testing/e2e/target/guided-demo/run-*/</code>; do not publish raw logs.</p>
+</div>
+<div class="sect2">
+<h3 id="_prepare_once_offstage"><a class="anchor" href="#_prepare_once_offstage"></a>Prepare once offstage</h3>
+<div class="paragraph">
+<p>For the complete route, use the existing <a href="#official-demo-route">qualification and
+preparation instructions</a> and run <code>task testing:demo</code> before the presentation.
+That installs the aligned source CLI, prepares caches, qualifies the full matrix
+and cleans up. <code>task demo</code> does none of that installation, building or full-matrix
+testing on stage. It is <strong>not</strong> an offline guarantee: real deployment/probe paths
+may still require registry or Contract-server access. Keep the qualified source
+set, CLI and runtime contexts unchanged.</p>
+</div>
+<div class="paragraph">
+<p>For the Docker-only first chapter, only Bash, Python 3, Task, the pinned source
+<code>dotx</code>, Git/Go (for provenance), jq, curl, Docker/Compose, timeout, awk, sha256sum,
+ss and flock are needed, with the selected Prometheus image and verified Contract
+already cached. Java, Kubernetes, Helm and the four-standard fixture builds are
+not prerequisites. The small display intentionally leaves deeper concepts until
+there is a working service to explain.</p>
+</div>
+<div class="paragraph">
+<p>This first chapter has no wires. The optional composition is the existing
+source-adapted PoC10 slice, including an Oxigraph substitution and synthetic
+OAuth client—not acceptance of the whole producer PoC or every catalogue DOT.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="official-demo-route"><a class="anchor" href="#official-demo-route"></a>Official ecosystem demo: reuse, compose, enforce, recover</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use this as the recommended presentation route. Budget 15-20 minutes of
+<p>For the simplest first experience, use <a href="#one-command-demo"><code>task demo</code></a> above;
+it starts with Docker only and offers composition after the first verified API.
+Use this route for the deeper ecosystem presentation. Budget 15-20 minutes of
 explanation for the first three chapters; provisioning, readiness and the
 intentional failed rollout add runtime-dependent waiting. The fourth chapter
 is an optional standards deep dive. For a short slot, show chapters 1 and 2.
