@@ -288,7 +288,7 @@ inspect the redacted <code>result.json</code>; the secure API must still deny an
 requests. Do not paste access tokens or Secret values into the presentation.</p>
 </div>
 <div class="paragraph">
-<p>The topology is generated from the locked plan by <code>dotx compose topology</code>, using
+<p>The topology is generated from the locked composition by <code>dotx compose topology</code>, using
 the MIT-licensed <code>mermaid-ascii</code> 1.6.1 Go library embedded in the binary.
 There is no Python renderer or separate executable to install. DOTs appear once, with connected
 Unicode boxes. Parallel wires share a connection labelled <code>W1,W2,&#8230;&#8203;</code>; the
@@ -409,7 +409,7 @@ task testing:pocs:monitoring:live</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The task waits for readiness, verifies the exact planned scrape target is
+<p>The task waits for readiness, verifies the exact resolved scrape target is
 healthy, checks <code>up{job="node-exporter"}</code> equals <code>1</code>, and verifies the exporter
 version through <code>node_exporter_build_info</code>. Expect <code>PASS</code>, then a receipt with
 <code>exit=0, cleanup=PASSED</code>. Override <code>DOTX_POC4_QUERY_PORT</code> if 19040 is busy.</p>
@@ -458,7 +458,7 @@ and cached images whose reported platform is not Linux amd64. It prints the
 resolved image IDs without dumping image configuration. This is cache availability, not a
 remote registry/Contract URL check, image vulnerability scan, or API acceptance.
 The check is bounded and does not start tools, pull images, create Secrets,
-deploy, adopt resources or clean anything up. Read-only CLI planning can use
+deploy, adopt resources or clean anything up. Read-only CLI resolution can use
 temporary files/cache; no composition lifecycle state is written.</p>
 </div>
 <div class="paragraph">
@@ -615,7 +615,7 @@ Override <code>DOTX_POC10_FORWARD_PORT</code> if 19010 is busy.</p>
 </table>
 <div class="paragraph">
 <p>During the presenter pause, inspect the printed private-cache <code>compose status</code>
-command and <code>result.json</code>. The five compatible wires are plan/configuration
+command and <code>result.json</code>. The five compatible wires are composition/configuration
 evidence; the four HTTP assertions above are the live end-to-end evidence.
 They are not five independent native Contract probes or full response-schema
 validation. Press Enter to clean up and retain the receipt. Re-run from the
@@ -700,7 +700,7 @@ its <code>cache</code> directory and, for Kubernetes runs, set <code>KUBECONFIG<
 private <code>kubeconfig</code>. Do not follow a later global context change or share the
 saved kubeconfig. Stop if the original run files are missing; a new run&#8217;s state
 does not authorize recovery. Inspect <code>dotx compose status &lt;composition&gt;</code>, then
-retry <code>destroy</code> on the same graph. Inspect only recorded namespaces and planned
+retry <code>destroy</code> on the same graph. Inspect only recorded namespaces and resolved
 identities. Never strip finalizers or delete unrelated workloads. Select an
 unused port instead of killing another service. Review missing Contracts,
 inputs or stale locks before intentionally regenerating a lock.</p>
@@ -714,7 +714,7 @@ inputs or stale locks before intentionally regenerating a lock.</p>
 <p><code>DOT-Testing/interoperability/FIRST-WAVE.md</code> and <code>pocs.yaml</code> retain all eleven
 PoCs and remaining gaps. <code>DOT-Repository/CONTRACT-AUDIT.md</code> separates official
 and source-derived Contracts, protocol-only interfaces and runtime-only brokers.
-Planning fixtures, stubs, adapters and doubles remain labelled. Declaration
+Validation-only fixtures, stubs, adapters and doubles remain labelled. Declaration
 completeness is not runtime acceptance or production certification.</p>
 </div>
 <div class="paragraph">

@@ -259,7 +259,7 @@
 README Mermaid block, wire legend and adjacent <code>topology.mmd</code> natively in Go.
 <code>--check</code> rejects drift without writing. Both require verified locks and
 preflight all graphs/targets; Task wrappers delegate to the command instead of
-the removed <code>Compositions/topology.sh</code> generator. These remain plan artifacts,
+the removed <code>Compositions/topology.sh</code> generator. These remain resolved composition artifacts,
 not live acceptance evidence.</p>
 </div>
 <div class="paragraph">
@@ -284,7 +284,7 @@ bundles and duplicate product definitions are rejected by catalogue CI. Tool
 upgrades update all mechanisms, release-matched Contracts, explicit references
 and reviewed locks together; Git retains previous releases. APISIX 3.19.0,
 Keycloak 26.8.1, Prometheus 3.15.1, OPA 1.21.4 and Elasticsearch 9.5.5 use stable
-upstream artifacts verified on 2026-10-26. Unreleased internal/planning/demo
+upstream artifacts verified on 2026-10-26. Unreleased internal/validation-only/demo
 components remain labelled as such. Official Contract documents remain byte-for-byte
 upstream artifacts; derived configured-route/policy projections remain explicitly
 derived. Static validation does not establish full producer certification.</p>
@@ -318,10 +318,13 @@ previously released binaries retain the earlier vocabulary. Stable-tag docs
 remain unchanged.</p>
 </div>
 <div class="paragraph">
-<p><code>dotx compose inspect</code> replaces <code>compose plan</code> as the read-only command for
-resolving and explaining a composition. Flags, resolved JSON, locks and runtime
-state remain unchanged. Old invocations report the new command name. Use an
-installed development checkout; the original v0.2.5 binary retains the old name.</p>
+<p><code>dotx compose inspect</code> is the read-only command for resolving and explaining a
+composition. Derived execution details are called the <strong>resolved composition</strong>,
+not a separate authored model. Deployment commands are previewed with
+<code>dotx compose apply --dry-run</code>. Locks and saved state now use <code>resolutionDigest</code>;
+locks must be regenerated and reviewed. Clean up running compositions with the
+original binary before upgrading: saved state is not migrated, and retired
+commands have no aliases. Use an installed development checkout.</p>
 </div>
 <div class="paragraph">
 <p>The official ecosystem presenter route now connects reuse across Docker and
@@ -331,11 +334,11 @@ runs seven live paths twice and links cleanup-verified child evidence. The
 existing runtime workflow offers an explicit long-running full-demo dispatch.</p>
 </div>
 <div class="paragraph">
-<p>Development CLI builds add <code>compose topology --status</code>: a locked-plan graph
+<p>Development CLI builds add <code>compose topology --status</code>: a locked composition graph
 with scoped, bounded runtime observations and a distinct historical probe
 table. Matching saved execution inputs are required before runtime queries.
 Presenter pauses use this view without treating running workloads or a recent
-probe receipt as current API acceptance. Mermaid export remains plan-only;
+probe receipt as current API acceptance. Mermaid export remains declaration-only;
 there is no portable-model or schema change, and no new release is implied.</p>
 </div>
 <div class="paragraph">
@@ -364,7 +367,7 @@ Contract-probe path, and explicit support boundaries.</p>
 <div class="paragraph">
 <p><code>dotx compose apply --dry-run</code> no longer creates or changes the composition
 state/lock directory. Lifecycle rendering therefore works with a read-only
-cache while retaining the same fail-closed planning and runtime checks.</p>
+cache while retaining the same fail-closed resolution and runtime checks.</p>
 </div>
 </div>
 </div>

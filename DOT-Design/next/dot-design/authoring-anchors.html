@@ -479,7 +479,7 @@ released v0.2.5 predates these fields and checks.</p>
 <div class="sect2">
 <h3 id="reading-compatibility-results"><a class="anchor" href="#reading-compatibility-results"></a>Reading compatibility results</h3>
 <div class="paragraph">
-<p>The plan compares the provider and consumer across independently explainable
+<p>The resolver compares the provider and consumer across independently explainable
 dimensions:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -527,7 +527,7 @@ dimensions:</p>
 </table>
 <div class="paragraph">
 <p><code>INCOMPATIBLE</code> means comparable evidence conflicts. <code>UNKNOWN</code> means evidence is
-missing or the current resolver cannot prove the dimension. Validate and plan
+missing or the current resolver cannot prove the dimension. <code>validate</code> and <code>inspect</code>
 may explain <code>UNKNOWN</code>; apply rejects it. An explicit mediator DOT is preferable
 to weakening compatibility when protocols or payloads genuinely differ.</p>
 </div>
@@ -807,7 +807,7 @@ order for every adapter, but replace every value declared sensitive with
 <div class="paragraph">
 <p>Each composition input carries the stable <code>service</code> id it targets. Authors may
 omit <code>service</code> only when exactly one service in the selected deployment declares
-that environment name, file path, or volume name; planning resolves and records
+that environment name, file path, or volume name; <code>dotx</code> resolves and records
 the service explicitly. If two services declare the same item, omission is an
 error. Duplicate detection is service-local, so two services can intentionally
 receive different values for the same environment-variable name.</p>
@@ -909,7 +909,7 @@ The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
 matrix exercises every executable adapter twice: once using only declared
 non-sensitive defaults and once using explicit composition overrides. It checks
 the materialized default configuration document, the resolved service-scoped
-plan, and the runtime-specific dry-run renderer. The
+resolved composition, and the runtime-specific dry-run renderer. The
 five native cases reuse the external Prometheus DOT; WASI retains a separate
 conformance fixture. The real Prometheus acceptance runner verifies loaded
 configuration and environment through its official status APIs, PromQL results
@@ -948,7 +948,7 @@ dotx validate DOT-Repository</code></pre>
 </div>
 <div class="paragraph">
 <p><code>dotx compose validate</code> and <code>dotx compose inspect --json</code> resolve Anchor IDs,
-service-port bindings, and selected Contract elements conservatively. The plan
+service-port bindings, and selected Contract elements conservatively. The resolved composition
 reports <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>; missing evidence is never
 treated as a match. Contract payloads remain authoritative and are not copied
 into Anchors or composition wires.</p>

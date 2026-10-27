@@ -1,6 +1,6 @@
 flowchart LR
-  accTitle: Authoring, planning, and runtime resolution stages
-  accDescr: Independently authored Contracts, Anchors, bindings, and configuration declarations are pinned and resolved into a deterministic plan before lifecycle adapters create endpoints, materialize configuration, and collect runtime evidence.
+  accTitle: Authoring, composition resolution, and runtime stages
+  accDescr: Independently authored Contracts, Anchors, bindings, and configuration declarations are pinned and resolved into a deterministic resolved composition before lifecycle adapters create endpoints, materialize configuration, and collect runtime evidence.
 
   subgraph Authoring["Authoring time · reusable declarations"]
     direction TB
@@ -13,7 +13,7 @@ flowchart LR
     Binding -.->|same DeploymentService| Config
   end
 
-  subgraph Planning["Planning time · deterministic resolution"]
+  subgraph ResolutionStage["Inspection time · deterministic resolution"]
     direction TB
     Inputs["Validate and pin inputs<br/>DOT and Contract IDs · versions"]
     Selectors["Resolve Contract selectors<br/>without copying Contract facts"]
@@ -21,9 +21,9 @@ flowchart LR
     Connection["Resolve connection<br/>deployment · service · named port"]
     Handoff["Derive optional handoff<br/>operation URL · channel · host · port"]
     Target["Verify declared target<br/>type · service · sensitivity"]
-    Plan["Emit deterministic plan<br/>readiness order · reasons · actions"]
+    Resolution["Resolved composition<br/>readiness order · reasons · actions"]
     Inputs --> Selectors --> Compatibility --> Connection
-    Connection --> Handoff --> Target --> Plan
+    Connection --> Handoff --> Target --> Resolution
   end
 
   subgraph Runtime["Runtime · deployment-instance facts"]
@@ -40,8 +40,8 @@ flowchart LR
     Workload -.-> Probe
   end
 
-  Authoring -->|validated, immutable inputs| Planning
-  Planning -->|apply after complete evidence| Runtime
+  Authoring -->|validated, immutable inputs| ResolutionStage
+  ResolutionStage -->|apply after complete evidence| Runtime
 
   classDef authored fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
   classDef process fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
@@ -49,7 +49,7 @@ flowchart LR
   classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   classDef evidence fill:#e6f4ea,stroke:#2f7d45,color:#173c23,stroke-width:1.5px;
   class Contract,Anchor,Binding,Config authored;
-  class Inputs,Selectors,Connection,Handoff,Target,Plan process;
+  class Inputs,Selectors,Connection,Handoff,Target,Resolution process;
   class Compatibility decision;
   class Apply,Endpoint,Inject,Workload runtime;
   class Probe evidence;

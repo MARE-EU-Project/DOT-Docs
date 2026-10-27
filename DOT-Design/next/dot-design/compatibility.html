@@ -324,8 +324,11 @@ Do not copy a dependency Contract or relabel it as consumer-owned.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CLI commands</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx compose inspect</code> replaces the historical <code>compose plan</code> invocation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Update command callers. This rename does not itself change lock digests.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx compose inspect</code> displays the resolved composition; no separate command
+or authored document is needed to represent that derived view.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rebuild the CLI and regenerate reviewed locks using the <code>resolutionDigest</code>
+field. Clean up running compositions with their original binary before upgrading;
+saved state is not migrated or adopted.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java Composition API</p></td>

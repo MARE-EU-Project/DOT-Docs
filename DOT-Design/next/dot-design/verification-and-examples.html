@@ -255,7 +255,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>DOT-Design keeps model correctness, resolved planning, deployment dry-runs, and
+<p>DOT-Design keeps model correctness, composition resolution, deployment dry-runs, and
 live behavioral acceptance as separate evidence levels. A passing lower level
 never implies a higher one.</p>
 </div>
@@ -291,7 +291,7 @@ never implies a higher one.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Runtime reachability or valid credentials</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Composition validation and plan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition validation and resolved composition</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pinned DOTs, wires, endpoints, materializers, parameters, grants, and
   readiness ordering resolve deterministically</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Successful deployment</p></td>
@@ -342,7 +342,7 @@ never implies a higher one.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>go -C DOT-CLI test ./&#8230;&#8203;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CLI parsing, validation, planning, deployment adapters, and lifecycle behavior</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI parsing, validation, resolution, deployment adapters, and lifecycle behavior</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go; individual tests use doubles where appropriate</p></td>
 </tr>
 <tr>
@@ -366,7 +366,7 @@ capability</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:quickstart:dry-run</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Execute the command blocks included by Getting started: validate and render
-  Prometheus, then check the locked gateway composition plan and dry-run</p></td>
+  Prometheus, then check the locked gateway resolved composition and dry-run</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, initialized catalogue, and network access for official Contracts</p></td>
 </tr>
 <tr>
@@ -386,8 +386,8 @@ capability</p></td>
   Keycloak, Loki, Prometheus, and Wireshark; emits revision-pinned evidence</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:keycloak-prometheus-openapi-planning</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable-profile validation and a locked three-DOT plan proving the stable
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:keycloak-prometheus-openapi-validation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable-profile validation and a locked three-DOT resolved composition proving the stable
   Keycloak and Prometheus Anchors resolve against exact official OpenAPI payloads,
   compose compatibly, bind the Keycloak realm parameter, and materialize the
   expected consumer operation URLs</p></td>
@@ -531,7 +531,7 @@ committed.</p>
 <p>The focused <code>task testing:anchors:acceptance</code> gate verifies the versioned
 <a href="integration-handoff.html" class="xref page">DOT Anchor consumer profile</a>. It resolves pinned
 test definitions from <code>DOT-Repository</code>, verifies the composition lock, and
-asserts the complete cross-standard plan without a deployed workload.</p>
+asserts the complete cross-standard resolved composition without a deployed workload.</p>
 </div>
 <div class="paragraph">
 <p>The separate <code>task testing:compose:acceptance</code> gate freezes the complete
@@ -545,7 +545,7 @@ live lifecycle proof from multi-DOT composition lifecycle proof.</p>
 <p>The focused <code>task testing:compose:contract-standards</code> gate complements that API
 profile with an executable composition matrix. It proves all six supported
 standard/format representations between the same provider and consumer DOTs;
-it does not promote planning evidence to live protocol or application
+it does not promote resolution evidence to live protocol or application
 acceptance.</p>
 </div>
 <div class="paragraph">
@@ -856,7 +856,7 @@ applicable test evidence ledger and select them by exact
 <p>Add negative fixtures for tempting but unsupported connections.</p>
 </li>
 <li>
-<p>Start under <code>DOT-Testing/composition/</code> with validate and plan assertions.</p>
+<p>Start under <code>DOT-Testing/composition/</code> with validate and resolved composition assertions.</p>
 </li>
 <li>
 <p>Add a lifecycle dry-run before any live execution.</p>
@@ -883,7 +883,7 @@ reliable cleanup, and externally observable assertions.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>A successful plan proves model consistency. A successful apply proves that the
+<p>A successful resolved composition proves model consistency. A successful apply proves that the
 supported deployment adapters completed. Only an active scenario probe can
 prove that traffic, authentication, authorization, policy, or security behavior
 worked as intended.</p>

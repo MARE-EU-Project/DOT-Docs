@@ -257,7 +257,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>The lifecycle deliberately separates reproducible input locking, model
-validation, deterministic planning, runtime mutation, recorded state, and
+validation, deterministic resolution, runtime mutation, recorded state, and
 active acceptance evidence. This keeps review and CI read-only while making
 execution recoverable and auditable.</p>
 </div>
@@ -267,16 +267,23 @@ DOTs, deployments, Contracts, wires, endpoints and configuration destinations
 before execution. It does not deploy workloads or probe services, although it
 may fetch and cache referenced definitions and Contracts. Use <code>topology</code> for a
 graph, <code>apply --dry-run</code> for deployment commands, and <code>status</code> for recorded
-runtime state. <code>inspect --json</code> retains the existing execution-plan JSON format.</p>
+runtime state. <code>inspect --json</code> returns the resolved composition as structured JSON.</p>
+</div>
+<div class="paragraph">
+<p>The resolved composition is computed from your document and the referenced DOTs;
+it is not another file to author or another portable domain model. Locks and
+saved execution state use <code>resolutionDigest</code>. Regenerate and review locks after
+updating the CLI. Before changing binaries, clean up running compositions with
+their original CLI: saved state is not migrated or adopted.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="validation-planning-and-lifecycle"><a class="anchor" href="#validation-planning-and-lifecycle"></a>Validation, planning, and lifecycle</h2>
+<h2 id="validation-resolution-and-lifecycle"><a class="anchor" href="#validation-resolution-and-lifecycle"></a>Validation, resolution, and lifecycle</h2>
 <div class="sectionbody">
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/composition-lifecycle.svg" alt="Locking, validation, planning, apply, active probing, recovery, status, and destroy lifecycle">
+<img src="_images/diagrams/composition-lifecycle.svg" alt="Locking, validation, resolution, apply, active probing, recovery, status, and destroy lifecycle">
 </div>
 <div class="title">Figure 1. Composition lifecycle</div>
 </div>
@@ -304,7 +311,7 @@ runtime state. <code>inspect --json</code> retains the existing execution-plan J
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose lock</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The exact composition, selected DOT definitions and deployments, Contracts,
-  configuration inputs, and portable resolved plan are content-addressed.</p></td>
+  configuration inputs, and portable resolved composition are content-addressed.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Runtime availability, credentials, or policy acceptance.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Writes only the requested lock file; <code>--check</code> is read-only</p></td>
 </tr>
@@ -320,7 +327,7 @@ runtime state. <code>inspect --json</code> retains the existing execution-plan J
 <td class="tableblock halign-left valign-top"><p class="tableblock">Everything validated above plus the deterministic instance order, runtime
   identities, endpoints, Contract standard/format and participant interaction,
   derived values, security status, and materializers.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">That the planned hosts are reachable or credentials work.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">That the resolved hosts are reachable or credentials work.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
 </tr>
 <tr>
@@ -404,7 +411,7 @@ read-only makes them suitable for review and CI.</p>
 <p><code>lock</code> makes those answers reproducible. Its JSON output preserves the original
 <code>repository://</code> and relative references while recording SHA-256 digests for the
 composition, every resolved <code>dot.json</code>, every supplied Contract, configuration
-inputs, and the portable resolved plan. For an explicit remote repository it
+inputs, and the portable resolved composition. For an explicit remote repository it
 also records the normalized repository identity and exact commit. It never
 records secret values, runtime addresses, or checkout-local absolute paths.
 Validate, inspect, and apply verify an adjacent lock automatically; <code>--locked</code>
@@ -452,7 +459,7 @@ or Anchor property. <code>HEAD</code> cannot carry a JSON body assertion.</p>
 <div class="paragraph">
 <p>For GraphQL, the composition supplies the deployment-specific HTTP path and a
 non-sensitive operation document with optional operation name and variables.
-Before planning succeeds, <code>dotx</code> parses the authoritative SDL, validates every
+Before resolution succeeds, <code>dotx</code> parses the authoritative SDL, validates every
 document and variable set, requires exactly one direct top-level field, and
 requires that field to equal the Anchor-selected coordinate. It never guesses
 <code>/graphql</code>. Queries use HTTP directly. Mutations additionally declare an
@@ -611,7 +618,7 @@ dotx compose upgrade scenario-v2.yaml \
 <p>Apply records each pending instance before runtime mutation, rolls back earlier
 instances on failure, and preserves recoverable state when rollback is
 incomplete or <code>--keep-on-failure</code> is selected. <code>apply --resume</code> requires an
-identical composition source, resolved plan, runtime options, inputs, ordering,
+identical composition source, resolved composition, runtime options, inputs, ordering,
 and previously applied runtime state. Resume also reconciles an interrupted
 composition-network creation: it reuses the correctly owned network or creates
 the still-missing network before continuing. Destroy checkpoints every
@@ -620,7 +627,7 @@ finish.</p>
 </div>
 <div class="paragraph">
 <p>Upgrade is a separate lifecycle; <code>apply</code> never mutates an already recorded
-plan. Upgrade requires the exact previous and target locks, the same
+resolved composition. Upgrade requires the exact previous and target locks, the same
 composition UUID, and a strictly greater target SemVer. Existing instance names
 must retain their platform and deployment mechanism. Docker image, Docker
 Compose, Kubernetes manifest, Helm, Vagrantfile, and WASM module instances use
@@ -633,7 +640,7 @@ restoring a deployment specification cannot undo workload data changes.</p>
 <p>The deterministic recovery profile injects an interruption immediately before
 and after network creation, instance deployment, instance destruction, and
 network removal. It also verifies lock contention, lock release after a panic,
-partial cleanup, idempotent resume, and fail-closed plan/runtime drift:</p>
+partial cleanup, idempotent resume, and fail-closed composition/runtime drift:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -719,7 +726,7 @@ OpenAPI response match, bounded by their timestamp and adapter scope.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Planning may retain <code>UNKNOWN</code> to explain incomplete evidence. Execution never
+<p>Resolution may retain <code>UNKNOWN</code> to explain incomplete evidence. Execution never
 silently upgrades <code>UNKNOWN</code> to compatible.</p>
 </div>
 </div>
@@ -861,7 +868,7 @@ integration boundary.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>For cross-domain 6G deployments, a successful plan proves model consistency,
+<p>For cross-domain 6G deployments, a successful resolved composition proves model consistency,
 not trust. Admission policy must still evaluate publisher identity, artifact
 provenance, attestation, slice/tenant placement, data-sovereignty constraints,
 and least-privilege grants before execution. Runtime acceptance should then

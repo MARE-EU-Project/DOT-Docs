@@ -269,7 +269,7 @@ topology may vary between environments.</p>
 <p><code>DOT-Repository/Compositions/</code> distributes reusable multi-DOT graphs, reviewed
 locks, READMEs, and non-secret deployment inputs. Start with
 <code>keycloak-apisix-oauth/</code> (Keycloak, APISIX, OAuth client) or
-<code>keycloak-prometheus-openapi-planning/</code> (official Keycloak and Prometheus OpenAPI operations).
+<code>keycloak-prometheus-openapi-validation/</code> (official Keycloak and Prometheus OpenAPI operations).
 Each directory has <code>composition.yaml</code> and <code>composition.lock.json</code>.</p>
 </div>
 <div class="paragraph">
@@ -286,7 +286,7 @@ dotx compose apply "$composition" --locked --dry-run</code></pre>
 <div class="paragraph">
 <p>Repository-wide composition validation requires the current source-built CLI;
 the released 0.2.4 binary predates this gate. It recursively checks declarations,
-semantic plans, adjacent locks, and READMEs without deploying or resolving Secrets.
+semantic resolved compositions, adjacent locks, and READMEs without deploying or resolving Secrets.
 <code>task compositions:render</code> additionally renders every catalogue composition.
 There is no separate composition inventory or Scenario domain type.</p>
 </div>
@@ -296,7 +296,7 @@ by the README. Synthetic matrices, negative controls, source-adapted PoC
 fixtures, executable harnesses, and evidence remain in DOT-Design&#8217;s <code>DOT-Testing/</code>.
 See <a href="getting-started.html" class="xref page">Getting started</a> for the gateway&#8217;s three Wires and
 <a href="guided-demo.html" class="xref page">Guided demo</a> for live acceptance. Catalogue inclusion or
-a valid plan never implies production or live producer acceptance.</p>
+a valid resolved composition never implies production or live producer acceptance.</p>
 </div>
 </div>
 </div>
@@ -355,8 +355,8 @@ selects another authoritative catalogue and <code>--git-ref &lt;revision&gt;</co
 Git revision. Locked and runtime-mutating commands require a full 40-character
 commit SHA for remote repositories; branch and tag names are allowed only for
 unlocked, read-only exploration. Exact commits are cached in a private user
-cache by normalized repository identity and commit, so the same plan and lock
-can be reproduced offline. Plans, locks, and lifecycle state record only the
+cache by normalized repository identity and commit, so the same resolved composition and lock
+can be reproduced offline. Resolved compositions, locks, and lifecycle state record only the
 credential-free identity and resolved commit. Credential-bearing URLs are
 rejected; authentication remains external through Git credential helpers, SSH
 agents, or environment-backed CI credentials.</p>
@@ -489,7 +489,7 @@ container:</p>
 resolve exactly one Deployment, StatefulSet, or DaemonSet, and an omitted
 container is accepted only when that workload has one container. Two logical
 services cannot target the same Compose service or the same Kubernetes
-workload/container pair. Plans expose the binding and secret identifiers, and
+workload/container pair. Resolved compositions expose the binding and secret identifiers, and
 locks cryptographically pin them; neither contains resolved secret values.</p>
 </div>
 </div>

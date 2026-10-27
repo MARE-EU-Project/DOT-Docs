@@ -1,12 +1,12 @@
 flowchart TD
   accTitle: Composition command and recovery lifecycle
-  accDescr: Lock content-addresses the DOT-to-DOT graph, validate and plan verify it read-only, dry-run previews actions, apply records either an applied or recoverable state, safe contract probes record active evidence, and destroy removes state only after successful cleanup.
+  accDescr: Lock content-addresses the DOT-to-DOT graph, validate and inspect verify it read-only, dry-run previews actions, apply records either an applied or recoverable state, safe contract probes record active evidence, and destroy removes state only after successful cleanup.
 
   Document["Composition document<br/>DOT and Contract inputs"] --> Lock["compose lock<br/>content-addressed graph"]
   Lock --> Validate["compose validate --locked<br/>read-only verification"]
-  Validate --> Plan["compose inspect<br/>read-only"]
-  Plan -.->|preview| DryRun["compose apply --dry-run<br/>no runtime or state mutation"]
-  Plan --> Apply["compose apply"]
+  Validate --> Resolution["compose inspect<br/>read-only"]
+  Resolution -.->|preview| DryRun["compose apply --dry-run<br/>no runtime or state mutation"]
+  Resolution --> Apply["compose apply"]
   Apply --> Outcome{"All selected<br/>deployments succeed?"}
   Outcome -->|Yes| Applied["APPLIED<br/>recoverable state recorded"]
   Outcome -->|No| Rollback["Rollback previously<br/>started instances"]
@@ -32,7 +32,7 @@ flowchart TD
   classDef recovery fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px;
   classDef terminal fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   class Document source;
-  class Lock,Validate,Plan,DryRun,Status readonly;
+  class Lock,Validate,Resolution,DryRun,Status readonly;
   class Apply,Probe,Resume,Destroy mutation;
   class Outcome,Evidence decision;
   class Applied,Passed,Removed success;

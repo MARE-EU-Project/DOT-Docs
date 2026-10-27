@@ -350,8 +350,8 @@ Anchor.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Operate a composition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-lifecycle.html#validation-planning-and-lifecycle" class="xref page">Validation,
-  planning, and lifecycle</a> and <a href="composition-lifecycle.html#troubleshooting" class="xref page">troubleshooting</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-lifecycle.html#validation-resolution-and-lifecycle" class="xref page">Validation,
+  resolution, and lifecycle</a> and <a href="composition-lifecycle.html#troubleshooting" class="xref page">troubleshooting</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Design a new 6G integration type</p></td>
@@ -396,7 +396,7 @@ pinned by ID, in the composition;</p>
 </li>
 <li>
 <p>explicit externally owned gateway bindings for cross-platform wires, with
-ownership and no-cleanup semantics recorded in plan, lock, and state;</p>
+ownership and no-cleanup semantics recorded in resolved composition, lock, and state;</p>
 </li>
 <li>
 <p>Docker Image composition networking and per-instance identity;</p>
@@ -442,7 +442,7 @@ namespace are supported.</p>
 </div>
 <div class="paragraph">
 <p>Single-DOT live lifecycle evidence for a runtime adapter is not automatically
-multi-DOT composition acceptance. The profile records validation, planning,
+multi-DOT composition acceptance. The profile records validation, resolution,
 dry-run, single-DOT live lifecycle, and composition live lifecycle separately
 for each adapter.</p>
 </div>
@@ -526,7 +526,7 @@ for each adapter.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service and named port implementing an Anchor</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService.anchorBindings[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved plan endpoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved service endpoint</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Configuration the service permits a deployer to supply</p></td>
@@ -540,7 +540,7 @@ for each adapter.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Concrete runtime address and port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit composition network binding or resolved deployment plan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit composition network binding or resolved service endpoint</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Materializer or exposed-Anchor forwarding</p></td>
 </tr>
 <tr>
@@ -571,16 +571,16 @@ part of either DOT, and a live URL is not part of an Anchor.</p>
 <h3 id="resolution-pipeline"><a class="anchor" href="#resolution-pipeline"></a>Resolution pipeline</h3>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/composition-resolution-stages.svg" alt="Authoring declarations resolved into a deterministic plan and runtime deployment facts">
+<img src="_images/diagrams/composition-resolution-stages.svg" alt="Authoring declarations resolved into a deterministic resolved composition and runtime deployment facts">
 </div>
-<div class="title">Figure 2. Authoring, planning, and runtime resolution</div>
+<div class="title">Figure 2. Authoring, resolution, and runtime resolution</div>
 </div>
 <div class="paragraph">
 <p><a href="_attachments/diagrams/composition-resolution-stages.mmd" class="xref attachment">View the Mermaid source</a>.</p>
 </div>
 <div class="paragraph">
 <p>This resembles compilation: validate the independently authored inputs, link
-stable references, produce a deterministic deployment plan, and only then
+stable references, resolve deployment details deterministically, and only then
 mutate runtime state. A failure at one phase is not evidence that a later phase
 was attempted.</p>
 </div>
@@ -618,7 +618,7 @@ was attempted.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wiring-and-security.html" class="xref page">Wiring, materialization, and security</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Validate, plan, apply, inspect, and evolve a composition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validate, resolved composition, apply, inspect, and evolve a composition</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-lifecycle.html" class="xref page">Composition lifecycle and design guidance</a></p></td>
 </tr>
 </tbody>

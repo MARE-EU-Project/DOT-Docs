@@ -307,10 +307,10 @@ The Composition graph version is retained; it is not another tool release.</p>
 <p>The command verifies its input byte snapshot against the template&#8217;s adjacent
 lock, applies changes to the Java-generated Composition model, preserves ordinary
 YAML shape/comments, then checks the rendered values exactly and validates the
-candidate with the same generated schema and planner. YAML merge keys are expanded
+candidate with the same generated schema and resolver. YAML merge keys are expanded
 by the YAML parser where necessary: inherited IDs, names and file sources must
 receive the intended new values too. Authoring uses a fresh model of the verified
-input bytes, separate from inferred execution-plan services and probes. It does not
+input bytes, separate from inferred execution services and probes. It does not
 infer compatibility, invent wires, copy product definitions, download templates
 from Git, change secret values or start a runtime. Offline creation requires a
 warm verified Contract cache. Without <code>--offline</code>, bounded Contract downloads
@@ -335,7 +335,7 @@ Host bind paths are not rebased as if they were relative configuration documents
 ports, application/workload names, named storage or externally owned gateways.
 Review these, Kubernetes namespaces and credentials before any real deployment.
 Existing collision, ownership, configuration and probe safety checks still apply.
-A checked plan or generated topology is not live producer acceptance, security
+A checked resolved composition or generated topology is not live producer acceptance, security
 hardening or independent adopter acceptance. The template README&#8217;s limitations
 continue to apply; creation does not qualify an untested producer.</p>
 </div>

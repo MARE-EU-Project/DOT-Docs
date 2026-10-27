@@ -461,9 +461,9 @@ checkout with initialized submodules; see <a href="contributor-guide.html" class
 From the <strong>DOT-Design root</strong>, with <code>dotx</code> on <code>PATH</code>:</p>
 </div>
 <div class="paragraph">
-<p>This follow-up uses the development CLI&#8217;s <code>compose inspect</code> command; the
-original v0.2.5 release calls it <code>compose plan</code>. Install the checked-out CLI
-using the contributor toolchain before continuing.</p>
+<p>This follow-up uses the source-built development CLI. Install the checked-out
+CLI using the contributor toolchain before continuing; released binaries do
+not necessarily implement the current commands or lock format.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -476,7 +476,7 @@ dotx compose apply "$composition" --locked --dry-run</code></pre>
 </div>
 <div class="paragraph">
 <p>The three wires connect Keycloak discovery to APISIX, Keycloak&#8217;s token endpoint
-to the OAuth client, and APISIX&#8217;s protected operation to that client. The plan
+to the OAuth client, and APISIX&#8217;s protected operation to that client. The resolved composition
 resolves endpoints and configuration. Live acceptance additionally proves
 anonymous rejection and authenticated access; the harness prepares Kubernetes,
 native Secrets, and workloads. Follow <a href="guided-demo.html" class="xref page">Guided demo</a> and

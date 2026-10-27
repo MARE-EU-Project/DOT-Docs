@@ -275,7 +275,7 @@ protocol probes, inspection and cleanup.</p>
 <td class="content">
 <div class="paragraph">
 <p>Run the commands from the DOT-Design repository root. Keep evidence levels
-separate: a valid plan proves deterministic resolution, a dry-run proves that
+separate: a valid resolved composition proves deterministic resolution, a dry-run proves that
 the executor can render supported runtime actions, and only a live probe proves
 the observed protocol exchange.</p>
 </div>
@@ -342,7 +342,7 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">New developer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">About 15 minutes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The read-only overview plus selected plan details, authoritative Contract facts,
+<td class="tableblock halign-left valign-top"><p class="tableblock">The read-only overview plus selected resolved composition details, authoritative Contract facts,
   endpoint materialization, and evidence boundaries</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
@@ -585,7 +585,7 @@ analytics. See <a href="live-multi-runtime-demo.html" class="xref page">the prot
 <div class="sect2">
 <h3 id="_close_with_evidence_not_a_blanket_readiness_claim"><a class="anchor" href="#_close_with_evidence_not_a_blanket_readiness_claim"></a>Close with evidence, not a blanket readiness claim</h3>
 <div class="paragraph">
-<p>At every pause, the Mermaid graph is the <strong>locked plan</strong>. The new runtime table
+<p>At every pause, the Mermaid graph is the <strong>locked composition</strong>. The new runtime table
 is a timestamped observation; a running container or available controller is
 not API acceptance. Historical probe records keep their own timestamps and age.
 The final application tables come from the separately completed live assertions.
@@ -616,7 +616,7 @@ or an independent adopter/producer certification. Do not replay it as a claimed
 live result. For the catalogue-wide appendix, run
 <code>task testing:contracts:readiness</code> and consult the
 <a href="verification-and-examples.html" class="xref page">verification boundaries</a>. Interface
-declarations, source-derived Contracts, runtime-only brokers, planning fixtures,
+declarations, source-derived Contracts, runtime-only brokers, validation-only fixtures,
 stubs and producer doubles do not become production-certified through this demo.
 DOT-Registry and partner/SFC acceptance remain separate integration work.</p>
 </div>
@@ -651,7 +651,7 @@ the closing example rather than starting a second deployment.</p>
 <p>Keep existing interface standards authoritative; wires are not protocol translators.</p>
 </li>
 <li>
-<p>Distinguish a compatible plan from a verified live exchange and production acceptance.</p>
+<p>Distinguish a compatible resolved composition from a verified live exchange and production acceptance.</p>
 </li>
 </ul>
 </div>
@@ -698,7 +698,7 @@ before the talk, and require successful cleanup:</p>
 <p>The timing below is a speaking budget, not a deployment-time guarantee. Cold
 downloads, image builds and a slow cluster can exceed it. Keep the previously
 recorded, revision-matched rehearsal evidence available and label it as such
-if the live run fails; never describe a plan or saved result as a new live pass.
+if the live run fails; never describe a resolved composition or saved result as a new live pass.
 Use an isolated demo network: the example&#8217;s plaintext NodePorts and anonymous
 MQTT are not safe public production defaults. Do not run competing acceptance
 or cleanup tasks during the presentation.</p>
@@ -759,7 +759,7 @@ deployment and composition choices; it does not replace those standards."</p>
 </table>
 <div class="paragraph">
 <p><strong>Point out the ownership:</strong> <code>DOT-Repository</code> stores reusable DOT bundles and
-compositions; <code>dotx</code> in <code>DOT-CLI</code> validates, plans and executes them;
+compositions; <code>dotx</code> in <code>DOT-CLI</code> validates, resolves and executes them;
 <code>DOT-Domain</code> defines the shared model. <code>DOT-Design</code> brings together documentation
 and executable acceptance harnesses. The synthetic demo graph stays in
 <code>DOT-Testing</code>; it is not a new production product.</p>
@@ -785,7 +785,7 @@ not packet direction: an HTTP consumer may initiate the request.</p>
 <div class="paragraph">
 <p><strong>Expected observation:</strong> the graph is available without deploying anything.
 Parallel wires may share one arrow, but every wire remains in the table.
-This is a locked plan view, not a live health display.</p>
+This is a locked composition view, not a live health display.</p>
 </div>
 </div>
 <div class="sect2">
@@ -829,7 +829,7 @@ OpenAPI-to-gRPC-to-MQTT protocol translation.</p>
 demo implementation. It deploys through <code>dotx</code>, checks readiness and executes
 probes from the actual Docker consumer&#8217;s network namespace to Kubernetes.
 Presenter mode keeps build and deployment chatter in the printed, owner-only
-<code>details.log</code>. The terminal shows the numbered plan, deployment, probe,
+<code>details.log</code>. The terminal shows the numbered resolved composition, deployment, probe,
 inspection and cleanup stages; a failure still reports its stage, exit code
 and diagnostic-log location. Ordinary noninteractive acceptance remains verbose.</p>
 </div>
@@ -882,7 +882,7 @@ temporarily returns HTTP 200 with severity <code>low</code>, the native assertio
 then restores the critical alert and requires a newer <code>REVIEW_REQUIRED</code> receipt
 and successful native assertion. This distinguishes endpoint health from
 correct application data; it is not a claim of complete schema or policy validation.
-The graph remains the locked plan, not an inferred network map. Presenter lanes
+The graph remains the locked composition, not an inferred network map. Presenter lanes
 using the shared lifecycle helper, including the four-Contract lane, append
 timestamped runtime observations with <code>compose topology --locked --status</code>.
 Their results tables still provide the separate application assertions.</p>
@@ -907,7 +907,7 @@ recently recorded, never a fresh API call; <code>STALE_RECORD</code> requires a 
 before claiming current acceptance. The default record age boundary is five
 minutes, adjustable with <code>--probe-max-age 2m</code> (positive, at most 24 hours).
 This observation mode does not deploy, mutate configuration or run probes; it
-uses the lifecycle coordination lock. Mermaid export remains plan-only.</p>
+uses the lifecycle coordination lock. Mermaid export remains declaration-only.</p>
 </div>
 <div class="paragraph">
 <p><strong>State the boundary:</strong> Mosquitto is a real external broker, but provider and
@@ -977,7 +977,7 @@ If cleanup fails, retain the receipt and use that walkthrough&#8217;s recovery
 instructions. Never delete unrelated namespaces, containers or volumes.</p>
 </div>
 <div class="paragraph">
-<p>Close with: "A valid definition is not a running workload; a compatible plan
+<p>Close with: "A valid definition is not a running workload; a compatible resolved composition
 is not a successful exchange. We have shown the live results and their limits."</p>
 </div>
 <div class="paragraph">
@@ -999,7 +999,7 @@ readiness or claim DOT-Registry REST API or joint SFC acceptance.</p>
 <div class="paragraph">
 <p>Those tools remain the native deployment mechanisms. DOT adds a reusable
 component description, authoritative interface references, named interactions,
-explicit cross-component wiring and a checked composition plan. <code>dotx</code> delegates
+explicit cross-component wiring and a checked resolved composition. <code>dotx</code> delegates
 supported deployment actions rather than replacing those platforms. If an
 existing Compose file is all a use case needs, DOT&#8217;s additional value is the
 shared catalogue and interoperability description, not a different container
@@ -1044,7 +1044,7 @@ topology labels that case <code>explicit interface</code>. A <code>-</code> on a
 <h3 id="_does_validation_mean_a_dot_is_production_ready"><a class="anchor" href="#_does_validation_mean_a_dot_is_production_ready"></a>Does validation mean a DOT is production-ready?</h3>
 <div class="paragraph">
 <p>No. Base validation checks definitions and declared references; stricter
-interface checks assess declaration completeness. A locked compatible plan
+interface checks assess declaration completeness. A locked compatible resolved composition
 checks the selected graph. A successful deployment establishes a runtime state.
 A live probe verifies a particular observed exchange. None alone proves full
 business functionality, resilience, security hardening, scale or acceptance
@@ -1054,7 +1054,7 @@ of an unmodified PoC producer. Read the declared scope with each result.</p>
 <div class="sect2">
 <h3 id="_what_does_the_lock_file_guarantee"><a class="anchor" href="#_what_does_the_lock_file_guarantee"></a>What does the lock file guarantee?</h3>
 <div class="paragraph">
-<p>It pins the composition&#8217;s portable definition inputs and resolved plan so that
+<p>It pins the composition&#8217;s portable definition inputs and resolved composition so that
 unreviewed definition changes are detected. It does not freeze runtime health,
 network addresses, credentials or upstream service behavior. Contract payload
 digests verify the referenced bytes; a downloadable URL is not itself evidence
@@ -1082,7 +1082,7 @@ stateless OPA upgrade/recovery. The optional standards chapter uses test-only
 provider/consumer components and real Mosquitto to verify four exchanges from
 the consumer&#8217;s network namespace. The shorter standards-focused route shows
 the PoC10 graph only unless its separate live task is run; a topology alone
-never accepts it. Producer doubles, stubs, planning fixtures and source adaptations
+never accepts it. Producer doubles, stubs, validation-only fixtures and source adaptations
 remain labelled. DOT-Registry REST API, complete producer/PoC acceptance and
 joint SFC/partner acceptance are not claimed by these demonstrations.</p>
 </div>
@@ -1240,7 +1240,7 @@ one definition. Git preserves previous releases; there are no sibling version bu
 <div class="paragraph">
 <p>The canonical Contract matrix connects six DOT instances with 21 compatible
 wires. Its committed lock pins every DOT, Contract, configuration input, and
-portable resolved plan.</p>
+portable resolved composition.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1321,7 +1321,7 @@ remain separate:</p>
 <p>The AsyncAPI Contract supplies the complementary send/receive operations,
 channel, message schema, Kafka binding, and correlation field. The composition
 selects the broker instance and materializes its resolved address and topic for
-the consumer. A plan still does not claim that a message was delivered.</p>
+the consumer. A resolved composition still does not claim that a message was delivered.</p>
 </div>
 </div>
 </div>
@@ -1398,7 +1398,7 @@ HTTP behavior; those require the live acceptance layer.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cross-standard interoperability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">21 deterministic compatible plans; no live traffic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21 deterministically compatible wires; no live traffic</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Live Contract probes</p></td>
@@ -1429,7 +1429,7 @@ HTTP behavior; those require the live acceptance layer.</p>
 </table>
 <div class="paragraph">
 <p>See <a href="verification-and-examples.html" class="xref page">Verification and examples</a> for the
-complete test matrix and the distinction between model, plan, dry-run,
+complete test matrix and the distinction between model, resolved composition, dry-run,
 source-adapted, and live production evidence.</p>
 </div>
 </div>
@@ -1487,7 +1487,7 @@ checked source of truth.</p>
 deployment choices.</p>
 </li>
 <li>
-<p>Print the 21-wire plan summary and highlight the four Contract standards and
+<p>Print the 21-wire resolved composition summary and highlight the four Contract standards and
 eight interaction forms.</p>
 </li>
 <li>
@@ -1522,7 +1522,7 @@ separate activities. Unsupported combinations fail closed rather than being
 silently approximated.</p>
 </div>
 <div class="paragraph">
-<p>All eleven MARE PoCs have planning or source-adapted evidence. That evidence is
+<p>All eleven MARE PoCs have resolution or source-adapted evidence. That evidence is
 not presented as acceptance of every unmodified partner workload. Continue with
 <a href="architecture.html" class="xref page">Architecture</a> for system boundaries or
 <a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> for authoring and

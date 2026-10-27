@@ -370,7 +370,7 @@ outside reusable DOT definitions;</p>
 from <code>COMPATIBLE</code>; and</p>
 </li>
 <li>
-<p>keep secret values out of DOTs, plans, persisted state, and logs.</p>
+<p>keep secret values out of DOTs, resolved compositions, persisted state, and logs.</p>
 </li>
 </ul>
 </div>
@@ -387,7 +387,7 @@ and semantic types must be complementary before a wire is accepted.</p>
 <div class="paragraph">
 <p>The versioned consumer profile is under
 <code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
-verifies the committed composition lock, and plans 21 compatible wires across
+verifies the committed composition lock, and resolves 21 compatible wires across
 all supported Contract standards and versions.</p>
 </div>
 <div class="listingblock">
@@ -397,7 +397,7 @@ task testing:conformance</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Passing the deterministic profile proves discovery and planning semantics. A
+<p>Passing the deterministic profile proves discovery and resolution semantics. A
 joint live test must separately prove endpoint reachability, credential and
 token handling, authorization, policy enforcement, and application behavior.</p>
 </div>

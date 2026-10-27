@@ -6,7 +6,7 @@
     <title>Contributor guide :: MARE DOT-Design</title>
     <link rel="prev" href="portability-demo.html">
     <link rel="next" href="architecture.html">
-    <meta name="description" content="Build DOT-Design, validate repository DOTs, inspect a composition plan, and generate the documentation.">
+    <meta name="description" content="Build DOT-Design, validate repository DOTs, inspect a resolved composition, and generate the documentation.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -601,7 +601,7 @@ anything.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_validate_and_plan_a_composition"><a class="anchor" href="#_validate_and_plan_a_composition"></a>Validate and plan a composition</h2>
+<h2 id="_validate_and_resolved_composition_a_composition"><a class="anchor" href="#_validate_and_resolved_composition_a_composition"></a>Validate and resolved composition a composition</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The canonical example connects Keycloak, APISIX, and an OAuth client:</p>
@@ -627,13 +627,13 @@ dotx compose apply \
 <div class="paragraph">
 <p>All five commands above are non-mutating. <code>lock --check</code> verifies the committed
 content-addressed input graph; <code>validate</code> answers whether references
-and compatibility can be resolved; <code>plan</code> shows the exact instances, endpoints,
+and compatibility can be resolved; <code>inspect</code> shows the exact instances, endpoints,
 security status, and materializers; <code>apply --dry-run</code> renders supported runtime
 actions without writing composition state.</p>
 </div>
 <div class="paragraph">
-<p>Read <a href="composition-lifecycle.html#validation-planning-and-lifecycle" class="xref page">Validation,
-planning, and lifecycle</a> before a live apply.</p>
+<p>Read <a href="composition-lifecycle.html#validation-resolution-and-lifecycle" class="xref page">Validation,
+resolution, and lifecycle</a> before a live apply.</p>
 </div>
 </div>
 </div>
@@ -676,7 +676,7 @@ repository checkout from concealing a DOT&#8217;s missing local Contract asset.<
 </div>
 <div class="paragraph">
 <p>This gate combines Java domain tests, Go tests, repository-wide schema
-validation, Contract checks, composition validation/planning, and dry-run
+validation, Contract checks, composition validation/resolution, and dry-run
 scenario checks. It does not claim that external partner systems or production
 networks were exercised.</p>
 </div>
@@ -749,7 +749,7 @@ PNG, then run the full documentation build to verify both renderers.</p>
 <ul>
 <li>
 <p><a href="guided-demo.html" class="xref page">Guided demo</a> for a presentation-ready walkthrough from
-catalogue validation to cross-standard planning and optional live probes.</p>
+catalogue validation to cross-standard resolution and optional live probes.</p>
 </li>
 <li>
 <p><a href="architecture.html" class="xref page">Architecture</a> for system and ownership boundaries.</p>

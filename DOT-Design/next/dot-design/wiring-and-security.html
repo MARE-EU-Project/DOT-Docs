@@ -291,7 +291,7 @@ configurable.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Planning performs the following sequence:</p>
+<p>Composition resolution performs the following sequence:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -344,7 +344,7 @@ the operator provisions outside <code>dotx</code>:</p>
 <div class="paragraph">
 <p>The Contract and bound service port remain authoritative for protocol and
 interaction semantics. The binding replaces only the deployment-specific host
-and port used by materializers. The plan, lock, and private lifecycle state
+and port used by materializers. The resolved composition, lock, and private lifecycle state
 record <code>ownership=EXTERNAL</code> and <code>cleanup=NONE</code>; apply, resume, status, and
 destroy never claim to create, inspect, or remove the gateway. Cross-platform
 wires without a binding, same-platform wires with a redundant binding, unknown
@@ -365,7 +365,7 @@ actually required service configuration value to have a default or explicit
 input.</p>
 </div>
 <div class="paragraph">
-<p>For the example above, the human-readable plan makes every resolution step
+<p>For the example above, the human-readable resolved composition makes every resolution step
 inspectable before apply:</p>
 </div>
 <div class="listingblock">
@@ -381,7 +381,7 @@ inspectable before apply:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The same plan with <code>--json</code> is the machine-readable automation output. It includes stable
+<p>The same resolved composition with <code>--json</code> is the machine-readable automation output. It includes stable
 instance and Anchor references, compatibility reasons, the selected Contract,
 resolved endpoint, derived operation/channel value, materializer targets,
 security status, and exposed-Anchor endpoints. Consumers should parse JSON
@@ -428,7 +428,7 @@ endpoint may be three different instances. Select the broker explicitly:</p>
 </div>
 <div class="paragraph">
 <p>The AsyncAPI operations and message schema stay in the Contract. The broker&#8217;s
-host and port stay in the resolved plan. If a channel has a templated address,
+host and port stay in the resolved composition. If a channel has a templated address,
 the wire supplies only values for parameters declared by the Contract.</p>
 </div>
 </div>
@@ -534,7 +534,7 @@ and <code>jsonPointer</code> selects the scalar to replace:</p>
 <p>This produces a deployable Prometheus configuration without putting the
 provider&#8217;s runtime address in either DOT. The reusable executable graph is
 <code>DOT-Repository/Compositions/node-exporter-prometheus-monitoring/composition.yaml</code>;
-the broader PoC4 planning fixture remains under <code>DOT-Testing/composition/</code>.</p>
+the broader PoC4 validation-only fixture remains under <code>DOT-Testing/composition/</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -634,10 +634,10 @@ DOT instance whose selected deployment consumes them:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Plans and composition state keep only the reference. Docker deployments can
+<p>Resolved compositions and composition state keep only the reference. Docker deployments can
 resolve <code>store: environment</code> at final handoff; Kubernetes and Helm preserve
 <code>store: kubernetes</code> as <code>secretKeyRef</code> without reading the Secret. A
-<code>CONFIGURED</code> plan proves configuration completeness, not token validity,
+<code>CONFIGURED</code> resolved composition proves configuration completeness, not token validity,
 issuer trust, mTLS, workload identity, or remote attestation.</p>
 </div>
 </div>

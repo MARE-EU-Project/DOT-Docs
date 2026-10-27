@@ -316,7 +316,7 @@ derived specifications and their acceptance limitations remain labelled.</p>
 live acceptance of every deployment variant. The PoC10 rehearsal selects
 pinned native Kubernetes deployments <code>Keycloak@26.8.1</code> and <code>APISIX@3.19.0</code>,
 with composition-owned realms, routes and policy. It does not
-certify every variant or every Admin REST operation. Compare each plan&#8217;s <code>dotId</code>, <code>dotVersion</code> and
+certify every variant or every Admin REST operation. Compare each resolved composition&#8217;s <code>dotId</code>, <code>dotVersion</code> and
 <code>deploymentId</code> when explaining provenance.</p>
 </div>
 </div>
@@ -331,7 +331,7 @@ certify every variant or every Admin REST operation. Compare each plan&#8217;s <
 </div>
 <div class="paragraph">
 <p>The task repeats the short inspection, validates the existing two-DOT PoC7
-planning graph, then attempts its existing deliberately rejected wire. Expect:</p>
+validation-only graph, then attempts its existing deliberately rejected wire. Expect:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -409,7 +409,7 @@ Anchor and binding, then validate the resulting wire and test the actual call.</
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reproducibility and proof</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reviewed composition lock and executable acceptance harness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect the plan, review changed lock inputs, run dry-run checks, then verify
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect the resolved composition, review changed lock inputs, run dry-run checks, then verify
   the real workload and its cleanup. Commit definitions, not local runtime state.</p></td>
 </tr>
 </tbody>
@@ -437,13 +437,13 @@ its README, non-secret inputs and reviewed lock. Put synthetic fixtures and
 live test drivers under <code>DOT-Testing</code>, not beside a new duplicate product.</p>
 </li>
 <li>
-<p>Run <code>dotx validate DOT-Repository</code>, inspect the locked plan and deployment
+<p>Run <code>dotx validate DOT-Repository</code>, inspect the locked composition and deployment
 dry-run, then add a far-end behavioral assertion and success/failure cleanup.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><code>Skill</code> is an optional high-level capability classification; it is not an API
+<p><code>Skill</code> is a required high-level capability reference; it is not an API
 operation or a command executor. Anchors and authoritative Contracts describe
 the concrete interoperability boundary.</p>
 </div>
@@ -470,7 +470,7 @@ the concrete interoperability boundary.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Four Contract standards, 21 selected wires</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broader deterministic interface coverage than the four-wire live demo;
-  a compatible plan is not traffic.</p></td>
+  a compatible resolved composition is not traffic.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL query/mutation/SSE; finite unary and streaming gRPC; MQTT, NATS, Kafka and AMQP 0-9-1</p></td>

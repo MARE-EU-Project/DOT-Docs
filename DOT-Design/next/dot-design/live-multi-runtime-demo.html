@@ -264,7 +264,7 @@ No product descriptor is duplicated.</p>
 <p>The composition is named <code>docker-kubernetes-four-contracts</code>. Its template lives
 at <code>DOT-Testing/composition/docker-kubernetes-four-contracts/scenario.yaml</code>:
 this is a synthetic test graph, unlike the reusable catalogue examples
-<code>keycloak-apisix-oauth</code> and <code>keycloak-prometheus-openapi-planning</code>.</p>
+<code>keycloak-apisix-oauth</code> and <code>keycloak-prometheus-openapi-validation</code>.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -481,7 +481,7 @@ up, run the read-only check for this route:</p>
 </div>
 <div class="paragraph">
 <p>It checks the exact installed CLI revision, clean CLI/catalogue checkouts,
-offline Contract validation and locked plan, the Ready Linux-amd64 Minikube
+offline Contract validation and locked composition, the Ready Linux-amd64 Minikube
 node, selected cached images, Docker identity/network conflicts, and existing
 Services occupying the four selected NodePorts. It does not build/pull images,
 reserve ports, attach networks, deploy anything or prove gateway reachability.
@@ -544,7 +544,7 @@ documentation-only address <code>192.0.2.1</code>; never manually apply that tem
 </div>
 </div>
 <div class="paragraph">
-<p>Run in a real interactive terminal. The plan-derived Mermaid graph is laid out
+<p>Run in a real interactive terminal. The composition-derived Mermaid graph is laid out
 by the Go <code>mermaid-ascii</code> library embedded in <code>dotx</code>: Unicode boxes, cyan Kubernetes labels,
 magenta Docker labels and amber connection IDs. Parallel wires share a labelled
 arrow and each retains its own legend entry. The node inventory shows selected
@@ -555,7 +555,7 @@ again after all four real probes and recorded status checks pass.</p>
 </div>
 <div class="paragraph">
 <p>Only then does the harness pause. Use the printed, shell-quoted recovery/status
-command in a second terminal to inspect the exact live composition. <code>plan.json</code>,
+command in a second terminal to inspect the exact live composition. <code>resolved-composition.json</code>,
 <code>topology.txt</code>, <code>topology.mmd</code>, probe logs, <code>status.txt</code>, <code>results.txt</code> and <code>result.json</code> remain in the printed
 private run directory. The result summarizes checked fixture assertions, not
 real MARE analytics. <code>rest-body.json</code> holds the separate REST data assertion.
@@ -622,8 +622,8 @@ the composition, removes its namespace, and checks for owned Docker leftovers.</
 <div class="paragraph">
 <p>Expect <code>PASSED</code> lines for <code>rest-alerts</code>, <code>graphql-health</code>, <code>grpc-health</code>, and
 <code>mqtt-alert-delivery</code>, plus exit zero and <code>cleanup=PASSED</code>. Inspect the printed
-run directory&#8217;s <code>plan.json</code>, <code>render.txt</code>, <code>status.txt</code>, and <code>evidence.json</code> to
-explain the locked plan, endpoint materialization and observations. Evidence JSON
+run directory&#8217;s <code>resolved-composition.json</code>, <code>render.txt</code>, <code>status.txt</code>, and <code>evidence.json</code> to
+explain the locked composition, endpoint materialization and observations. Evidence JSON
 contains no passwords/tokens or response bodies. Each run retains its evidence;
 the top-level <code>evidence.json</code> is only the latest result, possibly an injected failure.</p>
 </div>
@@ -728,7 +728,7 @@ namespace if it remains. An apply failure may already have rolled back with no
 applied state; independently verify resource absence. Never prune Docker, remove
 Minikube, or delete unrelated volumes. Find the owner of an occupied NodePort
 before proceeding. Fix Docker user permissions before rerunning. Gateway timeouts
-require checking node IP, routing/firewall, readiness and Services; planning does
+require checking node IP, routing/firewall, readiness and Services; resolution does
 not prove reachability. Contract download failures require repository access or
 verified bundle-local assets, never bypassing SHA-256 checks.</p>
 </div>
@@ -772,7 +772,7 @@ jq '.dots | group_by(.status) | map({status: .[0].status, count: length})' \
 changes bundle counts, not product readiness; it does not resolve interface gaps.
 Use the generated report for the actual checkout. Broker-only and negative
 fixtures do not necessarily need a business API. Official/source-derived
-Contracts, source-adapted PoCs, planning fixtures, stubs and producer doubles
+Contracts, source-adapted PoCs, validation-only fixtures, stubs and producer doubles
 remain distinct evidence levels. See catalogue <code>CONTRACT-AUDIT.md</code> and
 <a href="verification-and-examples.html" class="xref page">Verification and examples</a>. This demonstration
 does not promote the entire catalogue to production-ready.</p>

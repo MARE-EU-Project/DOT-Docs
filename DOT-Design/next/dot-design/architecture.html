@@ -327,7 +327,7 @@ separate <code>Composition</code> aggregate. The existing generation pipeline is
 Java/Jackson/Jakarta constraints → Victools JSON Schemas → quicktype Go input
 bindings. <code>DOT-Repository/Schema/</code> stores the generated artifacts; the CLI
 embeds the same Composition schema. There is no independent CLI input model or
-hand-authored production schema to keep in sync. Plans, locks and runtime
+hand-authored production schema to keep in sync. Resolved compositions, locks and runtime
 state are executor representations, not alternative domain definitions.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -567,7 +567,7 @@ element.</p>
 </div>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/composition-resolution-pipeline.svg" alt="Validation, compatibility, planning, dry-run, and apply pipeline">
+<img src="_images/diagrams/composition-resolution-pipeline.svg" alt="Validation, compatibility, resolution, dry-run, and apply pipeline">
 </div>
 <div class="title">Figure 3. Fail-closed composition resolution pipeline</div>
 </div>
@@ -608,7 +608,7 @@ same-Contract matching; this is not general OpenAPI substitutability.</p>
 parameter values, security status, and materializers.</p>
 </li>
 <li>
-<p>Build a deterministic plan and readiness order.</p>
+<p>Build a deterministic resolved composition and readiness order.</p>
 </li>
 <li>
 <p>On apply, prepare configuration and delegate workload operations to the
@@ -617,7 +617,7 @@ existing single-DOT lifecycle adapters.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Planning may retain <code>UNKNOWN</code> with reason codes so missing evidence is visible.
+<p>Resolution may retain <code>UNKNOWN</code> with reason codes so missing evidence is visible.
 Apply rejects <code>UNKNOWN</code> rather than treating absence of evidence as compatibility.</p>
 </div>
 </div>
@@ -700,7 +700,7 @@ shared orchestration state remains future work.</p>
 <p>Preserve independently versioned DOT definitions; keep topology in composition.</p>
 </li>
 <li>
-<p>Treat generated plans and test evidence according to what they actually prove.</p>
+<p>Treat generated resolved compositions and test evidence according to what they actually prove.</p>
 </li>
 </ul>
 </div>

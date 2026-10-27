@@ -645,7 +645,7 @@ anything. Topology rendering requires DOT-CLI <code>0.2.5</code> or a newer pinn
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Validate the real catalogue using verified local Contract assets
 dotx validate DOT-Repository --schema DOT-Repository/Schema/schema.json --offline
 
-# Inspect the reviewed five-DOT PoC10 plan, not live traffic
+# Inspect the reviewed five-DOT PoC10 resolved composition, not live traffic
 composition=DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml
 dotx compose validate "$composition" --locked
 dotx compose topology "$composition" --locked --color auto</code></pre>

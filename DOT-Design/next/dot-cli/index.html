@@ -386,7 +386,7 @@ and <code>--status</code> cannot be combined with documentation modes.</p>
 <p>Only <code>dotx</code> is needed: the former Bash generator and its jq/awk dependencies are
 not required. The optional <code>task compositions:topology:generate</code> and <code>:check</code>
 wrappers remain available in both checkouts. A generated diagram is a locked
-plan view, not proof of live interoperability.</p>
+resolved composition view, not proof of live interoperability.</p>
 </div>
 </div>
 </div>
@@ -572,7 +572,7 @@ the composition file. Raw parser, document and transport values are withheld.</p
 <div class="paragraph">
 <p>Successful composition validation still returns its existing <code>valid</code>,
 <code>compositionId</code> and <code>unknownWires</code> summary, and successful inspection still
-returns the resolved execution plan. Check the exit code and result, not merely
+returns resolved execution details. Check the exit code and result, not merely
 whether stdout contains JSON. These failure-report guarantees do not extend to
 runtime <code>apply</code>, <code>upgrade</code>, <code>probe</code> or <code>status</code> commands. No lock is regenerated
 automatically, and an unknown wire remains an explicit limitation rather than
@@ -585,7 +585,7 @@ Anchor selectors, Wires, native Secret references, locks and lifecycle safety,
 use <a href="../dot-design/anchors-and-composition.html" class="xref page">the composition guide</a>.</p>
 </div>
 <div class="paragraph">
-<p>Validation and planning are not live acceptance. Active probes run only for
+<p>Validation and resolution are not live acceptance. Active probes run only for
 supported, explicitly configured Contract operations and transports. The
 walkthroughs state which endpoints are actually exercised and distinguish real
 producers, source-adapted integrations and synthetic fixtures.</p>
@@ -612,7 +612,7 @@ installation, Bash completion, local CI-equivalent Tasks and prerequisites.</p>
 <div class="paragraph">
 <p>All portable models belong to <a href="../dot-domain/index.html" class="xref page">DOT-Domain</a>. The CLI
 consumes its generated JSON Schemas and Go bindings; it does not define a
-competing DOT or Composition input model. Resolved execution plans, lock
+competing DOT or Composition input model. Resolved execution details, lock
 fingerprints and private runtime state are executor concerns. DOT definitions
 and reusable composition inputs live in DOT-Repository.</p>
 </div>
