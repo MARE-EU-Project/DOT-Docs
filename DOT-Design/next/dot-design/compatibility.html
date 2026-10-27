@@ -170,6 +170,9 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -347,11 +350,23 @@ deduplication or lock repair is performed. Recompile Java callers of the old
 <td class="tableblock halign-left valign-top"><p class="tableblock">A valid historical deployment does not guarantee admission to an upgrade.
 Never weaken safety checks merely to reproduce an older invocation.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service configuration keys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment/CDI names, config-file paths, and volume names/paths are unique
+within each service. Java and CLI semantic validation reject ambiguous keys;
+the generated JSON shapes are unchanged.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repair duplicates explicitly rather than relying on aggregation to select a
+winner. The same key in different services remains valid. Schema-only
+<code>uniqueItems</code> is not property-key uniqueness; use full DOT validation.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
 <p>The original published CLI <code>v0.2.5</code> predates these current-source model and
 authoring changes. These are not a claim of patch-level backward compatibility.
+The aligned DOT-Design, DOT-Domain and DOT-CLI development version is
+<code>0.3.0-dev</code>; this is not a published final release. Released quickstarts retain
+their historical binary and exact catalogue pins.
 The next coordinated release containing the breaking changes must use a new
 minor version on the pre-1.0 line, rather than silently replacing an existing
 artifact or publishing them as another <code>0.2.x</code> patch. This policy does not
@@ -400,6 +415,16 @@ regression acceptance. No automatic schema-version conversion is promised.</p>
 <div class="sect1">
 <h2 id="_compatibility_gates"><a class="anchor" href="#_compatibility_gates"></a>Compatibility gates</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><code>task testing:models</code> is the deployment-free local coding gate: Java validation,
+serialization and coverage; the all-public-model compatibility corpus;
+generated schema/Go agreement; CLI race tests and coverage; offline catalogue
+validation and reviewed locks. It starts no runtimes and dispatches no GitHub
+workflows. Initial tool bootstrap may require network access. Live adapter and
+presentation qualification remain separate through <code>task ci:live</code> and
+<code>task testing:demo</code>; coding-only checks do not establish runtime acceptance or
+publish Antora. Existing workflows remain configured for later verification.</p>
+</div>
 <div class="paragraph">
 <p><code>task testing:compatibility</code> runs the historical Contract/identity boundary tests
 and the existing generated Composition-model compatibility checks. The frozen

@@ -423,11 +423,18 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
 
 }
 
+package "eu.mare6g.dot.domain.composition.validation" as package_eu_mare6g_dot_domain_composition_validation #EFF6FF {
+  class "CompositionValidator" as eu_mare6g_dot_domain_composition_validation_CompositionValidator #FFFFFF {
+    + isValid(graph: Composition, context: ConstraintValidatorContext): boolean
+  }
+
+}
+
 package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract #EFF6FF {
   class "Contract" as eu_mare6g_dot_domain_contract_Contract #F5F3FF {
     - id: String
     - name: String
-    - version: Version
+    - version: String
     - standard: ContractStandard
     - format: DataFormat
     - payload: ContractPayload
@@ -436,6 +443,7 @@ package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract
     + isPayloadSourceValid(): boolean
     + isFormatCompatibleWithStandard(): boolean
     + isReferenceOnly(): boolean
+    + isStandardVersionValid(): boolean
     + isDeclarationShapeValid(): boolean
   }
 
@@ -456,6 +464,8 @@ package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract
     - uri: URI {readOnly}
     --
     + getValue(): String
+    + versionPattern(): String
+    + acceptsVersion(version: String): boolean
   }
 
 }
@@ -523,6 +533,12 @@ package "eu.mare6g.dot.domain.deployment.config" as package_eu_mare6g_dot_domain
     - volumes: List<VolumeMount>
     - cdiDevices: List<CdiDeviceRequirement>
     - ociRuntime: OciRuntimeRequirements
+    --
+    + isEnvironmentNamesUnique(): boolean
+    + isConfigFilePathsUnique(): boolean
+    + isVolumeNamesUnique(): boolean
+    + isVolumePathsUnique(): boolean
+    + isCdiDeviceNamesUnique(): boolean
   }
 
   class "EnvironmentVariable" as eu_mare6g_dot_domain_deployment_config_EnvironmentVariable #FFF7ED {
@@ -572,6 +588,9 @@ package "eu.mare6g.dot.domain.deployment.config.oci" as package_eu_mare6g_dot_do
   class "OciRuntimeRequirements" as eu_mare6g_dot_domain_deployment_config_oci_OciRuntimeRequirements #FFF7ED {
     - capabilities: Set<String>
     - hostNamespaces: Set<OciLinuxNamespace>
+    --
+    + setCapabilities(capabilities: Collection<String>): void
+    + setHostNamespaces(hostNamespaces: Collection<OciLinuxNamespace>): void
   }
 
 }
@@ -903,7 +922,6 @@ eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireProbe : probe
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireSecurity : security
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
-eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
 eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_contract_ContractPayload : payload
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_contract_ContractStandard : standard
 eu_mare6g_dot_domain_deployment_DeploymentManifestType "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_runtime_platform_PlatformEngine : platform

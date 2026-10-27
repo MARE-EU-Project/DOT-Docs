@@ -171,6 +171,9 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -341,6 +344,40 @@ or ORM annotations; persistence is an adapter concern.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_complete_mermaid_model_reference_for_deliverables"><a class="anchor" href="#_complete_mermaid_model_reference_for_deliverables"></a>Complete Mermaid model reference for deliverables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="_attachments/dot-domain-a4.pdf" class="xref attachment">A4 landscape reference sheet</a> combines a
+readable core class diagram with an inventory of every exported public model
+type (77 in this source revision). Scalars, generated accessors and validation
+implementation helpers are omitted. Supporting types are listed by their
+nearest core-model family, not presented as exclusively owned values, extra
+aggregates or guaranteed runtime features. Shared types are listed once.</p>
+</div>
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="../dot-design/_images/diagrams/domain-a4.svg" alt="Core DOT-Domain class relationships">
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="../dot-design/_images/diagrams/domain-complete.svg" class="xref image">complete vector diagram</a>
+shows all 77 public classes/enums and their relationships individually.
+Both the <a href="../dot-design/_attachments/diagrams/domain-a4.mmd" class="xref attachment">compact Mermaid source</a>
+and <a href="../dot-design/_attachments/diagrams/domain-complete.mmd" class="xref attachment">complete Mermaid source</a>
+come from the existing Java-generated diagram and exported schema inventory.
+The DOT-Domain README renders them natively and includes a schema/semantically
+validated, compact Prometheus <code>dot.json</code> projection using the real catalogue
+Contract and deployment, rather than another product descriptor.</p>
+</div>
+<div class="paragraph">
+<p>After an intentional model/catalogue documentation change, run
+<code>task docs:domain:generate</code> from DOT-Design with the source-built CLI installed.
+<code>task docs:domain:check</code> verifies source/output drift and the exact JSON example
+offline; it is part of <code>task testing:models</code>, not a live deployment test.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_one_model_authority"><a class="anchor" href="#_one_model_authority"></a>One model authority</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -420,10 +457,53 @@ composition inputs and all 128 materializer field combinations. These checks
 do not establish independent adoption or live producer acceptance.</p>
 </div>
 <div class="paragraph">
-<p>The freeze is not complete yet. Remaining model-review gates include the broader
-configuration-key/cross-model audit and a released compatibility corpus.
+<p>The freeze is not complete yet. A reviewed source corpus now covers all 77
+exported public model schemas. Publishing the compatibility baseline and the
+final cross-model invariant review remain release gates.</p>
+</div>
+<div class="paragraph">
+<p>The service-configuration audit now rejects duplicate environment/CDI names,
+configuration-file paths, and volume names/target paths within one service.
+Distinct services keep separate scopes, so the same key may occur in both.
+Declarations retain their order and are never silently collapsed. Java and
+installed-CLI tests share the same positive/negative corpus. These are semantic
+checks: standard JSON Schema cannot express uniqueness by one property of an
+array item. The generated JSON shapes and reviewed composition locks remain
+unchanged; use full DOT validation rather than schema-only acceptance.
 Resolve these in DOT-Domain and its existing generation pipeline, not in
 independent CLI models. No final stable-model claim or new release is implied.</p>
+</div>
+<div class="sect2">
+<h3 id="_deployment_free_model_gate"><a class="anchor" href="#_deployment_free_model_gate"></a>Deployment-free model gate</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:models</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This sequential, fail-fast local gate runs Java tests and coverage, shared
+positive/negative examples and serialized Java/schema agreement, generated Go
+drift checks, CLI race tests and coverage, offline catalogue validation and
+reviewed locks. Every exported model needs reviewed examples; all enum values
+and registered manifest subtypes are covered. This is a baseline, not an
+exhaustive proof of every field combination.</p>
+</div>
+<div class="paragraph">
+<p>No deployment, runtime startup or GitHub workflow dispatch occurs. Contributor
+toolchains are required; initial bootstrap may download pinned validation tools.
+Use <code>task ci:live</code> separately for actual adapter/runtime acceptance and
+<code>task testing:demo</code> separately for full presenter qualification. A coding-only
+push is not a live-runtime qualification or documentation publication.</p>
+</div>
+<div class="paragraph">
+<p>Optional null manifest/configuration fields serialize as absent, not
+schema-invalid JSON nulls; JSON assertions intentionally retain <code>equals: null</code>.
+OCI capabilities/host namespaces reject duplicates before Set conversion.
+Java callers of their previous Set-specific setters must recompile. Generated
+schemas now retain existing Java patterns for Helm repositories and WASM module
+references/digests, rejecting malformed inputs earlier without changing valid
+document shapes.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_reference_aware_validation_and_collection_safety"><a class="anchor" href="#_reference_aware_validation_and_collection_safety"></a>Reference-aware validation and collection safety</h3>
@@ -524,11 +604,11 @@ validation. The broader optional-value serialization audit remains open.</p>
 respectively. DOT IDs follow <code>&lt;name&gt;@&lt;version&gt;</code> using the actual tool release;
 Contract IDs follow <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>. The local Contract name
 is <code>HTTP</code> in this example. Consumers retain the originating identity, even when
-their own DOT has a different name or version. Contract API versions and chart
+their own DOT has a different name or version. Contract standard versions and chart
 packaging versions are independent. IDs are explicit keys, not download URLs or
 filesystem paths. Existing UUID-shaped strings remain accepted, without
-implicit aliases to migrated entries. Anchor and Composition identities remain
-UUIDs. IDs are not URLs. The catalogue naming convention requires an explicit
+implicit aliases to migrated entries. Anchor IDs are DOT-local kebab-case;
+Composition identities remain UUIDs. IDs are not URLs. The catalogue naming convention requires an explicit
 identity/reference update when changing a DOT name or tool release;
 mutating a Java object&#8217;s fields does not silently regenerate its ID.
 Equality for <code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> is
@@ -555,18 +635,27 @@ for the completed DOT/Contract migration and safe lock/state handling.</p>
 <div class="paragraph">
 <p><code>Version</code> accepts Semantic Versioning 2.0.0 values and the special <code>latest</code>
 selector. It serializes as a string and implements SemVer precedence; <code>latest</code>
-sorts after concrete versions. A new <code>Dot</code> or <code>Contract</code> defaults to <code>0.0.0</code>,
+sorts after concrete versions. A new <code>Dot</code> defaults to <code>0.0.0</code>,
 while <code>Platform.version</code> defaults to <code>latest</code> so no platform-specific release is
 implied.</p>
+</div>
+<div class="paragraph">
+<p><code>Contract.version</code> is a standard-specific string, not a software/API release:
+OpenAPI and AsyncAPI copy their exact top-level <code>openapi</code>/<code>asyncapi</code> version;
+Protobuf uses the native <code>syntax</code>/<code>edition</code> value (implicit <code>proto2</code> when absent).
+GraphQL SDL declares no version, so that field is omitted. There is no default
+or placeholder Contract version. <code>info.version</code> remains unchanged inside the
+upstream payload. <code>dotx validate</code>, composition loading and URL authoring reject
+mismatches even when the declared number is otherwise well formed.</p>
 </div>
 <div class="paragraph">
 <p>JSON serializes <code>Dot.skills</code> and <code>DeploymentService.contracts</code> as ID-only
 references. Root <code>Dot.contracts</code> carries authoritative Contract declarations:
 identity, standard, format, and a structured <code>payload</code> with an HTTPS <code>url</code> and
 <code>sha256</code> pin. Raw API documents are not embedded in <code>dot.json</code>.
-Temporary root ID-only entries must resolve to verified assets in that DOT&#8217;s
-own <code>contracts/</code> directory; repository-level and sibling-DOT fallback are not
-allowed. An Anchor references the root declaration by Contract ID and selector.</p>
+Current catalogue roots must carry complete declarations; CLI validation rejects
+ID-only roots instead of searching local or sibling files. Verified bytes are
+cached outside the DOT; cold offline validation fails until warmed online. An Anchor references the root declaration by Contract ID and selector.</p>
 </div>
 <div class="paragraph">
 <p><code>dotx validate</code> enforces catalogue identity uniqueness, including DOT

@@ -170,6 +170,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
@@ -564,7 +567,9 @@ official Contract whenever available. Otherwise either pin a runtime-extracted
 Contract, maintain a clearly identified derived Contract with live conformance,
 or expose an adapter-owned Contract. Every Contract asset declares its authority,
 source revision, license, and SHA-256. A runtime-only external DOT remains valid
-without a <code>contracts/</code> evidence directory but makes no interoperability claim.
+without Contract declarations but makes no interoperability claim. Owned
+declarations belong in <code>dot.json</code> as raw HTTPS URLs plus SHA-256; no local
+Contract directory is required.
 Add production claims only after a test explicitly proves them.</p>
 </div>
 </div>

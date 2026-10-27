@@ -170,6 +170,9 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -378,6 +381,10 @@ translate protocols or implement missing producer functionality.</p>
 Git, Go, Task, Python 3, Bash, jq, curl, <code>ss</code>, Docker/Compose, kubectl and a Ready
 local Docker-runtime Minikube node. Select context <code>minikube</code>. This advanced
 developer rehearsal uses the pinned source CLI, not the original <code>v0.2.5</code> binary.
+The aligned source label is <code>0.3.0-dev</code>, <strong>not a published release</strong>. Do not install
+the latest release binary over the source-built CLI for this route: it lacks
+the current model and authoring features. No new release is required to present
+the frozen, qualified source set.
 Put Go&#8217;s executable install directory (<code>GOBIN</code>, or <code>$(go env GOPATH)/bin</code> when
 unset) on <code>PATH</code>; the installation phase verifies that plain <code>dotx</code> resolves to
 the aligned version and records any PATH warning in its printed install log.
@@ -422,6 +429,13 @@ table live under <code>DOT-Testing/e2e/target/demo/run-*/</code>; preparation an
 qualification retain their separate evidence scopes below. A failed or
 interrupted phase stops the run and names its logs; it never prints demo-ready
 success or exports a fallback from an older run.</p>
+</div>
+<div class="paragraph">
+<p>After qualification, use <code>dotx version --verbose</code> and the exact root <code>summary.json</code>
+printed by this run to show the three checkout SHAs and binary SHA-256.
+Expect <code>Modified worktree: false</code>. Do not replace this identity evidence with
+the <code>0.3.0-dev</code> label alone, an older receipt, or a newer unrehearsed checkout.
+Changes after qualification require a fresh rehearsal and fallback export.</p>
 </div>
 <div class="paragraph">
 <p>The granular commands remain available for investigation:</p>

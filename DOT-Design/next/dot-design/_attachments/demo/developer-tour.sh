@@ -20,8 +20,8 @@ dotx inspect "$KEYCLOAK" --json |
          select(([.deployments[].platformEngine] | unique) ==
            ["DOCKER", "KUBERNETES"])'
 
-sed -n '1,12p' \
-  "$KEYCLOAK/contracts/keycloak-admin-rest.yaml"
+jq -e '.contracts[] | select(.name == "Admin") |
+       {id, name, version, standard, format, payload}' "$KEYCLOAK/dot.json"
 # end::inspect[]
     ;;
   --guardrail)

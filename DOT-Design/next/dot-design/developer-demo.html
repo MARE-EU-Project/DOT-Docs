@@ -170,6 +170,9 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -285,8 +288,8 @@ dotx inspect "$KEYCLOAK" --json |
          select(([.deployments[].platformEngine] | unique) ==
            ["DOCKER", "KUBERNETES"])'
 
-sed -n '1,12p' \
-  "$KEYCLOAK/contracts/keycloak-admin-rest.yaml"</code></pre>
+jq -e '.contracts[] | select(.name == "Admin") |
+       {id, name, version, standard, format, payload}' "$KEYCLOAK/dot.json"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -295,18 +298,18 @@ deployment choices in one root <code>dot.json</code>. Older releases remain in G
 not nested version bundles. All deployment artifacts must match 26.8.1. PoC-specific
 configuration stays in composition inputs or named deployments, not a cloned
 product identity. The selected <code>admin-realm-read</code>
-Anchor refers to the Admin REST Contract and its <code>GET</code> selector. The adjacent
-Contract metadata identifies the official release archive, extracted payload,
-revision and SHA-256; no API definition is copied into the Anchor.</p>
+Anchor refers to the Admin REST Contract and its <code>GET</code> selector. The
+root Contract declaration identifies the release-specific official raw document
+and SHA-256; source/provenance boundaries remain in the audit. No API definition
+is copied into the Anchor.</p>
 </div>
 <div class="paragraph">
-<p>This existing bundle uses ID-only root references resolved from its local
-<code>contracts/</code> assets. Those are migration-compatible catalogue references, not
-permission to publish an unresolved UUID. New complete Contract declarations
-use the model&#8217;s structured <code>payload.url</code> pointing directly to a raw Contract
-document, plus its SHA-256; bundle-local verified assets remain supported.
-The archive URL shown here is provenance, not a raw-document payload URL.
-Prefer official documents and label derived ones.</p>
+<p>This bundle declares every owned Contract completely in <code>dot.json</code>, using
+<code>payload.url</code> for raw HTTPS bytes and <code>payload.sha256</code> for integrity. Contracts
+do not need a local directory. Validate online once before using <code>--offline</code>;
+the CLI then rechecks cached bytes without downloads. Composition inputs name
+the exact owner, not a copied wrapper. Official documents remain preferred;
+derived specifications and their acceptance limitations remain labelled.</p>
 </div>
 <div class="paragraph">
 <p><strong>Explain the boundary:</strong> an inspector reporting a supported deployment is not

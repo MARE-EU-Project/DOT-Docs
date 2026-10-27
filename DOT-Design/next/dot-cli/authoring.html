@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Author an interface-aware DOT :: MARE DOT-Design</title>
     <link rel="prev" href="../dot-design/compatibility.html">
-    <link rel="next" href="../dot-design/external-dot-examples.html">
+    <link rel="next" href="composition-authoring.html">
     <meta name="description" content="Confirm the tool release, verify an owned OpenAPI Contract, and generate Anchors and service bindings with dotx.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -170,6 +170,9 @@
     <a class="nav-link" href="authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -302,7 +305,7 @@ jq '.contracts[0]' "$DOT_REPOSITORY/DOTs/external/Prometheus-DOT/dot.json" \
 <div class="paragraph">
 <p><code>contract.json</code> is one complete <code>Contract</code> in the generated DOT-Domain model,
 not a raw OpenAPI document or catalogue wrapper. It contains the owned ID,
-name, interface version, standard, format and HTTPS <code>payload.url</code>/<code>sha256</code>.
+name, standard version, standard, format and HTTPS <code>payload.url</code>/<code>sha256</code>.
 For your own tool, provide its own declaration with a release-matched official
 specification where available. Never relabel another component&#8217;s Contract.</p>
 </div>
@@ -389,7 +392,7 @@ dotx new --from docker-image prom/prometheus:v3.15.1 \
   --name Prometheus --version 3.15.1 --skill Metrics-Scraping \
   --service prometheus --port http:9090 \
   --contract-url "$AUTHORING_SPEC_BASE/web/api/v1/testdata/openapi_3.1_golden.yaml" \
-  --contract-name HTTP --contract-version 0.0.1-undefined --contract-format YAML \
+  --contract-name HTTP --contract-version 3.1.0 --contract-format YAML \
   --operation 'build-information=#/paths/~1status~1buildinfo/get' --bind http \
   --output "$AUTHORING_DIR/url-bundle/dot.json"
 dotx validate "$AUTHORING_DIR/url-bundle" \
@@ -400,9 +403,11 @@ jq '.contracts[0]' "$AUTHORING_DIR/url-bundle/dot.json"</code></pre>
 <div class="paragraph">
 <p>Expected: the resulting ID is <code>Prometheus@3.15.1::OpenAPI::HTTP</code>, with the
 official URL and a 64-character lower-case SHA-256 in <code>payload</code>. No raw document
-is embedded. The example retains the existing catalogue&#8217;s interface-version
-label <code>0.0.1-undefined</code>; <code>--contract-version</code> is independent of the tool&#8217;s <code>--version</code>. Do not
-infer either version from a filename or change upstream payload metadata.</p>
+is embedded. <code>--contract-version 3.1.0</code> matches the document&#8217;s <code>openapi: 3.1.0</code>,
+not its <code>info.version</code> or the tool&#8217;s <code>--version 3.15.1</code>. The upstream document&#8217;s
+<code>info.version: 0.0.1-undefined</code> remains unchanged inside the pinned payload; it is
+not copied into DOT Contract metadata. A standard-version mismatch fails before
+publication. Do not infer versions from a filename or rewrite upstream bytes.</p>
 </div>
 <div class="paragraph">
 <p>To require bytes already approved by your team, add
@@ -417,6 +422,12 @@ that its API matches a deployed producer.</p>
 size and credential-scoping controls. Mutable GitHub branch URLs are refused;
 use an official release tag or full commit. Transport failures withhold URL and
 credential details. <code>--contract</code> and <code>--contract-url</code> are mutually exclusive.
+For a derived specification hosted on GitHub Gist, use the raw
+<code>gist.githubusercontent.com</code> URL containing the full 40-character revision and
+filename, without query parameters, plus a trusted digest. Secret Gists are
+readable without authentication by anyone with the URL; GitHub tokens are not
+sent to them. Preserve source/license provenance and do not label a derived
+projection vendor-official merely because it is hosted externally.
 URL import currently requires explicit <code>--contract-name</code>, <code>--contract-version</code>
 and <code>--contract-format JSON|YAML</code>; it does not guess a standard from the URL.</p>
 </div>
@@ -491,7 +502,7 @@ ownership-negative control with <code>task testing:authoring</code> from DOT-Des
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../dot-design/compatibility.html">Compatibility and migration policy</a></span>
-  <span class="next"><a href="../dot-design/external-dot-examples.html">Deployments and examples</a></span>
+  <span class="next"><a href="composition-authoring.html">Create a composition</a></span>
 </nav>
 </article>
   </div>

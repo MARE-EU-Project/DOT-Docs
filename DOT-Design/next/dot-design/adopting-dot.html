@@ -170,6 +170,9 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -265,6 +268,14 @@ reusing a complete catalogue bundle, not by inventing a new descriptor.</p>
 <p>The site opens <strong>Next</strong>: documentation for the current source checkout, not a
 promise that every command exists in the latest published binary. Use the
 version selector for historical release documentation.</p>
+</div>
+<div class="paragraph">
+<p><strong>Demo source freeze:</strong> the current source line is <code>0.3.0-dev</code>, not a published
+release. The original released CLI <code>v0.2.5</code> does not implement <code>dotx compose new</code>
+or all current model conventions. For the official demo, use the submodules
+pinned by one clean DOT-Design commit, run <code>task testing:demo</code>, and retain its
+exact checkout revisions and binary SHA-256. Do not mix the latest release
+binary with the current catalogue. See <a href="guided-demo.html#official-demo-route" class="xref page">the source-qualified demo route</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>

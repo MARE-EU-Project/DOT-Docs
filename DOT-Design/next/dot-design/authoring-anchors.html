@@ -171,6 +171,9 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -428,11 +431,12 @@ After a declaration changes, regenerate and review the affected locks and rerun
 live acceptance; previous receipts do not qualify the changed graph.</p>
 </div>
 <div class="paragraph">
-<p>A local composition may be inspected against a separate immutable Git cache.
-Its Contract input must still belong to the explicitly referenced owner&#8217;s
-<code>contracts/</code> directory. The owner-relative path and wrapper bytes must match the
-pinned checkout exactly, in addition to the declaration and payload-hash checks.
-This does not authorize loose copies or consumer-owned dependency assets.</p>
+<p>Current Contract inputs use <code>source: repository://&lt;owner-name&gt;@&lt;release&gt;</code>.
+The exact owner supplies the declaration, raw URL and digest. Locks fingerprint
+that <code>dot.json</code>, never a machine-specific cache path. <code>compose validate</code>,
+<code>inspect</code> and <code>lock</code> accept <code>--offline</code> after one online validation has warmed
+the shared verified cache; use a local pinned catalogue checkout in that mode.
+Historical wrappers remain readable, not a fallback for missing owner metadata.</p>
 </div>
 </div>
 <div class="sect2">

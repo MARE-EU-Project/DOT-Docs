@@ -170,6 +170,9 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -536,8 +539,7 @@ dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider --json</cod
 <div class="paragraph">
 <p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
 service-port, CDI, and sensitive-default relationships. Every declared Contract
-must either be complete in <code>dot.json</code> or resolve to an asset below that DOT&#8217;s
-<code>contracts/</code> directory. The validator never searches repository-level Contract
+must be a complete URL/SHA-256 declaration in the owning <code>dot.json</code>. The validator never searches repository-level Contract
 directories or sibling DOTs. A bundle can therefore be copied and validated
 independently with an explicit schema path.
 A URL-backed definition declares one structured payload:</p>
@@ -567,15 +569,29 @@ to Contract-backed interoperability.</p>
 <p>For an external product, prefer a complete root Contract declaration pointing
 to an official versioned vendor raw file. A full Git commit or release-version
 tag is accepted for <code>raw.githubusercontent.com</code>; <code>main</code>, <code>master</code>, and other
-mutable branch names are rejected. When no official raw machine-readable
-Contract exists, do not fabricate vendor provenance: retain a clearly attributed
-derived/adapter Contract until it can be migrated. Adjacent wrappers keep
-internal, testing, sample, and composition fixtures self-contained. Shared
-Contract IDs must resolve to identical metadata and payload bytes in every
-bundle; repository validation rejects conflicts.
-Use <code>dotx validate --offline</code> only when a matching local wrapper is present;
-offline validation verifies that its identity, metadata, and payload SHA-256
-match the URL-backed declaration without contacting the vendor.
+mutable branch names are rejected. When no official usable raw machine-readable
+Contract exists, catalogue declarations may point to a clearly attributed
+derived/adapter document hosted in a secret GitHub Gist. Use the HTTPS host
+<code>gist.githubusercontent.com</code> with path
+<code>owner/gist-id/raw/40-character-revision/filename</code> and the SHA-256 of the exact
+raw bytes. Unversioned Gist URLs, HTML Gist pages
+and Gist query parameters are rejected. A secret Gist is unlisted, not private;
+anyone with its URL can read it without authentication. The CLI does not send
+GitHub tokens to Gist downloads. Keep the original source, license and authority
+in the Gist&#8217;s <code>PROVENANCE.json</code>; hosting does not make a derived document official
+or prove live acceptance. Existing unresolved license notices remain unresolved.</p>
+</div>
+<div class="paragraph">
+<p>All current catalogue declarations now include their URL-backed metadata.
+No local Contract directory is required or used. Compositions select the exact
+owning DOT with <code>source: repository://name@release</code>, retaining the originating
+Contract ID. Run <code>dotx validate DOT-Repository</code> online once, then use
+<code>dotx validate DOT-Repository --offline</code>. The shared digest cache lives under
+<code>$XDG_CACHE_HOME/dotx/contracts/sha256/</code> (normally <code>~/.cache/</code> on Linux).
+Every cache read rechecks SHA-256; a cold offline cache fails without downloads
+or writes, and corruption is never silently repaired. Payload availability is
+not producer acceptance. Shared Contract IDs still require identical metadata
+and bytes; root ID-only declarations cannot fall back to local or sibling files.
 For private raw GitHub URLs, <code>dotx</code> reads <code>MARE_READ_ONLY_TOKEN</code>, falling back
 to <code>GITHUB_TOKEN</code>, and sends it only to <code>raw.githubusercontent.com</code>; credentials
 must never appear in <code>payload.url</code>.

@@ -33,7 +33,7 @@ dotx new --from docker-image prom/prometheus:v3.15.1 \
   --name Prometheus --version 3.15.1 --skill Metrics-Scraping \
   --service prometheus --port http:9090 \
   --contract-url "$AUTHORING_SPEC_BASE/web/api/v1/testdata/openapi_3.1_golden.yaml" \
-  --contract-name HTTP --contract-version 0.0.1-undefined --contract-format YAML \
+  --contract-name HTTP --contract-version 3.1.0 --contract-format YAML \
   --operation 'build-information=#/paths/~1status~1buildinfo/get' --bind http \
   --output "$AUTHORING_DIR/url-bundle/dot.json"
 dotx validate "$AUTHORING_DIR/url-bundle" \

@@ -170,6 +170,9 @@
     <a class="nav-link" href="authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -435,6 +438,12 @@ locks or runtime ownership checks. No separate catalogue inventory is required.<
 <h2 id="_author_a_runtime_only_scaffold"><a class="anchor" href="#_author_a_runtime_only_scaffold"></a>Author a runtime-only scaffold</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>To connect existing DOTs without assembling identifiers manually, follow
+<a href="composition-authoring.html" class="xref page">Create a composition from a reviewed example</a>.
+That flow verifies a template&#8217;s lock and creates a fresh ownership identity;
+it does not create new product definitions or deploy workloads.</p>
+</div>
+<div class="paragraph">
 <p>Native authoring writes <code>dot.json</code> without Git, Jsonnet or template downloads.
 From the DOT-Design checkout:</p>
 </div>
@@ -501,14 +510,13 @@ Inspection does not start workloads, test runtime availability or prove live
 API acceptance. It does not replace <code>dotx validate</code>.</p>
 </div>
 <div class="paragraph">
-<p>ID-only Contract references display names, versions and standards from the same
-verified bundle-local <code>contracts/</code> assets used by validation. JSON includes this
-resolved metadata while retaining the report structure, IDs and ordering.
-Missing or tampered assets fail before output: inspection never downloads
-Contract payloads or searches sibling DOTs. Complete URL-backed declarations
-show their declared metadata without verifying the remote document. Deployment
-support comes from the same capability list used by deploy/lifecycle commands,
-including WebAssembly.</p>
+<p>Root Contract metadata comes directly from complete <code>dot.json</code> declarations;
+ID-only roots fail rather than importing metadata from local files. JSON keeps
+the existing report structure, IDs and ordering. Inspection never downloads
+or verifies payload bytes; use <code>dotx validate</code> for that separate check.
+Validation caches digest-verified bytes outside the DOT. Warm it online once
+before <code>--offline</code>; a cold cache fails without requests or writes. Deployment
+support uses the same capability list as deploy/lifecycle, including WebAssembly.</p>
 </div>
 <div class="paragraph">
 <p>Human output provides a validation command and a dry-run template. Choose an
