@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Architecture :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.3.0/dot-design/architecture.html">
+    <link rel="prev" href="contributor-guide.html">
+    <link rel="next" href="anchors-and-composition.html">
+    <meta name="description" content="DOT-Design components, ownership boundaries, source-of-truth rules, and resolution flow.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.3.0/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="architecture.html">Architecture</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="architecture.html">Next</a>
+    <a class="version" href="../../0.3.0/dot-design/architecture.html">0.3.0</a>
+    <a class="version" href="../../0.2.4/dot-design/architecture.html">0.2.4</a>
+    <a class="version" href="../../0.2.3/dot-design/architecture.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-design/architecture.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/architecture.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/architecture.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Architecture</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOT-Design separates reusable component description from deployment-instance
+topology. That separation allows a DOT to be authored and validated once, then
+instantiated in multiple compositions without embedding addresses, credentials,
+or orchestrator-specific connection objects in the DOT aggregate.</p>
+</div>
+<div class="paragraph">
+<p>The diagrams use a consistent visual language: blue identifies authored or
+persistent artifacts, teal identifies validation and resolution activities,
+amber identifies decisions or incomplete evidence, green identifies successful
+outcomes, and red identifies rejection. Labels and line styles carry the same
+meaning when the documentation is printed without color; dashed lines indicate
+optional, indirect, or evidence-only relationships.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_system_context"><a class="anchor" href="#_system_context"></a>System context</h2>
+<div class="sectionbody">
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/dot-system-context.svg" alt="DOT authoring, validation, composition, lifecycle, and supported runtime mappings">
+</div>
+<div class="title">Figure 1. DOT-Design system context and runtime support</div>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/dot-system-context.mmd" class="xref attachment">View the Mermaid source</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>DOT-Repository</code> is the authoritative catalogue of reusable definitions.
+<code>dotx</code> is the reference validation, resolution, deployment, and composition
+client. Platform-native systems remain responsible for workload execution and
+live state.</p>
+</div>
+<div class="paragraph">
+<p>The runtime portion deliberately distinguishes <strong>where</strong> a workload runs from
+<strong>how</strong> it is deployed. The domain model supports four <code>PlatformEngine</code> values
+and six compatible manifest mappings:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Docker accepts <code>DOCKER_IMAGE</code> and <code>DOCKER_COMPOSE</code>;</p>
+</li>
+<li>
+<p>Kubernetes accepts <code>KUBERNETES_MANIFEST</code> and <code>HELM_CHART</code>;</p>
+</li>
+<li>
+<p>Vagrant accepts <code>VAGRANTFILE</code>; and</p>
+</li>
+<li>
+<p>WebAssembly accepts <code>WASM_MODULE</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The current <code>dotx</code> lifecycle implements Docker Image, Docker Compose,
+Kubernetes manifest, Helm chart, Vagrantfile, and WebAssembly execution. The
+WebAssembly adapter uses Wasmtime with an explicit <code>WASI_CLI</code> or <code>WASI_HTTP</code>
+world, verifies the module&#8217;s SHA-256 before execution, and grants only declared
+guest environment and directory capabilities.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_source_of_truth_boundaries"><a class="anchor" href="#_source_of_truth_boundaries"></a>Source-of-truth boundaries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All portable model definitions originate in <code>DOT-Domain</code>, including the
+separate <code>Composition</code> aggregate. The existing generation pipeline is
+Java/Jackson/Jakarta constraints → Victools JSON Schemas → quicktype Go input
+bindings. <code>DOT-Repository/Schema/</code> stores the generated artifacts; the CLI
+embeds the same Composition schema. There is no independent CLI input model or
+hand-authored production schema to keep in sync. Resolved compositions, locks and runtime
+state are executor representations, not alternative domain definitions.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Concern</th>
+<th class="tableblock halign-left valign-top">Authoritative source</th>
+<th class="tableblock halign-left valign-top">Explicitly excluded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT identity and supported capability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dot.json</code>: <code>id</code>, <code>name</code>, <code>version</code>, Skills, and Contracts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local instance names and live state</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract semantics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI, AsyncAPI, Protobuf, or GraphQL Contract payload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeated protocol, media, schema, or security fields on a contract-backed Anchor</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical composition point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot.anchors[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hosts, URLs, credentials, placement, health, and policy decisions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployable endpoint declaration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService.ports[]</code> and <code>anchorBindings[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allocated addresses, forwarded ports, and certificates</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime configuration surface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService.config</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator-supplied values already applied to one deployment</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-DOT topology and readiness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition document wires and <code>dependsOn</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changes to either participating <code>dot.json</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime state</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform-native resources plus private <code>dotx</code> composition state</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract or Anchor metadata</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_repository_architecture"><a class="anchor" href="#_repository_architecture"></a>Repository architecture</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT-Design
+├── DOT-Domain       Java model and validation
+├── DOT-CLI          independent Go CLI and reference executor
+├── DOT-Repository   DOTs, high-level Skills, and generated Schema (submodule)
+├── DOT-Testing      conformance, composition, interoperability, and E2E evidence
+└── DOT-Docs         Antora sources, UI, playbooks, and generated diagrams</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Maven build contains the <code>DOT-Domain</code> Java module. <code>DOT-CLI</code> has its own Go
+module and lifecycle. <code>DOT-Testing</code> is deliberately outside both module
+hierarchies. <code>DOT-Repository</code> is the only admitted source for valid deployable
+DOT definitions used by shared tests. It also owns the generated JSON Schema
+and the optional high-level Skill classification catalogue, avoiding separate
+repositories for assets that evolve with the DOT catalogue.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dot_aggregate"><a class="anchor" href="#_dot_aggregate"></a>DOT aggregate</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>Dot</code> is the aggregate root. Its primary relationships are:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Dot
+├── Skills[]                 human-readable capabilities
+├── Contracts[]              authoritative interaction definitions
+├── Anchors[]                stable logical composition points
+└── Runtimes[]
+    ├── Platform             where execution occurs
+    └── Deployments[]
+        ├── DeploymentManifest   how deployment occurs
+        └── DeploymentService[]
+            ├── Contract references
+            ├── ServicePort[]
+            ├── AnchorBinding[]
+            └── DeploymentConfig</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Skill</code> and <code>Contract</code> are independently identified domain entities. Root
+<code>Dot.contracts</code> carries authoritative Contract declarations (with legacy
+UUID-only catalogue references accepted during migration), while deployment
+services continue to reference those Contracts by ID only.
+Anchors, Runtimes, Deployments, services, bindings, and configuration
+declarations are embedded values owned by the DOT aggregate.</p>
+</div>
+<div class="paragraph">
+<p>The class-level <code>@ValidAnchor</code> constraint delegates aggregate traversal to
+<code>AnchorValidator</code>. It enforces Anchor identity, Contract membership, selector
+syntax, and service-port binding consistency without placing cross-reference
+logic in <code>Dot</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contract_anchor_binding_and_wire"><a class="anchor" href="#_contract_anchor_binding_and_wire"></a>Contract, Anchor, binding, and wire</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These four concepts form a resolution chain but have different owners:</p>
+</div>
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/contract-anchor-wire-chain.svg" alt="Contract to Anchor to binding to wire resolution chain">
+</div>
+<div class="title">Figure 2. From an authoritative Contract operation to deployed configuration</div>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/contract-anchor-wire-chain.mmd" class="xref attachment">View the Mermaid source</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>Contract</strong> defines the interaction.</p>
+</li>
+<li>
+<p>The <strong>Anchor</strong> identifies one logical participation point.</p>
+</li>
+<li>
+<p>The <strong>binding</strong> says which declared service port implements that Anchor.</p>
+</li>
+<li>
+<p>The <strong>wire</strong> connects named deployment instances.</p>
+</li>
+<li>
+<p>The optional <strong>materializer</strong> writes a resolved value into configuration that
+the receiving service has already declared.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> for the field
+model, compatibility rules, and examples.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_runtime_and_deployment_separation"><a class="anchor" href="#_runtime_and_deployment_separation"></a>Runtime and deployment separation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The model separates two orthogonal questions:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Concept</th>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PlatformEngine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Runtime.platform.engine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where does the workload run? For example Docker, Kubernetes, Vagrant, or WebAssembly.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentManifestType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Deployment.manifest.type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How is it deployed? For example Docker image, Kubernetes manifest, Helm chart,
+  Vagrantfile, or WASM module.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Every manifest type declares its target platform. Runtime validation rejects a
+deployment whose manifest mechanism does not align with its platform.</p>
+</div>
+<div class="paragraph">
+<p><code>DeploymentService</code> is the unit that binds a deployed service to Contracts,
+named ports, Anchors, and supported configuration. Configuration is
+service-scoped; there is no deployment-level shared configuration surface.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contract_resolution"><a class="anchor" href="#_contract_resolution"></a>Contract resolution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The reference resolver maps an Anchor selector to an authoritative Contract element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">AnchorContract(id, selector)
+        |
+        v
+load Contract by case-sensitive ID
+        |
+        v
+standard-specific resolver
+        |
+        v
+identifier + interaction + protocols + media types
+          + input/output schema references + security scheme names</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Resolution is read-only. Derived facts are returned to consumers and never
+written back into the Anchor. Contractless Anchors already carry their explicit
+direction, protocols, and media types and therefore have no selected Contract
+element.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_composition_resolution"><a class="anchor" href="#_composition_resolution"></a>Composition resolution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The stable Composition v1 executor uses a compile-like pipeline:</p>
+</div>
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/composition-resolution-pipeline.svg" alt="Validation, compatibility, resolution, dry-run, and apply pipeline">
+</div>
+<div class="title">Figure 3. Fail-closed composition resolution pipeline</div>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/composition-resolution-pipeline.mmd" class="xref attachment">View the Mermaid source</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Validate the strict Draft 2020-12 composition shape.</p>
+</li>
+<li>
+<p>Load each local DOT source and verify the pinned textual ID and version.</p>
+</li>
+<li>
+<p>Load each Contract input and verify its case-sensitive textual ID.</p>
+</li>
+<li>
+<p>Resolve exact external Anchor Contract sources without copying their
+declarations or searching other bundles; lock the originating definitions.</p>
+</li>
+<li>
+<p>Select one deployment for every named DOT instance.</p>
+</li>
+<li>
+<p>Resolve Anchor references and service-port bindings.</p>
+</li>
+<li>
+<p>Evaluate three-state compatibility: <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>.</p>
+</li>
+<li>
+<p>For provider-neutral OIDC requirements, verify the supported discovery profile
+against the actual selected provider Contract. Exact consumers retain strict
+same-Contract matching; this is not general OpenAPI substitutability.</p>
+</li>
+<li>
+<p>Derive connection endpoints, explicit cross-platform network ownership,
+parameter values, security status, and materializers.</p>
+</li>
+<li>
+<p>Build a deterministic resolved composition and readiness order.</p>
+</li>
+<li>
+<p>On apply, prepare configuration and delegate workload operations to the
+existing single-DOT lifecycle adapters.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Resolution may retain <code>UNKNOWN</code> with reason codes so missing evidence is visible.
+Apply rejects <code>UNKNOWN</code> rather than treating absence of evidence as compatibility.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security_boundaries"><a class="anchor" href="#_security_boundaries"></a>Security boundaries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOT-Design models declarations and explicit grants; it does not infer trust.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contract security requirements remain in the Contract.</p>
+</li>
+<li>
+<p>Sensitive deployment values are supplied by reference, not embedded in a
+composition or persisted as resolved values.</p>
+</li>
+<li>
+<p>OCI capabilities, host namespaces, volumes, and CDI devices require exact
+DOT declarations and exact operator grants.</p>
+</li>
+<li>
+<p>A configured wire does not prove credential validity, authorization, remote
+attestation, policy compliance, or network reachability.</p>
+</li>
+<li>
+<p>An <code>EXTERNAL_GATEWAY</code> binding records operator ownership and <code>NONE</code> cleanup;
+it does not assert that <code>dotx</code> provisioned or verified the gateway.</p>
+</li>
+<li>
+<p>Cross-domain admission decisions belong to deployment or policy systems.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Active traffic and trust evidence must be collected by scenario-specific probes
+after deployment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_catalogue_and_api_boundaries"><a class="anchor" href="#_catalogue_and_api_boundaries"></a>Catalogue and API boundaries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOT-Repository</code> versions reusable definitions and its catalogue metadata in
+Git. <code>dotx repository</code> validates and resolves those entries; <code>dotx compose</code>
+provides the executable compatibility reference. A future remote catalogue or
+API is free to use another language, framework, storage engine, and transport
+provided it preserves the domain semantics and passes the consumer acceptance
+profile.</p>
+</div>
+<div class="paragraph">
+<p><code>dotx compose</code> stores private, local lifecycle state under the user&#8217;s cache
+directory. Per-composition locking prevents concurrent local lifecycle commands
+from racing that state. The current model is therefore explicitly single-host;
+shared orchestration state remains future work.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_design_principles"><a class="anchor" href="#_design_principles"></a>Design principles</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Reuse established Contract standards instead of inventing parallel protocol models.</p>
+</li>
+<li>
+<p>Keep stable logical identity separate from runtime location.</p>
+</li>
+<li>
+<p>Make adapters, transformations, privileges, and secret access explicit.</p>
+</li>
+<li>
+<p>Fail closed on ambiguity and missing security evidence.</p>
+</li>
+<li>
+<p>Preserve independently versioned DOT definitions; keep topology in composition.</p>
+</li>
+<li>
+<p>Treat generated resolved compositions and test evidence according to what they actually prove.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="contributor-guide.html">Contributor guide</a></span>
+  <span class="next"><a href="anchors-and-composition.html">DOT Anchors and Composition</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

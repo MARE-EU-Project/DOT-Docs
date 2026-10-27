@@ -1,0 +1,16 @@
+{
+  "inputs": {
+    "DOT-Docs/modules/dot-design/attachments/diagrams/domain-a4.mmd": "fe88f4e8abfc6142345bbd22fccf9c857b261936de0ae8efe6f6047f40d708e8",
+    "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "3c6f845843f8209093f5f31d40ad0f17a29b7ada5ac9e913717f00efac69999e",
+    "DOT-Docs/scripts/domain-reference.mjs": "31c77232ec6ac5c8bf51d69428c460e0869418154eb59680467fe59bf5177088",
+    "DOT-Docs/scripts/render-domain-reference.mjs": "af80d34bc6a8da1f04754e268159b45f8fd129b5126d37d9d96f9b441a2c22b6",
+    "DOT-Docs/mermaid-config.json": "2e2c4b092d1ad1aafd68801200dc24469a30a27b43fb5ce31071c18a0da40697",
+    "DOT-Docs/mermaid-puppeteer-config.json": "c73c7331b5a12e1108475aad4e976420a6bec1a482b64ff0faf445a98a050191",
+    "VERSION": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0"
+  },
+  "outputs": {
+    "DOT-Docs/modules/dot-design/images/diagrams/domain-a4.svg": "77ff627decb58faddd6d6ab901177045bd00423cc58ae60236d52cc51de2222e",
+    "DOT-Docs/modules/dot-design/images/diagrams/domain-complete.svg": "a9b25db9e72e45d682dbb9230adc42a19793ef3206b0713bfba6ab5c8dbbffdb",
+    "DOT-Docs/modules/dot-domain/attachments/dot-domain-a4.pdf": "9bad98098f7dfa4a382ba7848d1c88f9d189f939dada88dfb926421b5dc63f00"
+  }
+}

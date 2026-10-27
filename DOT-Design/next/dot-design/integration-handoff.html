@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Integration handoff :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.3.0/dot-design/integration-handoff.html">
+    <link rel="prev" href="external-dot-examples.html">
+    <link rel="next" href="release-notes.html">
+    <meta name="description" content="Technology-neutral requirements for catalogues, composers, and Security Function Composition consumers of DOT Anchors.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.3.0/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="integration-handoff.html">Integration handoff</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="integration-handoff.html">Next</a>
+    <a class="version" href="../../0.3.0/dot-design/integration-handoff.html">0.3.0</a>
+    <a class="version" href="../../0.2.4/dot-design/integration-handoff.html">0.2.4</a>
+    <a class="version" href="../../0.2.3/dot-design/integration-handoff.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-design/integration-handoff.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/integration-handoff.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/integration-handoff.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Integration handoff</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This handoff defines the interoperability boundary for a team implementing a
+catalogue, composer, Security Function Composer adapter, or other DOT consumer.
+It intentionally does not prescribe a service, database, API style, language,
+or framework.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authoritative_inputs"><a class="anchor" href="#_authoritative_inputs"></a>Authoritative inputs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The reference source of reusable definitions is <code>DOT-Repository</code>. Resolve a DOT
+by its exact textual ID and pinned version, then verify the returned <code>dot.json</code>
+matches both. Resolve referenced Contract payloads without copying their
+protocol, schema, media, or security facts into an Anchor.</p>
+</div>
+<div class="paragraph">
+<p>Use these commands as executable reference behavior:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect &lt;dot-id&gt;@&lt;version&gt; --repository DOT-Repository --json
+dotx validate DOT-Repository
+dotx compose validate composition.yaml
+dotx compose inspect composition.yaml --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An implementation may expose equivalent behavior through REST, gRPC, events,
+an SDK, or an embedded library. Its external contract should be versioned and
+tested independently from the DOT model.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_disposition_of_legacy_sfc_requests"><a class="anchor" href="#_disposition_of_legacy_sfc_requests"></a>Disposition of legacy SFC requests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The original SFC issues 6 through 9 predate the stable repository-backed model.
+Their consumer needs are handled at the integration boundary without creating
+parallel sources of truth:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Parameter forms:</strong> derive an SFC-facing form from exact service-scoped
+environment and configuration declarations plus authoritative Contract
+schemas. Composition validation rejects missing or ambiguous required inputs
+before runtime mutation. A duplicate root <code>params</code> model is not defined.</p>
+</li>
+<li>
+<p><strong>Skill search:</strong> resolve stable, case-sensitive textual <code>Skill</code> IDs through the
+authoritative <code>DOT-Repository/Skills/</code> catalogue. Every referenced capability
+has one category there; <code>dotx repository list --skill &lt;id-or-name&gt;</code> and
+<code>--category &lt;id-or-name&gt;</code> expose the tested consumer projection without
+copying names or categories into every DOT as a second controlled vocabulary.</p>
+</li>
+<li>
+<p><strong>Catalogue API:</strong> <code>DOT-Repository</code> and <code>dotx repository</code> define reference
+behavior. A catalogue team may expose equivalent queries through any
+versioned API; DOT-Design does not own or prescribe that service.</p>
+</li>
+<li>
+<p><strong>Low-barrier authoring:</strong> a DOT author may hand-write one <code>dot.json</code>, place its
+folder under the appropriate recursive <code>DOT-Repository/DOTs/</code> category, and
+validate the whole filesystem catalogue with <code>dotx validate DOT-Repository</code>.
+There is no duplicate inventory file or wrapper script. This path requires no
+Maven, Jsonnet, MongoDB, or running service.
+<code>dot.json</code> remains the sole deployment definition; a parallel YAML format and
+inline copies of referenced entities are intentionally not introduced.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These dispositions settle DOT-side model ownership. They do not replace joint
+SFC acceptance or prove a partner catalogue/search implementation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_required_semantics"><a class="anchor" href="#_required_semantics"></a>Required semantics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An interoperable consumer must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>address DOTs by exact textual ID and pinned version; preserve exact DOT-local Anchor IDs and Composition ownership UUIDs;</p>
+</li>
+<li>
+<p>resolve Skills and Contracts by their exact, case-sensitive textual IDs;
+legacy UUID-shaped IDs remain valid, but names and case-folded aliases do not
+replace identity;</p>
+</li>
+<li>
+<p>require at least one meaningful Skill reference per DOT and consume the
+generated nonempty-list constraint rather than a separate handwritten rule;</p>
+</li>
+<li>
+<p>resolve contract-backed selectors against the authoritative OpenAPI,
+AsyncAPI, Protocol Buffers, or GraphQL document;</p>
+</li>
+<li>
+<p>use <code>anchorBindings</code> to map a logical Anchor to a named service port;</p>
+</li>
+<li>
+<p>keep instance topology, endpoints, parameter values, credentials, and policy
+outside reusable DOT definitions;</p>
+</li>
+<li>
+<p>evaluate compatibility conservatively and preserve <code>UNKNOWN</code> as distinct
+from <code>COMPATIBLE</code>; and</p>
+</li>
+<li>
+<p>keep secret values out of DOTs, resolved compositions, persisted state, and logs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Contractless Anchors are valid only when a supported Contract standard cannot
+describe the interaction. Their explicit direction, protocols, media types,
+and semantic types must be complementary before a wire is accepted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acceptance_evidence"><a class="anchor" href="#_acceptance_evidence"></a>Acceptance evidence</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The versioned consumer profile is under
+<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
+verifies the committed composition lock, and resolves 21 compatible wires across
+all supported Contract standards and versions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:anchors:acceptance
+task testing:conformance</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Passing the deterministic profile proves discovery and resolution semantics. A
+joint live test must separately prove endpoint reachability, credential and
+token handling, authorization, policy enforcement, and application behavior.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_future_implementation_freedom"><a class="anchor" href="#_future_implementation_freedom"></a>Future implementation freedom</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The removed catalogue-service prototype is not part of the production architecture. A
+future team may replace it or implement discovery elsewhere in a
+different language or framework. Compatibility is judged by the stable DOT
+model and executable acceptance profile, not by reproducing the prototype&#8217;s
+internal classes or former HTTP response shapes.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="external-dot-examples.html">External DOT examples</a></span>
+  <span class="next"><a href="release-notes.html">Release notes</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

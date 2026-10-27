@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MARE PoC composition walkthroughs :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.3.0/dot-design/mare-poc-compositions.html">
+    <link rel="prev" href="developer-demo.html">
+    <link rel="next" href="live-multi-runtime-demo.html">
+    <meta name="description" content="Three localhost-first MARE PoC slices with explicit producer and test-double boundaries.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.3.0/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="guided-demo.html">Guided demo</a></li>
+    <li><a href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="mare-poc-compositions.html">Next</a>
+    <a class="version" href="../../0.3.0/dot-design/mare-poc-compositions.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">MARE PoC composition walkthroughs</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Start here when presenting DOT composition against MARE use cases. Run commands
+from DOT-Design with its pinned submodules. These are integration slices, not
+complete official PoC outcomes. For generic cross-runtime/four-Contract
+mechanics, use <a href="live-multi-runtime-demo.html" class="xref page">the Docker/Kubernetes demo</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_presenter_route_inspect_run_prove_clean_up"><a class="anchor" href="#_presenter_route_inspect_run_prove_clean_up"></a>Presenter route: inspect, run, prove, clean up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For a 15-20 minute presentation, show PoC4 first, PoC10 second, and PoC6 only
+with its adapter/double boundary visible. Avoid new feature changes on the day.
+Each presenter command uses the same locked composition and live assertions as
+acceptance; there is no second set of DOT definitions or demo-only success path.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Run from a real interactive terminal, one example at a time.
+task testing:pocs:present:monitoring
+task testing:pocs:present:secure-api
+task testing:pocs:present:remediation</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each follows five stages: <strong>inspect topology &#8594; deploy &#8594; verify &#8594; inspect the
+running result &#8594; clean up</strong>. The terminal prints resolved DOT versions,
+deployments, wires and evidence boundaries. It pauses only <strong>after</strong> every API
+assertion passes. While paused, open the printed Prometheus targets page or
+inspect the redacted <code>result.json</code>; the secure API must still deny anonymous
+requests. Do not paste access tokens or Secret values into the presentation.</p>
+</div>
+<div class="paragraph">
+<p>The topology is generated from the locked composition by <code>dotx compose topology</code>, using
+the MIT-licensed <code>mermaid-ascii</code> 1.6.1 Go library embedded in the binary.
+There is no Python renderer or separate executable to install. DOTs appear once, with connected
+Unicode boxes. Parallel wires share a connection labelled <code>W1,W2,&#8230;&#8203;</code>; the
+connection legend lists every wire, Contract standard and protocol separately.
+<code>T</code> links show broker transport endpoints, not extra Anchor wires or invented
+application publishers. Aligned tables show full instance names, platforms,
+deployments and versions, plus each connection&#8217;s provider, consumer, Contract
+standard, protocol and name. Long values wrap inside their columns without
+truncation, using the same width as the graph.
+Arrows mean logical PROVIDES-to-REQUIRES relationships,
+not packet direction. The graph reappears after successful live verification.</p>
+</div>
+<div class="paragraph">
+<p>Interactive diagrams use cyan Kubernetes, magenta Docker and amber connection
+IDs. Set <code>NO_COLOR=1</code> or <code>DOTX_TOPOLOGY_COLOR=never</code> for plain output; <code>always</code>
+forces colour when capturing a demonstration (<code>NO_COLOR</code> and <code>TERM=dumb</code> still
+disable it). Logs are plain by default. <code>DOTX_TOPOLOGY_WIDTH=80</code> controls width
+(40-240 columns). The renderer tries vertical/compact layouts for narrow screens
+and fails clearly if it cannot show every connection; it never silently clips.</p>
+</div>
+<div class="paragraph">
+<p>For all four Contract standards across Docker and Kubernetes, use
+<code>task testing:demo:docker-kubernetes-four-contracts:present</code>; see
+<a href="live-multi-runtime-demo.html" class="xref page">the mixed-runtime presenter walkthrough</a>.</p>
+</div>
+<div class="paragraph">
+<p>Press Enter to destroy owned resources and verify cleanup. Ctrl-C also cleans
+up and returns 130; SIGTERM returns 143. The default inspection limit is ten
+minutes (<code>DOTX_POC_PRESENT_TIMEOUT</code>, integer 1-1800 seconds). Timeout returns
+124 and EOF returns 1, both after cleanup: neither is reported as a successful
+presentation. Headless launches are rejected before deployment, and
+<code>DOTX_E2E_KEEP=1</code> is forbidden in presenter mode.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Safe headless previews: print the real graph and render without deployment.
+task testing:pocs:present:monitoring -- --dry-run
+task testing:pocs:present:secure-api -- --dry-run
+task testing:pocs:present:remediation -- --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The noninteractive <code>testing:pocs:*:live</code> tasks remain unpaused. Use the
+presenter tasks above, not the full failure-injection suite, in front of an
+audience. For preparation, <code>task testing:pocs:present:controls</code> exercises Enter,
+EOF, timeout and real signals with live Prometheus on overridden port 19041.
+<code>task testing:pocs:present:rehearse</code> requires clean commits, drives all three
+presenter flows through a real terminal, inspects live status during each pause,
+then verifies cleanup. It preserves checkout/CLI fingerprints and redacted
+results under ignored <code>DOT-Testing/e2e/target/presenter/</code> and <code>poc-rehearsals/</code>.
+Keep those receipts and the exported PDF as an explicitly labelled fallback,
+not evidence that a new live exchange occurred during the talk.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites_and_fixed_inputs"><a class="anchor" href="#_prerequisites_and_fixed_inputs"></a>Prerequisites and fixed inputs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use Linux amd64, Docker, curl, jq and Git. Acceptance harnesses also require
+Bash, flock, Python 3 and Task; ShellCheck checks their regressions. PoC10 needs
+kubectl and a Ready local Docker-driver Minikube node with context <code>minikube</code>.
+PoC6 additionally needs Docker BuildKit and read access to the pinned private
+producer through Git/<code>gh</code>, or <code>POC6_SOURCE_DIR</code> at the exact revision below.
+Automatically acquired PoC6 source uses the private run directory&#8217;s filesystem,
+not shared <code>/tmp</code>, and is removed after the run. A caller-supplied source checkout
+remains untouched.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git submodule update --init --recursive
+task cli:install
+dotx version
+git rev-parse HEAD
+git -C DOT-CLI rev-parse HEAD
+git -C DOT-Repository rev-parse HEAD
+task testing:pocs:dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To display just the graph without running the acceptance harness:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology \
+  DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml \
+  --locked --color always</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install from the pinned CLI checkout: released 0.2.4 predates repository-wide
+composition validation. Dry-runs must pass before deployment. The three paths
+contain respectively 1, 5 and 2 compatible wires. Inspect their exact Anchor
+IDs, selected deployments and materializers; <code>COMPATIBLE</code> is not a live result.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_poc4_node_exporter_to_prometheus"><a class="anchor" href="#_1_poc4_node_exporter_to_prometheus"></a>1. PoC4: Node Exporter to Prometheus</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Node Exporter -- metrics scrape wire --&gt; Prometheus -- query API --&gt; presenter</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Graph: <code>DOT-Repository/Compositions/node-exporter-prometheus-monitoring/composition.yaml</code>.
+Producer context: PoC4 <code>c03eca71a9d87358603a1d89fa0eca58a9dabe03</code>.
+Node Exporter provides metrics; Prometheus requires the scrape endpoint. A
+<code>CONFIG_FILE</code> materializer inserts <code>ENDPOINT_HOST_PORT</code> at
+<code>/scrape_configs/0/static_configs/0/targets/0</code>. Prometheus&#8217;s query Anchor uses
+its DOT-local Contract. OpenMetrics is not a fabricated OpenAPI operation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose inspect DOT-Repository/Compositions/node-exporter-prometheus-monitoring/composition.yaml --locked --json
+task testing:pocs:monitoring:live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The task waits for readiness, verifies the exact resolved scrape target is
+healthy, checks <code>up{job="node-exporter"}</code> equals <code>1</code>, and verifies the exporter
+version through <code>node_exporter_build_info</code>. Expect <code>PASS</code>, then a receipt with
+<code>exit=0, cleanup=PASSED</code>. Override <code>DOTX_POC4_QUERY_PORT</code> if 19040 is busy.</p>
+</div>
+<div class="paragraph">
+<p>This grants no host namespaces or host root filesystem mounts. It observes the
+exporter&#8217;s container, not the testbed host. Full log/dashboard flow, MITM
+detection and mitigation remain outside this slice.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_poc10_authenticated_policy_controlled_sparql"><a class="anchor" href="#_2_poc10_authenticated_policy_controlled_sparql"></a>2. PoC10: authenticated, policy-controlled SPARQL</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_presentation_preflight"><a class="anchor" href="#_presentation_preflight"></a>Presentation preflight</h3>
+<div class="paragraph">
+<p>After preparing the local cluster and rehearsing once to cache images, run this
+read-only gate before presenting. It is scoped to this secure-API composition,
+not the four-Contract fixture or all catalogue deployments:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Keep these overrides in the same terminal for preflight and presentation.
+export DOTX_POC10_NAMESPACE=dotx-poc10-presentation
+export DOTX_POC10_FORWARD_PORT=19010
+task testing:demo:preflight DEMO=secure-api
+task testing:pocs:present:secure-api</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The preflight requires local Go only to inspect the installed binary&#8217;s embedded
+build information. It requires clean CLI/catalogue checkouts and a binary built from the CLI&#8217;s
+exact revision, rather than trusting the <code>0.2.5</code> version label. If mismatched,
+review/commit CLI changes and run <code>task cli:install</code>. It prints the CLI SHA-256,
+Design/catalogue revisions, verifies local Contract assets through offline
+catalogue validation, and resolves the reviewed composition lock.</p>
+</div>
+<div class="paragraph">
+<p>It then checks Docker/Compose access, the <code>minikube</code> context, one Ready
+Linux-amd64 node without resource pressure, an unused namespace and TCP port,
+and every selected manifest image in the Docker-driver Minikube cache.
+All five selected images are digest-pinned at their rehearsed versions; tags
+remain in the reference for readability. Preflight rejects tag-only references
+and cached images whose reported platform is not Linux amd64. It prints the
+resolved image IDs without dumping image configuration. This is cache availability, not a
+remote registry/Contract URL check, image vulnerability scan, or API acceptance.
+The check is bounded and does not start tools, pull images, create Secrets,
+deploy, adopt resources or clean anything up. Read-only CLI resolution can use
+temporary files/cache; no composition lifecycle state is written.</p>
+</div>
+<div class="paragraph">
+<p>If a prerequisite fails, correct only that prerequisite and rerun. Prepare the
+cluster explicitly with <code>dotx tool check kubernetes --start</code> if needed. To warm
+images, run the existing <code>task testing:pocs:secure-api:live</code> acceptance task
+before the talk; it may download images and must finish with verified cleanup.
+For an occupied port choose another <code>DOTX_POC10_FORWARD_PORT</code>. Never delete a
+foreign namespace to make preflight pass: choose a new name, or recover only a
+previous run whose ownership is recorded in its receipt. Preflight is a point
+in time check, not a reservation; the live harness repeats ownership checks.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_the_live_result_proves"><a class="anchor" href="#_what_the_live_result_proves"></a>What the live result proves</h3>
+<div class="paragraph">
+<p>The harness now seeds a known RDF triple into the disposable backend, then reads
+that stored value through the authenticated gateway. Acceptance requires exactly
+one expected literal, rather than a constant <code>SELECT</code> expression that would work
+with an empty database. An authenticated INSERT attempt must be rejected with
+403. Seeding is explicit out-of-band test setup in the owned namespace; it is
+not a claim that the public read-only interface authorizes writes.</p>
+</div>
+<div class="paragraph">
+<p>The same live task also requires a reversible authorization transition:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Authenticated query of the seeded data: HTTP <code>200</code> and the expected literal.</p>
+</li>
+<li>
+<p>Temporarily deny reads in this run&#8217;s OPA module: the same authenticated query
+must complete with HTTP <code>403</code>, not a redirect or transport failure.</p>
+</li>
+<li>
+<p>Restore the original module, read it back, then issue a fresh authenticated
+query: HTTP <code>200</code> with the same stored value.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The console prints these three stages. The redacted <code>result.json</code> contains
+<code>policyTransition.httpStatuses: [200, 403, 200]</code>, <code>restored: true</code> and
+<code>storedDataUnchanged: true</code> only after every assertion succeeds. The inspection
+pause happens after restoration, so the displayed composition remains usable.</p>
+</div>
+<div class="paragraph">
+<p>Policy administration is an explicit operator-side demonstration action using
+<a href="https://www.openpolicyagent.org/docs/rest-api#policy-api">OPA&#8217;s Policy API</a>,
+not a sixth Anchor wire, automatic remediation, or a production policy-management
+design. The harness requires ownership of the applied namespace and an exact
+match to the reviewed policy before mutation. A failed or ambiguous update
+triggers a restoration attempt; any failure still invokes the parent harness&#8217;s
+owned-resource cleanup. It never changes another namespace&#8217;s policy. In production,
+OPA recommends bundles for policy distribution; this local demonstration uses
+the API to make one bounded, observable transition.</p>
+</div>
+<div class="paragraph">
+<p>These arrows show logical PROVIDES-to-REQUIRES wires, not HTTP packet direction:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Keycloak -- discovery --&gt; APISIX &lt;-- SPARQL -- Oxigraph
+OPA ----- decisions ---&gt; APISIX -- protected capability --&gt; Client
+Keycloak ---------------- token -------------------------&gt; Client</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Graph: <code>DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml</code>.
+Producer context: PoC10 <code>e6a755145bbb71551916163209c0be6e9e996f9c</code>.
+Five instances exchange through five wires:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keycloak discovery to APISIX;</p>
+</li>
+<li>
+<p>Oxigraph SPARQL to APISIX;</p>
+</li>
+<li>
+<p>OPA policy decisions to APISIX;</p>
+</li>
+<li>
+<p>OAuth token endpoint to the client (<code>TOKEN_URL</code>);</p>
+</li>
+<li>
+<p>protected SPARQL capability to the client (<code>CAPABILITY_URL</code>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Native Secret references supply credentials. Routes/policy are explicit,
+composition-owned inputs, not automatic translation. OIDC/OAuth Contracts come
+from canonical bundles. SPARQL and the legacy OPA workflow remain explicit
+protocol interfaces, not invented official vendor OpenAPI documents.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl config current-context
+kubectl get nodes
+dotx compose inspect \
+  DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml \
+  --locked --json
+task testing:pocs:secure-api:live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect a fresh namespace and native test Secrets, HTTP <code>401</code> for missing and
+malformed bearer tokens,
+authenticated POST <code>403</code>, and an authenticated GET returning <code>mare-poc10</code> from
+the real SPARQL engine. Every required client input is checked. The harness
+destroys its namespace and forward; the receipt must say <code>cleanup=PASSED</code>.
+Override <code>DOTX_POC10_FORWARD_PORT</code> if 19010 is busy.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Observation</th>
+<th class="tableblock halign-left valign-top">Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anonymous request to the gateway</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP <code>401</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deliberately malformed public test token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP <code>401</code>; redirects/transport errors are not acceptance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth client-credentials token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acquired inside the client pod; never printed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authenticated POST/write attempt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP <code>403</code> from the protected route</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authenticated stored-data GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exactly one literal <code>mare-poc10</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lifecycle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recorded status, destroyed owned namespace/forward, <code>cleanup=PASSED</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>During the presenter pause, inspect the printed private-cache <code>compose status</code>
+command and <code>result.json</code>. The five compatible wires are composition/configuration
+evidence; the four HTTP assertions above are the live end-to-end evidence.
+They are not five independent native Contract probes or full response-schema
+validation. Press Enter to clean up and retain the receipt. Re-run from the
+cleaned state to check repeatability; never treat a previous receipt as a new
+live exchange.</p>
+</div>
+<div class="paragraph">
+<p>The invalid token is fixed public test data; real access tokens are never
+printed. <code>invalidBearerHttpStatus</code> in <code>result.json</code> records the checked 401.
+The bounded check ignores local curl configuration and does not follow redirects.
+It proves rejection of this malformed token, not expiry/revocation handling,
+issuer/audience isolation, signing-key rotation, or a security certification.</p>
+</div>
+<div class="paragraph">
+<p>Oxigraph substitutes for GraphDB; a synthetic machine client uses client
+credentials instead of a password grant. This does not accept the full producer
+GraphDB/LDAP/Data Security Service stack, telemetry/events or automated
+response. HTTP, bootstrap defaults and the read-only policy are demo settings,
+not production security hardening.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_poc6_explicitly_adapted_remediation_rehearsal"><a class="anchor" href="#_3_poc6_explicitly_adapted_remediation_rehearsal"></a>3. PoC6: explicitly adapted remediation rehearsal</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">CACAO interpreter [adapter] -- MQTT/OpenC2 via Mosquitto --&gt; actuator
+actuator -------------------- remediation call ---------&gt; NWDAF [DOUBLE]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Graph: <code>DOT-Testing/e2e/poc6-cacao-openc2/scenario.yaml</code>, not a catalogue example.
+Producer revision: <code>cd359b25df1b010324869d7e1c755067070e42dd</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:e2e:poc6-cacao-openc2:dry-run
+task testing:pocs:remediation:live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A guarded interpreter adapter resolves the CACAO external broker URI. The
+unchanged pinned actuator receives OpenC2 over real Mosquitto/MQTT through the
+AsyncAPI wire, then calls the OpenAPI remediation endpoint. The exact job UUID
+must reach the far end. That endpoint is an <strong>NWDAF double</strong>, not real NWDAF
+remediation. Telemetry, AI and playbook selection remain unaccepted.
+Override <code>DOTX_POC6_INTERPRETER_PORT</code>/<code>DOTX_POC6_NWDAF_PORT</code> if 18261/18262 are busy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_repeatability_cleanup_and_recovery"><a class="anchor" href="#_repeatability_cleanup_and_recovery"></a>Repeatability, cleanup and recovery</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:pocs:rehearse</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This runs each slice twice, followed by injected failure and real SIGINT/SIGTERM
+cleanup controls. It records the CLI hash, three checkout revisions,
+tracked/untracked fingerprints, runtime image identities and per-run receipts
+under <code>DOT-Testing/e2e/target/</code>. Changed inputs invalidate the aggregate receipt.
+Dirty-worktree evidence does not claim those changes were already published.</p>
+</div>
+<div class="paragraph">
+<p>The manual <strong>Anchor live E2E</strong> workflow&#8217;s <code>first-wave</code> selection runs the same
+checks and rehearsal driver. Remote infrastructure and queue failures remain
+separate from local acceptance; no workflow success is claimed before it runs.</p>
+</div>
+<div class="paragraph">
+<p>Harnesses refuse existing resources, lock fixed identities, use private caches
+and check owned leftovers. Anonymous Docker volumes are removed; unrelated
+resources are untouched. PoC6 test images remain cached. <code>DOTX_E2E_KEEP=1</code>
+records <code>SKIPPED</code> cleanup and cannot pass acceptance.</p>
+</div>
+<div class="paragraph">
+<p>If cleanup fails, preserve the printed run directory. Set <code>XDG_CACHE_HOME</code> to
+its <code>cache</code> directory and, for Kubernetes runs, set <code>KUBECONFIG</code> to that run&#8217;s
+private <code>kubeconfig</code>. Do not follow a later global context change or share the
+saved kubeconfig. Stop if the original run files are missing; a new run&#8217;s state
+does not authorize recovery. Inspect <code>dotx compose status &lt;composition&gt;</code>, then
+retry <code>destroy</code> on the same graph. Inspect only recorded namespaces and resolved
+identities. Never strip finalizers or delete unrelated workloads. Select an
+unused port instead of killing another service. Review missing Contracts,
+inputs or stale locks before intentionally regenerating a lock.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_full_catalogue_appendix"><a class="anchor" href="#_full_catalogue_appendix"></a>Full-catalogue appendix</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOT-Testing/interoperability/FIRST-WAVE.md</code> and <code>pocs.yaml</code> retain all eleven
+PoCs and remaining gaps. <code>DOT-Repository/CONTRACT-AUDIT.md</code> separates official
+and source-derived Contracts, protocol-only interfaces and runtime-only brokers.
+Validation-only fixtures, stubs, adapters and doubles remain labelled. Declaration
+completeness is not runtime acceptance or production certification.</p>
+</div>
+<div class="paragraph">
+<p>This page publishes through <code>next</code>; stable-tag documentation is unchanged.
+Rehearsal evidence is a presentation fallback, not a substitute for a claimed
+current live result or a green remote workflow.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="developer-demo.html">Developer demo: reuse and extend</a></span>
+  <span class="next"><a href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

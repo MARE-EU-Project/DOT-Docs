@@ -1,0 +1,31 @@
+flowchart TD
+  accTitle: Fail-closed composition resolution pipeline
+  accDescr: The composer validates and pins its inputs, resolves Anchor bindings, evaluates compatibility, produces a deterministic evidence-bearing resolved composition, and permits apply only when evidence is complete.
+
+  Source["Composition document"] --> Validate["1 · Validate and pin inputs<br/>schema · UUIDs · versions · Contracts"]
+  Validate --> Resolve["2 · Resolve topology<br/>deployments · Anchors · bindings · ports"]
+  Resolve --> Compatibility{"3 · Compatibility<br/>result"}
+
+  Compatibility -->|COMPATIBLE| Derive["Derive endpoints, parameters,<br/>security status, and materializers"]
+  Compatibility -->|UNKNOWN| Explain["Record missing evidence<br/>and stable reason codes"]
+  Compatibility -->|INCOMPATIBLE| Reject["Stop<br/>deterministic mismatch"]
+
+  Derive --> Resolution["4 · Resolve composition details<br/>and readiness order"]
+  Explain -.->|resolution remains available| Resolution
+  Resolution --> DryRun["Dry-run<br/>render runtime actions"]
+  Resolution --> Gate{"Evidence complete<br/>for apply?"}
+  Gate -->|Yes| Apply["Apply<br/>delegate to lifecycle adapters"]
+  Gate -->|No| ApplyReject["Stop apply<br/>unresolved evidence"]
+
+  classDef input fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
+  classDef process fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
+  classDef decision fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px;
+  classDef success fill:#e6f4ea,stroke:#2f7d45,color:#173c23,stroke-width:1.5px;
+  classDef caution fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px;
+  classDef failure fill:#fdecec,stroke:#b84242,color:#5b1f1f,stroke-width:1.5px;
+  class Source input;
+  class Validate,Resolve,Derive,Resolution process;
+  class Compatibility,Gate decision;
+  class DryRun,Apply success;
+  class Explain caution;
+  class Reject,ApplyReject failure;
