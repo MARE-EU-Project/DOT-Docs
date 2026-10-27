@@ -380,11 +380,12 @@ translate protocols or implement missing producer functionality.</p>
 <p>Run from the DOT-Design checkout root on Linux amd64, with repository access,
 Git, Go, Task, Python 3, Bash, jq, curl, <code>ss</code>, Docker/Compose, kubectl and a Ready
 local Docker-runtime Minikube node. Select context <code>minikube</code>. This advanced
-developer rehearsal uses the pinned source CLI, not the original <code>v0.2.5</code> binary.
-The aligned source label is <code>0.3.0-dev</code>, <strong>not a published release</strong>. Do not install
-the latest release binary over the source-built CLI for this route: it lacks
-the current model and authoring features. No new release is required to present
-the frozen, qualified source set.
+developer rehearsal installs the pinned source CLI. The published candidate
+<code>v0.3.0-rc.1</code> includes these model and authoring features, unlike
+the original <code>v0.2.5</code>. Nevertheless, do not replace the source-built binary after
+qualification, even with the same version: the exact checkout revisions and
+binary SHA-256 identify the frozen, qualified source set. A release candidate
+is not a final stable release.
 Put Go&#8217;s executable install directory (<code>GOBIN</code>, or <code>$(go env GOPATH)/bin</code> when
 unset) on <code>PATH</code>; the installation phase verifies that plain <code>dotx</code> resolves to
 the aligned version and records any PATH warning in its printed install log.
@@ -434,7 +435,7 @@ success or exports a fallback from an older run.</p>
 <p>After qualification, use <code>dotx version --verbose</code> and the exact root <code>summary.json</code>
 printed by this run to show the three checkout SHAs and binary SHA-256.
 Expect <code>Modified worktree: false</code>. Do not replace this identity evidence with
-the <code>0.3.0-dev</code> label alone, an older receipt, or a newer unrehearsed checkout.
+the version label alone, an older receipt, or a newer unrehearsed checkout.
 Changes after qualification require a fresh rehearsal and fallback export.</p>
 </div>
 <div class="paragraph">
@@ -666,8 +667,9 @@ demonstrate rejection of an invalid wire, and show where a PoC contribution belo
 <p>Follow <a href="live-multi-runtime-demo.html#_prepare_before_presenting" class="xref page">the mixed-runtime prerequisites</a>
 and rehearse on the same Linux-amd64 checkout, installed CLI, Docker and local
 Minikube context that you will present. Install this checkout&#8217;s CLI for the exact
-pinned acceptance suite. Published <code>v0.2.5</code> includes native topology and presenter
-support; a release binary does not include later source fixes, and the version
+pinned acceptance suite. Published <code>v0.3.0-rc.1</code> includes native
+topology and the CLI operations used by the presenter harnesses; a release
+binary does not include later source fixes, and the version
 string alone does not identify the tested binary.
 Record the three checkout revisions as shown in that walkthrough.</p>
 </div>
@@ -1142,13 +1144,13 @@ published release. The published release reports:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dotx 0.2.5</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dotx 0.3.0-rc.1</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The independently released Linux-amd64 binary, its SBOM, release manifest, and
 checksums are also available from the
-<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.5">DOT-CLI v0.2.5 release</a>.
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.3.0-rc.1">DOT-CLI v0.3.0-rc.1 release</a>.
 Use <code>sha256sum --check SHA256SUMS</code> before executing a downloaded release asset.</p>
 </div>
 </div>

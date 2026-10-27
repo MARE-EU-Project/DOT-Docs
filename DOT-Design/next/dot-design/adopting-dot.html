@@ -270,9 +270,10 @@ promise that every command exists in the latest published binary. Use the
 version selector for historical release documentation.</p>
 </div>
 <div class="paragraph">
-<p><strong>Demo source freeze:</strong> the current source line is <code>0.3.0-dev</code>, not a published
-release. The original released CLI <code>v0.2.5</code> does not implement <code>dotx compose new</code>
-or all current model conventions. For the official demo, use the submodules
+<p><strong>Published candidate baseline:</strong> CLI <code>v0.3.0-rc.1</code> includes
+<code>dotx compose new</code> and the current model conventions. It is not a final stable
+release. The original released CLI <code>v0.2.5</code> predates these features.
+For the official demo, use the submodules
 pinned by one clean DOT-Design commit, run <code>task testing:demo</code>, and retain its
 exact checkout revisions and binary SHA-256. Do not mix the latest release
 binary with the current catalogue. See <a href="guided-demo.html#official-demo-route" class="xref page">the source-qualified demo route</a>.</p>
@@ -374,7 +375,8 @@ its computed digest pins downloaded bytes, not upstream authority.</p>
 <h2 id="_check_the_selected_deployment_without_starting_it"><a class="anchor" href="#_check_the_selected_deployment_without_starting_it"></a>Check the selected deployment without starting it</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Current source only.</strong> From a DOT-Design checkout with its source CLI installed:</p>
+<p><strong>Selected candidate or matching source.</strong> From the pinned DOT-Design checkout
+with the selected candidate or its source CLI installed:</p>
 </div>
 <div class="listingblock">
 <div class="content">

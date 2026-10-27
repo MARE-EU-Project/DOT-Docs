@@ -288,6 +288,13 @@ To use an existing DOT without installing development toolchains, start with
 <td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.27.2</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Graphviz and fonts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reproducing the legacy full-Maven-build SVG export, not running services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local baseline: Graphviz 14.1.2 and Ubuntu <code>fonts-noto-core</code> /
+  <code>fonts-croscore</code> 20201225-2build1. Missing tools or different font fallbacks
+  can change the SVG even when the generated model source is identical.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Task</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repository command aliases</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional but recommended</p></td>
@@ -323,6 +330,20 @@ MARE-EU-Project organization. <code>DOT-CLI</code> and <code>DOT-Repository</cod
 cloneable; the generated Schema and high-level Skill classifications are
 tracked inside <code>DOT-Repository</code> and require no additional checkout.</p>
 </div>
+<div class="paragraph">
+<p>When updating submodules, commit and push the child repositories first, then
+push the parent branch with a missing-submodule-commit check:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git -c push.recurseSubmodules=check -c push.followTags=false push</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This refuses to publish a parent whose child commits are unavailable remotely.
+Release tags are published separately after qualification; a branch push must
+not publish prepared tags implicitly.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -350,6 +371,12 @@ task mci</code></pre>
 <p>The build generates CycloneDX JSON and XML software bills of materials during
 the Maven <code>verify</code> phase.</p>
 </div>
+<div class="paragraph">
+<p>The full Maven build also regenerates diagram exports. Release packaging
+requires clean committed sources, including those exports. If rendering changes
+a tracked SVG, diagnose the source, renderer and fonts; do not discard the
+difference blindly or weaken the provenance guard to make packaging pass.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -366,11 +393,13 @@ independent version numbers; source revisions still identify unreleased changes.
 Antora keeps current development content under <code>Next</code>, preserving stable tags.</p>
 </div>
 <div class="paragraph">
-<p>Install the standalone release with Go 1.27 or later:</p>
+<p>Install the standalone release with Go 1.27 or later. For the private module,
+authenticate Git first as described in <a href="getting-started.html" class="xref page">Getting started</a>
+and bypass the public Go proxy for this organization in this command only:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.2.5
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GOPRIVATE='github.com/MARE-EU-Project/*' go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.3.0-rc.1
 dotx version</code></pre>
 </div>
 </div>

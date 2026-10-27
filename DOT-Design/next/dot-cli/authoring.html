@@ -260,10 +260,11 @@ genuinely new component or a local exercise; do not publish another root for an
 existing product. Add deployment alternatives to its canonical bundle instead.</p>
 </div>
 <div class="paragraph">
-<p>These commands require the <strong>current source-built CLI</strong>, <code>jq</code>, catalogue access
-and network access to the pinned raw Contract. The original published <code>v0.2.5</code>
+<p>These commands require the <strong>selected candidate CLI <code>v0.3.0-rc.1</code>
+or its matching source build</strong>, <code>jq</code>, catalogue access and network access to the
+pinned raw Contract. The original published <code>v0.2.5</code>
 binary predates this flow. Follow
-<a href="../dot-design/adopting-dot.html" class="xref page">the compatible-source installation route</a>.
+<a href="../dot-design/adopting-dot.html" class="xref page">the compatible-artifact installation routes</a>.
 No Java, Jsonnet, Docker daemon or Kubernetes cluster is needed for the commands
 below; the last command renders a deployment without starting it.</p>
 </div>
@@ -361,10 +362,10 @@ dotx deploy "$AUTHORING_DIR/bundle" --deployment docker-image --dry-run</code></
 one provided Anchor, and dry-run renders the Docker command. This checks the
 declared interface and binding, <strong>not</strong> a running API. The flow does not establish
 that a URL is vendor-owned or that its release metadata is truthful; review
-provenance. For live acceptance with this source CLI/catalogue pair, follow
-<a href="../dot-design/guided-demo.html" class="xref page">the current-source guided demo</a>. The released
+provenance. For live acceptance, follow
+<a href="../dot-design/guided-demo.html" class="xref page">the source-qualified guided demo</a>. The released
 quickstart uses its own pinned artifact set; do not replace only one component
-of this source-built pair with the original published <code>v0.2.5</code> binary.</p>
+of a qualified pair with another binary, including the original <code>v0.2.5</code>.</p>
 </div>
 <div class="paragraph">
 <p>This first guided interface profile covers <strong>owned OpenAPI provided operations</strong>

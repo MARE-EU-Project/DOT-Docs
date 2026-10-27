@@ -255,8 +255,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run your first DOT on Linux amd64 using the released CLI and the existing
-Prometheus definition. You need Bash, Git, GitHub CLI (<code>gh</code>), <code>curl</code>, <code>jq</code>,
+<p>Run your first DOT on Linux amd64 using the published CLI release candidate
+<code>v0.3.0-rc.1</code> and the existing Prometheus definition. This is
+not a final stable release. You need Bash, Git, GitHub CLI (<code>gh</code>), <code>curl</code>, <code>jq</code>,
 SHA-256 utilities, and Docker with Docker Compose. No Java, Go, Kubernetes, or
 Task is needed for this path.</p>
 </div>
@@ -281,20 +282,20 @@ and releases. From a workspace directory:</p>
 gh auth setup-git
 mkdir -p dot-quickstart-download
 cd dot-quickstart-download
-gh release download v0.2.5 --repo MARE-EU-Project/DOT-CLI \
-  --pattern dotx-0.2.5-linux-amd64 --pattern SHA256SUMS
+gh release download v0.3.0-rc.1 --repo MARE-EU-Project/DOT-CLI \
+  --pattern dotx-0.3.0-rc.1-linux-amd64 --pattern SHA256SUMS
 sha256sum --check --ignore-missing SHA256SUMS
 mkdir -p "$HOME/.local/bin"
-install -m 0755 dotx-0.2.5-linux-amd64 "$HOME/.local/bin/dotx"
+install -m 0755 dotx-0.3.0-rc.1-linux-amd64 "$HOME/.local/bin/dotx"
 export PATH="$HOME/.local/bin:$PATH"
 dotx version
 cd ..</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Stop if checksum verification fails. Expected version: <code>dotx 0.2.5</code>.
+<p>Stop if checksum verification fails. Expected version: <code>dotx 0.3.0-rc.1</code>.
 Add the <code>PATH</code> export to your shell profile for future sessions. The
-<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.2.5">release</a>
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.3.0-rc.1">release</a>
 also provides an SBOM and build/acceptance revision manifest.</p>
 </div>
 </div>
@@ -303,14 +304,14 @@ also provides an SBOM and build/acceptance revision manifest.</p>
 <h2 id="_check_out_the_catalogue"><a class="anchor" href="#_check_out_the_catalogue"></a>Check out the catalogue</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Only the independently cloneable catalogue is needed. Pin the revision used by
-this walkthrough, then check your Docker access:</p>
+<p>Only the independently cloneable catalogue is needed. Pin the acceptance
+revision recorded in this CLI release&#8217;s manifest, then check your Docker access:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository
 cd DOT-Repository
-git checkout --detach 49395d60a70a7f22d9109a3e5c4006c68f3218ad
+git checkout --detach 8c7eee9ce2772bf07469f4d6b1135e6a7a2c20ab
 docker info
 docker compose version</code></pre>
 </div>
