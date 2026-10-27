@@ -392,6 +392,21 @@ deployment command and Contract ID; detailed tool logs stay private rather than
 flooding the screen. Green result headings respect <code>NO_COLOR</code> and plain terminals.</p>
 </div>
 <div class="paragraph">
+<p>Startup is not a silent wait. The display shows elapsed <code>mm:ss</code> time and the
+current phase: prerequisites, startup, API verification, inspection and cleanup.
+The composition lists the exact DOT releases from native locked resolution,
+then reports each DOT as <code>QUEUED</code>, <code>STARTING</code> and <code>DEPLOYED</code>, with <code>n/total</code>
+deployment counts and per-DOT elapsed time. While waiting, it prints a status
+line every 10 seconds; native rollout changes can appear sooner. Counts describe
+deployment progress, <strong>not</strong> an estimated percentage, ETA or production readiness.
+<code>DEPLOYED</code> means the deployment command completed; only the separate verified API
+heading means the live assertions passed. Timer updates pause during inspection
+so they do not interrupt your input; cleanup resumes visible progress. Raw tool
+logs, tokens, URLs from private errors and API bodies are not forwarded to the
+public progress display. Colors are optional; all statuses remain readable in
+plain text.</p>
+</div>
+<div class="paragraph">
 <p>After Docker cleanup passes, press <code>q</code> then Enter to finish, or simply press
 Enter to continue with Keycloak, APISIX, OPA, Oxigraph and the OAuth test client.
 Kubernetes is needed only for this optional chapter. A separate read-only
@@ -412,7 +427,20 @@ also finishes after 600 seconds or EOF, when no demo workloads remain.
 The command stops on prerequisite, API or cleanup failure. It does not claim
 success from a compatible graph, a running container, or an earlier receipt.
 Private diagnostic logs are retained under
-<code>DOT-Testing/e2e/target/guided-demo/run-*/</code>; do not publish raw logs.</p>
+<code>DOT-Testing/e2e/target/guided-demo/run-*/</code>; do not publish raw logs.
+The terminal-driven CI rehearsal retains its public console transcript separately
+from those private tool logs. CI prepares the optional secure-API image cache
+offstage before exercising the complete interactive route; <code>task demo</code> itself
+still checks prerequisites without installing tools or building images on stage.</p>
+</div>
+<div class="paragraph">
+<p>The quickstart&#8217;s port lease coordinates our test harnesses, not unrelated host
+processes. If another socket takes the selected port before Docker binds it,
+the run fails closed and cleans up its own resources. The guided display reports
+a host-port conflict without exposing the raw error; check listeners and retry,
+or set <code>DOTX_HTTP_PORT</code> to a free port. Never stop an unrelated listener to make
+the demo pass. A failed control run must be repeated, not counted as a successful
+signal or API test.</p>
 </div>
 <div class="sect2">
 <h3 id="_prepare_once_offstage"><a class="anchor" href="#_prepare_once_offstage"></a>Prepare once offstage</h3>
