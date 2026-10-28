@@ -312,6 +312,10 @@ presenter pause for inspecting verified live results before cleanup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx repository</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Author a DOT; create a separate editing candidate in current 0.4.0 source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx new</code>; current source: <code>dotx edit</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Operate one selected DOT deployment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx deploy</code>, <code>status</code>, <code>start</code>, <code>stop</code>, <code>destroy</code>, <code>ps</code></p></td>
 </tr>
@@ -481,7 +485,10 @@ invented and Helm chart versions do not determine application versions.</p>
 <p>For an owned OpenAPI interface, native authoring can also verify a generated-model
 Contract declaration, select operations and generate Anchor IDs and named-port
 bindings. See <a href="authoring.html" class="xref page">the executable interface-authoring exercise</a>.
-Other standards and dependency references still use explicit domain-model authoring.</p>
+Published v0.3.0 requires explicit authoring for other standards and dependency
+references. The matching 0.4.0 source adds guided imports for all four standards
+and separate editing candidates; the authoring guide states their supported
+profiles and review boundaries.</p>
 </div>
 </div>
 </div>
@@ -583,6 +590,54 @@ runtime <code>apply</code>, <code>upgrade</code>, <code>probe</code> or <code>st
 automatically, and an unknown wire remains an explicit limitation rather than
 live acceptance.</p>
 </div>
+<div class="sect2">
+<h3 id="_recover_from_a_composition_runtime_failure"><a class="anchor" href="#_recover_from_a_composition_runtime_failure"></a>Recover from a composition runtime failure</h3>
+<div class="paragraph">
+<p>The matching 0.4.0 source also gives <code>compose apply</code>, <code>upgrade</code>, <code>probe</code>, <code>status</code>
+and <code>destroy</code> secret-safe diagnostic codes and recovery hints on stderr.
+This is <strong>not</strong> a new runtime JSON failure envelope: successful JSON shapes and
+existing exit-code meanings are preserved. Raw tool, parser, transport and
+credential values are withheld. A diagnostic identifies an instance or wire
+when the failing boundary supplies that context; generic failures identify the
+composition instead.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">What to do next</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>COMPOSITION_INSTANCE_DEPLOY</code> / <code>COMPOSITION_INSTANCE_CLEANUP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect the named instance and recorded status. Use the original CLI and run identity for cleanup; never remove unrelated resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>COMPOSITION_WIRE_PROBE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Review the named wire&#8217;s operation, endpoint, authentication and probe inputs. A failed probe is not producer acceptance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>COMPOSITION_BUSY</code> / <code>COMPOSITION_RESUME_STATE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the active operation and recorded state. Do not bypass locks, adopt another run or regenerate a composition lock to conceal a mismatch.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>COMPOSITION_UPGRADE_STORAGE</code> / <code>COMPOSITION_UPGRADE_RESTORED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Review storage safety or the restored previous deployment before retrying. Restoration is not a successful upgrade.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Follow the emitted hint and run <code>dotx compose status &lt;composition.yaml&gt;</code> with
+the same cache/configuration as the applied run. No diagnostic automatically
+repairs locks, changes ownership or grants permissions. These improvements do
+not claim an equivalent failure-report format for top-level single-DOT runtime
+commands.</p>
+</div>
 <div class="paragraph">
 <p>For reusable catalogue examples and explicit deployment selection, see
 <a href="../dot-design/external-dot-examples.html" class="xref page">Deployments and examples</a>. For
@@ -594,6 +649,7 @@ use <a href="../dot-design/anchors-and-composition.html" class="xref page">the c
 supported, explicitly configured Contract operations and transports. The
 walkthroughs state which endpoints are actually exercised and distinguish real
 producers, source-adapted integrations and synthetic fixtures.</p>
+</div>
 </div>
 </div>
 </div>

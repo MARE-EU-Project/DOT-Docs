@@ -326,7 +326,8 @@ specification where available. Never relabel another component&#8217;s Contract.
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: <code>Owned OpenAPI interface verified</code>. The command validates the
+<p>Expected: an owned-interface verification message (<code>Owned OpenAPI interface verified</code>
+in v0.3.0; <code>Owned interface verified</code> in current source). The command validates the
 declaration against the generated schema, checks exact ownership, downloads
 and verifies the payload using the ordinary bounded HTTPS/SHA-256 verifier,
 and resolves the selected operation using the composition resolver. It writes
@@ -373,7 +374,7 @@ quickstart uses its own pinned artifact set; do not replace only one component
 of a qualified pair with another binary, including the original <code>v0.2.5</code>.</p>
 </div>
 <div class="paragraph">
-<p>This first guided interface profile covers <strong>owned OpenAPI provided operations</strong>
+<p>The published v0.3.0 guided interface profile covers <strong>owned OpenAPI provided operations</strong>
 only. AsyncAPI, GraphQL, Protobuf, external dependency references and
 provider-neutral requirements remain supported by the domain and composition
 commands, but require explicit authoring. No protocol metadata is duplicated
@@ -434,7 +435,7 @@ filename, without query parameters, plus a trusted digest. Secret Gists are
 readable without authentication by anyone with the URL; GitHub tokens are not
 sent to them. Preserve source/license provenance and do not label a derived
 projection vendor-official merely because it is hosted externally.
-URL import currently requires explicit <code>--contract-name</code>, <code>--contract-version</code>
+The published v0.3.0 URL importer requires explicit <code>--contract-name</code>, <code>--contract-version</code>
 and <code>--contract-format JSON|YAML</code>; it does not guess a standard from the URL.</p>
 </div>
 <div class="paragraph">
@@ -503,6 +504,125 @@ rmdir -- "$AUTHORING_DIR/bundle" "$AUTHORING_DIR"</code></pre>
 <p>Only exercise files are removed. No containers, networks, volumes or cluster
 resources were created. Developers can run the same documented commands and
 ownership-negative control with <code>task testing:authoring</code> from DOT-Design.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_current_source_guided_authoring_for_0_4_0"><a class="anchor" href="#_current_source_guided_authoring_for_0_4_0"></a>Current-source guided authoring for 0.4.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These additions require the matching source build; <strong>the published v0.3.0 binary
+does not contain them</strong>. The reviewed 0.3.0 portable models and schemas are not
+expanded. Record <code>dotx version --verbose</code> and the exact source/catalogue revisions.</p>
+</div>
+<div class="paragraph">
+<p><code>dotx new --interactive</code> now offers verified operations for all four standards:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Standard</th>
+<th class="tableblock halign-left valign-top">Raw format</th>
+<th class="tableblock halign-left valign-top">Supported selector/profile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON or YAML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operation JSON Pointer, including supported additional operations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON or YAML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version-3 send/receive operation; explicit broker endpoint in the composition</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protobuf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PROTOBUF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified service method in a standalone specification</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GRAPHQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declared query, mutation or subscription root field</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>New, edit and composition authoring use the same native scrolling TUI. In
+single-choice menus, type initial letters to filter immediately: <code>Pro</code> finds
+Prometheus, <code>Key</code> finds Keycloak. Search is case-insensitive and also matches
+text within a choice. Use ↑/↓ to browse, Backspace to edit the query, Enter to
+select and Ctrl-C to cancel. No <code>/</code> prefix is needed. Checkbox menus use Space
+to toggle, <code>/</code> to filter and Esc to finish filtering before toggling.</p>
+</div>
+<div class="paragraph">
+<p>Set <code>DOTX_NO_TUI=1</code> or <code>ACCESSIBLE=1</code> for non-redrawing line menus. They also
+apply when output is redirected or the terminal is small or <code>TERM=dumb</code>:
+numbered menus use <code>/text</code>, <code>n</code>/<code>p</code> and <code>q</code>; configuration checkboxes use
+comma-separated names, <code>*</code> for all and empty for none. Confirmation remains an
+explicit text prompt, with no as the default. The browser uses the ordinary composition
+parsers and operation resolver; it does not create another compatibility engine.
+An operation menu is not evidence that every transport or feature in the standard
+is executable. Imported Protobuf dependencies that cannot be resolved by the
+existing standalone/well-known-import profile fail with no draft publication.</p>
+</div>
+<div class="paragraph">
+<p>For URL imports, choose the exact canonical <code>--contract-standard</code>, name and raw
+format. Current source derives an omitted standard version from the verified
+payload&#8217;s native marker and omits it for GraphQL SDL. Tool <code>--version</code> remains
+the actual component release. A supplied standard version must still match.
+Use <code>--offline</code> only with the trusted digest and already verified cached bytes;
+a cold or corrupt cache is not repaired or bypassed.</p>
+</div>
+<div class="paragraph">
+<p>AsyncAPI operations materialize a send/receive participant, not a local broker
+listener. Do not pass <code>--bind</code>; choose the broker&#8217;s actual service/port when
+building the composition. Existing MQTT, NATS, Kafka and AMQP acceptance profiles
+remain authoritative; declarations do not provision brokers or prove delivery.</p>
+</div>
+<div class="sect2">
+<h3 id="_improve_an_existing_dot_safely"><a class="anchor" href="#_improve_an_existing_dot_safely"></a>Improve an existing DOT safely</h3>
+<div class="paragraph">
+<p>From the matching <strong>DOT-Repository checkout root</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p drafts
+dotx edit DOTs/external/Prometheus-DOT/dot.json --interactive \
+  --output drafts/prometheus.candidate.json --repository . --offline</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Choose Skills, add an owned Contract, update its URL, add/change an Anchor
+operation or rebind an owned Anchor to a named service/port. IDs are retained
+for existing Anchors; no unaffected ID is regenerated. Selecting an AsyncAPI
+send/receive operation derives the correct role. Runtime-only definitions can
+gain their first interface; incomplete interoperability cannot be saved as a
+reusable candidate.</p>
+</div>
+<div class="paragraph">
+<p>Expected: a semantic change summary followed by explicit confirmation. The
+complete candidate is checked against the generated model and ordinary Contract,
+selector and per-deployment binding rules before writing private, complete bytes.
+The original, deployment manifests, configuration, unrelated fields, locks and
+runtime state stay untouched. The editor refuses an existing output, a symlinked
+output parent, a changed original or a second catalogue <code>dot.json</code>. Cancellation,
+EOF, verification and publication errors leave no partial candidate.</p>
+</div>
+<div class="paragraph">
+<p>Review the diff and validate the candidate. <strong>Draft creation is not promotion</strong>:
+explicitly decide whether to replace the canonical file, review dependent
+composition locks for the intended interface change and rehearse affected APIs.
+Do not publish a candidate as another product root. Delete only the candidate
+file when abandoning the exercise; no runtime cleanup is necessary.</p>
+</div>
 </div>
 </div>
 </div>

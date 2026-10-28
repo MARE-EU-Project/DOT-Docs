@@ -412,6 +412,92 @@ before creating it, add a README, review its lock and use
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_current_source_alternative_build_from_selected_dots"><a class="anchor" href="#_current_source_alternative_build_from_selected_dots"></a>Current-source alternative: build from selected DOTs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This 0.4.0 work requires a matching <strong>source</strong> CLI; it is not in the published
+v0.3.0 binary. From the matching DOT-Repository checkout, with verified cached
+Contracts:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new --from-dots --repository . --offline --name my-monitoring</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Select exact releases and explicit deployments; give each instance a short,
+unique name. The native scrolling selector lets you browse <strong>all</strong> catalogue DOTs
+with ↑/↓, type initial letters such as <code>Pro</code> or <code>Key</code> to filter immediately,
+select with Enter and cancel with Ctrl-C. Backspace edits the case-insensitive
+substring query; no <code>/</code> prefix is needed. New and edit use this same TUI. Deployment,
+Anchor and connection choices use the same UI. No DOT, Contract or Anchor ID
+needs to be constructed manually.</p>
+</div>
+<div class="paragraph">
+<p>For a screen reader or the numbered interface, set <code>DOTX_NO_TUI=1</code> or
+<code>ACCESSIBLE=1</code> before the command. Redirected output, small and <code>TERM=dumb</code>
+terminals also use this non-redrawing fallback: <code>/text</code> filters, <code>n</code>/<code>p</code> pages, a displayed
+number selects and <code>q</code> cancels. The header states the visible range and total;
+the first 12 rows are not the whole catalogue. The UI does not change validation
+or perform any deployment. Input must still be a terminal; piped input is rejected.
+If you omit <code>--output</code>, press Enter to accept
+<code>Compositions/my-monitoring/composition.yaml</code> inside the selected catalogue.
+From DOT-Design, <code>--repository DOT-Repository</code> instead suggests
+<code>DOT-Repository/Compositions/my-monitoring/composition.yaml</code>. This is a draft&#8217;s
+storage location, not a deployment destination. The same default applies to the
+current-source interactive template flow. Missing default folders are created
+only after validation and explicit write confirmation; cancellation creates no
+folders. A composition name used as a folder must be one path component, not
+<code>.</code>/<code>..</code> or a path; other valid display names can use an explicit output path.</p>
+</div>
+<div class="paragraph">
+<p>To save elsewhere, enter another path at the prompt or supply <code>--output</code>.
+An explicit output&#8217;s parent must already exist. Existing files, adjacent locks
+and directory symlinks are refused; there is no overwrite mode. Publication
+failure removes only still-identical empty folders created by this operation,
+never pre-existing folders or concurrent contents. Creating the catalogue draft
+does not add a README, topology artifacts or a lock; review and complete those
+before contributing the composition.
+For the real monitoring example choose Node Exporter and Prometheus, then connect
+<code>node-metrics</code> to <code>scrape-target</code>. Select a config-file materializer deriving
+<code>ENDPOINT_HOST_PORT</code>, targeting Prometheus&#8217;s declared configuration file and the
+existing scrape-target JSON Pointer. Input paths are relative to the new YAML;
+review the existing monitoring README rather than inventing a producer interface.</p>
+</div>
+<div class="paragraph">
+<p>The menu labels connections accepted, incompatible or UNKNOWN using the ordinary
+compatibility authority. UNKNOWN is not verified; required authentication must
+be explicitly bound and checked. Required operation parameters and service
+configuration are separate from identifiers. Enter native Secret <strong>references</strong>,
+never their values. A reviewed optional <code>DeploymentInputs</code> YAML/JSON fragment
+uses the exact generated model for advanced workload selectors, volumes and
+OCI/CDI grants; paths resolve beside the new composition, not beside the fragment.
+Missing, ambiguous, unsupported or unsafe inputs fail closed without output.</p>
+</div>
+<div class="paragraph">
+<p>Brokered AsyncAPI send/receive pairs require a separately selected broker
+service/port, including existing MQTT, NATS, Kafka and AMQP profiles. This endpoint
+is not another Anchor wire. Cross-runtime pairs require an explicit, already
+provisioned <code>EXTERNAL_GATEWAY</code> host/port. The operator owns that gateway and its
+cleanup; the CLI neither creates networking infrastructure nor uses host-network
+fallbacks. The complete graph still passes the existing resolver&#8217;s constraints.</p>
+</div>
+<div class="paragraph">
+<p>Expected: exact deployment choices and a topology preview, then explicit write
+confirmation. A fresh ownership UUID and generated-model round-trip check precede
+non-overwriting publication. No lock is created, no existing state is adopted and
+nothing is deployed. <code>--from-dots</code> cannot be combined with <code>--from</code> or <code>--yes</code>,
+and requires a terminal. A complete validated draft is not live API acceptance.</p>
+</div>
+<div class="paragraph">
+<p>After reviewing the YAML and every referenced input, explicitly create and review
+its lock using the same catalogue/offline options, then follow the real monitoring
+or authenticated secure-API acceptance route. Declaration validation does not
+qualify a catalogue gap, producer double or fixture for production use.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="authoring.html">Author a DOT and its interfaces</a></span>
   <span class="next"><a href="../dot-design/external-dot-examples.html">Deployments and examples</a></span>
