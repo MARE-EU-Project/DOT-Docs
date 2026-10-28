@@ -452,6 +452,13 @@ folders. A composition name used as a folder must be one path component, not
 <code>.</code>/<code>..</code> or a path; other valid display names can use an explicit output path.</p>
 </div>
 <div class="paragraph">
+<p>A relative <code>--repository</code> path is relative to your current working directory,
+not the draft&#8217;s directory. The current-source resolver retains an absolute
+execution location, so a draft saved elsewhere still deploys the selected
+catalogue bundle. Portable sources and lock identities remain <code>repository://</code>
+references; no machine-local path is written into the authored YAML or lock.</p>
+</div>
+<div class="paragraph">
 <p>To save elsewhere, enter another path at the prompt or supply <code>--output</code>.
 An explicit output&#8217;s parent must already exist. Existing files, adjacent locks
 and directory symlinks are refused; there is no overwrite mode. Publication

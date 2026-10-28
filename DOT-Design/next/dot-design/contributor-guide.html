@@ -457,6 +457,25 @@ coverage, Antora, and PDF generation. Individual equivalents are available as
 <code>ci:coverage</code>, and <code>ci:docs</code>.</p>
 </div>
 <div class="paragraph">
+<p>On push and pull-request events, the live workflows compare the exact Design
+and pinned child-repository Git trees. Only allowlisted, non-executable
+documentation changes can deliberately skip their live suites; these are
+reported as <strong>skipped</strong>, never as successful runtime acceptance. Documentation
+and conformance remain required. Missing history, changed definitions, schemas,
+locks, code, workflows, tool configuration, or unknown paths keep full live
+gates. Manual and scheduled executions always keep those gates. The classifier
+does not change which local checks you must run for a code change.</p>
+</div>
+<div class="paragraph">
+<p>Run its deployment-free regressions with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">python3 scripts/test-ci-change-scope.py
+ruby DOT-Docs/scripts/test-workflow-impact.rb</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>On a Linux host with all runtime prerequisites, run the mutable workflows too:</p>
 </div>
 <div class="listingblock">
@@ -475,6 +494,15 @@ local and GitHub executions cannot silently omit the WASI HTTP assertions.
 Set <code>WASI_HTTP_COMPONENT</code> only to reuse an already built component. The live
 gate performs runtime mutation and cleanup;
 <code>ci:deterministic</code> is the normal pre-push default.</p>
+</div>
+<div class="paragraph">
+<p>Each self-hosted runner account needs its own working local Minikube profile and
+tool permissions. The multi-service rehearsal can initialize/select Minikube
+when no context is selected; it rejects a foreign context or unreadable
+configuration before starting anything. Missing tools and unavailable profiles
+remain failures, not skipped acceptance. Use the documented runner-selection
+variables to route runtime jobs to a properly provisioned account; do not copy
+another user&#8217;s kubeconfig or silently adopt its workloads.</p>
 </div>
 <div class="paragraph">
 <p>For a Vagrant runtime on Ubuntu, install or reconcile the complete provider

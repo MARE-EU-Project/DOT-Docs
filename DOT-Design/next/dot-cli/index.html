@@ -650,6 +650,22 @@ supported, explicitly configured Contract operations and transports. The
 walkthroughs state which endpoints are actually exercised and distinguish real
 producers, source-adapted integrations and synthetic fixtures.</p>
 </div>
+<div class="paragraph">
+<p>Current-source Kubernetes/Helm probes read retained logs only after checking the
+probe container&#8217;s completion and exit code. This avoids losing output emitted
+before an attach stream starts. Each probe executes once, with no hidden retry
+of an API operation or delivery. Cleanup uses the Pod&#8217;s create-time UID and a
+bounded deletion wait; replacement Pods are not adopted, and failed cleanup
+cannot produce successful acceptance. This hardening requires the matching
+source binary, not the original v0.3.0 release.</p>
+</div>
+<div class="paragraph">
+<p>Ctrl-C or SIGTERM cancels the current Kubernetes probe, completes bounded
+UID-safe cleanup and stops subsequent selected operations. Recorded evidence
+reports <code>CANCELLED</code> (or <code>RUNNER_CLEANUP_FAILED</code> if cleanup fails); the command
+returns 130 for Ctrl-C or 143 for SIGTERM. Allow cleanup to finish before
+closing the terminal; force-killing the process cannot guarantee cleanup.</p>
+</div>
 </div>
 </div>
 </div>

@@ -57,6 +57,22 @@ participant's owned resources; never remove another trial's resources.
 
 ## Review, do not infer acceptance
 
+For the 0.4.0 current-source route, additionally observe these tasks. Do not
+substitute automated PTY tests or a maintainer's rehearsal for the participant:
+
+| Guided task | Result, intervention and time |
+| --- | --- |
+| Import/select an owned Contract operation without constructing identifiers | not observed |
+| Edit an existing DOT into a separate candidate and explain identity preservation | not observed |
+| Cancel an edit and verify the canonical definition and output are unchanged | not observed |
+| Build a graph from exact DOT/deployment/Anchor menu choices | not observed |
+| Explain incompatible/UNKNOWN matches and explicit broker/gateway ownership | not observed |
+| Review the topology, explicitly create/review a lock, run the documented live path and clean up | not observed |
+
+Record the exact source-qualified artifact set; the published v0.3.0 binary does
+not contain these new guided commands. Record every undocumented intervention
+and failed/cancelled task, even if the participant succeeds on a retry.
+
 - Outcome: [NOT RUN / independently completed / assisted / failed / interrupted]
 - Proposed regression or documentation issues: [not reviewed]
 - Consent to share the redacted record: [not obtained]
