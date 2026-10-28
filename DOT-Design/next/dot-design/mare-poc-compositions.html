@@ -522,6 +522,49 @@ owned-resource cleanup. It never changes another namespace&#8217;s policy. In pr
 OPA recommends bundles for policy distribution; this local demonstration uses
 the API to make one bounded, observable transition.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="secure-api-resilience"><a class="anchor" href="#secure-api-resilience"></a>Offstage dependency-outage qualification</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:pocs:secure-api:resilience:live</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run this separate preparation task offstage, not during the short <code>task demo</code>.
+It repeats a real OPA process outage twice, then injects a failure after OPA has
+stopped to verify restoration and cleanup. The existing canonical composition
+is reused; no duplicate DOT or deployment descriptor is introduced.</p>
+</div>
+<div class="paragraph">
+<p>Each successful run verifies an authenticated stored-data query (HTTP <code>200</code>),
+zero OPA pods and an authenticated rejection (<code>403</code>), then a new OPA pod and
+the same stored value (<code>200</code>). The pinned APISIX OPA plugin fails closed with
+<code>403</code> when its decision service is unavailable; a redirect, <code>5xx</code> or transport
+failure does not pass. Pod-drain polling uses a 90-second deadline with
+individually bounded API requests; an in-flight request can extend the drain&#8217;s
+wall-clock duration. Rollout has a 180-second limit. This process outage is
+distinct from changing a Rego rule.</p>
+</div>
+<div class="paragraph">
+<p>The operator-side control verifies the namespace UID, Deployment UID, exact
+pinned image, replica count and resource version before conditional patches.
+It attempts restoration after ambiguous responses or injected failure, never
+adopts a replacement Deployment, and leaves final ownership-safe teardown to
+the existing harness. Private per-run <code>resilience-control.json</code>,
+<code>resilience-restoration.json</code> and successful <code>resilience.json</code> receipts retain
+only redacted assertions. The aggregate receipt under
+<code>DOT-Testing/e2e/target/poc-wave/</code> requires unchanged source/CLI fingerprints,
+two recoveries and verified failure cleanup.</p>
+</div>
+<div class="paragraph">
+<p>This does not qualify Keycloak outage/token-cache behaviour, gateway failover,
+resource pressure, HA, durable backup/restore, stateful upgrades or the complete
+producer PoC. Those remain separate operational acceptance work.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_composition_and_ordinary_live_route"><a class="anchor" href="#_composition_and_ordinary_live_route"></a>Composition and ordinary live route</h3>
 <div class="paragraph">
 <p>These arrows show logical PROVIDES-to-REQUIRES wires, not HTTP packet direction:</p>
 </div>
@@ -700,12 +743,28 @@ resources are untouched. PoC6 test images remain cached. <code>DOTX_E2E_KEEP=1</
 records <code>SKIPPED</code> cleanup and cannot pass acceptance.</p>
 </div>
 <div class="paragraph">
+<p>Kubernetes namespace creation records the UID from its create response. Cleanup
+rejects unknown or replaced ownership and uses a server-side UID precondition
+for namespace deletion. Lost create confirmation is a failed cleanup requiring
+review, not permission to adopt a same-named namespace.</p>
+</div>
+<div class="paragraph">
+<p>Current-source named Helm restart with explicit <code>--forward</code> also reconciles a previously recorded forward
+when its custom release name differs from the DOT product name. Replacement
+requires an exact namespace/service/port mapping in the private forward registry;
+unrelated namespaces, services, mappings and unrecorded listeners are not adopted.
+This is a Next runtime correction, not a change retroactively added to the
+published <code>0.3.0</code> CLI binary. Keep the rehearsed source/binary set together.</p>
+</div>
+<div class="paragraph">
 <p>If cleanup fails, preserve the printed run directory. Set <code>XDG_CACHE_HOME</code> to
 its <code>cache</code> directory and, for Kubernetes runs, set <code>KUBECONFIG</code> to that run&#8217;s
 private <code>kubeconfig</code>. Do not follow a later global context change or share the
 saved kubeconfig. Stop if the original run files are missing; a new run&#8217;s state
-does not authorize recovery. Inspect <code>dotx compose status &lt;composition&gt;</code>, then
-retry <code>destroy</code> on the same graph. Inspect only recorded namespaces and resolved
+does not authorize recovery. Confirm the namespace still has its recorded UID;
+stop and review a mismatch or an unconfirmed identity. Inspect
+<code>dotx compose status &lt;composition&gt;</code>, then retry <code>destroy</code> on the same graph only
+while the original ownership still matches. Inspect only recorded namespaces and resolved
 identities. Never strip finalizers or delete unrelated workloads. Select an
 unused port instead of killing another service. Review missing Contracts,
 inputs or stale locks before intentionally regenerating a lock.</p>

@@ -464,6 +464,12 @@ may still require registry or Contract-server access. Keep the qualified source
 set, CLI and runtime contexts unchanged.</p>
 </div>
 <div class="paragraph">
+<p>For a separate resilience rehearsal, use the
+<a href="mare-poc-compositions.html#secure-api-resilience" class="xref page">OPA outage/restart qualification</a>.
+It verifies fail-closed access, restart recovery and injected-failure cleanup
+offstage; the short interactive route never stops a dependency unexpectedly.</p>
+</div>
+<div class="paragraph">
 <p>For the Docker-only first chapter, only Bash, Python 3, Task, the pinned source
 <code>dotx</code>, Git/Go (for provenance), jq, curl, Docker/Compose, timeout, awk, sha256sum,
 ss and flock are needed, with the selected Prometheus image and verified Contract
