@@ -411,7 +411,11 @@ plain text.</p>
 Enter to continue with Keycloak, APISIX, OPA, Oxigraph and the OAuth test client.
 Kubernetes is needed only for this optional chapter. A separate read-only
 preflight checks Ready Docker-driver Minikube, exact cached images, namespace and
-port conflicts before it deploys anything. The short results display explains
+port conflicts before it deploys anything. The node may use either Docker or
+containerd; the Docker <strong>driver</strong> and the node&#8217;s <strong>container runtime</strong> are separate
+choices. Preflight detects the runtime from the validated Linux-amd64 node and
+inspects its actual image cache, not a substitute host cache. Unknown or missing
+runtime metadata fails closed. The short results display explains
 anonymous/invalid-token rejection, authenticated reads, forbidden writes and the
 controlled <code>200 → 403 → 200</code> policy transition. Type <code>d</code> then Enter for the native
 <code>dotx compose topology</code> graph and status command. Tokens and raw API payloads are
@@ -431,7 +435,13 @@ Private diagnostic logs are retained under
 The terminal-driven CI rehearsal retains its public console transcript separately
 from those private tool logs. CI prepares the optional secure-API image cache
 offstage before exercising the complete interactive route; <code>task demo</code> itself
-still checks prerequisites without installing tools or building images on stage.</p>
+still checks prerequisites without installing tools or building images on stage.
+Explicit cache preparation pulls only the selected digest-pinned images into
+their target runtime (Docker or containerd&#8217;s CRI image service), then rechecks
+the cached identity and Linux-amd64 platform. Containerd verification also
+requires the requested manifest/index digest in its repository digests; that
+digest is not the image configuration ID. Read-only preflight never pulls or
+silently falls back to another runtime when an image or its metadata is missing.</p>
 </div>
 <div class="paragraph">
 <p>The quickstart&#8217;s port lease coordinates our test harnesses, not unrelated host
