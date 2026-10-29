@@ -311,10 +311,13 @@ follows the complete path from a logical capability to a deployed connection.</p
 <p>A <strong>Contract</strong> describes what can be exchanged.</p>
 </li>
 <li>
-<p>An <strong>Anchor</strong> gives one Contract operation a stable DOT-local identity and role.</p>
+<p>An <strong>Anchor</strong> is a named integration point that provides or requires an interface.
+It can select a Contract operation, express a supported provider-neutral
+requirement, or declare a contractless boundary.</p>
 </li>
 <li>
-<p>A <strong>wire</strong> connects deployed DOT instances and remains outside both DOTs.</p>
+<p>A <strong>Wire</strong> connects compatible Anchors of selected DOT instances and remains
+outside both reusable DOT definitions. Declaring a Wire does not deploy it.</p>
 </li>
 </ol>
 </div>
