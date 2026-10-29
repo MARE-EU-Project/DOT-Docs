@@ -694,6 +694,17 @@ ID-only roots instead of searching local or sibling files. Verified bytes are
 cached outside the DOT; cold offline validation fails until warmed online. An Anchor references the root declaration by Contract ID and selector.</p>
 </div>
 <div class="paragraph">
+<p>Current source uses one shared <code>Payload</code> value for Contracts and file documents:
+<code>DockerCompose.payload</code>, <code>KubernetesManifest.payload</code>, <code>Vagrantfile.payload</code>,
+<code>HelmValues.payload</code>, <code>EnvFile.payload</code>, and optional
+<code>ConfigFile.defaultContent</code>. Each reference selects exact raw document bytes,
+not an application endpoint. There is no inline-text, Base64 or adjacent-file
+fallback. This deliberately breaks former string-based file declarations and
+renames the Java <code>ContractPayload</code> type to <code>Payload</code>; valid Contract JSON keeps
+its URL/hash shape. Published stable-tag documentation retains its historical
+model baseline. See <a href="model-reference.html" class="xref page">the current-source reference</a>.</p>
+</div>
+<div class="paragraph">
 <p><code>dotx validate</code> enforces catalogue identity uniqueness, including DOT
 <code>(id, version)</code> and <code>(name, version)</code>, and rejects conflicting documents for one
 Contract ID across bundles. These catalogue rules are not database indexes
@@ -922,7 +933,11 @@ property.</p>
 <div class="paragraph">
 <p>Docker Compose and Kubernetes manifest payloads accept YAML or JSON only. Helm
 values also preserve YAML/JSON order: later entries override earlier entries as
-with repeated Helm <code>-f</code> arguments.</p>
+with repeated Helm <code>-f</code> arguments.
+These formats describe the downloaded bytes, not embedded strings in
+<code>dot.json</code>. Image/chart references and the WASM module URI/hash remain separate
+from the shared file-document <code>Payload</code> model. Digest verification alone does
+not establish publisher identity, execution safety or successful deployment.</p>
 </div>
 <div class="paragraph">
 <p>Runtime instance concerns do not belong in a manifest. For example, a Helm
@@ -958,6 +973,10 @@ release name and namespace are selected by deployment tooling, not embedded in
 </div>
 <div class="paragraph">
 <p>These are supported inputs and requirements, not applied runtime state.
+An omitted <code>ConfigFile.defaultContent</code> means no declared default. A supplied
+default is a pinned <code>Payload</code>; a sensitive file must not declare any non-null
+default, even a public or empty document. Scalar environment defaults remain
+strings. Java null omission does not imply that explicit JSON null is accepted.
 Operator values, host paths, concrete CDI device names, and permission grants
 belong to deployment or composition input.</p>
 </div>

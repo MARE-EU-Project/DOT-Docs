@@ -400,8 +400,11 @@ the distinction between operation identity, data schemas and semantic meaning.</
 <h2 id="_examples_and_acceptance_boundaries"><a class="anchor" href="#_examples_and_acceptance_boundaries"></a>Examples and acceptance boundaries</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The small DOT and interface examples reuse the canonical Prometheus declaration.
-Other examples come from the existing reviewed Java compatibility corpus and
+<p>The small DOT, interface, file-manifest, Helm values and configuration-default
+examples reuse the canonical Prometheus declaration and its actual URL/hash
+references. There is no catalogue <code>EnvFile</code> declaration: that example remains
+explicitly shape-only, from the Java compatibility corpus, not a downloadable
+dotenv recommendation. Other examples come from the same reviewed corpus and
 illustrate individual value shapes. They may use placeholder URLs, images or
 references requiring an enclosing graph; they are <strong>not runnable deployment
 recipes, producer claims or recommended product versions</strong>. The ContractInput
@@ -415,6 +418,17 @@ cross-DOT compatibility, downloads, network reachability, authentication or live
 producer conformance. The CLI performs the supported resolution and execution
 checks separately. Resolved compositions, lock digests, concrete endpoints and
 runtime state are CLI artifacts, not additional portable domain models.</p>
+</div>
+<div class="paragraph">
+<p>Current source deliberately replaces former inline file documents with the
+shared <code>Payload</code> URL/hash value. Five file-document owners require it;
+<code>ConfigFile.defaultContent</code> is optional and forbidden for sensitive files.
+There is no inline-text or Base64 fallback. Valid Contract JSON is unchanged,
+although Java callers replace <code>ContractPayload</code> with <code>Payload</code>. This approved
+change supersedes the former current-source payload freeze; published stable
+tags retain their historical model. Offline CLI validation requires every
+needed digest already cached, rehashes each read, and fails on missing or
+corrupt bytes rather than searching adjacent files or silently repairing them.</p>
 </div>
 </div>
 </div>

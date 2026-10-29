@@ -640,7 +640,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ContractPayload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Structured raw-document location and integrity pin. The specification bytes are downloaded separately; this property does not embed the document or provide a local Contract-folder fallback.</p></td>
 </tr>
@@ -670,7 +670,7 @@
 <p>To <a href="#model-DataFormat">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
 </li>
 <li>
-<p>To <a href="#model-ContractPayload">ContractPayload</a>: containment via payload; diagram multiplicity 0..1.</p>
+<p>To <a href="#model-Payload">Payload</a>: containment via payload; diagram multiplicity 0..1.</p>
 </li>
 <li>
 <p>To <a href="#model-ContractStandard">ContractStandard</a>: typed association via standard; diagram multiplicity 1.</p>
@@ -699,69 +699,6 @@
     "url": "https://raw.githubusercontent.com/prometheus/prometheus/v3.15.1/web/api/v1/testdata/openapi_3.1_golden.yaml",
     "sha256": "406b517ed3800c107b3afbc2d9712f2e487269fe8c8b55a075dce46823d8d7c0"
   }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-ContractPayload"><a class="anchor" href="#model-ContractPayload"></a>ContractPayload</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Locate the raw bytes of a Contract specification and pin their integrity. Use this inside a complete Contract declaration, not as the address of a deployed API.</p>
-</div>
-<div class="paragraph">
-<p>The URL must be absolute HTTPS without embedded credentials or a fragment. Prefer immutable raw-document locations; the CLI verifies the digest before interpreting the bytes and rechecks cached content. A correct hash establishes byte identity, not vendor authority, license permission, producer conformance or live availability. Keep specification provenance and acceptance limitations explicit.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/contract/ContractPayload.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ContractPayload.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sha256</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lower-case SHA-256 of the exact downloaded bytes. Formatting or newline changes alter this pin even if a reader considers the document equivalent; review changed bytes rather than silently replacing the expected digest. minimum length: 1; pattern restrictions (see schema).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Download location for the raw specification, not an HTML documentation viewer, endpoint base URL or operation fragment. Runtime addresses and credentials are deployment-instance concerns. format: uri; pattern restrictions (see schema).</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>From <a href="#model-Contract">Contract</a>: containment via payload; diagram multiplicity 0..1.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "url": "https://raw.githubusercontent.com/prometheus/prometheus/v3.15.1/web/api/v1/testdata/openapi_3.1_golden.yaml",
-  "sha256": "406b517ed3800c107b3afbc2d9712f2e487269fe8c8b55a075dce46823d8d7c0"
 }</code></pre>
 </div>
 </div>
@@ -844,6 +781,87 @@
 <div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"YAML"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Payload"><a class="anchor" href="#model-Payload"></a>Payload</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Locate an exact raw document and pin its bytes. This shared value describes a downloadable file, never the address of a deployed API or an instruction to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Contract.payload, DockerCompose.payload, KubernetesManifest.payload, Vagrantfile.payload, HelmValues.payload and EnvFile.payload use this same value; ConfigFile.defaultContent optionally uses it too. There is no inline-text, Base64 or adjacent-file fallback. URLs must be absolute HTTPS without embedded credentials or fragments. The current-source CLI reuses bounded verification and a digest-addressed cache outside DOT bundles, rehashes cached bytes and fails on corruption. Offline use needs every required document already cached; it does not prove that an origin is currently available. Java/schema validity alone does not download bytes. A matching hash establishes byte identity, not publisher authority, license permission, safe execution, producer conformance or live availability.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/Payload.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Payload.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sha256</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lower-case SHA-256 of the exact downloaded bytes. Formatting or newline changes alter this pin even if a reader considers the document equivalent; review changed bytes rather than silently replacing the expected digest. minimum length: 64; maximum length: 64; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Download location for the raw document, not an HTML viewer, deployed endpoint, local path or operation fragment. The owner determines whether the verified bytes are a Contract, manifest, values, dotenv or default configuration document. format: uri; pattern restrictions (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Contract">Contract</a>: containment via payload; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-ConfigFile" class="xref page">ConfigFile</a>: containment via defaultContent; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-DockerCompose" class="xref page">DockerCompose</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-EnvFile" class="xref page">EnvFile</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-HelmValues" class="xref page">HelmValues</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-KubernetesManifest" class="xref page">KubernetesManifest</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-Vagrantfile" class="xref page">Vagrantfile</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/docker-compose.yaml",
+  "sha256": "648687feae439ddc1a285c9c61e6bf855c9426a3bb4f16b36e56b68ae9529439"
+}</code></pre>
 </div>
 </div>
 </div>

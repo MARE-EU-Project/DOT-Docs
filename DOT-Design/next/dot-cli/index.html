@@ -380,6 +380,31 @@ version and OS/architecture without contacting a server. Missing build metadata
 is shown as <code>unknown</code>. Plain <code>version</code> remains a single line; the version number
 alone does not identify the exact source build used for a rehearsal.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Current source uses raw HTTPS URL and SHA-256 references for deployment manifests,
+Helm values, environment files and optional non-sensitive configuration defaults,
+as Contracts already do. Inline text and Base64 in those file fields are rejected.
+Use a matching source CLI, generated schema and catalogue; the released v0.3.0
+binary and its pinned catalogue retain their original format.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Validate the catalogue online once to prepare the verified document cache, then
+use <code>dotx validate &lt;catalogue&gt; --offline</code> to check that the required bytes are
+available without downloads. A missing or corrupt entry fails closed. Validation
+does not start a workload. See <a href="../dot-domain/model-interfaces.html#model-Payload" class="xref page">Payload</a>
+for the shared model and its integrity/hosting boundaries.</p>
+</div>
 <div class="paragraph">
 <p>Composition subcommand help includes only that operation&#8217;s flags, an example,
 a suggested next step and its safety boundary. For example, <code>compose inspect</code>

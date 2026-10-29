@@ -429,7 +429,7 @@
 <p>Documents a configuration file expected by a service.</p>
 </div>
 <div class="paragraph">
-<p>The path is the destination inside the workload, not a source file on the operator&#8217;s machine. The declaration does not create a mount or generated file. Instance inputs provide replacement content; sensitive files must not embed reusable default content.</p>
+<p>The path is the destination inside the workload, not a source file on the operator&#8217;s machine. An optional defaultContent is a shared Payload reference, never inline text or Base64; omit it when no default exists. Java null serializes as omission and does not expand raw-schema null acceptance. Instance inputs can supply replacement content. A sensitive file forbids every non-null default Payload, including an empty value or a publicly hosted document; a URL is not a secret-provisioning mechanism. This declaration alone creates no mount and does not verify remote bytes.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/ConfigFile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ConfigFile.schema.json">Generated JSON Schema</a></p>
@@ -458,9 +458,9 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultContent</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable non-sensitive content available when no instance replacement is supplied.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional HTTPS URL and SHA-256 pin of the default file used when no instance replacement is supplied. It must be absent for a sensitive file.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
@@ -494,16 +494,24 @@
 <div class="ulist">
 <ul>
 <li>
+<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via defaultContent; diagram multiplicity 0..1.</p>
+</li>
+<li>
 <p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via configFiles; diagram multiplicity 0..*.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "path": "/etc/example/config.yaml",
-  "defaultContent": "enabled: true"
+  "path": "/etc/prometheus/prometheus.yml",
+  "contentType": "application/yaml",
+  "defaultContent": {
+    "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/configuration-kubernetes-manifest-prometheus-config-0.yaml",
+    "sha256": "36d801295435ff6ba6f00dbc47fc1c16783ae84a493e405c392bbc20659364fc"
+  },
+  "description": "Prometheus scrape configuration. Explicit operator inputs replace this self-scrape default."
 }</code></pre>
 </div>
 </div>
@@ -516,7 +524,7 @@
 <p>Describes one selectable deployment mechanism and the logical services it materializes.</p>
 </div>
 <div class="paragraph">
-<p>The manifest is the complete deployment input, not a pointer to arbitrary files beside dot.json. Keep service IDs distinct within the deployment and select the deployment explicitly. Configuration belongs to each service, while instance names, live state and lifecycle ownership belong to the executor.</p>
+<p>The selected manifest, including its explicit pinned Payload references, is the complete deployment input; files beside dot.json are not an implicit fallback. Keep service IDs distinct within the deployment and select the deployment explicitly. Configuration belongs to each service, while instance names, live state and lifecycle ownership belong to the executor.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/Deployment.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Deployment.schema.json">Generated JSON Schema</a></p>
@@ -626,7 +634,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>configFiles</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of ConfigFile</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration files the service can consume, with any reusable non-sensitive content.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration files the service can consume, with optional pinned non-sensitive default documents.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>environment</code></p></td>
@@ -924,10 +932,10 @@
 <h2 id="model-DockerCompose"><a class="anchor" href="#model-DockerCompose"></a>DockerCompose</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Embeds a complete Docker Compose document for a multi-container deployment.</p>
+<p>References the exact Docker Compose document for a multi-container deployment.</p>
 </div>
 <div class="paragraph">
-<p>The payload, not a compose file beside dot.json, defines the deployment. Its declared format must be supported for Compose documents. Ordered environment-file payloads follow Compose precedence; instance overrides remain separate. Logical services and any native workload selection must agree with the selected deployment.</p>
+<p>The shared Payload identifies complete document bytes by HTTPS URL and SHA-256, not inline text, Base64 or a compose file beside dot.json. The format describes the downloaded document. Ordered environment-file references follow Compose precedence; instance overrides remain separate. Logical services and any native workload selection must agree with the selected deployment. Verification and cache readiness do not establish live deployment success.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/docker/DockerCompose.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DockerCompose.schema.json">Generated JSON Schema</a></p>
@@ -958,13 +966,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the embedded Compose document. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the downloaded Compose document. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The complete Compose document content. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The shared Payload reference for the complete Compose document.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>envFiles</code></p></td>
@@ -986,17 +994,23 @@
 <p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
 </li>
 <li>
+<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
+<li>
 <p>To <a href="#model-EnvFile">EnvFile</a>: containment via envFiles; diagram multiplicity 0..*.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "type": "DOCKER_COMPOSE",
   "format": "YAML",
-  "payload": "services: {}"
+  "payload": {
+    "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/docker-compose.yaml",
+    "sha256": "648687feae439ddc1a285c9c61e6bf855c9426a3bb4f16b36e56b68ae9529439"
+  }
 }</code></pre>
 </div>
 </div>
@@ -1114,10 +1128,10 @@
 <h2 id="model-EnvFile"><a class="anchor" href="#model-EnvFile"></a>EnvFile</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Stores reusable Docker-compatible environment-file content inside a manifest.</p>
+<p>References a reusable Docker-compatible environment document through a pinned Payload.</p>
 </div>
 <div class="paragraph">
-<p>Use line-oriented dotenv content rather than a path to an adjacent file. The containing manifest determines ordering and override precedence. Keep deployment-instance values and credentials out of this reusable payload; EnvFile is not a secret reference.</p>
+<p>The URL must identify line-oriented dotenv bytes, not an adjacent file, inline string or Base64 content. The containing manifest determines ordering and override precedence. Keep deployment-instance values and credentials out of reusable documents; EnvFile is not a secret reference. Its compatibility-corpus example is shape-only: the current catalogue declares no EnvFile deployment.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/docker/EnvFile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/EnvFile.schema.json">Generated JSON Schema</a></p>
@@ -1140,9 +1154,9 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The environment-file content passed to the Docker or Compose invocation. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The shared Payload reference whose verified dotenv bytes are passed to Docker or Compose.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1157,13 +1171,19 @@
 <li>
 <p>From <a href="#model-DockerImage">DockerImage</a>: containment via envFiles; diagram multiplicity 0..*.</p>
 </li>
+<li>
+<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "payload": "MODE=demo"
+  "payload": {
+    "url": "https://example.org/default.env",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
 }</code></pre>
 </div>
 </div>
@@ -1327,16 +1347,20 @@
 </ul>
 </div>
 <div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "type": "HELM_CHART",
-  "chart": "example/api",
-  "version": "1.0.0",
+  "repository": "https://prometheus-community.github.io/helm-charts",
+  "chart": "prometheus",
+  "version": "29.38.2",
   "values": [
     {
       "format": "YAML",
-      "payload": "replicas: 1"
+      "payload": {
+        "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/helm-chart-values-0.yaml",
+        "sha256": "a062a29a63ec5a729c1c6a7ebff834dd446f2041f970ca7fd1a3e7e6723b5f6b"
+      }
     }
   ]
 }</code></pre>
@@ -1348,10 +1372,10 @@
 <h2 id="model-HelmValues"><a class="anchor" href="#model-HelmValues"></a>HelmValues</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Carries one values document for a Helm chart&#8217;s template configuration.</p>
+<p>References one pinned values document for a Helm chart&#8217;s template configuration.</p>
 </div>
 <div class="paragraph">
-<p>Use this for chart-level settings such as resource configuration or persistence, rather than inventing extra portable model fields. The document format must be supported by Helm values validation. The containing chart controls merge order; supported environment, file and mount options still belong in service configuration.</p>
+<p>Use this for chart-level settings such as resource configuration or persistence, rather than inventing extra portable model fields. Its shared Payload is an HTTPS URL and SHA-256 pin, not embedded YAML/JSON or Base64. The downloaded document format must be supported by Helm values validation. The containing chart controls merge order; supported environment, file and mount options still belong in service configuration.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/helm/HelmValues.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/HelmValues.schema.json">Generated JSON Schema</a></p>
@@ -1380,9 +1404,9 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The chart values content, equivalent to one values-file input. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The shared Payload reference whose verified bytes form one values-file input.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1397,14 +1421,20 @@
 <li>
 <p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
 </li>
+<li>
+<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
 </ul>
 </div>
 <div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "format": "YAML",
-  "payload": "replicas: 1"
+  "payload": {
+    "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/helm-chart-values-0.yaml",
+    "sha256": "a062a29a63ec5a729c1c6a7ebff834dd446f2041f970ca7fd1a3e7e6723b5f6b"
+  }
 }</code></pre>
 </div>
 </div>
@@ -1414,10 +1444,10 @@
 <h2 id="model-KubernetesManifest"><a class="anchor" href="#model-KubernetesManifest"></a>KubernetesManifest</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Embeds the Kubernetes resource documents used by a deployment.</p>
+<p>References the exact Kubernetes resource document used by a deployment.</p>
 </div>
 <div class="paragraph">
-<p>The payload is the reusable deployment authority, not an instruction to scan adjacent manifest files. Native resource syntax, tool readiness and live rollout are executor concerns beyond the domain&#8217;s format checks. Do not confuse a logical service with the exact workload that an instance must select.</p>
+<p>The shared Payload identifies the complete YAML or JSON bytes by HTTPS URL and SHA-256; there is no inline, Base64 or adjacent-manifest fallback. Native resource syntax, tool readiness and live rollout are executor concerns beyond the domain&#8217;s format checks. Do not confuse a logical service with the exact workload that an instance must select.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/k8s/KubernetesManifest.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/KubernetesManifest.schema.json">Generated JSON Schema</a></p>
@@ -1442,13 +1472,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the embedded Kubernetes documents. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the downloaded Kubernetes documents. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Kubernetes resource document content applied by the adapter. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The shared Payload reference whose verified resource documents are applied by the adapter.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
@@ -1469,15 +1499,21 @@
 <li>
 <p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
 </li>
+<li>
+<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
 </ul>
 </div>
 <div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "type": "KUBERNETES_MANIFEST",
   "format": "YAML",
-  "payload": "apiVersion: v1"
+  "payload": {
+    "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/configuration-kubernetes-manifest.yaml",
+    "sha256": "ab0749b1a3e9ab748f7a531c69b90d45161ff42eac0688edee2812533be26174"
+  }
 }</code></pre>
 </div>
 </div>
@@ -1860,10 +1896,10 @@
 <h2 id="model-Vagrantfile"><a class="anchor" href="#model-Vagrantfile"></a>Vagrantfile</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Embeds the complete Vagrantfile used to provision a virtual-machine deployment.</p>
+<p>References the complete Vagrantfile used to provision a virtual-machine deployment.</p>
 </div>
 <div class="paragraph">
-<p>The payload is Ruby DSL, not a separately structured box declaration or an adjacent-file lookup. Review its provisioning, mounts and networking before execution. Service configuration and instance overrides remain separate; merely validating the declaration does not run or certify the virtual machine.</p>
+<p>The shared Payload pins downloaded Ruby DSL bytes; it is not embedded code, Base64, a separately structured box declaration or an adjacent-file lookup. Review provisioning, mounts and networking before execution. Service configuration and instance overrides remain separate; verifying the document does not run or certify the virtual machine.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/vagrant/Vagrantfile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Vagrantfile.schema.json">Generated JSON Schema</a></p>
@@ -1886,9 +1922,9 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The complete Vagrantfile program supplied to Vagrant. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The shared Payload reference whose verified program bytes are supplied to Vagrant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
@@ -1906,14 +1942,20 @@
 <li>
 <p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
 </li>
+<li>
+<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 1.</p>
+</li>
 </ul>
 </div>
 <div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "type": "VAGRANTFILE",
-  "payload": "Vagrant.configure('2') {}"
+  "payload": {
+    "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/configuration-vagrantfile.rb",
+    "sha256": "91b0f9eb3bd586c72b14bbd1d02e36054adcc6cd4ad2357416792a2c8beb250c"
+  }
 }</code></pre>
 </div>
 </div>

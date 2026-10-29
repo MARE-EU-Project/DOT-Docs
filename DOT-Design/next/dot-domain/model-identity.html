@@ -457,7 +457,10 @@
           "manifest": {
             "type": "DOCKER_COMPOSE",
             "format": "YAML",
-            "payload": "services:\n  prometheus:\n    image: docker.io/prom/prometheus:v3.15.1@sha256:fa3302279710be2f21a8301ec17a8b4f2301fd829bd113839b3b6b02b6f191a2\n    ports:\n      - \"${DOTX_HTTP_PORT:-18909}:9090\"\n    volumes:\n      - prometheus-data:/prometheus\nvolumes:\n  prometheus-data: {}\n"
+            "payload": {
+              "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/docker-compose.yaml",
+              "sha256": "648687feae439ddc1a285c9c61e6bf855c9426a3bb4f16b36e56b68ae9529439"
+            }
           },
           "services": [
             {

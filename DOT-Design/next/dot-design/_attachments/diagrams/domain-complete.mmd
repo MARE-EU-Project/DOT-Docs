@@ -18,6 +18,7 @@ classDiagram
     }
     class Dot
     class Metadata
+    class Payload
     class Skill
     class Version
   }
@@ -89,7 +90,6 @@ classDiagram
 
   namespace Contracts {
     class Contract
-    class ContractPayload
     class ContractStandard {
       <<enumeration>>
     }
@@ -206,7 +206,7 @@ classDiagram
   Wire "1" *-- "0..1" WireProbe : probe
   Wire "1" *-- "0..1" WireSecurity : security
   Contract "1" --> "1" DataFormat : format
-  Contract "1" *-- "0..1" ContractPayload : payload
+  Contract "1" *-- "0..1" Payload : payload
   Contract "1" --> "1" ContractStandard : standard
   DeploymentManifestType "1" --> "0..1" PlatformEngine : platform
   DeploymentService "1" ..> "0..*" Contract : contracts (ref)
@@ -215,6 +215,7 @@ classDiagram
   DeploymentService "1" *-- "1" DeploymentConfig : config
   Deployment "1" *-- "0..*" DeploymentService : services
   Deployment "1" *-- "1" DeploymentManifest : manifest
+  ConfigFile "1" *-- "0..1" Payload : defaultContent
   DeploymentConfig "1" *-- "0..*" ConfigFile : configFiles
   DeploymentConfig "1" *-- "0..*" EnvironmentVariable : environment
   DeploymentConfig "1" *-- "0..*" VolumeMount : volumes
@@ -223,13 +224,18 @@ classDiagram
   OciRuntimeRequirements "1" --> "0..*" OciLinuxNamespace : hostNamespaces
   DeploymentManifest "1" --> "1" DeploymentManifestType : type
   DockerCompose "1" --> "1" DataFormat : format
+  DockerCompose "1" *-- "1" Payload : payload
   DockerCompose "1" *-- "0..*" EnvFile : envFiles
   DockerImage "1" *-- "1" DockerImageTag : image
   DockerImage "1" *-- "0..*" EnvFile : envFiles
+  EnvFile "1" *-- "1" Payload : payload
   HelmChart "1" *-- "1" Version : version
   HelmChart "1" *-- "0..*" HelmValues : values
   HelmValues "1" --> "1" DataFormat : format
+  HelmValues "1" *-- "1" Payload : payload
   KubernetesManifest "1" --> "1" DataFormat : format
+  KubernetesManifest "1" *-- "1" Payload : payload
+  Vagrantfile "1" *-- "1" Payload : payload
   WebAssemblyModule "1" --> "1" WebAssemblyExecution : execution
   Runtime "1" *-- "1..*" Deployment : deployments
   Runtime "1" *-- "1" Platform : platform
@@ -246,6 +252,7 @@ classDiagram
   style DataFormat fill:#fff7ed,stroke:#c2410c,color:#0f172a
   style Dot fill:#dbeafe,stroke:#2563eb,color:#0f172a
   style Metadata fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Payload fill:#f8fafc,stroke:#64748b,color:#0f172a
   style Skill fill:#f8fafc,stroke:#64748b,color:#0f172a
   style Version fill:#f8fafc,stroke:#64748b,color:#0f172a
   style Anchor fill:#f8fafc,stroke:#64748b,color:#0f172a
@@ -292,7 +299,6 @@ classDiagram
   style WireProbe fill:#f8fafc,stroke:#64748b,color:#0f172a
   style WireSecurity fill:#f8fafc,stroke:#64748b,color:#0f172a
   style Contract fill:#f8fafc,stroke:#64748b,color:#0f172a
-  style ContractPayload fill:#f8fafc,stroke:#64748b,color:#0f172a
   style ContractStandard fill:#fff7ed,stroke:#c2410c,color:#0f172a
   style AnchorBinding fill:#f8fafc,stroke:#64748b,color:#0f172a
   style Deployment fill:#f8fafc,stroke:#64748b,color:#0f172a

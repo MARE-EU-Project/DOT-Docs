@@ -21,7 +21,7 @@ classDiagram
     ContractStandard standard
     DataFormat format
   }
-  class ContractPayload {
+  class Payload {
     URI url
     String sha256
   }
@@ -44,13 +44,13 @@ classDiagram
   Dot "1" --> "1..*" Skill : ID references
   Dot "1" --> "0..*" Contract : authoritative declarations
   Dot "1" *-- "0..*" Anchor : logical interfaces
-  Contract "1" *-- "1" ContractPayload : full definition
+  Contract "1" *-- "1" Payload : full definition
   Anchor "1" *-- "0..1" AnchorContract : operation selection
   Contract <.. AnchorContract : resolves id
 
   style Dot fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:2px
   style Skill fill:#f1f5f9,stroke:#64748b,color:#0f172a
-  style ContractPayload fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  style Payload fill:#f1f5f9,stroke:#64748b,color:#0f172a
   style AnchorContract fill:#f1f5f9,stroke:#64748b,color:#0f172a
   style Contract fill:#dcfce7,stroke:#15803d,color:#14532d
   style Anchor fill:#f3e8ff,stroke:#9333ea,color:#581c87

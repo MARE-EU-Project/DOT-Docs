@@ -81,6 +81,13 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #EFF6FF {
     - updated: Instant
   }
 
+  class "Payload" as eu_mare6g_dot_domain_Payload #FFFFFF {
+    - url: URI
+    - sha256: String
+    --
+    + isUrlValid(): boolean
+  }
+
   class "Skill" as eu_mare6g_dot_domain_Skill #FFFFFF {
     - id: String
     - name: String
@@ -437,7 +444,7 @@ package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract
     - version: String
     - standard: ContractStandard
     - format: DataFormat
-    - payload: ContractPayload
+    - payload: Payload
     --
     + isIdentityConsistent(): boolean
     + isPayloadSourceValid(): boolean
@@ -445,13 +452,6 @@ package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract
     + isReferenceOnly(): boolean
     + isStandardVersionValid(): boolean
     + isDeclarationShapeValid(): boolean
-  }
-
-  class "ContractPayload" as eu_mare6g_dot_domain_contract_ContractPayload #F5F3FF {
-    - url: URI
-    - sha256: String
-    --
-    + isUrlValid(): boolean
   }
 
   enum "ContractStandard" as eu_mare6g_dot_domain_contract_ContractStandard #FFF7ED {
@@ -522,7 +522,7 @@ package "eu.mare6g.dot.domain.deployment.config" as package_eu_mare6g_dot_domain
     - path: String
     - description: String
     - contentType: String
-    - defaultContent: String
+    - defaultContent: Payload
     - required: boolean
     - sensitive: boolean
   }
@@ -616,7 +616,7 @@ package "eu.mare6g.dot.domain.deployment.manifest" as package_eu_mare6g_dot_doma
 package "eu.mare6g.dot.domain.deployment.manifest.docker" as package_eu_mare6g_dot_domain_deployment_manifest_docker #EFF6FF {
   class "DockerCompose" as eu_mare6g_dot_domain_deployment_manifest_docker_DockerCompose #FFFBEB {
     - format: DataFormat
-    - payload: String
+    - payload: Payload
     - envFiles: List<EnvFile>
     --
     + isFormatSupported(): boolean
@@ -636,7 +636,7 @@ package "eu.mare6g.dot.domain.deployment.manifest.docker" as package_eu_mare6g_d
   }
 
   class "EnvFile" as eu_mare6g_dot_domain_deployment_manifest_docker_EnvFile #FFFBEB {
-    - payload: String
+    - payload: Payload
   }
 
 }
@@ -651,7 +651,7 @@ package "eu.mare6g.dot.domain.deployment.manifest.helm" as package_eu_mare6g_dot
 
   class "HelmValues" as eu_mare6g_dot_domain_deployment_manifest_helm_HelmValues #FFFBEB {
     - format: DataFormat
-    - payload: String
+    - payload: Payload
     --
     + isFormatSupported(): boolean
   }
@@ -661,7 +661,7 @@ package "eu.mare6g.dot.domain.deployment.manifest.helm" as package_eu_mare6g_dot
 package "eu.mare6g.dot.domain.deployment.manifest.k8s" as package_eu_mare6g_dot_domain_deployment_manifest_k8s #EFF6FF {
   class "KubernetesManifest" as eu_mare6g_dot_domain_deployment_manifest_k8s_KubernetesManifest #FFFBEB {
     - format: DataFormat
-    - payload: String
+    - payload: Payload
     --
     + isFormatSupported(): boolean
   }
@@ -670,7 +670,7 @@ package "eu.mare6g.dot.domain.deployment.manifest.k8s" as package_eu_mare6g_dot_
 
 package "eu.mare6g.dot.domain.deployment.manifest.vagrant" as package_eu_mare6g_dot_domain_deployment_manifest_vagrant #EFF6FF {
   class "Vagrantfile" as eu_mare6g_dot_domain_deployment_manifest_vagrant_Vagrantfile #FFFBEB {
-    - payload: String
+    - payload: Payload
   }
 
 }
@@ -758,7 +758,8 @@ package_eu_mare6g_dot_domain_deployment_manifest_k8s -[hidden]down- package_eu_m
 package_eu_mare6g_dot_domain_deployment_manifest_vagrant -[hidden]down- package_eu_mare6g_dot_domain_deployment_manifest_wasm
 eu_mare6g_dot_domain_DataFormat -[hidden]down- eu_mare6g_dot_domain_Dot
 eu_mare6g_dot_domain_Dot -[hidden]down- eu_mare6g_dot_domain_Metadata
-eu_mare6g_dot_domain_Metadata -[hidden]down- eu_mare6g_dot_domain_Skill
+eu_mare6g_dot_domain_Metadata -[hidden]down- eu_mare6g_dot_domain_Payload
+eu_mare6g_dot_domain_Payload -[hidden]down- eu_mare6g_dot_domain_Skill
 eu_mare6g_dot_domain_Skill -[hidden]down- eu_mare6g_dot_domain_Version
 eu_mare6g_dot_domain_anchor_Anchor -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorContract
 eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorDirection
@@ -802,8 +803,7 @@ eu_mare6g_dot_domain_composition_ServiceReference -[hidden]down- eu_mare6g_dot_d
 eu_mare6g_dot_domain_composition_ServiceWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Wire
 eu_mare6g_dot_domain_composition_Wire -[hidden]down- eu_mare6g_dot_domain_composition_WireProbe
 eu_mare6g_dot_domain_composition_WireProbe -[hidden]down- eu_mare6g_dot_domain_composition_WireSecurity
-eu_mare6g_dot_domain_contract_Contract -[hidden]down- eu_mare6g_dot_domain_contract_ContractPayload
-eu_mare6g_dot_domain_contract_ContractPayload -[hidden]down- eu_mare6g_dot_domain_contract_ContractStandard
+eu_mare6g_dot_domain_contract_Contract -[hidden]down- eu_mare6g_dot_domain_contract_ContractStandard
 eu_mare6g_dot_domain_deployment_AnchorBinding -[hidden]down- eu_mare6g_dot_domain_deployment_Deployment
 eu_mare6g_dot_domain_deployment_Deployment -[hidden]down- eu_mare6g_dot_domain_deployment_DeploymentManifestType
 eu_mare6g_dot_domain_deployment_DeploymentManifestType -[hidden]down- eu_mare6g_dot_domain_deployment_DeploymentService
@@ -922,7 +922,7 @@ eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireProbe : probe
 eu_mare6g_dot_domain_composition_Wire "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_WireSecurity : security
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
-eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_contract_ContractPayload : payload
+eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_Payload : payload
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_contract_ContractStandard : standard
 eu_mare6g_dot_domain_deployment_DeploymentManifestType "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_runtime_platform_PlatformEngine : platform
 eu_mare6g_dot_domain_deployment_DeploymentService "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_contract_Contract : contracts (ref)
@@ -931,6 +931,7 @@ eu_mare6g_dot_domain_deployment_DeploymentService "1" *-[#2563EB]right- "0..*" e
 eu_mare6g_dot_domain_deployment_DeploymentService "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_deployment_config_DeploymentConfig : config
 eu_mare6g_dot_domain_deployment_Deployment "1" *-[#2563EB]right- "0..*" eu_mare6g_dot_domain_deployment_DeploymentService : services
 eu_mare6g_dot_domain_deployment_Deployment "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_deployment_manifest_DeploymentManifest : manifest
+eu_mare6g_dot_domain_deployment_config_ConfigFile "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_Payload : defaultContent
 eu_mare6g_dot_domain_deployment_config_DeploymentConfig "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_config_ConfigFile : configFiles
 eu_mare6g_dot_domain_deployment_config_DeploymentConfig "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_config_EnvironmentVariable : environment
 eu_mare6g_dot_domain_deployment_config_DeploymentConfig "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_config_VolumeMount : volumes
@@ -939,13 +940,18 @@ eu_mare6g_dot_domain_deployment_config_DeploymentConfig "1" *-[#2563EB]down- "0.
 eu_mare6g_dot_domain_deployment_config_oci_OciRuntimeRequirements "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_deployment_config_oci_OciLinuxNamespace : hostNamespaces
 eu_mare6g_dot_domain_deployment_manifest_DeploymentManifest "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_deployment_DeploymentManifestType : type
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerCompose "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
+eu_mare6g_dot_domain_deployment_manifest_docker_DockerCompose "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Payload : payload
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerCompose "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_manifest_docker_EnvFile : envFiles
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerImage "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_deployment_manifest_docker_DockerImageTag : image
 eu_mare6g_dot_domain_deployment_manifest_docker_DockerImage "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_manifest_docker_EnvFile : envFiles
+eu_mare6g_dot_domain_deployment_manifest_docker_EnvFile "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Payload : payload
 eu_mare6g_dot_domain_deployment_manifest_helm_HelmChart "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
 eu_mare6g_dot_domain_deployment_manifest_helm_HelmChart "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_manifest_helm_HelmValues : values
 eu_mare6g_dot_domain_deployment_manifest_helm_HelmValues "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
+eu_mare6g_dot_domain_deployment_manifest_helm_HelmValues "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Payload : payload
 eu_mare6g_dot_domain_deployment_manifest_k8s_KubernetesManifest "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
+eu_mare6g_dot_domain_deployment_manifest_k8s_KubernetesManifest "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Payload : payload
+eu_mare6g_dot_domain_deployment_manifest_vagrant_Vagrantfile "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Payload : payload
 eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyModule "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_deployment_manifest_wasm_WebAssemblyExecution : execution
 eu_mare6g_dot_domain_runtime_Runtime "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_deployment_Deployment : deployments
 eu_mare6g_dot_domain_runtime_Runtime "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_runtime_platform_Platform : platform
