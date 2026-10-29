@@ -264,7 +264,7 @@
 <p>DOT-Design helps you reuse software components in the MARE 6G security ecosystem.
 A Dynamic Open Trust component (<strong>DOT</strong>) has a reusable definition: what the tool
 does, which interfaces it exposes or requires, and how it can run. The <code>dotx</code>
-CLI validates the definition and deploys a selected runtime.</p>
+CLI validates the definition and runs the deployment you choose.</p>
 </div>
 <div class="paragraph">
 <p>Keep a reusable tool in <code>dot.json</code>. Put one use case&#8217;s selected tools,
@@ -470,7 +470,8 @@ holds reusable definitions, and <code>DOT-Testing</code> records verification ev
 <p>The DOT-owned Anchor model, service-port binding, generated schema, repository
 resolution, conformance fixtures, <code>dot.mare6g.eu/v1</code> composition document, and
 <code>dotx compose</code> executor form the stable Composition v1 profile. The Java
-domain and the independently released CLI need not share a release number.</p>
+domain and CLI use aligned release numbers; exact source revisions still matter
+when trying unreleased features. See <a href="adopting-dot.html" class="xref page">release/source compatibility</a>.</p>
 </div>
 <div class="paragraph">
 <p>The reference executor is intentionally fail-closed. It does not claim to be a

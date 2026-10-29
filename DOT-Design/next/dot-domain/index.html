@@ -260,9 +260,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>DOT-Domain</code> is the persistence-neutral Java library that defines the portable
-DOT aggregate and its validation rules. It contains no application, web, or
-storage-adapter layer.</p>
+<p><code>DOT-Domain</code> is the Java library that defines reusable DOTs, compositions and
+their validation rules. These models generate the JSON Schemas and CLI input
+types. The library does not deploy services or manage databases.</p>
 </div>
 </div>
 </div>
@@ -270,8 +270,9 @@ storage-adapter layer.</p>
 <h2 id="_aggregate_overview"><a class="anchor" href="#_aggregate_overview"></a>Aggregate overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Read the diagram from <code>Dot</code> down to a deployment&#8217;s logical services. It shows
-the main relationships without the configuration and validation details below.</p>
+<p>A DOT describes one reusable tool. A composition selects exact DOT releases,
+chooses one deployment per instance and connects their Anchors. Read the core
+relationships below first; field-level and validation details follow separately.</p>
 </div>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">

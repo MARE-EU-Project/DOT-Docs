@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Create a composition from a reviewed example :: MARE DOT-Design</title>
+    <title>Create a composition :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.3.0/dot-cli/composition-authoring.html">
     <link rel="prev" href="authoring.html">
     <link rel="next" href="../dot-design/external-dot-examples.html">
-    <meta name="description" content="Reuse a locked DOT graph with a fresh ownership identity, without assembling IDs or deploying workloads.">
+    <meta name="description" content="Reuse a reviewed example or select exact DOTs to create a validated draft without deploying workloads.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -256,7 +256,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Create a composition from a reviewed example</h1>
+<h1 class="page">Create a composition</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -264,7 +264,8 @@
 several DOTs and connects their Anchors through Wires. Start from a catalogue
 example whose README describes your intended use case and its acceptance limits.
 The selected release <code>v0.3.0</code> and its matching source CLI
-provide <code>dotx compose new</code>; the original released <code>v0.2.5</code> binary does not. Use
+provide template-based <code>dotx compose new</code>. Selecting DOTs with <code>--from-dots</code>
+requires current 0.4.0 source, not the published v0.3.0 binary. Use
 <a href="../dot-design/adopting-dot.html" class="xref page">a matching CLI and pinned catalogue</a>.</p>
 </div>
 </div>
@@ -282,12 +283,13 @@ dotx compose new</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In a terminal, choose a numbered local template, enter a name and an unused YAML
-path in an existing directory, then confirm the exact deployment preview. Current
-source also offers the name and catalogue-folder defaults described below. Nested
-template paths remain distinguishable. Entering <code>n</code>, an empty
-confirmation, or Ctrl-D does not publish a file. Noninteractive execution requires
-all choices and <code>--yes</code>, so a CI job cannot hang waiting for input.</p>
+<p>Current source uses native forms: arrows browse, typing filters, Enter selects,
+and Ctrl-C cancels. Choose a template, accept or edit its suggested name/output,
+review the preview, then explicitly choose <strong>Write draft</strong>. Ctrl-U clears a text
+field before replacement. The published v0.3.0 flow uses numbered prompts and
+requires an unused output path in an existing directory. Neither cancellation
+nor EOF publishes a file. Noninteractive creation requires all choices and
+<code>--yes</code>; no CI job needs to wait for input.</p>
 </div>
 <div class="paragraph">
 <p>For a repeatable exercise using the existing Node Exporter/Prometheus graph:</p>
@@ -310,6 +312,14 @@ created only by your explicit <code>lock</code> command; review it before commit
 The Composition graph version is retained; it is not another tool release.</p>
 </div>
 <div class="paragraph">
+<p>No workloads are started. Offline creation needs a warm verified Contract cache;
+without <code>--offline</code>, bounded downloads and cache writes may occur even if no
+draft is published. Printed follow-up commands retain <code>--offline</code> when selected.</p>
+</div>
+<details>
+<summary class="title">How draft validation works</summary>
+<div class="content">
+<div class="paragraph">
 <p>The command verifies its input byte snapshot against the template&#8217;s adjacent
 lock, applies changes to the Java-generated Composition model, preserves ordinary
 YAML shape/comments, then checks the rendered values exactly and validates the
@@ -318,11 +328,10 @@ by the YAML parser where necessary: inherited IDs, names and file sources must
 receive the intended new values too. Authoring uses a fresh model of the verified
 input bytes, separate from inferred execution services and probes. It does not
 infer compatibility, invent wires, copy product definitions, download templates
-from Git, change secret values or start a runtime. Offline creation requires a
-warm verified Contract cache. Without <code>--offline</code>, bounded Contract downloads
-and cache writes may occur even when no draft is published.
-The suggested follow-up commands retain <code>--offline</code> when creation used it.</p>
+from Git, change secret values or start a runtime.</p>
 </div>
+</div>
+</details>
 </div>
 </div>
 <div class="sect1">
