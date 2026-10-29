@@ -457,6 +457,22 @@ coverage, Antora, and PDF generation. Individual equivalents are available as
 <code>ci:coverage</code>, and <code>ci:docs</code>.</p>
 </div>
 <div class="paragraph">
+<p>Publication regressions can also run alone:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Docs/scripts/test-publication.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These tests create their own release-history fixtures and verify a shallow,
+tag-free checkout, including concurrent site/badge updates against disposable
+local Git remotes. Actual versioned-site publication still requires complete
+release-tag history; its audit rejects missing history rather than silently
+omitting stable documentation. No runner reconfiguration is needed for these
+tests.</p>
+</div>
+<div class="paragraph">
 <p>On push and pull-request events, the live workflows compare the exact Design
 and pinned child-repository Git trees. Only allowlisted, non-executable
 documentation changes can deliberately skip their live suites; these are
