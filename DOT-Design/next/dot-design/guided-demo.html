@@ -958,6 +958,20 @@ OpenAPI-to-gRPC-to-MQTT protocol translation.</p>
 </div>
 <div class="sect2">
 <h3 id="_minutes_6_11_deploy_verify_and_inspect_the_live_composition"><a class="anchor" href="#_minutes_6_11_deploy_verify_and_inspect_the_live_composition"></a>Minutes 6-11: deploy, verify and inspect the live composition</h3>
+<div class="paragraph">
+<p>Prepare offstage once before the talk. This builds/imports the fixture images
+and prepares the exact pinned probe-helper images; it does not deploy the
+composition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:prepare DEMO=four-contracts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then run the presenter. It verifies the prepared caches without building or
+pulling images on stage:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:demo:docker-kubernetes-four-contracts:present</code></pre>

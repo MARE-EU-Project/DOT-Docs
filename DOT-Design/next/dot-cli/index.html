@@ -639,6 +639,29 @@ not claim an equivalent failure-report format for top-level single-DOT runtime
 commands.</p>
 </div>
 <div class="paragraph">
+<p>For container-backed probes, prepare runner images explicitly before live testing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose probe composition.yaml --locked --images</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This read-only command emits the selected pinned helper images as JSON. It does
+not pull images, access lifecycle state, load credentials or execute a Contract
+operation. A caller preparing a Docker runner must cache the exact image pin on
+the host daemon; a Kubernetes runner needs its node cache, which is distinct.
+The four-Contract demo&#8217;s preparation task performs the appropriate verified pulls.</p>
+</div>
+<div class="paragraph">
+<p>Failure-only runtime diagnostics separate image checks, runner startup and
+operation execution where evidence permits. An unresolved startup phase is not
+reported as proof that a request reached the producer. Diagnostics retain static
+codes, timings and recovery guidance, not raw tool stderr, credential-bearing
+arguments or response payloads. Existing successful probe output and exit-code
+meanings remain unchanged.</p>
+</div>
+<div class="paragraph">
 <p>For reusable catalogue examples and explicit deployment selection, see
 <a href="../dot-design/external-dot-examples.html" class="xref page">Deployments and examples</a>. For
 Anchor selectors, Wires, native Secret references, locks and lifecycle safety,

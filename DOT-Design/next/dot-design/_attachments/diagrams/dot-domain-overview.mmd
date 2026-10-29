@@ -1,52 +1,30 @@
+---
+config:
+  class:
+    hideEmptyMembersBox: true
+    nodeSpacing: 20
+    rankSpacing: 30
+    padding: 6
+---
 classDiagram
   direction TB
   accTitle: Simplified DOT domain model
   accDescr: Dot references Skills, declares Contracts, and contains Anchors and Runtime alternatives. An Anchor selects a Contract operation. Each Runtime targets a Platform and contains Deployments. A Deployment contains one manifest and its logical services. A separate Composition aggregate owns pinned DOT instances and wires referencing Anchors, never embedded DOT definitions.
 
-  class Dot {
-    id
-    name
-    version
-  }
-  class Skill {
-    name
-  }
-  class Contract {
-    standard
-    payload
-  }
-  class Anchor {
-    role
-    contract
-  }
+  class Dot
+  class Skill
+  class Contract
+  class Anchor
   class Runtime
-  class Platform {
-    engine
-  }
-  class Deployment {
-    id
-  }
+  class Platform
+  class Deployment
   class DeploymentManifest {
     <<abstract>>
-    type
   }
-  class DeploymentService {
-    id
-  }
-  class Composition {
-    id
-    name
-    version
-  }
-  class DotInstance {
-    source
-    dotId
-    dotVersion
-  }
-  class Wire {
-    from
-    to
-  }
+  class DeploymentService
+  class Composition
+  class DotInstance
+  class Wire
 
   Composition *-- DotInstance : pinned instances
   Composition *-- Wire : wires

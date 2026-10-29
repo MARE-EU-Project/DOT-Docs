@@ -555,8 +555,15 @@ expanded. Record <code>dotx version --verbose</code> and the exact source/catalo
 </tbody>
 </table>
 <div class="paragraph">
-<p>New, edit and composition authoring use the same native scrolling TUI. In
-single-choice menus, type initial letters to filter immediately: <code>Pro</code> finds
+<p>New, edit and composition authoring use the same native Huh forms for text,
+editable defaults, scrolling choices and confirmations. Enter accepts a prefilled
+value; Ctrl-U clears the field. Candidate publication offers <strong>Write draft / Cancel</strong>,
+defaulting to <strong>Cancel</strong>. EOF or an incomplete form cannot authorize publication.
+Defaults containing control characters use an explained escaped line fallback
+when a single-line form cannot preserve their bytes losslessly.</p>
+</div>
+<div class="paragraph">
+<p>In single-choice menus, type initial letters to filter immediately: <code>Pro</code> finds
 Prometheus, <code>Key</code> finds Keycloak. Search is case-insensitive and also matches
 text within a choice. Use ↑/↓ to browse, Backspace to edit the query, Enter to
 select and Ctrl-C to cancel. No <code>/</code> prefix is needed. Checkbox menus use Space

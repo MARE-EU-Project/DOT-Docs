@@ -283,7 +283,8 @@ dotx compose new</code></pre>
 </div>
 <div class="paragraph">
 <p>In a terminal, choose a numbered local template, enter a name and an unused YAML
-path in an existing directory, then confirm the exact deployment preview. Nested
+path in an existing directory, then confirm the exact deployment preview. Current
+source also offers the name and catalogue-folder defaults described below. Nested
 template paths remain distinguishable. Entering <code>n</code>, an empty
 confirmation, or Ctrl-D does not publish a file. Noninteractive execution requires
 all choices and <code>--yes</code>, so a CI job cannot hang waiting for input.</p>
@@ -426,8 +427,58 @@ Contracts:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Select exact releases and explicit deployments; give each instance a short,
-unique name. The native scrolling selector lets you browse <strong>all</strong> catalogue DOTs
+<p>Omit <code>--name</code> to open a native Huh <strong>Composition name</strong> field prefilled with a
+random, readable suggestion such as <code>calm-otter</code>. Enter accepts it; Ctrl-U clears
+the field so you can type a replacement. Names, paths, selections and
+confirmations all use the shared form interface, not just the choice menus.</p>
+</div>
+<div class="paragraph">
+<p>The adjective–animal suggestion varies each run; compound animal names are
+hyphenated too (for example <code>calm-guinea-pig</code>). Ctrl-C cancels a native form;
+the line fallback also supports <code>q</code>. EOF or an incomplete form aborts without
+publishing or accepting defaults. The same field is used by current-source
+template creation. Existing catalogue folder/file names are skipped, but a
+suggestion does not reserve a destination: final publication checks still reject
+concurrent collisions. An explicit <code>--name</code> is retained exactly and skips the
+prompt; noninteractive <code>--yes</code> still requires it. This friendly label is separate
+from the fresh ownership UUID and is not a secret or security identifier.</p>
+</div>
+<div class="paragraph">
+<p>Select exact releases and explicit deployments. The native <strong>Instance name</strong> field
+is prefilled with a lowercase, hyphenated label derived from the selected tool&#8217;s
+name, such as <code>prometheus</code>.</p>
+</div>
+<div class="paragraph">
+<p>Press Enter to use it, or Ctrl-U and type a unique label such as <code>metrics-primary</code>.
+Suggestions skip aliases already used in this composition: <code>prometheus</code>, then
+<code>prometheus-2</code>, <code>prometheus-3</code>, and so on. Explicit duplicate names are rejected;
+custom names are never silently rewritten. Cancel or EOF never accepts an
+unanswered default. This label does not change the selected DOT&#8217;s
+identity or tool release, and does not isolate fixed workload names, ports or
+storage. Existing compositions and locks are not renamed or regenerated.</p>
+</div>
+<div class="paragraph">
+<p>Deployment choices put the platform first, followed by the manifest type and
+the exact profile ID:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">ENGINE      | DEPLOYMENT TYPE  | PROFILE
+DOCKER      | DOCKER_COMPOSE   | docker-compose
+DOCKER      | DOCKER_IMAGE     | docker
+KUBERNETES  | HELM_CHART       | helm-chart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Options are grouped by engine, then manifest type, retaining the declared profile
+order within each group. Only the selected DOT&#8217;s deployments are listed; the
+menu is not filtered by locally installed tools because authoring does not deploy.
+The profile ID distinguishes alternatives with the same engine and type.
+Headers and columns stay aligned while filtering, in both scrolling and numbered
+menus. Untrusted display text is escaped rather than interpreted by the terminal.</p>
+</div>
+<div class="paragraph">
+<p>The native scrolling selector lets you browse <strong>all</strong> catalogue DOTs
 with ↑/↓, type initial letters such as <code>Pro</code> or <code>Key</code> to filter immediately,
 select with Enter and cancel with Ctrl-C. Backspace edits the case-insensitive
 substring query; no <code>/</code> prefix is needed. New and edit use this same TUI. Deployment,
@@ -441,6 +492,14 @@ terminals also use this non-redrawing fallback: <code>/text</code> filters, <cod
 number selects and <code>q</code> cancels. The header states the visible range and total;
 the first 12 rows are not the whole catalogue. The UI does not change validation
 or perform any deployment. Input must still be a terminal; piped input is rejected.
+The native Go interface uses <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>
+through <a href="https://github.com/charmbracelet/huh">Huh</a> form components. Views share
+navigation and cancellation behavior without owning model validation, deployment
+or cleanup logic.
+Draft publication uses <strong>Write draft / Cancel</strong> buttons, initially selecting
+<strong>Cancel</strong>: Enter alone does not authorize a write. Existing defaults containing
+control characters use an explained escaped line fallback when a single-line
+form cannot preserve them losslessly. Original bytes remain authoritative.
 If you omit <code>--output</code>, press Enter to accept
 <code>Compositions/my-monitoring/composition.yaml</code> inside the selected catalogue.
 From DOT-Design, <code>--repository DOT-Repository</code> instead suggests
