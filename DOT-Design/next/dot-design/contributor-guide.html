@@ -305,9 +305,16 @@ To use an existing DOT without installing development toolchains, start with
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional but recommended</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ShellCheck, Python 3, jq, Bash, and Git</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deterministic authoring, conformance, and demo-harness checks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commands must be available on <code>PATH</code>, including to the self-hosted runner
+  service user. ShellCheck is required; lint checks are not silently skipped.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Kubernetes tools, Helm, or Vagrant with libvirt/KVM</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Only the matching deployment adapters and live scenarios</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Install only what you intend to execute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install only what you intend to execute. The Vagrant workflow uses the runner
+  service user&#8217;s existing KVM/libvirt permissions, without <code>sg</code> or <code>sudo</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Antora, the Antora PDF extension, Asciidoctor PDF, and Mermaid CLI</p></td>
