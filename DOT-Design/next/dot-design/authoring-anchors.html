@@ -372,7 +372,6 @@ key is DOT-local; this excerpt is not a second catalogue definition.</p>
   "id": "build-information",
   "name": "build-information-http",
   "role": "PROVIDES",
-  "semanticTypes": ["https://prometheus.io/docs/prometheus/latest/querying/api/#build-information"],
   "contract": {
     "id": "Prometheus@3.15.1::OpenAPI::HTTP",
     "selector": "#/paths/~1status~1buildinfo/get"
@@ -385,6 +384,13 @@ key is DOT-local; this excerpt is not a second catalogue definition.</p>
 the same Contract ID and operation; independently authored Contracts are not
 automatically interchangeable. AsyncAPI additionally requires complementary
 operations. Unsupported matches fail rather than being inferred from names.</p>
+</div>
+<div class="paragraph">
+<p>The selector identifies an operation, not just a data type. Its request and
+response schemas belong to the verified Contract; do not copy their schema
+pointers into <code>semanticTypes</code>. OpenAPI parameters, request bodies, responses,
+media types and their schema references remain in that one authoritative
+document. A documentation-page URL does not add machine-readable semantics.</p>
 </div>
 <div class="sect2">
 <h3 id="ownership-is-not-consumption"><a class="anchor" href="#ownership-is-not-consumption"></a>Ownership is not consumption</h3>
@@ -505,7 +511,8 @@ dimensions:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Semantics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Declared semantic-type URIs intersect when both sides provide them.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declared semantic-type URIs intersect exactly when both sides provide them.
+  Missing annotations impose no restriction; their meaning is not evaluated.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Protocol and media</p></td>
@@ -518,9 +525,10 @@ dimensions:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Schema</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provider output and consumer input schema identities are compared in the
-  correct direction when both select the same authoritative Contract;
-  cross-Contract structural comparison remains <code>UNKNOWN</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ordinary Contract-backed wires require the same authoritative Contract and
+  operation (complementary operations for AsyncAPI). This is interface identity,
+  not a general provider-output/consumer-input schema compatibility algorithm.
+  Different Contract IDs are rejected; matching shapes do not override that rule.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
@@ -637,17 +645,30 @@ one provider DOT to one consumer DOT through every row above.</p>
 <div class="sect2">
 <h3 id="semantic-types"><a class="anchor" href="#semantic-types"></a>Semantic types</h3>
 <div class="paragraph">
-<p><code>semanticTypes</code> is a list of URI identifiers describing the security or domain
-meaning of the interaction independently of its transport. Prefer stable,
-governed ontology or vocabulary URIs when one exists; a project URN is suitable
-for concepts that have no external vocabulary yet.</p>
+<p><code>semanticTypes</code> optionally identifies the security or domain meaning of an
+interaction independently of its transport and payload structure. Use stable,
+defined ontology or vocabulary identifiers where available. A project URN needs
+an explicitly documented meaning; inventing a URI does not establish semantics.
+For Contract-backed Anchors, omit this optional annotation when no appropriate
+vocabulary exists. Do not use an API documentation page as a substitute for a
+machine-readable type definition.</p>
 </div>
 <div class="paragraph">
-<p>Current matching is deliberately conservative: both Anchors must declare at
-least one semantic type and their sets must intersect exactly. Missing values
-produce <code>UNKNOWN</code>; different values produce <code>INCOMPATIBLE</code>. The evaluator does
-not infer subclass, equivalence, or broader/narrower ontology relations. Such
-reasoning belongs in a separately reviewed semantic-policy layer.</p>
+<p>The CLI treats these URIs as opaque identifiers: it neither downloads the pages
+nor reads an ontology. When both lists are nonempty, at least one exact URI must
+be shared; disjoint lists reject the wire. If either list is empty, this check
+imposes no restriction and emits no separate semantic status. A <code>COMPATIBLE</code>
+wire therefore does not prove semantic compatibility. Missing semantics are
+not evaluated, not automatically understood. No subclass, equivalence, units or
+broader/narrower reasoning is performed.</p>
+</div>
+<div class="paragraph">
+<p>Contract operation selection, payload structure and domain meaning are separate
+concerns. The current resolver checks selected interface identity, not arbitrary
+schema substitutability or automatic composition between independently authored
+APIs. Even identical JSON shapes can carry different meanings, such as Celsius
+and Fahrenheit. General structural matching and semantic-policy reasoning remain
+future work; runtime probes provide separate, bounded live evidence.</p>
 </div>
 </div>
 </div>

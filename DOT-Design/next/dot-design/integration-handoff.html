@@ -380,8 +380,10 @@ from <code>COMPATIBLE</code>; and</p>
 </div>
 <div class="paragraph">
 <p>Contractless Anchors are valid only when a supported Contract standard cannot
-describe the interaction. Their explicit direction, protocols, media types,
-and semantic types must be complementary before a wire is accepted.</p>
+describe the interaction. Their explicit direction, protocols and media types
+must be compatible before a wire is accepted. When both Anchors supply semantic
+identifiers, their lists must intersect exactly; missing annotations impose no
+restriction and do not establish semantic compatibility.</p>
 </div>
 </div>
 </div>
