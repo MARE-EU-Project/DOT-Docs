@@ -345,6 +345,26 @@ To use an existing DOT without installing development toolchains, start with
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="_temporary_storage"><a class="anchor" href="#_temporary_storage"></a>Temporary storage</h3>
+<div class="paragraph">
+<p>Keep the checkout and generated build outputs on a disk with sufficient free
+space. Full Go race/coverage builds and Contract-tool installation can exhaust
+a small memory-backed <code>/tmp</code>, even when individual tests need no deployment.</p>
+</div>
+<div class="paragraph">
+<p>If a gate reports <code>disk quota exceeded</code> or <code>no space left on device</code>, check both
+the checkout filesystem and temporary storage. Set <code>TMPDIR</code> to a private,
+disk-backed directory <strong>outside every Git checkout</strong>, then rerun the failed gate.
+Negative Git-discovery tests deliberately remove fixture metadata; a parent
+checkout must not become an accidental fallback. Changing <code>TMPDIR</code> alone does
+not relocate generated files under the checkout&#8217;s <code>target</code> directories.</p>
+</div>
+<div class="paragraph">
+<p>Retain failed logs and verify the rerun; a storage failure is not a passed test.
+Do not delete shared temporary files, other runs' resources or user caches.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">

@@ -846,6 +846,14 @@ reservations. In particular, four-Contract preflight checks cached images,
 Docker resource conflicts and selected NodePorts, not end-to-end gateway routing.</p>
 </div>
 <div class="paragraph">
+<p>After deployment, the mixed-runtime harness waits for actual TCP reachability
+from its owned Docker consumer, with bounded socket attempts and an overall
+deadline. Pod readiness alone does not establish NodePort reachability.
+Connection establishment may be repeated during this readiness wait; Contract
+operations are not retried. A persistent failure stops the run and triggers
+owned cleanup, with allowlisted connectivity diagnostics retained separately.</p>
+</div>
+<div class="paragraph">
 <p>Pre-download/build the images by completing the existing live acceptance task
 before the talk, and require successful cleanup:</p>
 </div>
