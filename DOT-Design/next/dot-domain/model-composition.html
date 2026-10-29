@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Compositions and connections :: MARE DOT-Design</title>
+    <link rel="prev" href="model-deployment.html">
+    <link rel="next" href="model-probes.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../dot-design/index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.3.0/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../dot-design/index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../dot-design/index.html">DOT-Design</a></li>
+    <li>DOT-Domain</li>
+    <li><a href="model-reference.html">Complete model reference</a></li>
+    <li><a href="model-composition.html">Compositions and connections</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="model-composition.html">Next</a>
+    <a class="version is-missing" href="../../0.3.0/dot-design/index.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Compositions and connections</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="model-reference.html" class="xref page">How to read this reference</a> explains full objects versus ID-only views, conditional fields and validation boundaries.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-AnchorReference"><a class="anchor" href="#model-AnchorReference"></a>AnchorReference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identify a logical Anchor on one composition member.</p>
+</div>
+<div class="paragraph">
+<p>The Anchor ID belongs to the referenced DOT, while the instance name belongs to this composition. Neither field is an address, a service name or a Contract operation selector; the executor resolves those relationships from the selected definition.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/AnchorReference.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorReference.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the composition member containing the Anchor. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact DOT-local Anchor key on that member. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-ExposedAnchor">ExposedAnchor</a>: containment via target; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via from; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via to; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-DotInstance">DotInstance</a>: ID/name reference via instance.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-Anchor" class="xref page">Anchor</a>: ID/name reference via anchorId.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "instance": "metrics",
+  "anchorId": "http-api"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-CdiDeviceBinding"><a class="anchor" href="#model-CdiDeviceBinding"></a>CdiDeviceBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Assign an installed CDI device to a logical device requirement of a deployment.</p>
+</div>
+<div class="paragraph">
+<p>Bind the declared requirement to a concrete device of the same CDI kind. This does not install a CDI specification, allocate hardware or authorize an arbitrary host device path; availability and supported adapter behavior remain deployment concerns.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/CdiDeviceBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/CdiDeviceBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>requirement</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical device-requirement name declared by the selected service configuration. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>device</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified CDI device identity chosen by the operator. maximum length: 381; pattern restrictions (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via cdiDevices; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "requirement": "gpu",
+  "device": "vendor.example/gpu=0"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ComposeWorkloadBinding"><a class="anchor" href="#model-ComposeWorkloadBinding"></a>ComposeWorkloadBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select the Compose service implementing one logical DOT service.</p>
+</div>
+<div class="paragraph">
+<p>Use the service key in the declared Compose manifest, not a generated container name or the logical DOT service ID by assumption. The executor verifies that the mapping is valid for the selected deployment.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ComposeWorkloadBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ComposeWorkloadBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compose manifest service key selected for this logical service. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-ServiceWorkloadBinding">ServiceWorkloadBinding</a>: containment via compose; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "service": "api"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Composition"><a class="anchor" href="#model-Composition"></a>Composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Describe one reusable use case by selecting DOT instances and connecting their logical interfaces.</p>
+</div>
+<div class="paragraph">
+<p>This is a separate aggregate, not a DOT containing other DOT definitions. Instance references must name declared members and explicit readiness dependencies must be acyclic; interface wires may form cycles. Catalogue resolution, reviewed locks, credentials, deployment ownership and live acceptance remain separate executor concerns.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Composition.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/composition-v1.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiVersion</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifies the portable composition input profile understood by the reader. exact value "dot.mare6g.eu/v1"; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>kind</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distinguishes a composition declaration from other document kinds. exact value "Composition"; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable identity used to associate lifecycle ownership with this composition, independent of its display name. pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Human-readable name for the use case, not a replacement for its ownership identity. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version label for this use-case declaration; it is not the version of every participating tool. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of DotInstance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named instances selecting canonical DOT definitions and their deployments. minimum items: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ContractInput</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit interface-document inputs resolved from authoritative owners, without transferring Contract ownership.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wires</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of Wire</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical connections from provided Anchors to required Anchors.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedAnchors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ExposedAnchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Names for selected member Anchors at the composition boundary; these do not themselves publish a network listener.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-ContractInput">ContractInput</a>: containment via contracts; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DotInstance">DotInstance</a>: containment via dots; diagram multiplicity 1..*.</p>
+</li>
+<li>
+<p>To <a href="#model-ExposedAnchor">ExposedAnchor</a>: containment via exposedAnchors; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-Wire">Wire</a>: containment via wires; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "apiVersion": "dot.mare6g.eu/v1",
+  "kind": "Composition",
+  "id": "00000000-0000-4000-8000-000000000001",
+  "name": "example",
+  "version": "v1",
+  "dots": [
+    {
+      "name": "metrics",
+      "source": "repository://Example@1.0.0",
+      "dotId": "Example@1.0.0",
+      "dotVersion": "1.0.0"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ContractInput"><a class="anchor" href="#model-ContractInput"></a>ContractInput</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Make an authoritative Contract document available to composition resolution.</p>
+</div>
+<div class="paragraph">
+<p>Reference the originating DOT instead of copying its Contract declaration or payload into a consumer. The owner supplies the pinned URL and digest. Historical wrapper sources remain a compatibility path, not a fallback when an owning declaration is missing.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ContractInput.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ContractInput.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact originating Contract identity used by the selected interfaces. minimum length: 1; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source identifying the owning DOT whose root declaration supplies the Contract metadata and verified payload. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Composition">Composition</a>: containment via contracts; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-Contract" class="xref page">Contract</a>: ID/name reference via id.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "Prometheus@3.15.1::OpenAPI::HTTP",
+  "source": "repository://Prometheus@3.15.1"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentConfigFile"><a class="anchor" href="#model-DeploymentConfigFile"></a>DeploymentConfigFile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bind a local configuration file to a service-declared file destination.</p>
+</div>
+<div class="paragraph">
+<p>The source is deployment input, not another file the executor may inspect for deployment instructions. The target must match the selected service configuration; source existence, path resolution and unambiguous service selection are executor checks.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/DeploymentConfigFile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentConfigFile.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical deployment-service ID receiving the file. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local input file to read, resolved in the composition input context. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>target</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File path declared by the service where this configuration is supplied. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via configFiles; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "service": "api",
+  "source": "inputs/config.yaml",
+  "target": "/etc/example/config.yaml"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentEnvironment"><a class="anchor" href="#model-DeploymentEnvironment"></a>DeploymentEnvironment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provide one declared environment setting to a selected deployment service.</p>
+</div>
+<div class="paragraph">
+<p>Choose either a literal value or a secret reference, never both. An empty literal remains a deliberate value. Sensitive settings use references rather than authored secrets; omitted service selection is usable only when the executor can resolve it unambiguously.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/DeploymentEnvironment.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentEnvironment.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical deployment-service ID receiving this setting. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment-variable name declared by that service. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>value</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Literal configuration text for a non-sensitive setting.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secretRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SecretReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference to the private value supplied through an executor-supported secret store.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-SecretReference">SecretReference</a>: containment via secretRef; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via environment; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "MODE",
+  "value": ""
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentInputs"><a class="anchor" href="#model-DeploymentInputs"></a>DeploymentInputs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Supply deployment-instance choices without changing the reusable DOT definition.</p>
+</div>
+<div class="paragraph">
+<p>Inputs target configuration declared by services of the selected deployment. They do not introduce another manifest or imply permission to use undeclared environment settings, workloads, host resources or hardware. Resolution and adapter support are checked by the executor.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/DeploymentInputs.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentInputs.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>environment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of DeploymentEnvironment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service-scoped environment values or references to private values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>configFiles</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of DeploymentConfigFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local configuration files bound to declared service file destinations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>volumes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of DeploymentVolumeSource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit host storage sources bound to declared logical volume requirements.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>workloads</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ServiceWorkloadBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mappings from logical service IDs to actual Compose or Kubernetes workloads.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ociRuntime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OciRuntimeGrant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit authorization for the declared Linux capability and host-namespace requirements. conditional constraints (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cdiDevices</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of CdiDeviceBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Concrete CDI device assignments for declared logical device requirements. distinct items.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-CdiDeviceBinding">CdiDeviceBinding</a>: containment via cdiDevices; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DeploymentConfigFile">DeploymentConfigFile</a>: containment via configFiles; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DeploymentEnvironment">DeploymentEnvironment</a>: containment via environment; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DeploymentVolumeSource">DeploymentVolumeSource</a>: containment via volumes; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-OciRuntimeGrant">OciRuntimeGrant</a>: containment via ociRuntime; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-ServiceWorkloadBinding">ServiceWorkloadBinding</a>: containment via workloads; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>From <a href="#model-DotInstance">DotInstance</a>: containment via deploymentInputs; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "environment": [
+    {
+      "service": "api",
+      "name": "MODE",
+      "value": "demo"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentVolumeSource"><a class="anchor" href="#model-DeploymentVolumeSource"></a>DeploymentVolumeSource</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bind an explicit host storage source to a declared service volume.</p>
+</div>
+<div class="paragraph">
+<p>This records an operator grant, not a request to discover or create arbitrary host storage. The current executor requires a supported direct-container adapter and an absolute bind source; read-only intent comes from the declared volume requirement rather than an invented field here.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/DeploymentVolumeSource.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentVolumeSource.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical deployment-service ID whose volume is being bound. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical volume name declared by that service, not the host path. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Storage-source mechanism interpreted by the supported runtime adapter. exact value "bind"; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit host location supplied for the declared volume. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via volumes; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "service": "api",
+  "name": "data",
+  "type": "bind",
+  "source": "./data"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DotInstance"><a class="anchor" href="#model-DotInstance"></a>DotInstance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select one canonical DOT release for a named role in a composition.</p>
+</div>
+<div class="paragraph">
+<p>Use the instance name in graph references and the DOT identity for catalogue resolution. A qualified source must agree with the selected DOT metadata. Choose a deployment ID rather than a manifest-type label; dependencies express readiness order, not interface compatibility or application data flow.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/DotInstance.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DotInstance.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local name used by wires, dependencies and other instance references. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location or qualified catalogue reference from which the canonical definition is resolved. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact identity expected in the resolved DOT definition. minimum length: 1; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotVersion</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact component version expected in that definition, checked independently of the source location. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deployment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID of the deployment alternative to use from the selected DOT. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dependsOn</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Other instance names whose readiness is a prerequisite for this instance. distinct items.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deploymentInputs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentInputs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration, workload selection and explicit runtime grants for this deployment instance.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Composition">Composition</a>: containment via dots; diagram multiplicity 1..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via deploymentInputs; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="model-identity.html#model-Dot" class="xref page">Dot</a>: ID/name reference via dotId / source.</p>
+</li>
+<li>
+<p>From <a href="#model-AnchorReference">AnchorReference</a>: ID/name reference via instance.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "metrics",
+  "source": "repository://Example@1.0.0",
+  "dotId": "Example@1.0.0",
+  "dotVersion": "1.0.0",
+  "dependsOn": [
+    "identity"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ExposedAnchor"><a class="anchor" href="#model-ExposedAnchor"></a>ExposedAnchor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Give a member Anchor a stable name at the composition boundary.</p>
+</div>
+<div class="paragraph">
+<p>Exposure names an existing logical interface; it does not create an API, a public listener or an authorization policy. Forwarding, reachable addresses and live checks are explicit executor operations.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ExposedAnchor.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ExposedAnchor.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local boundary name used to refer to this exposed interface. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>target</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Member Anchor selected as the boundary interface.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Composition">Composition</a>: containment via exposedAnchors; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorReference">AnchorReference</a>: containment via target; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "api",
+  "target": {
+    "instance": "metrics",
+    "anchorId": "http-api"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-KubernetesWorkloadBinding"><a class="anchor" href="#model-KubernetesWorkloadBinding"></a>KubernetesWorkloadBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select the Kubernetes workload implementing one logical DOT service, including Helm-rendered workloads.</p>
+</div>
+<div class="paragraph">
+<p>Labels must identify the intended workload unambiguously within the deployment scope. Select a container when needed rather than relying on order. This is not a grant to adopt unrelated resources or a replacement for lifecycle ownership checks.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/KubernetesWorkloadBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/KubernetesWorkloadBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>matchLabels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Label key/value pairs used to select the workload. minimum keys: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>container</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the container within the selected workload to which service configuration applies. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-ServiceWorkloadBinding">ServiceWorkloadBinding</a>: containment via kubernetes; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "matchLabels": {
+    "app": "example"
+  },
+  "container": "api"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Materializer"><a class="anchor" href="#model-Materializer"></a>Materializer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Turn a resolved wire value or local input file into declared consumer configuration.</p>
+</div>
+<div class="paragraph">
+<p>A file destination can copy a source file or inject a resolved value at a JSON Pointer; injection couples valueFrom with that pointer. An environment destination names a declared variable and has no source file. URI templates transform the selected value, not arbitrary runtime state. These actions configure a connection; they do not translate protocols.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Materializer.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Materializer.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destination mechanism used to supply configuration to the consumer. allowed: "CONFIG_FILE", "ENVIRONMENT_VARIABLE".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local source file for a file-based materialization. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>valueFrom</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Which resolved endpoint, operation or channel value to use for injection. allowed: "ENDPOINT_URL", "OPERATION_URL", "ENDPOINT_HOST", "ENDPOINT_HOST_PORT", "ENDPOINT_PORT", "CHANNEL_ADDRESS".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uriTemplate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URI template applied to the selected value through its value variable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>target</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MaterializerTarget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact instance, service and declared configuration destination receiving the result.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-MaterializerTarget">MaterializerTarget</a>: containment via target; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-MaterializerType">MaterializerType</a>: typed association via type; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-MaterializerValueFrom">MaterializerValueFrom</a>: typed association via valueFrom; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via materializer; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via materializers; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "ENVIRONMENT_VARIABLE",
+  "valueFrom": "ENDPOINT_URL",
+  "target": {
+    "instance": "client",
+    "service": "api",
+    "environmentVariable": "API_URL"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-MaterializerTarget"><a class="anchor" href="#model-MaterializerTarget"></a>MaterializerTarget</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identify the declared consumer configuration location written by a materializer.</p>
+</div>
+<div class="paragraph">
+<p>Select fields matching the materializer destination rather than mixing file and environment targets. File paths and variable names must already be declared by the target service. The JSON Pointer addresses content inside the source configuration, not a filesystem path or a schema field.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/MaterializerTarget.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/MaterializerTarget.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition member receiving the materialized configuration. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical deployment service receiving the configuration. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declared service file destination used for file materialization. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jsonPointer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location in structured configuration where a resolved value is injected. pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>environmentVariable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declared service environment-variable name receiving the resolved value. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Materializer">Materializer</a>: containment via target; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "instance": "client",
+  "service": "api",
+  "path": "config.json",
+  "jsonPointer": "/routes/0/uri"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-MaterializerType"><a class="anchor" href="#model-MaterializerType"></a>MaterializerType</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose the consumer configuration destination for a materializer.</p>
+</div>
+<div class="paragraph">
+<p>The choice determines which source and target fields make sense together. It does not select a deployment mechanism or grant permission to modify undeclared consumer settings. Use the exact schema spelling.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/MaterializerType.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/MaterializerType.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>CONFIG_FILE</code>, <code>ENVIRONMENT_VARIABLE</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "CONFIG_FILE", "ENVIRONMENT_VARIABLE".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Materializer">Materializer</a>: typed association via type; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"CONFIG_FILE"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-MaterializerValueFrom"><a class="anchor" href="#model-MaterializerValueFrom"></a>MaterializerValueFrom</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose which resolved connection value a materializer uses.</p>
+</div>
+<div class="paragraph">
+<p>Endpoint, operation and channel values have different meanings; select the one expected by the consumer. This is not a general expression language, a secret lookup or a source of live runtime state. The schema owns the supported choices.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/MaterializerValueFrom.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/MaterializerValueFrom.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>ENDPOINT_URL</code>, <code>OPERATION_URL</code>, <code>ENDPOINT_HOST</code>, <code>ENDPOINT_HOST_PORT</code>, <code>ENDPOINT_PORT</code>, <code>CHANNEL_ADDRESS</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "ENDPOINT_URL", "OPERATION_URL", "ENDPOINT_HOST", "ENDPOINT_HOST_PORT", "ENDPOINT_PORT", "CHANNEL_ADDRESS".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Materializer">Materializer</a>: typed association via valueFrom; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"ENDPOINT_URL"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-NetworkBinding"><a class="anchor" href="#model-NetworkBinding"></a>NetworkBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Declare an existing gateway through which a wire crosses runtime boundaries.</p>
+</div>
+<div class="paragraph">
+<p>The operator supplies reachability; the executor does not provision the gateway, change host routing or turn a logical wire into connectivity. The declaration is separate from active reachability and Contract checks.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/NetworkBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/NetworkBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>adapter</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-runtime connection strategy understood by the executor. exact value "EXTERNAL_GATEWAY"; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>host</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gateway host reachable from the consuming runtime, without a URL scheme or path. minimum length: 1; maximum length: 253; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gateway listener port corresponding to the selected endpoint. minimum: 1; maximum: 65535.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via network; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "adapter": "EXTERNAL_GATEWAY",
+  "host": "gateway.example.org",
+  "port": 443
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-OciRuntimeGrant"><a class="anchor" href="#model-OciRuntimeGrant"></a>OciRuntimeGrant</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Authorize the Linux runtime privileges explicitly declared by a selected deployment.</p>
+</div>
+<div class="paragraph">
+<p>A declaration of elevated requirements is not permission to grant them. The executor checks the exact grant against the DOT requirements and rejects unsupported adapters or mismatches; this is not an unrestricted privileged-container switch.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/OciRuntimeGrant.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/OciRuntimeGrant.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>capabilities</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux capabilities the operator explicitly permits for the selected workload. distinct items.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hostNamespaces</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host namespaces whose inheritance the operator explicitly permits. distinct items.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via ociRuntime; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="model-deployment.html#model-OciLinuxNamespace" class="xref page">OciLinuxNamespace</a>: typed association via hostNamespaces; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "capabilities": [
+    "CAP_NET_RAW"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-OperationParameterBinding"><a class="anchor" href="#model-OperationParameterBinding"></a>OperationParameterBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Supply one named operation or channel parameter on a wire.</p>
+</div>
+<div class="paragraph">
+<p>The containing map supplies the parameter name; this object supplies its value. The executor checks it against the selected Contract operation. Do not use operation parameters as a substitute for secret references or undeclared deployment configuration.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/OperationParameterBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/OperationParameterBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>value</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Text used to bind the named parameter while resolving the operation or channel. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via parameters; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "value": "demo"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-SecretReference"><a class="anchor" href="#model-SecretReference"></a>SecretReference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identify a private value without storing that value in the composition.</p>
+</div>
+<div class="paragraph">
+<p>A reference is not the credential itself and does not imply that every store or adapter is supported. The executor applies store-specific lookup and native-reference rules; keep resolved values out of authored documents, locks and public evidence.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/SecretReference.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/SecretReference.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>store</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secret-store mechanism used to interpret the reference. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secret object or private input name within that store. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Entry within the named secret where the selected store needs one.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Store-specific secret revision selector, not a DOT or composition version.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="model-probes.html#model-AsyncAPIProbeAuthentication" class="xref page">AsyncAPIProbeAuthentication</a>: containment via passwordSecretRef; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="#model-DeploymentEnvironment">DeploymentEnvironment</a>: containment via secretRef; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "store": "env",
+  "name": "DEMO_PASSWORD"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-SecurityBinding"><a class="anchor" href="#model-SecurityBinding"></a>SecurityBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Explain how one required Contract security scheme is supplied by a consuming service.</p>
+</div>
+<div class="paragraph">
+<p>The executor checks the scheme against the selected operation and the mechanism against its supported security profile. Credential parameters refer to declared configuration on the consuming instance, not a new identity provider or literal token. Declared scopes do not by themselves prove that access was granted.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/SecurityBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/SecurityBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scheme</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security-scheme name declared by the selected Contract operation. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mechanism</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Executor-supported authentication mechanism used to satisfy that scheme. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>participant</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ServiceReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consuming instance and logical service whose declared inputs supply the credentials.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>parameters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map of SecurityParameterBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mechanism-specific parameter names mapped to declared service environment settings. minimum keys: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scopes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requested scope names used when satisfying the Contract security requirement. distinct items.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-SecurityParameterBinding">SecurityParameterBinding</a>: containment via parameters; diagram multiplicity 1..*.</p>
+</li>
+<li>
+<p>To <a href="#model-ServiceReference">ServiceReference</a>: containment via participant; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="#model-WireSecurity">WireSecurity</a>: containment via bindings; diagram multiplicity 1..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "scheme": "bearer",
+  "mechanism": "HTTP_BEARER",
+  "participant": {
+    "instance": "client",
+    "service": "api"
+  },
+  "parameters": {
+    "token": {
+      "environmentVariable": "DEMO_TOKEN"
+    }
+  },
+  "scopes": [
+    "read"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-SecurityParameterBinding"><a class="anchor" href="#model-SecurityParameterBinding"></a>SecurityParameterBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connect one authentication parameter to a declared service environment setting.</p>
+</div>
+<div class="paragraph">
+<p>The containing security binding determines what the parameter means. This object identifies where its value is configured; sensitive values must still be supplied through the proper private input path rather than embedded here.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/SecurityParameterBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/SecurityParameterBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>environmentVariable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declared variable on the participant service supplying this authentication parameter. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-SecurityBinding">SecurityBinding</a>: containment via parameters; diagram multiplicity 1..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "environmentVariable": "DEMO_TOKEN"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ServicePortReference"><a class="anchor" href="#model-ServicePortReference"></a>ServicePortReference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select a declared service port used as a concrete wire endpoint.</p>
+</div>
+<div class="paragraph">
+<p>The port field is a named service-port key, not a numeric port or URL. Endpoint selection may identify broker transport separately from the logical message producer; the executor checks the selected endpoint against the wire and deployment.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ServicePortReference.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ServicePortReference.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition member supplying the endpoint service. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical deployment service supplying the endpoint. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declared port name on that service. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via endpoint; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "instance": "metrics",
+  "service": "api",
+  "port": "http"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ServiceReference"><a class="anchor" href="#model-ServiceReference"></a>ServiceReference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identify a logical service on a composition member.</p>
+</div>
+<div class="paragraph">
+<p>Service identities come from the selected deployment, not from runtime container or Pod names. Java checks graph membership; the executor additionally resolves the service against the chosen DOT deployment.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ServiceReference.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ServiceReference.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition member containing the service. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical service ID within that member deployment. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-SecurityBinding">SecurityBinding</a>: containment via participant; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "instance": "metrics",
+  "service": "api"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ServiceWorkloadBinding"><a class="anchor" href="#model-ServiceWorkloadBinding"></a>ServiceWorkloadBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Map a logical deployment service to the workload that actually materializes it.</p>
+</div>
+<div class="paragraph">
+<p>Select one workload mechanism for the deployment in use. The outer service is a DOT service ID; the nested selector names runtime objects. This distinction is essential for multi-service manifests and prevents the executor from guessing or operating on an unrelated workload.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ServiceWorkloadBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ServiceWorkloadBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical service ID in the selected deployment. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ComposeWorkloadBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selector for the Compose service implementing that logical service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>kubernetes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">KubernetesWorkloadBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selector for the Kubernetes workload and, where necessary, its container.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via workloads; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-ComposeWorkloadBinding">ComposeWorkloadBinding</a>: containment via compose; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-KubernetesWorkloadBinding">KubernetesWorkloadBinding</a>: containment via kubernetes; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "service": "api",
+  "compose": {
+    "service": "server"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Wire"><a class="anchor" href="#model-Wire"></a>Wire</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connect a provided Anchor to a required Anchor and declare how the consumer receives its connection details.</p>
+</div>
+<div class="paragraph">
+<p>The arrow expresses logical provision, not necessarily packet direction. Parameter, endpoint, security and materializer choices must agree with the resolved interfaces. Use the singular or plural materializer form, not both. A compatible declaration or configured connection is not proof of network reachability or a successful live operation.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Wire.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Wire.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local name used to identify this connection and select its probe. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>from</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider-side Anchor reference.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>to</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consumer-side Anchor reference.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>parameters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map of OperationParameterBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named values used to bind parameters of the selected operation or channel. minimum keys: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>endpoint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ServicePortReference</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit service-port endpoint when the wire needs one instead of the inferred binding.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>network</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetworkBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Externally supplied gateway address for a cross-runtime connection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>materializer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Materializer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single consumer-configuration action for this wire. conditional constraints (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>materializers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of Materializer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Several consumer-configuration actions derived from this same wire. minimum items: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>security</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WireSecurity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bindings connecting Contract security requirements to declared consumer credential inputs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>probe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WireProbe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional protocol-specific fixture for a supported active Contract check. minimum keys: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Composition">Composition</a>: containment via wires; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorReference">AnchorReference</a>: containment via from; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorReference">AnchorReference</a>: containment via to; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-Materializer">Materializer</a>: containment via materializer; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-Materializer">Materializer</a>: containment via materializers; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-NetworkBinding">NetworkBinding</a>: containment via network; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-OperationParameterBinding">OperationParameterBinding</a>: containment via parameters; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-ServicePortReference">ServicePortReference</a>: containment via endpoint; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="model-probes.html#model-WireProbe" class="xref page">WireProbe</a>: containment via probe; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-WireSecurity">WireSecurity</a>: containment via security; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "api",
+  "from": {
+    "instance": "provider",
+    "anchorId": "http-api"
+  },
+  "to": {
+    "instance": "consumer",
+    "anchorId": "http-api"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-WireSecurity"><a class="anchor" href="#model-WireSecurity"></a>WireSecurity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bind security requirements of the selected Contract operation to consumer inputs.</p>
+</div>
+<div class="paragraph">
+<p>Bindings must satisfy a supported complete security requirement alternative, not merely name a familiar authentication technology. Resolution checks declarations; successful authentication, authorization and policy behavior require separate live evidence.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/WireSecurity.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/WireSecurity.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bindings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of SecurityBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security-scheme bindings participating in this wire authentication configuration. minimum items: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-SecurityBinding">SecurityBinding</a>: containment via bindings; diagram multiplicity 1..*.</p>
+</li>
+<li>
+<p>From <a href="#model-Wire">Wire</a>: containment via security; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "bindings": [
+    {
+      "scheme": "bearer",
+      "mechanism": "HTTP_BEARER",
+      "participant": {
+        "instance": "client",
+        "service": "api"
+      },
+      "parameters": {
+        "token": {
+          "environmentVariable": "DEMO_TOKEN"
+        }
+      }
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="model-deployment.html">Runtimes and deployment</a></span>
+  <span class="next"><a href="model-probes.html">Probes and assertions</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

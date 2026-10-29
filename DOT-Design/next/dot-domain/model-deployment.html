@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Runtimes, deployment and configuration :: MARE DOT-Design</title>
+    <link rel="prev" href="model-interfaces.html">
+    <link rel="next" href="model-composition.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../dot-design/index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.3.0/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../dot-design/index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../dot-design/index.html">DOT-Design</a></li>
+    <li>DOT-Domain</li>
+    <li><a href="model-reference.html">Complete model reference</a></li>
+    <li><a href="model-deployment.html">Runtimes and deployment</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="model-deployment.html">Next</a>
+    <a class="version is-missing" href="../../0.3.0/dot-design/index.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Runtimes, deployment and configuration</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="model-reference.html" class="xref page">How to read this reference</a> explains full objects versus ID-only views, conditional fields and validation boundaries.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-AnchorBinding"><a class="anchor" href="#model-AnchorBinding"></a>AnchorBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Maps a logical DOT Anchor to a named port of one deployment service.</p>
+</div>
+<div class="paragraph">
+<p>Use an exact Anchor ID from the same DOT and an existing port name on the containing service. The binding connects logical interface selection to deployment structure; it does not contain a URL, credentials or a host-port publication rule.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/AnchorBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact DOT-local Anchor identifier being materialized. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the containing service port, not its numeric port value. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentService">DeploymentService</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-Anchor" class="xref page">Anchor</a>: ID/name reference via anchorId.</p>
+</li>
+<li>
+<p>To <a href="#model-ServicePort">ServicePort</a>: ID/name reference via port.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "anchorId": "build-information",
+  "port": "http"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-CdiDeviceRequirement"><a class="anchor" href="#model-CdiDeviceRequirement"></a>CdiDeviceRequirement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Declares a service&#8217;s need for a device exposed through the Container Device Interface.</p>
+</div>
+<div class="paragraph">
+<p>The DOT names a logical requirement and device kind, not a host device path or a concrete allocated device. Deployment inputs bind a fully qualified device of the matching kind. Device allocation, CDI specification installation and authorization remain operator or orchestrator responsibilities.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/cdi/CdiDeviceRequirement.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/CdiDeviceRequirement.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An explanation of why the service needs this device.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>kind</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CDI vendor/class identity that a supplied device must match. minimum length: 1; maximum length: 317; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The service-local logical identifier used when binding a concrete device. minimum length: 1; maximum length: 63; pattern restrictions (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via cdiDevices; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "gpu",
+  "kind": "vendor.example/gpu"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ConfigFile"><a class="anchor" href="#model-ConfigFile"></a>ConfigFile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Documents a configuration file expected by a service.</p>
+</div>
+<div class="paragraph">
+<p>The path is the destination inside the workload, not a source file on the operator&#8217;s machine. The declaration does not create a mount or generated file. Instance inputs provide replacement content; sensitive files must not embed reusable default content.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/ConfigFile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ConfigFile.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contentType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The media type describing how the file content should be interpreted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultContent</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable non-sensitive content available when no instance replacement is supplied.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An explanation of the file&#8217;s role.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The destination path where the workload expects the configuration file. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>required</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether content must be supplied when the declaration provides none.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensitive</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether tooling must protect the file content as sensitive information.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via configFiles; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "path": "/etc/example/config.yaml",
+  "defaultContent": "enabled: true"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Deployment"><a class="anchor" href="#model-Deployment"></a>Deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Describes one selectable deployment mechanism and the logical services it materializes.</p>
+</div>
+<div class="paragraph">
+<p>The manifest is the complete deployment input, not a pointer to arbitrary files beside dot.json. Keep service IDs distinct within the deployment and select the deployment explicitly. Configuration belongs to each service, while instance names, live state and lifecycle ownership belong to the executor.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/Deployment.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Deployment.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The stable name used to select this deployment alternative. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>manifest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DockerImage or DockerCompose or KubernetesManifest or HelmChart or Vagrantfile or WebAssemblyModule</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The platform-specific specification used to create the workload. conditional constraints (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>services</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of DeploymentService</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The logical services supplied by this particular deployment.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-DeploymentService">DeploymentService</a>: containment via services; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DeploymentManifest">DeploymentManifest</a>: containment via manifest; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="#model-Runtime">Runtime</a>: containment via deployments; diagram multiplicity 1..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "image",
+  "manifest": {
+    "type": "DOCKER_IMAGE",
+    "image": "docker.io/example/api:1.0.0"
+  },
+  "services": []
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentConfig"><a class="anchor" href="#model-DeploymentConfig"></a>DeploymentConfig</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Declares the configuration options and execution requirements supported by one service.</p>
+</div>
+<div class="paragraph">
+<p>This is not a bag of applied operator values. Keep environment names, configuration paths, volume names and paths, and CDI requirement names unambiguous within the service; separate services can reuse those keys. Instance inputs supply overrides, storage bindings and secrets. Requirements never grant privileges by themselves.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/DeploymentConfig.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentConfig.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cdiDevices</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of CdiDeviceRequirement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical requirements for devices supplied through CDI.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>configFiles</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ConfigFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration files the service can consume, with any reusable non-sensitive content.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>environment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of EnvironmentVariable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment options understood by the service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ociRuntime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OciRuntimeRequirements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional container capabilities or host-namespace requirements needing explicit authorization.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>volumes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of VolumeMount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical mount points expected by the service.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentService">DeploymentService</a>: containment via config; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-ConfigFile">ConfigFile</a>: containment via configFiles; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-EnvironmentVariable">EnvironmentVariable</a>: containment via environment; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-VolumeMount">VolumeMount</a>: containment via volumes; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-CdiDeviceRequirement">CdiDeviceRequirement</a>: containment via cdiDevices; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-OciRuntimeRequirements">OciRuntimeRequirements</a>: containment via ociRuntime; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "environment": [],
+  "configFiles": [],
+  "volumes": [],
+  "cdiDevices": []
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentManifest"><a class="anchor" href="#model-DeploymentManifest"></a>DeploymentManifest</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provides the common base for concrete deployment specifications.</p>
+</div>
+<div class="paragraph">
+<p>The existing type property selects the concrete manifest shape; it is not a second infrastructure selector. Supply the fields of that concrete manifest. Domain validation does not execute a payload, fetch a chart or establish deployment success.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/DeploymentManifest.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentManifest.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Manifest alternatives:</strong> <a href="#model-DockerImage">DockerImage</a>, <a href="#model-DockerCompose">DockerCompose</a>, <a href="#model-KubernetesManifest">KubernetesManifest</a>, <a href="#model-HelmChart">HelmChart</a>, <a href="#model-Vagrantfile">Vagrantfile</a>, <a href="#model-WebAssemblyModule">WebAssemblyModule</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator identifying how this manifest is deployed. conditional constraints (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-DockerCompose">DockerCompose</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-DockerImage">DockerImage</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-HelmChart">HelmChart</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-KubernetesManifest">KubernetesManifest</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-Vagrantfile">Vagrantfile</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-WebAssemblyModule">WebAssemblyModule</a>: inheritance.</p>
+</li>
+<li>
+<p>From <a href="#model-Deployment">Deployment</a>: containment via manifest; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-DeploymentManifestType">DeploymentManifestType</a>: typed association via type; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "DOCKER_IMAGE",
+  "image": "docker.io/example/api:1.0.0"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentManifestType"><a class="anchor" href="#model-DeploymentManifestType"></a>DeploymentManifestType</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Names how a workload is deployed and links that mechanism to its target platform.</p>
+</div>
+<div class="paragraph">
+<p>Do not substitute this value for Platform.engine. The manifest subtype and its type must agree, and its target platform must match the enclosing runtime. Executor capabilities and installed tools remain separate from this model vocabulary.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/DeploymentManifestType.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentManifestType.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>DOCKER_IMAGE</code>, <code>DOCKER_COMPOSE</code>, <code>KUBERNETES_MANIFEST</code>, <code>HELM_CHART</code>, <code>VAGRANTFILE</code>, <code>WASM_MODULE</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "DOCKER_IMAGE", "DOCKER_COMPOSE", "KUBERNETES_MANIFEST", "HELM_CHART", "VAGRANTFILE", "WASM_MODULE".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-PlatformEngine">PlatformEngine</a>: typed association via platform; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: typed association via type; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"DOCKER_IMAGE"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DeploymentService"><a class="anchor" href="#model-DeploymentService"></a>DeploymentService</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Describes a logical service provided by one deployment, including its interfaces and configuration surface.</p>
+</div>
+<div class="paragraph">
+<p>Use stable service IDs for composition inputs and named ports for Anchor bindings. Contract entries are identity references, not copied declarations; their origin must resolve through the DOT interfaces. A logical service is not a native workload selector, and its host is not a promised public endpoint.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/DeploymentService.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentService.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The stable service identifier within its deployment. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The readable name of the service. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>host</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The host by which the service is reached inside the deployment. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ports</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ServicePort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named service ports that can be selected by Anchor bindings.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of Contract (ID reference)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID-only references to the interfaces exposed or consumed by this service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorBindings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of AnchorBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mappings from this DOT&#8217;s logical Anchors to the service&#8217;s named ports.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>config</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentConfig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The environment, files, storage and execution requirements supported by this service.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="model-interfaces.html#model-Contract" class="xref page">Contract</a>: ID/name reference via contracts (ref); diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorBinding">AnchorBinding</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-ServicePort">ServicePort</a>: containment via ports; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via config; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="#model-Deployment">Deployment</a>: containment via services; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "api",
+  "name": "API",
+  "host": "api",
+  "ports": [],
+  "contracts": [],
+  "config": {
+    "environment": [],
+    "configFiles": [],
+    "volumes": [],
+    "cdiDevices": []
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DockerCompose"><a class="anchor" href="#model-DockerCompose"></a>DockerCompose</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Embeds a complete Docker Compose document for a multi-container deployment.</p>
+</div>
+<div class="paragraph">
+<p>The payload, not a compose file beside dot.json, defines the deployment. Its declared format must be supported for Compose documents. Ordered environment-file payloads follow Compose precedence; instance overrides remain separate. Logical services and any native workload selection must agree with the selected deployment.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/docker/DockerCompose.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DockerCompose.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Docker Compose manifest. exact value "DOCKER_COMPOSE".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the embedded Compose document. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The complete Compose document content. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>envFiles</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of EnvFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ordered environment-file payloads applied to the Compose invocation.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-EnvFile">EnvFile</a>: containment via envFiles; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "DOCKER_COMPOSE",
+  "format": "YAML",
+  "payload": "services: {}"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DockerImage"><a class="anchor" href="#model-DockerImage"></a>DockerImage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Runs a pre-built container image as a Docker deployment alternative.</p>
+</div>
+<div class="paragraph">
+<p>Reference a published image rather than expecting the CLI to build a nearby Dockerfile. Ordered environment-file payloads provide reusable defaults; later files and explicit instance environment values take precedence. Expose user-facing configuration through each logical service rather than adding deployment-level overrides to the model.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/docker/DockerImage.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DockerImage.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Docker image manifest. exact value "DOCKER_IMAGE".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DockerImageTag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The compact image reference to pull and run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>envFiles</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of EnvFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ordered Docker-compatible environment-file payloads for reusable manifest defaults.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-DockerImageTag">DockerImageTag</a>: containment via image; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-EnvFile">EnvFile</a>: containment via envFiles; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "DOCKER_IMAGE",
+  "image": "docker.io/example/api:1.0.0"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DockerImageTag"><a class="anchor" href="#model-DockerImageTag"></a>DockerImageTag</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Represents a container image tag as a compact JSON string.</p>
+</div>
+<div class="paragraph">
+<p>Although Java exposes registry, image and version components, JSON uses one image-reference string, not an object containing those fields. The Java parser is tag-based and rejects digest references. Image-reference parsing alone does not verify registry availability, artifact integrity or executor support.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/docker/DockerImageTag.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DockerImageTag.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string.</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DockerImage">DockerImage</a>: containment via image; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"docker.io/example/api:1.0.0"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-EnvFile"><a class="anchor" href="#model-EnvFile"></a>EnvFile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Stores reusable Docker-compatible environment-file content inside a manifest.</p>
+</div>
+<div class="paragraph">
+<p>Use line-oriented dotenv content rather than a path to an adjacent file. The containing manifest determines ordering and override precedence. Keep deployment-instance values and credentials out of this reusable payload; EnvFile is not a secret reference.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/docker/EnvFile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/EnvFile.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The environment-file content passed to the Docker or Compose invocation. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DockerCompose">DockerCompose</a>: containment via envFiles; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>From <a href="#model-DockerImage">DockerImage</a>: containment via envFiles; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "payload": "MODE=demo"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-EnvironmentVariable"><a class="anchor" href="#model-EnvironmentVariable"></a>EnvironmentVariable</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Documents an environment option accepted by a service.</p>
+</div>
+<div class="paragraph">
+<p>The declaration explains the option; deployment inputs provide the applied value. A reusable default can be used when there is no override, but a sensitive option must not embed a default. Marking a value sensitive is not encryption or a substitute for secret provisioning.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/EnvironmentVariable.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/EnvironmentVariable.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultValue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable non-sensitive text available when no instance override is supplied.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An explanation of what the option controls.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The environment variable name consumed by the workload. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>required</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether the deployer must supply a value when the declaration provides none.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensitive</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether tooling must treat values for this option as sensitive.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via environment; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "MODE",
+  "defaultValue": "demo"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-HelmChart"><a class="anchor" href="#model-HelmChart"></a>HelmChart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>References a Helm chart and preserves its reusable chart-level values.</p>
+</div>
+<div class="paragraph">
+<p>Keep chart version separate from the represented tool release. The chart reference can use a repository or a self-contained OCI reference; an environment alias needs to be available where deployment runs. Values are ordered, with later entries overriding earlier ones. Release name and namespace are instance concerns, while service-facing configuration belongs on DeploymentService.config.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/helm/HelmChart.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/HelmChart.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>chart</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The chart name or self-contained chart reference. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>repository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The chart repository URL when the chart reference needs one. pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting a Helm chart deployment. exact value "HELM_CHART".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>values</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of HelmValues</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ordered Helm values documents merged for chart rendering and installation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The chart version selector, not the application&#8217;s software version. pattern restrictions (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="model-identity.html#model-Version" class="xref page">Version</a>: containment via version; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-HelmValues">HelmValues</a>: containment via values; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "HELM_CHART",
+  "chart": "example/api",
+  "version": "1.0.0",
+  "values": [
+    {
+      "format": "YAML",
+      "payload": "replicas: 1"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-HelmValues"><a class="anchor" href="#model-HelmValues"></a>HelmValues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Carries one values document for a Helm chart&#8217;s template configuration.</p>
+</div>
+<div class="paragraph">
+<p>Use this for chart-level settings such as resource configuration or persistence, rather than inventing extra portable model fields. The document format must be supported by Helm values validation. The containing chart controls merge order; supported environment, file and mount options still belong in service configuration.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/helm/HelmValues.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/HelmValues.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of this values document. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The chart values content, equivalent to one values-file input. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-HelmChart">HelmChart</a>: containment via values; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "format": "YAML",
+  "payload": "replicas: 1"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-KubernetesManifest"><a class="anchor" href="#model-KubernetesManifest"></a>KubernetesManifest</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Embeds the Kubernetes resource documents used by a deployment.</p>
+</div>
+<div class="paragraph">
+<p>The payload is the reusable deployment authority, not an instruction to scan adjacent manifest files. Native resource syntax, tool readiness and live rollout are executor concerns beyond the domain&#8217;s format checks. Do not confuse a logical service with the exact workload that an instance must select.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/k8s/KubernetesManifest.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/KubernetesManifest.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the embedded Kubernetes documents. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Kubernetes resource document content applied by the adapter. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Kubernetes manifest deployment. exact value "KUBERNETES_MANIFEST".</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "KUBERNETES_MANIFEST",
+  "format": "YAML",
+  "payload": "apiVersion: v1"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-OciLinuxNamespace"><a class="anchor" href="#model-OciLinuxNamespace"></a>OciLinuxNamespace</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identifies a Linux namespace type in OCI execution requirements.</p>
+</div>
+<div class="paragraph">
+<p>In hostNamespaces, this value requests sharing that namespace with the host, not creating a new isolated namespace. The serialized spelling follows OCI vocabulary. A model value is not permission to grant access, nor a guarantee of support by every adapter.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/oci/OciLinuxNamespace.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/OciLinuxNamespace.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>pid</code>, <code>network</code>, <code>mount</code>, <code>ipc</code>, <code>uts</code>, <code>user</code>, <code>cgroup</code>, <code>time</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "pid", "network", "mount", "ipc", "uts", "user", "cgroup", "time".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="model-composition.html#model-OciRuntimeGrant" class="xref page">OciRuntimeGrant</a>: typed association via hostNamespaces; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>From <a href="#model-OciRuntimeRequirements">OciRuntimeRequirements</a>: typed association via hostNamespaces; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"pid"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-OciRuntimeRequirements"><a class="anchor" href="#model-OciRuntimeRequirements"></a>OciRuntimeRequirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Declares additional Linux-container execution requirements using OCI vocabulary.</p>
+</div>
+<div class="paragraph">
+<p>These are requests, not grants or unrestricted privileged mode. Compositions must explicitly authorize the declared set, and an adapter must fail closed when it cannot materialize the request. Duplicate declarations are rejected rather than silently removed during collection conversion.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/oci/OciRuntimeRequirements.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/OciRuntimeRequirements.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>capabilities</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional Linux process capabilities needed by the workload. distinct items.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hostNamespaces</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of OciLinuxNamespace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace types that the workload needs to share with the host instead of isolating. distinct items.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via ociRuntime; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-OciLinuxNamespace">OciLinuxNamespace</a>: typed association via hostNamespaces; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "capabilities": [
+    "CAP_NET_RAW",
+    "CAP_NET_ADMIN"
+  ],
+  "hostNamespaces": [
+    "network",
+    "pid"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Platform"><a class="anchor" href="#model-Platform"></a>Platform</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identifies the infrastructure targeted by a runtime, independently of its deployment mechanism.</p>
+</div>
+<div class="paragraph">
+<p>Keep the platform version separate from the software release and chart version. Java construction defaults the engine to Kubernetes and the platform version to latest; those defaults do not waive required raw JSON properties. A platform declaration does not install the infrastructure or prove that its tools are available; the deployment environment resolves version selectors and checks readiness.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/runtime/platform/Platform.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Platform.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>engine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PlatformEngine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The infrastructure engine that hosts the workload. allowed: "DOCKER", "KUBERNETES", "VAGRANT", "WEBASSEMBLY".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The platform or runtime version selector, not the deployed product version. pattern restrictions (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Runtime">Runtime</a>: containment via platform; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="model-identity.html#model-Version" class="xref page">Version</a>: containment via version; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-PlatformEngine">PlatformEngine</a>: typed association via engine; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "engine": "DOCKER",
+  "version": "latest"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-PlatformEngine"><a class="anchor" href="#model-PlatformEngine"></a>PlatformEngine</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Names where a workload runs.</p>
+</div>
+<div class="paragraph">
+<p>Use this infrastructure vocabulary on Platform. It is different from the manifest mechanism: multiple deployment mechanisms can target the same engine. An engine value does not promise that the current executor supports every operation on that platform.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/runtime/platform/PlatformEngine.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/PlatformEngine.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>DOCKER</code>, <code>KUBERNETES</code>, <code>VAGRANT</code>, <code>WEBASSEMBLY</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "DOCKER", "KUBERNETES", "VAGRANT", "WEBASSEMBLY".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentManifestType">DeploymentManifestType</a>: typed association via platform; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="#model-Platform">Platform</a>: typed association via engine; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"DOCKER"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Runtime"><a class="anchor" href="#model-Runtime"></a>Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Groups the deployment alternatives for one infrastructure platform inside a DOT.</p>
+</div>
+<div class="paragraph">
+<p>Choose a deployment from this group rather than treating every entry as a workload to start. Deployment IDs must be distinct within the runtime, and every manifest must target the runtime platform. This declaration is not a running instance or a readiness report.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/runtime/Runtime.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Runtime.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>platform</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The infrastructure on which these deployment alternatives can run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deployments</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named ways to deploy this DOT on the selected platform. minimum items: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="model-identity.html#model-Dot" class="xref page">Dot</a>: containment via runtimes; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-Deployment">Deployment</a>: containment via deployments; diagram multiplicity 1..*.</p>
+</li>
+<li>
+<p>To <a href="#model-Platform">Platform</a>: containment via platform; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "platform": {
+    "engine": "DOCKER",
+    "version": "latest"
+  },
+  "deployments": [
+    {
+      "id": "image",
+      "manifest": {
+        "type": "DOCKER_IMAGE",
+        "image": "docker.io/example/api:1.0.0"
+      },
+      "services": []
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ServicePort"><a class="anchor" href="#model-ServicePort"></a>ServicePort</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Names a service endpoint port so interfaces can bind to it without copying runtime addresses.</p>
+</div>
+<div class="paragraph">
+<p>Port names must be distinct within the service and must match AnchorBinding.port exactly. A protocol label describes the endpoint; it does not itself supply an API Contract or authorize a probe. Host forwarding and externally reachable addresses are deployment-instance concerns.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/ServicePort.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ServicePort.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The logical port name used by bindings and references. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocol</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application or transport protocol label for this endpoint. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The numeric port exposed by the service inside its deployment. minimum: 1; maximum: 65535.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentService">DeploymentService</a>: containment via ports; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>From <a href="#model-AnchorBinding">AnchorBinding</a>: ID/name reference via port.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "http",
+  "protocol": "TCP",
+  "port": 8080
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Vagrantfile"><a class="anchor" href="#model-Vagrantfile"></a>Vagrantfile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Embeds the complete Vagrantfile used to provision a virtual-machine deployment.</p>
+</div>
+<div class="paragraph">
+<p>The payload is Ruby DSL, not a separately structured box declaration or an adjacent-file lookup. Review its provisioning, mounts and networking before execution. Service configuration and instance overrides remain separate; merely validating the declaration does not run or certify the virtual machine.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/vagrant/Vagrantfile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Vagrantfile.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The complete Vagrantfile program supplied to Vagrant. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Vagrant deployment. exact value "VAGRANTFILE".</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "VAGRANTFILE",
+  "payload": "Vagrant.configure('2') {}"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-VolumeMount"><a class="anchor" href="#model-VolumeMount"></a>VolumeMount</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Declares a logical storage mount expected by a service.</p>
+</div>
+<div class="paragraph">
+<p>Keep the logical name and workload destination separate from a host bind path, named volume or persistent-volume claim. The instance supplies the concrete source and authorization. A declared read-only expectation must be enforceable by the selected adapter; it is not a storage allocation or a cleanup policy.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/VolumeMount.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/VolumeMount.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An explanation of the expected contents or use of the mount.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The logical identifier used to bind storage to this mount. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The destination path inside the workload. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>readOnly</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether the workload expects read-only access to this mount.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>required</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether the deployer must provide a concrete storage source.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via volumes; diagram multiplicity 0..*.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "data",
+  "path": "/var/lib/example",
+  "readOnly": false
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-WebAssemblyExecution"><a class="anchor" href="#model-WebAssemblyExecution"></a>WebAssemblyExecution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Selects the WASI execution world expected by a WebAssembly artifact.</p>
+</div>
+<div class="paragraph">
+<p>Match the artifact&#8217;s implemented world to the intended command or HTTP service behavior. Command arguments and HTTP service ports have different executor rules. This selector is not a generic promise to run every WebAssembly component or provide unrestricted operating-system access.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/wasm/WebAssemblyExecution.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/WebAssemblyExecution.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>WASI_CLI</code>, <code>WASI_HTTP</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "WASI_CLI", "WASI_HTTP".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-WebAssemblyModule">WebAssemblyModule</a>: typed association via execution; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"WASI_CLI"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-WebAssemblyModule"><a class="anchor" href="#model-WebAssemblyModule"></a>WebAssemblyModule</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>References exact WebAssembly bytes and the WASI execution world used to run them.</p>
+</div>
+<div class="paragraph">
+<p>Keep the module location and checksum together so the adapter can verify bytes before execution. The standard adapter supports local/file and HTTPS locations, and command arguments apply only to CLI execution. Service-declared configuration, explicit directory preopens and adapter support determine available resources; choosing a world does not grant arbitrary host access.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/wasm/WebAssemblyModule.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/WebAssemblyModule.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>arguments</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arguments passed to the CLI command after the module path.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>execution</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WebAssemblyExecution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The WASI world used to invoke the artifact. allowed: "WASI_CLI", "WASI_HTTP".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>module</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The location from which the adapter obtains the module or component. minimum length: 1; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sha256</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lower-case SHA-256 pin of the exact artifact bytes. minimum length: 1; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the WebAssembly deployment. exact value "WASM_MODULE".</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-WebAssemblyExecution">WebAssemblyExecution</a>: typed association via execution; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "WASM_MODULE",
+  "module": "module.wasm",
+  "execution": "WASI_CLI",
+  "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "arguments": []
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="model-interfaces.html">Contracts and Anchors</a></span>
+  <span class="next"><a href="model-composition.html">Compositions and connections</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

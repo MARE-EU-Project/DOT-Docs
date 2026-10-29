@@ -6,7 +6,7 @@
     <title>DOT-Domain model :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.3.0/dot-domain/index.html">
     <link rel="prev" href="../dot-design/release-notes.html">
-    <link rel="next" href="../dot-cli/index.html">
+    <link rel="next" href="model-reference.html">
     <meta name="description" content="Java domain models for reusable DOT definitions, Contracts, Anchors, deployments, and separate multi-DOT Compositions.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -145,6 +145,27 @@
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -349,8 +370,15 @@ or ORM annotations; persistence is an adapter concern.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_complete_mermaid_model_reference_for_deliverables"><a class="anchor" href="#_complete_mermaid_model_reference_for_deliverables"></a>Complete Mermaid model reference for deliverables</h2>
+<h2 id="_model_overview_and_complete_reference"><a class="anchor" href="#_model_overview_and_complete_reference"></a>Model overview and complete reference</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Use the <a href="model-reference.html" class="xref page">complete model reference</a> for every public
+type&#8217;s purpose, fields, relationships, validation boundaries and JSON example.
+It is organized into five chapters and available as a
+<a href="_attachments/dot-domain-reference.pdf" class="xref attachment">comprehensive A4 PDF</a>. The README stays
+a short entry point; these chapters provide the detailed reference.</p>
+</div>
 <div class="paragraph">
 <p>The <a href="_attachments/dot-domain-a4.pdf" class="xref attachment">A4 landscape reference sheet</a> combines a
 readable core class diagram with an inventory of every exported public model
@@ -462,10 +490,10 @@ composition inputs and all 128 materializer field combinations. These checks
 do not establish independent adoption or live producer acceptance.</p>
 </div>
 <div class="paragraph">
-<p>The <code>0.3.0-rc.1</code> candidate freezes the reviewed portable model surface, not a
+<p>The <code>0.3.0</code> baseline preserves the reviewed portable model surface, not a
 permanent 1.0 API guarantee. <code>DOT-Domain/MODEL-SPEC.md</code> records the cross-model
 invariant review and validation boundaries. The reproducible, checksummed
-<code>dot-domain-models-0.3.0-rc.1.tar.gz</code> release asset contains all 77 exported
+<code>dot-domain-models-0.3.0.tar.gz</code> release asset contains all 77 exported
 schemas and shared compatibility corpora. Publication and full runtime
 qualification remain separate release gates.</p>
 </div>
@@ -768,7 +796,9 @@ to <code>AnchorValidator</code>. It rejects:</p>
 <p>duplicate Anchor IDs within one DOT;</p>
 </li>
 <li>
-<p>Contract references not declared by the same DOT;</p>
+<p>local Contract references not declared by the same DOT (external references
+instead require an explicit originating DOT; its actual declaration is
+resolved separately by the CLI);</p>
 </li>
 <li>
 <p>selectors invalid for the referenced Contract standard;</p>
@@ -959,9 +989,9 @@ constructed through Lombok builders.</p>
 <p>Persistence adapters must preserve UUID, textual identifier and version representations.</p>
 </li>
 <li>
-<p>Skill and service-level Contract references expose only <code>id</code>; root
-<code>Dot.contracts</code> contains authoritative declarations or verified local
-transition references, as described above.</p>
+<p>Skill and service-level Contract references expose only <code>id</code>; published root
+<code>Dot.contracts</code> contains complete owned URL/hash declarations. Model-level
+ID-only values are not a local-asset fallback or publishable root declaration.</p>
 </li>
 <li>
 <p>Domain values carry no database or ORM annotations.</p>
@@ -1023,7 +1053,7 @@ Anchor rules, and entity equality.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../dot-design/release-notes.html">Release notes</a></span>
-  <span class="next"><a href="../dot-cli/index.html">CLI overview</a></span>
+  <span class="next"><a href="model-reference.html">Complete model reference</a></span>
 </nav>
 </article>
   </div>

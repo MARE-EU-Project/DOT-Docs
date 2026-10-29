@@ -3,14 +3,25 @@
     "DOT-Docs/modules/dot-design/attachments/diagrams/domain-a4.mmd": "fe88f4e8abfc6142345bbd22fccf9c857b261936de0ae8efe6f6047f40d708e8",
     "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "3c6f845843f8209093f5f31d40ad0f17a29b7ada5ac9e913717f00efac69999e",
     "DOT-Docs/scripts/domain-reference.mjs": "31c77232ec6ac5c8bf51d69428c460e0869418154eb59680467fe59bf5177088",
-    "DOT-Docs/scripts/render-domain-reference.mjs": "af80d34bc6a8da1f04754e268159b45f8fd129b5126d37d9d96f9b441a2c22b6",
+    "DOT-Docs/scripts/render-domain-reference.mjs": "27eb42879164931e71640617bacfca17ccc5dbc7fe617456985b7d549805038a",
     "DOT-Docs/mermaid-config.json": "2e2c4b092d1ad1aafd68801200dc24469a30a27b43fb5ce31071c18a0da40697",
     "DOT-Docs/mermaid-puppeteer-config.json": "c73c7331b5a12e1108475aad4e976420a6bec1a482b64ff0faf445a98a050191",
-    "VERSION": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0"
+    "VERSION": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0",
+    "DOT-Docs/scripts/model-reference.mjs": "9b501db8d0a3568a2f3ca24ff49dc5df25514d71fda907d30a1c1d8513d27ea5",
+    "DOT-Docs/scripts/model-notes-interfaces.mjs": "e3815efaf9db2f257447fe8318698e1e833833a8cdce1574f003be8b30dcaff5",
+    "DOT-Docs/scripts/model-notes-runtime.mjs": "e3e15cf939b1d0e3c761cde9ff254aa7566ed57f5b458d6c29654b16fa498118",
+    "DOT-Docs/scripts/model-notes-composition.mjs": "6136290a80e45df261d7ab02a0e065da02d07d6b842b0e0c3296c7e9f0642644",
+    "DOT-Docs/modules/dot-domain/attachments/model-reference.manifest.json": "ed95dde102a1fb6deb2de7d0ed4468b85dd1f948541a093c585bf43e0f76a144",
+    "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "4f6f626b7a978e2e999acba4a23ddb90a403b4dc7eb78cf855f37e47387ff2e4",
+    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "9b8409d8b58df858810cf836f8a9841ece54db8c62bf470ac3efc68a32e3bc64",
+    "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "2a8795859f9631d9092437144895eee4dbc071e521505edf2f466ef587bedb76",
+    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "f9b08c88dcfafb1accfa84098169ea4a469136aa70d16d36f7c907a30d290245",
+    "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "aa9afac3ac223e1f36995cff60ced1926d95b670ffe832ebd74d2ff0c18656ed"
   },
   "outputs": {
     "DOT-Docs/modules/dot-design/images/diagrams/domain-a4.svg": "77ff627decb58faddd6d6ab901177045bd00423cc58ae60236d52cc51de2222e",
     "DOT-Docs/modules/dot-design/images/diagrams/domain-complete.svg": "a9b25db9e72e45d682dbb9230adc42a19793ef3206b0713bfba6ab5c8dbbffdb",
-    "DOT-Docs/modules/dot-domain/attachments/dot-domain-a4.pdf": "9bad98098f7dfa4a382ba7848d1c88f9d189f939dada88dfb926421b5dc63f00"
+    "DOT-Docs/modules/dot-domain/attachments/dot-domain-a4.pdf": "47d0c3d66769a0dc7dc380131eee9d7756193d8c3b7e6a76e9202e0f84fb70a4",
+    "DOT-Docs/modules/dot-domain/attachments/dot-domain-reference.pdf": "49e6c7fd5d499c1a8efbf5b1f8d39921acab71fbe34f55ad1e1d22ba3a30919c"
   }
 }

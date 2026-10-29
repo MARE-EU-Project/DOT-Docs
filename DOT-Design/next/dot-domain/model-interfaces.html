@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Contracts and Anchors :: MARE DOT-Design</title>
+    <link rel="prev" href="model-identity.html">
+    <link rel="next" href="model-deployment.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../dot-design/index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">External DOT examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.3.0/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../dot-design/index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../dot-design/index.html">DOT-Design</a></li>
+    <li>DOT-Domain</li>
+    <li><a href="model-reference.html">Complete model reference</a></li>
+    <li><a href="model-interfaces.html">Contracts and Anchors</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="model-interfaces.html">Next</a>
+    <a class="version is-missing" href="../../0.3.0/dot-design/index.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Contracts and Anchors</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="model-reference.html" class="xref page">How to read this reference</a> explains full objects versus ID-only views, conditional fields and validation boundaries.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Anchor"><a class="anchor" href="#model-Anchor"></a>Anchor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Give one provided or required interaction a stable, DOT-local integration key. Compositions connect these logical points; deployment service bindings connect locally provided, non-brokered interfaces to named ports.</p>
+</div>
+<div class="paragraph">
+<p>Choose exactly one communication mode: a Contract operation, a supported provider-neutral requirement, or explicit contractless communication facts. Do not duplicate direction, protocols or media types for a Contract-backed Anchor. Aggregate validation checks references, selector syntax and deployment bindings; the CLI resolves actual Contract operations. Declarations, optional semantic labels and a compatible wire are not live reachability, authentication or production acceptance.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Anchor.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable key used by composition endpoints and deployment Anchor bindings. Prefer meaningful DOT-local kebab-case names. Legacy UUID strings remain readable, but display names and selectors are not aliases for this key. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Readable label for the interaction. It can help an author choose an Anchor, but wires and service bindings reference id rather than this display label. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorRole</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether this component offers the interaction or depends on it. This logical provider/consumer relationship is independent of which participant initiates a network request or the direction of payload flow. allowed: "PROVIDES", "REQUIRES".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>semanticTypes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional defined vocabulary identifiers for domain meaning, not API documentation URLs or payload-schema pointers. The CLI treats them as opaque URI strings: nonempty lists on both sides must intersect exactly; an absent list imposes no restriction and supplies no semantic proof. It performs no ontology inference.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contract</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorContract</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reference to an authoritative Contract plus one standard-specific operation selector. Local ownership resolves through this DOT; external ownership requires the exact originating DOT source. Communication facts come from the selected document.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>requirement</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorRequirement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider-neutral, versioned requirement on a REQUIRES Anchor. A composition chooses and verifies the concrete provider. It cannot be combined with a Contract reference or explicit contractless communication facts. exact value "OIDC_DISCOVERY_1_0".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>direction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorDirection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload-flow direction relative to the declaring DOT, only for a contractless Anchor. Do not infer it solely from PROVIDES or REQUIRES; request/response interactions and transport initiation are different concepts. allowed: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit communication protocols for a contractless interaction. Declare the actual supported boundary rather than treating a semantic label, file format or service name as a protocol.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mediaTypes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit payload media types for a contractless interaction. These describe the exchanged representation, not a full payload schema or a guarantee that another component understands its domain meaning.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="model-identity.html#model-Dot" class="xref page">Dot</a>: containment via anchors; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorContract">AnchorContract</a>: containment via contract; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorDirection">AnchorDirection</a>: typed association via direction; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorRequirement">AnchorRequirement</a>: typed association via requirement; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorRole">AnchorRole</a>: typed association via role; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-composition.html#model-AnchorReference" class="xref page">AnchorReference</a>: ID/name reference via anchorId.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-AnchorBinding" class="xref page">AnchorBinding</a>: ID/name reference via anchorId.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "build-information",
+  "name": "build-information",
+  "role": "PROVIDES",
+  "contract": {
+    "id": "Prometheus@3.15.1::OpenAPI::HTTP",
+    "selector": "#/paths/~1status~1buildinfo/get"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-AnchorContract"><a class="anchor" href="#model-AnchorContract"></a>AnchorContract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select one composable interaction from an existing authoritative Contract. Use it on an Anchor rather than copying an interface document or declaring another product-owned Contract.</p>
+</div>
+<div class="paragraph">
+<p>The referenced identity, origin and selector must agree. OpenAPI and AsyncAPI use operation references; Protobuf uses a service method and GraphQL uses a root-field coordinate. A data-schema pointer is not an operation. Java aggregate validation checks local relationships and selector syntax; the CLI resolves the exact originating declaration, verifies its bytes and checks the selected operation. Matching shapes in independently authored Contracts do not make their identities interchangeable.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorContract.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorContract.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact, case-sensitive Contract identity. An external dependency retains the producer identity; merely declaring a syntactically valid key does not make a Contract available. minimum length: 1; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>selector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard-specific operation reference within the authoritative document. Select the interaction rather than a request/response data type; required operation parameters and security still need composition and deployment inputs. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact originating DOT coordinate for an external Contract reference in the selected catalogue. Omit it for a locally owned declaration. An unavailable origin is an error, not permission to search sibling folders, infer another release or copy a dependency declaration. pattern restrictions (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Anchor">Anchor</a>: containment via contract; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-Contract">Contract</a>: ID/name reference via id.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "Example@1.0.0::OpenAPI::HTTP",
+  "selector": "#/paths/~1ready/get"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-AnchorDirection"><a class="anchor" href="#model-AnchorDirection"></a>AnchorDirection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Describe the direction of data flow at a contractless interaction relative to the declaring DOT. It fills in a communication fact that cannot be derived from an authoritative Contract.</p>
+</div>
+<div class="paragraph">
+<p>Ingress means flow into the DOT, egress means flow out, and bidirectional means both. Keep this separate from the Anchor provider/consumer role and from the direction of a TCP connection. The current contractless matcher requires complementary directions alongside compatible protocols and media types; the enum alone proves none of those other conditions.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorDirection.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorDirection.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>INGRESS</code>, <code>EGRESS</code>, <code>BIDIRECTIONAL</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Anchor">Anchor</a>: typed association via direction; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"INGRESS"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-AnchorRequirement"><a class="anchor" href="#model-AnchorRequirement"></a>AnchorRequirement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>State a narrow, versioned provider-neutral interface requirement instead of hard-coding a particular producer Contract. The current supported profile concerns OIDC discovery.</p>
+</div>
+<div class="paragraph">
+<p>Use it only on a REQUIRES Anchor and do not combine it with Contract or explicit contractless fields. A composition wire selects the real provider and the CLI checks the supported requirement profile against its verified Contract. This is not an arbitrary semantic label, automatic provider discovery or full OIDC, TLS and production IAM acceptance.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorRequirement.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorRequirement.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>OIDC_DISCOVERY_1_0</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; exact value "OIDC_DISCOVERY_1_0".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Anchor">Anchor</a>: typed association via requirement; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"OIDC_DISCOVERY_1_0"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-AnchorRole"><a class="anchor" href="#model-AnchorRole"></a>AnchorRole</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Distinguish a component that provides an interaction from one that requires it. This is the logical relationship used to connect a provider Anchor to a consumer Anchor.</p>
+</div>
+<div class="paragraph">
+<p>Role is not payload-flow direction, server/client process type or permission to call an API. A component can provide an HTTP operation even when another component initiates the request. Complementary roles do not replace Contract identity, operation, protocol, security or live acceptance checks.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorRole.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorRole.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>PROVIDES</code>, <code>REQUIRES</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "PROVIDES", "REQUIRES".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Anchor">Anchor</a>: typed association via role; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"PROVIDES"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Contract"><a class="anchor" href="#model-Contract"></a>Contract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identify one authoritative interface specification and the exact downloadable document that describes it. Anchors select interactions from that document instead of copying its protocol and payload details.</p>
+</div>
+<div class="paragraph">
+<p>Keep the declaration at its owning DOT and retain that identity when another component consumes or implements the interface. Qualified identities must agree with the exact owning DOT release, standard and local Contract name. Complete definitions carry a verified URL/hash payload; an ID-only reference view is not a publishable owned declaration. Domain validation checks declaration relationships and metadata, while the CLI fetches, hashes and parses the document and resolves operations. Neither establishes that a producer implements the interface at runtime.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/contract/Contract.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Contract.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Encoding of the downloaded document, not its transport protocol. It must be supported by the chosen standard; an extension or a matching file name does not establish compatibility. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable interface identity, independent of its download URL. Catalogue identities include the originating DOT release and the exact standard/name suffix. Consumers retain this key rather than minting a consumer-owned copy. minimum length: 1; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local, case-sensitive interface name within the owning DOT. It is part of the qualified identity, not a hostname, an operation selector or the upstream API release number. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ContractPayload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Structured raw-document location and integrity pin. The specification bytes are downloaded separately; this property does not embed the document or provide a local Contract-folder fallback.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>standard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ContractStandard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interface language used to interpret the document and Anchor selectors. Use the exact generated wire spelling; the Java enum constant name is not necessarily the serialized value. allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version of the document language declared by the verified payload: the OpenAPI or AsyncAPI marker, or the native Protobuf syntax/edition. Do not copy a tool release or info.version. GraphQL SDL has no such marker and omits this property.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="model-identity.html#model-Dot" class="xref page">Dot</a>: containment via contracts; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-DataFormat">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-ContractPayload">ContractPayload</a>: containment via payload; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-ContractStandard">ContractStandard</a>: typed association via standard; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-DeploymentService" class="xref page">DeploymentService</a>: ID/name reference via contracts (ref); diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>From <a href="#model-AnchorContract">AnchorContract</a>: ID/name reference via id.</p>
+</li>
+<li>
+<p>From <a href="model-composition.html#model-ContractInput" class="xref page">ContractInput</a>: ID/name reference via id.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "Prometheus@3.15.1::OpenAPI::HTTP",
+  "name": "HTTP",
+  "version": "3.1.0",
+  "standard": "OpenAPI",
+  "format": "YAML",
+  "payload": {
+    "url": "https://raw.githubusercontent.com/prometheus/prometheus/v3.15.1/web/api/v1/testdata/openapi_3.1_golden.yaml",
+    "sha256": "406b517ed3800c107b3afbc2d9712f2e487269fe8c8b55a075dce46823d8d7c0"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ContractPayload"><a class="anchor" href="#model-ContractPayload"></a>ContractPayload</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Locate the raw bytes of a Contract specification and pin their integrity. Use this inside a complete Contract declaration, not as the address of a deployed API.</p>
+</div>
+<div class="paragraph">
+<p>The URL must be absolute HTTPS without embedded credentials or a fragment. Prefer immutable raw-document locations; the CLI verifies the digest before interpreting the bytes and rechecks cached content. A correct hash establishes byte identity, not vendor authority, license permission, producer conformance or live availability. Keep specification provenance and acceptance limitations explicit.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/contract/ContractPayload.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ContractPayload.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sha256</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lower-case SHA-256 of the exact downloaded bytes. Formatting or newline changes alter this pin even if a reader considers the document equivalent; review changed bytes rather than silently replacing the expected digest. minimum length: 1; pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Download location for the raw specification, not an HTML documentation viewer, endpoint base URL or operation fragment. Runtime addresses and credentials are deployment-instance concerns. format: uri; pattern restrictions (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Contract">Contract</a>: containment via payload; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "url": "https://raw.githubusercontent.com/prometheus/prometheus/v3.15.1/web/api/v1/testdata/openapi_3.1_golden.yaml",
+  "sha256": "406b517ed3800c107b3afbc2d9712f2e487269fe8c8b55a075dce46823d8d7c0"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ContractStandard"><a class="anchor" href="#model-ContractStandard"></a>ContractStandard</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose the interface-description language used by a Contract. This choice determines how the document is parsed, which encoding is valid and how an Anchor operation is selected.</p>
+</div>
+<div class="paragraph">
+<p>Use the exact serialized values shown by the generated enum reference; alternative capitalization, whitespace and Java constant names are not aliases. Standard version and document format remain separate properties. Selecting a supported language is not a claim that every optional feature or live protocol behavior is implemented by the current CLI.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/contract/ContractStandard.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ContractStandard.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Contract">Contract</a>: typed association via standard; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"OpenAPI"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-DataFormat"><a class="anchor" href="#model-DataFormat"></a>DataFormat</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Identify the serialization format of a document or manifest payload. It describes how bytes are represented, not the purpose of the interface or the infrastructure that runs it.</p>
+</div>
+<div class="paragraph">
+<p>The owning field determines which formats are valid. Contract formats must match their Contract standard, and Docker Compose, Kubernetes manifests and Helm values accept only their supported structured text encodings. A format enum does not add a new deployment mechanism, turn a Vagrantfile into YAML or describe an HTTP media type.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/DataFormat.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DataFormat.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>YAML</code>, <code>JSON</code>, <code>PROTOBUF</code>, <code>GRAPHQL</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string; allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Contract">Contract</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-DockerCompose" class="xref page">DockerCompose</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-HelmValues" class="xref page">HelmValues</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-KubernetesManifest" class="xref page">KubernetesManifest</a>: typed association via format; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"YAML"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="model-identity.html">Identity and capabilities</a></span>
+  <span class="next"><a href="model-deployment.html">Runtimes and deployment</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>
