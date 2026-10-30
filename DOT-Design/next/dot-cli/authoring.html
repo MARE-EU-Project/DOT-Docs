@@ -290,6 +290,10 @@ existing product. Add deployment alternatives to its canonical bundle instead.</
 or its matching source build</strong>, <code>jq</code>, catalogue access and network access to the
 pinned raw Contract. The released flow below covers owned OpenAPI interfaces;
 the four-standard guided editor described later requires current 0.4.0 source.
+Current-source authoring summaries name the saved file, distinguish declaration
+validation from live acceptance, and confirm unchanged runtime state. Follow-up
+commands use the actual quoted path; validation retains repository/offline
+selection while <code>inspect</code> reads the local definition without those flags.
 Follow
 <a href="../dot-design/adopting-dot.html" class="xref page">the compatible-artifact installation routes</a>.
 No Java, Jsonnet, Docker daemon or Kubernetes cluster is needed for the commands
@@ -644,6 +648,22 @@ The original, deployment manifests, configuration, unrelated fields, locks and
 runtime state stay untouched. The editor refuses an existing output, a symlinked
 output parent, a changed original or a second catalogue <code>dot.json</code>. Cancellation,
 EOF, verification and publication errors leave no partial candidate.</p>
+</div>
+<div class="paragraph">
+<p>The completion summary prints commands for reviewing the diff, validating with
+the selected local catalogue and offline mode, and inspecting the candidate.
+<code>dotx validate &lt;candidate.json&gt; --repository &lt;local-catalogue&gt; --offline</code> also
+works outside the catalogue tree: it uses that checkout&#8217;s generated schema and
+exact external Contract origins. It neither downloads missing bytes nor repairs
+corrupt caches. <code>dotx inspect &lt;candidate.json&gt;</code> displays the declaration; it does
+not accept repository/offline flags or prove a live API response.</p>
+</div>
+<div class="paragraph">
+<p>For <code>dotx new</code>, the summary uses a catalogue discovered from the working
+directory when available. Its <code>--repo</code>/<code>--repository</code> option identifies a Helm
+chart repository, not a DOT catalogue. If no catalogue is discoverable, offline
+revalidation needs an explicitly selected local schema or catalogue; the
+summary explains this rather than printing an unusable command.</p>
 </div>
 <div class="paragraph">
 <p>Review the diff and validate the candidate. <strong>Draft creation is not promotion</strong>:

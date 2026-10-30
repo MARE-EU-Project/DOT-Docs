@@ -524,6 +524,19 @@ the build, validation, conformance, coverage, runtime, and documentation
 commands are not CI-only shell fragments.</p>
 </div>
 <div class="paragraph">
+<p>Ordinary test/report archives are best-effort. If an optional upload fails
+(including exhausted GitHub storage quota), the workflow emits a warning and
+job summary; tests, security checks and cleanup retain their original results.
+This covers any optional upload failure, not just quota errors. A green test
+run does not guarantee a downloadable archive or release qualification.
+Release evidence and artifacts consumed by another job or Pages remain
+mandatory. The optional <code>dot-docs-site</code> archive is not used for publication:
+the documentation workflow publishes the locally verified site directly to
+the publication branch, and publication failures still fail the job.
+Run <code>task testing:ci:artifacts</code> to check this boundary, including negative
+regressions. The check also runs in the deterministic workflow gate.</p>
+</div>
+<div class="paragraph">
 <p>After the Contract-tool bootstrap, inspect the one source/acceptance pin report:</p>
 </div>
 <div class="listingblock">

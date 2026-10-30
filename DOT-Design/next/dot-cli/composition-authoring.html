@@ -447,6 +447,21 @@ before creating it, add a README, review its lock and use
 <h2 id="_current_source_alternative_build_from_selected_dots"><a class="anchor" href="#_current_source_alternative_build_from_selected_dots"></a>Current-source alternative: build from selected DOTs</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>The selection table shows the exact DOT release, catalogue origin and declared
+interfaces. The following deployment table groups that DOT&#8217;s choices by engine,
+type and profile. Origin comes from the same ownership/evidence paths
+used by catalogue validation. <code>testing</code> can include fixtures or planning
+definitions; <code>Contracts</code> and <code>Anchors</code> describe declarations,
+not live compatibility or production readiness. No entries are silently hidden.</p>
+</div>
+<div class="paragraph">
+<p>After publication, the summary names the saved file, declaration-validation
+boundary and unchanged runtime state. It prints copyable commands to inspect
+the draft, explicitly create its lock and inspect it locked, retaining the
+selected repository and offline mode. None of these actions runs automatically.
+Review shared inputs and the newly created lock before any deployment.</p>
+</div>
+<div class="paragraph">
 <p>This 0.4.0 work requires a matching <strong>source</strong> CLI; it is not in the published
 v0.3.0 binary. From the matching DOT-Repository checkout, with verified cached
 Contracts:</p>

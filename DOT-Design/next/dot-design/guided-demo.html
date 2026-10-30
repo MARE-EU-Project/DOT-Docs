@@ -393,6 +393,34 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 <div class="sect1">
 <h2 id="one-command-demo"><a class="anchor" href="#one-command-demo"></a>One command, immediate explanation, real feedback</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Prepare once offstage from the matching checkout, then check readiness:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task demo:prepare
+task demo:check</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These short commands default to the Prometheus Docker-only chapter: Kubernetes
+is not required. Preparation validates the canonical DOT and warms its pinned
+image/document cache; it never installs tools or deploys workloads. The check
+is read-only and never repairs a cold or corrupt cache. Prerequisites such as
+the matching installed CLI, Docker and Compose must already be available.</p>
+</div>
+<div class="paragraph">
+<p>For the optional five-DOT chapter, use <code>task demo:prepare DEMO=secure-api</code> and
+<code>task demo:check DEMO=secure-api</code> with an already Ready Minikube node. Neither
+command starts Minikube.</p>
+</div>
+<div class="paragraph">
+<p>Preparation/check success is not live API acceptance.
+The long <code>task testing:demo</code> qualification suite remains separate.</p>
+</div>
+<div class="paragraph">
+<p>On stage, run:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task demo</code></pre>
@@ -451,6 +479,10 @@ existing <code>DOTX_POC_PRESENT_TIMEOUT</code> (1–1800 seconds); the optional 
 also finishes after 600 seconds or EOF, when no demo workloads remain.
 The command stops on prerequisite, API or cleanup failure. It does not claim
 success from a compatible graph, a running container, or an earlier receipt.
+Readiness failures name the short chapter-specific preparation/check commands.
+They do not automatically retry or mutate the runtime. For a deployment failure,
+inspect the original harness&#8217;s cleanup receipt before retrying: a failed exit
+alone cannot establish that cleanup succeeded.
 Private diagnostic logs are retained under
 <code>DOT-Testing/e2e/target/guided-demo/run-*/</code>; do not publish raw logs.
 The terminal-driven CI rehearsal retains its public console transcript separately
