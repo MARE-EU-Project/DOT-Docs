@@ -709,6 +709,145 @@ source changes, not prerequisites for running an existing DOT.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="clean-code-boundaries"><a class="anchor" href="#clean-code-boundaries"></a>Clean-code boundaries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Prefer small, behavior-preserving refactorings over a new framework or a
+repository-wide rewrite. Split by responsibility, not by arbitrary file length.
+Create a package or interface only when it establishes a real dependency
+boundary; cohesive files in an existing package are often enough.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Responsibility</th>
+<th class="tableblock halign-left valign-top">Authority and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portable models</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT-Domain Java classes, generated JSON Schemas and generated Go inputs.
+  No hand-maintained input-model copies, persistence annotations or runtime adapters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portable policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-CLI/domain/policy</code>: in-memory invariants only. Pure domain packages
+  cannot import feature adapters, filesystem/process APIs or network clients.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Input and resolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validate raw documents before generated-model decoding. Reuse the existing
+  Contract parsers and verified-payload authority. Resolution may read verified
+  inputs, but must not deploy or adopt runtime state.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit preparation, runtime mutation, recorded ownership and cleanup.
+  Keep adapter differences visible; preserve the order of preflight, state
+  recording and mutations. A rendering success is not runtime acceptance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Presentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format existing results and diagnostics. Do not resolve compatibility,
+  read Secrets or mutate state inside renderers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test fixtures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>internal/testsupport</code> is test-only. Production dependency checks reject
+  even an indirect import through another production package.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The CLI&#8217;s composition files separate command dispatch/options, document
+decoding, DOT/Contract loading, resolution, deployment-input validation,
+materialization, state/locking, recovery and rendering. Runtime files separately
+handle selection, forwarding, Helm/Kubernetes configuration and execution.
+This is source organization, not a new portable model or a user-facing change.</p>
+</div>
+<div class="sect2">
+<h3 id="_review_a_change"><a class="anchor" href="#_review_a_change"></a>Review a change</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Use meaningful names: declaration, resolved composition, deployment
+selection, verified payload and recorded state are different things.</p>
+</li>
+<li>
+<p>Prefer guard clauses and one clear responsibility per function. Share a
+rule only when it has the same meaning, not merely similar syntax.</p>
+</li>
+<li>
+<p>Pass external dependencies explicitly where they improve isolation.
+Materialization accepts invocation-scoped environment lookups and temporary
+file factories; new tests need not replace a process-wide hook.</p>
+</li>
+<li>
+<p>Preserve absent-versus-empty values, native Secret references, error causes
+and secret-safe command diagnostics. Never print resolved credentials.</p>
+</li>
+<li>
+<p>Check write counts as well as errors before publishing a generated file.
+Failed materialization must preserve the input and clean its partial output.</p>
+</li>
+<li>
+<p>Keep characterization, negative and ownership/cleanup regressions. Coverage
+is a gate, not proof of correct behavior. Existing shared OS hooks still
+require serial tests; do not add <code>t.Parallel</code> around their replacement.</p>
+</li>
+<li>
+<p>Use existing parser/resolver benchmarks before optimizing. Do not introduce
+caching that bypasses digest re-verification or hides corrupt-cache failures.</p>
+</li>
+<li>
+<p>Record a durable architecture decision when a boundary, compatibility promise
+or ownership policy changes. A routine function move needs no new ADR.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The CLI dependency regressions run in ordinary <code>go test ./&#8230;&#8203;</code> and <code>task ci</code>.
+Java architecture tests reuse the existing test-only JavaParser dependency to
+check production imports, qualified types and annotations; they do not add a
+production dependency or change model serialization. Generated-artifact drift,
+shared model corpora and reviewed locks remain separate checks.
+Dependency allowlists require review when adding a domain dependency; they are
+architecture guards, not a runtime sandbox or a replacement for behavior tests.</p>
+</div>
+<div class="paragraph">
+<p>For current-source diagnostic parser/resolver baselines, from the <strong>DOT-Design checkout root</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:bench</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From a <strong>DOT-CLI checkout root</strong> with the matching Design fixtures and catalogue,
+use <code>task bench</code>. Both routes run the existing operation-resolution and
+monitoring benchmarks with allocation reporting and three samples; the Taskfile
+owns the benchmark options.</p>
+</div>
+<div class="paragraph">
+<p>Use the same source fixtures, verified cache, toolchain and otherwise idle host
+for comparisons. These benchmarks have no machine-dependent pass threshold.
+Fuzz targets in <code>authoring_fuzz_test.go</code> exercise the real four-standard
+selector and composition parser; seed execution is part of ordinary tests.
+Longer fuzz campaigns supplement, rather than replace, regression tests.
+The recorded
+<a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Testing/performance/clean-code-baseline.md">clean-code baseline</a>
+retains all three measured samples and their concurrent-load limitations; it
+does not claim a speedup from moving declarations between files.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_editor_assistance_from_the_domain_schemas"><a class="anchor" href="#_editor_assistance_from_the_domain_schemas"></a>Editor assistance from the domain schemas</h2>
 <div class="sectionbody">
 <div class="paragraph">
