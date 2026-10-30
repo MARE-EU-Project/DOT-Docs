@@ -429,7 +429,7 @@
 <p>Documents a configuration file expected by a service.</p>
 </div>
 <div class="paragraph">
-<p>The path is the destination inside the workload, not a source file on the operator&#8217;s machine. An optional defaultContent is a shared Payload reference, never inline text or Base64; omit it when no default exists. Java null serializes as omission and does not expand raw-schema null acceptance. Instance inputs can supply replacement content. A sensitive file forbids every non-null default Payload, including an empty value or a publicly hosted document; a URL is not a secret-provisioning mechanism. This declaration alone creates no mount and does not verify remote bytes.</p>
+<p>The path is the destination inside the workload, not a source file on the operator&#8217;s machine. An optional payload is a shared Payload reference, never inline text or Base64; omit it when no default exists. Java null serializes as omission and does not expand raw-schema null acceptance. Instance inputs can supply replacement content. A sensitive file forbids every non-null default Payload, including an empty value or a publicly hosted document; a URL is not a secret-provisioning mechanism. This declaration alone creates no mount and does not verify remote bytes.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/ConfigFile.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ConfigFile.schema.json">Generated JSON Schema</a></p>
@@ -457,12 +457,6 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">The media type describing how the file content should be interpreted.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultContent</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optional HTTPS URL and SHA-256 pin of the default file used when no instance replacement is supplied. It must be absent for a sensitive file.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
@@ -473,6 +467,12 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The destination path where the workload expects the configuration file. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional HTTPS URL and SHA-256 pin of the default file used when no instance replacement is supplied. It must be absent for a sensitive file.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>required</code></p></td>
@@ -494,7 +494,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via defaultContent; diagram multiplicity 0..1.</p>
+<p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 0..1.</p>
 </li>
 <li>
 <p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via configFiles; diagram multiplicity 0..*.</p>
@@ -507,7 +507,7 @@
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "path": "/etc/prometheus/prometheus.yml",
   "contentType": "application/yaml",
-  "defaultContent": {
+  "payload": {
     "url": "https://gist.githubusercontent.com/MaurizioCasciano/89e8ff4a9ee095a588c919f767b7daf2/raw/13ab666ed5afa076c856d36ea0cc49110b043cc2/configuration-kubernetes-manifest-prometheus-config-0.yaml",
     "sha256": "36d801295435ff6ba6f00dbc47fc1c16783ae84a493e405c392bbc20659364fc"
   },

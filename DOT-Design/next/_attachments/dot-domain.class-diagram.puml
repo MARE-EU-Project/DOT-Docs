@@ -522,9 +522,11 @@ package "eu.mare6g.dot.domain.deployment.config" as package_eu_mare6g_dot_domain
     - path: String
     - description: String
     - contentType: String
-    - defaultContent: Payload
+    - payload: Payload
     - required: boolean
     - sensitive: boolean
+    --
+    + rejectUnknownProperty(name: String, value: Object): void
   }
 
   class "DeploymentConfig" as eu_mare6g_dot_domain_deployment_config_DeploymentConfig #FFF7ED {
@@ -931,7 +933,7 @@ eu_mare6g_dot_domain_deployment_DeploymentService "1" *-[#2563EB]right- "0..*" e
 eu_mare6g_dot_domain_deployment_DeploymentService "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_deployment_config_DeploymentConfig : config
 eu_mare6g_dot_domain_deployment_Deployment "1" *-[#2563EB]right- "0..*" eu_mare6g_dot_domain_deployment_DeploymentService : services
 eu_mare6g_dot_domain_deployment_Deployment "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_deployment_manifest_DeploymentManifest : manifest
-eu_mare6g_dot_domain_deployment_config_ConfigFile "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_Payload : defaultContent
+eu_mare6g_dot_domain_deployment_config_ConfigFile "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_Payload : payload
 eu_mare6g_dot_domain_deployment_config_DeploymentConfig "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_config_ConfigFile : configFiles
 eu_mare6g_dot_domain_deployment_config_DeploymentConfig "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_config_EnvironmentVariable : environment
 eu_mare6g_dot_domain_deployment_config_DeploymentConfig "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_deployment_config_VolumeMount : volumes

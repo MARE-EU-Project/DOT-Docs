@@ -598,6 +598,16 @@ An empty pointer means a document-root or file-level failure. Some catalogue
 metadata failures identify a directory rather than an individual file.</p>
 </div>
 <div class="paragraph">
+<p>In current source (0.4.0 work), every DOT reader checks the embedded,
+Java-generated schema before converting JSON into Go values. This includes
+inspection, catalogue discovery, composition resolution and runtime commands.
+An explicit <code>--schema</code> can add constraints but cannot waive required model
+fields, invalid nulls or retired configuration keys. Keep the CLI, generated
+schema and catalogue revisions aligned. This shared raw-input stage neither
+fetches payloads nor mutates workloads. <code>dotx validate</code> still verifies declared
+documents; that verification and live API acceptance are separate stages.</p>
+</div>
+<div class="paragraph">
 <p>For editors, scripts and CI, request one JSON report on stdout, including failures:</p>
 </div>
 <div class="listingblock">

@@ -339,7 +339,7 @@ To use an existing DOT without installing development toolchains, start with
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Antora, the Antora PDF extension, Asciidoctor PDF, and Mermaid CLI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Building the HTML/PDF documentation site and Mermaid diagrams</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Building the HTML/PDF documentation site, Mermaid diagrams and Ruby script syntax checks</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CI uses Node.js 26 and Ruby 4.0; <code>task docs:check</code> reports the locally
   installed tool versions; see <a href="#build-the-documentation">Build the documentation</a></p></td>
 </tr>
@@ -482,6 +482,25 @@ a repository-local binary.</p>
 <h2 id="_run_github_workflow_gates_locally"><a class="anchor" href="#_run_github_workflow_gates_locally"></a>Run GitHub workflow gates locally</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>For quick feedback while editing, from the <strong>DOT-Design checkout root</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task check</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This source-read-only check uses existing authorities for version alignment,
+generated Go/schema drift, Go formatting and <code>go vet</code>, and syntax-checks
+maintained Python, Bash, Node and Ruby scripts without executing their bodies.
+It includes staged, unstaged and untracked sources, but excludes generated
+outputs, negative fixture sources and user presentation files. Have the
+documented toolchains and pinned quicktype/dependency caches prepared first:
+offline mode fails on a cold cache instead of downloading or installing tools.
+Temporary files and compiler caches may be used; tracked files are not repaired.
+This is <strong>not</strong> Java/Go test acceptance, full CI, live rehearsal or release proof.</p>
+</div>
+<div class="paragraph">
 <p>For focused model/code iterations, start with the deployment-free gate:</p>
 </div>
 <div class="listingblock">
@@ -503,6 +522,34 @@ replacement for required release checks.</p>
 bodies. Actions still provisions clean toolchains and publishes artifacts, but
 the build, validation, conformance, coverage, runtime, and documentation
 commands are not CI-only shell fragments.</p>
+</div>
+<div class="paragraph">
+<p>After the Contract-tool bootstrap, inspect the one source/acceptance pin report:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:acceptance:pins
+# Before pushing repositories that depend on unpublished acceptance commits:
+task testing:acceptance:pins -- --remote</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The report checks bootstrap copies against <code>DOT-CLI/release/acceptance.json</code>
+and the catalogue workflow&#8217;s CLI authority. It distinguishes current source
+revisions and dirty state from acceptance snapshot revisions. The optional
+read-only <code>gh</code> check requires repository access and fails if any dependency
+commit is unavailable on GitHub; it does not publish it. Publish acceptance
+foundation commits on explicit branches first when necessary, then CLI,
+catalogue and Design. Before each dependent push, rerun the remote check and
+retain the missing-submodule-commit push guard above. Equal version labels,
+available commits and successful declaration checks do not qualify live APIs.</p>
+</div>
+<div class="paragraph">
+<p><code>task testing:ci:tools</code> audits existing workflow action pins and tool-version
+authorities, including missing/late Node setup regressions. It uses the pinned
+Contract-tool Python environment; bootstrap it through the ordinary conformance
+gate, not an implicit runner-global package. These checks are included in
+<code>task ci:contract-conformance</code> and the full deterministic gate.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -849,7 +896,9 @@ separate inventory or validation wrapper is maintained.</p>
 <p>Run <code>task testing:contracts:portability</code> to copy every bundle into an isolated
 temporary directory and validate it offline against the explicit catalogue
 schema. This is also part of <code>ci:repository-conformance</code>; it prevents a valid
-repository checkout from concealing a DOT&#8217;s missing local Contract asset.</p>
+repository checkout from concealing a dependency on sibling files. Each owned
+Contract must carry its complete URL/hash declaration; offline verification
+uses the digest cache outside the bundle, never local Contract assets.</p>
 </div>
 </div>
 </div>

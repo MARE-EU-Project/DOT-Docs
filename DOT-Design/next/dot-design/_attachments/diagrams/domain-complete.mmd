@@ -215,7 +215,7 @@ classDiagram
   DeploymentService "1" *-- "1" DeploymentConfig : config
   Deployment "1" *-- "0..*" DeploymentService : services
   Deployment "1" *-- "1" DeploymentManifest : manifest
-  ConfigFile "1" *-- "0..1" Payload : defaultContent
+  ConfigFile "1" *-- "0..1" Payload : payload
   DeploymentConfig "1" *-- "0..*" ConfigFile : configFiles
   DeploymentConfig "1" *-- "0..*" EnvironmentVariable : environment
   DeploymentConfig "1" *-- "0..*" VolumeMount : volumes

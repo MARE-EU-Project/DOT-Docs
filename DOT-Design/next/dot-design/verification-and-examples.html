@@ -658,7 +658,7 @@ permissive validator invocations.</p>
 <p>The runtime-configuration gate separately proves that selecting another
 executable deployment does not discard a service&#8217;s declared environment or
 configuration-file surface. Each adapter is exercised first with its declared
-<code>defaultValue</code> and <code>defaultContent</code>, then with explicit composition overrides;
+<code>defaultValue</code> and <code>payload</code>, then with explicit composition overrides;
 the gate validates the cached default document, resolved service id, override
 values, and runtime-specific dry-run. Runtime-native storage, secret,
 privilege, and device semantics retain dedicated tests rather than being

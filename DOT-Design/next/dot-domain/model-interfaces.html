@@ -792,7 +792,7 @@
 <p>Locate an exact raw document and pin its bytes. This shared value describes a downloadable file, never the address of a deployed API or an instruction to execute it.</p>
 </div>
 <div class="paragraph">
-<p>Contract.payload, DockerCompose.payload, KubernetesManifest.payload, Vagrantfile.payload, HelmValues.payload and EnvFile.payload use this same value; ConfigFile.defaultContent optionally uses it too. There is no inline-text, Base64 or adjacent-file fallback. URLs must be absolute HTTPS without embedded credentials or fragments. The current-source CLI reuses bounded verification and a digest-addressed cache outside DOT bundles, rehashes cached bytes and fails on corruption. Offline use needs every required document already cached; it does not prove that an origin is currently available. Java/schema validity alone does not download bytes. A matching hash establishes byte identity, not publisher authority, license permission, safe execution, producer conformance or live availability.</p>
+<p>Contract.payload, DockerCompose.payload, KubernetesManifest.payload, Vagrantfile.payload, HelmValues.payload and EnvFile.payload use this same value; ConfigFile.payload optionally uses it too. There is no inline-text, Base64 or adjacent-file fallback. URLs must be absolute HTTPS without embedded credentials or fragments. The current-source CLI reuses bounded verification and a digest-addressed cache outside DOT bundles, rehashes cached bytes and fails on corruption. Offline use needs every required document already cached; it does not prove that an origin is currently available. Java/schema validity alone does not download bytes. A matching hash establishes byte identity, not publisher authority, license permission, safe execution, producer conformance or live availability.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/Payload.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Payload.schema.json">Generated JSON Schema</a></p>
@@ -836,7 +836,7 @@
 <p>From <a href="#model-Contract">Contract</a>: containment via payload; diagram multiplicity 0..1.</p>
 </li>
 <li>
-<p>From <a href="model-deployment.html#model-ConfigFile" class="xref page">ConfigFile</a>: containment via defaultContent; diagram multiplicity 0..1.</p>
+<p>From <a href="model-deployment.html#model-ConfigFile" class="xref page">ConfigFile</a>: containment via payload; diagram multiplicity 0..1.</p>
 </li>
 <li>
 <p>From <a href="model-deployment.html#model-DockerCompose" class="xref page">DockerCompose</a>: containment via payload; diagram multiplicity 1.</p>

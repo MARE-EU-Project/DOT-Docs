@@ -842,7 +842,7 @@ only values whose names or target paths the selected service declares. Required
 environment variables and files without defaults fail before runtime mutation;
 sensitive environment values require a <code>secretRef</code> instead of a literal.
 When an input is omitted, <code>dotx</code> reuses the non-sensitive <code>defaultValue</code> or
-<code>defaultContent</code> declared by that service. Explicit composition values and wire
+<code>payload</code> declared by that service. Explicit composition values and wire
 materializers override defaults; conflicting explicit inputs fail closed.
 Declarations marked <code>sensitive</code> are forbidden from embedding either kind of
 default and must use a deployment-time secret reference or runtime-native

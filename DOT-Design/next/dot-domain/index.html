@@ -697,7 +697,7 @@ cached outside the DOT; cold offline validation fails until warmed online. An An
 <p>Current source uses one shared <code>Payload</code> value for Contracts and file documents:
 <code>DockerCompose.payload</code>, <code>KubernetesManifest.payload</code>, <code>Vagrantfile.payload</code>,
 <code>HelmValues.payload</code>, <code>EnvFile.payload</code>, and optional
-<code>ConfigFile.defaultContent</code>. Each reference selects exact raw document bytes,
+<code>ConfigFile.payload</code>. Each reference selects exact raw document bytes,
 not an application endpoint. There is no inline-text, Base64 or adjacent-file
 fallback. This deliberately breaks former string-based file declarations and
 renames the Java <code>ContractPayload</code> type to <code>Payload</code>; valid Contract JSON keeps
@@ -973,10 +973,16 @@ release name and namespace are selected by deployment tooling, not embedded in
 </div>
 <div class="paragraph">
 <p>These are supported inputs and requirements, not applied runtime state.
-An omitted <code>ConfigFile.defaultContent</code> means no declared default. A supplied
+An omitted <code>ConfigFile.payload</code> means no declared default. A supplied
 default is a pinned <code>Payload</code>; a sensitive file must not declare any non-null
 default, even a public or empty document. Scalar environment defaults remain
-strings. Java null omission does not imply that explicit JSON null is accepted.
+strings. Java null omission does not imply that explicit JSON null is accepted.</p>
+</div>
+<div class="paragraph">
+<p><code>ConfigFile.payload</code> replaces the former <code>defaultContent</code> name. Only <code>payload</code>
+is accepted by current source; operator or composition inputs still override
+this optional default. A sensitive file must receive its content at deployment
+time, never through a reusable payload URL.
 Operator values, host paths, concrete CDI device names, and permission grants
 belong to deployment or composition input.</p>
 </div>
