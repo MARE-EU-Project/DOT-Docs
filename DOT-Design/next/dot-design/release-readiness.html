@@ -405,6 +405,18 @@ metadata, exact tags and fresh artifact verification remain necessary; do not
 rewrite SBOM identities to turn that failure into a pass.</p>
 </div>
 <div class="paragraph">
+<p>A subsequent <strong>private local tagged rehearsal</strong> aligned Design and CLI at 0.4.0
+and passed version/SBOM verification without changing those identities by hand.
+The complete Design package was also reproduced byte-for-byte after a second
+clean Java verification build. This demonstrates the packaging procedure, not
+publication or acceptance of future release tags: the real repositories'
+versions and published tags are unchanged. A discovered incomplete-checksum inventory gap is covered by shared
+package checks and pre-execution regression tests; see the
+<a href="contributor-guide.html" class="xref page">contributor guide</a>.
+Versioned documentation also checks that its installation instructions select
+the aligned CLI release; private packaging alone does not qualify documentation.</p>
+</div>
+<div class="paragraph">
 <p>Guided four-standard authoring, separate-candidate editing and from-DOT
 composition creation are implemented in source. Start with
 <a href="../dot-cli/authoring.html" class="xref page">authoring</a> or

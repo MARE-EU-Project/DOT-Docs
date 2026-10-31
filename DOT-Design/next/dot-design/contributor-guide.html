@@ -588,6 +588,18 @@ coverage, Antora, and PDF generation. Individual equivalents are available as
 <code>ci:coverage</code>, and <code>ci:docs</code>.</p>
 </div>
 <div class="paragraph">
+<p>Release package checks require the complete expected set of regular files and
+exactly one checksum per asset. Extra entries, symlinks, missing or duplicate
+digests, and changed bytes fail before execution. The Design and CLI checkers
+share this guard; downloaded Design releases use the same package checker before
+installation. <code>task testing:release:channel</code> exercises the Design package and
+download-step regressions without network access or deployment; CLI <code>task ci</code>
+also exercises the shared guard. Checksums establish integrity, not publisher trust.
+The documentation guard also requires a versioned component&#8217;s installation
+commands to select that same CLI release. Only Next may retain the selected
+stable binary while documenting unreleased source features.</p>
+</div>
+<div class="paragraph">
 <p>Publication regressions can also run alone:</p>
 </div>
 <div class="listingblock">
