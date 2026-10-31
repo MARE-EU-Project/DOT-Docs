@@ -6,7 +6,7 @@
     <title>Release notes :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.3.0/dot-design/release-notes.html">
     <link rel="prev" href="integration-handoff.html">
-    <link rel="next" href="../dot-domain/index.html">
+    <link rel="next" href="release-readiness.html">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -134,7 +134,13 @@
     <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="release-notes.html">Release notes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -276,6 +282,32 @@
 </aside>
 <article class="doc">
 <h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="_next_0_4_0_preparation_unreleased"><a class="anchor" href="#_next_0_4_0_preparation_unreleased"></a>Next: 0.4.0 preparation (unreleased)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Current source adds guided four-standard Contract authoring, safe editing into
+a separate candidate, and composition creation from exact catalogue DOTs.
+Shared native forms provide searchable selections and explicit draft approval.
+Runtime diagnostics and architecture guards retain the existing model authority
+and execution safety checks.</p>
+</div>
+<div class="paragraph">
+<p>The approved file-document migration replaces inline/Base64 contents with
+verified HTTPS URL/hash <code>Payload</code> values and renames configuration-file
+<code>defaultContent</code> to <code>payload</code>. This intentionally breaks those older input
+shapes; it is not a transparent 0.3.0 patch. Contract payload JSON is unchanged.
+Use the matching source CLI, generated schemas and catalogue together, and
+follow <a href="compatibility.html#payload-migration-040" class="xref page">the migration procedure</a>.
+Existing released artifacts and stable-tag documentation are preserved.</p>
+</div>
+<div class="paragraph">
+<p>Source tests are not release-artifact qualification or independent adoption.
+See <a href="release-readiness.html" class="xref page">verified evidence and remaining 0.4.0 gates</a>
+before treating this work as a final release.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_0_3_0"><a class="anchor" href="#_0_3_0"></a>0.3.0</h2>
 <div class="sectionbody">
@@ -1084,7 +1116,7 @@ complete candidate notes and upgrade guidance.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="integration-handoff.html">Integration handoff</a></span>
-  <span class="next"><a href="../dot-domain/index.html">Domain model</a></span>
+  <span class="next"><a href="release-readiness.html">0.4.0 readiness and remaining gates</a></span>
 </nav>
 </article>
   </div>

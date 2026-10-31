@@ -135,7 +135,13 @@
     <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -538,8 +544,10 @@ ownership-negative control with <code>task testing:authoring</code> from DOT-Des
 <div class="sectionbody">
 <div class="paragraph">
 <p>These additions require the matching source build; <strong>the published v0.3.0 binary
-does not contain them</strong>. The reviewed 0.3.0 portable models and schemas are not
-expanded. Record <code>dotx version --verbose</code> and the exact source/catalogue revisions.</p>
+does not contain them</strong>. Guided authoring reuses the existing model authority and
+supported profiles; it adds no new runtime. Current source also includes the
+separately approved <a href="../dot-design/compatibility.html#payload-migration-040" class="xref page">file-payload input-format change</a>.
+Record <code>dotx version --verbose</code> and the exact source/catalogue revisions.</p>
 </div>
 <div class="paragraph">
 <p><code>dotx new --interactive</code> now offers verified operations for all four standards:</p>

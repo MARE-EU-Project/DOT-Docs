@@ -135,7 +135,13 @@
     <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="release-notes.html">Release notes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -406,6 +412,102 @@ CLI/catalogue combinations compatible.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="payload-migration-040"><a class="anchor" href="#payload-migration-040"></a>From 0.3.0 to the upcoming 0.4.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>0.4.0 remains unreleased.</strong> Use the matching source-built CLI, generated schemas
+and catalogue pinned by one DOT-Design commit to try these changes. A source
+binary may still print <code>dotx 0.3.0</code>; record <code>dotx version --verbose</code> and its
+SHA-256, not just that label. Keep the released quickstart on its recorded
+0.3.0 catalogue. See <a href="release-readiness.html" class="xref page">the release-readiness checklist</a>.</p>
+</div>
+<div class="paragraph">
+<p>The approved file-payload migration is an intentional input-format break, not a
+transparent 0.3.0 update. It changes file-document storage, not the selected tool
+releases or the meaning of Anchors and Wires.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Document field</th>
+<th class="tableblock halign-left valign-top">Earlier input</th>
+<th class="tableblock halign-left valign-top">Current-source input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compose/Kubernetes manifest and Vagrantfile <code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plain-text or Base64 document string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shared <code>Payload</code> object: HTTPS <code>url</code> and exact lower-case <code>sha256</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Helm <code>values[].payload</code> and Docker <code>envFiles[].payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Embedded file document</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The same verified URL/hash object; ordered overrides are retained</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service <code>config.configFiles[]</code> default</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>defaultContent</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional <code>payload</code> URL/hash object; <code>defaultContent</code> is not an alias</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract <code>payload</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL/hash object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unchanged JSON shape, now using the shared Java <code>Payload</code> type</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Java clients must recompile: replace
+<code>eu.mare6g.dot.domain.contract.ContractPayload</code> with
+<code>eu.mare6g.dot.domain.Payload</code>, supply <code>Payload</code> values instead of embedded
+document Strings, and use <code>ConfigFile.payload</code> rather than <code>defaultContent</code>.
+Regenerate downstream bindings from the matching generated schemas; do not
+maintain a second hand-written input model.</p>
+</div>
+<div class="paragraph">
+<p>Sensitive files must omit a default payload. Explicit deployment-instance inputs
+still override non-sensitive defaults. Scalar environment defaults, descriptions,
+image/chart references and WASM&#8217;s existing module/hash fields are not converted
+to file-document payloads. Composition instance inputs remain instance inputs;
+do not rewrite every string into a URL.</p>
+</div>
+<div class="paragraph">
+<p>For a concrete current definition, inspect
+<a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/9c074de005810ae8d1dd3dee2e29ffd30cd592cd/DOTs/external/Prometheus-DOT/dot.json">the pinned Prometheus DOT</a>.
+The catalogue&#8217;s
+<a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/9c074de005810ae8d1dd3dee2e29ffd30cd592cd/PAYLOAD-AUDIT.md">payload audit</a>
+records the byte-preserving migration and hosting provenance. Prefer an exact,
+release-matched official raw file. Approved fallback Gists pin the full revision
+and filename; <strong>secret means unlisted, not confidential</strong>. Never upload credentials
+or private configuration, and obtain the required redistribution/hosting authority.</p>
+</div>
+<div class="paragraph">
+<p>For a custom DOT, preserve the exact original document bytes (decode Base64 only
+where the old field actually used that encoding), publish only reviewed
+non-sensitive bytes, and hash those bytes without normalizing whitespace or
+line endings. Replace the file field with its URL/hash declaration; move a
+configuration default to <code>payload</code> and remove <code>defaultContent</code>. Use the generated
+schema and full validator, not a blanket text replacement. There is no automatic
+migration command or fallback to neighboring bundle files.</p>
+</div>
+<div class="paragraph">
+<p>Before switching binaries, stop and destroy old instances with their original
+CLI, checkout and inputs. Retain application backups separately. Validate the
+target online to warm verified bytes, then offline; all selected deployment
+documents, not only Contracts, must be available and rehashed before mutation.
+A missing entry or digest mismatch fails closed. Do not repair the digest merely
+to accept changed bytes. Review affected locks explicitly and deploy a fresh
+test-owned instance; do not copy or edit saved state to adopt old workloads.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_safe_migration_procedure"><a class="anchor" href="#_safe_migration_procedure"></a>Safe migration procedure</h2>
 <div class="sectionbody">
 <div class="olist arabic">
@@ -424,7 +526,8 @@ Contract-ownership notes before changing IDs, enum spellings or dependencies.</p
 </li>
 <li>
 <p>Run online <code>dotx validate</code> against the pinned catalogue once to populate the
-verified Contract cache outside the DOT bundles. Then use <code>--offline</code> for
+verified Contract cache outside the DOT bundles, also used for deployment/file
+payloads in current source. Then use <code>--offline</code> for
 definition validation, <code>dotx compose validate</code> and <code>dotx compose inspect</code> on
 the reviewed target inputs. A cold offline cache fails closed; it does not
 download Contracts or search for a local <code>contracts/</code> folder. Cached bytes are
@@ -448,9 +551,15 @@ See <a href="../dot-cli/composition-authoring.html" class="xref page">Create a c
 for preview, offline-cache requirements and explicit lock review.</p>
 </div>
 <div class="paragraph">
-<p>There is currently <strong>no automatic migration command</strong> or incremental interface
-editor. Template-based creation is not an arbitrary graph-creation wizard or
-schema-version conversion. Retain manual review of interfaces, inputs and locks.</p>
+<p>Current-source <code>dotx edit</code> is a guided interface editor that writes a separate,
+validated candidate; it does not replace the canonical DOT, migrate state or
+repair locks. Current-source <code>dotx compose new --from-dots</code> selects exact DOTs,
+deployments and Anchors for a fresh draft, with conservative compatibility
+checks. Neither is present in the released v0.3.0 binary. See
+<a href="../dot-cli/authoring.html#_improve_an_existing_dot_safely" class="xref page">Edit an existing DOT</a>
+and <a href="../dot-cli/composition-authoring.html#_current_source_alternative_build_from_selected_dots" class="xref page">Build from selected DOTs</a>.
+There is <strong>no automatic migration command</strong> or schema-version conversion. Retain
+manual review of interfaces, inputs, publication and locks.</p>
 </div>
 </div>
 </div>
