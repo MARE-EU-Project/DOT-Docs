@@ -807,6 +807,12 @@ is a gate, not proof of correct behavior. Existing shared OS hooks still
 require serial tests; do not add <code>t.Parallel</code> around their replacement.</p>
 </li>
 <li>
+<p>Put whole-suite scratch storage outside Git and Go module trees: repository
+discovery tests need genuinely unrelated ancestors. For focused Git-negative
+controls, bound discovery at the fixture&#8217;s parent with
+<code>GIT_CEILING_DIRECTORIES</code> and exercise an ignored ancestor repository too.</p>
+</li>
+<li>
 <p>Use existing parser/resolver benchmarks before optimizing. Do not introduce
 caching that bypasses digest re-verification or hides corrupt-cache failures.</p>
 </li>

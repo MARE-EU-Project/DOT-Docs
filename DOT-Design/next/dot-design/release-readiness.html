@@ -302,10 +302,10 @@ check does not certify every catalogue producer.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>DOT-Design: <code>6ff6d25f193545c4331a2d151578d2952da4b348</code></p>
+<p>DOT-Design: <code>caa08754c2e0813686213678d402c8b0c2cfb48a</code></p>
 </li>
 <li>
-<p>DOT-CLI: <code>e45cb4eae8a9a6b7059ac9d0ed2230cb4de24392</code></p>
+<p>DOT-CLI: <code>a140194f8185eed3b817c52b617d766b3e54d819</code></p>
 </li>
 <li>
 <p>DOT-Repository: <code>9c074de005810ae8d1dd3dee2e29ffd30cd592cd</code></p>
@@ -329,26 +329,35 @@ commits do not turn this snapshot into qualification of a future release tag.</p
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Local deterministic and live workflow equivalents</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Passed during development of this refactor: Java/schema/Go checks, race and coverage gates,
-catalogue/locks, HTML/PDF, selected real services, runtime isolation and cleanup.
-All 12 live E2E scenarios passed, but that aggregate receipt records pre-commit
-parent revisions, not the clean commits above. It is development evidence, not
-final clean-source qualification. Source-adapted and standards-native fixtures
-retain their labels; this is not full producer certification.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local deterministic checks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full CLI CI and Design deterministic CI passed: 163 Java tests, generated
+schemas/bindings, race tests, exact Go coverage, catalogue/locks, all 12 E2E
+dry-runs and Antora HTML/PDF/publication guards. No production model, CLI,
+catalogue definition or lock changed in this qualification increment.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact-source GitHub checks</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">All 17 validation/publication workflows and the separate badge workflow
-succeeded. CLI CI succeeded. The optional external <code>linux-stress</code> job was
-skipped, not passed; its local stress equivalent passed separately.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fresh clean-source demo and presenter qualification</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All five <code>task testing:demo</code> phases passed in 32.9 minutes. All 19 qualification
+steps passed: seven live paths twice, failure and SIGINT/SIGTERM cleanup, and
+four terminal-driven presenter chapters. A separate short-guide rehearsal passed
+full flow, early finish, EOF, timeout and both signals. Sources and installed
+binary were unchanged before/after; owned cleanup was verified. Source-adapted
+and standards-native fixtures retain their labels; this is not full producer certification.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub checks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The preceding refactor&#8217;s 17 validation/publication workflows and separate badge
+workflow succeeded, as did CLI CI. Its optional external <code>linux-stress</code> job was
+skipped, not passed. Those results belong to the preceding revisions, not the
+new source set above; fresh remote checks remain required.
 See <a href="https://github.com/MARE-EU-Project/DOT-Design/actions?query=sha%3A6ff6d25f193545c4331a2d151578d2952da4b348">Design runs</a>
 and <a href="https://github.com/MARE-EU-Project/DOT-CLI/actions/runs/41137460583">CLI CI</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Published documentation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Next publication succeeded and the new contributor boundary guide was checked
-online. Publication proves document availability, not live API acceptance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The preceding Next publication and contributor guide were verified online.
+This updated audit still requires publication. Publication proves document
+availability, not live API acceptance.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Catalogue declarations, refreshed on the audit date</p></td>
@@ -359,6 +368,42 @@ not a permanent readiness percentage.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The local receipts are private, ignored artifacts under <code>DOT-Testing/e2e/target/</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Five-phase run: <code>demo/run-4eva88fs/summary.json</code>.</p>
+</li>
+<li>
+<p>Exact qualification: <code>rehearsal/run-qbv4zxn8/summary.json</code>; its adjacent
+<code>fallback/</code> contains the matching sanitized historical summary.</p>
+</li>
+<li>
+<p>Four official chapters: <code>presenter/run-ky9b5lmw/summary.json</code>.</p>
+</li>
+<li>
+<p>Short-guide controls: <code>guided-rehearsal/run-wle9fkdp/summary.json</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An earlier clean run, <code>demo/run-s5qzi8m7/summary.json</code>, remains <strong>failed</strong>: its
+SIGTERM case stopped at Kubernetes API preflight before workload adoption.
+The API was subsequently Ready and the entire fresh run above passed, but the
+transient failure&#8217;s cause is not proven. No timeout was weakened or cluster
+restarted; the failed receipt is not replaced by the later success.</p>
+</div>
+<div class="paragraph">
+<p>Source-packaging checks produced byte-identical model archives and CLI packages;
+the packaged binary passed catalogue/interface acceptance. Full package
+verification nevertheless <strong>failed the SBOM/version identity gate</strong>: the untagged
+source still declares 0.3.0 while SBOM generation derives a pseudo-version.
+These are diagnostic source builds, not qualified 0.4.0 assets. Matching release
+metadata, exact tags and fresh artifact verification remain necessary; do not
+rewrite SBOM identities to turn that failure into a pass.</p>
+</div>
 <div class="paragraph">
 <p>Guided four-standard authoring, separate-candidate editing and from-DOT
 composition creation are implemented in source. Start with
@@ -387,10 +432,11 @@ changes are proposed by this audit.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Final clean-source qualification</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Run the complete local equivalents and a fresh <code>task testing:demo</code> on the
-selected release sources. Retain the exact source/binary identity, cleanup,
-presenter controls and matching sanitized fallback receipts. Prior receipts
-remain historical evidence, not a substitute for the final source set.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The source snapshot above has a passing fresh demo and local deterministic
+checks. Repeat applicable final qualification on the selected release sources
+after release metadata/pins change. Retain exact source/binary identity, cleanup,
+presenter controls and matching sanitized fallback receipts. This source result
+does not qualify an unbuilt release tag.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Coordinated release artifacts</p></td>
