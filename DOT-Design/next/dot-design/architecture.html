@@ -626,6 +626,14 @@ same filename must not share a configuration resource. Native Secret references
 remain operator-owned; destroying a DOT does not delete a referenced Secret.</p>
 </div>
 <div class="paragraph">
+<p>After updating all selected services, dotx requests one configuration-triggered
+restart per distinct native workload. Each operation uses a fresh non-secret
+Pod-template token, so rapid applies do not depend on clock precision. Individual
+Pod-template patches may also trigger native rollouts; apply is not transactional.
+Paused Deployments requiring configuration-file restarts are rejected without automatic resume.
+Containers sharing a Pod also share that workload&#8217;s restart lifecycle.</p>
+</div>
+<div class="paragraph">
 <p>Manifest <code>envFiles</code> have a different purpose: Docker image defaults use
 <code>docker run --env-file</code>; Compose defaults use <code>docker compose --env-file</code> for
 project interpolation. They are not per-service configuration declarations.
