@@ -16,6 +16,14 @@ maintainer rehearsals. Three independent trials are the adoption goal.
 - Images and verified Contracts already cached: [not recorded]
 - Access granted without sharing or recording credential values: [not recorded]
 - Setup performed by a maintainer beforehand: [none / describe]
+- Exact evaluation-kit manifest and outer SHA-256: [not recorded]
+- Consent to participate and approved private-record retention policy: [not obtained]
+- Assigned operator, exclusive environment/profile and reserved session window: [not assigned]
+- Residual-resource recovery owner and original binary/context location: [not assigned]
+- Private workspace, candidate paths and state/cache: [not recorded]
+- Editable inputs copied to participant-owned paths before modification: [not checked]
+- Names, ports and namespaces checked; no concurrent manual/harness use: [not checked]
+- Persistent restricted evidence archive and custodian: [not provisioned]
 
 Give the participant only repository access, the documented prerequisites and
 the published Getting started entry point for their selected artifact set.
@@ -34,6 +42,8 @@ existing walkthrough; this record is not another command sequence.
 | Status inspected and service explained | not measured |
 | Cleanup and test-owned leftover checks complete | not measured |
 | Cold network/download waiting time | not measured |
+| Operator/prerequisite preparation time | not measured |
+| Total elapsed time, including preparation/downloads | not measured |
 | Hands-on time to first verified API | not measured |
 
 The ten-minute hands-on target is a proposed usability goal, not a measured
@@ -68,6 +78,27 @@ substitute automated PTY tests or a maintainer's rehearsal for the participant:
 | Build a graph from exact DOT/deployment/Anchor menu choices | not observed |
 | Explain incompatible/UNKNOWN matches and explicit broker/gateway ownership | not observed |
 | Review the topology, explicitly create/review a lock, run the documented live path and clean up | not observed |
+| Add a scrape-job label in owned inputs and query the label-selected result | not observed |
+
+## Optional native comparison: a separate measurement
+
+Use the same pinned images, runtime privileges, scrape interval and expected
+results for both lanes. Record DOT/native lane order; counterbalance it across
+participants where both lanes are attempted. This does not replace any task above.
+
+| Measurement | DOT lane | Native configuration lane |
+| --- | --- | --- |
+| Lane order | not assigned | not assigned |
+| Deploy and obtain the same scrape/query result | not observed | not observed |
+| Add scrape label; query label-selected result | not observed | not observed |
+| Diagnose and repair the intentionally invalid connection | not observed | not observed |
+| Hands-on / preparation / download / total elapsed time | not measured | not measured |
+| Configuration edits and every intervention | not recorded | not recorded |
+| Owned cleanup and peer survival | not observed | not observed |
+
+This is a small formative experiment, not evidence of universal efficiency.
+The Docker beginner path, advanced authoring and Kubernetes/cross-runtime operator
+exercises have separate timings. A fresh UUID alone does not isolate resources.
 
 Record the exact source-qualified artifact set; the published v0.3.0 binary does
 not contain these new guided commands. Record every undocumented intervention
@@ -76,6 +107,7 @@ and failed/cancelled task, even if the participant succeeds on a retry.
 - Outcome: [NOT RUN / independently completed / assisted / failed / interrupted]
 - Proposed regression or documentation issues: [not reviewed]
 - Consent to share the redacted record: [not obtained]
+- Archive retrieval and rehash verified before removing scratch records: [not checked]
 
 Never paste tokens, passwords, kubeconfigs, raw private logs, environment dumps
 or unredacted command bodies here. Preserve detailed evidence privately; share
