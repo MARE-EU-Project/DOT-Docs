@@ -366,6 +366,24 @@ raw UUID restriction, raw parsing/presence coverage and complete semantic invent
 Affected neutral-profile publication is blocked until those are resolved.</p>
 </div>
 <div class="paragraph">
+<p>Contributors can run <code>task testing:adoption:raw</code> from the DOT-Design checkout root
+to compare original raw inputs, Java decoding and object validation. It also
+enumerates compiled constraint groups, cascades, container elements and schema
+annotations. It requires the contributor toolchain; it is separate from the
+participant&#8217;s prebuilt-binary route. The bootstrap may download pinned test tools;
+the gate fetches no DOT payloads and starts no workloads.</p>
+</div>
+<div class="paragraph">
+<p>The generated DOT schema rejects the combination of exact <code>internal</code> and <code>external</code>
+group labels. The generated Composition schema restricts UUID versions/variants. Java object validation
+is broader in these contexts. Missing raw fields can also be supplied by Java
+construction defaults. These differences are now regression-tested, not silently
+unified. Nested ID-only references and complete owned declarations use different
+validation groups; catalogue publication is stricter than model readability.
+Parser-characterization results and descriptor fingerprints do not establish a
+neutral parser policy or complete semantic coverage.</p>
+</div>
+<div class="paragraph">
 <p>No human trials, independent implementation or owner approvals are supplied by
 these checks. Read <a href="release-readiness.html" class="xref page">the remaining release gates</a> before
 making release or production claims. Stable-tag documentation remains unchanged.</p>
