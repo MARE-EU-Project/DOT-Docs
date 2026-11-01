@@ -683,6 +683,15 @@ dotx-created ConfigMaps/Secrets are cleaned without deleting referenced
 operator-owned Secrets. The tracked Helm chart is packaged from the pinned
 checkout, and its SHA-256 is included in the redacted evidence artifact.</p>
 </div>
+<div class="paragraph">
+<p>The Kubernetes and Helm profiles also cover separate service containers in one
+Pod, same-filename configuration paths and service IDs that would collide after
+sanitization. A private test-only definition and verified payload cache keep
+these stress cases outside the catalogue. Service mappings must identify
+distinct actual workload/container pairs; selector spelling alone is not an
+isolation guarantee. See <a href="architecture.html#multi-service-dots" class="xref page">One DOT,
+several services</a> for configuration scopes and supported execution boundaries.</p>
+</div>
 </div>
 </div>
 <div class="sect1">

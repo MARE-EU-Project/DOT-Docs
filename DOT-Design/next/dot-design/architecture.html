@@ -562,6 +562,94 @@ deployment whose manifest mechanism does not align with its platform.</p>
 named ports, Anchors, and supported configuration. Configuration is
 service-scoped; there is no deployment-level shared configuration surface.</p>
 </div>
+<div class="sect2">
+<h3 id="multi-service-dots"><a class="anchor" href="#multi-service-dots"></a>One DOT, several services</h3>
+<div class="paragraph">
+<p>Use one DOT when a tool&#8217;s native Compose project, Kubernetes manifest or Helm
+chart deploys several cooperating services. List those services in the selected
+deployment&#8217;s <code>services</code> collection. Each service has its own <code>config</code>, ports and
+Anchor bindings. You do not need a Composition just to describe the tool&#8217;s
+internal containers; a Composition selects and connects independently reusable
+DOT instances.</p>
+</div>
+<div class="paragraph">
+<p>For example, <code>api</code> and <code>worker</code> may both declare an environment variable named
+<code>MODE</code> and a file at <code>/etc/dot/service.json</code>. These declarations belong to
+different services and may have different defaults. Within one service, names
+and target paths must be unique. File defaults use the shared HTTPS URL and
+SHA-256 <code>payload</code>; sensitive files must not supply defaults.</p>
+</div>
+<div class="paragraph">
+<p>Composition inputs identify the service explicitly. This fragment changes only
+the worker&#8217;s environment and the API&#8217;s file; it does not replace either service&#8217;s
+other declarations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">deploymentInputs:
+  environment:
+    - service: worker
+      name: MODE
+      value: worker-kubernetes
+  configFiles:
+    - service: api
+      source: ../api-service.json
+      target: /etc/dot/service.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The file path is relative to the Composition document. Review the complete
+<a href="https://github.com/MARE-EU-Project/DOT-Design/tree/main/DOT-Testing/composition/service-workloads">service-to-workload example</a>
+for the selected DOT, native workload mappings and Secret references.</p>
+</div>
+<div class="paragraph">
+<p>The executor also needs an unambiguous native destination:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Docker Compose:</strong> map each logical service to its Compose service key.</p>
+</li>
+<li>
+<p><strong>Kubernetes and Helm:</strong> map each service to labels selecting exactly one
+composition-owned workload, plus the exact container when it has several.
+Two services may select different containers in the same Pod. Different
+selectors that resolve to the same workload/container are rejected before
+service configuration is patched.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Kubernetes configuration resources and Pod volumes distinguish the runtime
+instance, service, complete target path and resource kind. Two paths with the
+same filename must not share a configuration resource. Native Secret references
+remain operator-owned; destroying a DOT does not delete a referenced Secret.</p>
+</div>
+<div class="paragraph">
+<p>Manifest <code>envFiles</code> have a different purpose: Docker image defaults use
+<code>docker run --env-file</code>; Compose defaults use <code>docker compose --env-file</code> for
+project interpolation. They are not per-service configuration declarations.
+Use <code>services[].config</code> and service-targeted inputs for that purpose.</p>
+</div>
+<div class="paragraph">
+<p>These guarantees apply to the supported Compose, Kubernetes and Helm execution
+profiles. They do not imply independent multi-service WASM execution or
+automatic wiring of native storage. Keep storage in the native manifest where
+the selected profile requires it. See
+<a href="verification-and-examples.html" class="xref page">Verification and examples</a> for deterministic
+checks and separate live acceptance tasks.</p>
+</div>
+<div class="paragraph">
+<p>Lifecycle scope remains narrower than configuration scope. For a custom
+Compose project, use its recorded runtime name for <code>dotx stop</code> / <code>start</code>;
+path-based Compose lifecycle uses the DOT name and may require the manifest&#8217;s
+interpolation inputs again. Kubernetes path-based stop/start selects a single
+service-derived Deployment. Named Kubernetes/Helm stop/start operates on
+Deployments and restores one replica; it does not manage StatefulSets or
+DaemonSets. The multi-service acceptance below qualifies apply, status, resume
+and destroy, not general stateful recovery.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
