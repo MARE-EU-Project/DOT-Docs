@@ -404,6 +404,32 @@ a client-only worker or planning API just to turn a profile result green.
 An ownership folder is not an evidence level.</p>
 </div>
 <div class="paragraph">
+<p>Every current catalogue DOT README includes an expandable interface inventory:
+owned Contracts, provided and required Integration Points, exact operation
+selectors and service-port bindings. The
+<a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/CONTRACT-INTERFACES.md">complete interface inventory</a>
+links all bundles, including entries with missing Contracts. It is generated
+from <code>dot.json</code>; it is not a second catalogue index or a qualification result.
+Required dependencies do not document a component&#8217;s exposed APIs. An explicitly
+implemented external interface retains its original Contract ID and origin.</p>
+</div>
+<div class="paragraph">
+<p>Grafana now includes its release-matched official HTTP OpenAPI declaration,
+with health and data-source-list Integration Points bound to port 3000. Its
+browser UI and consumed Prometheus/Elasticsearch APIs remain separate boundaries.
+The vendor&#8217;s global security declarations are preserved; selecting a documented
+operation does not establish live authorization or full API coverage.</p>
+</div>
+<div class="paragraph">
+<p>OpenMetrics and SPARQL are proposed native profiles, not currently accepted
+Contract standard values. The former specifies metric exposition; the latter
+has a standard machine-readable Service Description vocabulary. A metrics
+sample or an HTML specification link alone does not describe a tool&#8217;s complete
+interface. Native parsing, selectors, compatibility and probes require reviewed
+implementation. HTTP/WebSocket AsyncAPI flows and imported Protobuf graphs are
+separate implementation gaps in existing standards.</p>
+</div>
+<div class="paragraph">
 <p>From the <strong>DOT-Design checkout</strong>, warm the verified cache and regenerate the report:</p>
 </div>
 <div class="listingblock">

@@ -415,6 +415,17 @@ does not start a workload. See <a href="../dot-domain/model-interfaces.html#mode
 for the shared model and its integrity/hosting boundaries.</p>
 </div>
 <div class="paragraph">
+<p>Current-source repository validation applies reusable publication checks to
+external/internal definitions with owned Contracts or explicitly implemented
+provided interfaces. Consumed dependencies alone cannot qualify an exposed API.
+<code>--profile interoperable</code> additionally requires Contract coverage for every
+Anchor and exposed service port. Runtime-only, client-only and incomplete
+definitions remain visible as gaps in the
+<a href="../dot-design/verification-and-examples.html#catalogue-readiness" class="xref page">catalogue readiness report</a>;
+base validation is not a blanket requirement that every definition is interface-complete.
+These declaration checks do not establish live producer behavior.</p>
+</div>
+<div class="paragraph">
 <p>Composition subcommand help includes only that operation&#8217;s flags, an example,
 a suggested next step and its safety boundary. For example, <code>compose inspect</code>
 resolves declared inputs without deployment, <code>apply --dry-run</code> previews commands,
