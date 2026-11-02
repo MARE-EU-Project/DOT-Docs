@@ -109,13 +109,13 @@ package "eu.mare6g.dot.domain.anchor" as package_eu_mare6g_dot_domain_anchor #EF
     - id: String
     - name: String
     - role: AnchorRole
-    - semanticTypes: List<URI>
     - contract: AnchorContract
     - requirement: AnchorRequirement
     - direction: AnchorDirection
     - protocols: List<String>
     - mediaTypes: List<String>
     --
+    + rejectUnknownProperty(name: String, value: Object): void
     + isCommunicationDefinitionValid(): boolean
   }
 

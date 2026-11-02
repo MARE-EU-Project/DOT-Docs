@@ -300,7 +300,7 @@
 <p>Give one provided or required interaction a stable, DOT-local integration key. Compositions connect these logical points; deployment service bindings connect locally provided, non-brokered interfaces to named ports.</p>
 </div>
 <div class="paragraph">
-<p>Choose exactly one communication mode: a Contract operation, a supported provider-neutral requirement, or explicit contractless communication facts. Do not duplicate direction, protocols or media types for a Contract-backed Anchor. Aggregate validation checks references, selector syntax and deployment bindings; the CLI resolves actual Contract operations. Declarations, optional semantic labels and a compatible wire are not live reachability, authentication or production acceptance.</p>
+<p>Choose exactly one communication mode: a Contract operation, a supported provider-neutral requirement, or explicit contractless communication facts. Do not duplicate direction, protocols or media types for a Contract-backed Anchor. Aggregate validation checks references, selector syntax and deployment bindings; the CLI resolves actual Contract operations. Declarations and a compatible wire are not live reachability, authentication or production acceptance.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Anchor.schema.json">Generated JSON Schema</a></p>
@@ -340,12 +340,6 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether this component offers the interaction or depends on it. This logical provider/consumer relationship is independent of which participant initiates a network request or the direction of payload flow. allowed: "PROVIDES", "REQUIRES".</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>semanticTypes</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optional defined vocabulary identifiers for domain meaning, not API documentation URLs or payload-schema pointers. The CLI treats them as opaque URI strings: nonempty lists on both sides must intersect exactly; an absent list imposes no restriction and supplies no semantic proof. It performs no ontology inference.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>contract</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AnchorContract</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
@@ -367,7 +361,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit communication protocols for a contractless interaction. Declare the actual supported boundary rather than treating a semantic label, file format or service name as a protocol.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit communication protocols for a contractless interaction. Declare the actual supported boundary rather than treating a display label, file format or service name as a protocol.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mediaTypes</code></p></td>

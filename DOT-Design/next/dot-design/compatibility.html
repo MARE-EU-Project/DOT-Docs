@@ -351,6 +351,16 @@ Migrate declarations, bindings, wires and exposed interfaces together, then revi
 new locks. Old UUIDs and display names are never lookup aliases.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor operation references</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract-backed Anchors select operations from verified Contracts. The retired
+<code>semanticTypes</code> field is absent; Java decoding and generated Anchor schemas
+reject undeclared properties, including empty or null retired values.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the retired field explicitly and preserve unrelated Anchor IDs/bindings.
+Choose an actual supported operation, not a schema or documentation URL; keep
+contractless gaps explicit. Review affected locks and clean old workloads with
+the original CLI and inputs before switching. No alias or state migration exists.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract ownership</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Dependency interfaces resolve an explicit originating DOT; owned declarations
 cannot borrow a different release&#8217;s namespace.</p></td>
@@ -420,8 +430,8 @@ CLI/catalogue combinations compatible.</p>
 <div class="paragraph">
 <p><strong>0.4.0 remains unreleased.</strong> Use the matching source-built CLI, generated schemas
 and catalogue pinned by one DOT-Design commit to try these changes. A source
-binary may still print <code>dotx 0.3.0</code>; record <code>dotx version --verbose</code> and its
-SHA-256, not just that label. Keep the released quickstart on its recorded
+binary reports its checkout&#8217;s <code>VERSION</code>; record <code>dotx version --verbose</code> and
+its SHA-256, not just that label. Keep the released quickstart on its recorded
 0.3.0 catalogue. See <a href="release-readiness.html" class="xref page">the release-readiness checklist</a>.</p>
 </div>
 <div class="paragraph">

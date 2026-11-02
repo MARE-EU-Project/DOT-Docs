@@ -417,8 +417,7 @@ operations. Unsupported matches fail rather than being inferred from names.</p>
 </div>
 <div class="paragraph">
 <p>The selector identifies an operation, not just a data type. Its request and
-response schemas belong to the verified Contract; do not copy their schema
-pointers into <code>semanticTypes</code>. OpenAPI parameters, request bodies, responses,
+response schemas belong to the verified Contract. OpenAPI parameters, request bodies, responses,
 media types and their schema references remain in that one authoritative
 document. A documentation-page URL does not add machine-readable semantics.</p>
 </div>
@@ -538,11 +537,6 @@ dimensions:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Role and direction</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The connection is from <code>PROVIDES</code> to <code>REQUIRES</code>, and the selected interaction
   directions can communicate.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Semantics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Declared semantic-type URIs intersect exactly when both sides provide them.
-  Missing annotations impose no restriction; their meaning is not evaluated.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Protocol and media</p></td>
@@ -673,32 +667,19 @@ one provider DOT to one consumer DOT through every row above.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="semantic-types"><a class="anchor" href="#semantic-types"></a>Semantic types</h3>
+<h3 id="operation-identity-and-compatibility"><a class="anchor" href="#operation-identity-and-compatibility"></a>Operation identity and compatibility</h3>
 <div class="paragraph">
-<p><code>semanticTypes</code> optionally identifies the security or domain meaning of an
-interaction independently of its transport and payload structure. Use stable,
-defined ontology or vocabulary identifiers where available. A project URN needs
-an explicitly documented meaning; inventing a URI does not establish semantics.
-For Contract-backed Anchors, omit this optional annotation when no appropriate
-vocabulary exists. Do not use an API documentation page as a substitute for a
-machine-readable type definition.</p>
+<p>Contract-backed Anchors select operations from a digest-verified document.
+Request and response schemas remain in that document; a schema pointer or an
+HTML documentation link cannot replace an operation selector. There is no
+separate ontology-URI matching field.</p>
 </div>
 <div class="paragraph">
-<p>The CLI treats these URIs as opaque identifiers: it neither downloads the pages
-nor reads an ontology. When both lists are nonempty, at least one exact URI must
-be shared; disjoint lists reject the wire. If either list is empty, this check
-imposes no restriction and emits no separate semantic status. A <code>COMPATIBLE</code>
-wire therefore does not prove semantic compatibility. Missing semantics are
-not evaluated, not automatically understood. No subclass, equivalence, units or
-broader/narrower reasoning is performed.</p>
-</div>
-<div class="paragraph">
-<p>Contract operation selection, payload structure and domain meaning are separate
-concerns. The current resolver checks selected interface identity, not arbitrary
-schema substitutability or automatic composition between independently authored
-APIs. Even identical JSON shapes can carry different meanings, such as Celsius
-and Fahrenheit. General structural matching and semantic-policy reasoning remain
-future work; runtime probes provide separate, bounded live evidence.</p>
+<p>The current resolver checks selected interface identity, not arbitrary schema
+substitutability or automatic composition between independently authored APIs.
+Even identical JSON shapes can carry different meanings, such as Celsius and
+Fahrenheit. Structural matching and semantic-policy reasoning remain future
+work; runtime probes provide separate, bounded live evidence.</p>
 </div>
 </div>
 </div>
@@ -717,12 +698,16 @@ facts that cannot otherwise be derived:</p>
   "id": "packet-stream",
   "name": "packet-stream",
   "role": "PROVIDES",
-  "semanticTypes": ["urn:mare:security:packet-stream"],
   "direction": "EGRESS",
   "protocols": ["TCP"],
   "mediaTypes": ["application/octet-stream"]
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Explicit contractless facts describe only the declared communication boundary;
+they provide no verified operation or payload schema. Keep these gaps visible
+in the catalogue readiness report.</p>
 </div>
 <div class="paragraph">
 <p>Contract-backed and contractless forms are mutually exclusive. A

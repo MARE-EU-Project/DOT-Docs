@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0-rc.1",
   "models": [
     "Anchor",
     "AnchorBinding",
@@ -81,15 +81,15 @@
   ],
   "publicInputs": {
     "DOT-Docs/scripts/model-reference.mjs": "511ba87a3def27468aac38f55f98973dda0d818a43823ce70f7b2d3bb9f4a8b8",
-    "DOT-Docs/scripts/model-notes-interfaces.mjs": "a2d3193ae55641be82c44f6f835c7f759495b6797988cc908e72147667d4a97d",
+    "DOT-Docs/scripts/model-notes-interfaces.mjs": "b563ca1a761b6cbadaf763e7cec9c6922eeb5fe14aa22d743418a0fff55c9484",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "9c63e1c87a37d3d763f3a26af4e10265c5c9462a7e2117010333fe7c2c874288",
     "DOT-Docs/scripts/model-notes-composition.mjs": "6136290a80e45df261d7ab02a0e065da02d07d6b842b0e0c3296c7e9f0642644",
     "DOT-Docs/scripts/domain-reference.mjs": "31c77232ec6ac5c8bf51d69428c460e0869418154eb59680467fe59bf5177088",
     "DOT-Domain/src/test/resources/model-compatibility.json": "3e9ba9e0b305c842572ae01a07ea76b06ee41a1d13a1ab36a4a1430f7ccd0fbf",
-    "DOT-Docs/modules/ROOT/attachments/dot-domain.class-diagram.puml": "38a83d30fdd357f6c2c9c0cf1f349adb999318fe15a9c216e022d3caadd82706",
+    "DOT-Docs/modules/ROOT/attachments/dot-domain.class-diagram.puml": "d12061bdf30449b88ad930b069bf88c1a892b5781ea5b20fc9ec15b732668ca5",
     "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "73b21a275ee8f7a404530972f17a225ac89ec08a9efb3a326326d7f68843ede9",
-    "VERSION": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0",
-    "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java": "f2042e62fc0f826d83a08f001c751a5277fa99770c2c7fc0c6cd91279520d225",
+    "VERSION": "6efb6ae82cca32df15976cba95312e30ea1b8d7668909072ea1a0b3ec93d25fa",
+    "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java": "69984e82661276460a77c15f9a5b5ac14c8b20f00f1147ee308c010cf2030ee7",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/AnchorBinding.java": "eee594cea2b9b2c8d0012344b96b14986d9c8722172a0c6e81b4b3915eab958f",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorContract.java": "6d5a039da312db62f25eb1dfd7cef471be67aee4fece91790e064174f0ac2d7b",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorDirection.java": "7e35bd542bfd69370095fb977423929ffd725a29b50a50426ae8ac7b247b1fbf",
@@ -168,11 +168,11 @@
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/WireSecurity.java": "6dabd1d8122c43b9253a60e9df82a6fc311812d90386b36985c5444f068c8ca7"
   },
   "authorities": {
-    "DOT-Repository/Schema/schema.json": "3cebba68d92adaf416068a1f8dffa89a0b7cd5d4387d491731bd6949630c0a34",
+    "DOT-Repository/Schema/schema.json": "14809e0d2f16a7ab87e6ff1ff37c80e36d0abbf3f6e180d2257ca0cb5bb38f22",
     "DOT-Repository/Schema/composition-v1.schema.json": "623c6290dd6a470cd90094487ab18d9f756ef3a6306a5e56f6b0ef67e29c2be2",
-    "DOT-Repository/DOTs/external/Prometheus-DOT/dot.json": "fecc961e55a81ee9447920903752af4677bcb2671176fd838bd40b92aead0ef0",
-    "DOT-Repository/Schema/models/Anchor.schema.json": "46c605a6c0d8b0ff83c6504e2e90f2d131d500fcd2badee363af7ff06f3ae66c",
-    "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java": "f2042e62fc0f826d83a08f001c751a5277fa99770c2c7fc0c6cd91279520d225",
+    "DOT-Repository/DOTs/external/Prometheus-DOT/dot.json": "2af45a7be8f2a37e544d35f9a19a84a06b00e6dbe5b8a28284ed9b0aa2542a6b",
+    "DOT-Repository/Schema/models/Anchor.schema.json": "dd5d5d7776b85b0b440f8e6e13f6a09d9447e2cc996386068853afda53ae8bdc",
+    "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java": "69984e82661276460a77c15f9a5b5ac14c8b20f00f1147ee308c010cf2030ee7",
     "DOT-Repository/Schema/models/AnchorBinding.schema.json": "5c90eb295194e2e06cfa5498ee1d01ac8aa4a33cead6d42c67c79cd9e93c8e27",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/AnchorBinding.java": "eee594cea2b9b2c8d0012344b96b14986d9c8722172a0c6e81b4b3915eab958f",
     "DOT-Repository/Schema/models/AnchorContract.schema.json": "b7d830701e32e39f6143d5c4163a7488a674b553c27944a0bb41d13ac2afd9c8",
@@ -326,7 +326,7 @@
   },
   "outputs": {
     "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "b56b80576dba9b0ef55f5fd29b47b8dc40cb5c760f772c2ad80d550d630dcbb6",
-    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "9db6db5696e9b4af9d83d44224ebb05a1c63affa98f1b80788b55331e1a02f33",
+    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "07c35dd4b2a9d80c82be6664593df341d3ce1325f39a38e9e40059eeafab781e",
     "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "8dd5dc9c764bdaffe0799bbacfe73c6d8c00df51ee52e38ae272fdc9c0fd86ee",
     "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "f9b08c88dcfafb1accfa84098169ea4a469136aa70d16d36f7c907a30d290245",
     "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "aa9afac3ac223e1f36995cff60ced1926d95b670ffe832ebd74d2ff0c18656ed"
