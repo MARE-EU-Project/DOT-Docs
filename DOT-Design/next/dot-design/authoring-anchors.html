@@ -305,9 +305,9 @@ Contracts, Anchors, bindings, and wires is not yet familiar.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Put the operation or message boundary in an OpenAPI, AsyncAPI, Protobuf, or
-GraphQL Contract. Use the contractless form only when none of those standards
-can describe the boundary.</p>
+<p>Put the operation or message boundary in an OpenAPI, AsyncAPI, Protobuf,
+GraphQL, or current-source SPARQL Contract within its supported profile. Use
+the contractless form only when no supported Contract describes the boundary.</p>
 </li>
 <li>
 <p>Add a stable <code>PROVIDES</code> Anchor to the provider DOT and a stable <code>REQUIRES</code>
@@ -604,6 +604,11 @@ to weakening compatibility when protocols or payloads genuinely differ.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Root-field schema coordinate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Mutation.publishAlert</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPARQL (unreleased source)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact absolute <code>sd:endpoint</code> IRI in the W3C Service Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="http://localhost:7878/query" class="bare">http://localhost:7878/query</a></code></p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -655,6 +660,12 @@ wire&#8217;s <code>parameters</code>, not to the Anchor.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SDL root field</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">One shared schema coordinate; <code>QUERY</code>, <code>MUTATION</code>, or <code>SUBSCRIPTION</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPARQL 1.1 (unreleased source)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>N_TRIPLES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">W3C Service Description query endpoint advertising SPARQL 1.1 Query and SPARQL Results JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One exact endpoint IRI selector; <code>QUERY</code> for both participants</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -663,7 +674,57 @@ wire&#8217;s <code>parameters</code>, not to the Anchor.</p>
 contract-backed wire. These fields are derived from the supplied Contract and
 therefore do not duplicate authoring metadata in either Anchor or composition.
 The deterministic <code>DOT-Testing/composition/contract-standards/</code> matrix connects
-one provider DOT to one consumer DOT through every row above.</p>
+provider and consumer DOTs through the established standard profiles; native
+query/metrics regressions qualify their own bounded source additions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="native-query-and-metrics-profiles"><a class="anchor" href="#native-query-and-metrics-profiles"></a>Native query and metrics profiles in unreleased source</h3>
+<div class="paragraph">
+<p>These additions belong to the current <strong>unreleased development 0.4.0-rc.1
+source</strong>. Use matching Java-derived schemas, CLI and catalogue definitions and
+record exact revisions, modified state and binary digest. They do not change
+the published v0.3.0 binary or establish live production acceptance.</p>
+</div>
+<div class="paragraph">
+<p><code>SPARQL</code> is a canonical Contract standard, with <code>format: N_TRIPLES</code> and
+<code>version: "1.1"</code>. The pinned payload is a W3C Service Description; the selected
+service must advertise <code>sd:SPARQL11Query</code> and
+<code><a href="http://www.w3.org/ns/formats/SPARQL_Results_JSON" class="bare">http://www.w3.org/ns/formats/SPARQL_Results_JSON</a></code>. A selector is its exact
+absolute <code>sd:endpoint</code> IRI, not the HTTPS payload URL, a blank-node label or a
+query string. Duplicate identical triples have RDF set semantics; conflicting
+or ambiguous endpoints fail. The parser accepts at most 1 MiB and 4096 unique
+triples, rejects named graphs and relative identifiers, and performs no remote
+RDF loading or inference.</p>
+</div>
+<div class="paragraph">
+<p>The descriptor&#8217;s escaped endpoint path is combined with the runtime service
+binding; its authority never selects a host to contact. Compatibility requires
+the same originating Contract ID and endpoint selector. This establishes only
+the declared query/result capability: dataset contents, arbitrary query
+obligations, updates, entailment, extensions and authentication remain outside
+the profile. A query-and-update service can expose its query capability;
+an update-only endpoint cannot satisfy it.</p>
+</div>
+<div class="paragraph">
+<p>OpenMetrics is an HTTP response format under an ordinary <code>OpenAPI</code> Contract,
+not another interface-description language or enum value. Describe the actual
+successful operation response as either
+<code>application/openmetrics-text; version=1.0.0; charset=utf-8</code> or
+<code>text/plain; version=0.0.4; charset=utf-8</code> for Prometheus text. Contract.version
+continues to identify the OpenAPI document version. Error/default-only media
+declarations do not activate native metrics validation. Neither representation
+proves metric names, labels, units, application queries or physical host access.</p>
+</div>
+<div class="paragraph">
+<p>The current Node Exporter 1.12.1 and cAdvisor 0.60.6 handlers serve Prometheus
+text 0.0.4. Their OpenAPI envelopes are source-derived projections of those
+handlers, not vendor-published specifications or evidence of OpenMetrics
+negotiation. Oxigraph 0.5.13 uses the unchanged Service Description generated
+by its official image; that runtime capture is not a static vendor URL.
+Preserve these provenance distinctions when reviewing payload pins or reusing
+the catalogue. GraphDB&#8217;s configured repository/query boundary remains an
+explicit gap until qualified independently.</p>
 </div>
 </div>
 <div class="sect2">

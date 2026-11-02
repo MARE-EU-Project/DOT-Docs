@@ -486,10 +486,56 @@ are supported; an empty pointer compares the entire document. Redirects are
 not followed, execution uses the probe timeout, and runner output is limited
 to 1 MiB. Only redacted outcomes and failure codes are recorded, never response
 bodies or actual values. This is explicit value checking, not complete OpenAPI
-response-schema validation. Without the fixture, existing status-only behavior
-is unchanged. The assertion is a lock-covered composition input, not a new DOT
-or Anchor property. <code>HEAD</code> cannot carry a JSON body assertion.</p>
+response-schema validation. Without the fixture, ordinary operations retain
+status-only behavior; declared native metrics use the bounded profile below.
+The assertion is a lock-covered composition input, not a new DOT or Anchor
+property. <code>HEAD</code> cannot carry a JSON body assertion.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="native-query-and-metrics-probes"><a class="anchor" href="#native-query-and-metrics-probes"></a>Native query and metrics probes in unreleased source</h3>
+<div class="paragraph">
+<p>The current <strong>unreleased development 0.4.0-rc.1 source</strong> adds two no-fixture
+probes through the existing bounded HTTP runner and selected service binding.
+The published v0.3.0 probe behavior is unchanged.</p>
+</div>
+<div class="paragraph">
+<p>A SPARQL query wire sends exactly one GET with the encoded fixed <code>query=ASK {}</code>
+and <code>Accept: application/sparql-results+json</code>. Success requires HTTP 200,
+that response media type, a JSON <code>head</code> object and <code>boolean: true</code>.
+It does not follow redirects, accept arbitrary query/update fixtures, manage
+datasets or establish authorization beyond that observed request. The probe
+uses the runtime binding and the descriptor&#8217;s escaped path, never its authority.</p>
+</div>
+<div class="paragraph">
+<p>A safe OpenAPI GET declaring native metrics on a successful response requests
+OpenMetrics 1.0.0 or Prometheus text 0.0.4 and validates the entire bounded
+UTF-8 response with the official Prometheus parsers. The returned status chooses
+its own response media declaration in this order: exact status, <code>2XX</code> range,
+then <code>default</code>. Another response&#8217;s media cannot qualify the body. Error-only
+or default-only native declarations do not activate this profile. Unsupported
+or ambiguous OpenMetrics versions fail instead of reverting to status-only
+success. A declared OpenMetrics response cannot pass using Prometheus text.</p>
+</div>
+<div class="paragraph">
+<p>OpenMetrics requires the proper <code># EOF</code> marker and rejects malformed or trailing
+content. Prometheus text requires a final newline and has no EOF marker; a
+syntactically complete truncated response cannot be detected by this format
+check. HTTP errors, wrong media/version, malformed or oversized responses fail.
+A JSON expectation remains JSON checking when a successful JSON representation
+is declared; it cannot validate a metrics-only response. Ordinary OpenAPI
+operations without a native metrics success declaration retain their existing
+status-only/explicit-JSON behavior.</p>
+</div>
+<div class="paragraph">
+<p>These probes establish one negotiated response and syntax at their recorded
+time. Scrape/query behavior, metric semantics, dataset compatibility and
+production acceptance require separate producer/scenario evidence. Probe
+results retain redacted outcomes, not bodies or credentials.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contract-probe-profiles"><a class="anchor" href="#other-contract-probe-profiles"></a>Other Contract probe profiles</h3>
 <div class="paragraph">
 <p>For GraphQL, the composition supplies the deployment-specific HTTP path and a
 non-sensitive operation document with optional operation name and variables.

@@ -750,6 +750,17 @@ walkthroughs state which endpoints are actually exercised and distinguish real
 producers, source-adapted integrations and synthetic fixtures.</p>
 </div>
 <div class="paragraph">
+<p>Current unreleased development <code>0.4.0-rc.1</code> source also supports the bounded
+<a href="../dot-design/composition-lifecycle.html#native-query-and-metrics-probes" class="xref page">native SPARQL query and metrics probes</a>.
+SPARQL uses the fixed read-only <code>ASK {}</code> request through the selected service
+binding. Metrics stay under OpenAPI and validate the declared successful
+OpenMetrics 1.0.0 or Prometheus text 0.0.4 representation with official parsers.
+OpenMetrics requires EOF; Prometheus text has no EOF marker, so syntactically
+complete truncation cannot be detected. These checks do not imply arbitrary
+queries, updates, metric semantics, authorization or production acceptance.
+They are absent from the published v0.3.0 binary.</p>
+</div>
+<div class="paragraph">
 <p>Current-source Kubernetes/Helm probes read retained logs only after checking the
 probe container&#8217;s completion and exit code. This avoids losing output emitted
 before an attach stream starts. Each probe executes once, with no hidden retry

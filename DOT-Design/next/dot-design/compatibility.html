@@ -325,7 +325,8 @@ state are executor artifacts, not portable domain models.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract standard spelling</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code> are accepted.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact values are <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>, and
+<code>SPARQL</code> in unreleased 0.4.0-rc.1 source. OpenMetrics remains an OpenAPI response format.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Released uppercase values such as <code>OPENAPI</code> are rejected, not normalised.
 Review an explicit document migration and affected locks.</p></td>
 </tr>
@@ -433,6 +434,14 @@ and catalogue pinned by one DOT-Design commit to try these changes. A source
 binary reports its checkout&#8217;s <code>VERSION</code>; record <code>dotx version --verbose</code> and
 its SHA-256, not just that label. Keep the released quickstart on its recorded
 0.3.0 catalogue. See <a href="release-readiness.html" class="xref page">the release-readiness checklist</a>.</p>
+</div>
+<div class="paragraph">
+<p>The current development source also adds canonical <code>SPARQL</code> with
+<code>N_TRIPLES</code> and standard version <code>1.1</code>. Existing standard spellings remain
+unchanged. Regenerate downstream schemas/bindings together and review exact
+origin IDs, selectors, payload pins and affected locks; there is no automatic
+state adoption. Native metrics validation adds no <code>OpenMetrics</code> enum value.
+See <a href="authoring-anchors.html#native-query-and-metrics-profiles" class="xref page">the bounded native profiles</a>.</p>
 </div>
 <div class="paragraph">
 <p>The approved file-payload migration is an intentional input-format break, not a

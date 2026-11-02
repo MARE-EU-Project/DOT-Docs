@@ -422,7 +422,7 @@
 <p>Select one composable interaction from an existing authoritative Contract. Use it on an Anchor rather than copying an interface document or declaring another product-owned Contract.</p>
 </div>
 <div class="paragraph">
-<p>The referenced identity, origin and selector must agree. OpenAPI and AsyncAPI use operation references; Protobuf uses a service method and GraphQL uses a root-field coordinate. A data-schema pointer is not an operation. Java aggregate validation checks local relationships and selector syntax; the CLI resolves the exact originating declaration, verifies its bytes and checks the selected operation. Matching shapes in independently authored Contracts do not make their identities interchangeable.</p>
+<p>The referenced identity, origin and selector must agree. OpenAPI and AsyncAPI use operation references; Protobuf uses a service method, GraphQL uses a root-field coordinate, and SPARQL uses the exact sd:endpoint IRI of a supported query service. A data-schema pointer is not an operation. Java aggregate validation checks local relationships and selector syntax; the CLI resolves the exact originating declaration, verifies its bytes and checks the selected operation. Matching shapes in independently authored Contracts do not make their identities interchangeable.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorContract.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorContract.schema.json">Generated JSON Schema</a></p>
@@ -627,7 +627,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Encoding of the downloaded document, not its transport protocol. It must be supported by the chosen standard; an extension or a matching file name does not establish compatibility. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Encoding of the downloaded document, not its transport protocol. It must be supported by the chosen standard; an extension or a matching file name does not establish compatibility. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
@@ -651,13 +651,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>standard</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ContractStandard</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Interface language used to interpret the document and Anchor selectors. Use the exact generated wire spelling; the Java enum constant name is not necessarily the serialized value. allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interface language used to interpret the document and Anchor selectors. Use the exact generated wire spelling; the Java enum constant name is not necessarily the serialized value. allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version of the document language declared by the verified payload: the OpenAPI or AsyncAPI marker, or the native Protobuf syntax/edition. Do not copy a tool release or info.version. GraphQL SDL has no such marker and omits this property.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version of the document language declared by the verified payload: the OpenAPI or AsyncAPI marker, the native Protobuf syntax/edition, or 1.1 from the SPARQL Service Description query capability. Do not copy a tool release or info.version. GraphQL SDL has no such marker and omits this property.</p></td>
 </tr>
 </tbody>
 </table>
@@ -720,10 +720,10 @@
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/contract/ContractStandard.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ContractStandard.schema.json">Generated JSON Schema</a></p>
 </div>
 <div class="paragraph">
-<p><strong>Exact JSON values:</strong> <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>.</p>
+<p><strong>Exact JSON values:</strong> <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>, <code>SPARQL</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL".</p>
+<p><strong>JSON representation:</strong> string; allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -756,10 +756,10 @@
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/DataFormat.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DataFormat.schema.json">Generated JSON Schema</a></p>
 </div>
 <div class="paragraph">
-<p><strong>Exact JSON values:</strong> <code>YAML</code>, <code>JSON</code>, <code>PROTOBUF</code>, <code>GRAPHQL</code>.</p>
+<p><strong>Exact JSON values:</strong> <code>YAML</code>, <code>JSON</code>, <code>PROTOBUF</code>, <code>GRAPHQL</code>, <code>N_TRIPLES</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL".</p>
+<p><strong>JSON representation:</strong> string; allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>

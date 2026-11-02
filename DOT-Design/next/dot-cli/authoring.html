@@ -298,7 +298,7 @@ existing product. Add deployment alternatives to its canonical bundle instead.</
 <p>These commands require the <strong>selected release CLI <code>v0.3.0</code>
 or its matching source build</strong>, <code>jq</code>, catalogue access and network access to the
 pinned raw Contract. The released flow below covers owned OpenAPI interfaces;
-the four-standard guided editor described later requires current 0.4.0 source.
+the guided editor described later requires current 0.4.0 source.
 Current-source authoring summaries name the saved file, distinguish declaration
 validation from live acceptance, and confirm unchanged runtime state. Follow-up
 commands use the actual quoted path; validation retains repository/offline
@@ -553,7 +553,9 @@ separately approved <a href="../dot-design/compatibility.html#payload-migration-
 Record <code>dotx version --verbose</code> and the exact source/catalogue revisions.</p>
 </div>
 <div class="paragraph">
-<p><code>dotx new --interactive</code> now offers verified operations for all four standards:</p>
+<p><code>dotx new --interactive</code> offers verified operations for the following standards.
+The SPARQL row requires the current <strong>unreleased development 0.4.0-rc.1 source</strong>;
+the published v0.3.0 binary is unchanged:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -588,6 +590,11 @@ Record <code>dotx version --verbose</code> and the exact source/catalogue revisi
 <td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GRAPHQL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Declared query, mutation or subscription root field</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPARQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N_TRIPLES</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact W3C Service Description <code>sd:endpoint</code> IRI; SPARQL 1.1 Query with SPARQL Results JSON</p></td>
 </tr>
 </tbody>
 </table>
@@ -624,6 +631,28 @@ payload&#8217;s native marker and omits it for GraphQL SDL. Tool <code>--version
 the actual component release. A supplied standard version must still match.
 Use <code>--offline</code> only with the trusted digest and already verified cached bytes;
 a cold or corrupt cache is not repaired or bypassed.</p>
+</div>
+<div class="paragraph">
+<p>For SPARQL, <code>--contract-standard SPARQL --contract-format N_TRIPLES</code> selects
+the query-only profile; <code>--contract-version 1.1</code> describes the standard, never
+the product release. The selector is the exact absolute <code>sd:endpoint</code> IRI from
+the pinned Service Description, not its payload URL or a blank-node identifier.
+The description must advertise <code>sd:SPARQL11Query</code> and
+<code><a href="http://www.w3.org/ns/formats/SPARQL_Results_JSON" class="bare">http://www.w3.org/ns/formats/SPARQL_Results_JSON</a></code>. The endpoint&#8217;s path is used
+with the selected deployment service binding; the descriptor&#8217;s host is not a
+runtime destination. Creation and editing retain the ordinary ownership,
+digest, selector and binding checks. No datasets, arbitrary query fixtures,
+updates or authentication guarantees are inferred.</p>
+</div>
+<div class="paragraph">
+<p>For metrics, choose <code>OpenAPI</code>, its actual OpenAPI version, and an operation
+whose successful response declares OpenMetrics 1.0.0 or Prometheus text 0.0.4.
+<code>OpenMetrics</code> is not a Contract standard or a file format choice. Preserve the
+producer&#8217;s actual negotiated format and label source-derived OpenAPI
+projections as derived. The exact response declaration controls native probe
+validation; a metrics media type on an error/default-only response does not
+activate it. See <a href="../dot-design/authoring-anchors.html#native-query-and-metrics-profiles" class="xref page">native profile limits</a>
+and <a href="../dot-design/composition-lifecycle.html#native-query-and-metrics-probes" class="xref page">active probe checks</a>.</p>
 </div>
 <div class="paragraph">
 <p>AsyncAPI operations materialize a send/receive participant, not a local broker

@@ -57,6 +57,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #EFF6FF {
     JSON
     PROTOBUF
     GRAPHQL
+    N_TRIPLES
     --
     - extension: String {readOnly}
   }
@@ -459,12 +460,14 @@ package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract
     ASYNCAPI
     PROTOBUF
     GRAPHQL
+    SPARQL
     --
     - value: String {readOnly}
     - uri: URI {readOnly}
     --
     + getValue(): String
     + versionPattern(): String
+    + formats(): Set<DataFormat>
     + acceptsVersion(version: String): boolean
   }
 

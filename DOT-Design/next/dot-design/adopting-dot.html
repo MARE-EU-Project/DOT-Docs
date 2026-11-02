@@ -358,7 +358,8 @@ It does not imply support for every adapter, probe or future extension.</p></td>
 </table>
 <div class="paragraph">
 <p>Current source supports textual Skill/Contract IDs and exact Contract standard
-spellings <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>; <code>format</code> retains its
+spellings <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>, plus <code>SPARQL</code> in
+unreleased development 0.4.0-rc.1 source; <code>format</code> retains its
 separate uppercase vocabulary. The original published CLI <code>v0.2.5</code> predates
 these changes and the bundle-aware prerequisite check below. Do not silently
 rewrite IDs, spelling, manifests or reviewed locks to make mismatched artifacts
@@ -367,6 +368,13 @@ appear compatible. Follow the pinned source route in the
 See <a href="compatibility.html" class="xref page">the compatibility and migration policy</a> for
 intentional spelling/identity boundaries, release-version rules and preservation
 of existing files, Anchor IDs and reviewed locks.</p>
+</div>
+<div class="paragraph">
+<p>The native SPARQL addition uses a pinned W3C Service Description in
+<code>N_TRIPLES</code> with standard version <code>1.1</code>; OpenMetrics remains an OpenAPI response
+format. See <a href="authoring-anchors.html#native-query-and-metrics-profiles" class="xref page">the native profiles</a>
+for query, media, provenance and acceptance limits. The published v0.3.0
+binary remains unchanged.</p>
 </div>
 <div class="paragraph">
 <p>Current source also distinguishes owned Contract declarations, explicit external
