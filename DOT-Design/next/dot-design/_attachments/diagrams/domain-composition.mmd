@@ -1,0 +1,68 @@
+classDiagram
+  direction TB
+  accTitle: Composition instances, wires, and deployment inputs
+  accDescr: Composition is a separate aggregate that owns pinned DOT instances, wires, and exposed Anchors. Wires reference instance names and Anchor IDs, with optional materialization, security, and probes. Deployment inputs provide concrete configuration without copying reusable DOT definitions.
+
+  class Composition {
+    UUID id
+    String name
+    String version
+    String apiVersion
+    String kind
+    List~ContractInput~ contracts
+  }
+  class DotInstance {
+    String name
+    String source
+    String dotId
+    String dotVersion
+    String deployment
+    List~String~ dependsOn
+  }
+  class DeploymentInputs {
+    List~DeploymentEnvironment~ environment
+    List~DeploymentConfigFile~ configFiles
+    List~DeploymentVolumeSource~ volumes
+    List~ServiceWorkloadBinding~ workloads
+    List~CdiDeviceBinding~ cdiDevices
+    OciRuntimeGrant ociRuntime
+  }
+  class Wire {
+    String name
+    Map parameters
+    ServicePortReference endpoint
+    NetworkBinding network
+    WireSecurity security
+    WireProbe probe
+  }
+  class AnchorReference {
+    String instance
+    String anchorId
+  }
+  class Materializer {
+    String type
+    String source
+    String valueFrom
+    String uriTemplate
+    MaterializerTarget target
+  }
+  class ExposedAnchor {
+    String name
+  }
+
+  Composition "1" *-- "1..*" DotInstance : pinned instances
+  Composition "1" *-- "0..*" Wire : connections
+  Composition "1" *-- "0..*" ExposedAnchor : public entry points
+  DotInstance "1" *-- "0..1" DeploymentInputs : instance configuration
+  Wire "1" *-- "2" AnchorReference : from / to
+  Wire "1" *-- "0..*" Materializer : derived configuration
+  ExposedAnchor "1" *-- "1" AnchorReference : target
+  DotInstance <.. AnchorReference : instance name
+
+  style Composition fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:2px
+  style DotInstance fill:#f3e8ff,stroke:#9333ea,color:#581c87
+  style Wire fill:#f3e8ff,stroke:#9333ea,color:#581c87
+  style ExposedAnchor fill:#f3e8ff,stroke:#9333ea,color:#581c87
+  style DeploymentInputs fill:#fef3c7,stroke:#b45309,color:#78350f
+  style Materializer fill:#fef3c7,stroke:#b45309,color:#78350f
+  style AnchorReference fill:#f1f5f9,stroke:#64748b,color:#0f172a

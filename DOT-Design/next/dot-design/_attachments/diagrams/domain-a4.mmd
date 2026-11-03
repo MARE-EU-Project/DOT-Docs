@@ -1,0 +1,67 @@
+---
+config:
+  layout: elk
+  class:
+    hideEmptyMembersBox: true
+    nodeSpacing: 16
+    rankSpacing: 25
+    padding: 6
+---
+classDiagram
+  direction LR
+  accTitle: DOT-Domain A4 overview
+  accDescr: Core class relationships. The accompanying generated family inventory covers every supporting public type; the complete diagram shows every type individually.
+
+  class Dot
+  class Skill
+  class Contract
+  class Anchor
+  class Runtime
+  class Platform
+  class Deployment
+  class DeploymentManifest
+  class DeploymentService
+  class DeploymentConfig
+  class Composition
+  class DotInstance
+  class Wire
+  class AnchorReference
+  class Materializer
+  class DeploymentInputs
+  class WireProbe
+  Dot ..> Skill
+  Dot *-- Anchor
+  Dot *-- Contract
+  Dot *-- Runtime
+  Composition *-- DotInstance
+  Composition *-- Wire
+  DotInstance *-- DeploymentInputs
+  Wire *-- AnchorReference
+  Wire *-- Materializer
+  Wire *-- WireProbe
+  DeploymentService ..> Contract
+  DeploymentService *-- DeploymentConfig
+  Deployment *-- DeploymentService
+  Deployment *-- DeploymentManifest
+  Runtime *-- Deployment
+  Runtime *-- Platform
+  DotInstance ..> Dot
+  AnchorReference ..> DotInstance
+  AnchorReference ..> Anchor
+  style Dot fill:#dbeafe,stroke:#2563eb,color:#0f172a
+  style Skill fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Anchor fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style AnchorReference fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Composition fill:#dbeafe,stroke:#2563eb,color:#0f172a
+  style DeploymentInputs fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style DotInstance fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Materializer fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Wire fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style WireProbe fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Contract fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Deployment fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style DeploymentService fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style DeploymentConfig fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style DeploymentManifest fill:#f3e8ff,stroke:#9333ea,color:#0f172a
+  style Runtime fill:#f8fafc,stroke:#64748b,color:#0f172a
+  style Platform fill:#f8fafc,stroke:#64748b,color:#0f172a
