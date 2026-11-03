@@ -1,0 +1,40 @@
+flowchart TB
+  accTitle: Ownership chain from provider DOT to consumer DOT
+  accDescr: A provider Contract, Anchor, and service-port binding are connected through a composition-owned wire, resolved endpoint, and optional materializer to a consumer Anchor and declared configuration target.
+
+  subgraph Provider["Provider DOT A · authored independently"]
+    direction LR
+    PContract["Contract operation<br/>authoritative interaction facts"]
+    PAnchor["PROVIDES Anchor<br/>stable local ID · role · selector"]
+    PBinding["Anchor binding<br/>deployment service · named port"]
+    PContract -->|selected by| PAnchor
+    PAnchor -->|implemented by| PBinding
+  end
+
+  subgraph Resolution["Composition resolution · owned outside both DOTs"]
+    direction LR
+    Wire["Wire<br/>provider and consumer Anchor references"]
+    Endpoint["Resolved provider endpoint<br/>instance · service · port"]
+    Materializer["Optional materializer<br/>derived value · explicit target"]
+    Wire -->|selects provider binding| Endpoint
+    Endpoint -.->|when configuration handoff is required| Materializer
+  end
+
+  subgraph Consumer["Consumer DOT B · authored independently"]
+    direction LR
+    CContract["Contract operation<br/>authoritative requirements"]
+    CAnchor["REQUIRES Anchor<br/>stable local ID · role · selector"]
+    CConfig["Declared service configuration<br/>allow-listed materializer target"]
+    CContract -->|selected by| CAnchor
+    CAnchor -.->|may require runtime handoff| CConfig
+  end
+
+  Provider -->|logical provider side| Resolution
+  Resolution -->|wire targets Anchor; materializer targets declaration| Consumer
+
+  classDef definition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
+  classDef topology fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
+  classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
+  class PContract,PAnchor,PBinding,CContract,CAnchor,CConfig definition;
+  class Wire,Materializer topology;
+  class Endpoint runtime;
