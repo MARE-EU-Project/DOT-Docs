@@ -131,6 +131,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="production-readiness.html">Production integration checklist and limits</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -343,8 +346,9 @@ selection, persistence and recovery before deployment.</p>
 <div class="paragraph">
 <p>Use one matching CLI/catalogue revision set. The bottom-left selector offers
 <strong>Next</strong> for current development and immutable stable documentation for released
-binaries. Current-source guided authoring is not in the published v0.3.0 binary;
-follow <a href="../dot-cli/authoring.html" class="xref page">its source-build instructions</a> to try it.</p>
+binaries. Published CLI v0.4.0 includes guided authoring, safe editing and
+composition creation. Follow <a href="../dot-cli/authoring.html" class="xref page">the authoring guide</a>
+with its matching catalogue; Next-only instructions are labelled separately.</p>
 </div>
 </td>
 </tr>
@@ -357,7 +361,8 @@ follow <a href="../dot-cli/authoring.html" class="xref page">its source-build in
 <div class="sectionbody">
 <div id="_supported_contract_standards" class="paragraph">
 <p><strong>A DOT describes one reusable tool.</strong> Skills state its capabilities. Contracts
-describe APIs or messages using OpenAPI, AsyncAPI, Protobuf or GraphQL. Anchors
+describe interfaces using OpenAPI, AsyncAPI, Protobuf, GraphQL or the bounded
+SPARQL query profile. Anchors
 are named integration points that provide or require interfaces. Wires connect
 compatible Anchors; deployment bindings map locally provided interfaces to service
 ports. Choose one supported deployment for the instance you want to run.</p>

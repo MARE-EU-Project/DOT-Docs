@@ -132,6 +132,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="production-readiness.html">Production integration checklist and limits</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -309,7 +312,11 @@ the kit receipt identify its capabilities.</p>
 project contact. No public download or redistribution approval is implied.
 Follow the included <code>START-HERE.md</code> from a fresh private folder. It verifies the
 complete inventory, installs the binary in that private workspace and extracts
-the matching local catalogue. Use that binary for the entire attempt.</p>
+the matching local catalogue. Use that binary for the entire attempt.
+Keep its scoped extraction mask: non-secret example configurations must be
+readable by unprivileged containers even when your shell uses <code>umask 077</code>.
+The enclosing trial folder stays private; operator secret-file permissions
+are not relaxed.</p>
 </div>
 <div class="paragraph">
 <p>The first graph is <strong>Node Exporter &#8594; Prometheus on Docker</strong>: inspect the DOTs,
@@ -319,7 +326,9 @@ Task and Kubernetes are not participant prerequisites for this graph.</p>
 </div>
 <div class="paragraph">
 <p>The exporter observes its container rather than the physical host. Its metrics
-Wire is an explicit HTTP interface, not an invented OpenAPI specification.
+Wire selects an operation from a release-scoped, source-derived OpenAPI Contract
+for the HTTP metrics endpoint. This is not a vendor-published specification or
+complete OpenMetrics validation.
 First validation may download pinned documents; images are a separate runtime
 download. A warm document cache does not establish offline runtime readiness.</p>
 </div>

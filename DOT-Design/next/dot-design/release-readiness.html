@@ -132,6 +132,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="production-readiness.html">Production integration checklist and limits</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -310,7 +313,66 @@ separate coordinates, not a circular chain of floating latest revisions.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="source-evidence"><a class="anchor" href="#source-evidence"></a>Qualified technical foundation — 2026-11-03</h2>
+<h2 id="source-evidence"><a class="anchor" href="#source-evidence"></a>Published stable release — 2026-11-03</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/releases/tag/0.4.0">DOT-Design 0.4.0</a>
+and <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.0">DOT-CLI v0.4.0</a>
+are published stable releases. Their verified manifests identify:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DOT-Design: <code>8746d199fce9f19306d94f570d2ddc53ad0e3de3</code></p>
+</li>
+<li>
+<p>DOT-CLI: <code>87c87e20e04fabe4d4fae47ca9b330d5052cff16</code></p>
+</li>
+<li>
+<p>DOT-Repository: <code>e9a9342602e811a1b236a551ec05697d3fbbab4e</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Actual GitHub downloads passed complete inventory, checksum and source-identity
+checks. Both releases contain the same CLI bytes, SHA-256
+<code>ba1fd82250217355ce9176aff5cf9bf433637c9e619e74a97ae445392cefca63</code>.
+All 151 published Domain class files match the qualified frozen models.</p>
+</div>
+<div class="paragraph">
+<p>The fresh final demo passed in 28 minutes: seven live paths twice, failure and
+real SIGINT/SIGTERM cleanup, four presenter chapters and its matching fallback.
+Its Design source was <code>653e9e78bc177fe5d553504e964344828710438d</code>; the stable cut
+changes only the Antora version descriptor. The post-release Next tree at
+<code>8ed1a1d6d72ef5903e5921edd9a8812ce5b93e00</code> is identical to that qualified demo tree.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/41630028545">Release packaging</a>
+and <a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/41630357642">released-binary acceptance</a>
+succeeded. The latter downloaded the published assets and passed two complete
+48/48 external-tool lifecycle cycles. Its checksummed artifact and exact binary
+identity were retrieved into the restricted durable evidence archive.
+The CLI&#8217;s initial acceptance-workflow checkout defect was fixed in a CI-only
+follow-up; <a href="https://github.com/MARE-EU-Project/DOT-CLI/actions/runs/41607116308">acceptance of the same immutable CLI binary</a>
+then succeeded. The original failed run remains historical evidence.</p>
+</div>
+<div class="paragraph">
+<p>All eleven final or superseding workflows succeeded; two optional source
+<code>linux-stress</code> jobs were deliberately skipped. Those skips are not passes; the
+separate required released-binary stress job above passed. Next and stable
+documentation, exact PDF hashes, the default Next route and preservation of the
+0.3.0 PDF were verified online. Human trials and owner reviews remain pending.</p>
+</div>
+<div class="paragraph">
+<p>Maintainer receipts: <code>demo/run-2th_ez3x/summary.json</code>,
+<code>rehearsal/run-wxlkwv59/summary.json</code>, and <code>presenter/run-23m3u_0a/summary.json</code>.
+The archive retains both passing and failed attempts outside disposable build
+trees. Publication qualifies the tested scope; it does not certify the whole catalogue.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_historical_candidate_foundation_2026_11_03"><a class="anchor" href="#_historical_candidate_foundation_2026_11_03"></a>Historical candidate foundation — 2026-11-03</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The clean candidate foundation used source version <code>0.4.0-rc.1</code>:</p>
@@ -515,19 +577,19 @@ before switching; unrelated model changes remain out of scope.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Final clean-source qualification</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Recheck the selected stable sources after version metadata/pin changes. Retain
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passed for the published 0.4.0 artifact set above.</strong> Recheck after changes. Retain
 exact source/binary identity, cleanup, presenter controls and matching fallback.
 Earlier source receipts are not silently relabelled as stable-tag acceptance.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Coordinated release artifacts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Align Design <code>0.4.0</code> and CLI <code>v0.4.0</code>; require reproducible packages, complete
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passed:</strong> aligned Design <code>0.4.0</code> and CLI <code>v0.4.0</code>, reproducible packages, complete
 checksums, all model archives/SBOMs and actual downloaded-binary acceptance.
 The <code>v</code> prefix belongs to Go module tagging, not a different product version.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Remote checks and publication</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Require every applicable final-source/tag job to succeed and verify released
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passed for the recorded final sources and artifacts.</strong> Require every applicable job to succeed and verify released
 assets and documentation. Queued, running, failed, cancelled and skipped jobs
 are not passes; optional skips are reported separately. Required Vagrant and
 other adapters are not waived because a different adapter passed.</p></td>
@@ -586,6 +648,12 @@ Keep official specifications, source-derived interfaces, runtime-only brokers,
 planning entries and fixtures distinguishable. Imported Protobuf graphs,
 complete Loki/OTLP coverage, stateful recovery, distributed orchestration and
 independent production-producer acceptance remain separate follow-up work.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="production-readiness.html" class="xref page">From a working demo to a production integration</a>
+for per-gap review actions, selected-producer qualification, stateful/import
+acceptance criteria and the pending human/owner handoff. These are explicit
+follow-up boundaries, not additional capabilities claimed by this release.</p>
 </div>
 </div>
 </div>
