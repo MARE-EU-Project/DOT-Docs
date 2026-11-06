@@ -343,7 +343,9 @@ The CLI creates identifiers and the complete generated-model document:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IMAGE="$(jq -r '.runtimes[].deployments[] |
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+IMAGE="$(jq -r '.runtimes[].deployments[] |
   select(.id == "docker") | .manifest.image' "$PROMETHEUS_JSON")"
 CONTRACT_URL="$(jq -r '.contracts[0].payload.url' "$PROMETHEUS_JSON")"
 CONTRACT_SHA256="$(jq -r '.contracts[0].payload.sha256' "$PROMETHEUS_JSON")"
@@ -358,7 +360,8 @@ dotx new --from docker-image "$IMAGE" \
   --output "$LAB/base/dot.json"
 
 dotx validate "$LAB/base/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
-dotx inspect "$LAB/base/dot.json" --verbose</code></pre>
+dotx inspect "$LAB/base/dot.json" --verbose
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -451,7 +454,10 @@ deployment to see how one DOT supports more than one mechanism:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir "$LAB/prometheus"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+set -o noclobber
+mkdir "$LAB/prometheus"
 jq --slurpfile product "$PROMETHEUS_JSON" '
   .anchors += [$product[0].anchors[] | select(.id == "scrape-target")]
   | .runtimes[0].deployments[0].services[0].ports[0].protocol = "HTTP"
@@ -464,7 +470,8 @@ jq --slurpfile product "$PROMETHEUS_JSON" '
 
 dotx validate "$LAB/prometheus/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$LAB/prometheus/dot.json" --verbose
-diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" || test "$?" -eq 1</code></pre>
+diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" || test "$?" -eq 1
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -536,6 +543,12 @@ with an unused output path and cancel: no second candidate should appear.</p>
 editor. The explicit JSON enrichment above is therefore a reviewed model edit,
 followed by validation, not an implied editor feature. For a genuinely new tool,
 use its own release, image and interfaces rather than relabelling these ones.</p>
+</div>
+<div class="paragraph">
+<p>If a creation block says the destination exists, your earlier work is protected.
+Inspect that existing file and follow the
+<a href="tutorial-first-dot.html#resume-tutorial" class="xref page">resume/retry guidance</a>; do not remove
+an edited definition just to make the block run again.</p>
 </div>
 <div class="paragraph">
 <p><strong>Next: <a href="tutorial-composition.html" class="xref page">make this authored DOT consume real metrics</a>.</strong></p>

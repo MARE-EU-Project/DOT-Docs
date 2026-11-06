@@ -24,20 +24,30 @@ dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
 # end::deploy[]
 
 # tag::verify[]
-set -o pipefail
+(
+set -euo pipefail
 ready=false
+started=$SECONDS
+printf 'Checking Prometheus readiness on port %s...\n' "$DOTX_HTTP_PORT"
 for ((attempt=0; attempt<60; attempt++)); do
   if curl --fail --silent --max-time 2 \
     "http://127.0.0.1:$DOTX_HTTP_PORT/-/ready"; then
     ready=true
     break
   fi
+  if ((attempt % 10 == 0)); then
+    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+  fi
   sleep 1
 done
-test "$ready" = true &&
+if ! $ready; then
+  printf 'Prometheus readiness timed out. Run the cleanup block before retrying.\n' >&2
+  exit 1
+fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
+)
 # end::verify[]
 
 # tag::status[]

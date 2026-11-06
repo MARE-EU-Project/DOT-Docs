@@ -343,7 +343,10 @@ service-scoped declaration for its supported admin-password environment option:<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GRAFANA_JSON="$(dotx repository resolve Grafana@13.3.0 --repository "$DOT_REPOSITORY")"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+set -o noclobber
+GRAFANA_JSON="$(dotx repository resolve Grafana@13.3.0 --repository "$DOT_REPOSITORY")"
 mkdir "$LAB/grafana"
 jq '.runtimes[0].deployments[0].services[0].config.environment +=
   [{"name":"GF_SECURITY_ADMIN_PASSWORD","required":true,"sensitive":true}]' \
@@ -368,7 +371,8 @@ chmod 0644 "$LAB/grafana-prometheus.yml" "$LAB/grafana-empty.yml"
 
 dotx compose new --from "$LAB/composition.yaml" \
   --repository "$DOT_REPOSITORY" --name hero-dashboard \
-  --output "$LAB/dashboard.yaml" --yes</code></pre>
+  --output "$LAB/dashboard.yaml" --yes
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -396,14 +400,20 @@ or claim that it has been tested.</p>
 <h2 id="_extend_the_existing_graph"><a class="anchor" href="#_extend_the_existing_graph"></a>Extend the existing graph</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Open <code>$LAB/dashboard.yaml</code>. Append the following entries to the corresponding
-existing <code>dots</code>, <code>wires</code> and <code>exposedAnchors</code> lists. <strong>Do not create duplicate
-top-level YAML keys</strong>, replace the earlier entries or change the Contract inputs:</p>
+<p>Open <code>$LAB/dashboard.yaml</code>. Before editing, it has two DOTs and one Wire. You
+will add one item to each of three <strong>existing</strong> lists. Keep the earlier items,
+Contract inputs and ownership UUID; do not paste another root <code>dots:</code> or <code>wires:</code>
+key. Each snippet below is a list item, beginning with <code>- name</code>, at the same
+indentation as the existing items.</p>
+</div>
+<div class="sect2">
+<h3 id="_add_grafana_under_dots"><a class="anchor" href="#_add_grafana_under_dots"></a>Add Grafana under <code>dots</code></h3>
+<div class="paragraph">
+<p>Append this after the existing <code>prometheus</code> instance:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
-  - name: grafana
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: grafana
     source: ./grafana
     dotId: Grafana@13.3.0
     dotVersion: 13.3.0
@@ -415,9 +425,18 @@ top-level YAML keys</strong>, replace the earlier entries or change the Contract
           secretRef: {store: environment, name: HERO_GRAFANA_PASSWORD}
       configFiles:
         - source: grafana-empty.yml
-          target: /etc/grafana/provisioning/datasources/elasticsearch.yml
-wires:
-  - name: prometheus-to-grafana
+          target: /etc/grafana/provisioning/datasources/elasticsearch.yml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_the_second_connection_under_wires"><a class="anchor" href="#_add_the_second_connection_under_wires"></a>Add the second connection under <code>wires</code></h3>
+<div class="paragraph">
+<p>Append this after <code>node-metrics-to-prometheus</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: prometheus-to-grafana
     from: {instance: prometheus, anchorId: promql-query-api}
     to: {instance: grafana, anchorId: promql-query-api}
     materializer:
@@ -428,9 +447,18 @@ wires:
         instance: grafana
         service: grafana
         path: /etc/grafana/provisioning/datasources/prometheus.yml
-        jsonPointer: /datasources/0/url
-exposedAnchors:
-  - name: dashboard
+        jsonPointer: /datasources/0/url</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_the_browser_endpoint_under_exposedanchors"><a class="anchor" href="#_add_the_browser_endpoint_under_exposedanchors"></a>Add the browser endpoint under <code>exposedAnchors</code></h3>
+<div class="paragraph">
+<p>Append this after <code>prometheus-query</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: dashboard
     target: {instance: grafana, anchorId: monitoring-dashboard}</code></pre>
 </div>
 </div>
@@ -448,9 +476,12 @@ Docker administrator; it is not a vault or native Kubernetes Secret.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose validate "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+dotx compose validate "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
 dotx compose lock "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
-dotx compose topology "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" --locked</code></pre>
+dotx compose topology "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" --locked
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -459,8 +490,9 @@ the new lock separately. Creating or inspecting it does not require the password
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_set_a_password_and_start_the_extended_system"><a class="anchor" href="#_set_a_password_and_start_the_extended_system"></a>Set a password and start the extended system</h2>
+<h2 id="tutorial-grafana-password"><a class="anchor" href="#tutorial-grafana-password"></a>Set a password and start the extended system</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Use a new lab-only password. The prompt does not echo it or put it in shell
@@ -468,23 +500,28 @@ history. Keep this environment and the same binary for the lifecycle:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">read -r -s -p 'Choose a lab-only Grafana admin password: ' HERO_GRAFANA_PASSWORD
-printf '\n'
-test -n "$HERO_GRAFANA_PASSWORD" &amp;&amp;
-export HERO_GRAFANA_PASSWORD</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">if read -r -s -p 'Choose a lab-only Grafana admin password: ' HERO_GRAFANA_PASSWORD &amp;&amp;
+  test -n "$HERO_GRAFANA_PASSWORD"; then
+  printf '\n'
+  export HERO_GRAFANA_PASSWORD
+else
+  unset HERO_GRAFANA_PASSWORD
+  printf '\nNo password set. Repeat this prompt before applying.\n' &gt;&amp;2
+  false
+fi</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Ports <code>19041</code> and <code>13000</code> must be free. Use only the isolated development host
 and network described at the start. Keep the cleanup command below available
 before applying; use it after a failure as well. The next block previews both
-exposures first; continue with its second command only if the preview succeeds.
+exposures first; a failed preview prevents its apply command from running.
 Runtime preflight, including the dry-run, needs the referenced password available.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
-  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT"
+  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT" &amp;&amp;
 dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
   --locked --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT"</code></pre>
 </div>
@@ -499,21 +536,34 @@ dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+set -o pipefail
 dashboard_ready=false
+started=$SECONDS
+printf 'Checking Grafana 13.3.0 health on port %s...\n' "$DASHBOARD_PORT"
 for ((attempt=0; attempt&lt;90; attempt++)); do
   if curl --fail --silent --max-time 3 "http://127.0.0.1:$DASHBOARD_PORT/api/health" |
     jq -e '.database == "ok" and .version == "13.3.0"' &gt;/dev/null; then
     dashboard_ready=true
     break
   fi
+  if ((attempt % 10 == 0)); then
+    printf 'Waiting for Grafana: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+  fi
   sleep 1
 done
-test "$dashboard_ready" = true</code></pre>
+if ! $dashboard_ready; then
+  printf 'Grafana health check timed out. Inspect compose status, then run the Lesson 4 cleanup block before retrying.\n' &gt;&amp;2
+  exit 1
+fi
+printf 'Ready: Grafana 13.3.0 at http://127.0.0.1:%s/\n' "$DASHBOARD_PORT"
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: the readiness block finishes successfully. Its loop permits up to 90
+<p>Expected: named waiting messages include elapsed time, followed by
+<code>Ready: Grafana 13.3.0</code> and the browser URL. Its loop permits up to 90
 attempts, with three-second HTTP timeouts and one-second pauses.</p>
 </div>
 <div class="paragraph">
@@ -536,19 +586,25 @@ the shared product definitions.</p>
 <div class="content">
 <div class="paragraph">
 <p>Make Grafana&#8217;s backend query the provisioned datasource. The temporary curl
-credentials file is private and removed after a successful check; cleanup below
-also removes it after a failure. Neither the password nor its value enters YAML
+credentials file is private and removed when the check finishes, including a
+failed query. Neither the password nor its value enters YAML
 or the lock.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+set -o pipefail
 # curl reads credentials from a private file, not command-line arguments.
+credentials="$(mktemp "$LAB/grafana.curl.XXXXXXXX")"
+trap 'rm -f -- "$credentials"' EXIT
 (umask 077; jq -nr '"user = " + ("admin:" + env.HERO_GRAFANA_PASSWORD | tojson)' \
-  &gt; "$LAB/grafana.curl")
+  &gt; "$credentials")
 dashboard_queried=false
+started=$SECONDS
+printf 'Querying the labelled scrape through Grafana...\n'
 for ((attempt=0; attempt&lt;90; attempt++)); do
-  if curl --config "$LAB/grafana.curl" --fail --silent --max-time 5 \
+  if curl --config "$credentials" --fail --silent --max-time 5 \
     --header 'Content-Type: application/json' \
     --data '{
       "from":"now-5m", "to":"now",
@@ -565,11 +621,17 @@ for ((attempt=0; attempt&lt;90; attempt++)); do
     dashboard_queried=true
     break
   fi
+  if ((attempt % 10 == 0)); then
+    printf 'Waiting for the Grafana query: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+  fi
   sleep 1
 done
-test "$dashboard_queried" = true &amp;&amp;
-printf 'Verified: Grafana queried the labelled scrape (value 1).\n' &amp;&amp;
-rm -- "$LAB/grafana.curl"</code></pre>
+if ! $dashboard_queried; then
+  printf 'Grafana query timed out. Check the password and datasource; run the Lesson 4 cleanup block before retrying.\n' &gt;&amp;2
+  exit 1
+fi
+printf 'Verified: Grafana queried the labelled scrape (value 1).\n'
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -588,16 +650,20 @@ could not establish it.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose destroy "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
-unset HERO_GRAFANA_PASSWORD
-if test -f "$LAB/grafana.curl"; then rm -- "$LAB/grafana.curl"; fi</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose destroy "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" &amp;&amp;
+unset HERO_GRAFANA_PASSWORD &amp;&amp;
+{ if test -f "$LAB/grafana.curl"; then rm -- "$LAB/grafana.curl"; fi; } &amp;&amp;
+printf 'Cleanup completed: keep the workspace files for reference.\n'</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Expected: all three owned instances stop. This is disposable storage; downloaded
 images remain cached. Keep your authored files as a learning reference, but
 retain the original cache and lock if cleanup did not finish. Do not remove
-unrelated resources or change a lock to adopt an existing instance.</p>
+unrelated resources or change a lock to adopt an existing instance.
+The success message and password removal happen only after destroy succeeds.
+If it fails, retain the current environment and use the
+<a href="tutorial-first-dot.html#resume-tutorial" class="xref page">recovery steps</a> before retrying.</p>
 </div>
 <div class="paragraph">
 <p><strong>Next: <a href="tutorial-next-steps.html" class="xref page">apply the pattern to larger, secured systems</a>.</strong></p>

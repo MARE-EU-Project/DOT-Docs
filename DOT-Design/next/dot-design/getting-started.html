@@ -346,18 +346,19 @@ and releases. From a workspace directory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login
-gh auth setup-git
-mkdir -p dot-quickstart-download
-cd dot-quickstart-download
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+gh auth login &amp;&amp;
+gh auth setup-git &amp;&amp;
+mkdir -p dot-quickstart-download &amp;&amp;
+cd dot-quickstart-download &amp;&amp;
 gh release download v0.4.0 --repo MARE-EU-Project/DOT-CLI \
-  --pattern dotx-0.4.0-linux-amd64 --pattern SHA256SUMS
-mkdir -p "$HOME/.local/bin"
+  --pattern dotx-0.4.0-linux-amd64 --pattern SHA256SUMS &amp;&amp;
+mkdir -p "$HOME/.local/bin" &amp;&amp;
 sha256sum dotx-0.4.0-linux-amd64 |
   grep -Fx -f - SHA256SUMS &amp;&amp;
-  install -m 0755 dotx-0.4.0-linux-amd64 "$HOME/.local/bin/dotx"
-export PATH="$HOME/.local/bin:$PATH"
-dotx version
+  install -m 0755 dotx-0.4.0-linux-amd64 "$HOME/.local/bin/dotx" &amp;&amp;
+export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
+dotx version &amp;&amp;
 cd ..</code></pre>
 </div>
 </div>
@@ -380,10 +381,10 @@ revision recorded in this CLI release&#8217;s manifest, then check your Docker a
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository
-cd DOT-Repository
-git checkout --detach 2b17ee681fbe8eed6822834484f87149b32fc772
-docker info
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository &amp;&amp;
+cd DOT-Repository &amp;&amp;
+git checkout --detach 2b17ee681fbe8eed6822834484f87149b32fc772 &amp;&amp;
+docker info &amp;&amp;
 docker compose version</code></pre>
 </div>
 </div>
@@ -445,20 +446,30 @@ the service&#8217;s build-information API and version:</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
 ready=false
+started=$SECONDS
+printf 'Checking Prometheus readiness on port %s...\n' "$DOTX_HTTP_PORT"
 for ((attempt=0; attempt&lt;60; attempt++)); do
   if curl --fail --silent --max-time 2 \
     "http://127.0.0.1:$DOTX_HTTP_PORT/-/ready"; then
     ready=true
     break
   fi
+  if ((attempt % 10 == 0)); then
+    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+  fi
   sleep 1
 done
-test "$ready" = true &amp;&amp;
+if ! $ready; then
+  printf 'Prometheus readiness timed out. Run the cleanup block before retrying.\n' &gt;&amp;2
+  exit 1
+fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
-  jq -e '.status == "success" and .data.version == "3.15.1"'</code></pre>
+  jq -e '.status == "success" and .data.version == "3.15.1"'
+)</code></pre>
 </div>
 </div>
 </div>

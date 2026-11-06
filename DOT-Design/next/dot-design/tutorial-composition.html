@@ -339,7 +339,10 @@ successful Prometheus response:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; "$LAB/prometheus.yml" &lt;&lt;'YAML'
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+set -o noclobber
+cat &gt; "$LAB/prometheus.yml" &lt;&lt;'YAML'
 global:
   scrape_interval: 5s
 scrape_configs:
@@ -349,7 +352,8 @@ scrape_configs:
         labels:
           tutorial: zero-to-hero
 YAML
-chmod 0644 "$LAB/prometheus.yml"</code></pre>
+chmod 0644 "$LAB/prometheus.yml"
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -428,9 +432,6 @@ An exposure does not add authentication.</p></td>
 <ol class="arabic">
 <li>
 <p>Replace only the <code>prometheus</code> entry under <code>dots</code> with:</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: prometheus
@@ -441,11 +442,30 @@ An exposure does not add authentication.</p></td>
   dependsOn: [node-exporter]</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="paragraph">
+<p>Before, this entry selected <code>repository://Prometheus@3.15.1</code> and deployment
+<code>docker</code>. After, <code>./prometheus</code> and <code>docker-image</code> select your private authored
+definition. Its identity, tool release and readiness dependency stay the same.</p>
+</div>
+</li>
 <li>
 <p>In <code>node-metrics-to-prometheus</code>, change <code>materializer.source</code> to
 <code>prometheus.yml</code>. Keep the other Wire fields unchanged.</p>
+<div class="paragraph">
+<p>Before, the source points to the template&#8217;s <code>runtime/prometheus.yml</code> (the draft
+may show its full absolute path). After, it names your own file beside the draft:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">materializer:
+  type: CONFIG_FILE
+  source: prometheus.yml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This last snippet shows the changed field&#8217;s location, not the complete
+materializer: retain its existing <code>valueFrom</code> and <code>target</code> below these lines.</p>
+</div>
 </li>
 </ol>
 </div>
@@ -498,12 +518,15 @@ exporter observes its container; this exercise makes no physical-host claim.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose validate "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+dotx compose validate "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
 dotx compose lock "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
 dotx compose inspect "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
 dotx compose topology "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
 dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
-  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"</code></pre>
+  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -531,8 +554,12 @@ original workspace, cache and binary for recovery.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+set -o pipefail
 scraped=false
+started=$SECONDS
+printf 'Checking the labelled Node Exporter scrape through Prometheus...\n'
 for ((attempt=0; attempt&lt;90; attempt++)); do
   if curl --fail --silent --max-time 3 --get \
     --data-urlencode 'query=up{job="node-exporter",tutorial="zero-to-hero"}' \
@@ -541,18 +568,27 @@ for ((attempt=0; attempt&lt;90; attempt++)); do
     scraped=true
     break
   fi
+  if ((attempt % 10 == 0)); then
+    printf 'Waiting for the scrape: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+  fi
   sleep 1
 done
-test "$scraped" = true &amp;&amp;
+if ! $scraped; then
+  printf 'Scrape check timed out. Inspect compose status, then run the Lesson 3 cleanup block before retrying.\n' &gt;&amp;2
+  exit 1
+fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$TUTORIAL_PORT/api/v1/status/buildinfo" |
-  jq -e '.status == "success" and .data.version == "3.15.1"' &amp;&amp;
-dotx compose status "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"</code></pre>
+  jq -e '.status == "success" and .data.version == "3.15.1"'
+dotx compose status "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
+printf 'Verified: your labelled Node Exporter scrape is up (value 1).\n'
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: the bounded scrape check succeeds, build information returns <code>true</code>,
-and status reports the selected instances. The loop permits up to 90 attempts
+<p>Expected: the check reports progress while waiting, build information returns
+<code>true</code>, status lists the selected instances, and a <code>Verified:</code> message confirms
+the labelled scrape. The loop permits up to 90 attempts
 with three-second HTTP timeouts and one-second pauses.
 Open <a href="http://127.0.0.1:19041">Prometheus</a> and evaluate:</p>
 </div>

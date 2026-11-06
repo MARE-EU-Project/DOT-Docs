@@ -1,4 +1,5 @@
 dots:
+# tag::grafana-dot[]
   - name: grafana
     source: ./grafana
     dotId: Grafana@13.3.0
@@ -12,7 +13,9 @@ dots:
       configFiles:
         - source: grafana-empty.yml
           target: /etc/grafana/provisioning/datasources/elasticsearch.yml
+# end::grafana-dot[]
 wires:
+# tag::grafana-wire[]
   - name: prometheus-to-grafana
     from: {instance: prometheus, anchorId: promql-query-api}
     to: {instance: grafana, anchorId: promql-query-api}
@@ -25,6 +28,9 @@ wires:
         service: grafana
         path: /etc/grafana/provisioning/datasources/prometheus.yml
         jsonPointer: /datasources/0/url
+# end::grafana-wire[]
 exposedAnchors:
+# tag::grafana-exposure[]
   - name: dashboard
     target: {instance: grafana, anchorId: monitoring-dashboard}
+# end::grafana-exposure[]

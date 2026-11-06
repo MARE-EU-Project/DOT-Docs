@@ -329,7 +329,10 @@ version. Start with reuse; you will author your own definition in Lesson 2.</p>
 <div class="paragraph">
 <p>You need the prerequisites and isolated development host described in
 <a href="zero-to-hero.html" class="xref page">Zero to Hero</a>. Run each Bash block only after the previous
-one succeeds. Keep the same terminal throughout the lessons.</p>
+one succeeds. Keep the same terminal throughout the lessons.
+Parenthesized command blocks stop on errors inside their own shell; they do not
+close your terminal. A failed block is a stopping point, not permission to
+continue to deployment.</p>
 </div>
 </div>
 </div>
@@ -342,18 +345,19 @@ and releases. From a workspace directory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login
-gh auth setup-git
-mkdir -p dot-quickstart-download
-cd dot-quickstart-download
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+gh auth login &amp;&amp;
+gh auth setup-git &amp;&amp;
+mkdir -p dot-quickstart-download &amp;&amp;
+cd dot-quickstart-download &amp;&amp;
 gh release download v0.4.0 --repo MARE-EU-Project/DOT-CLI \
-  --pattern dotx-0.4.0-linux-amd64 --pattern SHA256SUMS
-mkdir -p "$HOME/.local/bin"
+  --pattern dotx-0.4.0-linux-amd64 --pattern SHA256SUMS &amp;&amp;
+mkdir -p "$HOME/.local/bin" &amp;&amp;
 sha256sum dotx-0.4.0-linux-amd64 |
   grep -Fx -f - SHA256SUMS &amp;&amp;
-  install -m 0755 dotx-0.4.0-linux-amd64 "$HOME/.local/bin/dotx"
-export PATH="$HOME/.local/bin:$PATH"
-dotx version
+  install -m 0755 dotx-0.4.0-linux-amd64 "$HOME/.local/bin/dotx" &amp;&amp;
+export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
+dotx version &amp;&amp;
 cd ..</code></pre>
 </div>
 </div>
@@ -376,10 +380,10 @@ revision recorded in this CLI release&#8217;s manifest, then check your Docker a
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository
-cd DOT-Repository
-git checkout --detach 2b17ee681fbe8eed6822834484f87149b32fc772
-docker info
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository &amp;&amp;
+cd DOT-Repository &amp;&amp;
+git checkout --detach 2b17ee681fbe8eed6822834484f87149b32fc772 &amp;&amp;
+docker info &amp;&amp;
 docker compose version</code></pre>
 </div>
 </div>
@@ -400,19 +404,23 @@ Use those chosen ports in browser links instead of the displayed defaults.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Start in the matching DOT-Repository checkout, in Bash.
-DOT_REPOSITORY="$PWD"
-LAB="$(mktemp -d "${DOTX_TUTORIAL_WORKSPACE:-$HOME}/dot-zero-to-hero.XXXXXXXX")"
-PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")"
-DOT_BUNDLE="$(dirname -- "$PROMETHEUS_JSON")"
-DOT_NAME="hero-$RANDOM-$RANDOM"
-DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}"
-TUTORIAL_PORT="${TUTORIAL_PORT:-19041}"
-DASHBOARD_PORT="${DASHBOARD_PORT:-13000}"
-export DOTX_HTTP_PORT
+set -o pipefail
+DOT_REPOSITORY="$PWD" &amp;&amp;
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")" &amp;&amp;
+DOTX_TUTORIAL_CLI="$(command -v dotx)" &amp;&amp;
+DOTX_TUTORIAL_CLI_SHA256="$(sha256sum "$DOTX_TUTORIAL_CLI" | cut -d ' ' -f 1)" &amp;&amp;
+LAB="$(mktemp -d "${DOTX_TUTORIAL_WORKSPACE:-$HOME}/dot-zero-to-hero.XXXXXXXX")" &amp;&amp;
+DOT_BUNDLE="$(dirname -- "$PROMETHEUS_JSON")" &amp;&amp;
+DOT_NAME="hero-$RANDOM-$RANDOM" &amp;&amp;
+DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}" &amp;&amp;
+TUTORIAL_PORT="${TUTORIAL_PORT:-19041}" &amp;&amp;
+DASHBOARD_PORT="${DASHBOARD_PORT:-13000}" &amp;&amp;
+export DOTX_HTTP_PORT XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}" &amp;&amp;
 (umask 077; declare -p DOT_REPOSITORY LAB PROMETHEUS_JSON DOT_BUNDLE DOT_NAME \
-  DOTX_HTTP_PORT TUTORIAL_PORT DASHBOARD_PORT &gt; "$LAB/session.bash")
-printf 'Your private workspace: %s\n' "$LAB"
-dotx version --verbose
+  DOTX_HTTP_PORT TUTORIAL_PORT DASHBOARD_PORT XDG_CACHE_HOME \
+  DOTX_TUTORIAL_CLI DOTX_TUTORIAL_CLI_SHA256 &gt; "$LAB/session.bash") &amp;&amp;
+printf 'Your private workspace: %s\nResume with: source %q\n' "$LAB" "$LAB/session.bash" &amp;&amp;
+dotx version --verbose &amp;&amp;
 git -C "$DOT_REPOSITORY" rev-parse HEAD</code></pre>
 </div>
 </div>
@@ -430,10 +438,13 @@ restore these variables before cleanup; do not create a new workspace instead.</
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate "$DOT_BUNDLE" --repository "$DOT_REPOSITORY" --profile reusable
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+dotx validate "$DOT_BUNDLE" --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$DOT_BUNDLE"
 dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
-  --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT" --dry-run</code></pre>
+  --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT" --dry-run
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -466,20 +477,30 @@ Keep the original binary, instance name and cache until cleanup is verified.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
 ready=false
+started=$SECONDS
+printf 'Checking Prometheus readiness on port %s...\n' "$DOTX_HTTP_PORT"
 for ((attempt=0; attempt&lt;60; attempt++)); do
   if curl --fail --silent --max-time 2 \
     "http://127.0.0.1:$DOTX_HTTP_PORT/-/ready"; then
     ready=true
     break
   fi
+  if ((attempt % 10 == 0)); then
+    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+  fi
   sleep 1
 done
-test "$ready" = true &amp;&amp;
+if ! $ready; then
+  printf 'Prometheus readiness timed out. Run the cleanup block before retrying.\n' &gt;&amp;2
+  exit 1
+fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
-  jq -e '.status == "success" and .data.version == "3.15.1"'</code></pre>
+  jq -e '.status == "success" and .data.version == "3.15.1"'
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -515,14 +536,95 @@ The data is disposable. Do not use another person&#8217;s instance name.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx destroy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" &amp;&amp;
-test -z "$(docker ps -aq --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
-test -z "$(docker network ls -q --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
-test -z "$(docker volume ls -q --filter "label=com.docker.compose.project=$DOT_NAME")"</code></pre>
+remaining="$(docker ps -aq --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
+test -z "$remaining" &amp;&amp;
+remaining="$(docker network ls -q --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
+test -z "$remaining" &amp;&amp;
+remaining="$(docker volume ls -q --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
+test -z "$remaining" &amp;&amp;
+printf 'Cleanup verified: Prometheus containers, network and volumes are absent.\n'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: the instance stops and the three leftover checks succeed silently.
+<p>Expected: the instance stops and the three successful leftover queries print
+<code>Cleanup verified: Prometheus containers, network and volumes are absent.</code>
 Images remain cached. Keep <code>LAB</code> and the same terminal for the next lesson.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resume-tutorial"><a class="anchor" href="#resume-tutorial"></a>Resume or retry without losing your work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Paste the exact <code>source &#8230;&#8203;/session.bash</code> command printed by the workspace block.
+Source only your own saved file. Then verify the original binary and restore its
+PATH before continuing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Source your own saved session.bash first, using the command printed in Lesson 1.
+set -o pipefail
+if [[ -n "${DOTX_TUTORIAL_CLI:-}" &amp;&amp; -n "${DOTX_TUTORIAL_CLI_SHA256:-}" &amp;&amp;
+      -n "${LAB:-}" &amp;&amp; -n "${DOT_REPOSITORY:-}" ]] &amp;&amp;
+  test "$(sha256sum "$DOTX_TUTORIAL_CLI" | cut -d ' ' -f 1)" = "$DOTX_TUTORIAL_CLI_SHA256"; then
+  DOTX_TUTORIAL_BIN_DIR="$(dirname -- "$DOTX_TUTORIAL_CLI")" &amp;&amp;
+  export PATH="$DOTX_TUTORIAL_BIN_DIR:$PATH" &amp;&amp;
+  dotx version --verbose &amp;&amp;
+  printf 'Resumed existing workspace: %s\n' "$LAB"
+else
+  printf 'Saved session is missing/incomplete, or its CLI changed. Source your own session file and recover the recorded binary before managing this workspace.\n' &gt;&amp;2
+  false
+fi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The saved session restores the repository, ports, instance name and cache
+location. If the binary check fails, stop and recover the original checksummed
+CLI before managing existing resources. Passwords are never saved: for a running
+Grafana instance, repeat Lesson 4&#8217;s
+<a href="tutorial-dashboard.html#tutorial-grafana-password" class="xref page">password prompt</a> with the
+original lab password. Choose a new value only after that instance is cleaned up.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What already exists</th>
+<th class="tableblock halign-left valign-top">Safe next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>base/dot.json</code> or <code>prometheus/dot.json</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validate and inspect the existing file. Do not rerun its creation block over
+your edits. Complete missing edits in your editor, then validate again.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prometheus.yml</code>, Grafana inputs or a candidate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open and review the existing file. Creation blocks refuse replacement; they
+do not reset an exercise for you. An incomplete, empty directory may be removed
+with <code>rmdir</code> before retrying; never delete a directory containing your work.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>composition.yaml</code> or <code>dashboard.yaml</code>, with its reviewed lock</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the original file and <code>dotx compose status</code> with the restored repository.
+After an interrupted apply, use that lesson&#8217;s destroy command before retrying.
+Do not create another UUID or regenerate a lock to adopt leftover resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A successful destroy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime state is gone; <code>COMPOSITION_STATE_MISSING</code> is expected. Keep the learning
+files and continue with the next lesson, rather than rerunning creation blocks.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If cleanup fails or Docker cannot be queried, cleanup is <strong>unverified</strong>. Keep the
+original files, cache and binary, restore Docker access, and retry the same
+cleanup command. Do not prune unrelated resources.</p>
 </div>
 <div class="paragraph">
 <p>If a command failed, consult <a href="getting-started.html#_troubleshooting" class="xref page">quickstart
