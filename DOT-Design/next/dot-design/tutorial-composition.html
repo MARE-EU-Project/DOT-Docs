@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>3. Connect your DOT to another tool :: MARE DOT-Design</title>
+    <link rel="prev" href="tutorial-authoring.html">
+    <link rel="next" href="tutorial-dashboard.html">
+    <meta name="description" content="Connect an authored Prometheus DOT to Node Exporter, review the lock, verify a labelled scrape and clean up.">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-authoring.html">2. Create an interface-aware DOT</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="tutorial-composition.html">3. Connect two DOTs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-dashboard.html">4. Grow the system with Grafana</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-next-steps.html">5. Larger and secured systems</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demo</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="production-readiness.html">Production integration checklist and limits</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-domain/model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.4.0/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.4.0/dot-design/index.html">0.4.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></li>
+    <li><a href="tutorial-composition.html">3. Connect two DOTs</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="tutorial-composition.html">Next</a>
+    <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
+    <a class="version is-missing" href="../../0.3.0/dot-design/index.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">3. Connect your DOT to another tool</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Your Prometheus definition has both provided and required interfaces. Connect
+its <code>scrape-target</code> to the catalogue&#8217;s Node Exporter, then query the result.
+Continue in the same shell; Lesson 1&#8217;s standalone service must already be stopped.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_the_use_case_configuration"><a class="anchor" href="#_create_the_use_case_configuration"></a>Create the use-case configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This file belongs to <strong>your monitoring use case</strong>, not to the shared product.
+The label will let you distinguish your configured scrape from an arbitrary
+successful Prometheus response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; "$LAB/prometheus.yml" &lt;&lt;'YAML'
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: node-exporter
+    static_configs:
+      - targets: [node-exporter:9100]
+        labels:
+          tutorial: zero-to-hero
+YAML
+chmod 0644 "$LAB/prometheus.yml"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The file is non-secret. Mode 0644 lets the unprivileged Prometheus container read
+the mounted file; its enclosing workspace stays private. Do not apply these
+permissions to secret files. The initial target is a placeholder: the Wire
+will write the selected instance&#8217;s real host and port into the execution copy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_a_fresh_graph_from_the_reviewed_example"><a class="anchor" href="#_create_a_fresh_graph_from_the_reviewed_example"></a>Create a fresh graph from the reviewed example</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new \
+  --from "$DOT_REPOSITORY/Compositions/node-exporter-prometheus-monitoring/composition.yaml" \
+  --repository "$DOT_REPOSITORY" --name zero-to-hero \
+  --output "$LAB/composition.yaml" --yes</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: a new UUID and a two-DOT, one-Wire preview. The template and its lock
+stay untouched. No lock is created for your draft and no service is deployed.
+The template&#8217;s configuration references are initially shared; redirect them
+before editing a configuration.</p>
+</div>
+<div class="paragraph">
+<p>Read the draft before changing it:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Purpose in this graph</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiVersion</code>, <code>kind</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identify the generated Composition format, not a tool release or runtime.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code>, <code>name</code>, <code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A fresh ownership UUID, a readable use-case name and this graph&#8217;s version.
+The graph&#8217;s <code>1.0.0</code> is separate from each tool&#8217;s release.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named instances, exact tool identities, selected deployments and instance inputs.
+<code>prometheus</code> is an instance name; <code>Prometheus@3.15.1</code> is its tool identity.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verified interface inputs resolved from their exact owning DOTs, not copied specifications.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wires</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connections and the configuration needed to materialize them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedAnchors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Names you can select with <code>--forward</code>, such as <code>prometheus-query</code>.
+An exposure does not add authentication.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Open <code>$LAB/composition.yaml</code> in a text editor and make <strong>two changes</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Replace only the <code>prometheus</code> entry under <code>dots</code> with:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: prometheus
+  source: ./prometheus
+  dotId: Prometheus@3.15.1
+  dotVersion: 3.15.1
+  deployment: docker-image
+  dependsOn: [node-exporter]</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In <code>node-metrics-to-prometheus</code>, change <code>materializer.source</code> to
+<code>prometheus.yml</code>. Keep the other Wire fields unchanged.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>./prometheus</code> selects <strong>your authored definition</strong>, not the catalogue&#8217;s deployment.
+The local <code>docker-image</code> ID comes from your <code>dotx new</code> output. Leave Node Exporter
+and the composition&#8217;s Contract inputs at their exact catalogue coordinates.
+The owned Prometheus Contract has the same verified bytes as that release&#8217;s
+catalogue declaration. Relative file paths resolve beside this YAML file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understand_the_connection"><a class="anchor" href="#_understand_the_connection"></a>Understand the connection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The retained Wire names these model relationships:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">from: {instance: node-exporter, anchorId: node-metrics}
+to: {instance: prometheus, anchorId: scrape-target}
+materializer:
+  type: CONFIG_FILE
+  source: prometheus.yml
+  valueFrom: ENDPOINT_HOST_PORT
+  target:
+    instance: prometheus
+    service: prometheus
+    path: /etc/prometheus/prometheus.yml
+    jsonPointer: /scrape_configs/0/static_configs/0/targets/0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>from</code> provides metrics; <code>to</code> requires them. The materializer derives the
+producer&#8217;s address and places it at one location in the consumer&#8217;s configuration.
+It does not implement the scrape: Prometheus does that. <code>dependsOn</code> expresses
+startup ordering; a Wire expresses an interface connection.</p>
+</div>
+<div class="paragraph">
+<p>Node Exporter&#8217;s metrics operation uses a <strong>source-derived OpenAPI projection</strong>.
+It is not a vendor-published OpenAPI specification or complete OpenMetrics
+certification. Both sides select that same exact interface. The unprivileged
+exporter observes its container; this exercise makes no physical-host claim.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validate_lock_and_preview"><a class="anchor" href="#_validate_lock_and_preview"></a>Validate, lock and preview</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose validate "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
+dotx compose lock "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
+dotx compose inspect "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
+dotx compose topology "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
+dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
+  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: two DOTs, one Wire and a deployment preview using your local
+<code>docker-image</code> definition. Review <code>$LAB/composition.lock.json</code>: it binds exact
+definitions, documents and configuration. A lock is reproducibility evidence,
+not runtime state or a second authored model. Intentional input changes require
+another explicit lock review; never regenerate locks just to hide an error.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_and_ask_a_meaningful_question"><a class="anchor" href="#_run_and_ask_a_meaningful_question"></a>Run and ask a meaningful question</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use an unused <code>TUTORIAL_PORT</code> (default <code>19041</code>). Before applying, keep the stop
+command below available. <strong>Run it even if apply or a query fails.</strong> Preserve the
+original workspace, cache and binary for recovery.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
+  --locked --forward "prometheus-query=$TUTORIAL_PORT"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+scraped=false
+for ((attempt=0; attempt&lt;90; attempt++)); do
+  if curl --fail --silent --max-time 3 --get \
+    --data-urlencode 'query=up{job="node-exporter",tutorial="zero-to-hero"}' \
+    "http://127.0.0.1:$TUTORIAL_PORT/api/v1/query" |
+    jq -e '.status == "success" and any(.data.result[]?; .value[1] == "1")' &gt;/dev/null; then
+    scraped=true
+    break
+  fi
+  sleep 1
+done
+test "$scraped" = true &amp;&amp;
+curl --fail --silent --show-error --max-time 5 \
+  "http://127.0.0.1:$TUTORIAL_PORT/api/v1/status/buildinfo" |
+  jq -e '.status == "success" and .data.version == "3.15.1"' &amp;&amp;
+dotx compose status "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: the bounded scrape check succeeds, build information returns <code>true</code>,
+and status reports the selected instances. The loop permits up to 90 attempts
+with three-second HTTP timeouts and one-second pauses.
+Open <a href="http://127.0.0.1:19041">Prometheus</a> and evaluate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-promql hljs" data-lang="promql">up{job="node-exporter",tutorial="zero-to-hero"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The result <code>1</code> establishes your labelled scrape, not merely an HTTP 200. The
+label came from your configuration; the target address came from the Wire.
+The original catalogue and its configuration are unchanged.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stop_before_extending"><a class="anchor" href="#_stop_before_extending"></a>Stop before extending</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose destroy "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect no running resources for this composition after successful destroy.
+The lab&#8217;s time-series data is disposable. Do not delete the draft or lock while
+cleanup is unresolved, and never prune unrelated Docker resources. If ownership
+is uncertain, stop and inspect rather than deleting by a guessed name.
+Destroy removes the lifecycle record. A later <code>compose status</code> therefore returns
+<code>COMPOSITION_STATE_MISSING</code>; that is expected after successful cleanup.</p>
+</div>
+<div class="paragraph">
+<p>Try a safe diagnostic exercise: copy the YAML to a new file, change
+<code>from.anchorId</code> to <code>missing-metrics</code>, and validate that copy <strong>without</strong> <code>--locked</code>.
+Expect a missing-Anchor rejection. Restore the reference and validate again.
+Do not modify the reviewed live draft or publish another lock for the bad copy.</p>
+</div>
+<div class="paragraph">
+<p><strong>Next: <a href="tutorial-dashboard.html" class="xref page">extend this same system with Grafana</a>.</strong></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="tutorial-authoring.html">2. Create an interface-aware DOT</a></span>
+  <span class="next"><a href="tutorial-dashboard.html">4. Grow the system with Grafana</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

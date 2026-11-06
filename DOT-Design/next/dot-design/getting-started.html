@@ -6,7 +6,7 @@
     <title>Getting started :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.0/dot-design/getting-started.html">
     <link rel="prev" href="index.html">
-    <link rel="next" href="adopting-dot.html">
+    <link rel="next" href="zero-to-hero.html">
     <meta name="description" content="Install dotx, deploy Prometheus with Docker Compose, verify its API, and clean up.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -61,6 +61,27 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-authoring.html">2. Create an interface-aware DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-composition.html">3. Connect two DOTs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-dashboard.html">4. Grow the system with Grafana</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-next-steps.html">5. Larger and secured systems</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -193,6 +214,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -421,7 +445,8 @@ the service&#8217;s build-information API and version:</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ready=false
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+ready=false
 for ((attempt=0; attempt&lt;60; attempt++)); do
   if curl --fail --silent --max-time 2 \
     "http://127.0.0.1:$DOTX_HTTP_PORT/-/ready"; then
@@ -430,7 +455,7 @@ for ((attempt=0; attempt&lt;60; attempt++)); do
   fi
   sleep 1
 done
-test "$ready" = true
+test "$ready" = true &amp;&amp;
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'</code></pre>
@@ -611,7 +636,7 @@ Contributors rehearse them from DOT-Design with
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Overview</a></span>
-  <span class="next"><a href="adopting-dot.html">Adoption, compatibility and editor setup</a></span>
+  <span class="next"><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></span>
 </nav>
 </article>
   </div>
