@@ -5,7 +5,8 @@
 # Run from DOT-Design; set DOT_REPOSITORY=$PWD from a standalone catalogue.
 DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD/DOT-Repository}"
 AUTHORING_DIR="$(mktemp -d -t dotx-authoring.XXXXXXXX)"
-jq '.contracts[0]' "$DOT_REPOSITORY/DOTs/external/Prometheus-DOT/dot.json" \
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")"
+jq '.contracts[0]' "$PROMETHEUS_JSON" \
   >"$AUTHORING_DIR/contract.json"
 # end::inputs[]
 

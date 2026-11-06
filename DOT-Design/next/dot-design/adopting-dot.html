@@ -70,6 +70,9 @@
     <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
   </li>
 </ul>
@@ -438,14 +441,16 @@ with the selected release or its source CLI installed:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version --verbose
-dotx inspect DOT-Repository/DOTs/external/Prometheus-DOT
-dotx tool check --dot DOT-Repository/DOTs/external/Prometheus-DOT --deployment docker-compose
-dotx tool check --dot DOT-Repository/DOTs/external/Prometheus-DOT --deployment docker-compose --json</code></pre>
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository DOT-Repository)"
+PROMETHEUS_BUNDLE="$(dirname -- "$PROMETHEUS_JSON")"
+dotx inspect "$PROMETHEUS_BUNDLE"
+dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose
+dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>From a standalone catalogue checkout use <code>DOTs/external/Prometheus-DOT</code>
-instead. For a standalone bundle outside a catalogue add
+<p>From a standalone catalogue checkout resolve with <code>--repository .</code> instead.
+Exact identity resolution works with the released and product/version layouts. For a standalone bundle outside a catalogue add
 <code>--schema /path/to/matching/Schema/schema.json</code>.</p>
 </div>
 <div class="paragraph">

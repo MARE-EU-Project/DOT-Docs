@@ -80,11 +80,11 @@
     "WireSecurity"
   ],
   "publicInputs": {
-    "DOT-Docs/scripts/model-reference.mjs": "511ba87a3def27468aac38f55f98973dda0d818a43823ce70f7b2d3bb9f4a8b8",
+    "DOT-Docs/scripts/model-reference.mjs": "4201ac01bb9fead2f4baaa971213a578f886d8256473157d60d753680f5dc4c7",
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "18c3b1a92edadb3542d9bd3a753e259a2d1f0101f24bed0b748655a24bbfc0ae",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "9c63e1c87a37d3d763f3a26af4e10265c5c9462a7e2117010333fe7c2c874288",
     "DOT-Docs/scripts/model-notes-composition.mjs": "6136290a80e45df261d7ab02a0e065da02d07d6b842b0e0c3296c7e9f0642644",
-    "DOT-Docs/scripts/domain-reference.mjs": "31c77232ec6ac5c8bf51d69428c460e0869418154eb59680467fe59bf5177088",
+    "DOT-Docs/scripts/domain-reference.mjs": "ccfbad7c2eeb2d55481991bbaec6a501fe8c6c038eef73ed230e119a2cc8d87b",
     "DOT-Domain/src/test/resources/model-compatibility.json": "47497ac38a97a9b98a97663c12daf30bdc8db5d6f81b475587f421415ed6d164",
     "DOT-Docs/modules/ROOT/attachments/dot-domain.class-diagram.puml": "1559c65d001f1148abd5ef5658eaa223664fd7c0c0116e05cf53d146d8240e41",
     "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "73b21a275ee8f7a404530972f17a225ac89ec08a9efb3a326326d7f68843ede9",
@@ -170,7 +170,7 @@
   "authorities": {
     "DOT-Repository/Schema/schema.json": "5eb008b4ba99d350317c538b8a7f8c90ff855d4e9828bea53fef4cf5bc75b3d2",
     "DOT-Repository/Schema/composition-v1.schema.json": "623c6290dd6a470cd90094487ab18d9f756ef3a6306a5e56f6b0ef67e29c2be2",
-    "DOT-Repository/DOTs/external/Prometheus-DOT/dot.json": "79ed75fef61f74da3fa7581ef4e6485ccb524422b7c0697e454c497e582f3d3e",
+    "DOT-Repository/DOTs/external/Prometheus-DOT/3.15.1/dot.json": "79ed75fef61f74da3fa7581ef4e6485ccb524422b7c0697e454c497e582f3d3e",
     "DOT-Repository/Schema/models/Anchor.schema.json": "dd5d5d7776b85b0b440f8e6e13f6a09d9447e2cc996386068853afda53ae8bdc",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java": "69984e82661276460a77c15f9a5b5ac14c8b20f00f1147ee308c010cf2030ee7",
     "DOT-Repository/Schema/models/AnchorBinding.schema.json": "5c90eb295194e2e06cfa5498ee1d01ac8aa4a33cead6d42c67c79cd9e93c8e27",

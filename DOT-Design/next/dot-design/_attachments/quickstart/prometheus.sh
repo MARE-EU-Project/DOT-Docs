@@ -3,7 +3,8 @@
 
 # tag::select[]
 DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD}"
-DOT_BUNDLE="$DOT_REPOSITORY/DOTs/external/Prometheus-DOT"
+DOT_DEFINITION="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")"
+DOT_BUNDLE="$(dirname -- "$DOT_DEFINITION")"
 DOT_NAME="${DOT_NAME:-dot-quickstart}"
 DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}"
 DOT_PROJECT_FILTER="label=com.docker.compose.project=$DOT_NAME"

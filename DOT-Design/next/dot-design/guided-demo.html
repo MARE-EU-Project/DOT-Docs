@@ -70,6 +70,9 @@
     <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
   </li>
 </ul>
@@ -1420,7 +1423,7 @@ digest-pinned Contracts while offering multiple deployment mechanisms.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KEYCLOAK=DOT-Repository/DOTs/external/Keycloak-DOT/26.8.1
 dotx inspect "$KEYCLOAK" --json |
   jq '{name, version,
        skills: (.skills | length),

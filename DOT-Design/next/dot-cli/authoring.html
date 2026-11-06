@@ -70,6 +70,9 @@
     <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
   </li>
 </ul>
@@ -346,7 +349,8 @@ DOT-Design, prepare an empty exercise directory:</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Run from DOT-Design; set DOT_REPOSITORY=$PWD from a standalone catalogue.
 DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD/DOT-Repository}"
 AUTHORING_DIR="$(mktemp -d -t dotx-authoring.XXXXXXXX)"
-jq '.contracts[0]' "$DOT_REPOSITORY/DOTs/external/Prometheus-DOT/dot.json" \
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")"
+jq '.contracts[0]' "$PROMETHEUS_JSON" \
   &gt;"$AUTHORING_DIR/contract.json"</code></pre>
 </div>
 </div>
@@ -676,7 +680,8 @@ remain authoritative; declarations do not provision brokers or prove delivery.</
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p drafts
-dotx edit DOTs/external/Prometheus-DOT/dot.json --interactive \
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository .)"
+dotx edit "$PROMETHEUS_JSON" --interactive \
   --output drafts/prometheus.candidate.json --repository . --offline</code></pre>
 </div>
 </div>

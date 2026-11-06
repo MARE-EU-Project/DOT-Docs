@@ -70,6 +70,9 @@
     <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
   </li>
 </ul>
@@ -335,7 +338,7 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 <h2 id="_canonical_external_catalogue"><a class="anchor" href="#_canonical_external_catalogue"></a>Canonical external catalogue</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The external catalogue currently has one root for each of these 20 products:
+<p>The external catalogue currently has one product folder for each of these 20 products, with exact release leaves:
 APISIX, cAdvisor, Elasticsearch, Filebeat, Grafana, GraphDB, InfluxDB,
 Keycloak, Kibana, Loki, Eclipse Mosquitto, Prometheus node-exporter, OPA,
 OpenTelemetry Collector, Oxigraph, Prometheus, Wireshark, NATS, Kafka, and
@@ -374,7 +377,7 @@ not the complete external catalogue.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak@26.8.1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Codecentric <code>HELM_CHART</code> <code>7.4.0</code>; official Keycloak <code>DOCKER_COMPOSE</code>, <code>DOCKER_IMAGE</code> and native Kubernetes deployments, all targeting 26.8.1 in one root definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Codecentric <code>HELM_CHART</code> <code>7.4.0</code>; official Keycloak <code>DOCKER_COMPOSE</code>, <code>DOCKER_IMAGE</code> and native Kubernetes deployments, all targeting 26.8.1 in one release definition</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.8.1 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Anchors</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and Compose <code>start-dev</code>; readiness; obtain an admin token and assert <code>GET /admin/realms/master</code> returns the master realm through both mechanisms</p></td>
 </tr>
@@ -404,7 +407,8 @@ not the complete external catalogue.</p>
 <div class="paragraph">
 <p>Each product is kept under <code>DOTs/external/</code> because it is owned outside MARE,
 with every supported mechanism for its selected actual tool release in the same
-root <code>dot.json</code>. Older releases remain in Git history, not nested bundles. Ownership does
+release <code>dot.json</code>. Additional supported releases occupy separate exact release
+folders. See <a href="catalogue-versioning.html" class="xref page">Catalogue release selection</a>. Ownership does
 not imply interoperability maturity. Keycloak and Prometheus publish adjacent
 official Contract evidence and pass the strict reusable profile. Loki and
 Wireshark currently provide runtime evidence only; they must not be

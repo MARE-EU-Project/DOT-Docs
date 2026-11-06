@@ -70,6 +70,9 @@
     <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
   </li>
 </ul>
@@ -377,7 +380,8 @@ embeds its Compose manifest; no neighbouring Compose file is inferred.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD}"
-DOT_BUNDLE="$DOT_REPOSITORY/DOTs/external/Prometheus-DOT"
+DOT_DEFINITION="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")"
+DOT_BUNDLE="$(dirname -- "$DOT_DEFINITION")"
 DOT_NAME="${DOT_NAME:-dot-quickstart}"
 DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}"
 DOT_PROJECT_FILTER="label=com.docker.compose.project=$DOT_NAME"
