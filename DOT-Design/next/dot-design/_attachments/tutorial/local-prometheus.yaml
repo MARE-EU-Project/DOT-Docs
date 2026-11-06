@@ -1,6 +1,6 @@
-- name: prometheus
-  source: ./prometheus
-  dotId: Prometheus@3.15.1
-  dotVersion: 3.15.1
-  deployment: docker-image
-  dependsOn: [node-exporter]
+    - name: prometheus
+      source: ./prometheus
+      dotId: Prometheus@3.15.1
+      dotVersion: 3.15.1
+      deployment: docker-image
+      dependsOn: [node-exporter]

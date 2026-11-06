@@ -1,36 +1,36 @@
 dots:
 # tag::grafana-dot[]
-  - name: grafana
-    source: ./grafana
-    dotId: Grafana@13.3.0
-    dotVersion: 13.3.0
-    deployment: docker
-    dependsOn: [prometheus]
-    deploymentInputs:
-      environment:
-        - name: GF_SECURITY_ADMIN_PASSWORD
-          secretRef: {store: environment, name: HERO_GRAFANA_PASSWORD}
-      configFiles:
-        - source: grafana-empty.yml
-          target: /etc/grafana/provisioning/datasources/elasticsearch.yml
+    - name: grafana
+      source: ./grafana
+      dotId: Grafana@13.3.0
+      dotVersion: 13.3.0
+      deployment: docker
+      dependsOn: [prometheus]
+      deploymentInputs:
+        environment:
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            secretRef: {store: environment, name: HERO_GRAFANA_PASSWORD}
+        configFiles:
+          - source: grafana-empty.yml
+            target: /etc/grafana/provisioning/datasources/elasticsearch.yml
 # end::grafana-dot[]
 wires:
 # tag::grafana-wire[]
-  - name: prometheus-to-grafana
-    from: {instance: prometheus, anchorId: promql-query-api}
-    to: {instance: grafana, anchorId: promql-query-api}
-    materializer:
-      type: CONFIG_FILE
-      source: grafana-prometheus.yml
-      valueFrom: ENDPOINT_URL
-      target:
-        instance: grafana
-        service: grafana
-        path: /etc/grafana/provisioning/datasources/prometheus.yml
-        jsonPointer: /datasources/0/url
+    - name: prometheus-to-grafana
+      from: {instance: prometheus, anchorId: promql-query-api}
+      to: {instance: grafana, anchorId: promql-query-api}
+      materializer:
+        type: CONFIG_FILE
+        source: grafana-prometheus.yml
+        valueFrom: ENDPOINT_URL
+        target:
+          instance: grafana
+          service: grafana
+          path: /etc/grafana/provisioning/datasources/prometheus.yml
+          jsonPointer: /datasources/0/url
 # end::grafana-wire[]
 exposedAnchors:
 # tag::grafana-exposure[]
-  - name: dashboard
-    target: {instance: grafana, anchorId: monitoring-dashboard}
+    - name: dashboard
+      target: {instance: grafana, anchorId: monitoring-dashboard}
 # end::grafana-exposure[]

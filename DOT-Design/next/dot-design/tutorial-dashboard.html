@@ -404,7 +404,8 @@ or claim that it has been tested.</p>
 will add one item to each of three <strong>existing</strong> lists. Keep the earlier items,
 Contract inputs and ownership UUID; do not paste another root <code>dots:</code> or <code>wires:</code>
 key. Each snippet below is a list item, beginning with <code>- name</code>, at the same
-indentation as the existing items.</p>
+indentation as the existing items. Keep the four leading spaces shown before
+each <code>- name</code> in the CLI-created draft.</p>
 </div>
 <div class="sect2">
 <h3 id="_add_grafana_under_dots"><a class="anchor" href="#_add_grafana_under_dots"></a>Add Grafana under <code>dots</code></h3>
@@ -413,19 +414,19 @@ indentation as the existing items.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: grafana
-    source: ./grafana
-    dotId: Grafana@13.3.0
-    dotVersion: 13.3.0
-    deployment: docker
-    dependsOn: [prometheus]
-    deploymentInputs:
-      environment:
-        - name: GF_SECURITY_ADMIN_PASSWORD
-          secretRef: {store: environment, name: HERO_GRAFANA_PASSWORD}
-      configFiles:
-        - source: grafana-empty.yml
-          target: /etc/grafana/provisioning/datasources/elasticsearch.yml</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: grafana
+      source: ./grafana
+      dotId: Grafana@13.3.0
+      dotVersion: 13.3.0
+      deployment: docker
+      dependsOn: [prometheus]
+      deploymentInputs:
+        environment:
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            secretRef: {store: environment, name: HERO_GRAFANA_PASSWORD}
+        configFiles:
+          - source: grafana-empty.yml
+            target: /etc/grafana/provisioning/datasources/elasticsearch.yml</code></pre>
 </div>
 </div>
 </div>
@@ -436,18 +437,18 @@ indentation as the existing items.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: prometheus-to-grafana
-    from: {instance: prometheus, anchorId: promql-query-api}
-    to: {instance: grafana, anchorId: promql-query-api}
-    materializer:
-      type: CONFIG_FILE
-      source: grafana-prometheus.yml
-      valueFrom: ENDPOINT_URL
-      target:
-        instance: grafana
-        service: grafana
-        path: /etc/grafana/provisioning/datasources/prometheus.yml
-        jsonPointer: /datasources/0/url</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: prometheus-to-grafana
+      from: {instance: prometheus, anchorId: promql-query-api}
+      to: {instance: grafana, anchorId: promql-query-api}
+      materializer:
+        type: CONFIG_FILE
+        source: grafana-prometheus.yml
+        valueFrom: ENDPOINT_URL
+        target:
+          instance: grafana
+          service: grafana
+          path: /etc/grafana/provisioning/datasources/prometheus.yml
+          jsonPointer: /datasources/0/url</code></pre>
 </div>
 </div>
 </div>
@@ -458,8 +459,8 @@ indentation as the existing items.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: dashboard
-    target: {instance: grafana, anchorId: monitoring-dashboard}</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: dashboard
+      target: {instance: grafana, anchorId: monitoring-dashboard}</code></pre>
 </div>
 </div>
 <div class="paragraph">

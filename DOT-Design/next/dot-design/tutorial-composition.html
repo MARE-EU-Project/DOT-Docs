@@ -432,14 +432,18 @@ An exposure does not add authentication.</p></td>
 <ol class="arabic">
 <li>
 <p>Replace only the <code>prometheus</code> entry under <code>dots</code> with:</p>
+<div class="paragraph">
+<p>Keep the four leading spaces shown before <code>- name</code>, matching the other DOT
+item in the CLI-created draft. YAML indentation is part of the document.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: prometheus
-  source: ./prometheus
-  dotId: Prometheus@3.15.1
-  dotVersion: 3.15.1
-  deployment: docker-image
-  dependsOn: [node-exporter]</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: prometheus
+      source: ./prometheus
+      dotId: Prometheus@3.15.1
+      dotVersion: 3.15.1
+      deployment: docker-image
+      dependsOn: [node-exporter]</code></pre>
 </div>
 </div>
 <div class="paragraph">
