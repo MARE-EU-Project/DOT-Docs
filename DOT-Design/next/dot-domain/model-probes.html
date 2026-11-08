@@ -399,7 +399,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocol</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Broker transport used to execute this delivery fixture. allowed: "MQTT", "NATS", "KAFKA", "AMQP".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broker transport used to execute this delivery fixture. schema enum: "MQTT", "NATS", "KAFKA", "AMQP".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
@@ -417,7 +417,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>qos</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requested MQTT delivery quality for the message exchange. minimum: 0; maximum: 2.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MQTT request quality accepts 0, 1 or 2 at resolution; omit or use zero for other transports. Actual delivery still needs a live probe. minimum: 0; maximum: 2.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>authentication</code></p></td>
@@ -465,7 +465,7 @@
 <p>Provide broker login identity and a reference to its private password for an active delivery check.</p>
 </div>
 <div class="paragraph">
-<p>The password stays in an executor-supported secret source rather than in the fixture. Whether authentication is supported and required depends on the selected transport and Contract bindings; this object does not configure the broker itself.</p>
+<p>The current AMQP 0-9-1 probe requires this authentication object, with a username and passwordSecretRef. Current MQTT, NATS and Kafka probes reject this object; their supported probe profiles are unauthenticated. This is a dotx probe limitation, not a claim that those brokers lack authentication. The password stays in an executor-supported secret source rather than in the fixture, and this object does not configure the broker itself.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/AsyncAPIProbeAuthentication.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AsyncAPIProbeAuthentication.schema.json">Generated JSON Schema</a></p>
@@ -543,7 +543,7 @@
 <p><strong>Exact JSON values:</strong> <code>MQTT</code>, <code>NATS</code>, <code>KAFKA</code>, <code>AMQP</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "MQTT", "NATS", "KAFKA", "AMQP".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "MQTT", "NATS", "KAFKA", "AMQP".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -570,7 +570,7 @@
 <p>Describe a reflection-based RPC check with a finite request and response sequence.</p>
 </div>
 <div class="paragraph">
-<p>Choose the single-request or request-sequence form, not both, to match the selected RPC shape. The current profile relies on server reflection. Finite stream completion, response count and content assertions are separate checks; declaring a fixture is not proof that a server implements the RPC.</p>
+<p>Choose the single-request or request-sequence form, not both, to match the selected RPC shape. The current profile requires server reflection and the selected Contract method must declare MethodOptions.idempotency_level = NO_SIDE_EFFECTS. Reflection alone does not satisfy that safety requirement. Every streaming RPC needs an explicit positive responseCount; unary probes default to one response. Finite stream completion, response count and content assertions are separate checks; declaring a fixture is not proof that a server implements the RPC.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/GRPCProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/GRPCProbe.schema.json">Generated JSON Schema</a></p>
@@ -619,13 +619,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>responseCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Expected number of responses after the finite RPC completes. minimum: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected number of responses after the finite RPC completes; explicitly positive for every streaming RPC. minimum: 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>responseMatch</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Which received responses must satisfy the content expectation. allowed: "ALL", "ANY", "FIRST", "LAST".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Which received responses must satisfy the content expectation. schema enum: "ALL", "ANY", "FIRST", "LAST".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect</code></p></td>
@@ -678,7 +678,7 @@
 <p><strong>Exact JSON values:</strong> <code>ALL</code>, <code>ANY</code>, <code>FIRST</code>, <code>LAST</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "ALL", "ANY", "FIRST", "LAST".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "ALL", "ANY", "FIRST", "LAST".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -781,7 +781,7 @@
 <p>Describe a GraphQL query, mutation or subscription check against the selected interface.</p>
 </div>
 <div class="paragraph">
-<p>The executable document must agree with the verified schema and selected operation. The current executor requires a verification query and cleanup mutation for mutation probes, and trigger and cleanup mutations for subscription probes; the transport must suit the operation. These are bounded acceptance fixtures, not a general GraphQL client or a guarantee of application rollback.</p>
+<p>The executable document must agree with the verified schema and Anchor-selected operation. Queries use HTTP (the default), may declare expect, and cannot declare verify, trigger or cleanup. Mutations require HTTP, expect, a verify query and a cleanup mutation; trigger is forbidden. Subscriptions require explicit SSE transport, expect, a trigger mutation and a cleanup mutation; verify is forbidden. These are bounded acceptance fixtures, not a general GraphQL client or a guarantee of application rollback.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/GraphQLProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/GraphQLProbe.schema.json">Generated JSON Schema</a></p>
@@ -830,13 +830,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>transport</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Delivery transport used for the main operation. allowed: "HTTP", "SSE".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP is the default for queries and mutations; subscriptions must explicitly select SSE. schema enum: "HTTP", "SSE".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JSONExpectation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JSON result assertion for the supported probe sequence.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON result assertion; optional for a query and required for a mutation or subscription.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>verify</code></p></td>
@@ -911,7 +911,7 @@
 <p><strong>Exact JSON values:</strong> <code>HTTP</code>, <code>SSE</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "HTTP", "SSE".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "HTTP", "SSE".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -1007,7 +1007,7 @@
 <p>Add a JSON response-value assertion to a supported OpenAPI wire probe.</p>
 </div>
 <div class="paragraph">
-<p>The operation comes from the wire Anchor and verified Contract, not a second handwritten URL or operation definition. A successful HTTP status alone is different from a matched response expectation; executor restrictions still determine which operations can be probed.</p>
+<p>The operation comes from the wire Anchor and verified Contract, not a second handwritten URL or operation definition. When this assertion block is present, expect is required and the selected operation must be a safe GET or OPTIONS operation; HEAD cannot carry this JSON assertion. A successful HTTP status alone is different from a matched response expectation.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/OpenAPIProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/OpenAPIProbe.schema.json">Generated JSON Schema</a></p>

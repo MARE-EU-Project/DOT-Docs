@@ -511,8 +511,9 @@ The long <code>task testing:demo</code> qualification suite remains separate.</p
 <div class="paragraph">
 <p>Run from this checkout in an interactive Linux-amd64 terminal. This is the
 on-stage experience, not another qualification suite. This wrapper is available
-in the current <strong>Next source checkout</strong>, not the immutable Design <code>0.3.0</code> tag;
-it reuses the pinned <code>0.3.0</code> CLI and adds no new <code>dotx</code> command or portable model.
+in the current source checkout. Follow its preparation instructions to install
+the exact pinned CLI source revision; the released quickstart is a separate,
+manifest-matched route. The wrapper adds no new <code>dotx</code> command or portable model.
 It immediately explains
 what will happen, checks prerequisites without deployment, and reuses the exact
 Prometheus quickstart commands from <a href="getting-started.html" class="xref page">Getting started</a>.
@@ -1184,14 +1185,12 @@ timestamped runtime observations with <code>compose topology --locked --status</
 Their results tables still provide the separate application assertions.</p>
 </div>
 <div class="paragraph">
-<p>For an applied composition, run the following from the same private cache and
-Kubernetes configuration printed by its harness (do not use another run&#8217;s state):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">COMPOSITION=DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml
-dotx compose topology "$COMPOSITION" --locked --status</code></pre>
-</div>
+<p>To refresh this run&#8217;s topology in the second terminal, start from its printed
+recovery/status command. Keep its complete environment assignments and exact
+composition path; replace only <code>compose status</code> with <code>compose topology</code> and
+append <code>--locked --status</code>. Do not substitute a catalogue graph: the four-Contract
+fixture and the Keycloak/APISIX composition have different ownership identities
+and state, even when they use the same cluster.</p>
 </div>
 <div class="paragraph">
 <p>Explain the layers separately: <code>APPLIED</code> is a recorded lifecycle phase;
@@ -1525,7 +1524,8 @@ dotx inspect "$KEYCLOAK" --json |
 forking its identity for each PoC. Deployment-instance realms, routes,
 credentials, and endpoints remain composition inputs rather than copied DOTs.
 All five deployment choices target the same Keycloak 26.8.1 release in this
-one definition. Git preserves previous releases; there are no sibling version bundles.</p>
+one release definition. Additional supported tool releases have separate
+product/release folders; the exact selection never falls back to another release.</p>
 </div>
 </div>
 </div>

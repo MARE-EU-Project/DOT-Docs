@@ -579,6 +579,7 @@ dotx compose inspect "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --lo
 dotx compose topology "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
 dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
   --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
+printf 'Graph verified: two DOTs, one Wire. No service has started.\n'
 )</code></pre>
 </div>
 </div>
@@ -601,7 +602,8 @@ original workspace, cache and binary for recovery.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf 'Starting Node Exporter and your Prometheus; the next check waits for their labelled scrape...\n'
+dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
   --locked --forward "prometheus-query=$TUTORIAL_PORT"</code></pre>
 </div>
 </div>
@@ -612,6 +614,7 @@ set -euo pipefail
 set -o pipefail
 scraped=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Checking the labelled Node Exporter scrape through Prometheus...\n'
 for ((attempt=0; attempt&lt;90; attempt++)); do
   if curl --fail --silent --max-time 3 --get \
@@ -621,8 +624,9 @@ for ((attempt=0; attempt&lt;90; attempt++)); do
     scraped=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS &gt;= next_notice)); then
     printf 'Waiting for the scrape: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
@@ -635,6 +639,7 @@ curl --fail --silent --show-error --max-time 5 \
   jq -e '.status == "success" and .data.version == "3.15.1"'
 dotx compose status "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
 printf 'Verified: your labelled Node Exporter scrape is up (value 1).\n'
+printf 'Try the same query in Prometheus: http://127.0.0.1:%s/\n' "$TUTORIAL_PORT"
 )</code></pre>
 </div>
 </div>
@@ -643,7 +648,8 @@ printf 'Verified: your labelled Node Exporter scrape is up (value 1).\n'
 <code>true</code>, status lists the selected instances, and a <code>Verified:</code> message confirms
 the labelled scrape. The loop permits up to 90 attempts
 with three-second HTTP timeouts and one-second pauses.
-Open <a href="http://127.0.0.1:19041">Prometheus</a> and evaluate:</p>
+Open the URL printed by the check (<a href="http://127.0.0.1:19041">Prometheus</a> with
+the default port) and evaluate:</p>
 </div>
 <div class="listingblock">
 <div class="content">

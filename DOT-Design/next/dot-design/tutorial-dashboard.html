@@ -527,6 +527,7 @@ set -euo pipefail
 dotx compose validate "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
 dotx compose lock "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
 dotx compose topology "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" --locked
+printf 'Extended graph verified: three DOTs, two Wires. Next: supply a lab password, then preview and apply.\n'
 )</code></pre>
 </div>
 </div>
@@ -566,7 +567,8 @@ Runtime preflight, including the dry-run, needs the referenced password availabl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf 'Previewing, then starting Node Exporter, Prometheus and Grafana; pinned images may need downloading...\n'
+dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
   --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT" &amp;&amp;
 dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
   --locked --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT"</code></pre>
@@ -592,6 +594,7 @@ set -euo pipefail
 set -o pipefail
 dashboard_ready=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Checking Grafana 13.3.0 health on port %s...\n' "$DASHBOARD_PORT"
 for ((attempt=0; attempt&lt;90; attempt++)); do
   if curl --fail --silent --max-time 3 "http://127.0.0.1:$DASHBOARD_PORT/api/health" |
@@ -599,8 +602,9 @@ for ((attempt=0; attempt&lt;90; attempt++)); do
     dashboard_ready=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS &gt;= next_notice)); then
     printf 'Waiting for Grafana: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
@@ -653,6 +657,7 @@ trap 'rm -f -- "$credentials"' EXIT
   &gt; "$credentials")
 dashboard_queried=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Querying the labelled scrape through Grafana...\n'
 for ((attempt=0; attempt&lt;90; attempt++)); do
   if curl --config "$credentials" --fail --silent --max-time 5 \
@@ -672,8 +677,9 @@ for ((attempt=0; attempt&lt;90; attempt++)); do
     dashboard_queried=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS &gt;= next_notice)); then
     printf 'Waiting for the Grafana query: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done

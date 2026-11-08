@@ -837,8 +837,10 @@ applied state; independently verify resource absence. Never prune Docker, remove
 Minikube, or delete unrelated volumes. Find the owner of an occupied NodePort
 before proceeding. Fix Docker user permissions before rerunning. Gateway timeouts
 require checking node IP, routing/firewall, readiness and Services; resolution does
-not prove reachability. Contract download failures require repository access or
-verified bundle-local assets, never bypassing SHA-256 checks.</p>
+not prove reachability. For Contract download failures, restore authorized
+access to the declared payloads and exact originating DOTs, or warm the matching
+verified digest cache online before retrying offline. Bundle-local Contract
+directories are not a fallback; never bypass SHA-256 checks.</p>
 </div>
 <div class="sect2">
 <h3 id="_after_a_manually_cancelled_github_job"><a class="anchor" href="#_after_a_manually_cancelled_github_job"></a>After a manually cancelled GitHub job</h3>

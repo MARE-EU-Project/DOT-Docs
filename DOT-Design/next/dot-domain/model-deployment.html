@@ -874,7 +874,7 @@
 <p><strong>Exact JSON values:</strong> <code>DOCKER_IMAGE</code>, <code>DOCKER_COMPOSE</code>, <code>KUBERNETES_MANIFEST</code>, <code>HELM_CHART</code>, <code>VAGRANTFILE</code>, <code>WASM_MODULE</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "DOCKER_IMAGE", "DOCKER_COMPOSE", "KUBERNETES_MANIFEST", "HELM_CHART", "VAGRANTFILE", "WASM_MODULE".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "DOCKER_IMAGE", "DOCKER_COMPOSE", "KUBERNETES_MANIFEST", "HELM_CHART", "VAGRANTFILE", "WASM_MODULE".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -1049,7 +1049,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the downloaded Compose document. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The downloaded Compose document must use YAML or JSON; other DataFormat values fail owner validation. schema enum: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
@@ -1360,7 +1360,7 @@
 <p>References a Helm chart and preserves its reusable chart-level values.</p>
 </div>
 <div class="paragraph">
-<p>Keep chart version separate from the represented tool release. The chart reference can use a repository or a self-contained OCI reference; an environment alias needs to be available where deployment runs. Values are ordered, with later entries overriding earlier ones. Release name and namespace are instance concerns, while service-facing configuration belongs on DeploymentService.config.</p>
+<p>Keep chart version separate from the represented tool release. The portable model permits an omitted repository, but the current dotx executor needs repository plus chart name, a complete OCI chart reference, or an explicit --registry / DOTX_REGISTRY input. It does not resolve pre-registered Helm aliases from the operator environment. Values are ordered, with later entries overriding earlier ones. Release name and namespace are instance concerns, while service-facing configuration belongs on DeploymentService.config.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/helm/HelmChart.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/HelmChart.schema.json">Generated JSON Schema</a></p>
@@ -1483,7 +1483,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of this values document. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The downloaded Helm values document must use YAML or JSON; other DataFormat values fail owner validation. schema enum: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
@@ -1555,7 +1555,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The serialization format of the downloaded Kubernetes documents. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The downloaded Kubernetes documents must use YAML or JSON; other DataFormat values fail owner validation. schema enum: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>payload</code></p></td>
@@ -1618,7 +1618,7 @@
 <p><strong>Exact JSON values:</strong> <code>pid</code>, <code>network</code>, <code>mount</code>, <code>ipc</code>, <code>uts</code>, <code>user</code>, <code>cgroup</code>, <code>time</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "pid", "network", "mount", "ipc", "uts", "user", "cgroup", "time".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "pid", "network", "mount", "ipc", "uts", "user", "cgroup", "time".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -1745,7 +1745,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>engine</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PlatformEngine</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The infrastructure engine that hosts the workload. allowed: "DOCKER", "KUBERNETES", "VAGRANT", "WEBASSEMBLY".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The infrastructure engine that hosts the workload. schema enum: "DOCKER", "KUBERNETES", "VAGRANT", "WEBASSEMBLY".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
@@ -1798,7 +1798,7 @@
 <p><strong>Exact JSON values:</strong> <code>DOCKER</code>, <code>KUBERNETES</code>, <code>VAGRANT</code>, <code>WEBASSEMBLY</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "DOCKER", "KUBERNETES", "VAGRANT", "WEBASSEMBLY".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "DOCKER", "KUBERNETES", "VAGRANT", "WEBASSEMBLY".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -2142,7 +2142,7 @@
 <p><strong>Exact JSON values:</strong> <code>WASI_CLI</code>, <code>WASI_HTTP</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "WASI_CLI", "WASI_HTTP".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "WASI_CLI", "WASI_HTTP".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -2200,7 +2200,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>execution</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WebAssemblyExecution</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The WASI world used to invoke the artifact. allowed: "WASI_CLI", "WASI_HTTP".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The WASI world used to invoke the artifact. schema enum: "WASI_CLI", "WASI_HTTP".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>module</code></p></td>

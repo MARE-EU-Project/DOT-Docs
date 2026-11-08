@@ -485,10 +485,12 @@ restore these variables before cleanup; do not create a new workspace instead.</
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
+printf 'Checking Prometheus and the selected Docker Compose deployment; nothing starts yet...\n'
 dotx validate "$DOT_BUNDLE" --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$DOT_BUNDLE"
 dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT" --dry-run
+printf 'Preview complete. Next: start this one instance and check its real API.\n'
 )</code></pre>
 </div>
 </div>
@@ -513,7 +515,8 @@ Keep the original binary, instance name and cache until cleanup is verified.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf 'Starting Prometheus; Docker may download its pinned image on the first run...\n'
+dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"</code></pre>
 </div>
 </div>
@@ -526,6 +529,7 @@ Keep the original binary, instance name and cache until cleanup is verified.</p>
 set -euo pipefail
 ready=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Checking Prometheus readiness on port %s...\n' "$DOTX_HTTP_PORT"
 for ((attempt=0; attempt&lt;60; attempt++)); do
   if curl --fail --silent --max-time 2 \
@@ -533,8 +537,9 @@ for ((attempt=0; attempt&lt;60; attempt++)); do
     ready=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS &gt;= next_notice)); then
     printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
@@ -545,13 +550,15 @@ fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
+printf 'Verified: Prometheus 3.15.1 answered its official API. Open http://127.0.0.1:%s/\n' "$DOTX_HTTP_PORT"
 )</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: <code>Prometheus Server is Ready.</code> and <code>true</code>. The loop is bounded: up to
+<p>Expected: <code>Prometheus Server is Ready.</code>, <code>true</code>, then a <code>Verified:</code> message
+confirming Prometheus <code>3.15.1</code> and printing its browser URL. The loop is bounded: up to
 60 attempts, each with a two-second HTTP timeout and a one-second pause.
-Open <a href="http://127.0.0.1:18909">Prometheus</a> if you kept the default port.</p>
+Open the printed URL (<a href="http://127.0.0.1:18909">Prometheus</a> with the default port).</p>
 </div>
 <div class="paragraph">
 <p>You have verified an actual service response, not just a valid definition.

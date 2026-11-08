@@ -615,10 +615,13 @@ non-sensitive operation document with optional operation name and variables.
 Before resolution succeeds, <code>dotx</code> parses the authoritative SDL, validates every
 document and variable set, requires exactly one direct top-level field, and
 requires that field to equal the Anchor-selected coordinate. It never guesses
-<code>/graphql</code>. Queries use HTTP directly. Mutations additionally declare an
-observable verification query and cleanup mutation. Subscriptions use the
-GraphQL-over-SSE protocol on a connection established before a separate trigger
-mutation and finish with a cleanup mutation. Every phase must return HTTP <code>2xx</code>
+<code>/graphql</code>. Queries use HTTP (the default) and may declare an <code>expect</code> assertion;
+they cannot declare <code>verify</code>, <code>trigger</code> or <code>cleanup</code> operations. Mutations require
+HTTP, <code>expect</code>, an observable <code>verify</code> query and a <code>cleanup</code> mutation; they cannot
+declare <code>trigger</code>. Subscriptions require explicit <code>transport: SSE</code>, <code>expect</code>, a
+separate <code>trigger</code> mutation and a <code>cleanup</code> mutation; they cannot declare
+<code>verify</code>. The SSE connection is established before its trigger runs.
+Every phase must return HTTP <code>2xx</code>
 without GraphQL errors; the expectation is evaluated against the query
 response, mutation verification result, or delivered subscription event.</p>
 </div>
@@ -788,6 +791,52 @@ their stable managed identities. The private transaction journal stores only
 paths, identifiers, phases, and digests—not resolved secrets or input payloads.
 Stateful and host-bound mutations fail before the first runtime action because
 restoring a deployment specification cannot undo workload data changes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="interrupted-upgrade-recovery"><a class="anchor" href="#interrupted-upgrade-recovery"></a>Recover an interrupted upgrade</h3>
+<div class="paragraph">
+<p>Only use these commands for an upgrade with a recorded pending transaction.
+Keep the <strong>original</strong> binary, cache (<code>XDG_CACHE_HOME</code>), cluster context
+(<code>KUBECONFIG</code>), repository, runtime options, two declarations and two locks.
+The filenames below continue the preceding <code>scenario-v1</code>/<code>scenario-v2</code> example;
+substitute the original paths from your run. Do not regenerate either lock or
+edit inputs to make recovery pass. Retain any original upgrade <code>--repository</code>
+and <code>--git-ref</code> selections. Apply-only options such as <code>--namespace</code> and
+<code>--forward</code> are not accepted by upgrade; it uses the recorded execution context.</p>
+</div>
+<div class="paragraph">
+<p>Choose <strong>one</strong> recovery action. To continue toward the reviewed target:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose upgrade scenario-v2.yaml \
+  --from scenario-v1.yaml --from-lock scenario-v1.lock.json \
+  --lock scenario-v2.lock.json --resume</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To abandon the pending target and restore the recorded previous revision:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose upgrade scenario-v2.yaml \
+  --from scenario-v1.yaml --from-lock scenario-v1.lock.json \
+  --lock scenario-v2.lock.json --rollback</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Both commands name the <strong>target</strong> first; <code>--from</code> and <code>--from-lock</code> still identify
+the previous revision. Rollback is not <code>apply</code> of an older document and does not
+restore arbitrary application data. An input/ownership mismatch is a stopping
+point: recover the original context rather than bypassing it.</p>
+</div>
+<div class="paragraph">
+<p>After a completed resume, inspect <code>dotx compose status scenario-v2.yaml</code>; after
+a completed rollback, inspect <code>dotx compose status scenario-v1.yaml</code>. Perform
+the original API checks again. When finished with a disposable run, destroy
+that successfully recorded revision and verify only its owned resources are
+gone. Retain the recovery inputs if status, verification or cleanup fails.</p>
 </div>
 <div class="paragraph">
 <p>The deterministic recovery profile injects an interruption immediately before
@@ -1051,8 +1100,11 @@ probe the selected Contract operation over the actual network path.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract or selector cannot be resolved</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The composition maps the exact Contract ID to a readable source, the source
-  document&#8217;s <code>id</code> matches it, and the selector uses the standard-specific syntax.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For a <code>repository://</code> source, select the exact originating DOT release and
+  verify it owns the complete matching Contract declaration and URL/hash payload.
+  The owner&#8217;s DOT ID is different from the Contract ID. Check the operation
+  selector separately. Only historical local Contract wrappers carry their own
+  matching Contract <code>id</code>; do not add that field to a raw standard document.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Anchor has no deployable endpoint</p></td>

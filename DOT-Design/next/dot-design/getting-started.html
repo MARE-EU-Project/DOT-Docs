@@ -438,26 +438,34 @@ embeds its Compose manifest; no neighbouring Compose file is inferred.</p>
 <h2 id="_select_and_validate"><a class="anchor" href="#_select_and_validate"></a>Select and validate</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Choose an unused runtime name. For a different host port, run
+<p>The selection block generates and prints a distinct runtime name. Keep that
+name and the same shell for cleanup. To choose your own name, first run
+<code>DOT_NAME=my-prometheus-lab</code> and ensure it belongs only to your run; a random
+default is not permission to adopt an existing project. For a different host port, run
 <code>export DOTX_HTTP_PORT=18919</code> before the selection block.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD}"
-DOT_DEFINITION="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")"
-DOT_BUNDLE="$(dirname -- "$DOT_DEFINITION")"
-DOT_NAME="${DOT_NAME:-dot-quickstart}"
-DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}"
-DOT_PROJECT_FILTER="label=com.docker.compose.project=$DOT_NAME"
-export DOTX_HTTP_PORT</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD}" &amp;&amp;
+DOT_DEFINITION="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")" &amp;&amp;
+DOT_BUNDLE="$(dirname -- "$DOT_DEFINITION")" &amp;&amp;
+DOT_NAME="${DOT_NAME:-dot-quickstart-$RANDOM-$RANDOM}" &amp;&amp;
+DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}" &amp;&amp;
+DOT_PROJECT_FILTER="label=com.docker.compose.project=$DOT_NAME" &amp;&amp;
+export DOTX_HTTP_PORT &amp;&amp;
+printf 'Selected: Prometheus 3.15.1; instance %s; host port %s. Keep this shell for cleanup.\n' "$DOT_NAME" "$DOTX_HTTP_PORT"</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate "$DOT_BUNDLE" --schema "$DOT_REPOSITORY/Schema/schema.json" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+printf 'Checking the definition and previewing Docker Compose; nothing starts yet...\n'
+dotx validate "$DOT_BUNDLE" --schema "$DOT_REPOSITORY/Schema/schema.json" \
   --profile reusable
-dotx inspect "$DOT_BUNDLE" --json
-dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" --dry-run</code></pre>
+dotx inspect "$DOT_BUNDLE"
+dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" --dry-run
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -489,6 +497,7 @@ the service&#8217;s build-information API and version:</p>
 set -euo pipefail
 ready=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Checking Prometheus readiness on port %s...\n' "$DOTX_HTTP_PORT"
 for ((attempt=0; attempt&lt;60; attempt++)); do
   if curl --fail --silent --max-time 2 \
@@ -496,8 +505,9 @@ for ((attempt=0; attempt&lt;60; attempt++)); do
     ready=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS &gt;= next_notice)); then
     printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
@@ -508,13 +518,15 @@ fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
+printf 'Verified: Prometheus 3.15.1 answered its official API. Open http://127.0.0.1:%s/\n' "$DOTX_HTTP_PORT"
 )</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: <code>Prometheus Server is Ready.</code>, followed by <code>true</code> from <code>jq</code>.
+<p>Expected: <code>Prometheus Server is Ready.</code>, <code>true</code> from <code>jq</code>, then
+<code>Verified: Prometheus 3.15.1 answered its official API.</code> and your browser URL.
 Check runtime status:</p>
 </div>
 <div class="listingblock">
@@ -530,8 +542,8 @@ to view Prometheus.</p>
 <p>The <code>build-information</code> Anchor selects the official OpenAPI operation whose
 server prefix produces <code>/api/v1/status/buildinfo</code>. The <code>promql-query-api</code>
 Anchor selects query operations; both bind to the deployed service&#8217;s <code>http</code>
-port. Its explicit contractless scrape-target requirement describes metrics
-ingestion; this example does not configure another DOT as a scrape target.</p>
+port. Its <code>scrape-target</code> requirement references Node Exporter&#8217;s metrics
+interface; this first example does not connect another DOT as a scrape target.</p>
 </div>
 <div class="paragraph">
 <p>The pinned image&#8217;s default configuration starts the service. The descriptor
@@ -572,7 +584,14 @@ test -z "$remaining"</code></pre>
 </div>
 <div class="paragraph">
 <p>The final checks succeed silently. If interrupted, restore your original
-selection variables and repeat cleanup. Downloaded images remain cached.</p>
+selection variables and repeat cleanup. Before closing the shell, note the
+printed instance name, catalogue checkout and selected port. To recover that
+same run in a new shell, set <code>DOT_NAME</code> to its original value and
+<code>DOTX_HTTP_PORT</code> to its original port, change to that same catalogue checkout,
+then repeat the selection and cleanup blocks. Do not accept a newly generated
+name for cleanup. Retain the original CLI, cache and Docker context until cleanup
+is verified. The <a href="zero-to-hero.html" class="xref page">Zero to Hero tutorial</a> saves these
+values in a private session file. Downloaded images remain cached.</p>
 </div>
 </div>
 </div>
@@ -667,8 +686,8 @@ matching verified local Contract assets.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Readiness or version fails</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect <code>docker compose -p "$DOT_NAME" logs --tail=100</code> and <code>dotx ps --all</code>,
-check the selected image/port, then clean up.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the instance-scoped logs below and <code>dotx ps --all</code>, check the selected
+image/port, then clean up. No local Compose file is required for this diagnostic.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Interrupted cleanup</p></td>
@@ -677,10 +696,40 @@ resources carrying <code>com.docker.compose.project=$DOT_NAME</code>.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="_read_only_this_instances_logs"><a class="anchor" href="#_read_only_this_instances_logs"></a>Read only this instance&#8217;s logs</h3>
+<div class="paragraph">
+<p>Keep the original <code>DOT_NAME</code>. This block discovers containers by their Compose
+project label and reads bounded logs. It works from the catalogue checkout:
+<code>docker compose -p &#8230;&#8203;</code> alone would not locate the descriptor&#8217;s downloaded
+Compose document. No resources are changed or removed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+containers="$(docker ps -aq --filter "label=com.docker.compose.project=$DOT_NAME")"
+if test -z "$containers"; then
+  printf 'No containers found for this instance: %s\n' "$DOT_NAME" &gt;&amp;2
+  exit 1
+fi
+while IFS= read -r container; do
+  printf '\nLogs for this instance container: %s\n' "$container"
+  docker logs --tail=100 "$container"
+done &lt;&lt;&lt; "$containers"
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If Docker access fails or no matching container is found, the block fails;
+it does not query another instance. Use the same lesson&#8217;s cleanup command and
+retain the original context until cleanup is verified.</p>
+</div>
 <div class="paragraph">
 <p>Download <a href="_attachments/quickstart/prometheus.sh" class="xref attachment">the shared command blocks</a>.
 Contributors rehearse them from DOT-Design with
 <code>task testing:quickstart:dry-run</code> or the opt-in <code>task testing:quickstart:live</code>.</p>
+</div>
 </div>
 </div>
 </div>

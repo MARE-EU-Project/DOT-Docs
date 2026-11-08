@@ -1360,7 +1360,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Destination mechanism used to supply configuration to the consumer. allowed: "CONFIG_FILE", "ENVIRONMENT_VARIABLE".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destination mechanism used to supply configuration to the consumer. schema enum: "CONFIG_FILE", "ENVIRONMENT_VARIABLE".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
@@ -1372,7 +1372,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>valueFrom</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Which resolved endpoint, operation or channel value to use for injection. allowed: "ENDPOINT_URL", "OPERATION_URL", "ENDPOINT_HOST", "ENDPOINT_HOST_PORT", "ENDPOINT_PORT", "CHANNEL_ADDRESS".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Which resolved endpoint, operation or channel value to use for injection. schema enum: "ENDPOINT_URL", "OPERATION_URL", "ENDPOINT_HOST", "ENDPOINT_HOST_PORT", "ENDPOINT_PORT", "CHANNEL_ADDRESS".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>uriTemplate</code></p></td>
@@ -1525,7 +1525,7 @@
 <p><strong>Exact JSON values:</strong> <code>CONFIG_FILE</code>, <code>ENVIRONMENT_VARIABLE</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "CONFIG_FILE", "ENVIRONMENT_VARIABLE".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "CONFIG_FILE", "ENVIRONMENT_VARIABLE".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -1561,7 +1561,7 @@
 <p><strong>Exact JSON values:</strong> <code>ENDPOINT_URL</code>, <code>OPERATION_URL</code>, <code>ENDPOINT_HOST</code>, <code>ENDPOINT_HOST_PORT</code>, <code>ENDPOINT_PORT</code>, <code>CHANNEL_ADDRESS</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "ENDPOINT_URL", "OPERATION_URL", "ENDPOINT_HOST", "ENDPOINT_HOST_PORT", "ENDPOINT_PORT", "CHANNEL_ADDRESS".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "ENDPOINT_URL", "OPERATION_URL", "ENDPOINT_HOST", "ENDPOINT_HOST_PORT", "ENDPOINT_PORT", "CHANNEL_ADDRESS".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>

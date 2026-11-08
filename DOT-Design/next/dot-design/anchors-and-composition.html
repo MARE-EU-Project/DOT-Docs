@@ -479,9 +479,11 @@ Anchor.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The DOT-owned Anchor model, contract selectors, service-port bindings,
-validation, generated schema, repository resolution, and conformance fixtures are
-release candidates. The separate composition document and its local lifecycle
-executor implement the stable <code>dot.mare6g.eu/v1</code> profile.</p>
+validation, generated schemas, repository resolution and conformance fixtures
+are part of the published 0.4.0 baseline. The separate composition document
+and its local lifecycle executor implement the <code>dot.mare6g.eu/v1</code> profile.
+Use a matching binary/catalogue set; a published format does not certify every
+catalogue interface or production deployment.</p>
 </div>
 <div class="paragraph">
 <p>The current executable profile supports:</p>
@@ -489,11 +491,11 @@ executor implement the stable <code>dot.mare6g.eu/v1</code> profile.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>local DOT sources pinned by ID and version, and local Contract payloads
-pinned by ID, in the composition;</p>
+<p>local DOT definitions or exact catalogue releases selected by ID/version,
+with explicitly owned, digest-verified Contract documents;</p>
 </li>
 <li>
-<p>OpenAPI, AsyncAPI, Protobuf, GraphQL, and current-source SPARQL contract selectors;</p>
+<p>OpenAPI, AsyncAPI, Protobuf, GraphQL and supported SPARQL Contract selectors;</p>
 </li>
 <li>
 <p>contractless protocol/media declarations when no supported contract exists;</p>

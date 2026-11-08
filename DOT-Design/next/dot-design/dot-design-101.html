@@ -378,6 +378,48 @@ port, and explain what a composition adds to a reusable tool definition.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_keep_four_ideas_in_view"><a class="anchor" href="#_keep_four_ideas_in_view"></a>Keep four ideas in view</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Idea</th>
+<th class="tableblock halign-left valign-top">In the monitoring exercise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>DOT</strong>: describe a tool once</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus has one release identity and reusable deployment/interface declarations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Deployment</strong>: choose how one instance runs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start with Docker Compose; choosing it does not launch the other alternatives.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Anchor</strong>: name an Integration Point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>build-information</code> selects one operation from Prometheus&#8217;s verified Contract.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Composition</strong>: connect instances through Wires</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus requires a metrics source; Node Exporter provides it. The Wire
+supplies the selected endpoint through configuration.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Read the model map below first. The remaining sections explain the names you
+will meet in the files; return to them as each lesson introduces a field.
+You do not need to memorize the complete class model before
+<a href="tutorial-first-dot.html" class="xref page">running your first DOT</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_start_with_the_models"><a class="anchor" href="#_start_with_the_models"></a>Start with the models</h2>
 <div class="sectionbody">
 <div class="paragraph">

@@ -520,14 +520,17 @@ topologies without creating false dependency cycles.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes, at least one</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named deployment instances. Every entry pins <code>source</code>, <code>dotId</code>, and
-  <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;id&gt;@&lt;version&gt;</code>
+  <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;name&gt;@&lt;tool-release&gt;</code>
   source. <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">When a referenced Contract is needed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maps an exact Contract ID to a local Contract document. The document&#8217;s
-  embedded <code>id</code> must match.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maps an exact Contract ID to its originating DOT, normally selected by
+  <code>source: repository://&lt;name&gt;@&lt;tool-release&gt;</code>. The resolver verifies the matching
+  complete owned declaration and its URL/hash payload. Explicit local full
+  Contract wrappers remain a historical compatibility mode, not a raw
+  OpenAPI file or an implicit adjacent-file fallback.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>wires[]</code></p></td>

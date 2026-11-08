@@ -1026,8 +1026,12 @@ dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider/1.3.0 --jso
 <p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
 service-port, CDI, and sensitive-default relationships. Every declared Contract
 must be a complete URL/SHA-256 declaration in the owning <code>dot.json</code>. The validator never searches repository-level Contract
-directories or sibling DOTs. A bundle can therefore be copied and validated
-independently with an explicit schema path.
+directories or sibling DOTs as implicit fallbacks. A provider containing only
+owned declarations can be copied and validated with an explicit schema path
+and access to its verified payloads. A consumer&#8217;s external <code>contract.source</code>
+references still need their exact originating DOTs: pass the matching catalogue
+with <code>--repository DOT-Repository</code>. An explicit schema alone cannot supply those
+definitions; a detached consumer must fail rather than guess an origin.
 A URL-backed definition declares one structured payload:</p>
 </div>
 <div class="listingblock">
@@ -1145,12 +1149,16 @@ change below <code>DOTs/</code> or <code>.gitmodules</code>. The filesystem is a
 separate inventory or validation wrapper is maintained.</p>
 </div>
 <div class="paragraph">
-<p>Run <code>task testing:contracts:portability</code> to copy every bundle into an isolated
-temporary directory and validate it offline against the explicit catalogue
-schema. This is also part of <code>ci:repository-conformance</code>; it prevents a valid
-repository checkout from concealing a dependency on sibling files. Each owned
-Contract must carry its complete URL/hash declaration; offline verification
-uses the digest cache outside the bundle, never local Contract assets.</p>
+<p>Run <code>task testing:contracts:portability</code> to copy providers into isolated
+temporary directories and validate them offline against the explicit catalogue
+schema. For consumers, it first requires detached validation to fail with
+<code>CONTRACT_SOURCE_RESOLUTION</code>, then supplies an isolated catalogue containing
+only their explicitly declared origins. This is also part of
+<code>ci:repository-conformance</code>; it detects undeclared file fallbacks without
+pretending a dependency can resolve in isolation. Each owned Contract carries
+its complete URL/hash declaration. Offline verification uses the digest cache
+outside the bundle, never local Contract assets. See
+<a href="authoring-anchors.html" class="xref page">external Contract ownership and source references</a>.</p>
 </div>
 </div>
 </div>

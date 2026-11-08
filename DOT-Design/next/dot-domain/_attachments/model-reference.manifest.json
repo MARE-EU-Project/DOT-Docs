@@ -80,10 +80,10 @@
     "WireSecurity"
   ],
   "publicInputs": {
-    "DOT-Docs/scripts/model-reference.mjs": "4201ac01bb9fead2f4baaa971213a578f886d8256473157d60d753680f5dc4c7",
+    "DOT-Docs/scripts/model-reference.mjs": "4c76e4d568b65c44dd1b8f2dd201984622221a93eb18b9e19dcc73d22e31a520",
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "18c3b1a92edadb3542d9bd3a753e259a2d1f0101f24bed0b748655a24bbfc0ae",
-    "DOT-Docs/scripts/model-notes-runtime.mjs": "9c63e1c87a37d3d763f3a26af4e10265c5c9462a7e2117010333fe7c2c874288",
-    "DOT-Docs/scripts/model-notes-composition.mjs": "6136290a80e45df261d7ab02a0e065da02d07d6b842b0e0c3296c7e9f0642644",
+    "DOT-Docs/scripts/model-notes-runtime.mjs": "fc9595e7dc97055cfd9afc37bce3fd80a980b8b0c57384f3e815def6a4239db6",
+    "DOT-Docs/scripts/model-notes-composition.mjs": "34fcae9fc675e77aa529fa1794ed86a8cc978554b0d11e69153d9ce8a615a03f",
     "DOT-Docs/scripts/domain-reference.mjs": "ccfbad7c2eeb2d55481991bbaec6a501fe8c6c038eef73ed230e119a2cc8d87b",
     "DOT-Domain/src/test/resources/model-compatibility.json": "47497ac38a97a9b98a97663c12daf30bdc8db5d6f81b475587f421415ed6d164",
     "DOT-Docs/modules/ROOT/attachments/dot-domain.class-diagram.puml": "1559c65d001f1148abd5ef5658eaa223664fd7c0c0116e05cf53d146d8240e41",
@@ -326,9 +326,9 @@
   },
   "outputs": {
     "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "323b9785a835c64403e49a2715d8cb4563dd0f1033a05d746ae1ca41758010ff",
-    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "260f46051111821eb52f0ec0b2df59542673e2b20e9fc5a4737ffb4416b994e1",
-    "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "6be7bba65cfb0f07b6a0eec75683501fef9b11f378edb3b7e826de755eadba83",
-    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "f9b08c88dcfafb1accfa84098169ea4a469136aa70d16d36f7c907a30d290245",
-    "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "aa9afac3ac223e1f36995cff60ced1926d95b670ffe832ebd74d2ff0c18656ed"
+    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "5df273f0ecb35b5800012540623488caee244f2d5519bc576e832eb41f62a1cc",
+    "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "83b2a8e56a86a4f446f5389c505511e585ffff61393506cc6e8671371935e3d9",
+    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "f194b7fdc58657029ba20b24a87a559726bd997378e3562d4979eccdf34ad655",
+    "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "3c6c0891c1343486ac0265b559bd3f4ecb1623cec1958e155a18861985302dcd"
   }
 }

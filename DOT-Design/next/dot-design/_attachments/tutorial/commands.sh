@@ -43,14 +43,17 @@ fi
 # tag::first-check[]
 (
 set -euo pipefail
+printf 'Checking Prometheus and the selected Docker Compose deployment; nothing starts yet...\n'
 dotx validate "$DOT_BUNDLE" --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$DOT_BUNDLE"
 dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT" --dry-run
+printf 'Preview complete. Next: start this one instance and check its real API.\n'
 )
 # end::first-check[]
 
 # tag::first-run[]
+printf 'Starting Prometheus; Docker may download its pinned image on the first run...\n'
 dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"
 # end::first-run[]
@@ -74,6 +77,7 @@ IMAGE="$(jq -r '.runtimes[].deployments[] |
 CONTRACT_URL="$(jq -r '.contracts[0].payload.url' "$PROMETHEUS_JSON")"
 CONTRACT_SHA256="$(jq -r '.contracts[0].payload.sha256' "$PROMETHEUS_JSON")"
 
+printf 'Creating a private Prometheus definition from the pinned official OpenAPI document...\n'
 dotx new --from docker-image "$IMAGE" \
   --name Prometheus --version 3.15.1 --skill Metrics-Scraping \
   --service prometheus --port http:9090 \
@@ -84,7 +88,8 @@ dotx new --from docker-image "$IMAGE" \
   --output "$LAB/base/dot.json"
 
 dotx validate "$LAB/base/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
-dotx inspect "$LAB/base/dot.json" --verbose
+dotx inspect "$LAB/base/dot.json"
+printf 'Draft verified: two provided Anchors. Open %s/base/dot.json to follow their Contract references.\n' "$LAB"
 )
 # end::author[]
 
@@ -104,7 +109,8 @@ jq --slurpfile product "$PROMETHEUS_JSON" '
 ' "$LAB/base/dot.json" > "$LAB/prometheus/dot.json"
 
 dotx validate "$LAB/prometheus/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
-dotx inspect "$LAB/prometheus/dot.json" --verbose
+dotx inspect "$LAB/prometheus/dot.json"
+printf 'Definition verified: three Anchors and two Docker deployment choices. Review the changes below.\n'
 diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" || test "$?" -eq 1
 )
 # end::complete[]
@@ -144,10 +150,12 @@ dotx compose inspect "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --lo
 dotx compose topology "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
 dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
   --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
+printf 'Graph verified: two DOTs, one Wire. No service has started.\n'
 )
 # end::review[]
 
 # tag::run[]
+printf 'Starting Node Exporter and your Prometheus; the next check waits for their labelled scrape...\n'
 dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
   --locked --forward "prometheus-query=$TUTORIAL_PORT"
 # end::run[]
@@ -158,6 +166,7 @@ set -euo pipefail
 set -o pipefail
 scraped=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Checking the labelled Node Exporter scrape through Prometheus...\n'
 for ((attempt=0; attempt<90; attempt++)); do
   if curl --fail --silent --max-time 3 --get \
@@ -167,8 +176,9 @@ for ((attempt=0; attempt<90; attempt++)); do
     scraped=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS >= next_notice)); then
     printf 'Waiting for the scrape: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
@@ -181,6 +191,7 @@ curl --fail --silent --show-error --max-time 5 \
   jq -e '.status == "success" and .data.version == "3.15.1"'
 dotx compose status "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
 printf 'Verified: your labelled Node Exporter scrape is up (value 1).\n'
+printf 'Try the same query in Prometheus: http://127.0.0.1:%s/\n' "$TUTORIAL_PORT"
 )
 # end::query[]
 
@@ -228,6 +239,7 @@ set -euo pipefail
 dotx compose validate "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
 dotx compose lock "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
 dotx compose topology "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" --locked
+printf 'Extended graph verified: three DOTs, two Wires. Next: supply a lab password, then preview and apply.\n'
 )
 # end::dashboard-review[]
 
@@ -244,6 +256,7 @@ fi
 # end::password[]
 
 # tag::dashboard-run[]
+printf 'Previewing, then starting Node Exporter, Prometheus and Grafana; pinned images may need downloading...\n'
 dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
   --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT" &&
 dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
@@ -256,6 +269,7 @@ set -euo pipefail
 set -o pipefail
 dashboard_ready=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Checking Grafana 13.3.0 health on port %s...\n' "$DASHBOARD_PORT"
 for ((attempt=0; attempt<90; attempt++)); do
   if curl --fail --silent --max-time 3 "http://127.0.0.1:$DASHBOARD_PORT/api/health" |
@@ -263,8 +277,9 @@ for ((attempt=0; attempt<90; attempt++)); do
     dashboard_ready=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS >= next_notice)); then
     printf 'Waiting for Grafana: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
@@ -287,6 +302,7 @@ trap 'rm -f -- "$credentials"' EXIT
   > "$credentials")
 dashboard_queried=false
 started=$SECONDS
+next_notice=$SECONDS
 printf 'Querying the labelled scrape through Grafana...\n'
 for ((attempt=0; attempt<90; attempt++)); do
   if curl --config "$credentials" --fail --silent --max-time 5 \
@@ -306,8 +322,9 @@ for ((attempt=0; attempt<90; attempt++)); do
     dashboard_queried=true
     break
   fi
-  if ((attempt % 10 == 0)); then
+  if ((SECONDS >= next_notice)); then
     printf 'Waiting for the Grafana query: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done

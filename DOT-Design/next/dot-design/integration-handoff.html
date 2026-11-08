@@ -463,7 +463,7 @@ generated nonempty-list constraint rather than a separate handwritten rule;</p>
 </li>
 <li>
 <p>resolve contract-backed selectors against the authoritative OpenAPI,
-AsyncAPI, Protocol Buffers, or GraphQL document;</p>
+AsyncAPI, Protobuf, GraphQL or supported SPARQL document;</p>
 </li>
 <li>
 <p>use <code>anchorBindings</code> to map a logical Anchor to a named service port;</p>
@@ -484,9 +484,11 @@ from <code>COMPATIBLE</code>; and</p>
 <div class="paragraph">
 <p>Contractless Anchors are valid only when a supported Contract standard cannot
 describe the interaction. Their explicit direction, protocols and media types
-must be compatible before a wire is accepted. When both Anchors supply semantic
-identifiers, their lists must intersect exactly; missing annotations impose no
-restriction and do not establish semantic compatibility.</p>
+must be compatible before a wire is accepted. These communication checks do
+not establish application meaning or arbitrary schema substitutability.
+Contract-backed compatibility uses verified operation selectors and the
+supported interface rules; documentation URLs and capability names do not
+establish a match.</p>
 </div>
 </div>
 </div>
@@ -497,7 +499,10 @@ restriction and do not establish semantic compatibility.</p>
 <p>The versioned consumer profile is under
 <code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
 verifies the committed composition lock, and resolves 21 compatible wires across
-all supported Contract standards and versions.</p>
+OpenAPI, AsyncAPI, Protobuf and GraphQL. The supported SPARQL query profile is
+outside this focused matrix; passing it does not establish SPARQL runtime
+acceptance. See <a href="composition-lifecycle.html" class="xref page">the individual probe profiles</a>
+for their separate supported operations and evidence boundaries.</p>
 </div>
 <div class="listingblock">
 <div class="content">

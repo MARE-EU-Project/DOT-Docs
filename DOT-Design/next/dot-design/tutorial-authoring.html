@@ -395,6 +395,7 @@ IMAGE="$(jq -r '.runtimes[].deployments[] |
 CONTRACT_URL="$(jq -r '.contracts[0].payload.url' "$PROMETHEUS_JSON")"
 CONTRACT_SHA256="$(jq -r '.contracts[0].payload.sha256' "$PROMETHEUS_JSON")"
 
+printf 'Creating a private Prometheus definition from the pinned official OpenAPI document...\n'
 dotx new --from docker-image "$IMAGE" \
   --name Prometheus --version 3.15.1 --skill Metrics-Scraping \
   --service prometheus --port http:9090 \
@@ -405,13 +406,16 @@ dotx new --from docker-image "$IMAGE" \
   --output "$LAB/base/dot.json"
 
 dotx validate "$LAB/base/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
-dotx inspect "$LAB/base/dot.json" --verbose
+dotx inspect "$LAB/base/dot.json"
+printf 'Draft verified: two provided Anchors. Open %s/base/dot.json to follow their Contract references.\n' "$LAB"
 )</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Expected: an owned interface is verified, the output is saved, and reusable
-validation succeeds. Open <code>$LAB/base/dot.json</code> in your editor.</p>
+validation succeeds. <code>Draft verified: two provided Anchors</code> is your checkpoint.
+Open <code>$LAB/base/dot.json</code> in your editor. You supplied the release and selected
+operations; the CLI constructed their readable IDs and service bindings.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -514,7 +518,8 @@ jq --slurpfile product "$PROMETHEUS_JSON" '
 ' "$LAB/base/dot.json" &gt; "$LAB/prometheus/dot.json"
 
 dotx validate "$LAB/prometheus/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
-dotx inspect "$LAB/prometheus/dot.json" --verbose
+dotx inspect "$LAB/prometheus/dot.json"
+printf 'Definition verified: three Anchors and two Docker deployment choices. Review the changes below.\n'
 diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" || test "$?" -eq 1
 )</code></pre>
 </div>
@@ -589,6 +594,23 @@ editor. The explicit JSON enrichment above is therefore a reviewed model edit,
 followed by validation, not an implied editor feature. For a genuinely new tool,
 use its own release, image and interfaces rather than relabelling these ones.</p>
 </div>
+<details>
+<summary class="title">Inspect more detail when you need it</summary>
+<div class="content">
+<div class="paragraph">
+<p>The included commands use concise inspection to keep the next action visible.
+For the full declared configuration and bindings, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx inspect "$LAB/prometheus/dot.json" --verbose</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is still declaration inspection; no runtime is started.</p>
+</div>
+</div>
+</details>
 <div class="paragraph">
 <p>If a creation block says the destination exists, your earlier work is protected.
 Inspect that existing file and follow the

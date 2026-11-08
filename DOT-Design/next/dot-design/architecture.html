@@ -538,9 +538,10 @@ repositories for assets that evolve with the DOT catalogue.</p>
 </div>
 <div class="paragraph">
 <p><code>Skill</code> and <code>Contract</code> are independently identified domain entities. Root
-<code>Dot.contracts</code> carries authoritative Contract declarations (with legacy
-UUID-only catalogue references accepted during migration), while deployment
-services continue to reference those Contracts by ID only.
+<code>Dot.contracts</code> carries complete owned Contract declarations for catalogue/CLI
+publication, while deployment services reference those Contracts by ID only.
+ID-only root objects remain readable as model-level references; that does not
+make them complete, publishable declarations or enable a local-asset fallback.
 Anchors, Runtimes, Deployments, services, bindings, and configuration
 declarations are embedded values owned by the DOT aggregate.</p>
 </div>

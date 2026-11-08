@@ -388,16 +388,20 @@ Anchor to the consumer DOT. Select the authoritative Contract element from
 each Anchor; do not copy its protocol or payload fields.</p>
 </li>
 <li>
-<p>On every deployable implementation, bind each Anchor ID to the named
-<code>ServicePort</code> that implements it.</p>
+<p>On every deployable implementation, bind each locally provided,
+non-brokered Contract-backed Anchor to the named <code>ServicePort</code> implementing
+its listener. Required interfaces consume configuration, not an invented
+local listener. Brokered AsyncAPI participants use the composition&#8217;s broker
+endpoint; a sender&#8217;s local service port is not that broker endpoint.</p>
 </li>
 <li>
 <p>Declare every consumer configuration input on its <code>DeploymentService</code>,
 including sensitivity. This declaration is the allow-list for composition.</p>
 </li>
 <li>
-<p>Validate each DOT independently with <code>dotx validate</code> before writing a
-composition.</p>
+<p>Validate each DOT with <code>dotx validate</code> before writing a composition. Supply
+the matching catalogue with <code>--repository</code> for external Contract references;
+their exact originating DOTs must remain available.</p>
 </li>
 <li>
 <p>Add named, ID/version-pinned DOT instances and ID-pinned Contract inputs
@@ -872,10 +876,11 @@ contractless Anchor states <code>INGRESS</code>, <code>EGRESS</code>, or <code>B
 </div>
 <div class="paragraph">
 <p>When two DOTs implement the same published Contract, referencing the same
-Contract ID gives the strongest deterministic evidence. Independently
-authored Contracts are allowed, but identical-looking schema names do not prove
-structural compatibility across Contract identities; that comparison remains
-<code>UNKNOWN</code> until a schema-aware adapter or policy evaluates it.</p>
+Contract ID is required by ordinary Contract-backed Wire matching. Different
+Contract IDs are rejected even if names or document shapes look identical.
+Arbitrary structural substitutability across Contract identities is not an
+implemented matching mode. Supported provider-neutral requirements have their
+own explicit rules; they are not a fallback for a rejected identity.</p>
 </div>
 </div>
 </div>

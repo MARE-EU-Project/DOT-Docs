@@ -411,7 +411,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AnchorRole</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether this component offers the interaction or depends on it. This logical provider/consumer relationship is independent of which participant initiates a network request or the direction of payload flow. allowed: "PROVIDES", "REQUIRES".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether this component offers the interaction or depends on it. This logical provider/consumer relationship is independent of which participant initiates a network request or the direction of payload flow. schema enum: "PROVIDES", "REQUIRES".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>contract</code></p></td>
@@ -429,7 +429,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>direction</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AnchorDirection</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Payload-flow direction relative to the declaring DOT, only for a contractless Anchor. Do not infer it solely from PROVIDES or REQUIRES; request/response interactions and transport initiation are different concepts. allowed: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload-flow direction relative to the declaring DOT, only for a contractless Anchor. Do not infer it solely from PROVIDES or REQUIRES; request/response interactions and transport initiation are different concepts. schema enum: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols</code></p></td>
@@ -577,7 +577,7 @@
 <p><strong>Exact JSON values:</strong> <code>INGRESS</code>, <code>EGRESS</code>, <code>BIDIRECTIONAL</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -649,7 +649,7 @@
 <p><strong>Exact JSON values:</strong> <code>PROVIDES</code>, <code>REQUIRES</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "PROVIDES", "REQUIRES".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "PROVIDES", "REQUIRES".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -701,7 +701,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataFormat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Encoding of the downloaded document, not its transport protocol. It must be supported by the chosen standard; an extension or a matching file name does not establish compatibility. allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Encoding of the downloaded document, not its transport protocol. It must be supported by the chosen standard; an extension or a matching file name does not establish compatibility. schema enum: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
@@ -725,7 +725,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>standard</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ContractStandard</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Interface language used to interpret the document and Anchor selectors. Use the exact generated wire spelling; the Java enum constant name is not necessarily the serialized value. allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interface language used to interpret the document and Anchor selectors. Use the exact generated wire spelling; the Java enum constant name is not necessarily the serialized value. schema enum: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
@@ -797,7 +797,7 @@
 <p><strong>Exact JSON values:</strong> <code>OpenAPI</code>, <code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>, <code>SPARQL</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -833,7 +833,7 @@
 <p><strong>Exact JSON values:</strong> <code>YAML</code>, <code>JSON</code>, <code>PROTOBUF</code>, <code>GRAPHQL</code>, <code>N_TRIPLES</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; allowed: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p>
+<p><strong>JSON representation:</strong> string; schema enum: "YAML", "JSON", "PROTOBUF", "GRAPHQL", "N_TRIPLES".</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
