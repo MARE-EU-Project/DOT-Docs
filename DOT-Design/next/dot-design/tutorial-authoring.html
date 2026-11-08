@@ -332,6 +332,12 @@ not a second catalogue entry or a renamed fork of Prometheus.</p>
 <p>Continue in the same Bash shell from Lesson 1, with <code>LAB</code> and <code>DOT_REPOSITORY</code>
 set. No runtime is started in this lesson.</p>
 </div>
+<div class="paragraph">
+<p><strong>Goal:</strong> create <code>$LAB/prometheus/dot.json</code> with verified interfaces and two
+deployment choices. <strong>You will learn:</strong> Contract ownership, provided/required
+Anchors and service-scoped configuration. Keep the generated scaffold so you
+can review exactly what the enrichment changes.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -550,8 +556,31 @@ Inspect that existing file and follow the
 <a href="tutorial-first-dot.html#resume-tutorial" class="xref page">resume/retry guidance</a>; do not remove
 an edited definition just to make the block run again.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checkpoint"><a class="anchor" href="#_checkpoint"></a>Checkpoint</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>Next: <a href="tutorial-composition.html" class="xref page">make this authored DOT consume real metrics</a>.</strong></p>
+<p>Continue when reusable validation passes for <code>$LAB/prometheus/dot.json</code> and
+inspection shows three Anchors and both <code>docker-image</code> and <code>docker-compose</code>.
+The optional editor candidate is separate; the next lesson uses the enriched
+<code>prometheus/dot.json</code> you just validated.</p>
+</div>
+<details>
+<summary class="title">Explain it back: where does the future scrape target belong?</summary>
+<div class="content">
+<div class="paragraph">
+<p>The DOT declares the required interface and the supported configuration path.
+The composition selects a concrete exporter and supplies the scrape file. Its
+Wire materializes that exporter&#8217;s address into the execution copy of the file.
+Changing the monitoring use case does not require another product identity.</p>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p><strong><a href="tutorial-first-dot.html" class="xref page">Previous lesson</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<strong>Next: <a href="tutorial-composition.html" class="xref page">make this authored DOT consume real metrics</a>.</strong></p>
 </div>
 </div>
 </div>

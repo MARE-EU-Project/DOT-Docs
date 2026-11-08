@@ -1,0 +1,4 @@
+%%{init: {"themeCSS": ".edgeLabel rect { opacity: 1 !important; }"}}%%
+flowchart LR
+    grafana["Grafana<br/>Explore and query"] -->|"PromQL over HTTP"| prometheus["Prometheus<br/>Store and query metrics"]
+    prometheus -->|"HTTP GET /metrics"| exporter["Node Exporter<br/>Expose container metrics"]

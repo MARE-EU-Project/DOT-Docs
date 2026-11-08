@@ -327,6 +327,11 @@
 its <code>scrape-target</code> to the catalogue&#8217;s Node Exporter, then query the result.
 Continue in the same shell; Lesson 1&#8217;s standalone service must already be stopped.</p>
 </div>
+<div class="paragraph">
+<p><strong>Goal:</strong> make <code>up{job="node-exporter",tutorial="zero-to-hero"}</code> return <code>1</code>.
+<strong>You will learn:</strong> exact instance selection, a provided-to-required Wire, connection
+configuration and a reviewed lock. Your final graph has <strong>two DOTs and one Wire</strong>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -520,6 +525,11 @@ exporter observes its container; this exercise makes no physical-host claim.</p>
 <div class="sect1">
 <h2 id="_validate_lock_and_preview"><a class="anchor" href="#_validate_lock_and_preview"></a>Validate, lock and preview</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>These are deliberate review steps: validate the edited declaration, create its
+lock, inspect the exact resolved inputs and topology, then preview deployment.
+The block stops if any step fails; it starts no services.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
@@ -630,8 +640,71 @@ Destroy removes the lifecycle record. A later <code>compose status</code> theref
 Expect a missing-Anchor rejection. Restore the reference and validate again.
 Do not modify the reviewed live draft or publish another lock for the bad copy.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_if_the_result_differs"><a class="anchor" href="#_if_the_result_differs"></a>If the result differs</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Symptom</th>
+<th class="tableblock halign-left valign-top">What to check before retrying</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INPUT_YAML</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the edited list item&#8217;s four leading spaces and the surrounding list.
+Do not add a second <code>dots:</code> key. Validate again before creating a lock.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A missing Anchor or a lock mismatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compare the exact instance, Anchor and local definition references with the
+reviewed edit. If an input changed intentionally, inspect it before explicitly
+recreating the lock. A new lock cannot repair an invalid reference.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No sample, or a sample with value <code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code> means the target&#8217;s scrape failed; no sample means the selected series is
+absent. Check lifecycle status, the <code>node-exporter</code> job, the tutorial label and
+the Wire&#8217;s materializer source. The API build-information check alone is insufficient.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A readiness or query timeout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stop and use this lesson&#8217;s destroy command. Keep the original files, cache and
+binary if cleanup fails; use the <a href="tutorial-first-dot.html#resume-tutorial" class="xref page">recovery guide</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checkpoint"><a class="anchor" href="#_checkpoint"></a>Checkpoint</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>Next: <a href="tutorial-dashboard.html" class="xref page">extend this same system with Grafana</a>.</strong></p>
+<p>Continue when the labelled query returns <code>1</code>, the topology shows two DOTs and
+one Wire, and destroy succeeds. Keep the draft, its lock and your scrape file:
+Lesson 4 extends those inputs into a new graph with a fresh ownership UUID.</p>
+</div>
+<details>
+<summary class="title">Explain it back: which direction does this connection run?</summary>
+<div class="content">
+<div class="paragraph">
+<p>The Wire points from Node Exporter&#8217;s provided Anchor to Prometheus&#8217;s required
+Anchor. At runtime, Prometheus sends an HTTP scrape request to Node Exporter.
+The Wire describes the interface relationship; the application implements the
+request. The materializer supplies its address through configuration.</p>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p><strong><a href="tutorial-authoring.html" class="xref page">Previous lesson</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<strong>Next: <a href="tutorial-dashboard.html" class="xref page">extend this same system with Grafana</a>.</strong></p>
 </div>
 </div>
 </div>

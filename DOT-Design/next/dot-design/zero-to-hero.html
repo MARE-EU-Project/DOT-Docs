@@ -322,25 +322,30 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Build something useful while learning the model.</strong> You will grow one monitoring
-system from a single Prometheus service into three connected tools:</p>
+<p><strong>Build a monitoring system you can explain, change and run yourself.</strong> Start
+with a real API response. Create a reusable tool definition, connect a metrics
+producer, then add Grafana to query the result. You will learn the model by
+using each part in a working system.</p>
 </div>
-<div class="listingblock">
+<div class="imageblock text-center interactive-diagram">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">1. Prometheus
-2. Node Exporter → Prometheus
-3. Node Exporter → Prometheus → Grafana</code></pre>
+<img src="_images/diagrams/tutorial-monitoring.svg" alt="Grafana queries Prometheus; Prometheus scrapes Node Exporter">
 </div>
-</div>
-<div class="paragraph">
-<p>These arrows describe who provides an interface to whom. Prometheus actually
-pulls metrics from Node Exporter; Grafana sends queries to Prometheus.</p>
+<div class="title">Figure 1. The system you will build: actual HTTP request direction</div>
 </div>
 <div class="paragraph">
-<p>You will create a real Prometheus DOT, choose between its deployment mechanisms,
-configure a scrape through a Wire and use your authored definition in the running
-composition. Then you will extend that composition with Grafana, a second Wire
-and a password reference. Each lesson has a visible result and a stopping point.</p>
+<p><a href="_attachments/diagrams/tutorial-monitoring.mmd" class="xref attachment">Mermaid source</a></p>
+</div>
+<div class="paragraph">
+<p>Grafana sends queries to Prometheus; Prometheus pulls metrics from Node Exporter.
+The CLI&#8217;s topology uses a different, logical direction: a Wire points from the
+Anchor that <strong>provides</strong> an interface to the Anchor that <strong>requires</strong> it. Both views
+describe the same system. A Wire does not determine which tool sends a request.</p>
+</div>
+<div class="paragraph">
+<p>The reusable DOT says what a tool can do and how it runs. Your composition says
+which instances work together for this particular monitoring use case. Scrape
+targets, datasource configuration and credentials belong to that use case.</p>
 </div>
 </div>
 </div>
@@ -389,6 +394,14 @@ configuration and two Docker deployment choices</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p><strong>Choose your pace.</strong> Finish Lesson 1 for a first API response. Continue through
+Lesson 3 for your first authored integration, then Lesson 4 for the complete
+monitoring chain. Lesson 5 is an optional operator path with additional setup.
+Every live lesson ends with cleanup; stop there whenever you need a break.
+Downloads and startup depend on your machine and cache; take the time needed
+to review each result.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -456,6 +469,81 @@ to the file you just created. For the complete generated model reference, keep
 <p>Validation establishes declared constraints and resolved interfaces. Only the
 API checks establish the particular live behavior exercised here. Neither
 result certifies every catalogue definition or every API of the selected tools.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_follow_a_repeatable_rhythm"><a class="anchor" href="#_follow_a_repeatable_rhythm"></a>Follow a repeatable rhythm</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Read the goal</strong>, then run one complete Bash block at a time. Copy commands
+without adding a shell-prompt character. Keep one terminal and the matching
+CLI/catalogue throughout; variables carry your workspace into later lessons.</p>
+</li>
+<li>
+<p><strong>Inspect your work.</strong> Open the named file when a lesson asks for an edit.
+Keep YAML indentation exactly as shown. The longer shell blocks perform
+checked setup and verification; you do not need to memorize them.</p>
+</li>
+<li>
+<p><strong>Check the result.</strong> Validation checks declarations; a dry-run previews
+deployment. Continue to live execution only after those steps succeed.</p>
+</li>
+<li>
+<p><strong>Clean up before moving on.</strong> Use the lesson&#8217;s original draft, lock, binary
+and cache. If a step fails, stop and use the
+<a href="tutorial-first-dot.html#resume-tutorial" class="xref page">resume and recovery guide</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_know_where_your_work_lives"><a class="anchor" href="#_know_where_your_work_lives"></a>Know where your work lives</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lesson 1 prints a private workspace path, referred to as <code>$LAB</code> throughout.
+The catalogue is a separate, pinned checkout; exercises do not edit it.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Inside your workspace</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>session.bash</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your paths, ports and original CLI identity for resuming. It stores no password.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>base/dot.json</code>, then <code>prometheus/dot.json</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The generated scaffold and your enriched reusable tool definition from Lesson 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>composition.yaml</code>, <code>prometheus.yml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your two-tool graph and its scrape configuration from Lesson 3.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dashboard.yaml</code>, <code>grafana/</code>, <code>grafana-*.yml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your extended graph, private Grafana definition and provisioning inputs from Lesson 4.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adjacent <code>*.lock.json</code> files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reviewed exact inputs created explicitly for each graph. Keep them for recovery.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The hands-on lessons end with a checkpoint and a short explanation exercise.
+Use those to test your understanding before moving to the next layer.</p>
 </div>
 <div class="paragraph">
 <p><strong>Start with <a href="tutorial-first-dot.html" class="xref page">Lesson 1: run your first DOT</a>.</strong></p>

@@ -332,6 +332,12 @@ tool. This lesson extends your existing graph: <strong>Node Exporter &#8594; you
 new graph gets another ownership UUID; it does not adopt the stopped graph&#8217;s
 resources or inherit its live state.</p>
 </div>
+<div class="paragraph">
+<p><strong>Goal:</strong> see the same labelled scrape through Grafana.
+<strong>You will learn:</strong> extending a graph, provisioning a datasource and supplying a
+password through a reference. The result is <strong>three DOTs and two Wires</strong>; the
+original scrape relationship stays intact.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -533,6 +539,11 @@ dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
 <h2 id="_verify_the_whole_chain"><a class="anchor" href="#_verify_the_whole_chain"></a>Verify the whole chain</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>Grafana health is the first check. The datasource query is the second: it
+exercises the connection to Prometheus and the labelled scrape from Node Exporter.
+Complete both before calling the chain successful.</p>
+</div>
+<div class="paragraph">
 <p>Wait for Grafana&#8217;s actual health/version response:</p>
 </div>
 <div class="listingblock">
@@ -666,8 +677,38 @@ The success message and password removal happen only after destroy succeeds.
 If it fails, retain the current environment and use the
 <a href="tutorial-first-dot.html#resume-tutorial" class="xref page">recovery steps</a> before retrying.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checkpoint"><a class="anchor" href="#_checkpoint"></a>Checkpoint</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>Next: <a href="tutorial-next-steps.html" class="xref page">apply the pattern to larger, secured systems</a>.</strong></p>
+<p>Finish when Grafana reports version <code>13.3.0</code>, its datasource query returns the
+labelled sample with value <code>1</code>, and the complete graph&#8217;s destroy succeeds.
+Either Explore or the documented backend query can verify that sample; the
+health response alone cannot.</p>
+</div>
+<div class="paragraph">
+<p>If sign-in or the backend query fails, check that you used the lab password
+prompt, datasource UID <code>hero-prometheus</code> and the chosen dashboard port. A resumed
+running instance needs its original password. Use the recovery guide before
+retrying an interrupted run.</p>
+</div>
+<details>
+<summary class="title">Explain it back: what stays reusable when you add a dashboard?</summary>
+<div class="content">
+<div class="paragraph">
+<p>Prometheus keeps its product identity, Contract and Anchors. Grafana&#8217;s datasource,
+the selected Prometheus instance, the password reference and both Wires belong
+to this composition. The private Grafana copy adds a supported sensitive
+configuration declaration; it contains no password value. Live addresses and
+resolved credentials remain execution concerns.</p>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p><strong><a href="tutorial-composition.html" class="xref page">Previous lesson</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<strong>Next: <a href="tutorial-next-steps.html" class="xref page">apply the pattern to larger, secured systems</a>.</strong></p>
 </div>
 </div>
 </div>

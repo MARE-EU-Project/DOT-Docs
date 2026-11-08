@@ -327,6 +327,11 @@
 version. Start with reuse; you will author your own definition in Lesson 2.</p>
 </div>
 <div class="paragraph">
+<p><strong>Goal:</strong> deploy one existing DOT, verify its real API and remove only your instance.
+<strong>You will learn:</strong> tool identity, explicit deployment selection and the difference
+between a preview and a running service.</p>
+</div>
+<div class="paragraph">
 <p>You need the prerequisites and isolated development host described in
 <a href="zero-to-hero.html" class="xref page">Zero to Hero</a>. Run each Bash block only after the previous
 one succeeds. Keep the same terminal throughout the lessons.
@@ -631,8 +636,41 @@ cleanup command. Do not prune unrelated resources.</p>
 troubleshooting</a> for PATH, access, Docker, ports and download failures. Never
 change a digest just to get past a validation error.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checkpoint"><a class="anchor" href="#_checkpoint"></a>Checkpoint</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>Next: <a href="tutorial-authoring.html" class="xref page">create a real DOT and understand its model</a>.</strong></p>
+<p>Continue when you have:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Seen the official API report Prometheus <code>3.15.1</code>.</p>
+</li>
+<li>
+<p>Seen the explicit cleanup-verification message.</p>
+</li>
+<li>
+<p>Saved your private workspace path and kept the original CLI and cache.</p>
+</li>
+</ul>
+</div>
+<details>
+<summary class="title">Explain it back: what did the dry-run prove?</summary>
+<div class="content">
+<div class="paragraph">
+<p>It checked and previewed the selected deployment without starting the service.
+The later API call established the running service&#8217;s response and version.
+Successful cleanup established that this standalone run&#8217;s resources were gone.
+These are three separate observations.</p>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p><strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<strong>Next: <a href="tutorial-authoring.html" class="xref page">create a real DOT and understand its model</a>.</strong></p>
 </div>
 </div>
 </div>
