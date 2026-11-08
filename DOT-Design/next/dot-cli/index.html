@@ -462,6 +462,18 @@ version and OS/architecture without contacting a server. Missing build metadata
 is shown as <code>unknown</code>. Plain <code>version</code> remains a single line; the version number
 alone does not identify the exact source build used for a rehearsal.</p>
 </div>
+<div class="paragraph">
+<p>Current source keeps mounted literal/default configuration files separate for
+each execution, including Docker image deployments and previews. Docker image
+replacement verifies the existing container&#8217;s selected DOT/deployment/runtime
+ownership and removes its exact ID; a foreign collision stops the command.
+Kubernetes literal environment overrides replace an earlier <code>valueFrom</code> source
+on the selected container. These fixes require a matching source build; they do
+not change the already published binary or establish live API acceptance.
+Compose path-based lifecycle also retains verified dotenv inputs needed for
+native interpolation and profile selection. Its live preflight uses Compose&#8217;s
+<code>config --variables</code> and <code>config --profiles</code> support; dry-runs remain previews.</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>

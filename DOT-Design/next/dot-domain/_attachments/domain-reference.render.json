@@ -11,7 +11,7 @@
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "18c3b1a92edadb3542d9bd3a753e259a2d1f0101f24bed0b748655a24bbfc0ae",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "9c63e1c87a37d3d763f3a26af4e10265c5c9462a7e2117010333fe7c2c874288",
     "DOT-Docs/scripts/model-notes-composition.mjs": "6136290a80e45df261d7ab02a0e065da02d07d6b842b0e0c3296c7e9f0642644",
-    "DOT-Docs/modules/dot-domain/attachments/model-reference.manifest.json": "b082e16d888aa4eb3b633038d237018140a7767bd73f01249f678956199e7e82",
+    "DOT-Docs/modules/dot-domain/attachments/model-reference.manifest.json": "7899ac4ca550d5939be4e02a2ff50ccaefec8d6190d9841cfb03ea283d740206",
     "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "323b9785a835c64403e49a2715d8cb4563dd0f1033a05d746ae1ca41758010ff",
     "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "260f46051111821eb52f0ec0b2df59542673e2b20e9fc5a4737ffb4416b994e1",
     "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "6be7bba65cfb0f07b6a0eec75683501fef9b11f378edb3b7e826de755eadba83",
@@ -21,7 +21,7 @@
   "outputs": {
     "DOT-Docs/modules/dot-design/images/diagrams/domain-a4.svg": "77ff627decb58faddd6d6ab901177045bd00423cc58ae60236d52cc51de2222e",
     "DOT-Docs/modules/dot-design/images/diagrams/domain-complete.svg": "7baf6ed9f0ac95466c8c2e75fdcc3a9a5a4759f105894c95b77e4b0ecc220001",
-    "DOT-Docs/modules/dot-domain/attachments/dot-domain-a4.pdf": "b204886db60341e330c8dde58dd50be0c747fb010164bab4d063662162fe7147",
-    "DOT-Docs/modules/dot-domain/attachments/dot-domain-reference.pdf": "5bd8cc3a7e6ed47bb7fd9ecab74c594b4650ea39a949049cea321acf399b9b48"
+    "DOT-Docs/modules/dot-domain/attachments/dot-domain-a4.pdf": "185525f33642214abaaf01fd467546fb365a78e6458db1120feaa53fc7efe2a1",
+    "DOT-Docs/modules/dot-domain/attachments/dot-domain-reference.pdf": "305cceca518729f6665b47c03ed88d9c56cbb45ed351014e60a8624bf648c004"
   }
 }

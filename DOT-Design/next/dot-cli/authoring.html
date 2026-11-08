@@ -374,7 +374,8 @@ pinned raw Contract. The released flow below covers owned OpenAPI interfaces;
 the guided editor described later is included in 0.4.0.
 Current-source authoring summaries name the saved file, distinguish declaration
 validation from live acceptance, and confirm unchanged runtime state. Follow-up
-commands use the actual quoted path; validation retains repository/offline
+commands use the actual quoted path (including an explicit <code>./</code> prefix for a
+relative filename starting with <code>-</code>); validation retains repository/offline
 selection while <code>inspect</code> reads the local definition without those flags.
 Follow
 <a href="../dot-design/adopting-dot.html" class="xref page">the compatible-artifact installation routes</a>.
@@ -450,7 +451,9 @@ for both the Anchor and its service binding; <code>name</code> initially has the
 but may subsequently change independently. Use kebab-case keys. The selector
 remains separate from the Contract ID. Repeat <code>--operation</code>
 for additional provided operations on the same declared TCP port. <code>--bind</code>
-requires an exact service port name and never guesses a listener.</p>
+requires an exact service port name and never guesses a listener. Every explicit
+<code>--port</code> must use <code>[name:]&lt;1-65535&gt;[/protocol]</code>, for example <code>http:9090/TCP</code>.
+An invalid entry rejects the complete draft; it is never silently discarded.</p>
 </div>
 <div class="paragraph">
 <p>For a menu of operations and port choices, use <code>--interactive --contract
@@ -677,7 +680,11 @@ the published v0.3.0 binary is unchanged:</p>
 <p>New, edit and composition authoring use the same native Huh forms for text,
 editable defaults, scrolling choices and confirmations. Enter accepts a prefilled
 value; Ctrl-U clears the field. Candidate publication offers <strong>Write draft / Cancel</strong>,
-defaulting to <strong>Cancel</strong>. EOF or an incomplete form cannot authorize publication.
+defaulting to <strong>Cancel</strong>. For <code>new --interactive</code>, the summary lists the validated
+candidate&#8217;s identity, Skills, interfaces, deployments, ports and bindings, plus
+its byte-level SHA-256. Confirmation publishes that same prepared snapshot;
+Contract retrieval and candidate generation are not repeated after review.
+EOF or an incomplete form cannot authorize publication.
 Defaults containing control characters use an explained escaped line fallback
 when a single-line form cannot preserve their bytes losslessly.</p>
 </div>
