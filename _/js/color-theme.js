@@ -14,7 +14,7 @@
   const apply = () => {
     root.dataset.theme = preference === 'system' ? (media?.matches ? 'dark' : 'light') : preference
     root.dataset.themePreference = preference
-    if (control) control.value = preference
+    if (control) control.value = root.dataset.theme
   }
 
   apply()
@@ -30,7 +30,7 @@
   const bind = () => {
     control = document.getElementById('color-theme')
     if (!control) return
-    control.value = preference
+    apply()
     control.addEventListener('change', () => {
       preference = normalize(control.value)
       apply()
