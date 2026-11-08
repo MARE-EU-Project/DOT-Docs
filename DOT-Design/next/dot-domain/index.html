@@ -67,6 +67,9 @@
     <a class="nav-link" href="../dot-design/zero-to-hero.html">DOT-Design from Zero to Hero</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dot-design-101.html">Start here: DOT-Design 101</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -244,6 +247,33 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Repository</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-repository/index.html">Catalogue overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/catalogue-versioning.html">Products and tool releases</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">DOT examples and deployments</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Create or improve a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">Reusable composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/production-readiness.html">Interface coverage and readiness</a>
   </li>
 </ul>
   </li>
@@ -760,8 +790,8 @@ or persistence requirements enforced by the Java entities.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Contract <code>standard</code> accepts only the canonical JSON spellings <code>OpenAPI</code>,
-<code>AsyncAPI</code>, <code>Protobuf</code>, and <code>GraphQL</code>. Uppercase enum names, alternative casing,
-and surrounding whitespace are rejected. The Java enum constants remain
+<code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>, and <code>SPARQL</code>. Use those values exactly;
+alternative casing and surrounding whitespace are rejected. The Java enum constants remain
 uppercase; Jackson serialization and the generated JSON Schemas use their
 canonical values. <code>DataFormat</code> is a separate enum and is unchanged.</p>
 </div>
@@ -798,6 +828,11 @@ canonical values. <code>DataFormat</code> is a separate enum and is unchanged.</
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GraphQL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Root-field schema coordinate</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPARQL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>N_TRIPLES</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact query endpoint IRI from a SPARQL Service Description</p></td>
 </tr>
 </tbody>
 </table>

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOT-Design from Zero to Hero :: MARE DOT-Design</title>
     <link rel="prev" href="getting-started.html">
-    <link rel="next" href="tutorial-first-dot.html">
-    <meta name="description" content="Build a real monitoring system step by step: run a DOT, author its interfaces, connect metrics and add a Grafana dashboard.">
+    <link rel="next" href="dot-design-101.html">
+    <meta name="description" content="Start with DOT-Domain models and the ecosystem, then build a real monitoring system: run a DOT, author interfaces, connect metrics and add Grafana.">
     <meta name="generator" content="Antora 3.2.1">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -65,6 +65,9 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -246,6 +249,33 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Repository</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-repository/index.html">Catalogue overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="catalogue-versioning.html">Products and tool releases</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">DOT examples and deployments</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Create or improve a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mare-poc-compositions.html">Reusable composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="production-readiness.html">Interface coverage and readiness</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </nav>
 </div>
@@ -322,11 +352,34 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Build a monitoring system you can explain, change and run yourself.</strong> Start
-with a real API response. Create a reusable tool definition, connect a metrics
-producer, then add Grafana to query the result. You will learn the model by
-using each part in a working system.</p>
+<p><strong>Understand the models, then build a monitoring system you can explain, change
+and run yourself.</strong> Begin with <a href="dot-design-101.html" class="xref page">DOT-Design 101</a>: learn the
+core building blocks and how the ecosystem uses them. Then create a reusable
+tool definition, connect a metrics producer and add Grafana. The practical
+lessons turn those concepts into files and verified API responses.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_start_with_dot_design_101"><a class="anchor" href="#_start_with_dot_design_101"></a>Start with DOT-Design 101</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOT-Domain defines the portable models used throughout the project. A <strong>DOT</strong>
+describes one reusable tool release; a <strong>Composition</strong> selects tool instances and
+connects their <strong>Anchors</strong> through <strong>Wires</strong>. The CLI uses their generated schemas
+and input types to work with those declarations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Read <a href="dot-design-101.html" class="xref page">DOT-Design 101</a> first.</strong> It explains Skills,
+Contracts, URL/hash Payloads, Runtime and deployment choices, service configuration,
+connections, locks, probes and lifecycle safety in simple terms. It also maps
+the roles of Domain, CLI, Repository, Docs and Testing. No installation is needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build_on_those_concepts"><a class="anchor" href="#_build_on_those_concepts"></a>Build on those concepts</h2>
+<div class="sectionbody">
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
 <img src="_images/diagrams/tutorial-monitoring.svg" alt="Grafana queries Prometheus; Prometheus scrapes Node Exporter">
@@ -367,6 +420,11 @@ targets, datasource configuration and credentials belong to that use case.</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="dot-design-101.html" class="xref page">Start here: DOT-Design 101</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A mental model of the ecosystem and its main DOT-Domain building blocks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You can trace Contract &#8594; Anchor &#8594; service port and explain what a composition adds.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="tutorial-first-dot.html" class="xref page">1. Run your first DOT</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An existing Prometheus deployment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Its real API reports version 3.15.1; cleanup removes its owned resources.</p></td>
@@ -395,7 +453,7 @@ configuration and two Docker deployment choices</p></td>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Choose your pace.</strong> Finish Lesson 1 for a first API response. Continue through
+<p><strong>Choose your pace.</strong> Read DOT-Design 101, then finish Lesson 1 for a first API response. Continue through
 Lesson 3 for your first authored integration, then Lesson 4 for the complete
 monitoring chain. Lesson 5 is an optional operator path with additional setup.
 Every live lesson ends with cleanup; stop there whenever you need a break.
@@ -435,35 +493,6 @@ deployment. Node Exporter observes its container, not your physical host.</p>
 </td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_learn_the_concepts_when_you_need_them"><a class="anchor" href="#_learn_the_concepts_when_you_need_them"></a>Learn the concepts when you need them</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>DOT</strong> describes one tool release. A <strong>Skill</strong> names a capability.</p>
-</li>
-<li>
-<p>A <strong>Contract</strong> describes an interface. An <strong>Anchor</strong> is a named Integration Point
-selecting a provided or required interface.</p>
-</li>
-<li>
-<p>A <strong>Runtime</strong> states the engine; a <strong>Deployment</strong> selects how to run on that engine.
-A deployment&#8217;s <strong>Service</strong> owns ports and supported configuration.</p>
-</li>
-<li>
-<p>A <strong>Composition</strong> selects tool instances. Its <strong>Wires</strong> connect Anchors and may
-materialize connection configuration. Its reviewed <strong>lock</strong> records exact inputs.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>You do not need to memorize the model first. Each lesson connects these names
-to the file you just created. For the complete generated model reference, keep
-<a href="../dot-domain/index.html" class="xref page">DOT-Domain</a> nearby.</p>
 </div>
 <div class="paragraph">
 <p>Validation establishes declared constraints and resolved interfaces. Only the
@@ -546,13 +575,13 @@ The catalogue is a separate, pinned checkout; exercises do not edit it.</p>
 Use those to test your understanding before moving to the next layer.</p>
 </div>
 <div class="paragraph">
-<p><strong>Start with <a href="tutorial-first-dot.html" class="xref page">Lesson 1: run your first DOT</a>.</strong></p>
+<p><strong>Start with <a href="dot-design-101.html" class="xref page">DOT-Design 101: understand the models and ecosystem</a>.</strong></p>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="getting-started.html">Getting started</a></span>
-  <span class="next"><a href="tutorial-first-dot.html">1. Run your first DOT</a></span>
+  <span class="next"><a href="dot-design-101.html">Start here: DOT-Design 101</a></span>
 </nav>
 </article>
   </div>
