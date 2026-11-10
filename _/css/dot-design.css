@@ -10,21 +10,23 @@
 
   .nav {
     background: transparent;
-    height: calc(100% - 2.5rem);
-    top: 2.5rem;
+    height: calc(100vh - 6rem);
+    height: calc(100dvh - 6rem);
+    position: fixed;
+    top: 6rem;
+    width: inherit;
   }
 
   .panels {
     background: #fafafa;
-    height: auto;
-    max-height: 100%;
+    height: 100%;
   }
 
   .nav-panel-menu.is-active {
-    flex: 0 1 auto;
+    flex: 1 1 0;
     height: auto;
-    max-height: calc(100vh - 8.5rem);
-    max-height: calc(100dvh - 8.5rem);
+    min-height: 0;
+    max-height: none;
     overflow-y: auto;
     overscroll-behavior-y: contain;
     scrollbar-gutter: stable;
@@ -45,6 +47,17 @@
     margin-left: clamp(1rem, 2vw, 2.5rem);
     margin-right: clamp(1rem, 2vw, 2.5rem);
     max-width: 80rem;
+  }
+}
+
+/* Keep the selector in place while its version list opens upward, on mobile too. */
+@media screen {
+  .nav-panel-explore .context {
+    order: 1;
+  }
+
+  .nav-panel-explore .components {
+    min-height: 0;
   }
 }
 
