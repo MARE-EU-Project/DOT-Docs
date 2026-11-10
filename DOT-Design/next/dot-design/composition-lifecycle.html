@@ -388,6 +388,32 @@ their original CLI: saved state is not migrated or adopted.</p>
 <div class="sect1">
 <h2 id="validation-resolution-and-lifecycle"><a class="anchor" href="#validation-resolution-and-lifecycle"></a>Validation, resolution, and lifecycle</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Detached forwarding in the matching Next source build records private process
+birth evidence and uses kernel pidfds when signalling its process group. This
+requires <a href="https://man7.org/linux/man-pages/man2/pidfd_send_signal.2.html">process-group pidfd support, introduced in Linux 6.9</a>.
+An old integer PID or an unverifiable receipt is preserved and refused; it is
+never converted into permission to signal an unrelated process. It never
+signals an integer PID or numeric process group. A valid receipt whose leader
+has exited can permit cleanup/restart only when a fresh kernel signal-zero
+check proves complete process-group absence (<code>ESRCH</code>) in the original boot and
+PID lookup namespace. A missing PID alone is insufficient: a remaining group,
+denied permission or uncertain identity refuses cleanup. Restart repeats this
+proof at final cleanup and retains exact saved mappings and native
+Service/controller UID checks. This proves only the managed group absent, not
+descendants that escaped it. These are executor records, separate from portable
+DOT and composition models.</p>
+</div>
+<div class="paragraph">
+<p>The same source build creates a private <code>.pending</code> sibling before starting a
+forward. Unfinished launch evidence or a registry inspection error prevents
+automatic cleanup/replacement and withholds unverified forwarded ports from
+status, even if no normal receipt was published. Preserve the original cache
+and logs. Use the original CLI, selected DOT and execution context; an operator
+must establish that the launch-owned process group is absent before reconciling
+the evidence. Do not remove the marker just to retry. There is no automatic
+reconciliation or adoption of an unfinished launch.</p>
+</div>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
 <img src="_images/diagrams/composition-lifecycle.svg" alt="Locking, validation, resolution, apply, active probing, recovery, status, and destroy lifecycle">
@@ -659,10 +685,13 @@ QoS on NATS/Kafka/AMQP fail closed.</p>
 </div>
 <div class="paragraph">
 <p>All adapters execute digest-pinned runners inside the common Docker network or
-Kubernetes namespace. Runner output is capped at 1 MiB before parsing.
-Secrets and bearer tokens never appear in the argument vector or state.
-Contractless, unresolved, unsupported-protocol, and cross-platform wires are
-reported as unsupported rather than inferred healthy. Diagnostics, documents,
+Kubernetes namespace. A supported cross-runtime probe uses a Docker image consumer
+and a Kubernetes/Helm provider through a reviewed <code>EXTERNAL_GATEWAY</code>; its runner
+shares the actual consumer&#8217;s network namespace. The operator provisions and owns
+that gateway. Other cross-platform probe pairs remain unsupported. Runner output
+is capped at 1 MiB before parsing. Secrets and bearer tokens never appear in the
+argument vector or state. Contractless, unresolved and unsupported-protocol wires
+are reported as unsupported rather than inferred healthy. Diagnostics, documents,
 variables, requests, messages, and response bodies are not persisted; state
 contains only normalized identifiers, adapter, result metadata, failure code,
 and timestamp.</p>
@@ -782,15 +811,45 @@ successfully removed instance, so a retry targets only cleanup that did not
 finish.</p>
 </div>
 <div class="paragraph">
+<p>For Compose, the matching Next source verifies the selected product/release,
+active native services and expected replicas before trusting an applied instance.
+A <a href="https://docs.docker.com/reference/compose-file/services/#depends_on">successful initialization dependency</a>
+may have exited with code <code>0</code>; it need not stay running. Foreign containers,
+missing services or failed initialization prevent resume. Retain the original
+execution context, including enabled profiles and required interpolation values.
+These runtime checks do not establish API acceptance.</p>
+</div>
+<div class="paragraph">
 <p>Upgrade is a separate lifecycle; <code>apply</code> never mutates an already recorded
 resolved composition. Upgrade requires the exact previous and target locks, the same
-composition UUID, and a strictly greater target SemVer. Existing instance names
+composition UUID, and a strictly greater target SemVer. The previous composition
+must be completely applied. Resolve a partial apply or destroy through the original
+lifecycle first; upgrading does not repair missing instance records or recreate
+them implicitly. Existing instance names
 must retain their platform and deployment mechanism. Docker image, Docker
 Compose, Kubernetes manifest, Helm, Vagrantfile, and WASM module instances use
 their stable managed identities. The private transaction journal stores only
 paths, identifiers, phases, and digests—not resolved secrets or input payloads.
 Stateful and host-bound mutations fail before the first runtime action because
 restoring a deployment specification cannot undo workload data changes.</p>
+</div>
+<div class="paragraph">
+<p>Current-source upgrade detection fingerprints configuration-file bytes as well
+as declarations, including templates supplied by Wire materializers. Changing a
+template at the same relative path updates its receiving instance; an unchanged
+filename alone does not establish unchanged deployment inputs. Retain both
+reviewed input trees and locks for recovery.</p>
+</div>
+<div class="paragraph">
+<p>Current-source recovery also rechecks completed journal entries before continuing
+an interrupted upgrade or rollback. A stopped, missing or differently owned
+workload stops recovery and retains its journal. A successful detached deployment
+command alone does not prove restoration: Docker images must be running with the
+recorded owner and release; other adapters must report their native running or
+available state. Kubernetes/Helm controller checks use available and updated
+replicas and the native update strategy, not ready counts alone. These checks
+establish runtime evidence, not API health or restoration of application data.
+Repeat the composition&#8217;s API checks afterward.</p>
 </div>
 </div>
 <div class="sect2">
@@ -828,8 +887,11 @@ and <code>--git-ref</code> selections. Apply-only options such as <code>--namesp
 <div class="paragraph">
 <p>Both commands name the <strong>target</strong> first; <code>--from</code> and <code>--from-lock</code> still identify
 the previous revision. Rollback is not <code>apply</code> of an older document and does not
-restore arbitrary application data. An input/ownership mismatch is a stopping
-point: recover the original context rather than bypassing it.</p>
+restore arbitrary application data. Explicit rollback does not require target-only
+execution secrets or configuration. Previous execution inputs are required when
+previous instances must actually be redeployed; both reviewed declarations and
+locks are still verified. An input/ownership mismatch is a stopping point:
+recover the original context rather than bypassing it.</p>
 </div>
 <div class="paragraph">
 <p>After a completed resume, inspect <code>dotx compose status scenario-v2.yaml</code>; after

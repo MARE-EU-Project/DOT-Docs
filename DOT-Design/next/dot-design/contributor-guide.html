@@ -397,7 +397,7 @@ To use an existing DOT without installing development toolchains, start with
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Graphviz and fonts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reproducing the legacy full-Maven-build SVG export, not running services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit diagram rendering and export refresh, not ordinary Maven builds or running services</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Local baseline: Graphviz 14.1.2 and Ubuntu <code>fonts-noto-core</code> /
   <code>fonts-croscore</code> 20201225-2build1. Missing tools or different font fallbacks
   can change the SVG even when the generated model source is identical.</p></td>
@@ -418,6 +418,14 @@ To use an existing DOT without installing development toolchains, start with
 <td class="tableblock halign-left valign-top"><p class="tableblock">Only the matching deployment adapters and live scenarios</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Install only what you intend to execute. The Vagrant workflow uses the runner
   service user&#8217;s existing KVM/libvirt permissions, without <code>sg</code> or <code>sudo</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux process-group pidfds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matching Next-source managed Kubernetes/Helm port forwards, WASM processes and their live tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel support introduced in Linux 6.9. Unsupported kernels or unverifiable
+  process receipts fail closed; a cached integer PID does not authorize cleanup.
+  Non-root users select local ports of 1024 or greater; dotx does not elevate
+  background forwarding processes.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Antora, the Antora PDF extension, Asciidoctor PDF, and Mermaid CLI</p></td>
@@ -507,10 +515,13 @@ task mci</code></pre>
 the Maven <code>verify</code> phase.</p>
 </div>
 <div class="paragraph">
-<p>The full Maven build also regenerates diagram exports. Release packaging
-requires clean committed sources, including those exports. If rendering changes
-a tracked SVG, diagnose the source, renderer and fonts; do not discard the
-difference blindly or weaken the provenance guard to make packaging pass.</p>
+<p>Ordinary Maven builds generate PlantUML source under <code>DOT-Domain/target</code>; they
+leave committed diagram images unchanged. To render and refresh the tracked
+exports explicitly, run <code>task docs:domain:generate</code> (which enables the
+<code>publish-domain-diagram</code> profile). Release packaging requires clean committed
+sources, including those exports. If rendering changes a tracked SVG, diagnose
+the source, renderer and fonts; do not discard the difference blindly or weaken
+the provenance guard to make packaging pass.</p>
 </div>
 </div>
 </div>

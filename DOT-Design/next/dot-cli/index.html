@@ -472,7 +472,16 @@ on the selected container. These fixes require a matching source build; they do
 not change the already published binary or establish live API acceptance.
 Compose path-based lifecycle also retains verified dotenv inputs needed for
 native interpolation and profile selection. Its live preflight uses Compose&#8217;s
-<code>config --variables</code> and <code>config --profiles</code> support; dry-runs remain previews.</p>
+<code>config --variables</code> and <code>config --profiles</code> support; dry-runs remain previews.
+The matching Next executor reserves <code>DOTX_COMPOSE_</code> for private staging.
+Use another prefix for workload variables, native interpolation and operator
+defaults; a collision is refused before changing the deployment.</p>
+</div>
+<div class="paragraph">
+<p>For the matching Next build, review the
+<a href="../dot-design/authoring-anchors.html#runtime-configuration-portability" class="xref page">configuration and ownership boundaries</a>,
+including ordered dotenv overrides, service isolation and handling older native
+resources. Keep the original CLI and execution context for existing workloads.</p>
 </div>
 <div class="admonitionblock important">
 <table>

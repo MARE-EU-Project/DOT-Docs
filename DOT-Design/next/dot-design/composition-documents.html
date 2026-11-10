@@ -564,6 +564,19 @@ These fields supply instance values and grants; they do not expand the DOT&#8217
 declared configuration surface.</p>
 </div>
 <div class="paragraph">
+<p>The matching Next source build admits required environment/configuration inputs,
+runtime grants and missing required WASI volumes before apply creates its network
+or workloads, then repeats the check under the lifecycle lock. Changed inputs
+may leave lock bookkeeping, but input refusal writes no composition state and
+mutates no workloads. The initial declaration identity and selected lock are
+rechecked; changed source is rejected. Resume consumes only pending-instance inputs; upgrade and
+rollback select their actual action/restoration inputs. This is static admission:
+it does not fetch native Secret contents, prove image availability or establish
+runtime readiness. Composition volume overrides currently support Docker images
+only. Use direct <code>dotx deploy</code> for WASM host-volume bindings, or select a profile
+without required host volumes.</p>
+</div>
+<div class="paragraph">
 <p>When a Docker Compose, Kubernetes, or Helm deployment contains several logical
 services with configuration, <code>deploymentInputs.workloads</code> is required for every
 configured service. The binding is deliberately instance-owned because native
@@ -601,6 +614,27 @@ container is accepted only when that workload has one container. Two logical
 services cannot target the same Compose service or the same Kubernetes
 workload/container pair. Resolved compositions expose the binding and secret identifiers, and
 locks cryptographically pin them; neither contains resolved secret values.</p>
+</div>
+<div class="paragraph">
+<p>The matching Next source build also scopes generated Kubernetes ConfigMaps and
+Secrets to the selected deployment and runtime instance. It checks ownership
+before updating them and uses observed native identities during cleanup.
+Native manifest ownership also retains an exact identity proof, so different
+valid names cannot become the same owner after Kubernetes label normalization.
+For cluster-scoped manifest resources, that proof also binds the selected
+execution namespace: deploying into another namespace does not authorize reuse
+of the same cluster-wide object. Existing namespace metadata is preserved;
+namespace preparation creates a namespace only when it is absent.
+Older resources missing that proof remain untouched; changing binaries does not
+authorize their adoption, migration or deletion. Retain the original CLI and
+execution context, and review exact native provenance before choosing a recovery
+or cleanup procedure. Do not bypass an ownership refusal with a broad selector.</p>
+</div>
+<div class="paragraph">
+<p>Use an unprivileged local port (1024 or greater) for managed forwarding when
+running dotx as a non-root user. The matching Next build rejects lower local
+ports before changing workloads; it does not launch a privileged background
+process. Operator-managed privileged exposure remains a separate responsibility.</p>
 </div>
 </div>
 <div class="sect2">

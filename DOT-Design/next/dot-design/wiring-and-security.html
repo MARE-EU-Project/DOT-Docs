@@ -460,8 +460,11 @@ wires without a binding, same-platform wires with a redundant binding, unknown
 adapters, URL-shaped hosts, and invalid ports fail before runtime mutation.</p>
 </div>
 <div class="paragraph">
-<p>Composition-owned gateways, ingresses, tunnels, and brokers require dedicated
-lifecycle adapters and remain unsupported.</p>
+<p>The <code>EXTERNAL_GATEWAY</code> adapter does not provision gateways, ingresses, tunnels
+or brokers. An explicitly selected broker DOT is an ordinary composition member:
+its selected deployment is applied and destroyed through the usual lifecycle.
+The wire&#8217;s <code>endpoint.instance</code> selects that declared broker service; a Wire
+never creates a broker or network infrastructure implicitly.</p>
 </div>
 <div class="paragraph">
 <p>A wire and a materializer are intentionally separate. The wire says <em>these
@@ -624,7 +627,15 @@ Contract fact.</p>
 <p>A <code>CONFIG_FILE</code> materializer always names an operator-controlled source and a
 file path already declared by the target service. Without <code>valueFrom</code>, the
 source is supplied unchanged. With <code>valueFrom</code>, the source must be YAML or JSON
-and <code>jsonPointer</code> selects the scalar to replace:</p>
+and <code>jsonPointer</code> selects the scalar to replace.</p>
+</div>
+<div class="paragraph">
+<p>For endpoint injection, current-source validation requires exactly one YAML or
+JSON document and rejects duplicate keys before editing. YAML anchors and aliases
+are preserved where the selected replacement permits them; a replacement that
+would leave a dangling alias is rejected. Failed validation or encoding publishes
+no generated file; the original source stays unchanged. These checks do not
+restrict pass-through files supplied without <code>valueFrom</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -778,6 +789,17 @@ issuer trust, mTLS, workload identity, or remote attestation.</p>
 <div class="paragraph">
 <p>The exposure name belongs to the composition boundary. It does not rename or
 replace the member Anchor ID.</p>
+</div>
+<div class="paragraph">
+<p>An exposure may describe any provided Integration Point, but managed
+Kubernetes/Helm forwarding currently targets the deployment&#8217;s first service
+with a declared port. The matching Next executor refuses an exposure on another
+logical service before deployment rather than forwarding a different endpoint.
+Use separately operator-managed exposure for other services. This execution
+limit does not restrict Wires or make the composition declaration invalid.
+Older recorded forwarding that cannot identify its intended service also
+requires review before resume or upgrade; verified owned cleanup remains
+separate from that admission check.</p>
 </div>
 <div class="paragraph">
 <p>Before runtime mutation, follow the

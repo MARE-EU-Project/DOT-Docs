@@ -991,6 +991,14 @@ error. Duplicate detection is service-local, so two services can intentionally
 receive different values for the same environment-variable name.</p>
 </div>
 <div class="paragraph">
+<p>For direct single-service deployment in the matching Next source build,
+explicit <code>--env</code> flags win over later <code>--env-file</code> files, which win over declared
+defaults. This includes Compose, Kubernetes, Helm and WASM. Multi-service deployments use
+explicit per-service environment inputs; an unscoped dotenv file is rejected
+rather than silently ignored or broadcast. Local operator files remain instance
+inputs, separate from the verified URL/hash defaults in a DOT definition.</p>
+</div>
+<div class="paragraph">
 <p>Environment variables and configuration files are rendered by every currently
 executable <code>dotx</code> deployment adapter:</p>
 </div>
@@ -1074,15 +1082,101 @@ composer must not translate a host bind path into a cluster volume or silently
 grant privileged mode.</p>
 </div>
 <div class="paragraph">
+<p>For the matching Next source build, retain the original DOT path and exact
+deployed <code>--name</code> for lifecycle commands on a custom Compose or Vagrant instance.
+Source-free commands refuse
+unsupported explicit instance selections before acting on a default peer.
+<code>--name</code> does not select a Kubernetes or Helm instance. Helm <code>deploy</code>, <code>status</code>
+and <code>destroy</code> accept <code>--release</code>. For Helm <code>start</code> or <code>stop</code>, pass the recorded
+release as the positional target instead: for an existing release named
+<code>reviewed-release</code> in namespace <code>monitoring</code>, use
+<code>dotx stop reviewed-release --deployment helm --namespace monitoring</code>
+(or <code>start</code>). Those two commands do not accept <code>--release</code>. An unsupported
+selector is rejected before cleanup.</p>
+</div>
+<div class="paragraph">
+<p>With a DOT path, <code>--deployment</code> accepts an exact deployment ID or an unambiguous
+manifest type. With a deployed name instead of a path, it selects a manifest
+type/alias and applies to <strong>all matching deployment IDs</strong> of that product, narrowed
+by <code>--name</code> where supported. Use the original DOT path and exact deployment ID
+to narrow the selected recipe; a name-form alias is not an exact-ID
+selector. Helm runtime targeting follows its native release boundary below.
+Kubernetes cleanup removes verified selected workloads and configuration, but
+retains Namespace objects and reports incomplete cleanup. Owning a Namespace
+does not establish ownership of every workload inside it. An operator must
+inspect and handle that Namespace separately, preserving unrelated resources.
+The CLI checks exact native Compose ownership and Vagrant
+metadata. Existing instances without verifiable ownership need their original
+CLI for cleanup before redeployment; a normalized name never authorizes adoption.
+Compose ownership checks inspect optional profiles without loading their
+inactive environment files; selected profiles still undergo native validation.
+Helm workload selection uses the exact release annotations, rather than requiring a
+chart-specific instance label. Its runtime target is the <strong>native release plus
+namespace</strong>, not a verified exclusive DOT/deployment association. Different recipes
+and normalized product names can address the same release. Current-source selected
+<code>destroy</code> requires explicit <code>--release</code> when the DOT contains multiple Helm
+deployments, including in dry-run. Review that native target and reserve exclusive
+access; Helm uninstall has no UID precondition against concurrent name reuse. Configuration previews leave workload selectors
+unresolved until native ownership can be checked; do not run those fragments
+as standalone mutation commands. Status listings derive ports and environment
+keys only from the selected deployment or verified Helm release; unknown
+ownership omits those fields. A Helm release reported as <code>deployed</code> is release
+metadata, not proof that its controllers are running or its API is healthy.</p>
+</div>
+<div class="paragraph">
+<p>Docker client settings belong to the invoking shell. Workload variables such as
+<code>DOCKER_CONTEXT</code>, <code>DOCKER_HOST</code>, <code>HOME</code> and <code>PATH</code> reach the container without
+redirecting the native client. Docker image deployments transport these values
+through a private environment file; CR/LF values for client-control keys fail
+before replacement, while ordinary application variables retain multiline
+support. Managed Vagrant commands bind project, Vagrantfile and VM-state
+selectors to the verified environment; global box/provider settings remain
+operator configuration.</p>
+</div>
+<div class="paragraph">
 <p><code>WASM_MODULE</code> uses a reviewed Wasmtime/WASI profile. Each module is SHA-256
 pinned and loaded from a relative/file or HTTPS URI. <code>WASI_CLI</code> executes command
 modules/components; <code>WASI_HTTP</code> serves a component on one declared TCP/HTTP
 service port bound to loopback. Dotx exposes only declared environment values,
 staged configuration files, and explicitly bound host directories. It does not
 translate OCI capabilities, host namespaces, or CDI devices into broader WASI
-permissions. Sensitive values are never printed or persisted. Because the
-Wasmtime CLI cannot enforce read-only permissions on a directory preopen, that
-request fails closed unless the host filesystem already supplies the boundary.
+permissions. Sensitive environment values are omitted from command output and
+saved state. An omitted optional secret remains absent on restart; supplied
+secrets must be restored explicitly from the caller&#8217;s environment.
+Operator-supplied sensitive configuration files are staged privately
+for execution; they are not DOT defaults or embedded state values. Because the
+Wasmtime CLI cannot enforce read-only permissions on a directory preopen,
+a binding with <code>readOnly: true</code> fails closed, even on a read-only host filesystem.
+This profile does not implement that declaration.
+The matching Next source build serializes operations on each WASM instance and
+prepares its module/configuration in a separate private generation before
+publication. Use the exact runtime name printed by <code>dotx ps</code>. Managed processes
+require native birth proof; an integer PID or an unreadable identity does not
+authorize stop or cleanup. Keep the original CLI and execution context for
+existing instances whose proof cannot be verified.
+An interrupted launch leaves a private <code>.launch.pending</code> fence. Subsequent
+execution for that instance fails closed and preserves its files and process
+evidence. Inspect with the same CLI build, original DOT path, exact deployment
+and execution context. Recorded rows can appear <code>unknown</code>; an initial launch without canonical
+state may be absent from <code>ps</code>. Operator reconciliation must establish process
+cleanup before removing the fence; clearing it to retry can duplicate a process.
+Cache-root aliases share a physical lifecycle lock, while symlinked managed
+instance/deployment directories are refused.</p>
+</div>
+<div class="paragraph">
+<p><code>WASI_CLI</code> reports managed launch. Early completion observed before receipt
+capture uses the original child&#8217;s result: zero succeeds, a nonzero result returns
+CLI exit 1 with the numeric program code. Both retain the existing stopped state
+and private log. Later exits after successful managed launch are observed as
+stopped; their exit codes are not persisted. <code>WASI_HTTP</code> retains its running-server
+and separate readiness requirements.</p>
+</div>
+<div class="paragraph">
+<p>Product ownership is checked even when another DOT selects the same <code>--name</code>.
+Local module staging verifies bounded, exact bytes before replacement. HTTP
+<code>--wait</code> requires the launched process to own the loopback listener; a different
+process cannot satisfy readiness. Failed-wait cleanup retains the generation
+and state, and reports uncertain termination rather than declaring it stopped.
 The deterministic <code>DOT-Testing/composition/runtime-configuration/</code>
 matrix exercises every executable adapter twice: once using only declared
 non-sensitive defaults and once using explicit composition overrides. It checks

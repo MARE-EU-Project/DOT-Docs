@@ -544,8 +544,11 @@ selected repository and offline mode. None of these actions runs automatically.
 Review shared inputs and the newly created lock before any deployment.</p>
 </div>
 <div class="paragraph">
-<p>Use DOT-CLI 0.4.0 and its matching catalogue. From the DOT-Repository checkout,
-with verified cached Contracts:</p>
+<p>The configuration-transfer and publication safety corrections described below
+require this <strong>Next checkout&#8217;s matching CLI source build</strong>. The immutable released
+<code>v0.4.0</code> binary is unchanged; follow
+<a href="../dot-design/compatibility.html" class="xref page">the source/release compatibility guidance</a>.
+From the matching DOT-Repository checkout, with verified cached Contracts:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -647,15 +650,32 @@ references; no machine-local path is written into the authored YAML or lock.</p>
 <p>To save elsewhere, enter another path at the prompt or supply <code>--output</code>.
 An explicit output&#8217;s parent must already exist. Existing files, adjacent locks
 and directory symlinks are refused; there is no overwrite mode. Publication
-failure removes only still-identical empty folders created by this operation,
-never pre-existing folders or concurrent contents. Creating the catalogue draft
+failure attempts private-staging cleanup but can retain public folders or a complete
+candidate for review. It never removes public names whose ownership may have
+changed concurrently. Creating the catalogue draft
 does not add a README, topology artifacts or a lock; review and complete those
 before contributing the composition.
+The directory reviewed before confirmation must retain its identity. A replaced
+parent or newly appeared adjacent lock stops publication; directory-confined
+staging cannot follow a replacement symlink into another folder.
+If the destination or adjacent lock changes during publication, the command
+reports failure; inspect any retained complete candidate and folders before
+retrying. It does not delete a possible peer replacement to make cleanup appear
+successful. Cancellation before confirmation still creates nothing.
 For the real monitoring example choose Node Exporter and Prometheus, then connect
 <code>node-metrics</code> to <code>scrape-target</code>. Select a config-file materializer deriving
 <code>ENDPOINT_HOST_PORT</code>, targeting Prometheus&#8217;s declared configuration file and the
 existing scrape-target JSON Pointer. Input paths are relative to the new YAML;
 review the existing monitoring README rather than inventing a producer interface.</p>
+</div>
+<div class="paragraph">
+<p>If you already supplied a direct configuration file or environment binding for
+the same service target, the wizard asks whether to <strong>transfer that target to the
+Wire</strong>. Confirm only after reviewing the named instance, service and target. The
+draft then retains one binding; it does not remove the input file or read a
+Secret value. Declining or cancelling stops without publishing. Preview checks
+these merged inputs using the same conflict rules as execution, without fetching
+Secret values or starting services.</p>
 </div>
 <div class="paragraph">
 <p>The menu labels connections accepted, incompatible or UNKNOWN using the ordinary

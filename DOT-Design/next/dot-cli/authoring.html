@@ -689,6 +689,18 @@ Defaults containing control characters use an explained escaped line fallback
 when a single-line form cannot preserve their bytes losslessly.</p>
 </div>
 <div class="paragraph">
+<p>In the matching <strong>Next source build</strong>, editing retains unrelated extension fields
+on existing references, including separate fields on repeated references. Removing
+one occurrence removes that occurrence; it does not merge the others or recreate
+their identities. Review the separate candidate before promoting it. These
+corrections do not change the immutable <code>v0.4.0</code> binary.
+Publication retains the reviewed parent directory. A filesystem failure or
+concurrent destination change after linking can leave a complete candidate for
+review; the command reports failure and preserves uncertain public names rather
+than deleting a possible peer replacement. Inspect retained artifacts before
+retrying. Cancellation before confirmation still publishes nothing.</p>
+</div>
+<div class="paragraph">
 <p>In single-choice menus, type initial letters to filter immediately: <code>Pro</code> finds
 Prometheus, <code>Key</code> finds Keycloak. Search is case-insensitive and also matches
 text within a choice. Use ↑/↓ to browse, Backspace to edit the query, Enter to
