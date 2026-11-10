@@ -1,4 +1,4 @@
-/* Keep the desktop navigation aligned below the fixed header and sticky page toolbar. */
+/* Fill the desktop sidebar directly below the fixed site header. */
 @media screen and (min-width: 1024px) {
   .nav-container {
     align-self: flex-start;
@@ -10,11 +10,19 @@
 
   .nav {
     background: transparent;
-    height: calc(100vh - 6rem);
-    height: calc(100dvh - 6rem);
+    height: calc(100vh - 3.5rem);
+    height: calc(100dvh - 3.5rem);
     position: fixed;
-    top: 6rem;
+    top: 3.5rem;
     width: inherit;
+  }
+
+  .has-sidebar-toggle .nav-toggle {
+    display: block;
+  }
+
+  .is-sidebar-collapsed .nav-container {
+    display: none;
   }
 
   .panels {
