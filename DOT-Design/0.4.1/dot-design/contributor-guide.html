@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Contributor guide :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/contributor-guide.html">
+    <link rel="prev" href="integration-handoff.html">
+    <link rel="next" href="release-notes.html">
+    <meta name="description" content="Build DOT-Design, validate repository DOTs, inspect a resolved composition, and generate the documentation.">
+    <meta name="generator" content="Antora 3.2.1">
+<script src="../../../_/js/color-theme.js"></script>
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+<link rel="stylesheet" href="../../../_/css/color-theme.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <div class="theme-control" hidden>
+        <label class="theme-label" for="color-theme">Theme</label>
+        <select id="color-theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.4.1/_exports/DOT-Design-0.4.1.pdf"
+              download="DOT-Design-0.4.1.pdf"
+              title="Download DOT-Design 0.4.1 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.4.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-authoring.html">2. Create an interface-aware DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-composition.html">3. Connect two DOTs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-dashboard.html">4. Grow the system with Grafana</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorial-next-steps.html">5. Larger and secured systems</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">External DOT examples</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="production-readiness.html">Production integration checklist and limits</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demos</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-domain/model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Repository</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-repository/index.html">Catalogue overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="catalogue-versioning.html">Products and tool releases</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="external-dot-examples.html">DOT examples and deployments</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Create or improve a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mare-poc-compositions.html">Reusable composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="production-readiness.html">Interface coverage and readiness</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.4.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.4.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.4.0/dot-design/index.html">0.4.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li>DOT-Design</li>
+    <li><a href="contributor-guide.html">Contributor guide</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.4.1</button>
+  <div class="version-menu">
+    <a class="version is-current" href="contributor-guide.html">0.4.1</a>
+    <a class="version" href="../../0.4.0/dot-design/contributor-guide.html">0.4.0</a>
+    <a class="version" href="../../0.3.0/dot-design/contributor-guide.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Contributor guide</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page covers building DOT-Design and running its shared local/GitHub gates.
+To use an existing DOT without installing development toolchains, start with
+<a href="getting-started.html" class="xref page">Getting started</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tool</th>
+<th class="tableblock halign-left valign-top">Required for</th>
+<th class="tableblock halign-left valign-top">Project baseline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-Domain</code>, schema generation, and Java tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java 27 (<code>27.0.0+35-open</code> in <code>.sdkmanrc</code>); Maven 3.10.0 from <code>PATH</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Building and testing <code>dotx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go 1.27.2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Graphviz and fonts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit diagram rendering and export refresh, not ordinary Maven builds or running services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local baseline: Graphviz 14.1.2 and Ubuntu <code>fonts-noto-core</code> /
+  <code>fonts-croscore</code> 20201225-2build1. Missing tools or different font fallbacks
+  can change the SVG even when the generated model source is identical.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository command aliases</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional but recommended</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ShellCheck, Python 3, jq, Bash, and Git</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deterministic authoring, conformance, and demo-harness checks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commands must be available on <code>PATH</code>, including to the self-hosted runner
+  service user. ShellCheck is required; lint checks are not silently skipped.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker, Kubernetes tools, Helm, or Vagrant with libvirt/KVM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only the matching deployment adapters and live scenarios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install only what you intend to execute. The Vagrant workflow uses the runner
+  service user&#8217;s existing KVM/libvirt permissions, without <code>sg</code> or <code>sudo</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux process-group pidfds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matching Next-source managed Kubernetes/Helm port forwards, WASM processes and their live tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kernel support introduced in Linux 6.9. Unsupported kernels or unverifiable
+  process receipts fail closed; a cached integer PID does not authorize cleanup.
+  Non-root users select local ports of 1024 or greater; dotx does not elevate
+  background forwarding processes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Antora, the Antora PDF extension, Asciidoctor PDF, and Mermaid CLI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Building the HTML/PDF documentation site, Mermaid diagrams and Ruby script syntax checks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI uses Node.js 26 and Ruby 4.0; <code>task docs:check</code> reports the locally
+  installed tool versions; see <a href="#build-the-documentation">Build the documentation</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_temporary_storage"><a class="anchor" href="#_temporary_storage"></a>Temporary storage</h3>
+<div class="paragraph">
+<p>Keep the checkout and generated build outputs on a disk with sufficient free
+space. Full Go race/coverage builds and Contract-tool installation can exhaust
+a small memory-backed <code>/tmp</code>, even when individual tests need no deployment.</p>
+</div>
+<div class="paragraph">
+<p>If a gate reports <code>disk quota exceeded</code> or <code>no space left on device</code>, check both
+the checkout filesystem and temporary storage. Set <code>TMPDIR</code> to a private,
+disk-backed directory <strong>outside every Git checkout</strong>, then rerun the failed gate.
+Negative Git-discovery tests deliberately remove fixture metadata; a parent
+checkout must not become an accidental fallback. Changing <code>TMPDIR</code> alone does
+not relocate generated files under the checkout&#8217;s <code>target</code> directories.</p>
+</div>
+<div class="paragraph">
+<p>Retain failed logs and verify the rerun; a storage failure is not a passed test.
+Do not delete shared temporary files, other runs' resources or user caches.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_out_the_repository"><a class="anchor" href="#_check_out_the_repository"></a>Check out the repository</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Design.git
+cd DOT-Design
+git submodule update --init --recursive</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The source repository and its two submodules may require access granted by the
+MARE-EU-Project organization. <code>DOT-CLI</code> and <code>DOT-Repository</code> remain separately
+cloneable; the generated Schema and high-level Skill classifications are
+tracked inside <code>DOT-Repository</code> and require no additional checkout.</p>
+</div>
+<div class="paragraph">
+<p>When updating submodules, commit and push the child repositories first, then
+push the parent branch with a missing-submodule-commit check:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git -c push.recurseSubmodules=check -c push.followTags=false push</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This refuses to publish a parent whose child commits are unavailable remotely.
+Release tags are published separately after qualification; a branch push must
+not publish prepared tags implicitly.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verify_the_domain_model"><a class="anchor" href="#_verify_the_domain_model"></a>Verify the domain model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The domain module uses plain JUnit tests and does not start a service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn -pl DOT-Domain test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the complete Java build with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn clean install
+# equivalent Task alias
+task mci</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The build generates CycloneDX JSON and XML software bills of materials during
+the Maven <code>verify</code> phase.</p>
+</div>
+<div class="paragraph">
+<p>Ordinary Maven builds generate PlantUML source under <code>DOT-Domain/target</code>; they
+leave committed diagram images unchanged. To render and refresh the tracked
+exports explicitly, run <code>task docs:domain:generate</code> (which enables the
+<code>publish-domain-diagram</code> profile). Release packaging requires clean committed
+sources, including those exports. If rendering changes a tracked SVG, diagnose
+the source, renderer and fonts; do not discard the difference blindly or weaken
+the provenance guard to make packaging pass.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_and_test_dotx"><a class="anchor" href="#_install_and_test_dotx"></a>Install and test dotx</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DOT-CLI</code> is an independent Go module and is not part of the Maven reactor:</p>
+</div>
+<div class="paragraph">
+<p>DOT-Design <code>VERSION</code>, its Maven artifacts and the pinned <code>DOT-CLI/VERSION</code>
+share the same version number. Run <code>task testing:version:alignment</code> to verify
+the checkout. Independent repositories and publication jobs do not imply
+independent version numbers; source revisions still identify unreleased changes.
+Antora keeps current development content under <code>Next</code>, preserving stable tags.</p>
+</div>
+<div class="paragraph">
+<p>Install the standalone release with Go 1.27 or later. For the private module,
+authenticate Git first as described in <a href="getting-started.html" class="xref page">Getting started</a>
+and bypass the public Go proxy for this organization in this command only:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GOPRIVATE='github.com/MARE-EU-Project/*' go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.4.1
+dotx version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The GitHub release also provides a checksummed Linux-amd64 binary, build
+metadata, and a manifest that pins the exact DOT-CLI source plus the
+DOT-Design and DOT-Repository acceptance revisions. For source development or
+the complete cross-repository suite, build the checked-out submodule instead:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:build
+task cli:test
+task cli:install
+dotx --version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>task cli:install</code> installs the pinned checkout into <code>GOBIN</code> or <code>GOPATH/bin</code>
+and installs Bash completion. Keep that directory on <code>PATH</code>; project tasks,
+test harnesses, examples, and CI all invoke the same <code>dotx</code> command rather than
+a repository-local binary.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_github_workflow_gates_locally"><a class="anchor" href="#_run_github_workflow_gates_locally"></a>Run GitHub workflow gates locally</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For quick feedback while editing, from the <strong>DOT-Design checkout root</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task check</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This source-read-only check uses existing authorities for version alignment,
+generated Go/schema drift, Go formatting and <code>go vet</code>, and syntax-checks
+maintained Python, Bash, Node and Ruby scripts without executing their bodies.
+It includes staged, unstaged and untracked sources, but excludes generated
+outputs, negative fixture sources and user presentation files. Have the
+documented toolchains and pinned quicktype/dependency caches prepared first:
+offline mode fails on a cold cache instead of downloading or installing tools.
+Temporary files and compiler caches may be used; tracked files are not repaired.
+This is <strong>not</strong> Java/Go test acceptance, full CI, live rehearsal or release proof.</p>
+</div>
+<div class="paragraph">
+<p>For focused model/code iterations, start with the deployment-free gate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:models</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It checks Java validation/serialization and coverage, all public-model corpus
+examples against generated schemas, Go bindings, CLI race tests and coverage,
+offline catalogue validation and reviewed locks. It starts no workloads or
+GitHub workflows. First-use setup may download pinned test tools. A coding-only
+push does not qualify a release or necessarily publish Antora; <code>[skip ci]</code>
+remains an explicit option for an authorized, locally tested batch, not a
+replacement for required release checks.</p>
+</div>
+<div class="paragraph">
+<p>GitHub Actions and local pre-push validation share the root Taskfile test
+bodies. Actions still provisions clean toolchains and publishes artifacts, but
+the build, validation, conformance, coverage, runtime, and documentation
+commands are not CI-only shell fragments.</p>
+</div>
+<div class="paragraph">
+<p>Ordinary test/report archives are best-effort. If an optional upload fails
+(including exhausted GitHub storage quota), the workflow emits a warning and
+job summary; tests, security checks and cleanup retain their original results.
+This covers any optional upload failure, not just quota errors. A green test
+run does not guarantee a downloadable archive or release qualification.
+Release evidence and artifacts consumed by another job or Pages remain
+mandatory. The optional <code>dot-docs-site</code> archive is not used for publication:
+the documentation workflow publishes the locally verified site directly to
+the publication branch, and publication failures still fail the job.
+Run <code>task testing:ci:artifacts</code> to check this boundary, including negative
+regressions. The check also runs in the deterministic workflow gate.</p>
+</div>
+<div class="paragraph">
+<p>After the Contract-tool bootstrap, inspect the one source/acceptance pin report:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:acceptance:pins
+# Before pushing repositories that depend on unpublished acceptance commits:
+task testing:acceptance:pins -- --remote</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The report checks bootstrap copies against <code>DOT-CLI/release/acceptance.json</code>
+and the catalogue workflow&#8217;s CLI authority. It distinguishes current source
+revisions and dirty state from acceptance snapshot revisions. The optional
+read-only <code>gh</code> check requires repository access and fails if any dependency
+commit is unavailable on GitHub; it does not publish it. Publish acceptance
+foundation commits on explicit branches first when necessary, then CLI,
+catalogue and Design. Before each dependent push, rerun the remote check and
+retain the missing-submodule-commit push guard above. Equal version labels,
+available commits and successful declaration checks do not qualify live APIs.</p>
+</div>
+<div class="paragraph">
+<p><code>task testing:ci:tools</code> audits existing workflow action pins and tool-version
+authorities, including missing/late Node setup regressions. It uses the pinned
+Contract-tool Python environment; bootstrap it through the ordinary conformance
+gate, not an implicit runner-global package. These checks are included in
+<code>task ci:contract-conformance</code> and the full deterministic gate.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task ci:prepare
+task ci:deterministic
+task ci:compatibility-matrix</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>ci:prepare</code> installs the pinned DOT-CLI checkout and verifies that <code>dotx
+version</code> matches the root <code>VERSION</code>. <code>ci:deterministic</code> runs every deterministic
+non-live release workflow gate, including Java and Go tests, schema drift, official
+Contract validation, repository and Anchor conformance, Composition v1,
+lifecycle recovery, upgrade, all PoC dry-runs, external-DOT rendering,
+coverage, Antora, and PDF generation. Individual equivalents are available as
+<code>ci:build</code>, <code>ci:contract-conformance</code>, <code>ci:repository-conformance</code>,
+<code>ci:coverage</code>, and <code>ci:docs</code>.</p>
+</div>
+<div class="paragraph">
+<p>Release package checks require the complete expected set of regular files and
+exactly one checksum per asset. Extra entries, symlinks, missing or duplicate
+digests, and changed bytes fail before execution. The Design and CLI checkers
+share this guard; downloaded Design releases use the same package checker before
+installation. <code>task testing:release:channel</code> exercises the Design package and
+download-step regressions without network access or deployment; CLI <code>task ci</code>
+also exercises the shared guard. Checksums establish integrity, not publisher trust.
+The documentation guard also requires a versioned component&#8217;s installation
+commands to select that same CLI release. Only Next may retain the selected
+stable binary while documenting unreleased source features.</p>
+</div>
+<div class="paragraph">
+<p>Publication regressions can also run alone:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Docs/scripts/test-publication.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These tests create their own release-history fixtures and verify a shallow,
+tag-free checkout, including concurrent site/badge updates against disposable
+local Git remotes. Actual versioned-site publication still requires complete
+release-tag history; its audit rejects missing history rather than silently
+omitting stable documentation. No runner reconfiguration is needed for these
+tests.</p>
+</div>
+<div class="paragraph">
+<p>On push and pull-request events, the live workflows compare the exact Design
+and pinned child-repository Git trees. Only allowlisted, non-executable
+documentation changes can deliberately skip their live suites; these are
+reported as <strong>skipped</strong>, never as successful runtime acceptance. Documentation
+and conformance remain required. Missing history, changed definitions, schemas,
+locks, code, workflows, tool configuration, or unknown paths keep full live
+gates. Manual and scheduled executions always keep those gates. The classifier
+does not change which local checks you must run for a code change.</p>
+</div>
+<div class="paragraph">
+<p>Run its deployment-free regressions with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">python3 scripts/test-ci-change-scope.py
+ruby DOT-Docs/scripts/test-workflow-impact.rb</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On a Linux host with all runtime prerequisites, run the mutable workflows too:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task ci:live
+task ci:all</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The live gate requires Docker, Minikube, Kubernetes, Helm, Wasmtime,
+Vagrant/libvirt, writable KVM access, Rust 1.98.1 with the <code>wasm32-wasip2</code>
+target, and network access for the first official WASI HTTP sample build. The
+shared task fetches the exact pinned <code>sample-wasi-http-rust</code> revision into an
+ignored test cache, builds it with Cargo, and passes it to the runtime test, so
+local and GitHub executions cannot silently omit the WASI HTTP assertions.
+Set <code>WASI_HTTP_COMPONENT</code> only to reuse an already built component. The live
+gate performs runtime mutation and cleanup;
+<code>ci:deterministic</code> is the normal pre-push default.</p>
+</div>
+<div class="paragraph">
+<p>Each self-hosted runner account needs its own working local Minikube profile and
+tool permissions. The multi-service rehearsal can initialize/select Minikube
+when no context is selected; it rejects a foreign context or unreadable
+configuration before starting anything. Missing tools and unavailable profiles
+remain failures, not skipped acceptance. Use the documented runner-selection
+variables to route runtime jobs to a properly provisioned account; do not copy
+another user&#8217;s kubeconfig or silently adopt its workloads.</p>
+</div>
+<div class="paragraph">
+<p>For a Vagrant runtime on Ubuntu, install or reconcile the complete provider
+boundary and then open a new login session so the <code>libvirt</code> and <code>kvm</code> groups
+are active:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx tool install vagrant
+dotx tool check vagrant</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The installer selects <code>qemu-kvm</code> when the distribution provides it and falls
+back to <code>qemu-system-x86</code> on releases such as Ubuntu 26.04. The readiness check
+also verifies the pinned <code>vagrant-libvirt</code> plugin, the <code>qemu:///system</code>
+connection, the default libvirt network, and <code>/dev/kvm</code> access.</p>
+</div>
+<div class="sect2">
+<h3 id="_select_github_actions_runners"><a class="anchor" href="#_select_github_actions_runners"></a>Select GitHub Actions runners</h3>
+<div class="paragraph">
+<p>The repository variable <code>DOT_DESIGN_RUNNER</code> defaults to <code>self-hosted</code> for build,
+validation, documentation and WebAssembly jobs. Set it to <code>ubuntu-latest</code> to
+use GitHub-hosted runners for those jobs.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>DOT_DESIGN_CONTAINER_RUNNER</code> optionally selects a Docker/Compose/Minikube
+runner; otherwise these jobs inherit <code>DOT_DESIGN_RUNNER</code>.</p>
+</li>
+<li>
+<p><code>DOT_DESIGN_VM_RUNNER</code> selects the Vagrant/libvirt runner. Configure it only
+for a label with verified KVM/libvirt access. When unset, the Vagrant job is
+skipped, not passed; required release acceptance still needs a qualified run.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Restrict access to self-hosted runners, keep their software current, and never
+expose privileged runners to untrusted forks. Runner administration and service
+permissions are infrastructure concerns, not a reason to weaken test assertions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maintain_dependencies"><a class="anchor" href="#_maintain_dependencies"></a>Maintain dependencies</h3>
+<div class="paragraph">
+<p>Dependency versions are managed by the root <code>pom.xml</code>. GitHub Actions use
+immutable commit pins with release comments. Dependabot proposes Maven/Actions
+updates weekly; updates retain the applicable build, conformance and live gates.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task mci       # complete Maven build
+task update    # propose latest non-prerelease dependencies</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use <code>task --list</code> for the available aliases. Dependency updates are intentional
+source changes, not prerequisites for running an existing DOT.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="clean-code-boundaries"><a class="anchor" href="#clean-code-boundaries"></a>Clean-code boundaries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Prefer small, behavior-preserving refactorings over a new framework or a
+repository-wide rewrite. Split by responsibility, not by arbitrary file length.
+Create a package or interface only when it establishes a real dependency
+boundary; cohesive files in an existing package are often enough.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Responsibility</th>
+<th class="tableblock halign-left valign-top">Authority and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portable models</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT-Domain Java classes, generated JSON Schemas and generated Go inputs.
+  No hand-maintained input-model copies, persistence annotations or runtime adapters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portable policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOT-CLI/domain/policy</code>: in-memory invariants only. Pure domain packages
+  cannot import feature adapters, filesystem/process APIs or network clients.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Input and resolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validate raw documents before generated-model decoding. Reuse the existing
+  Contract parsers and verified-payload authority. Resolution may read verified
+  inputs, but must not deploy or adopt runtime state.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit preparation, runtime mutation, recorded ownership and cleanup.
+  Keep adapter differences visible; preserve the order of preflight, state
+  recording and mutations. A rendering success is not runtime acceptance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Presentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format existing results and diagnostics. Do not resolve compatibility,
+  read Secrets or mutate state inside renderers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test fixtures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>internal/testsupport</code> is test-only. Production dependency checks reject
+  even an indirect import through another production package.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The CLI&#8217;s composition files separate command dispatch/options, document
+decoding, DOT/Contract loading, resolution, deployment-input validation,
+materialization, state/locking, recovery and rendering. Runtime files separately
+handle selection, forwarding, Helm/Kubernetes configuration and execution.
+This is source organization, not a new portable model or a user-facing change.</p>
+</div>
+<div class="sect2">
+<h3 id="_review_a_change"><a class="anchor" href="#_review_a_change"></a>Review a change</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Use meaningful names: declaration, resolved composition, deployment
+selection, verified payload and recorded state are different things.</p>
+</li>
+<li>
+<p>Prefer guard clauses and one clear responsibility per function. Share a
+rule only when it has the same meaning, not merely similar syntax.</p>
+</li>
+<li>
+<p>Pass external dependencies explicitly where they improve isolation.
+Materialization accepts invocation-scoped environment lookups and temporary
+file factories; new tests need not replace a process-wide hook.</p>
+</li>
+<li>
+<p>Preserve absent-versus-empty values, native Secret references, error causes
+and secret-safe command diagnostics. Never print resolved credentials.</p>
+</li>
+<li>
+<p>Check write counts as well as errors before publishing a generated file.
+Failed materialization must preserve the input and clean its partial output.</p>
+</li>
+<li>
+<p>Keep characterization, negative and ownership/cleanup regressions. Coverage
+is a gate, not proof of correct behavior. Existing shared OS hooks still
+require serial tests; do not add <code>t.Parallel</code> around their replacement.</p>
+</li>
+<li>
+<p>Put whole-suite scratch storage outside Git and Go module trees: repository
+discovery tests need genuinely unrelated ancestors. For focused Git-negative
+controls, bound discovery at the fixture&#8217;s parent with
+<code>GIT_CEILING_DIRECTORIES</code> and exercise an ignored ancestor repository too.</p>
+</li>
+<li>
+<p>Use existing parser/resolver benchmarks before optimizing. Do not introduce
+caching that bypasses digest re-verification or hides corrupt-cache failures.</p>
+</li>
+<li>
+<p>Record a durable architecture decision when a boundary, compatibility promise
+or ownership policy changes. A routine function move needs no new ADR.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The CLI dependency regressions run in ordinary <code>go test ./&#8230;&#8203;</code> and <code>task ci</code>.
+Java architecture tests reuse the existing test-only JavaParser dependency to
+check production imports, qualified types and annotations; they do not add a
+production dependency or change model serialization. Generated-artifact drift,
+shared model corpora and reviewed locks remain separate checks.
+Dependency allowlists require review when adding a domain dependency; they are
+architecture guards, not a runtime sandbox or a replacement for behavior tests.</p>
+</div>
+<div class="paragraph">
+<p>For current-source diagnostic parser/resolver baselines, from the <strong>DOT-Design checkout root</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:bench</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From a <strong>DOT-CLI checkout root</strong> with the matching Design fixtures and catalogue,
+use <code>task bench</code>. Both routes run the existing operation-resolution and
+monitoring benchmarks with allocation reporting and three samples; the Taskfile
+owns the benchmark options.</p>
+</div>
+<div class="paragraph">
+<p>Use the same source fixtures, verified cache, toolchain and otherwise idle host
+for comparisons. These benchmarks have no machine-dependent pass threshold.
+Fuzz targets in <code>authoring_fuzz_test.go</code> exercise the real four-standard
+selector and composition parser; seed execution is part of ordinary tests.
+Longer fuzz campaigns supplement, rather than replace, regression tests.
+The recorded
+<a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Testing/performance/clean-code-baseline.md">clean-code baseline</a>
+retains all three measured samples and their concurrent-load limitations; it
+does not claim a speedup from moving declarations between files.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_editor_assistance_from_the_domain_schemas"><a class="anchor" href="#_editor_assistance_from_the_domain_schemas"></a>Editor assistance from the domain schemas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After changing DOT-Domain, generate schemas with the Java build, then run these
+from the DOT-Design checkout:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task cli:domain:generate
+task cli:domain:check
+task cli:domain:generation:test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The read-only check covers all generated Go domain bindings, embedded validation
+schemas, the authoring output projection and Composition artifacts. It reports
+changed, missing or orphaned generated files without repairing the checkout.
+Fix drift by regenerating and reviewing it, not by editing generated Go files.
+The authoring projection derives field names, types and order from the domain
+schemas/generated bindings; frozen outputs protect readable JSON and existing
+omission behavior. Node and quicktype remain build-time tools, not dependencies
+of the installed CLI.</p>
+</div>
+<div class="paragraph">
+<p>Core model and field descriptions are generated from DOT-Domain&#8217;s Jackson
+annotations. Editors can show these descriptions alongside the same types,
+required fields and exact enum spellings used by validation. Do not edit
+generated schemas to change model documentation.</p>
+</div>
+<div class="paragraph">
+<p>For a DOT-Design workspace, a VS Code JSON association can be configured in your
+local user/workspace settings (not in <code>dot.json</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "json.schemas": [
+    {
+      "fileMatch": ["**/dot.json"],
+      "url": "./DOT-Repository/Schema/schema.json"
+    }
+  ],
+  "yaml.schemas": {
+    "./DOT-Repository/Schema/composition-v1.schema.json": "**/composition.yaml"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The YAML association requires an editor YAML language extension. In a standalone
+DOT-Repository checkout, use <code>./Schema/</code> instead. Keep associations editor-side:
+adding <code>$schema</code> to a portable Composition is not supported. Editor hints do not
+replace <code>dotx validate</code>, semantic validation, reviewed locks or live acceptance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validate_a_dot"><a class="anchor" href="#_validate_a_dot"></a>Validate a DOT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>dotx validate</code> reads <code>dot.json</code> at the project root, falling back to
+<code>dot/dot.json</code>. The selected file is the unique DOT deployment definition;
+unreferenced Dockerfiles, Compose files, Kubernetes manifests, Helm charts, and
+scripts are not inferred.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository/DOTs/testing/contract-standards/provider/1.3.0 \
+  --schema DOT-Repository/Schema/schema.json
+dotx validate DOT-Repository/DOTs/external/Keycloak-DOT/26.8.1 \
+  --schema DOT-Repository/Schema/schema.json --profile reusable
+dotx inspect DOT-Repository/DOTs/testing/contract-standards/provider/1.3.0 --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Base validation checks the JSON Schema and DOT-level Anchor, Contract,
+service-port, CDI, and sensitive-default relationships. Every declared Contract
+must be a complete URL/SHA-256 declaration in the owning <code>dot.json</code>. The validator never searches repository-level Contract
+directories or sibling DOTs as implicit fallbacks. A provider containing only
+owned declarations can be copied and validated with an explicit schema path
+and access to its verified payloads. A consumer&#8217;s external <code>contract.source</code>
+references still need their exact originating DOTs: pass the matching catalogue
+with <code>--repository DOT-Repository</code>. An explicit schema alone cannot supply those
+definitions; a detached consumer must fail rather than guess an origin.
+A URL-backed definition declares one structured payload:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"payload": {
+  "url": "https://raw.githubusercontent.com/vendor/project/v1.2.3/openapi.yaml",
+  "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Raw Contract text and the former flat <code>payloadUrl</code>/<code>payloadSha256</code> shape are
+rejected. Validation downloads the exact bytes, rejects non-HTTPS or mutable raw-GitHub branch URLs,
+verifies the digest, parses the declared standard/format, and resolves Anchor
+selectors. Missing IDs, incomplete declarations, digest mismatches, and
+unresolved selectors always fail validation. Use <code>--profile
+reusable</code> before publishing a stable reusable DOT. That profile additionally
+requires at least one pinned Contract, rejects unused Contracts, and requires
+every deployment to bind each Contract-backed provided Anchor exactly once
+through a service that declares the same Contract. Explicit contractless
+Anchors retain base-validation evidence only; they are never silently promoted
+to Contract-backed interoperability.</p>
+</div>
+<div class="paragraph">
+<p>For an external product, prefer a complete root Contract declaration pointing
+to an official versioned vendor raw file. A full Git commit or release-version
+tag is accepted for <code>raw.githubusercontent.com</code>; <code>main</code>, <code>master</code>, and other
+mutable branch names are rejected. When no official usable raw machine-readable
+Contract exists, catalogue declarations may point to a clearly attributed
+derived/adapter document hosted in a secret GitHub Gist. Use the HTTPS host
+<code>gist.githubusercontent.com</code> with path
+<code>owner/gist-id/raw/40-character-revision/filename</code> and the SHA-256 of the exact
+raw bytes. Unversioned Gist URLs, HTML Gist pages
+and Gist query parameters are rejected. A secret Gist is unlisted, not private;
+anyone with its URL can read it without authentication. The CLI does not send
+GitHub tokens to Gist downloads. Keep the original source, license and authority
+in the Gist&#8217;s <code>PROVENANCE.json</code>; hosting does not make a derived document official
+or prove live acceptance. Existing unresolved license notices remain unresolved.</p>
+</div>
+<div class="paragraph">
+<p>All current catalogue declarations now include their URL-backed metadata.
+No local Contract directory is required or used. Compositions select the exact
+owning DOT with <code>source: repository://name@release</code>, retaining the originating
+Contract ID. Run <code>dotx validate DOT-Repository</code> online once, then use
+<code>dotx validate DOT-Repository --offline</code>. The shared digest cache lives under
+<code>$XDG_CACHE_HOME/dotx/contracts/sha256/</code> (normally <code>~/.cache/</code> on Linux).
+Every cache read rechecks SHA-256; a cold offline cache fails without downloads
+or writes, and corruption is never silently repaired. Payload availability is
+not producer acceptance. Shared Contract IDs still require identical metadata
+and bytes; root ID-only declarations cannot fall back to local or sibling files.
+For private raw GitHub URLs, <code>dotx</code> reads <code>MARE_READ_ONLY_TOKEN</code>, falling back
+to <code>GITHUB_TOKEN</code>, and sends it only to <code>raw.githubusercontent.com</code>; credentials
+must never appear in <code>payload.url</code>.
+Inspection provides a normalized, machine-readable view without deploying
+anything.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validate_and_inspect_a_composition"><a class="anchor" href="#_validate_and_inspect_a_composition"></a>Validate and inspect a composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use the full checkout with initialized submodules and the source-built CLI
+from <a href="#_install_and_test_dotx">Install and test dotx</a>. Run these commands from
+the <strong>DOT-Design root</strong>, in order in the same Bash terminal, with that <code>dotx</code> on
+<code>PATH</code>. Stop if a block fails. Keep any earlier quickstart
+or evaluation-kit attempt separate and verify its cleanup before switching
+binaries or catalogues.</p>
+</div>
+<div class="paragraph">
+<p>The canonical example connects Keycloak, APISIX, and an OAuth client. First
+check the committed lock and validate the declaration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
+dotx compose lock "$composition" --check &amp;&amp;
+dotx compose validate "$composition"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Continue only after both commands succeed. Inspect the locked graph in the
+terminal or as JSON:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose inspect "$composition" --locked &amp;&amp;
+dotx compose inspect "$composition" --locked --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The three Wires connect Keycloak discovery to APISIX, Keycloak&#8217;s token endpoint
+to the OAuth client, and APISIX&#8217;s protected operation to that client. Inspection
+shows the selected instances, endpoints, security requirements and configuration
+destinations. Preview the Kubernetes actions for that same locked graph:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply "$composition" --locked --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These commands start no workloads and write no lifecycle state. They may fetch
+and cache referenced documents. <code>lock --check</code> verifies the committed inputs;
+validation checks references and compatibility; the dry-run previews deployment
+commands. None of these checks establishes a live authenticated exchange.</p>
+</div>
+<div class="paragraph">
+<p>Read <a href="composition-lifecycle.html#validation-resolution-and-lifecycle" class="xref page">Validation,
+resolution, and lifecycle</a> before a live apply. For a prepared Kubernetes
+scenario that checks anonymous rejection and authenticated access, follow
+<a href="guided-demo.html" class="xref page">Guided demo</a> and
+<a href="verification-and-examples.html" class="xref page">Verification and examples</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verify_the_authoritative_repository"><a class="anchor" href="#_verify_the_authoritative_repository"></a>Verify the authoritative repository</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Recursively discover and validate every definition. External/internal paths
+record ownership; Contract-backed external/internal bundles receive the strict
+reusable profile:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate DOT-Repository
+dotx repository inspect \
+  contract-standards-provider@1.3.0 \
+  --repository DOT-Repository --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same command is the required DOT-Repository GitHub Actions gate for every
+change below <code>DOTs/</code> or <code>.gitmodules</code>. The filesystem is authoritative; no
+separate inventory or validation wrapper is maintained.</p>
+</div>
+<div class="paragraph">
+<p>Run <code>task testing:contracts:portability</code> to copy providers into isolated
+temporary directories and validate them offline against the explicit catalogue
+schema. For consumers, it first requires detached validation to fail with
+<code>CONTRACT_SOURCE_RESOLUTION</code>, then supplies an isolated catalogue containing
+only their explicitly declared origins. This is also part of
+<code>ci:repository-conformance</code>; it detects undeclared file fallbacks without
+pretending a dependency can resolve in isolation. Each owned Contract carries
+its complete URL/hash declaration. Offline verification uses the digest cache
+outside the bundle, never local Contract assets. See
+<a href="authoring-anchors.html" class="xref page">external Contract ownership and source references</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_the_composition_conformance_gate"><a class="anchor" href="#_run_the_composition_conformance_gate"></a>Run the composition conformance gate</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:conformance</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This gate combines Java domain tests, Go tests, repository-wide schema
+validation, Contract checks, composition validation/resolution, and dry-run
+scenario checks. It does not claim that external partner systems or production
+networks were exercised.</p>
+</div>
+<div class="paragraph">
+<p>Run only the versioned composition production profile with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:compose:acceptance</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This gate writes revision-pinned, secret-free JSON evidence below
+<code>DOT-Testing/e2e/target/</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-the-documentation"><a class="anchor" href="#build-the-documentation"></a>Build the documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Install the documentation toolchain once:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:setup</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then generate the Antora HTML site and PDF export:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:check
+task docs:build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generated artifacts are written under <code>DOT-Docs/build/site</code> and are intentionally
+ignored by Git. To build and serve the site locally:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <code><a href="http://localhost:8000" class="bare">http://localhost:8000</a></code>. Do not edit files under <code>DOT-Docs/build</code>; update the
+AsciiDoc sources instead.</p>
+</div>
+<div class="paragraph">
+<p>Mermaid sources are stored as Antora attachments and rendered locally by
+<code>task docs:diagrams</code>. The renderer produces SVG for the HTML site and
+high-resolution PNG for PDF export; both outputs are committed so a clean
+checkout can resolve every Antora resource. Each source includes an accessible
+title and description, and each AsciiDoc image macro supplies alternative text.</p>
+</div>
+<div class="paragraph">
+<p><code>task docs:build</code> regenerates the diagrams before building either output. The
+toolchain is version-pinned and does not send architecture content to an
+external rendering service. Edit the <code>.mmd</code> source, never the generated SVG or
+PNG, then run the full documentation build to verify both renderers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_where_to_continue"><a class="anchor" href="#_where_to_continue"></a>Where to continue</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="guided-demo.html" class="xref page">Guided demo</a> for a presentation-ready walkthrough from
+catalogue validation to cross-standard resolution and optional live probes.</p>
+</li>
+<li>
+<p><a href="architecture.html" class="xref page">Architecture</a> for system and ownership boundaries.</p>
+</li>
+<li>
+<p><a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> for the model
+overview and task-oriented composition guides.</p>
+</li>
+<li>
+<p><a href="verification-and-examples.html" class="xref page">Verification and examples</a> for evidence
+levels and MARE PoC scenarios.</p>
+</li>
+<li>
+<p><a href="../dot-domain/index.html" class="xref page">DOT-Domain</a> for Java model details.</p>
+</li>
+<li>
+<p><a href="integration-handoff.html" class="xref page">Integration handoff</a> for catalogue and composer implementers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="integration-handoff.html">Integration handoff</a></span>
+  <span class="next"><a href="release-notes.html">Release notes</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script src="../../../_/js/sidebar.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

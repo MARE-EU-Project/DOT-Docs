@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DOT-Repository :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-repository/index.html">
+    <link rel="prev" href="../dot-design/contributor-guide.html">
+    <link rel="next" href="../dot-design/catalogue-versioning.html">
+    <meta name="description" content="Find exact tool releases, inspect their deployments and interfaces, validate catalogue definitions and reuse reviewed compositions.">
+    <meta name="generator" content="Antora 3.2.1">
+<script src="../../../_/js/color-theme.js"></script>
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+<link rel="stylesheet" href="../../../_/css/color-theme.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <div class="theme-control" hidden>
+        <label class="theme-label" for="color-theme">Theme</label>
+        <select id="color-theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.4.1/_exports/DOT-Design-0.4.1.pdf"
+              download="DOT-Design-0.4.1.pdf"
+              title="Download DOT-Design 0.4.1 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.4.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../dot-design/index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-first-dot.html">1. Run your first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-authoring.html">2. Create an interface-aware DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-composition.html">3. Connect two DOTs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-dashboard.html">4. Grow the system with Grafana</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-next-steps.html">5. Larger and secured systems</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Quick start: run one DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">External DOT examples</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/production-readiness.html">Production integration checklist and limits</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/guided-demo.html">Guided demos</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-domain/model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Repository</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Catalogue overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/catalogue-versioning.html">Products and tool releases</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">DOT examples and deployments</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Create or improve a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">Reusable composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/production-readiness.html">Interface coverage and readiness</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.4.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../dot-design/index.html">0.4.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.4.0/dot-design/index.html">0.4.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../dot-design/index.html">DOT-Design</a></li>
+    <li>DOT-Repository</li>
+    <li><a href="index.html">Catalogue overview</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.4.1</button>
+  <div class="version-menu">
+    <a class="version is-current" href="index.html">0.4.1</a>
+    <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
+    <a class="version is-missing" href="../../0.3.0/dot-design/index.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">DOT-Repository</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Find a tool, choose its deployment and connect it to others.</strong> DOT-Repository
+is the version-controlled catalogue used by <code>dotx</code>. It holds reusable DOT
+definitions, capability references, generated schemas and reviewed compositions.
+It can be cloned independently of the DOT-Design development workspace.</p>
+</div>
+<div class="paragraph">
+<p>New to the ecosystem? Start with <a href="../dot-design/dots-for-dummies.html" class="xref page">DOTs for Dummies</a>,
+then follow <a href="../dot-design/dots-in-action.html" class="xref page">DOTs in Action</a> to use and create real
+DOTs. For installation and repository access, use
+<a href="../dot-design/getting-started.html" class="xref page">Getting started</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_find_and_inspect_a_dot"><a class="anchor" href="#_find_and_inspect_a_dot"></a>Find and inspect a DOT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use one matching CLI/catalogue revision set. Released walkthroughs use the
+catalogue recorded in the CLI release manifest. For current-source work, use
+one DOT-Design checkout&#8217;s pinned CLI and catalogue; a version label alone does
+not identify later changes. See
+<a href="../dot-design/adopting-dot.html" class="xref page">compatibility and access guidance</a>.</p>
+</div>
+<div class="paragraph">
+<p>With that CLI installed, run from the <strong>DOT-Repository checkout root</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository list --repository .
+dotx repository inspect Prometheus@3.15.1 --repository .
+dotx repository resolve Prometheus@3.15.1 --repository .</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: the discovered catalogue, details of that exact Prometheus release
+and the path to its <code>dot.json</code>. Inspection helps you choose an explicit
+deployment ID; it does not start a service. These commands create no workloads,
+so no runtime cleanup is needed.</p>
+</div>
+<div class="paragraph">
+<p>Read the selected release&#8217;s adjacent README for prerequisites, supported
+deployment choices, interface limitations and the kind of evidence available.
+Use <a href="../dot-design/getting-started.html" class="xref page">the Prometheus quickstart</a> for an actual
+deployment, API check and cleanup. Many catalogue examples are previews rather
+than complete live walkthroughs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understand_the_layout"><a class="anchor" href="#_understand_the_layout"></a>Understand the layout</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT-Repository/
+  DOTs/
+    external/&lt;product&gt;/&lt;tool-release&gt;/dot.json
+    internal/&lt;product&gt;/&lt;tool-release&gt;/dot.json
+    testing/...
+  Skills/
+  Compositions/
+  Schema/</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Directory</th>
+<th class="tableblock halign-left valign-top">What belongs there</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOTs/external/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tools owned outside MARE. External ownership does not establish readiness.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOTs/internal/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Components owned or developed within MARE.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOTs/testing/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clearly identified synthetic, source-adapted, planning or runtime-test definitions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Skills/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Capability definitions referenced by the DOTs' textual Skill IDs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Compositions/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable use-case graphs with reviewed locks, README guidance and non-secret inputs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Schema/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON Schemas generated from DOT-Domain. Catalogue authors do not define a second model here.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>DOTs/</code> filesystem is the index: definitions are discovered recursively.
+Current catalogue publication uses one product folder with exact release
+leaves. Each release has one canonical <code>dot.json</code> containing all its supported
+runtime/deployment alternatives. There is no mutable <code>latest</code> copy.
+The released tutorial&#8217;s pinned catalogue may retain the historical layout;
+identity-based CLI lookups avoid depending on either directory spelling.
+See <a href="../dot-design/catalogue-versioning.html" class="xref page">products and supported releases</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validate_declarations"><a class="anchor" href="#_validate_declarations"></a>Validate declarations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the same <strong>DOT-Repository checkout root</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate .</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This discovers the DOT definitions and reusable compositions, checks their
+applicable declaration rules and references, verifies declared URL/hash
+documents, and validates the required reviewed composition locks. Downloads
+may be needed. <code>--offline</code> requires an already verified cache; missing or corrupt
+bytes fail rather than silently changing the selected inputs.</p>
+</div>
+<div class="paragraph">
+<p>Validation starts no workloads. It is separate from a successful deployment,
+live API acceptance and production readiness:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Evidence</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base/reusable validation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The selected declaration rules and applicable interface bindings pass.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Strict interface profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--profile interoperable</code> checks declared Contract coverage for Anchors and
+exposed service ports. Catalogue entries can still have explicit interface gaps.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Live acceptance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The recorded producer, deployment and operations passed the exercised runtime
+assertions, with a recorded cleanup result. It does not qualify every alternative or API.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Do not add placeholder Contracts to make a readiness result green. Prefer
+release-matched official specifications. Keep source-derived Contracts,
+explicit interface gaps, runtime-only components and test fixtures clearly
+identified. See <a href="../dot-design/production-readiness.html" class="xref page">readiness and integration limits</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reuse_and_contribute"><a class="anchor" href="#_reuse_and_contribute"></a>Reuse and contribute</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Use a DOT:</strong> inspect its exact release and follow its supported quickstart.</p>
+</li>
+<li>
+<p><strong>Improve a definition:</strong> keep the product identity, interfaces and deployment
+alternatives together. Follow <a href="../dot-cli/authoring.html" class="xref page">safe DOT authoring and editing</a>.</p>
+</li>
+<li>
+<p><strong>Add a use case:</strong> keep scenario-specific configuration outside product
+definitions. Use <a href="../dot-cli/composition-authoring.html" class="xref page">composition authoring</a>,
+then review its topology and lock before any deployment.</p>
+</li>
+<li>
+<p><strong>Operate a composition:</strong> follow its own prerequisites, live assertions and
+ownership-safe cleanup. The
+<a href="../dot-design/mare-poc-compositions.html" class="xref page">composition walkthroughs</a> explain the
+qualified paths and remaining boundaries.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Repository">Open the catalogue on GitHub</a>.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../dot-design/contributor-guide.html">Development and testing</a></span>
+  <span class="next"><a href="../dot-design/catalogue-versioning.html">Products and tool releases</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script src="../../../_/js/sidebar.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>
