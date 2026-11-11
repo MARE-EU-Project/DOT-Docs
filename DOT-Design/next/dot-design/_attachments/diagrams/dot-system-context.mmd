@@ -26,9 +26,9 @@ flowchart LR
   CLI -->|deploy one| Runtime
   Runtime -->|verify separately| Evidence
 
-  classDef definition fill:#e8f2f7,stroke:#2b6777,color:#17232d;
-  classDef operation fill:#eef6f3,stroke:#39826f,color:#17232d;
-  classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d;
+  classDef definition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
+  classDef operation fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
+  classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   class Domain,Catalogue,Dot,Composition definition;
   class CLI,Evidence operation;
   class Runtime runtime;

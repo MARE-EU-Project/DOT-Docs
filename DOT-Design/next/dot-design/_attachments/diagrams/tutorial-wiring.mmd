@@ -1,4 +1,4 @@
-%%{init: {"themeCSS": ".edgeLabel rect { opacity: 1 !important; }", "flowchart": {"wrappingWidth": 280, "rankSpacing": 40}}}%%
+%%{init: {"flowchart": {"wrappingWidth": 280, "rankSpacing": 40}}}%%
 flowchart TB
   accTitle: One monitoring connection, three views
   accDescr: The composition Wire connects Node Exporter's node-metrics Anchor, which provides the interface, to Prometheus's scrape-target Anchor, which requires it. A materializer writes the Node Exporter endpoint into Prometheus's scrape configuration. The runtime panel reads left to right from Prometheus, the HTTP client and consumer, to Node Exporter, the HTTP server and provider. The Wire connects provider to consumer; the HTTP request goes from consumer to provider.
@@ -21,14 +21,14 @@ flowchart TB
     direction LR
     prometheus["Prometheus<br/>HTTP client (consumer)"]
     exporter["Node Exporter<br/>HTTP server (provider)"]
-    prometheus ==>|"HTTP GET /metrics"| exporter
+    prometheus -->|"HTTP GET /metrics"| exporter
   end
 
   declaration ~~~ configuration
   configuration ~~~ runtime
 
   classDef declared fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
-  classDef configured fill:#fff7d6,stroke:#98701d,color:#17232d,stroke-width:1.5px;
+  classDef configured fill:#fff7d6,stroke:#b7791f,color:#17232d,stroke-width:1.5px;
   classDef running fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
   class provides,requires declared;
   class endpoint,target configured;

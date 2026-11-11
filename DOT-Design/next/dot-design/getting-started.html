@@ -416,21 +416,91 @@ access using your host firewall. Cleanup deletes the example&#8217;s metrics dat
 </div>
 </div>
 <div class="sect1">
+<h2 id="_check_before_installing"><a class="anchor" href="#_check_before_installing"></a>Check before installing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Run these checks on the machine where you will run the example, as your normal
+user. If you connect over SSH, run the commands on that remote machine.
+Stop if a check fails; fix the missing tool or access before continuing.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>System:</strong> <code>uname -sm</code> should show <code>Linux x86_64</code> for this documented route.</p>
+</li>
+<li>
+<p><strong>Commands:</strong> <code>command -v bash git gh curl jq sha256sum</code> should print one
+executable path for each of the six commands. Install any missing tools first.</p>
+</li>
+<li>
+<p><strong>Docker:</strong> <code>docker info</code> must show Docker server details without a permission
+or connection error.</p>
+</li>
+<li>
+<p><strong>Compose:</strong> <code>docker compose version</code> must print a plugin version.
+The older <code>docker-compose</code> command is not used here.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sign_in_and_check_repository_access"><a class="anchor" href="#_sign_in_and_check_repository_access"></a>Sign in and check repository access</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need access to the private <code>MARE-EU-Project/DOT-CLI</code> release assets and
+<code>MARE-EU-Project/DOT-Repository</code> catalogue. Signing in to GitHub does not grant
+that access: ask your MARE project contact if you have not been invited.
+You can read the published books without repository access.</p>
+</div>
+<div class="paragraph">
+<p>Git handles the catalogue checkout. The GitHub CLI (<code>gh</code>) signs in and downloads
+the private release assets. Sign in once, then enable Git to use that account:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login &amp;&amp;
+gh auth setup-git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check that the account can see both repositories:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo view MARE-EU-Project/DOT-CLI --json nameWithOwner &amp;&amp;
+gh repo view MARE-EU-Project/DOT-Repository --json nameWithOwner</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: a JSON result naming each repository. If a command reports denied
+access or cannot find the repository, stop before downloading. Use
+<code>gh auth status</code> to check the active account, and ask your MARE project contact
+to resolve repository and release access if needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_install_the_released_cli"><a class="anchor" href="#_install_the_released_cli"></a>Install the released CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Authenticate with an account granted access to the private MARE repositories
-and releases. From a workspace directory:</p>
+<p>Run each block only after the previous block succeeds, in the same Bash
+terminal. From a workspace directory, download the binary and its checksum file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p dot-quickstart-download &amp;&amp;
+cd dot-quickstart-download &amp;&amp;
+gh release download v0.4.0 --repo MARE-EU-Project/DOT-CLI \
+  --pattern dotx-0.4.0-linux-amd64 --pattern SHA256SUMS</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify the downloaded bytes, then install the matching binary:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
-gh auth login &amp;&amp;
-gh auth setup-git &amp;&amp;
-mkdir -p dot-quickstart-download &amp;&amp;
-cd dot-quickstart-download &amp;&amp;
-gh release download v0.4.0 --repo MARE-EU-Project/DOT-CLI \
-  --pattern dotx-0.4.0-linux-amd64 --pattern SHA256SUMS &amp;&amp;
 mkdir -p "$HOME/.local/bin" &amp;&amp;
 sha256sum dotx-0.4.0-linux-amd64 |
   grep -Fx -f - SHA256SUMS &amp;&amp;
@@ -456,15 +526,13 @@ also provides an SBOM and build/acceptance revision manifest.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Only the independently cloneable catalogue is needed. Pin the acceptance
-revision recorded in this CLI release&#8217;s manifest, then check your Docker access:</p>
+revision recorded in this CLI release&#8217;s manifest so it matches the binary:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository &amp;&amp;
 cd DOT-Repository &amp;&amp;
-git checkout --detach 2b17ee681fbe8eed6822834484f87149b32fc772 &amp;&amp;
-docker info &amp;&amp;
-docker compose version</code></pre>
+git checkout --detach 2b17ee681fbe8eed6822834484f87149b32fc772</code></pre>
 </div>
 </div>
 <div class="paragraph">
