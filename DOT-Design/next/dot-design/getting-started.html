@@ -717,47 +717,53 @@ values in a private session file. Downloaded images remain cached.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_next_connect_existing_dots"><a class="anchor" href="#_next_connect_existing_dots"></a>Next: connect existing DOTs</h2>
+<h2 id="_next_connect_existing_dots"><a class="anchor" href="#_next_connect_existing_dots"></a>What next?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After verifying cleanup of this quickstart with its original binary, catalogue
-and Docker context, you can start a <strong>separate fresh evaluation attempt</strong> with
-<a href="evaluation-kit.html" class="xref page">one matching prebuilt kit and Docker monitoring</a>. The
-kit supplies its own matched binary/catalogue; keep that set fixed throughout
-that attempt. It requires no contributor build. The following Kubernetes
-example is a separate <strong>source-contributor/operator route</strong>.</p>
+<p>Your first run is complete once cleanup is verified with the original binary,
+catalogue and Docker context. Choose a next step:</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">You want to…</th>
+<th class="tableblock halign-left valign-top">Start here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Understand how the pieces fit together</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="dots-for-dummies.html" class="xref page">DOTs for Dummies</a> explains the model without requiring
+an installation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create your own DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="dots-in-action.html" class="xref page">DOTs in Action</a>. Start at Lesson 1 to set up the book&#8217;s
+private workspace and saved session, then author a definition in Lesson 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connect existing DOTs on Docker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="evaluation-kit.html" class="xref page">Evaluate with one matching kit</a>. Obtain an
+issuer-qualified kit from your project contact and begin a fresh attempt with
+its matching binary and catalogue. No contributor build is needed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explore authenticated APIs or contribute code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="contributor-guide.html#_validate_and_inspect_a_composition" class="xref page">The contributor
+composition preview</a> uses a full source checkout and its development CLI.
+The guide covers the additional toolchain and links to live operator scenarios.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>For the existing Keycloak/APISIX/OAuth composition, use a full DOT-Design
-checkout with initialized submodules; see <a href="contributor-guide.html" class="xref page">Contributor guide</a>.
-From the <strong>DOT-Design root</strong>, with <code>dotx</code> on <code>PATH</code>:</p>
-</div>
-<div class="paragraph">
-<p>This follow-up uses the source-built development CLI. Install the checked-out
-CLI using the contributor toolchain before continuing; released binaries do
-not necessarily implement the current commands or lock format.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
-task cli:install
-dotx compose lock "$composition" --check
-dotx compose inspect "$composition" --locked
-dotx compose apply "$composition" --locked --dry-run</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The three wires connect Keycloak discovery to APISIX, Keycloak&#8217;s token endpoint
-to the OAuth client, and APISIX&#8217;s protected operation to that client. The resolved composition
-resolves endpoints and configuration. Live acceptance additionally proves
-anonymous rejection and authenticated access; the harness prepares Kubernetes,
-native Secrets, and workloads. Follow <a href="guided-demo.html" class="xref page">Guided demo</a> and
-<a href="verification-and-examples.html" class="xref page">Verification and examples</a> for that path.</p>
-</div>
-<div class="paragraph">
-<p>To author a component, continue with <a href="authoring-anchors.html" class="xref page">Authoring Anchors</a>.
-For development toolchains and local/GitHub CI gates, use
-<a href="contributor-guide.html" class="xref page">Contributor guide</a>.</p>
+<p>In DOTs in Action, Lessons 1–2 are runnable; Lessons 3–4 remain previews until
+the <a href="dots-in-action.html#composition-completion-gate" class="xref page">released cleanup-audit gate</a>
+closes. Each route supplies its own setup; finish cleanup before changing
+binaries, catalogues or Docker contexts.</p>
 </div>
 </div>
 </div>

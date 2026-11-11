@@ -1144,36 +1144,57 @@ anything.</p>
 <h2 id="_validate_and_inspect_a_composition"><a class="anchor" href="#_validate_and_inspect_a_composition"></a>Validate and inspect a composition</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The canonical example connects Keycloak, APISIX, and an OAuth client:</p>
+<p>Use the full checkout with initialized submodules and the source-built CLI
+from <a href="#_install_and_test_dotx">Install and test dotx</a>. Run these commands from
+the <strong>DOT-Design root</strong>, in order in the same Bash terminal, with that <code>dotx</code> on
+<code>PATH</code>. Stop if a block fails. Keep any earlier quickstart
+or evaluation-kit attempt separate and verify its cleanup before switching
+binaries or catalogues.</p>
+</div>
+<div class="paragraph">
+<p>The canonical example connects Keycloak, APISIX, and an OAuth client. First
+check the committed lock and validate the declaration:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose lock \
-  DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml --check
-
-dotx compose validate \
-  DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
-
-dotx compose inspect \
-  DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
-
-dotx compose inspect \
-  DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml --json
-
-dotx compose apply \
-  DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml --dry-run</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml
+dotx compose lock "$composition" --check &amp;&amp;
+dotx compose validate "$composition"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>All five commands above are non-mutating. <code>lock --check</code> verifies the committed
-content-addressed input graph; <code>validate</code> answers whether references
-and compatibility can be resolved; <code>inspect</code> shows the exact instances, endpoints,
-security status, and materializers; <code>apply --dry-run</code> renders supported runtime
-actions without writing composition state.</p>
+<p>Continue only after both commands succeed. Inspect the locked graph in the
+terminal or as JSON:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose inspect "$composition" --locked &amp;&amp;
+dotx compose inspect "$composition" --locked --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The three Wires connect Keycloak discovery to APISIX, Keycloak&#8217;s token endpoint
+to the OAuth client, and APISIX&#8217;s protected operation to that client. Inspection
+shows the selected instances, endpoints, security requirements and configuration
+destinations. Preview the Kubernetes actions for that same locked graph:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply "$composition" --locked --dry-run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These commands start no workloads and write no lifecycle state. They may fetch
+and cache referenced documents. <code>lock --check</code> verifies the committed inputs;
+validation checks references and compatibility; the dry-run previews deployment
+commands. None of these checks establishes a live authenticated exchange.</p>
 </div>
 <div class="paragraph">
 <p>Read <a href="composition-lifecycle.html#validation-resolution-and-lifecycle" class="xref page">Validation,
-resolution, and lifecycle</a> before a live apply.</p>
+resolution, and lifecycle</a> before a live apply. For a prepared Kubernetes
+scenario that checks anonymous rejection and authenticated access, follow
+<a href="guided-demo.html" class="xref page">Guided demo</a> and
+<a href="verification-and-examples.html" class="xref page">Verification and examples</a>.</p>
 </div>
 </div>
 </div>
