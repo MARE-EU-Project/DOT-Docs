@@ -1,0 +1,56 @@
+classDiagram
+  direction TB
+  accTitle: Runtime choices and service-scoped deployment configuration
+  accDescr: A DOT offers Runtime alternatives. Each Runtime targets one Platform and offers Deployments. A Deployment has one polymorphic manifest and logical services with ports, Anchor bindings, and their own configuration requirements.
+
+  class Runtime
+  class Platform {
+    PlatformEngine engine
+    Version version
+  }
+  class Deployment {
+    String id
+  }
+  class DeploymentManifest {
+    <<abstract>>
+    DeploymentManifestType type
+  }
+  class DeploymentService {
+    String id
+    String name
+    String host
+    List~Contract~ contracts
+  }
+  class ServicePort {
+    String name
+    String protocol
+    Integer port
+  }
+  class AnchorBinding {
+    String anchorId
+    String port
+  }
+  class DeploymentConfig {
+    List~EnvironmentVariable~ environment
+    List~ConfigFile~ configFiles
+    List~VolumeMount~ volumes
+    List~CdiDeviceRequirement~ cdiDevices
+    OciRuntimeRequirements ociRuntime
+  }
+
+  Runtime "1" *-- "1" Platform : where
+  Runtime "1" *-- "1..*" Deployment : deployment alternatives
+  Deployment "1" *-- "1" DeploymentManifest : how
+  Deployment "1" *-- "0..*" DeploymentService : logical services
+  DeploymentService "1" *-- "0..*" ServicePort : named ports
+  DeploymentService "1" *-- "0..*" AnchorBinding : binds logical interfaces
+  DeploymentService "1" *-- "1" DeploymentConfig : supported configuration
+
+  style Runtime fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Platform fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Deployment fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style DeploymentManifest fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style DeploymentService fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style ServicePort fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style AnchorBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentConfig fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px

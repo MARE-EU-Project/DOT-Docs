@@ -1,0 +1,68 @@
+classDiagram
+  direction TB
+  accTitle: Composition instances, wires, and deployment inputs
+  accDescr: Composition is a separate aggregate that owns pinned DOT instances, wires, and exposed Anchors. Wires reference instance names and Anchor IDs, with optional materialization, security, and probes. Deployment inputs provide concrete configuration without copying reusable DOT definitions.
+
+  class Composition {
+    UUID id
+    String name
+    String version
+    String apiVersion
+    String kind
+    List~ContractInput~ contracts
+  }
+  class DotInstance {
+    String name
+    String source
+    String dotId
+    String dotVersion
+    String deployment
+    List~String~ dependsOn
+  }
+  class DeploymentInputs {
+    List~DeploymentEnvironment~ environment
+    List~DeploymentConfigFile~ configFiles
+    List~DeploymentVolumeSource~ volumes
+    List~ServiceWorkloadBinding~ workloads
+    List~CdiDeviceBinding~ cdiDevices
+    OciRuntimeGrant ociRuntime
+  }
+  class Wire {
+    String name
+    Map parameters
+    ServicePortReference endpoint
+    NetworkBinding network
+    WireSecurity security
+    WireProbe probe
+  }
+  class AnchorReference {
+    String instance
+    String anchorId
+  }
+  class Materializer {
+    String type
+    String source
+    String valueFrom
+    String uriTemplate
+    MaterializerTarget target
+  }
+  class ExposedAnchor {
+    String name
+  }
+
+  Composition "1" *-- "1..*" DotInstance : pinned instances
+  Composition "1" *-- "0..*" Wire : connections
+  Composition "1" *-- "0..*" ExposedAnchor : public entry points
+  DotInstance "1" *-- "0..1" DeploymentInputs : instance configuration
+  Wire "1" *-- "2" AnchorReference : from / to
+  Wire "1" *-- "0..*" Materializer : derived configuration
+  ExposedAnchor "1" *-- "1" AnchorReference : target
+  DotInstance <.. AnchorReference : instance name
+
+  style Composition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style DotInstance fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style Wire fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style ExposedAnchor fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style DeploymentInputs fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Materializer fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style AnchorReference fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px

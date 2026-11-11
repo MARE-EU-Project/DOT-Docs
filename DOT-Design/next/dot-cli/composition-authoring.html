@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create a composition :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-cli/composition-authoring.html">
+    <link rel="prev" href="authoring.html">
+    <link rel="next" href="../dot-design/external-dot-examples.html">
+    <meta name="description" content="Reuse a reviewed example or select exact DOTs to create a validated draft without deploying workloads.">
+    <meta name="generator" content="Antora 3.2.1">
+<script src="../../../_/js/color-theme.js"></script>
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+<link rel="stylesheet" href="../../../_/css/color-theme.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <div class="theme-control" hidden>
+        <label class="theme-label" for="color-theme">Theme</label>
+        <select id="color-theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
+              download="DOT-Design-next.pdf"
+              title="Download DOT-Design next as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="next">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../dot-design/index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Design</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-first-dot.html">1. Run your first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-authoring.html">2. Create an interface-aware DOT</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-composition.html">3. Connect two DOTs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-dashboard.html">4. Grow the system with Grafana</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/tutorial-next-steps.html">5. Larger and secured systems</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Quick start: run one DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">DOT Anchors and Composition</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Authoring Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-documents.html">Composition Documents and DOT Instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/wiring-and-security.html">Wiring, Materialization, and Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/composition-lifecycle.html">Composition Lifecycle and Design Guidance</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/verification-and-examples.html">Verification and examples</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">External DOT examples</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/production-readiness.html">Production integration checklist and limits</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/guided-demo.html">Guided demos</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Contributor guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-domain/model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-composition.html">Compositions and connections</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">CLI overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-design/adopting-dot.html">Compatibility, editor setup and preflight</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/compatibility.html">Compatibility and migration policy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="authoring.html">Author a DOT and its interfaces</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">Deployments and examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/anchors-and-composition.html">Compositions and lifecycle</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/guided-demo.html">Topology and guided demo</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/contributor-guide.html">Development and testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Repository</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-repository/index.html">Catalogue overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/catalogue-versioning.html">Products and tool releases</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/external-dot-examples.html">DOT examples and deployments</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="authoring.html">Create or improve a DOT</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/mare-poc-compositions.html">Reusable composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/production-readiness.html">Interface coverage and readiness</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">Next</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../0.4.1/dot-design/index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../dot-design/index.html">Next</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../0.4.1/dot-design/index.html">0.4.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.4.0/dot-design/index.html">0.4.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../dot-design/index.html">DOT-Design</a></li>
+    <li>DOT-CLI</li>
+    <li><a href="composition-authoring.html">Create a composition</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Next</button>
+  <div class="version-menu">
+    <a class="version is-current" href="composition-authoring.html">Next</a>
+    <a class="version" href="../../0.4.1/dot-cli/composition-authoring.html">0.4.1</a>
+    <a class="version" href="../../0.4.0/dot-cli/composition-authoring.html">0.4.0</a>
+    <a class="version" href="../../0.3.0/dot-cli/composition-authoring.html">0.3.0</a>
+    <a class="version is-missing" href="../../0.2.4/dot-design/index.html">0.2.4</a>
+    <a class="version is-missing" href="../../0.2.3/dot-design/index.html">0.2.3</a>
+    <a class="version is-missing" href="../../0.2.2/dot-design/index.html">0.2.2</a>
+    <a class="version is-missing" href="../../0.2.1/dot-design/index.html">0.2.1</a>
+    <a class="version is-missing" href="../../0.2.0/dot-design/index.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Create a composition</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>A DOT describes one component. A Composition chooses concrete deployments of
+several DOTs and connects their Anchors through Wires. Start from a catalogue
+example whose README describes your intended use case and its acceptance limits.
+The selected release <code>v0.4.1</code> and its matching source CLI
+provide template-based <code>dotx compose new</code>. Selecting DOTs with <code>--from-dots</code>
+is included in DOT-CLI 0.4.0. Use
+<a href="../dot-design/adopting-dot.html" class="xref page">a matching CLI and pinned catalogue</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_choose_preview_and_create"><a class="anchor" href="#_choose_preview_and_create"></a>Choose, preview and create</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From your pinned <strong>DOT-Repository checkout</strong>, warm its verified Contract cache once:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate .
+dotx compose new</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>0.4.0 uses native forms: arrows browse, typing filters, Enter selects,
+and Ctrl-C cancels. Choose a template, accept or edit its suggested name/output,
+review the preview, then explicitly choose <strong>Write draft</strong>. Ctrl-U clears a text
+field before replacement. The published v0.3.0 flow uses numbered prompts and
+requires an unused output path in an existing directory. Neither cancellation
+nor EOF publishes a file. Noninteractive creation requires all choices and
+<code>--yes</code>; no CI job needs to wait for input.</p>
+</div>
+<div class="paragraph">
+<p>For a repeatable exercise using the existing Node Exporter/Prometheus graph:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new \
+  --from Compositions/node-exporter-prometheus-monitoring/composition.yaml \
+  --name my-monitoring --output my-monitoring.yaml --offline --yes
+dotx compose lock my-monitoring.yaml --offline
+dotx compose inspect my-monitoring.yaml --offline --locked
+dotx compose topology my-monitoring.yaml --locked</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: a preview of two DOTs and one wire, a fresh ownership UUID, and a new
+YAML file with the same exact tool releases, deployment choices, Contract and
+Anchor IDs. The reviewed template and its lock are unchanged. The new lock is
+created only by your explicit <code>lock</code> command; review it before committing.
+The Composition graph version is retained; it is not another tool release.</p>
+</div>
+<div class="paragraph">
+<p>No workloads are started. Offline creation needs a warm verified Contract cache;
+without <code>--offline</code>, bounded downloads and cache writes may occur even if no
+draft is published. Printed follow-up commands retain <code>--offline</code> when selected.</p>
+</div>
+<details>
+<summary class="title">How draft validation works</summary>
+<div class="content">
+<div class="paragraph">
+<p>The command verifies its input byte snapshot against the template&#8217;s adjacent
+lock, applies changes to the Java-generated Composition model, preserves ordinary
+YAML shape/comments, then checks the rendered values exactly and validates the
+candidate with the same generated schema and resolver. YAML merge keys are expanded
+by the YAML parser where necessary: inherited IDs, names and file sources must
+receive the intended new values too. Authoring uses a fresh model of the verified
+input bytes, separate from inferred execution services and probes. It does not
+infer compatibility, invent wires, copy product definitions, download templates
+from Git, change secret values or start a runtime.</p>
+</div>
+</div>
+</details>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_review_shared_inputs_before_customization"><a class="anchor" href="#_review_shared_inputs_before_customization"></a>Review shared inputs before customization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Filesystem sources are rebased to the template&#8217;s existing inputs, <strong>not copied</strong>.
+This avoids silent configuration duplication, but editing a referenced file
+would affect both compositions. Copy an input to your intended directory and
+change the new composition&#8217;s <code>source</code> before customizing it. Repository DOT and
+Contract sources, absolute host bind grants and Secret references retain their identities.
+Host bind paths are not rebased as if they were relative configuration documents.</p>
+</div>
+<div class="paragraph">
+<p>A fresh UUID prevents lifecycle-state adoption; it does <strong>not</strong> isolate fixed
+ports, application/workload names, named storage or externally owned gateways.
+Review these, Kubernetes namespaces and credentials before any real deployment.
+Existing collision, ownership, configuration and probe safety checks still apply.
+A checked resolved composition or generated topology is not live producer acceptance, security
+hardening or independent adopter acceptance. The template README&#8217;s limitations
+continue to apply; creation does not qualify an untested producer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_recover_and_clean_up"><a class="anchor" href="#_recover_and_clean_up"></a>Recover and clean up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Creator failures now include a stable diagnostic code and a specific recovery
+hint, without printing raw parser, filesystem or download errors:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CONTRACT_CACHE_MISS</code> / cold offline cache: validate the pinned owner/catalogue
+online, then retry offline. Investigate digest mismatches; never change a pin
+merely to bypass verification.</p>
+</li>
+<li>
+<p><code>COMPOSITION_NEW_TEMPLATE_SCHEMA</code>: validate the template against the generated schema.</p>
+</li>
+<li>
+<p><code>COMPOSITION_NEW_TEMPLATE_LOCK</code> / missing or stale lock: inspect the original
+inputs and lock diff. Review an intentional template update separately;
+creation never repairs the lock.</p>
+</li>
+<li>
+<p><code>COMPOSITION_NEW_OUTPUT_PARENT</code> / missing or symlinked parent: create/select
+an existing real directory without directory symlinks.</p>
+</li>
+<li>
+<p><code>COMPOSITION_NEW_OUTPUT_LOCK</code> or <code>COMPOSITION_NEW_PUBLISH</code> / existing output or
+adjacent lock: choose an unused destination; there is no <code>--force</code> mode.</p>
+</li>
+<li>
+<p><code>COMPOSITION_NEW_RESOLUTION</code>: validate exact releases, Contract origins and
+deployment choices using the same repository/offline options.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For diagnostic detail, run <code>dotx compose validate &lt;template&gt; --locked --json</code>.
+Creator messages withhold raw parser values, URLs, credentials and filesystem
+or download errors. Failure never automatically repairs inputs/locks, starts a
+runtime or publishes a partial draft. Diagnostics are executor output, not a new model.</p>
+</div>
+<div class="paragraph">
+<p>Complete private bytes are published without overwriting a concurrently created
+file. Non-overwriting publication needs hard-link support; unsupported filesystems
+fail closed. No lifecycle state, workloads, networks or volumes are created.
+Remove only the exercise&#8217;s <code>my-monitoring.yaml</code> and <code>my-monitoring.lock.json</code>
+when finished. For a reusable catalogue contribution, choose its final directory
+before creating it, add a README, review its lock and use
+<code>dotx compose topology &lt;composition.yaml&gt; --write</code> to generate its topology docs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_current_source_alternative_build_from_selected_dots"><a class="anchor" href="#_current_source_alternative_build_from_selected_dots"></a>Current-source alternative: build from selected DOTs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The selection table shows the exact DOT release, catalogue origin and declared
+interfaces. The following deployment table groups that DOT&#8217;s choices by engine,
+type and profile. Origin comes from the same ownership/evidence paths
+used by catalogue validation. <code>testing</code> can include fixtures or planning
+definitions; <code>Contracts</code> and <code>Anchors</code> describe declarations,
+not live compatibility or production readiness. No entries are silently hidden.</p>
+</div>
+<div class="paragraph">
+<p>After publication, the summary names the saved file, declaration-validation
+boundary and unchanged runtime state. It prints copyable commands to inspect
+the draft, explicitly create its lock and inspect it locked, retaining the
+selected repository and offline mode. None of these actions runs automatically.
+Review shared inputs and the newly created lock before any deployment.</p>
+</div>
+<div class="paragraph">
+<p>The selected release <code>v0.4.1</code> includes the configuration-transfer
+and publication safety corrections described below. Future <strong>Next</strong> changes
+require that checkout&#8217;s matching CLI source build; a version label alone does
+not identify later source fixes. Follow
+<a href="../dot-design/compatibility.html" class="xref page">the source/release compatibility guidance</a>.
+From the matching DOT-Repository checkout, with verified cached Contracts:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new --from-dots --repository . --offline --name my-monitoring</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Omit <code>--name</code> to open a native Huh <strong>Composition name</strong> field prefilled with a
+random, readable suggestion such as <code>calm-otter</code>. Enter accepts it; Ctrl-U clears
+the field so you can type a replacement. Names, paths, selections and
+confirmations all use the shared form interface, not just the choice menus.</p>
+</div>
+<div class="paragraph">
+<p>The adjective–animal suggestion varies each run; compound animal names are
+hyphenated too (for example <code>calm-guinea-pig</code>). Ctrl-C cancels a native form;
+the line fallback also supports <code>q</code>. EOF or an incomplete form aborts without
+publishing or accepting defaults. The same field is used by current-source
+template creation. Existing catalogue folder/file names are skipped, but a
+suggestion does not reserve a destination: final publication checks still reject
+concurrent collisions. An explicit <code>--name</code> is retained exactly and skips the
+prompt; noninteractive <code>--yes</code> still requires it. This friendly label is separate
+from the fresh ownership UUID and is not a secret or security identifier.</p>
+</div>
+<div class="paragraph">
+<p>Select exact releases and explicit deployments. The native <strong>Instance name</strong> field
+is prefilled with a lowercase, hyphenated label derived from the selected tool&#8217;s
+name, such as <code>prometheus</code>.</p>
+</div>
+<div class="paragraph">
+<p>Press Enter to use it, or Ctrl-U and type a unique label such as <code>metrics-primary</code>.
+Suggestions skip aliases already used in this composition: <code>prometheus</code>, then
+<code>prometheus-2</code>, <code>prometheus-3</code>, and so on. Explicit duplicate names are rejected;
+custom names are never silently rewritten. Cancel or EOF never accepts an
+unanswered default. This label does not change the selected DOT&#8217;s
+identity or tool release, and does not isolate fixed workload names, ports or
+storage. Existing compositions and locks are not renamed or regenerated.</p>
+</div>
+<div class="paragraph">
+<p>Deployment choices put the platform first, followed by the manifest type and
+the exact profile ID:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">ENGINE      | DEPLOYMENT TYPE  | PROFILE
+DOCKER      | DOCKER_COMPOSE   | docker-compose
+DOCKER      | DOCKER_IMAGE     | docker
+KUBERNETES  | HELM_CHART       | helm-chart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Options are grouped by engine, then manifest type, retaining the declared profile
+order within each group. Only the selected DOT&#8217;s deployments are listed; the
+menu is not filtered by locally installed tools because authoring does not deploy.
+The profile ID distinguishes alternatives with the same engine and type.
+Headers and columns stay aligned while filtering, in both scrolling and numbered
+menus. Untrusted display text is escaped rather than interpreted by the terminal.</p>
+</div>
+<div class="paragraph">
+<p>The native scrolling selector lets you browse <strong>all</strong> catalogue DOTs
+with ↑/↓, type initial letters such as <code>Pro</code> or <code>Key</code> to filter immediately,
+select with Enter and cancel with Ctrl-C. Backspace edits the case-insensitive
+substring query; no <code>/</code> prefix is needed. New and edit use this same TUI. Deployment,
+Anchor and connection choices use the same UI. No DOT, Contract or Anchor ID
+needs to be constructed manually.</p>
+</div>
+<div class="paragraph">
+<p>For a screen reader or the numbered interface, set <code>DOTX_NO_TUI=1</code> or
+<code>ACCESSIBLE=1</code> before the command. Redirected output, small and <code>TERM=dumb</code>
+terminals also use this non-redrawing fallback: <code>/text</code> filters, <code>n</code>/<code>p</code> pages, a displayed
+number selects and <code>q</code> cancels. The header states the visible range and total;
+the first 12 rows are not the whole catalogue. The UI does not change validation
+or perform any deployment. Input must still be a terminal; piped input is rejected.
+The native Go interface uses <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>
+through <a href="https://github.com/charmbracelet/huh">Huh</a> form components. Views share
+navigation and cancellation behavior without owning model validation, deployment
+or cleanup logic.
+Draft publication uses <strong>Write draft / Cancel</strong> buttons, initially selecting
+<strong>Cancel</strong>: Enter alone does not authorize a write. Existing defaults containing
+control characters use an explained escaped line fallback when a single-line
+form cannot preserve them losslessly. Original bytes remain authoritative.
+If you omit <code>--output</code>, press Enter to accept
+<code>Compositions/my-monitoring/composition.yaml</code> inside the selected catalogue.
+From DOT-Design, <code>--repository DOT-Repository</code> instead suggests
+<code>DOT-Repository/Compositions/my-monitoring/composition.yaml</code>. This is a draft&#8217;s
+storage location, not a deployment destination. The same default applies to the
+current-source interactive template flow. Missing default folders are created
+only after validation and explicit write confirmation; cancellation creates no
+folders. A composition name used as a folder must be one path component, not
+<code>.</code>/<code>..</code> or a path; other valid display names can use an explicit output path.</p>
+</div>
+<div class="paragraph">
+<p>A relative <code>--repository</code> path is relative to your current working directory,
+not the draft&#8217;s directory. The current-source resolver retains an absolute
+execution location, so a draft saved elsewhere still deploys the selected
+catalogue bundle. Portable sources and lock identities remain <code>repository://</code>
+references; no machine-local path is written into the authored YAML or lock.</p>
+</div>
+<div class="paragraph">
+<p>To save elsewhere, enter another path at the prompt or supply <code>--output</code>.
+An explicit output&#8217;s parent must already exist. Existing files, adjacent locks
+and directory symlinks are refused; there is no overwrite mode. Publication
+failure attempts private-staging cleanup but can retain public folders or a complete
+candidate for review. It never removes public names whose ownership may have
+changed concurrently. Creating the catalogue draft
+does not add a README, topology artifacts or a lock; review and complete those
+before contributing the composition.
+The directory reviewed before confirmation must retain its identity. A replaced
+parent or newly appeared adjacent lock stops publication; directory-confined
+staging cannot follow a replacement symlink into another folder.
+If the destination or adjacent lock changes during publication, the command
+reports failure; inspect any retained complete candidate and folders before
+retrying. It does not delete a possible peer replacement to make cleanup appear
+successful. Cancellation before confirmation still creates nothing.
+For the real monitoring example choose Node Exporter and Prometheus, then connect
+<code>node-metrics</code> to <code>scrape-target</code>. Select a config-file materializer deriving
+<code>ENDPOINT_HOST_PORT</code>, targeting Prometheus&#8217;s declared configuration file and the
+existing scrape-target JSON Pointer. Input paths are relative to the new YAML;
+review the existing monitoring README rather than inventing a producer interface.</p>
+</div>
+<div class="paragraph">
+<p>If you already supplied a direct configuration file or environment binding for
+the same service target, the wizard asks whether to <strong>transfer that target to the
+Wire</strong>. Confirm only after reviewing the named instance, service and target. The
+draft then retains one binding; it does not remove the input file or read a
+Secret value. Declining or cancelling stops without publishing. Preview checks
+these merged inputs using the same conflict rules as execution, without fetching
+Secret values or starting services.</p>
+</div>
+<div class="paragraph">
+<p>The menu labels connections accepted, incompatible or UNKNOWN using the ordinary
+compatibility authority. UNKNOWN is not verified; required authentication must
+be explicitly bound and checked. Required operation parameters and service
+configuration are separate from identifiers. Enter native Secret <strong>references</strong>,
+never their values. A reviewed optional <code>DeploymentInputs</code> YAML/JSON fragment
+uses the exact generated model for advanced workload selectors, volumes and
+OCI/CDI grants; paths resolve beside the new composition, not beside the fragment.
+Missing, ambiguous, unsupported or unsafe inputs fail closed without output.</p>
+</div>
+<div class="paragraph">
+<p>Brokered AsyncAPI send/receive pairs require a separately selected broker
+service/port, including existing MQTT, NATS, Kafka and AMQP profiles. This endpoint
+is not another Anchor wire. Cross-runtime pairs require an explicit, already
+provisioned <code>EXTERNAL_GATEWAY</code> host/port. The operator owns that gateway and its
+cleanup; the CLI neither creates networking infrastructure nor uses host-network
+fallbacks. The complete graph still passes the existing resolver&#8217;s constraints.</p>
+</div>
+<div class="paragraph">
+<p>Expected: exact deployment choices and a topology preview, then explicit write
+confirmation. A fresh ownership UUID and generated-model round-trip check precede
+non-overwriting publication. No lock is created, no existing state is adopted and
+nothing is deployed. <code>--from-dots</code> cannot be combined with <code>--from</code> or <code>--yes</code>,
+and requires a terminal. A complete validated draft is not live API acceptance.</p>
+</div>
+<div class="paragraph">
+<p>After reviewing the YAML and every referenced input, explicitly create and review
+its lock using the same catalogue/offline options, then follow the real monitoring
+or authenticated secure-API acceptance route. Declaration validation does not
+qualify a catalogue gap, producer double or fixture for production use.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="authoring.html">Author a DOT and its interfaces</a></span>
+  <span class="next"><a href="../dot-design/external-dot-examples.html">Deployments and examples</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script src="../../../_/js/sidebar.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

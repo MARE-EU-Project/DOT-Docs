@@ -1,0 +1,328 @@
+---
+config:
+  layout: elk
+  class:
+    hideEmptyMembersBox: true
+  elk:
+    mergeEdges: true
+    nodePlacementStrategy: NETWORK_SIMPLEX
+---
+classDiagram
+  direction LR
+  accTitle: Complete DOT-Domain class diagram
+  accDescr: All 77 exported public model types. Java-derived containment, associations, references and manifest inheritance. Scalar fields, accessors and validation implementation classes are omitted.
+
+  namespace Identity {
+    class DataFormat {
+      <<enumeration>>
+    }
+    class Dot
+    class Metadata
+    class Payload
+    class Skill
+    class Version
+  }
+
+  namespace Anchors {
+    class Anchor
+    class AnchorContract
+    class AnchorDirection {
+      <<enumeration>>
+    }
+    class AnchorRequirement {
+      <<enumeration>>
+    }
+    class AnchorRole {
+      <<enumeration>>
+    }
+  }
+
+  namespace Compositions {
+    class AnchorReference
+    class AsyncAPIProbe
+    class AsyncAPIProbeAuthentication
+    class AsyncAPIProtocol {
+      <<enumeration>>
+    }
+    class CdiDeviceBinding
+    class ComposeWorkloadBinding
+    class Composition
+    class ContractInput
+    class DeploymentConfigFile
+    class DeploymentEnvironment
+    class DeploymentInputs
+    class DeploymentVolumeSource
+    class DotInstance
+    class ExposedAnchor
+    class GRPCProbe
+    class GRPCResponseMatch {
+      <<enumeration>>
+    }
+    class GraphQLOperation
+    class GraphQLProbe
+    class GraphQLTransport {
+      <<enumeration>>
+    }
+    class JSONExpectation
+    class KubernetesWorkloadBinding
+    class Materializer
+    class MaterializerTarget
+    class MaterializerType {
+      <<enumeration>>
+    }
+    class MaterializerValueFrom {
+      <<enumeration>>
+    }
+    class NetworkBinding
+    class OciRuntimeGrant
+    class OpenAPIProbe
+    class OperationParameterBinding
+    class SecretReference
+    class SecurityBinding
+    class SecurityParameterBinding
+    class ServicePortReference
+    class ServiceReference
+    class ServiceWorkloadBinding
+    class Wire
+    class WireProbe
+    class WireSecurity
+  }
+
+  namespace Contracts {
+    class Contract
+    class ContractStandard {
+      <<enumeration>>
+    }
+  }
+
+  namespace Deployments {
+    class AnchorBinding
+    class Deployment
+    class DeploymentManifestType {
+      <<enumeration>>
+    }
+    class DeploymentService
+    class ServicePort
+  }
+
+  namespace Configuration {
+    class ConfigFile
+    class DeploymentConfig
+    class EnvironmentVariable
+    class VolumeMount
+    class CdiDeviceRequirement
+    class OciLinuxNamespace {
+      <<enumeration>>
+    }
+    class OciRuntimeRequirements
+  }
+
+  namespace Manifests {
+    class DeploymentManifest {
+      <<abstract>>
+    }
+    class DockerCompose
+    class DockerImage
+    class DockerImageTag
+    class EnvFile
+    class HelmChart
+    class HelmValues
+    class KubernetesManifest
+    class Vagrantfile
+    class WebAssemblyExecution {
+      <<enumeration>>
+    }
+    class WebAssemblyModule
+  }
+
+  namespace Runtimes {
+    class Runtime
+    class Platform
+    class PlatformEngine {
+      <<enumeration>>
+    }
+  }
+
+  DeploymentManifest <|-- DockerCompose
+  DeploymentManifest <|-- DockerImage
+  DeploymentManifest <|-- HelmChart
+  DeploymentManifest <|-- KubernetesManifest
+  DeploymentManifest <|-- Vagrantfile
+  DeploymentManifest <|-- WebAssemblyModule
+  Dot "1" *-- "1" Metadata : metadata
+  Dot "1" ..> "1..*" Skill : skills (ref)
+  Dot "1" *-- "1" Version : version
+  Dot "1" *-- "0..*" Anchor : anchors
+  Dot "1" *-- "0..*" Contract : contracts
+  Dot "1" *-- "0..*" Runtime : runtimes
+  Anchor "1" *-- "0..1" AnchorContract : contract
+  Anchor "1" --> "0..1" AnchorDirection : direction
+  Anchor "1" --> "0..1" AnchorRequirement : requirement
+  Anchor "1" --> "1" AnchorRole : role
+  AsyncAPIProbeAuthentication "1" *-- "1" SecretReference : passwordSecretRef
+  AsyncAPIProbe "1" *-- "0..1" AsyncAPIProbeAuthentication : authentication
+  AsyncAPIProbe "1" --> "1" AsyncAPIProtocol : protocol
+  Composition "1" *-- "0..*" ContractInput : contracts
+  Composition "1" *-- "1..*" DotInstance : dots
+  Composition "1" *-- "0..*" ExposedAnchor : exposedAnchors
+  Composition "1" *-- "0..*" Wire : wires
+  DeploymentEnvironment "1" *-- "0..1" SecretReference : secretRef
+  DeploymentInputs "1" *-- "0..*" CdiDeviceBinding : cdiDevices
+  DeploymentInputs "1" *-- "0..*" DeploymentConfigFile : configFiles
+  DeploymentInputs "1" *-- "0..*" DeploymentEnvironment : environment
+  DeploymentInputs "1" *-- "0..*" DeploymentVolumeSource : volumes
+  DeploymentInputs "1" *-- "0..1" OciRuntimeGrant : ociRuntime
+  DeploymentInputs "1" *-- "0..*" ServiceWorkloadBinding : workloads
+  DotInstance "1" *-- "0..1" DeploymentInputs : deploymentInputs
+  ExposedAnchor "1" *-- "1" AnchorReference : target
+  GRPCProbe "1" --> "0..1" GRPCResponseMatch : responseMatch
+  GRPCProbe "1" *-- "0..1" JSONExpectation : expect
+  GraphQLProbe "1" *-- "0..1" GraphQLOperation : cleanup
+  GraphQLProbe "1" *-- "0..1" GraphQLOperation : trigger
+  GraphQLProbe "1" *-- "0..1" GraphQLOperation : verify
+  GraphQLProbe "1" --> "0..1" GraphQLTransport : transport
+  GraphQLProbe "1" *-- "0..1" JSONExpectation : expect
+  Materializer "1" *-- "1" MaterializerTarget : target
+  Materializer "1" --> "1" MaterializerType : type
+  Materializer "1" --> "0..1" MaterializerValueFrom : valueFrom
+  OciRuntimeGrant "1" --> "0..*" OciLinuxNamespace : hostNamespaces
+  OpenAPIProbe "1" *-- "1" JSONExpectation : expect
+  SecurityBinding "1" *-- "1..*" SecurityParameterBinding : parameters
+  SecurityBinding "1" *-- "1" ServiceReference : participant
+  ServiceWorkloadBinding "1" *-- "0..1" ComposeWorkloadBinding : compose
+  ServiceWorkloadBinding "1" *-- "0..1" KubernetesWorkloadBinding : kubernetes
+  WireProbe "1" *-- "0..1" AsyncAPIProbe : asyncapi
+  WireProbe "1" *-- "0..1" GRPCProbe : grpc
+  WireProbe "1" *-- "0..1" GraphQLProbe : graphql
+  WireProbe "1" *-- "0..1" OpenAPIProbe : openapi
+  WireSecurity "1" *-- "1..*" SecurityBinding : bindings
+  Wire "1" *-- "1" AnchorReference : from
+  Wire "1" *-- "1" AnchorReference : to
+  Wire "1" *-- "0..1" Materializer : materializer
+  Wire "1" *-- "0..*" Materializer : materializers
+  Wire "1" *-- "0..1" NetworkBinding : network
+  Wire "1" *-- "0..*" OperationParameterBinding : parameters
+  Wire "1" *-- "0..1" ServicePortReference : endpoint
+  Wire "1" *-- "0..1" WireProbe : probe
+  Wire "1" *-- "0..1" WireSecurity : security
+  Contract "1" --> "1" DataFormat : format
+  Contract "1" *-- "0..1" Payload : payload
+  Contract "1" --> "1" ContractStandard : standard
+  DeploymentManifestType "1" --> "0..1" PlatformEngine : platform
+  DeploymentService "1" ..> "0..*" Contract : contracts (ref)
+  DeploymentService "1" *-- "0..*" AnchorBinding : anchorBindings
+  DeploymentService "1" *-- "0..*" ServicePort : ports
+  DeploymentService "1" *-- "1" DeploymentConfig : config
+  Deployment "1" *-- "0..*" DeploymentService : services
+  Deployment "1" *-- "1" DeploymentManifest : manifest
+  ConfigFile "1" *-- "0..1" Payload : payload
+  DeploymentConfig "1" *-- "0..*" ConfigFile : configFiles
+  DeploymentConfig "1" *-- "0..*" EnvironmentVariable : environment
+  DeploymentConfig "1" *-- "0..*" VolumeMount : volumes
+  DeploymentConfig "1" *-- "0..*" CdiDeviceRequirement : cdiDevices
+  DeploymentConfig "1" *-- "0..1" OciRuntimeRequirements : ociRuntime
+  OciRuntimeRequirements "1" --> "0..*" OciLinuxNamespace : hostNamespaces
+  DeploymentManifest "1" --> "1" DeploymentManifestType : type
+  DockerCompose "1" --> "1" DataFormat : format
+  DockerCompose "1" *-- "1" Payload : payload
+  DockerCompose "1" *-- "0..*" EnvFile : envFiles
+  DockerImage "1" *-- "1" DockerImageTag : image
+  DockerImage "1" *-- "0..*" EnvFile : envFiles
+  EnvFile "1" *-- "1" Payload : payload
+  HelmChart "1" *-- "1" Version : version
+  HelmChart "1" *-- "0..*" HelmValues : values
+  HelmValues "1" --> "1" DataFormat : format
+  HelmValues "1" *-- "1" Payload : payload
+  KubernetesManifest "1" --> "1" DataFormat : format
+  KubernetesManifest "1" *-- "1" Payload : payload
+  Vagrantfile "1" *-- "1" Payload : payload
+  WebAssemblyModule "1" --> "1" WebAssemblyExecution : execution
+  Runtime "1" *-- "1..*" Deployment : deployments
+  Runtime "1" *-- "1" Platform : platform
+  Platform "1" *-- "1" Version : version
+  Platform "1" --> "1" PlatformEngine : engine
+  DotInstance ..> Dot : dotId / source
+  AnchorReference ..> DotInstance : instance
+  AnchorReference ..> Anchor : anchorId
+  AnchorContract ..> Contract : id
+  AnchorBinding ..> Anchor : anchorId
+  AnchorBinding ..> ServicePort : port
+  ContractInput ..> Contract : id
+
+  style DataFormat fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Dot fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style Metadata fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Payload fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Skill fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Version fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Anchor fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style AnchorContract fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style AnchorDirection fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style AnchorRequirement fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style AnchorRole fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style AnchorReference fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style AsyncAPIProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style AsyncAPIProbeAuthentication fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style AsyncAPIProtocol fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style CdiDeviceBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ComposeWorkloadBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Composition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style ContractInput fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentConfigFile fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentEnvironment fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentInputs fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentVolumeSource fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DotInstance fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ExposedAnchor fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style GRPCProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style GRPCResponseMatch fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style GraphQLOperation fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style GraphQLProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style GraphQLTransport fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style JSONExpectation fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style KubernetesWorkloadBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Materializer fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style MaterializerTarget fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style MaterializerType fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style MaterializerValueFrom fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style NetworkBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style OciRuntimeGrant fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style OpenAPIProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style OperationParameterBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style SecretReference fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style SecurityBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style SecurityParameterBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ServicePortReference fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ServiceReference fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ServiceWorkloadBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Wire fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style WireProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style WireSecurity fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Contract fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ContractStandard fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style AnchorBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Deployment fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentManifestType fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style DeploymentService fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ServicePort fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ConfigFile fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentConfig fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style EnvironmentVariable fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style VolumeMount fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style CdiDeviceRequirement fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style OciLinuxNamespace fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style OciRuntimeRequirements fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentManifest fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style DockerCompose fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DockerImage fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DockerImageTag fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style EnvFile fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style HelmChart fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style HelmValues fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style KubernetesManifest fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Vagrantfile fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style WebAssemblyExecution fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style WebAssemblyModule fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Platform fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style PlatformEngine fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px

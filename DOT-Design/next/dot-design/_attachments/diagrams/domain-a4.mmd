@@ -1,0 +1,67 @@
+---
+config:
+  layout: elk
+  class:
+    hideEmptyMembersBox: true
+    nodeSpacing: 16
+    rankSpacing: 25
+    padding: 6
+---
+classDiagram
+  direction LR
+  accTitle: DOT-Domain A4 overview
+  accDescr: Core class relationships. The accompanying generated family inventory covers every supporting public type; the complete diagram shows every type individually.
+
+  class Dot
+  class Skill
+  class Contract
+  class Anchor
+  class Runtime
+  class Platform
+  class Deployment
+  class DeploymentManifest
+  class DeploymentService
+  class DeploymentConfig
+  class Composition
+  class DotInstance
+  class Wire
+  class AnchorReference
+  class Materializer
+  class DeploymentInputs
+  class WireProbe
+  Dot ..> Skill
+  Dot *-- Anchor
+  Dot *-- Contract
+  Dot *-- Runtime
+  Composition *-- DotInstance
+  Composition *-- Wire
+  DotInstance *-- DeploymentInputs
+  Wire *-- AnchorReference
+  Wire *-- Materializer
+  Wire *-- WireProbe
+  DeploymentService ..> Contract
+  DeploymentService *-- DeploymentConfig
+  Deployment *-- DeploymentService
+  Deployment *-- DeploymentManifest
+  Runtime *-- Deployment
+  Runtime *-- Platform
+  DotInstance ..> Dot
+  AnchorReference ..> DotInstance
+  AnchorReference ..> Anchor
+  style Dot fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style Skill fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Anchor fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style AnchorReference fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Composition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style DeploymentInputs fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DotInstance fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Materializer fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Wire fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style WireProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Contract fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Deployment fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentService fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentConfig fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style DeploymentManifest fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style Runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Platform fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
