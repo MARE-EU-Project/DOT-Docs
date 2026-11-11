@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Getting started :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.0/dot-design/getting-started.html">
-    <link rel="prev" href="index.html">
-    <link rel="next" href="zero-to-hero.html">
+    <link rel="prev" href="dots-for-dummies.html">
+    <link rel="next" href="dots-in-action.html">
     <meta name="description" content="Install dotx, deploy Prometheus with Docker Compose, verify its API, and clean up.">
     <meta name="generator" content="Antora 3.2.1">
 <script src="../../../_/js/color-theme.js"></script>
@@ -68,16 +68,16 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="index.html">Overview</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -228,7 +228,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -395,7 +395,8 @@ gh release download v0.4.0 --repo MARE-EU-Project/DOT-CLI \
 mkdir -p "$HOME/.local/bin" &amp;&amp;
 sha256sum dotx-0.4.0-linux-amd64 |
   grep -Fx -f - SHA256SUMS &amp;&amp;
-  install -m 0755 dotx-0.4.0-linux-amd64 "$HOME/.local/bin/dotx" &amp;&amp;
+  install -m 0755 dotx-0.4.0-linux-amd64 \
+    "$HOME/.local/bin/dotx" &amp;&amp;
 export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
 dotx version &amp;&amp;
 cd ..</code></pre>
@@ -447,24 +448,31 @@ default is not permission to adopt an existing project. For a different host por
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD}" &amp;&amp;
-DOT_DEFINITION="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")" &amp;&amp;
+DOT_DEFINITION="$(dotx repository resolve Prometheus@3.15.1 \
+  --repository "$DOT_REPOSITORY")" &amp;&amp;
 DOT_BUNDLE="$(dirname -- "$DOT_DEFINITION")" &amp;&amp;
 DOT_NAME="${DOT_NAME:-dot-quickstart-$RANDOM-$RANDOM}" &amp;&amp;
 DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}" &amp;&amp;
 DOT_PROJECT_FILTER="label=com.docker.compose.project=$DOT_NAME" &amp;&amp;
 export DOTX_HTTP_PORT &amp;&amp;
-printf 'Selected: Prometheus 3.15.1; instance %s; host port %s. Keep this shell for cleanup.\n' "$DOT_NAME" "$DOTX_HTTP_PORT"</code></pre>
+printf 'Selected: Prometheus 3.15.1; instance %s; host port %s.\n' \
+  "$DOT_NAME" "$DOTX_HTTP_PORT" &amp;&amp;
+printf 'Keep this shell for cleanup.\n'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
-printf 'Checking the definition and previewing Docker Compose; nothing starts yet...\n'
-dotx validate "$DOT_BUNDLE" --schema "$DOT_REPOSITORY/Schema/schema.json" \
+printf '%s\n' \
+  'Checking the definition and previewing Docker Compose;' \
+  'nothing starts yet...'
+dotx validate "$DOT_BUNDLE" \
+  --schema "$DOT_REPOSITORY/Schema/schema.json" \
   --profile reusable
 dotx inspect "$DOT_BUNDLE"
-dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" --dry-run
+dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+  --name "$DOT_NAME" --dry-run
 )</code></pre>
 </div>
 </div>
@@ -481,7 +489,8 @@ prints its commands; it does not prove that a service is running.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+  --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"</code></pre>
 </div>
 </div>
@@ -506,19 +515,23 @@ for ((attempt=0; attempt&lt;60; attempt++)); do
     break
   fi
   if ((SECONDS &gt;= next_notice)); then
-    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' \
+      "$((attempt + 1))" "$((SECONDS - started))"
     next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
 if ! $ready; then
-  printf 'Prometheus readiness timed out. Run the cleanup block before retrying.\n' &gt;&amp;2
+  printf '%s\n' \
+    'Prometheus readiness timed out.' \
+    'Run the cleanup block before retrying.' &gt;&amp;2
   exit 1
 fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
-printf 'Verified: Prometheus 3.15.1 answered its official API. Open http://127.0.0.1:%s/\n' "$DOTX_HTTP_PORT"
+printf 'Verified: Prometheus 3.15.1 answered its official API.\n'
+printf 'Open http://127.0.0.1:%s/\n' "$DOTX_HTTP_PORT"
 )</code></pre>
 </div>
 </div>
@@ -573,7 +586,8 @@ same <code>DOT_NAME</code> as deployment. Never target another user&#8217;s inst
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx destroy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx destroy "$DOT_BUNDLE" --deployment docker-compose \
+  --name "$DOT_NAME" &amp;&amp;
 remaining="$(docker ps -aq --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
 test -z "$remaining" &amp;&amp;
 remaining="$(docker network ls -q --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
@@ -590,7 +604,7 @@ same run in a new shell, set <code>DOT_NAME</code> to its original value and
 <code>DOTX_HTTP_PORT</code> to its original port, change to that same catalogue checkout,
 then repeat the selection and cleanup blocks. Do not accept a newly generated
 name for cleanup. Retain the original CLI, cache and Docker context until cleanup
-is verified. The <a href="zero-to-hero.html" class="xref page">Zero to Hero tutorial</a> saves these
+is verified. The <a href="dots-in-action.html" class="xref page">DOTs in Action</a> saves these
 values in a private session file. Downloaded images remain cached.</p>
 </div>
 </div>
@@ -599,10 +613,12 @@ values in a private session file. Downloaded images remain cached.</p>
 <h2 id="_next_connect_existing_dots"><a class="anchor" href="#_next_connect_existing_dots"></a>Next: connect existing DOTs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For the newcomer evaluation route, continue with
-<a href="evaluation-kit.html" class="xref page">one matching prebuilt kit and Docker monitoring</a>. It
-keeps the same binary and catalogue and requires no contributor build. The
-following Kubernetes example is a separate <strong>source-contributor/operator route</strong>.</p>
+<p>After verifying cleanup of this quickstart with its original binary, catalogue
+and Docker context, you can start a <strong>separate fresh evaluation attempt</strong> with
+<a href="evaluation-kit.html" class="xref page">one matching prebuilt kit and Docker monitoring</a>. The
+kit supplies its own matched binary/catalogue; keep that set fixed throughout
+that attempt. It requires no contributor build. The following Kubernetes
+example is a separate <strong>source-contributor/operator route</strong>.</p>
 </div>
 <div class="paragraph">
 <p>For the existing Keycloak/APISIX/OAuth composition, use a full DOT-Design
@@ -682,7 +698,7 @@ with the same name and explicit <code>--env</code> override.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check network/proxy access to the declared URL. Never bypass its digest.
 Private raw GitHub URLs require <code>MARE_READ_ONLY_TOKEN</code> or <code>GITHUB_TOKEN</code>;
 <code>gh</code> login alone does not supply those to <code>dotx</code>. Use <code>--offline</code> only with
-matching verified local Contract assets.</p></td>
+matching documents already in the verified local cache.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Readiness or version fails</p></td>
@@ -708,7 +724,8 @@ Compose document. No resources are changed or removed.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
-containers="$(docker ps -aq --filter "label=com.docker.compose.project=$DOT_NAME")"
+containers="$(docker ps -aq \
+  --filter "label=com.docker.compose.project=$DOT_NAME")"
 if test -z "$containers"; then
   printf 'No containers found for this instance: %s\n' "$DOT_NAME" &gt;&amp;2
   exit 1
@@ -734,8 +751,8 @@ Contributors rehearse them from DOT-Design with
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Overview</a></span>
-  <span class="next"><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></span>
+  <span class="prev"><a href="dots-for-dummies.html">DOTs for Dummies</a></span>
+  <span class="next"><a href="dots-in-action.html">DOTs in Action</a></span>
 </nav>
 </article>
   </div>

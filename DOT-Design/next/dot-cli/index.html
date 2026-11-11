@@ -69,15 +69,15 @@
     <a class="nav-link" href="../dot-design/index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -228,7 +228,7 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -416,7 +416,7 @@ presenter pause for inspecting verified live results before cleanup.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Author a DOT; create a separate editing candidate in 0.4.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx new</code>; current source: <code>dotx edit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx new</code>; <code>dotx edit</code> (both available in 0.4.0)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Operate one selected DOT deployment</p></td>
@@ -463,25 +463,10 @@ is shown as <code>unknown</code>. Plain <code>version</code> remains a single li
 alone does not identify the exact source build used for a rehearsal.</p>
 </div>
 <div class="paragraph">
-<p>Current source keeps mounted literal/default configuration files separate for
-each execution, including Docker image deployments and previews. Docker image
-replacement verifies the existing container&#8217;s selected DOT/deployment/runtime
-ownership and removes its exact ID; a foreign collision stops the command.
-Kubernetes literal environment overrides replace an earlier <code>valueFrom</code> source
-on the selected container. These fixes require a matching source build; they do
-not change the already published binary or establish live API acceptance.
-Compose path-based lifecycle also retains verified dotenv inputs needed for
-native interpolation and profile selection. Its live preflight uses Compose&#8217;s
-<code>config --variables</code> and <code>config --profiles</code> support; dry-runs remain previews.
-The matching Next executor reserves <code>DOTX_COMPOSE_</code> for private staging.
-Use another prefix for workload variables, native interpolation and operator
-defaults; a collision is refused before changing the deployment.</p>
-</div>
-<div class="paragraph">
-<p>For the matching Next build, review the
-<a href="../dot-design/authoring-anchors.html#runtime-configuration-portability" class="xref page">configuration and ownership boundaries</a>,
-including ordered dotenv overrides, service isolation and handling older native
-resources. Keep the original CLI and execution context for existing workloads.</p>
+<p>For source selection and existing-workload recovery, use the matching
+CLI/catalogue and retain the original binary and execution context. See
+<a href="#next-configuration-and-ownership">Next configuration and ownership details</a>
+when configuring or replacing workloads.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -666,35 +651,59 @@ dotx inspect DOT-Repository/DOTs/external/Prometheus-DOT/3.15.1 --json</code></p
 </div>
 </div>
 <div class="paragraph">
-<p>The default overview lists every deployment&#8217;s ID, platform, manifest type,
-service count and required inputs, followed by short Contract, Anchor and Skill
-previews. It never automatically chooses a deployment. <code>INPUTS*</code> counts required
-environment/config-file declarations without defaults for each service; it is
-not a readiness result. Storage and host/device declarations are flagged
+<p>The default overview starts with the <code>dot.json</code> fields <code>id</code>, <code>name</code>, <code>version</code>,
+optional <code>description</code> and <code>groups</code>, and a <code>metadata</code> tree with <code>created</code> / <code>updated</code>.
+<code>version</code> is the represented tool release, not the catalogue revision or CLI
+version. The displayed <code>dot.json</code> path is local inspection context.</p>
+</div>
+<div class="paragraph">
+<p>The <code>runtimes</code> tree preserves each Runtime&#8217;s original position (<code>[0]</code>, <code>[1]</code>,
+and so on), its <code>platform</code> with <code>engine</code> and <code>version</code>, and its own <code>deployments</code>
+table. Each table lists every deployment&#8217;s <code>id</code>, <code>manifest.type</code> and <code>services</code>
+count. Runtimes remain separate even when their Platform
+values match; empty deployment lists are shown explicitly.
+Tables have outer borders, column edges and a separate header band, including
+the deployment tables nested inside the Runtime tree.
+On a terminal, headings are cyan, field names bold and borders dim;
+<code>PROVIDES</code> is green and <code>REQUIRES</code> magenta. The role words remain visible.
+Colors are disabled for redirected output, <code>TERM=dumb</code>, <code>ACCESSIBLE=1</code>, or a
+non-empty <code>NO_COLOR</code> value. For example, use <code>NO_COLOR=1 dotx inspect &lt;DOT-path&gt;</code>.
+<code>--json</code> always emits plain JSON, including when stdout is a terminal.
+The <code>contracts</code>, <code>anchors</code> and <code>skills</code> tables use the declared field names,
+with separate <code>id</code> and <code>name</code> columns where applicable. <strong>Every Anchor is shown</strong>,
+grouped under <code>role: PROVIDES</code> (interfaces this tool offers) and <code>role: REQUIRES</code>
+(interfaces this tool needs from other tools). Source order is preserved within
+each role; empty role groups are omitted. Contract and Skill previews show up to three entries each;
+use <code>--verbose</code> for the remaining entries and detailed declarations.
+It never automatically chooses a deployment. Required environment/config-file
+declarations remain available in <code>--verbose</code> and <code>--json</code>. Storage and host/device declarations are flagged
 separately so you can review persistence and permissions before deploying.</p>
 </div>
 <div class="paragraph">
-<p>Use <code>--verbose</code> for IDs, all interfaces/selectors, service bindings and detailed
-configuration declarations. <code>--json</code> preserves the complete structured report
+<p>Use <code>--verbose</code> for all Contract details, selectors, service bindings and detailed
+configuration declarations. <code>--json</code> includes the same root description,
+groups and metadata in the complete structured report
 and overrides <code>--verbose</code> when combined. Invalid sensitive defaults are rejected
 in every mode; provide secrets through deployment-instance inputs instead.
 Inspection does not start workloads, test runtime availability or prove live
-API acceptance. It does not replace <code>dotx validate</code>.</p>
+API acceptance. It does not replace <code>dotx validate</code>.
+The tree/table layout is a terminal view; it does not change the structured
+<code>--json</code> report or add a Runtime field to that report.</p>
 </div>
 <div class="paragraph">
 <p>Root Contract metadata comes directly from complete <code>dot.json</code> declarations;
-ID-only roots fail rather than importing metadata from local files. JSON keeps
-the existing report structure, IDs and ordering. Inspection never downloads
+ID-only roots fail rather than importing metadata from local files. Existing
+JSON report fields and ordering are retained; <code>description</code>, <code>groups</code> and
+<code>metadata</code> are additive root fields. Inspection never downloads
 or verifies payload bytes; use <code>dotx validate</code> for that separate check.
 Validation caches digest-verified bytes outside the DOT. Warm it online once
 before <code>--offline</code>; a cold cache fails without requests or writes. Deployment
 support uses the same capability list as deploy/lifecycle, including WebAssembly.</p>
 </div>
 <div class="paragraph">
-<p>Human output provides a validation command and a dry-run template. Choose an
-exact deployment ID from the displayed choices and replace <code>&lt;deployment-id&gt;</code>;
-inspection never selects one automatically. Remote Git targets instead require
-a persistent checkout for these next steps, since their inspection clone is
+<p>Human output ends with one concrete, quoted validation command. Inspection never
+selects or deploys an alternative automatically. Remote Git targets instead
+require a persistent checkout before validation, since their inspection clone is
 temporary.</p>
 </div>
 </div>
@@ -759,6 +768,30 @@ whether stdout contains JSON. These failure-report guarantees do not extend to
 runtime <code>apply</code>, <code>upgrade</code>, <code>probe</code> or <code>status</code> commands. No lock is regenerated
 automatically, and an unknown wire remains an explicit limitation rather than
 live acceptance.</p>
+</div>
+<div class="sect2">
+<h3 id="next-configuration-and-ownership"><a class="anchor" href="#next-configuration-and-ownership"></a>Next configuration and ownership details</h3>
+<div class="paragraph">
+<p>Current source keeps mounted literal/default configuration files separate for
+each execution, including Docker image deployments and previews. Docker image
+replacement verifies the existing container&#8217;s selected DOT/deployment/runtime
+ownership and removes its exact ID; a foreign collision stops the command.
+Kubernetes literal environment overrides replace an earlier <code>valueFrom</code> source
+on the selected container. These fixes require a matching source build; they do
+not change the already published binary or establish live API acceptance.
+Compose path-based lifecycle also retains verified dotenv inputs needed for
+native interpolation and profile selection. Its live preflight uses Compose&#8217;s
+<code>config --variables</code> and <code>config --profiles</code> support; dry-runs remain previews.
+The matching Next executor reserves <code>DOTX_COMPOSE_</code> for private staging.
+Use another prefix for workload variables, native interpolation and operator
+defaults; a collision is refused before changing the deployment.</p>
+</div>
+<div class="paragraph">
+<p>For the matching Next build, review the
+<a href="../dot-design/authoring-anchors.html#runtime-configuration-portability" class="xref page">configuration and ownership boundaries</a>,
+including ordered dotenv overrides, service isolation and handling older native
+resources. Keep the original CLI and execution context for existing workloads.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_recover_from_a_composition_runtime_failure"><a class="anchor" href="#_recover_from_a_composition_runtime_failure"></a>Recover from a composition runtime failure</h3>

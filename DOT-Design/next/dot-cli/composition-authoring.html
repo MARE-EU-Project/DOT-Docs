@@ -69,15 +69,15 @@
     <a class="nav-link" href="../dot-design/index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -228,7 +228,7 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -469,50 +469,37 @@ hint, without printing raw parser, filesystem or download errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CONTRACT_CACHE_MISS</code>: warm the pinned owner/catalogue online, then retry offline.</p>
+<p><code>CONTRACT_CACHE_MISS</code> / cold offline cache: validate the pinned owner/catalogue
+online, then retry offline. Investigate digest mismatches; never change a pin
+merely to bypass verification.</p>
 </li>
 <li>
 <p><code>COMPOSITION_NEW_TEMPLATE_SCHEMA</code>: validate the template against the generated schema.</p>
 </li>
 <li>
-<p><code>COMPOSITION_NEW_TEMPLATE_LOCK</code>: inspect and explicitly review an intentional template-lock update.</p>
+<p><code>COMPOSITION_NEW_TEMPLATE_LOCK</code> / missing or stale lock: inspect the original
+inputs and lock diff. Review an intentional template update separately;
+creation never repairs the lock.</p>
 </li>
 <li>
-<p><code>COMPOSITION_NEW_OUTPUT_PARENT</code>: choose an existing real directory without directory symlinks.</p>
+<p><code>COMPOSITION_NEW_OUTPUT_PARENT</code> / missing or symlinked parent: create/select
+an existing real directory without directory symlinks.</p>
 </li>
 <li>
-<p><code>COMPOSITION_NEW_OUTPUT_LOCK</code> or <code>COMPOSITION_NEW_PUBLISH</code>: choose an unused destination; there is no force mode.</p>
+<p><code>COMPOSITION_NEW_OUTPUT_LOCK</code> or <code>COMPOSITION_NEW_PUBLISH</code> / existing output or
+adjacent lock: choose an unused destination; there is no <code>--force</code> mode.</p>
 </li>
 <li>
-<p><code>COMPOSITION_NEW_RESOLUTION</code>: validate exact releases, Contract origins and deployment choices using the same repository/offline options.</p>
+<p><code>COMPOSITION_NEW_RESOLUTION</code>: validate exact releases, Contract origins and
+deployment choices using the same repository/offline options.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Failure never automatically repairs inputs or locks, starts a runtime, or
-publishes a partial draft. Diagnostic wording is executor output, not a new model.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Missing or stale template lock: inspect the original inputs and lock diff.
-Fix an intentional change in the template separately; creation never repairs it.</p>
-</li>
-<li>
-<p>Existing output or adjacent lock: choose a new path. There is no <code>--force</code>.</p>
-</li>
-<li>
-<p>Missing or symlinked output parent: create/select a real directory first.</p>
-</li>
-<li>
-<p>Cold offline cache: run online validation of the pinned catalogue first.
-Digest mismatches require investigation, not changing a pin to bypass checks.</p>
-</li>
-<li>
-<p>Need diagnostic detail: run <code>dotx compose validate &lt;template&gt; --locked --json</code>.
-Creator failure messages withhold raw parser values, URLs and credentials.</p>
-</li>
-</ul>
+<p>For diagnostic detail, run <code>dotx compose validate &lt;template&gt; --locked --json</code>.
+Creator messages withhold raw parser values, URLs, credentials and filesystem
+or download errors. Failure never automatically repairs inputs/locks, starts a
+runtime or publishes a partial draft. Diagnostics are executor output, not a new model.</p>
 </div>
 <div class="paragraph">
 <p>Complete private bytes are published without overwriting a concurrently created

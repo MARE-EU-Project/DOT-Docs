@@ -41,10 +41,10 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
-              download="DOT-Design-next.pdf"
-              title="Download DOT-Design next as PDF"
-            >Download PDF</a>
+              href="../../../DOT-Design/next/_exports/dots-in-action.pdf"
+              download="dots-in-action.pdf"
+              title="Download DOTs in Action as PDF"
+            >Download book PDF</a>
           </span>
         </div>
       </div>
@@ -68,15 +68,15 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -227,7 +227,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -335,7 +335,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></li>
+    <li><a href="dots-in-action.html">DOTs in Action</a></li>
     <li><a href="tutorial-dashboard.html">4. Grow the system with Grafana</a></li>
   </ul>
 </nav>
@@ -391,12 +391,15 @@ service-scoped declaration for its supported admin-password environment option:<
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
 set -o noclobber
-GRAFANA_JSON="$(dotx repository resolve Grafana@13.3.0 --repository "$DOT_REPOSITORY")"
+GRAFANA_JSON="$(dotx repository resolve Grafana@13.3.0 \
+  --repository "$DOT_REPOSITORY")"
 mkdir "$LAB/grafana"
 jq '.runtimes[0].deployments[0].services[0].config.environment +=
-  [{"name":"GF_SECURITY_ADMIN_PASSWORD","required":true,"sensitive":true}]' \
+  [{"name":"GF_SECURITY_ADMIN_PASSWORD",
+    "required":true,"sensitive":true}]' \
   "$GRAFANA_JSON" &gt; "$LAB/grafana/dot.json"
-dotx validate "$LAB/grafana/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
+dotx validate "$LAB/grafana/dot.json" \
+  --repository "$DOT_REPOSITORY" --profile reusable
 
 cat &gt; "$LAB/grafana-prometheus.yml" &lt;&lt;'YAML'
 apiVersion: 1
@@ -515,6 +518,11 @@ operation. Its materializer writes the selected Prometheus base URL into
 scraping; the second configures querying.</p>
 </div>
 <div class="paragraph">
+<p>Here <code>/datasources/0/url</code> selects <code>url</code> in the first datasource entry. It
+replaces the <code>.invalid</code> placeholder URL you created in <code>grafana-prometheus.yml</code>
+with this graph&#8217;s Prometheus base URL.</p>
+</div>
+<div class="paragraph">
 <p><code>secretRef</code> names a host environment variable; it contains no password. The
 executor resolves it at apply time. Do not paste a sensitive <code>value</code> into the
 composition. Docker environment delivery is still visible to an authorized
@@ -524,16 +532,25 @@ Docker administrator; it is not a vault or native Kubernetes Secret.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
-dotx compose validate "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
+dotx compose validate "$LAB/dashboard.yaml" \
+  --repository "$DOT_REPOSITORY"
 dotx compose lock "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
-dotx compose topology "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" --locked
-printf 'Extended graph verified: three DOTs, two Wires. Next: supply a lab password, then preview and apply.\n'
+dotx compose topology "$LAB/dashboard.yaml" \
+  --repository "$DOT_REPOSITORY" --locked
+printf 'Extended graph verified: three DOTs, two Wires.\n'
+printf 'Next: supply a lab password, then preview and apply.\n'
 )</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: <strong>three DOTs, two Wires</strong>. Review
-the new lock separately. Creating or inspecting it does not require the password.</p>
+<p>Expected: <strong>three DOTs, two Wires</strong>. Open <code>$LAB/dashboard.lock.json</code> and use
+<a href="tutorial-composition.html#tutorial-lock-review" class="xref page">Lesson 3&#8217;s lock-field checklist</a>.
+Keep the local Prometheus and catalogue Node Exporter selections. The additional
+<code>dots[]</code> entry must have <code>instance: "grafana"</code>, <code>source: "./grafana"</code>,
+<code>dotId: "Grafana@13.3.0"</code>, <code>deploymentId: "docker"</code> and a definition <code>digest</code>.
+The <code>inputs[]</code> now also pin <code>grafana-prometheus.yml</code> and <code>grafana-empty.yml</code>.
+Creating or inspecting the lock does not require the password; never paste a
+secret value into it.</p>
 </div>
 </div>
 </div>
@@ -541,13 +558,31 @@ the new lock separately. Creating or inspecting it does not require the password
 <div class="sect1">
 <h2 id="tutorial-grafana-password"><a class="anchor" href="#tutorial-grafana-password"></a>Set a password and start the extended system</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>On the pinned CLI <code>0.4.0</code> route, stop before the live apply block below. The
+<a href="dots-in-action.html#composition-completion-gate" class="xref page">composition completion gate</a>
+remains open. Read the launch and checks as a preview; do not switch binaries
+in an existing lab.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Use a new lab-only password. The prompt does not echo it or put it in shell
 history. Keep this environment and the same binary for the lifecycle:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">if read -r -s -p 'Choose a lab-only Grafana admin password: ' HERO_GRAFANA_PASSWORD &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">if read -r -s -p 'Choose a lab-only Grafana admin password: ' \
+  HERO_GRAFANA_PASSWORD &amp;&amp;
   test -n "$HERO_GRAFANA_PASSWORD"; then
   printf '\n'
   export HERO_GRAFANA_PASSWORD
@@ -567,11 +602,17 @@ Runtime preflight, including the dry-run, needs the referenced password availabl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf 'Previewing, then starting Node Exporter, Prometheus and Grafana; pinned images may need downloading...\n'
-dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
-  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT" &amp;&amp;
-dotx compose apply "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" \
-  --locked --forward "prometheus-query=$TUTORIAL_PORT" --forward "dashboard=$DASHBOARD_PORT"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf '%s\n' \
+  'Previewing, then starting Node Exporter, Prometheus and Grafana;' \
+  'pinned images may need downloading...'
+dotx compose apply "$LAB/dashboard.yaml" \
+  --repository "$DOT_REPOSITORY" --locked --dry-run \
+  --forward "prometheus-query=$TUTORIAL_PORT" \
+  --forward "dashboard=$DASHBOARD_PORT" &amp;&amp;
+dotx compose apply "$LAB/dashboard.yaml" \
+  --repository "$DOT_REPOSITORY" --locked \
+  --forward "prometheus-query=$TUTORIAL_PORT" \
+  --forward "dashboard=$DASHBOARD_PORT"</code></pre>
 </div>
 </div>
 </div>
@@ -595,24 +636,30 @@ set -o pipefail
 dashboard_ready=false
 started=$SECONDS
 next_notice=$SECONDS
-printf 'Checking Grafana 13.3.0 health on port %s...\n' "$DASHBOARD_PORT"
+printf 'Checking Grafana 13.3.0 health on port %s...\n' \
+  "$DASHBOARD_PORT"
 for ((attempt=0; attempt&lt;90; attempt++)); do
-  if curl --fail --silent --max-time 3 "http://127.0.0.1:$DASHBOARD_PORT/api/health" |
+  if curl --fail --silent --max-time 3 \
+    "http://127.0.0.1:$DASHBOARD_PORT/api/health" |
     jq -e '.database == "ok" and .version == "13.3.0"' &gt;/dev/null; then
     dashboard_ready=true
     break
   fi
   if ((SECONDS &gt;= next_notice)); then
-    printf 'Waiting for Grafana: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    printf 'Waiting for Grafana: attempt %s/90, %ss elapsed\n' \
+      "$((attempt + 1))" "$((SECONDS - started))"
     next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
 if ! $dashboard_ready; then
-  printf 'Grafana health check timed out. Inspect compose status, then run the Lesson 4 cleanup block before retrying.\n' &gt;&amp;2
+  printf '%s\n' \
+    'Grafana health check timed out. Inspect compose status, then run' \
+    'the Lesson 4 cleanup block before retrying.' &gt;&amp;2
   exit 1
 fi
-printf 'Ready: Grafana 13.3.0 at http://127.0.0.1:%s/\n' "$DASHBOARD_PORT"
+printf 'Ready: Grafana 13.3.0 at http://127.0.0.1:%s/\n' \
+  "$DASHBOARD_PORT"
 )</code></pre>
 </div>
 </div>
@@ -653,8 +700,9 @@ set -o pipefail
 # curl reads credentials from a private file, not command-line arguments.
 credentials="$(mktemp "$LAB/grafana.curl.XXXXXXXX")"
 trap 'rm -f -- "$credentials"' EXIT
-(umask 077; jq -nr '"user = " + ("admin:" + env.HERO_GRAFANA_PASSWORD | tojson)' \
-  &gt; "$credentials")
+(umask 077; jq -nr '
+  "user = " + ("admin:" + env.HERO_GRAFANA_PASSWORD | tojson)
+' &gt; "$credentials")
 dashboard_queried=false
 started=$SECONDS
 next_notice=$SECONDS
@@ -673,18 +721,22 @@ for ((attempt=0; attempt&lt;90; attempt++)); do
     }' \
     "http://127.0.0.1:$DASHBOARD_PORT/api/ds/query" |
     jq -e '.results.A.status == 200 and
-      any(.results.A.frames[]?.data.values[]?[]?; . == 1)' &gt;/dev/null; then
+      any(.results.A.frames[]?.data.values[]?[]?; . == 1)' \
+      &gt;/dev/null; then
     dashboard_queried=true
     break
   fi
   if ((SECONDS &gt;= next_notice)); then
-    printf 'Waiting for the Grafana query: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    printf 'Waiting for the Grafana query: attempt %s/90, %ss\n' \
+      "$((attempt + 1))" "$((SECONDS - started))"
     next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
 if ! $dashboard_queried; then
-  printf 'Grafana query timed out. Check the password and datasource; run the Lesson 4 cleanup block before retrying.\n' &gt;&amp;2
+  printf '%s\n' \
+    'Grafana query timed out. Check the password and datasource;' \
+    'run the Lesson 4 cleanup block before retrying.' &gt;&amp;2
   exit 1
 fi
 printf 'Verified: Grafana queried the labelled scrape (value 1).\n'
@@ -707,10 +759,15 @@ could not establish it.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose destroy "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY" &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose destroy "$LAB/dashboard.yaml" \
+  --repository "$DOT_REPOSITORY" &amp;&amp;
 unset HERO_GRAFANA_PASSWORD &amp;&amp;
-{ if test -f "$LAB/grafana.curl"; then rm -- "$LAB/grafana.curl"; fi; } &amp;&amp;
-printf 'Cleanup completed: keep the workspace files for reference.\n'</code></pre>
+{
+  if test -f "$LAB/grafana.curl"; then
+    rm -- "$LAB/grafana.curl"
+  fi
+} &amp;&amp;
+printf 'Destroy succeeded: keep the workspace files for reference.\n'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -718,7 +775,12 @@ printf 'Cleanup completed: keep the workspace files for reference.\n'</code></pr
 images remain cached. Keep your authored files as a learning reference, but
 retain the original cache and lock if cleanup did not finish. Do not remove
 unrelated resources or change a lock to adopt an existing instance.
-The success message and password removal happen only after destroy succeeds.
+The final message and password removal happen only after destroy succeeds.
+<code>Composition destroyed:</code> and the final message do not independently prove
+resource absence, and neither does removing the password from this shell. The
+pinned <code>0.4.0</code> lacks the required native audit: keep the original binary, draft,
+lock and cache while cleanup is unverified. A missing lifecycle record alone
+does not close that gate.
 If it fails, retain the current environment and use the
 <a href="tutorial-first-dot.html#resume-tutorial" class="xref page">recovery steps</a> before retrying.</p>
 </div>
@@ -729,7 +791,9 @@ If it fails, retain the current environment and use the
 <div class="sectionbody">
 <div class="paragraph">
 <p>Finish when Grafana reports version <code>13.3.0</code>, its datasource query returns the
-labelled sample with value <code>1</code>, and the complete graph&#8217;s destroy succeeds.
+labelled sample with value <code>1</code>, and cleanup has established absence of the
+complete graph&#8217;s owned resources. The pinned <code>0.4.0</code> route cannot satisfy that
+last condition using the native audit; do not mark the full lab complete.
 Either Explore or the documented backend query can verify that sample; the
 health response alone cannot.</p>
 </div>
@@ -752,7 +816,7 @@ resolved credentials remain execution concerns.</p>
 </div>
 </details>
 <div class="paragraph">
-<p><strong><a href="tutorial-composition.html" class="xref page">Previous lesson</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<p><strong><a href="tutorial-composition.html" class="xref page">Previous lesson</a></strong> · <strong><a href="dots-in-action.html" class="xref page">All lessons</a></strong> ·
 <strong>Next: <a href="tutorial-next-steps.html" class="xref page">apply the pattern to larger, secured systems</a>.</strong></p>
 </div>
 </div>

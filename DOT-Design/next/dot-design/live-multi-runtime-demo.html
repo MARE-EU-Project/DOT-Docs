@@ -69,15 +69,15 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -228,7 +228,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -463,8 +463,8 @@ listener, firewall change, tunnel, or Minikube-container modification is made.</
 <code>a4a70000-0000-4000-8000-000000000099</code>, severity <code>critical</code>.
 The native <code>probe.openapi.expect</code> assertion compares the complete JSON array,
 requiring a declared successful status, JSON media type, and the expected
-identity/severity. Use the installed development CLI; the released <code>v0.2.5</code>
-binary predates this feature. A supplementary independent application assertion
+identity/severity. Use the exact pinned source CLI qualified for this rehearsal.
+A supplementary independent application assertion
 reads <code>OPENAPI_YAML_URL</code> from the deployed consumer and fetches it from that
 consumer&#8217;s actual network namespace. It requires HTTP 200, JSON content type,
 exactly one alert, and the expected identity/severity. Redirects, wrong data,
@@ -567,8 +567,8 @@ minikube ip</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>dotx 0.2.4</code> alone is insufficient: this example uses post-release development
-changes. Install the pinned submodule and keep the checkout fixed. Evidence
+<p>Install this checkout&#8217;s pinned CLI submodule and keep the qualified checkout
+fixed; a version string alone does not identify the tested source. Evidence
 records revisions, CLI binary SHA-256, root/CLI/catalogue working-tree patch hashes, and
 provider/consumer image IDs. Non-empty patches mean the commit alone does not
 describe the tested checkout. Broker/probe images use digest references; the test

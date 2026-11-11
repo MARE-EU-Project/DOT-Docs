@@ -41,10 +41,10 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
-              download="DOT-Design-next.pdf"
-              title="Download DOT-Design next as PDF"
-            >Download PDF</a>
+              href="../../../DOT-Design/next/_exports/dots-in-action.pdf"
+              download="dots-in-action.pdf"
+              title="Download DOTs in Action as PDF"
+            >Download book PDF</a>
           </span>
         </div>
       </div>
@@ -68,15 +68,15 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -227,7 +227,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -335,7 +335,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></li>
+    <li><a href="dots-in-action.html">DOTs in Action</a></li>
     <li><a href="tutorial-authoring.html">2. Create an interface-aware DOT</a></li>
   </ul>
 </nav>
@@ -393,23 +393,34 @@ set -euo pipefail
 IMAGE="$(jq -r '.runtimes[].deployments[] |
   select(.id == "docker") | .manifest.image' "$PROMETHEUS_JSON")"
 CONTRACT_URL="$(jq -r '.contracts[0].payload.url' "$PROMETHEUS_JSON")"
-CONTRACT_SHA256="$(jq -r '.contracts[0].payload.sha256' "$PROMETHEUS_JSON")"
+CONTRACT_SHA256="$(jq -r '.contracts[0].payload.sha256' \
+  "$PROMETHEUS_JSON")"
 
-printf 'Creating a private Prometheus definition from the pinned official OpenAPI document...\n'
+printf '%s\n' \
+  'Creating a private Prometheus definition' \
+  'from the pinned official OpenAPI document...'
 dotx new --from docker-image "$IMAGE" \
   --name Prometheus --version 3.15.1 --skill Metrics-Scraping \
   --service prometheus --port http:9090 \
   --contract-url "$CONTRACT_URL" --contract-sha256 "$CONTRACT_SHA256" \
-  --contract-name HTTP --contract-standard OpenAPI --contract-format YAML \
+  --contract-name HTTP --contract-standard OpenAPI \
+  --contract-format YAML \
   --operation 'build-information=#/paths/~1status~1buildinfo/get' \
   --operation 'promql-query-api=#/paths/~1query/get' --bind http \
   --output "$LAB/base/dot.json"
 
-dotx validate "$LAB/base/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
+dotx validate "$LAB/base/dot.json" \
+  --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$LAB/base/dot.json"
-printf 'Draft verified: two provided Anchors. Open %s/base/dot.json to follow their Contract references.\n' "$LAB"
+printf 'Draft verified: two provided Anchors.\n'
+printf 'Follow their Contract references in %s/base/dot.json\n' "$LAB"
 )</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>For Java integrations, see
+<a href="../dot-domain/model-deployment.html#model-DockerImageTag" class="xref page">the current digest-reference decoding limit</a>.
+Keep the image pin; this exercise uses the CLI.</p>
 </div>
 <div class="paragraph">
 <p>Expected: an owned interface is verified, the output is saved, and reusable
@@ -514,13 +525,18 @@ jq --slurpfile product "$PROMETHEUS_JSON" '
       ($product[0].runtimes[].deployments[] | select(.id == "docker")
        | .services[] | select(.id == "prometheus") | .config)
   | .runtimes[0].deployments +=
-      [$product[0].runtimes[].deployments[] | select(.id == "docker-compose")]
+      [$product[0].runtimes[].deployments[]
+       | select(.id == "docker-compose")]
 ' "$LAB/base/dot.json" &gt; "$LAB/prometheus/dot.json"
 
-dotx validate "$LAB/prometheus/dot.json" --repository "$DOT_REPOSITORY" --profile reusable
+dotx validate "$LAB/prometheus/dot.json" \
+  --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$LAB/prometheus/dot.json"
-printf 'Definition verified: three Anchors and two Docker deployment choices. Review the changes below.\n'
-diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" || test "$?" -eq 1
+printf 'Definition verified: %s\n' \
+  'three Anchors and two Docker deployment choices.'
+printf 'Review the changes below.\n'
+diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" ||
+  test "$?" -eq 1
 )</code></pre>
 </div>
 </div>
@@ -555,10 +571,11 @@ Prometheus could have. <code>DOCKER_IMAGE</code> and <code>DOCKER_COMPOSE</code>
 same engine. A Kubernetes deployment would belong in another Runtime.</p>
 </div>
 <div class="paragraph">
-<p><code>config</code> is service-scoped. File defaults, when declared, use <code>payload.url</code> and
-<code>sha256</code>; actual instance overrides belong outside the reusable definition.
-Ordinary environment defaults are scalars, not encoded file documents. Each
-service in a multi-service deployment owns its own configuration and bindings.</p>
+<p>The Prometheus service now declares the required file
+<code>/etc/prometheus/prometheus.yml</code>; Lesson 3 supplies its contents for your
+monitoring use case. The general rules for defaults and service-scoped
+configuration are in
+<a href="dots-for-dummies.html#_describe_configuration_where_it_belongs" class="xref page">DOTs for Dummies</a>.</p>
 </div>
 </div>
 </div>
@@ -571,7 +588,8 @@ service in a multi-service deployment owns its own configuration and bindings.</
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx edit "$LAB/prometheus/dot.json" --interactive \
-  --output "$LAB/prometheus.candidate.json" --repository "$DOT_REPOSITORY"</code></pre>
+  --output "$LAB/prometheus.candidate.json" \
+  --repository "$DOT_REPOSITORY"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -640,7 +658,7 @@ Changing the monitoring use case does not require another product identity.</p>
 </div>
 </details>
 <div class="paragraph">
-<p><strong><a href="tutorial-first-dot.html" class="xref page">Previous lesson</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<p><strong><a href="tutorial-first-dot.html" class="xref page">Previous lesson</a></strong> · <strong><a href="dots-in-action.html" class="xref page">All lessons</a></strong> ·
 <strong>Next: <a href="tutorial-composition.html" class="xref page">make this authored DOT consume real metrics</a>.</strong></p>
 </div>
 </div>

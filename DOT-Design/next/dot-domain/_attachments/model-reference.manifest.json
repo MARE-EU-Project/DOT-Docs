@@ -80,9 +80,9 @@
     "WireSecurity"
   ],
   "publicInputs": {
-    "DOT-Docs/scripts/model-reference.mjs": "4c76e4d568b65c44dd1b8f2dd201984622221a93eb18b9e19dcc73d22e31a520",
+    "DOT-Docs/scripts/model-reference.mjs": "b3d547dcc7f72e4f36b5c734b4e8d1e8f397584651a8380956ae31bf9815f274",
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "18c3b1a92edadb3542d9bd3a753e259a2d1f0101f24bed0b748655a24bbfc0ae",
-    "DOT-Docs/scripts/model-notes-runtime.mjs": "fc9595e7dc97055cfd9afc37bce3fd80a980b8b0c57384f3e815def6a4239db6",
+    "DOT-Docs/scripts/model-notes-runtime.mjs": "adf9f070830acd731739219c00d3429d88af13d5a6f894da05a3bef20cb90c46",
     "DOT-Docs/scripts/model-notes-composition.mjs": "34fcae9fc675e77aa529fa1794ed86a8cc978554b0d11e69153d9ce8a615a03f",
     "DOT-Docs/scripts/domain-reference.mjs": "ccfbad7c2eeb2d55481991bbaec6a501fe8c6c038eef73ed230e119a2cc8d87b",
     "DOT-Domain/src/test/resources/model-compatibility.json": "47497ac38a97a9b98a97663c12daf30bdc8db5d6f81b475587f421415ed6d164",
@@ -326,9 +326,9 @@
   },
   "outputs": {
     "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "323b9785a835c64403e49a2715d8cb4563dd0f1033a05d746ae1ca41758010ff",
-    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "5df273f0ecb35b5800012540623488caee244f2d5519bc576e832eb41f62a1cc",
-    "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "83b2a8e56a86a4f446f5389c505511e585ffff61393506cc6e8671371935e3d9",
-    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "f194b7fdc58657029ba20b24a87a559726bd997378e3562d4979eccdf34ad655",
-    "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "3c6c0891c1343486ac0265b559bd3f4ecb1623cec1958e155a18861985302dcd"
+    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "63cedc25855f3c9f5c2ff25c27b2cbc838c7323ce17b5aa0250bdcb93e88240b",
+    "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "d133fd0e6620052d9bcba0fb761c811a958d1ddfa08477adcc74e383c013897b",
+    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "ae1df9d9ed3db213660bb6be6a57ec9cce170a2679a6d67ccd084f2c15c80922",
+    "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "900a77c7fa11d4a77e9c2052599f1d08a4285eaddfe15db520028bdd57bd2b3c"
   }
 }

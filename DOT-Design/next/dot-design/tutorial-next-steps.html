@@ -41,10 +41,10 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
-              download="DOT-Design-next.pdf"
-              title="Download DOT-Design next as PDF"
-            >Download PDF</a>
+              href="../../../DOT-Design/next/_exports/dots-in-action.pdf"
+              download="dots-in-action.pdf"
+              title="Download DOTs in Action as PDF"
+            >Download book PDF</a>
           </span>
         </div>
       </div>
@@ -68,15 +68,15 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -227,7 +227,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -335,7 +335,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></li>
+    <li><a href="dots-in-action.html">DOTs in Action</a></li>
     <li><a href="tutorial-next-steps.html">5. Larger and secured systems</a></li>
   </ul>
 </nav>
@@ -362,14 +362,18 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>You have built a real chain: <strong>Node Exporter &#8594; your Prometheus &#8594; Grafana</strong>.
-You authored a DOT, reused two others, connected required and provided
-interfaces, supplied configuration and a secret reference, verified actual
-traffic, and cleaned up. That is the reusable pattern behind larger systems.</p>
+<p>The preceding lessons describe a real chain:
+<strong>Node Exporter &#8594; your Prometheus &#8594; Grafana</strong>. They take you through authoring,
+reuse, connected interfaces, configuration, a secret reference and live checks.
+On the pinned <code>0.4.0</code> route, the
+<a href="dots-in-action.html#composition-completion-gate" class="xref page">composition completion gate</a>
+limits Lessons 3 and 4 to previews before live apply. Do not claim their live
+results or verified cleanup from reading them.</p>
 </div>
 <div class="paragraph">
-<p>Before leaving the Docker lab, confirm that both lessons' destroy steps
-succeeded. Repeat the original cleanup command only for an interrupted or
+<p>If you have run the Docker compositions, confirm removal of their owned
+resources before leaving the lab; a successful destroy message alone is not
+independent absence proof. Repeat the original cleanup command only for an interrupted or
 unresolved run; missing lifecycle state is expected after successful cleanup.
 Keep the private learning files if useful. Do not
 publish the exercise copies as additional Prometheus or Grafana catalogue roots.</p>
@@ -380,7 +384,7 @@ publish the exercise copies as additional Prometheus or Grafana catalogue roots.
 <h2 id="_what_you_can_now_do"><a class="anchor" href="#_what_you_can_now_do"></a>What you can now do</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You have practiced the complete small-system loop:</p>
+<p>After completing a qualified live route, you will have practiced this loop:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -402,8 +406,8 @@ publish the exercise copies as additional Prometheus or Grafana catalogue roots.
 </ol>
 </div>
 <div class="paragraph">
-<p>Keep your final topology and the two successful query results as a learning
-record. This lab established those particular interactions. Production work
+<p>Keep your final topology and any observed successful query results as a learning
+record. Only actual live checks establish those particular interactions. Production work
 also needs the security, persistence, operations and interface coverage in the
 <a href="production-readiness.html" class="xref page">production integration checklist</a>.</p>
 </div>
@@ -522,6 +526,20 @@ remain documented; this is not complete MARE producer acceptance.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="native-cleanup-audit"><a class="anchor" href="#native-cleanup-audit"></a>Contributor note: native cleanup audit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The current-source CLI includes a native Docker cleanup audit in
+<code>dotx compose destroy</code>. Its <code>Cleanup verified:</code> message follows successful
+absence checks for recorded containers, managed networks and disposable
+volumes. Verification failure retains recovery state. This behavior is not
+provided by released <code>0.4.0</code>; the practical book&#8217;s release pin must be advanced
+and its exact commands rehearsed before this becomes the supported newcomer
+route. A local source rehearsal does not close that release dependency.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_turn_a_learning_result_into_a_contribution"><a class="anchor" href="#_turn_a_learning_result_into_a_contribution"></a>Turn a learning result into a contribution</h2>
 <div class="sectionbody">
 <div class="olist arabic">
@@ -560,7 +578,7 @@ editor changes, rather than maintaining a second tutorial definition. These are
 maintainer rehearsals, not independent newcomer-trial results.</p>
 </div>
 <div class="paragraph">
-<p><strong><a href="tutorial-dashboard.html" class="xref page">Previous lesson</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong></p>
+<p><strong><a href="tutorial-dashboard.html" class="xref page">Previous lesson</a></strong> · <strong><a href="dots-in-action.html" class="xref page">All lessons</a></strong></p>
 </div>
 </div>
 </div>

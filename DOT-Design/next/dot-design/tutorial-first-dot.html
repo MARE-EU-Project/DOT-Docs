@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>1. Run your first DOT :: MARE DOT-Design</title>
-    <link rel="prev" href="dot-design-101.html">
+    <link rel="prev" href="dots-in-action.html">
     <link rel="next" href="tutorial-authoring.html">
     <meta name="description" content="Install one matching binary and catalogue, run Prometheus, verify its official API and clean up.">
     <meta name="generator" content="Antora 3.2.1">
@@ -41,10 +41,10 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
-              download="DOT-Design-next.pdf"
-              title="Download DOT-Design next as PDF"
-            >Download PDF</a>
+              href="../../../DOT-Design/next/_exports/dots-in-action.pdf"
+              download="dots-in-action.pdf"
+              title="Download DOTs in Action as PDF"
+            >Download book PDF</a>
           </span>
         </div>
       </div>
@@ -68,15 +68,15 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -227,7 +227,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -335,7 +335,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></li>
+    <li><a href="dots-in-action.html">DOTs in Action</a></li>
     <li><a href="tutorial-first-dot.html">1. Run your first DOT</a></li>
   </ul>
 </nav>
@@ -363,8 +363,10 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Your first result is a running Prometheus service whose API reports the expected
-version. Start with reuse; you will author your own definition in Lesson 2.
-Read <a href="dot-design-101.html" class="xref page">DOT-Design 101</a> first for the models and project components.</p>
+version. Start with reuse; you will author your own definition in Lesson 2.</p>
+</div>
+<div class="paragraph">
+<p>Read <a href="dots-for-dummies.html" class="xref page">DOTs for Dummies</a> first for the models and project components.</p>
 </div>
 <div class="paragraph">
 <p><strong>Goal:</strong> deploy one existing DOT, verify its real API and remove only your instance.
@@ -373,7 +375,7 @@ between a preview and a running service.</p>
 </div>
 <div class="paragraph">
 <p>You need the prerequisites and isolated development host described in
-<a href="zero-to-hero.html" class="xref page">Zero to Hero</a>. Run each Bash block only after the previous
+<a href="dots-in-action.html" class="xref page">DOTs in Action</a>. Run each Bash block only after the previous
 one succeeds. Keep the same terminal throughout the lessons.
 Parenthesized command blocks stop on errors inside their own shell; they do not
 close your terminal. A failed block is a stopping point, not permission to
@@ -400,7 +402,8 @@ gh release download v0.4.0 --repo MARE-EU-Project/DOT-CLI \
 mkdir -p "$HOME/.local/bin" &amp;&amp;
 sha256sum dotx-0.4.0-linux-amd64 |
   grep -Fx -f - SHA256SUMS &amp;&amp;
-  install -m 0755 dotx-0.4.0-linux-amd64 "$HOME/.local/bin/dotx" &amp;&amp;
+  install -m 0755 dotx-0.4.0-linux-amd64 \
+    "$HOME/.local/bin/dotx" &amp;&amp;
 export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
 dotx version &amp;&amp;
 cd ..</code></pre>
@@ -451,20 +454,26 @@ Use those chosen ports in browser links instead of the displayed defaults.</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Start in the matching DOT-Repository checkout, in Bash.
 set -o pipefail
 DOT_REPOSITORY="$PWD" &amp;&amp;
-PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository "$DOT_REPOSITORY")" &amp;&amp;
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 \
+  --repository "$DOT_REPOSITORY")" &amp;&amp;
 DOTX_TUTORIAL_CLI="$(command -v dotx)" &amp;&amp;
-DOTX_TUTORIAL_CLI_SHA256="$(sha256sum "$DOTX_TUTORIAL_CLI" | cut -d ' ' -f 1)" &amp;&amp;
-LAB="$(mktemp -d "${DOTX_TUTORIAL_WORKSPACE:-$HOME}/dot-zero-to-hero.XXXXXXXX")" &amp;&amp;
+DOTX_TUTORIAL_CLI_SHA256="$(sha256sum "$DOTX_TUTORIAL_CLI" |
+  cut -d ' ' -f 1)" &amp;&amp;
+LAB_PARENT="${DOTX_TUTORIAL_WORKSPACE:-$HOME}" &amp;&amp;
+LAB="$(mktemp -d "$LAB_PARENT/dot-zero-to-hero.XXXXXXXX")" &amp;&amp;
 DOT_BUNDLE="$(dirname -- "$PROMETHEUS_JSON")" &amp;&amp;
 DOT_NAME="hero-$RANDOM-$RANDOM" &amp;&amp;
 DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}" &amp;&amp;
 TUTORIAL_PORT="${TUTORIAL_PORT:-19041}" &amp;&amp;
 DASHBOARD_PORT="${DASHBOARD_PORT:-13000}" &amp;&amp;
-export DOTX_HTTP_PORT XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}" &amp;&amp;
-(umask 077; declare -p DOT_REPOSITORY LAB PROMETHEUS_JSON DOT_BUNDLE DOT_NAME \
+export DOTX_HTTP_PORT \
+  XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}" &amp;&amp;
+(umask 077; declare -p DOT_REPOSITORY LAB PROMETHEUS_JSON \
+  DOT_BUNDLE DOT_NAME \
   DOTX_HTTP_PORT TUTORIAL_PORT DASHBOARD_PORT XDG_CACHE_HOME \
   DOTX_TUTORIAL_CLI DOTX_TUTORIAL_CLI_SHA256 &gt; "$LAB/session.bash") &amp;&amp;
-printf 'Your private workspace: %s\nResume with: source %q\n' "$LAB" "$LAB/session.bash" &amp;&amp;
+printf 'Your private workspace: %s\n' "$LAB" &amp;&amp;
+printf 'Resume with: source %q\n' "$LAB/session.bash" &amp;&amp;
 dotx version --verbose &amp;&amp;
 git -C "$DOT_REPOSITORY" rev-parse HEAD</code></pre>
 </div>
@@ -485,12 +494,17 @@ restore these variables before cleanup; do not create a new workspace instead.</
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
-printf 'Checking Prometheus and the selected Docker Compose deployment; nothing starts yet...\n'
-dotx validate "$DOT_BUNDLE" --repository "$DOT_REPOSITORY" --profile reusable
+printf '%s\n' \
+  'Checking Prometheus and the selected Docker Compose deployment;' \
+  'nothing starts yet...'
+dotx validate "$DOT_BUNDLE" \
+  --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$DOT_BUNDLE"
-dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
+dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+  --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT" --dry-run
-printf 'Preview complete. Next: start this one instance and check its real API.\n'
+printf '%s\n' \
+  'Preview complete. Next: start this instance and check its API.'
 )</code></pre>
 </div>
 </div>
@@ -504,6 +518,16 @@ different deployment does not create a different tool identity. Its definition
 already contains the pinned Compose document and image references; a random
 Compose file beside <code>dot.json</code> is not a deployment source.</p>
 </div>
+<div class="paragraph">
+<p>Here is what Docker will do in this example. An <strong>image</strong> is the downloaded
+package containing Prometheus and what it needs to run. A <strong>container</strong> is a
+running instance of that image. The <strong>Compose document</strong> describes the services,
+network and storage to create together. This deployment stores its metrics in a
+<strong>named volume</strong>, separately from the container. Publishing a port connects
+Prometheus&#8217;s service port <code>9090</code> to your chosen host port (<code>18909</code> by default),
+so a browser or <code>curl</code> on your machine can reach it. The cleanup step deletes
+this lab&#8217;s metrics volume; the downloaded image stays cached.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -515,8 +539,10 @@ Keep the original binary, instance name and cache until cleanup is verified.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf 'Starting Prometheus; Docker may download its pinned image on the first run...\n'
-dotx deploy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf '%s\n' \
+  'Starting Prometheus; Docker may download its pinned image...'
+dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+  --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"</code></pre>
 </div>
 </div>
@@ -538,19 +564,23 @@ for ((attempt=0; attempt&lt;60; attempt++)); do
     break
   fi
   if ((SECONDS &gt;= next_notice)); then
-    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' \
+      "$((attempt + 1))" "$((SECONDS - started))"
     next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
 if ! $ready; then
-  printf 'Prometheus readiness timed out. Run the cleanup block before retrying.\n' &gt;&amp;2
+  printf '%s\n' \
+    'Prometheus readiness timed out.' \
+    'Run the cleanup block before retrying.' &gt;&amp;2
   exit 1
 fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
-printf 'Verified: Prometheus 3.15.1 answered its official API. Open http://127.0.0.1:%s/\n' "$DOTX_HTTP_PORT"
+printf 'Verified: Prometheus 3.15.1 answered its official API.\n'
+printf 'Open http://127.0.0.1:%s/\n' "$DOTX_HTTP_PORT"
 )</code></pre>
 </div>
 </div>
@@ -587,14 +617,19 @@ The data is disposable. Do not use another person&#8217;s instance name.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx destroy "$DOT_BUNDLE" --deployment docker-compose --name "$DOT_NAME" &amp;&amp;
-remaining="$(docker ps -aq --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx destroy "$DOT_BUNDLE" --deployment docker-compose \
+  --name "$DOT_NAME" &amp;&amp;
+remaining="$(docker ps -aq \
+  --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
 test -z "$remaining" &amp;&amp;
-remaining="$(docker network ls -q --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
+remaining="$(docker network ls -q \
+  --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
 test -z "$remaining" &amp;&amp;
-remaining="$(docker volume ls -q --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
+remaining="$(docker volume ls -q \
+  --filter "label=com.docker.compose.project=$DOT_NAME")" &amp;&amp;
 test -z "$remaining" &amp;&amp;
-printf 'Cleanup verified: Prometheus containers, network and volumes are absent.\n'</code></pre>
+printf 'Cleanup verified: %s\n' \
+  'Prometheus containers, network and volumes are absent.'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -616,15 +651,20 @@ PATH before continuing:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Source your own saved session.bash first, using the command printed in Lesson 1.
 set -o pipefail
-if [[ -n "${DOTX_TUTORIAL_CLI:-}" &amp;&amp; -n "${DOTX_TUTORIAL_CLI_SHA256:-}" &amp;&amp;
+if [[ -n "${DOTX_TUTORIAL_CLI:-}" &amp;&amp;
+      -n "${DOTX_TUTORIAL_CLI_SHA256:-}" &amp;&amp;
       -n "${LAB:-}" &amp;&amp; -n "${DOT_REPOSITORY:-}" ]] &amp;&amp;
-  test "$(sha256sum "$DOTX_TUTORIAL_CLI" | cut -d ' ' -f 1)" = "$DOTX_TUTORIAL_CLI_SHA256"; then
+  test "$(sha256sum "$DOTX_TUTORIAL_CLI" | cut -d ' ' -f 1)" = \
+    "$DOTX_TUTORIAL_CLI_SHA256"; then
   DOTX_TUTORIAL_BIN_DIR="$(dirname -- "$DOTX_TUTORIAL_CLI")" &amp;&amp;
   export PATH="$DOTX_TUTORIAL_BIN_DIR:$PATH" &amp;&amp;
   dotx version --verbose &amp;&amp;
   printf 'Resumed existing workspace: %s\n' "$LAB"
 else
-  printf 'Saved session is missing/incomplete, or its CLI changed. Source your own session file and recover the recorded binary before managing this workspace.\n' &gt;&amp;2
+  printf '%s\n' \
+    'Saved session is missing/incomplete, or its CLI changed.' \
+    'Source your own session file and recover the recorded binary' \
+    'before managing this workspace.' &gt;&amp;2
   false
 fi</code></pre>
 </div>
@@ -667,9 +707,12 @@ After an interrupted apply, use that lesson&#8217;s destroy command before retry
 Do not create another UUID or regenerate a lock to adopt leftover resources.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A successful destroy</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime state is gone; <code>COMPOSITION_STATE_MISSING</code> is expected. Keep the learning
-files and continue with the next lesson, rather than rerunning creation blocks.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A successful destroy and verified cleanup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime state is gone; <code>COMPOSITION_STATE_MISSING</code> is expected. That missing
+record alone does not prove resource absence. Keep the learning files rather
+than rerunning creation blocks; the
+<a href="dots-in-action.html#composition-completion-gate" class="xref page">composition completion gate</a>
+still applies before later live lessons.</p></td>
 </tr>
 </tbody>
 </table>
@@ -679,9 +722,102 @@ original files, cache and binary, restore Docker access, and retry the same
 cleanup command. Do not prune unrelated resources.</p>
 </div>
 <div class="paragraph">
-<p>If a command failed, consult <a href="getting-started.html#_troubleshooting" class="xref page">quickstart
-troubleshooting</a> for PATH, access, Docker, ports and download failures. Never
-change a digest just to get past a validation error.</p>
+<p>If a command failed, use the troubleshooting table and instance-scoped log
+instructions below. Never change a digest just to get past a validation error.</p>
+</div>
+<div class="sect2">
+<h3 id="tutorial-troubleshooting"><a class="anchor" href="#tutorial-troubleshooting"></a>Troubleshoot this lab</h3>
+<div class="paragraph">
+<p>The log block below is for this lesson&#8217;s standalone Prometheus instance, using
+its original <code>DOT_NAME</code>. For a composition, retain that graph&#8217;s draft, lock and
+cache and follow its lesson&#8217;s recovery instructions instead.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Symptom</th>
+<th class="tableblock halign-left valign-top">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Release or clone returns 404/403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>gh auth status</code> and organization repository access, including SSO
+authorization if required. Run <code>gh auth setup-git</code> for HTTPS cloning.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI missing or wrong version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>command -v dotx</code>; put <code>$HOME/.local/bin</code> first on <code>PATH</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker permission denied</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>docker info</code> as your user. Ask the administrator for the intended
+Docker access, then log in again. Docker group access grants host-level power.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compose unavailable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install the Compose plugin/package for your Docker distribution and verify
+<code>docker compose version</code>. The legacy <code>docker-compose</code> executable is insufficient.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port already allocated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean up the failed example, select a free <code>DOTX_HTTP_PORT</code>, and deploy again
+with the same name and explicit <code>--env</code> override.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract download or digest check fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check network/proxy access to the declared URL. Never bypass its digest.
+Private raw GitHub URLs require <code>MARE_READ_ONLY_TOKEN</code> or <code>GITHUB_TOKEN</code>;
+<code>gh</code> login alone does not supply those to <code>dotx</code>. Use <code>--offline</code> only with
+matching documents already in the verified local cache.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Readiness or version fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the instance-scoped logs below and <code>dotx ps --all</code>, check the selected
+image/port, then clean up. No local Compose file is required for this diagnostic.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interrupted cleanup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restore the original name and catalogue path, repeat cleanup, and inspect
+resources carrying <code>com.docker.compose.project=$DOT_NAME</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_read_only_this_instances_logs"><a class="anchor" href="#_read_only_this_instances_logs"></a>Read only this instance&#8217;s logs</h4>
+<div class="paragraph">
+<p>Keep the original <code>DOT_NAME</code>. This block discovers containers by their Compose
+project label and reads bounded logs. It works from the catalogue checkout:
+<code>docker compose -p &#8230;&#8203;</code> alone would not locate the descriptor&#8217;s downloaded
+Compose document. No resources are changed or removed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+containers="$(docker ps -aq \
+  --filter "label=com.docker.compose.project=$DOT_NAME")"
+if test -z "$containers"; then
+  printf 'No containers found for this instance: %s\n' "$DOT_NAME" &gt;&amp;2
+  exit 1
+fi
+while IFS= read -r container; do
+  printf '\nLogs for this instance container: %s\n' "$container"
+  docker logs --tail=100 "$container"
+done &lt;&lt;&lt; "$containers"
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If Docker access fails or no matching container is found, the block fails;
+it does not query another instance. Use the same lesson&#8217;s cleanup command and
+retain the original context until cleanup is verified.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -716,13 +852,13 @@ These are three separate observations.</p>
 </div>
 </details>
 <div class="paragraph">
-<p><strong><a href="dot-design-101.html" class="xref page">Previous: DOT-Design 101</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<p><strong><a href="dots-for-dummies.html" class="xref page">Previous: DOTs for Dummies</a></strong> · <strong><a href="dots-in-action.html" class="xref page">All lessons</a></strong> ·
 <strong>Next: <a href="tutorial-authoring.html" class="xref page">create a real DOT and understand its model</a>.</strong></p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="dot-design-101.html">Start here: DOT-Design 101</a></span>
+  <span class="prev"><a href="dots-in-action.html">DOTs in Action</a></span>
   <span class="next"><a href="tutorial-authoring.html">2. Create an interface-aware DOT</a></span>
 </nav>
 </article>

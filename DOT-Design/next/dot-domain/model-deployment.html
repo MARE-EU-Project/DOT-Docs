@@ -68,15 +68,15 @@
     <a class="nav-link" href="../dot-design/index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -227,7 +227,7 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -874,7 +874,7 @@
 <p><strong>Exact JSON values:</strong> <code>DOCKER_IMAGE</code>, <code>DOCKER_COMPOSE</code>, <code>KUBERNETES_MANIFEST</code>, <code>HELM_CHART</code>, <code>VAGRANTFILE</code>, <code>WASM_MODULE</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; schema enum: "DOCKER_IMAGE", "DOCKER_COMPOSE", "KUBERNETES_MANIFEST", "HELM_CHART", "VAGRANTFILE", "WASM_MODULE".</p>
+<p><strong>JSON representation:</strong> string.</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -1137,7 +1137,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>image</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DockerImageTag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The compact image reference to pull and run.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The compact image reference to pull and run. Raw schema/CLI input accepts digest pins; Java DockerImageTag decoding currently rejects them. Preserve the pin and use the raw/CLI route; Java parity remains open product/model work.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>envFiles</code></p></td>
@@ -1181,7 +1181,7 @@
 <p>Represents a container image tag as a compact JSON string.</p>
 </div>
 <div class="paragraph">
-<p>Although Java exposes registry, image and version components, JSON uses one image-reference string, not an object containing those fields. The Java parser is tag-based and rejects digest references. Image-reference parsing alone does not verify registry availability, artifact integrity or executor support.</p>
+<p>Although Java exposes registry, image and version components, JSON uses one image-reference string, not an object containing those fields. The Java parser is tag-based and rejects digest references, including digest-pinned DockerImage.image values accepted by raw schema/CLI input and used by the tutorial. No supported digest-preserving Java aggregate decoding route is established. Preserve the digest and use raw/CLI validation and execution; Java decoding parity requires a reviewed model change and regenerated/compatibility-qualified artifacts. Image-reference parsing alone does not verify registry availability, artifact integrity or executor support.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/docker/DockerImageTag.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DockerImageTag.schema.json">Generated JSON Schema</a></p>
@@ -1618,7 +1618,7 @@
 <p><strong>Exact JSON values:</strong> <code>pid</code>, <code>network</code>, <code>mount</code>, <code>ipc</code>, <code>uts</code>, <code>user</code>, <code>cgroup</code>, <code>time</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; schema enum: "pid", "network", "mount", "ipc", "uts", "user", "cgroup", "time".</p>
+<p><strong>JSON representation:</strong> string.</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -1798,7 +1798,7 @@
 <p><strong>Exact JSON values:</strong> <code>DOCKER</code>, <code>KUBERNETES</code>, <code>VAGRANT</code>, <code>WEBASSEMBLY</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; schema enum: "DOCKER", "KUBERNETES", "VAGRANT", "WEBASSEMBLY".</p>
+<p><strong>JSON representation:</strong> string.</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>
@@ -2142,7 +2142,7 @@
 <p><strong>Exact JSON values:</strong> <code>WASI_CLI</code>, <code>WASI_HTTP</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>JSON representation:</strong> string; schema enum: "WASI_CLI", "WASI_HTTP".</p>
+<p><strong>JSON representation:</strong> string.</p>
 </div>
 <div class="paragraph">
 <p><strong>Relationships</strong></p>

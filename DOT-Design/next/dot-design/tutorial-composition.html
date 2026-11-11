@@ -41,10 +41,10 @@
           <span class="control">
             <a
               class="button is-primary"
-              href="../../../DOT-Design/next/_exports/DOT-Design-next.pdf"
-              download="DOT-Design-next.pdf"
-              title="Download DOT-Design next as PDF"
-            >Download PDF</a>
+              href="../../../DOT-Design/next/_exports/dots-in-action.pdf"
+              download="dots-in-action.pdf"
+              title="Download DOTs in Action as PDF"
+            >Download book PDF</a>
           </span>
         </div>
       </div>
@@ -68,15 +68,15 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -227,7 +227,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -335,7 +335,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="zero-to-hero.html">DOT-Design from Zero to Hero</a></li>
+    <li><a href="dots-in-action.html">DOTs in Action</a></li>
     <li><a href="tutorial-composition.html">3. Connect two DOTs</a></li>
   </ul>
 </nav>
@@ -413,8 +413,10 @@ will write the selected instance&#8217;s real host and port into the execution c
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new \
-  --from "$DOT_REPOSITORY/Compositions/node-exporter-prometheus-monitoring/composition.yaml" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">MONITORING_TEMPLATE="$DOT_REPOSITORY/Compositions"
+MONITORING_TEMPLATE+="/node-exporter-prometheus-monitoring"
+MONITORING_TEMPLATE+="/composition.yaml"
+dotx compose new --from "$MONITORING_TEMPLATE" \
   --repository "$DOT_REPOSITORY" --name zero-to-hero \
   --output "$LAB/composition.yaml" --yes</code></pre>
 </div>
@@ -554,6 +556,14 @@ It does not implement the scrape: Prometheus does that. <code>dependsOn</code> e
 startup ordering; a Wire expresses an interface connection.</p>
 </div>
 <div class="paragraph">
+<p>In the pointer <code>/scrape_configs/0/static_configs/0/targets/0</code>, each <code>0</code> means the
+first item in a list. Follow <code>scrape_configs</code> to its first job, then
+<code>static_configs</code> to its first entry, then <code>targets</code> to its first value:
+<code>node-exporter:9100</code> in your file. The materializer replaces that scalar with
+the selected producer&#8217;s address in the execution copy; your source file is
+kept as the input.</p>
+</div>
+<div class="paragraph">
 <p>Node Exporter&#8217;s metrics operation uses a <strong>source-derived OpenAPI projection</strong>.
 It is not a vendor-published OpenAPI specification or complete OpenMetrics
 certification. Both sides select that same exact interface. The unprivileged
@@ -573,11 +583,15 @@ The block stops if any step fails; it starts no services.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
-dotx compose validate "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
+dotx compose validate "$LAB/composition.yaml" \
+  --repository "$DOT_REPOSITORY"
 dotx compose lock "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
-dotx compose inspect "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
-dotx compose topology "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" --locked
-dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
+dotx compose inspect "$LAB/composition.yaml" \
+  --repository "$DOT_REPOSITORY" --locked
+dotx compose topology "$LAB/composition.yaml" \
+  --repository "$DOT_REPOSITORY" --locked
+dotx compose apply "$LAB/composition.yaml" \
+  --repository "$DOT_REPOSITORY" \
   --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
 printf 'Graph verified: two DOTs, one Wire. No service has started.\n'
 )</code></pre>
@@ -590,11 +604,68 @@ definitions, documents and configuration. A lock is reproducibility evidence,
 not runtime state or a second authored model. Intentional input changes require
 another explicit lock review; never regenerate locks just to hide an error.</p>
 </div>
+<table id="tutorial-lock-review" class="tableblock frame-all grid-all stretch">
+<caption class="title">Open the lock and check the selections</caption>
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 71.4286%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Where to look</th>
+<th class="tableblock halign-left valign-top">Expected fields and meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code>, entry with <code>instance: "prometheus"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source: "./prometheus"</code>, <code>dotId: "Prometheus@3.15.1"</code>,
+<code>deploymentId: "docker-image"</code>, and a <code>digest</code> beginning <code>sha256:</code>
+Your private definition and selected deployment are pinned by their bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code>, entry with <code>instance: "node-exporter"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source: "repository://Node-Exporter@1.12.1"</code>,
+<code>deploymentId: "docker"</code>, and a <code>digest</code>
+The exact catalogue release is selected.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>inputs[]</code>, entry with <code>source: "prometheus.yml"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>name</code> beginning <code>wire:node-metrics-to-prometheus:config:</code> and a <code>digest</code>
+The Wire&#8217;s materializer uses the pinned input scrape configuration.
+This does not establish that a scrape has run.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Array order and digest values can differ. Relative source paths may be normalized
+(<code>prometheus</code> and <code>./prometheus</code> select the same folder here).
+Stop if the selected sources or deployments differ: review your edits before
+regenerating the lock. Do not edit the lock by hand. These entries describe
+resolved inputs; the next section checks actual running services.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_run_and_ask_a_meaningful_question"><a class="anchor" href="#_run_and_ask_a_meaningful_question"></a>Run and ask a meaningful question</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>On the pinned CLI <code>0.4.0</code> route, stop here before live apply. Read this section
+as a preview until the
+<a href="dots-in-action.html#composition-completion-gate" class="xref page">composition completion gate</a>
+is satisfied by a released, qualified CLI. Do not switch an existing lab&#8217;s binary.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Use an unused <code>TUTORIAL_PORT</code> (default <code>19041</code>). Before applying, keep the stop
 command below available. <strong>Run it even if apply or a query fails.</strong> Preserve the
@@ -602,8 +673,11 @@ original workspace, cache and binary for recovery.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf 'Starting Node Exporter and your Prometheus; the next check waits for their labelled scrape...\n'
-dotx compose apply "$LAB/composition.yaml" --repository "$DOT_REPOSITORY" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">printf '%s\n' \
+  'Starting Node Exporter and your Prometheus;' \
+  'the next check waits for their labelled scrape...'
+dotx compose apply "$LAB/composition.yaml" \
+  --repository "$DOT_REPOSITORY" \
   --locked --forward "prometheus-query=$TUTORIAL_PORT"</code></pre>
 </div>
 </div>
@@ -615,31 +689,39 @@ set -o pipefail
 scraped=false
 started=$SECONDS
 next_notice=$SECONDS
-printf 'Checking the labelled Node Exporter scrape through Prometheus...\n'
+printf '%s\n' \
+  'Checking the labelled Node Exporter scrape through Prometheus...'
 for ((attempt=0; attempt&lt;90; attempt++)); do
   if curl --fail --silent --max-time 3 --get \
-    --data-urlencode 'query=up{job="node-exporter",tutorial="zero-to-hero"}' \
+    --data-urlencode \
+    'query=up{job="node-exporter",tutorial="zero-to-hero"}' \
     "http://127.0.0.1:$TUTORIAL_PORT/api/v1/query" |
-    jq -e '.status == "success" and any(.data.result[]?; .value[1] == "1")' &gt;/dev/null; then
+    jq -e '.status == "success" and
+      any(.data.result[]?; .value[1] == "1")' &gt;/dev/null; then
     scraped=true
     break
   fi
   if ((SECONDS &gt;= next_notice)); then
-    printf 'Waiting for the scrape: attempt %s/90, %ss elapsed\n' "$((attempt + 1))" "$((SECONDS - started))"
+    printf 'Waiting for the scrape: attempt %s/90, %ss elapsed\n' \
+      "$((attempt + 1))" "$((SECONDS - started))"
     next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
 if ! $scraped; then
-  printf 'Scrape check timed out. Inspect compose status, then run the Lesson 3 cleanup block before retrying.\n' &gt;&amp;2
+  printf '%s\n' \
+    'Scrape check timed out. Inspect compose status, then run' \
+    'the Lesson 3 cleanup block before retrying.' &gt;&amp;2
   exit 1
 fi
 curl --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$TUTORIAL_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
-dotx compose status "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"
+dotx compose status "$LAB/composition.yaml" \
+  --repository "$DOT_REPOSITORY"
 printf 'Verified: your labelled Node Exporter scrape is up (value 1).\n'
-printf 'Try the same query in Prometheus: http://127.0.0.1:%s/\n' "$TUTORIAL_PORT"
+printf 'Try the same query in Prometheus: http://127.0.0.1:%s/\n' \
+  "$TUTORIAL_PORT"
 )</code></pre>
 </div>
 </div>
@@ -668,16 +750,19 @@ The original catalogue and its configuration are unchanged.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose destroy "$LAB/composition.yaml" --repository "$DOT_REPOSITORY"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose destroy "$LAB/composition.yaml" \
+  --repository "$DOT_REPOSITORY"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expect no running resources for this composition after successful destroy.
-The lab&#8217;s time-series data is disposable. Do not delete the draft or lock while
-cleanup is unresolved, and never prune unrelated Docker resources. If ownership
-is uncertain, stop and inspect rather than deleting by a guessed name.
-Destroy removes the lifecycle record. A later <code>compose status</code> therefore returns
-<code>COMPOSITION_STATE_MISSING</code>; that is expected after successful cleanup.</p>
+<p><code>Composition destroyed:</code> reports removal. It is not the resource-absence
+check required by this book. On the pinned <code>0.4.0</code> route, that completion gate
+remains unavailable; do not mark cleanup verified or continue to a fresh live
+graph from that message alone. If you already started this graph, run the
+original destroy command and retain its draft, lock, cache and binary while
+cleanup is unresolved. The lab&#8217;s time-series data is disposable. Do not prune
+unrelated Docker resources or delete by guessed names. A later
+<code>COMPOSITION_STATE_MISSING</code> only means the lifecycle record is gone.</p>
 </div>
 <div class="paragraph">
 <p>Try a safe diagnostic exercise: copy the YAML to a new file, change
@@ -732,9 +817,11 @@ binary if cleanup fails; use the <a href="tutorial-first-dot.html#resume-tutoria
 <h2 id="_checkpoint"><a class="anchor" href="#_checkpoint"></a>Checkpoint</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Continue when the labelled query returns <code>1</code>, the topology shows two DOTs and
-one Wire, and destroy succeeds. Keep the draft, its lock and your scrape file:
-Lesson 4 extends those inputs into a new graph with a fresh ownership UUID.</p>
+<p>Continue after the labelled query returns <code>1</code>, the topology shows two DOTs and
+one Wire, and cleanup has established absence of the owned resources. The pinned
+<code>0.4.0</code> route cannot satisfy the last condition using the native audit. Keep the
+draft, lock and scrape file; do not start a fresh live graph while cleanup is
+unverified. Lesson 4&#8217;s draft uses a fresh ownership UUID.</p>
 </div>
 <details>
 <summary class="title">Explain it back: which direction does this connection run?</summary>
@@ -748,7 +835,7 @@ request. The materializer supplies its address through configuration.</p>
 </div>
 </details>
 <div class="paragraph">
-<p><strong><a href="tutorial-authoring.html" class="xref page">Previous lesson</a></strong> · <strong><a href="zero-to-hero.html" class="xref page">All lessons</a></strong> ·
+<p><strong><a href="tutorial-authoring.html" class="xref page">Previous lesson</a></strong> · <strong><a href="dots-in-action.html" class="xref page">All lessons</a></strong> ·
 <strong>Next: <a href="tutorial-dashboard.html" class="xref page">extend this same system with Grafana</a>.</strong></p>
 </div>
 </div>

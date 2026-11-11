@@ -69,15 +69,15 @@
     <a class="nav-link" href="../dot-design/index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -228,7 +228,7 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-design/zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="../dot-design/dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -389,8 +389,7 @@ The dashed arrow applies to Contract-backed Anchors. Field lists, collection siz
 configuration, ports, binding helpers and audit metadata are omitted for
 readability; see the full <a href="#_class_diagram">generated class diagram</a>
 for implementation detail. <code>Composition</code> is a separate DOT-Domain aggregate:
-its instances reference DOTs and its Wires reference their Anchors. Neither is
-embedded in the reusable Java <code>Dot</code> aggregate.</p>
+its instances reference DOTs and its Wires reference their Anchors.</p>
 </div>
 <div class="paragraph">
 <p><a href="../dot-design/_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>
@@ -537,12 +536,15 @@ semantics; they have not silently become stricter Java <code>Version</code> fiel
 </div>
 </div>
 <div class="sect1">
-<h2 id="_domain_stabilization"><a class="anchor" href="#_domain_stabilization"></a>Domain stabilization</h2>
+<h2 id="_model_baseline_and_compatibility"><a class="anchor" href="#_model_baseline_and_compatibility"></a>Model baseline and compatibility</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The immediate priority is a model compatibility freeze, before further CLI
-authoring features. Preserve valid Composition v1 JSON and reviewed locks while
-allowing targeted Java API improvements. Probe and materializer selections use
+<p>The published baseline is 0.4.0, including the approved shared Payload, Anchor
+cleanup and bounded SPARQL changes. The model baseline distinguishes those
+changes from historical 0.3.0 evidence and later source validation corrections.
+Preserve the selected baseline&#8217;s valid inputs and reviewed locks; further model
+changes require review and the existing generation/compatibility gates. Probe
+and materializer selections use
 typed Java enums: <code>AsyncAPIProtocol</code>, <code>GraphQLTransport</code>, <code>GRPCResponseMatch</code>,
 <code>MaterializerType</code>, and <code>MaterializerValueFrom</code>. Existing wire values remain
 unchanged and exact, for example <code>MQTT</code>, <code>SSE</code>, and <code>CONFIG_FILE</code>.</p>
@@ -572,12 +574,12 @@ composition inputs and all 128 materializer field combinations. These checks
 do not establish independent adoption or live producer acceptance.</p>
 </div>
 <div class="paragraph">
-<p>The <code>0.3.0</code> baseline preserves the reviewed portable model surface, not a
-permanent 1.0 API guarantee. <code>DOT-Domain/MODEL-SPEC.md</code> records the cross-model
-invariant review and validation boundaries. The reproducible, checksummed
-<code>dot-domain-models-0.3.0.tar.gz</code> release asset contains all 77 exported
-schemas and shared compatibility corpora. Publication and full runtime
-qualification remain separate release gates.</p>
+<p><code>DOT-Domain/MODEL-SPEC.md</code> records the current cross-model invariants and
+validation boundaries. Select <code>dot-domain-models-0.4.0.tar.gz</code> with its matching
+release manifest/checksums for the published 0.4.0 baseline. The earlier
+<code>dot-domain-models-0.3.0.tar.gz</code> is historical freeze evidence, not the schema
+package for 0.4.0. Historical corpus labels remain unchanged. Neither package
+is a permanent 1.0 guarantee or whole-catalogue live acceptance.</p>
 </div>
 <div class="paragraph">
 <p>The service-configuration audit now rejects duplicate environment/CDI names,
@@ -588,8 +590,9 @@ installed-CLI tests share the same positive/negative corpus. These are semantic
 checks: standard JSON Schema cannot express uniqueness by one property of an
 array item. The generated JSON shapes and reviewed composition locks remain
 unchanged; use full DOT validation rather than schema-only acceptance.
-Resolve these in DOT-Domain and its existing generation pipeline, not in
-independent CLI models. No final stable-model claim or new release is implied.</p>
+These checks belong to DOT-Domain and its existing generation pipeline, not
+independent CLI models. They do not close independent-adopter/owner reviews or
+the practical book&#8217;s pending qualification of a released cleanup audit.</p>
 </div>
 <div class="sect2">
 <h3 id="_deployment_free_model_gate"><a class="anchor" href="#_deployment_free_model_gate"></a>Deployment-free model gate</h3>

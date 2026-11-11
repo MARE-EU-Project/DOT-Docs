@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOT-Design overview :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.0/dot-design/index.html">
-    <link rel="next" href="getting-started.html">
+    <link rel="next" href="dots-for-dummies.html">
     <meta name="description" content="Describe a tool once, run your first DOT, and find the right guide for composing or extending it.">
     <meta name="generator" content="Antora 3.2.1">
 <script src="../../../_/js/color-theme.js"></script>
@@ -68,15 +68,15 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="zero-to-hero.html">DOT-Design from Zero to Hero</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dot-design-101.html">Start here: DOT-Design 101</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="tutorial-first-dot.html">1. Run your first DOT</a>
   </li>
@@ -227,7 +227,7 @@
     <a class="nav-link" href="getting-started.html">Installation and first DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="zero-to-hero.html">Zero to Hero: hands-on tutorial</a>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -376,11 +376,13 @@ reuse the same Prometheus DOT in different monitoring compositions instead of
 maintaining a new product definition for each one.</p>
 </div>
 <div class="paragraph">
-<p><strong>New to DOT?</strong> Follow <a href="zero-to-hero.html" class="xref page">DOT-Design from Zero to Hero</a>:
-start with <a href="dot-design-101.html" class="xref page">DOT-Design 101</a> for the core models and ecosystem,
-then run Prometheus, author its definition, connect Node Exporter and extend the
-same system with Grafana. The tutorial introduces each model through a working
-example and includes cleanup at every live stage.</p>
+<p><strong>New to DOT?</strong> Start with <a href="dots-for-dummies.html" class="xref page">DOTs for Dummies</a> for a
+plain-language introduction to the concepts and their relationships. Then follow
+<a href="dots-in-action.html" class="xref page">DOTs in Action</a>: run Prometheus, author its
+definition, then preview Node Exporter and Grafana. Lessons 1–2 are runnable
+on the selected release; Lessons 3–4 stop before live apply until the
+<a href="dots-in-action.html#composition-completion-gate" class="xref page">released cleanup-audit gate</a>
+closes. Each live stage includes cleanup.</p>
 </div>
 </div>
 </div>
@@ -471,8 +473,7 @@ The dashed arrow applies to Contract-backed Anchors. Field lists, collection siz
 configuration, ports, binding helpers and audit metadata are omitted for
 readability; see the full <a href="../dot-domain/index.html#_class_diagram" class="xref page">generated class diagram</a>
 for implementation detail. <code>Composition</code> is a separate DOT-Domain aggregate:
-its instances reference DOTs and its Wires reference their Anchors. Neither is
-embedded in the reusable Java <code>Dot</code> aggregate.</p>
+its instances reference DOTs and its Wires reference their Anchors.</p>
 </div>
 <div class="paragraph">
 <p><a href="_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>
@@ -519,9 +520,10 @@ credentials and live policy results never become Anchor fields.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="zero-to-hero.html" class="xref page">DOT-Design from Zero to Hero</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Build a monitoring system gradually: run Prometheus, author its DOT, connect
-  Node Exporter, then add Grafana with configuration and a password reference.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="dots-in-action.html" class="xref page">DOTs in Action</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run Prometheus and author its DOT in Lessons 1–2. Preview the Node Exporter
+  and Grafana composition lessons pending the
+  <a href="dots-in-action.html#composition-completion-gate" class="xref page">released cleanup-audit gate</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="getting-started.html" class="xref page">Getting started</a></p></td>
@@ -543,9 +545,10 @@ credentials and live policy results never become Anchor fields.</p>
   shared definitions, composition inputs and executable acceptance.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../dot-cli/authoring.html" class="xref page">Current-source guided authoring</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../dot-cli/authoring.html" class="xref page">Guided authoring in 0.4.0</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Create or edit a draft with native forms, then build a composition from
-  exact catalogue entries. Requires the matching source CLI.</p></td>
+  exact catalogue entries. Use the matching released CLI/catalogue; follow
+  explicit source prerequisites for later corrections.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="architecture.html" class="xref page">Architecture</a></p></td>
@@ -615,10 +618,14 @@ distinction between conformance, previews, test fixtures and producer acceptance
 <h2 id="_first_steps"><a class="anchor" href="#_first_steps"></a>Inspect before deploying</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After <a href="getting-started.html" class="xref page">installing the CLI and checking out the
-matching catalogue</a>, these commands run from the <code>DOT-Design</code> checkout without
-deploying anything. The offline catalogue check requires previously verified
-Contract bytes in the cache; a cold cache fails rather than downloading them.</p>
+<p>This is a separate <strong>source-contributor inspection route</strong>. First complete the
+<a href="contributor-guide.html" class="xref page">full DOT-Design checkout, submodule initialization
+and pinned CLI installation</a>. Run these commands from that <strong>DOT-Design checkout
+root</strong>, using its matching source CLI and catalogue. Getting started supplies a
+standalone release-pinned catalogue, not this workspace. Clean any earlier run
+with its original artifact set before switching. These commands do not deploy.
+The offline catalogue check requires previously verified Contract bytes in the
+cache; a cold cache fails rather than downloading them.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -657,7 +664,7 @@ Build toolchains, Java tests and the full local/GitHub CI route belong in the
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="getting-started.html">Getting started</a></span>
+  <span class="next"><a href="dots-for-dummies.html">DOTs for Dummies</a></span>
 </nav>
 </article>
   </div>
