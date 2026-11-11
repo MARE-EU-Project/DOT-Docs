@@ -6,7 +6,7 @@
     <title>One Prometheus DOT, two runtimes :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.0/dot-design/portability-demo.html">
     <link rel="prev" href="upgrade-demo.html">
-    <link rel="next" href="contributor-guide.html">
+    <link rel="next" href="architecture.html">
     <meta name="description" content="Compare the same canonical DOT, official Contract and pinned image on Docker Compose and Kubernetes.">
     <meta name="generator" content="Antora 3.2.1">
 <script src="../../../_/js/color-theme.js"></script>
@@ -111,9 +111,6 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
-  </li>
-  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
 <ul class="nav-list">
@@ -135,6 +132,9 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
@@ -148,39 +148,6 @@
     <a class="nav-link" href="compatibility.html">Compatibility and migration policy</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="guided-demo.html">Guided demo</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="architecture.html">Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -213,7 +180,40 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="guided-demo.html">Guided demos</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#official-demo-route">Official ecosystem demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html#audience-faq">Audience FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC composition walkthroughs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Docker/Kubernetes four-Contract demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">One DOT, two runtimes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="contributor-guide.html">Contributor guide</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -375,7 +375,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>DOT-Design</li>
-    <li><a href="guided-demo.html">Guided demo</a></li>
+    <li><a href="guided-demo.html">Guided demos</a></li>
     <li><a href="portability-demo.html">One DOT, two runtimes</a></li>
   </ul>
 </nav>
@@ -573,7 +573,7 @@ fixture acceptance remain distinct from production certification.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="upgrade-demo.html">Stateless upgrades and recovery</a></span>
-  <span class="next"><a href="contributor-guide.html">Contributor guide</a></span>
+  <span class="next"><a href="architecture.html">Architecture</a></span>
 </nav>
 </article>
   </div>
