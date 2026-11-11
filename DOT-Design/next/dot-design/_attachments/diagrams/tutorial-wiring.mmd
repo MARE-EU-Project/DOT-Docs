@@ -1,0 +1,35 @@
+%%{init: {"themeCSS": ".edgeLabel rect { opacity: 1 !important; }", "flowchart": {"wrappingWidth": 280, "rankSpacing": 40}}}%%
+flowchart TB
+  accTitle: One monitoring connection, three views
+  accDescr: The composition Wire connects Node Exporter's node-metrics Anchor, which provides the interface, to Prometheus's scrape-target Anchor, which requires it. A materializer writes the Node Exporter endpoint into Prometheus's scrape configuration. At runtime Prometheus sends HTTP GET /metrics to Node Exporter, opposite to the Wire direction.
+
+  subgraph declaration["1. Declare the Wire in composition.yaml"]
+    direction LR
+    provides["DotInstance: node-exporter<br/>Anchor: node-metrics<br/>PROVIDES"]
+    requires["DotInstance: prometheus<br/>Anchor: scrape-target<br/>REQUIRES"]
+    provides -->|"Wire"| requires
+  end
+
+  subgraph configuration["2. Write the consumer configuration"]
+    direction LR
+    endpoint["Node Exporter endpoint<br/>host + port"]
+    target["Prometheus configuration<br/>one scrape target"]
+    endpoint -.->|"materializer writes"| target
+  end
+
+  subgraph runtime["3. Prometheus initiates the HTTP request"]
+    direction RL
+    prometheus["Prometheus"]
+    exporter["Node Exporter"]
+    prometheus ==>|"HTTP GET /metrics"| exporter
+  end
+
+  declaration ~~~ configuration
+  configuration ~~~ runtime
+
+  classDef declared fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
+  classDef configured fill:#fff7d6,stroke:#98701d,color:#17232d,stroke-width:1.5px;
+  classDef running fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
+  class provides,requires declared;
+  class endpoint,target configured;
+  class prometheus,exporter running;

@@ -826,13 +826,20 @@ for several distinctly named instances.</p>
 </div>
 <div class="paragraph">
 <p>A <strong>Wire</strong> connects an Anchor that provides an interface to one that requires it.
-For the first monitoring connection:</p>
+The first monitoring connection has three distinct parts:</p>
 </div>
-<div class="listingblock">
+<div class="imageblock text-center interactive-diagram">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">node-exporter / node-metrics  -&gt;  prometheus / scrape-target
-          PROVIDES                         REQUIRES</code></pre>
+<img src="_images/diagrams/tutorial-wiring.svg" alt="A Wire points from Node Exporter to Prometheus; a materializer configures Prometheus&#8217;s scrape target; Prometheus sends the HTTP request to Node Exporter">
 </div>
+<div class="title">Figure 3. One connection: declaration, configuration and HTTP request</div>
+</div>
+<div class="paragraph">
+<p><a href="_attachments/diagrams/tutorial-wiring.mmd" class="xref attachment">Mermaid source</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Read the arrows separately:</strong> the Wire points from <strong>PROVIDES</strong> to <strong>REQUIRES</strong>;
+the HTTP request goes from <strong>Prometheus</strong> to <strong>Node Exporter</strong>.</p>
 </div>
 <div class="paragraph">
 <p>A <strong>materializer</strong> writes the selected producer&#8217;s endpoint into a declared
