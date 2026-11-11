@@ -69,7 +69,46 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
@@ -425,7 +464,7 @@ Anchor.</p>
 </tr>
 </table>
 </div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="continue-through-the-workflow" class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 40%;">
 <col style="width: 60%;">
@@ -546,11 +585,7 @@ secret-free JSON evidence.</p>
 composition-owned cross-platform gateways or tunnels, external secret-store
 plugins, multi-scheme authentication, unsafe or unbounded gRPC, AsyncAPI event
 protocols other than MQTT, NATS, Kafka, and AMQP 0-9-1, AMQPS/AMQP 1.0, and cross-platform probe pairs outside the explicit-gateway profile remain
-outside this profile. Safe anonymous
-OpenAPI probes, single-scheme OAuth 2.0 client-credentials probes, GraphQL
-query/mutation/SSE probes, all four finite side-effect-free gRPC shapes, and
-AsyncAPI MQTT/NATS/Kafka/AMQP delivery probes within a shared Docker network or Kubernetes
-namespace are supported.</p>
+outside this profile.</p>
 </div>
 <div class="paragraph">
 <p>Single-DOT live lifecycle evidence for a runtime adapter is not automatically
@@ -696,48 +731,6 @@ stable references, resolve deployment details deterministically, and only then
 mutate runtime state. A failure at one phase is not evidence that a later phase
 was attempted.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="continue-through-the-workflow"><a class="anchor" href="#continue-through-the-workflow"></a>Continue through the workflow</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The detailed guide is organized around the work being performed:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 40%;">
-<col style="width: 60%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Task</th>
-<th class="tableblock halign-left valign-top">Guide</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Publish stable composition points in a DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="authoring-anchors.html" class="xref page">Authoring Anchors</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Define pinned DOT instances and composition topology</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-documents.html" class="xref page">Composition documents and instances</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Connect endpoints, provide security inputs, and materialize configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wiring-and-security.html" class="xref page">Wiring, materialization, and security</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Validate, resolve, apply, inspect, and evolve a composition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-lifecycle.html" class="xref page">Composition lifecycle and design guidance</a></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Readers implementing a separate composer should also consult the
-<a href="integration-handoff.html" class="xref page">integration handoff</a>.</p>
 </div>
 </div>
 </div>

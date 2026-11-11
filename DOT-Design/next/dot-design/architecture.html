@@ -69,7 +69,46 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
@@ -396,32 +435,9 @@ client. Platform-native systems remain responsible for workload execution and
 live state.</p>
 </div>
 <div class="paragraph">
-<p>The runtime portion deliberately distinguishes <strong>where</strong> a workload runs from
-<strong>how</strong> it is deployed. The domain model supports four <code>PlatformEngine</code> values
-and six compatible manifest mappings:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Docker accepts <code>DOCKER_IMAGE</code> and <code>DOCKER_COMPOSE</code>;</p>
-</li>
-<li>
-<p>Kubernetes accepts <code>KUBERNETES_MANIFEST</code> and <code>HELM_CHART</code>;</p>
-</li>
-<li>
-<p>Vagrant accepts <code>VAGRANTFILE</code>; and</p>
-</li>
-<li>
-<p>WebAssembly accepts <code>WASM_MODULE</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The current <code>dotx</code> lifecycle implements Docker Image, Docker Compose,
-Kubernetes manifest, Helm chart, Vagrantfile, and WebAssembly execution. The
-WebAssembly adapter uses Wasmtime with an explicit <code>WASI_CLI</code> or <code>WASI_HTTP</code>
-world, verifies the module&#8217;s SHA-256 before execution, and grants only declared
-guest environment and directory capabilities.</p>
+<p>For exact platform/manifest mappings and WASI execution fields, use the
+<a href="../dot-domain/model-deployment.html" class="xref page">runtime and deployment reference</a>. Model
+membership, adapter support and live runtime qualification are separate facts.</p>
 </div>
 </div>
 </div>
@@ -517,39 +533,15 @@ repositories for assets that evolve with the DOT catalogue.</p>
 <h2 id="_dot_aggregate"><a class="anchor" href="#_dot_aggregate"></a>DOT aggregate</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Dot</code> is the aggregate root. Its primary relationships are:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Dot
-├── Skills[]                 human-readable capabilities
-├── Contracts[]              authoritative interaction definitions
-├── Anchors[]                stable logical composition points
-└── Runtimes[]
-    ├── Platform             where execution occurs
-    └── Deployments[]
-        ├── DeploymentManifest   how deployment occurs
-        └── DeploymentService[]
-            ├── Contract references
-            ├── ServicePort[]
-            ├── AnchorBinding[]
-            └── DeploymentConfig</code></pre>
-</div>
+<p><code>Dot</code> owns the embedded Anchors, Runtimes, deployments and service declarations.
+<code>Skill</code> and <code>Contract</code> have independent identities; root Contract declarations
+are authoritative while services reference interfaces by ID. A <code>Composition</code>
+references reusable DOTs rather than owning copies of them.</p>
 </div>
 <div class="paragraph">
-<p><code>Skill</code> and <code>Contract</code> are independently identified domain entities. Root
-<code>Dot.contracts</code> carries complete owned Contract declarations for catalogue/CLI
-publication, while deployment services reference those Contracts by ID only.
-ID-only root objects remain readable as model-level references; that does not
-make them complete, publishable declarations or enable a local-asset fallback.
-Anchors, Runtimes, Deployments, services, bindings, and configuration
-declarations are embedded values owned by the DOT aggregate.</p>
-</div>
-<div class="paragraph">
-<p>The class-level <code>@ValidAnchor</code> constraint delegates aggregate traversal to
-<code>AnchorValidator</code>. It enforces Anchor identity, Contract membership, selector
-syntax, and service-port binding consistency without placing cross-reference
-logic in <code>Dot</code>.</p>
+<p>The <a href="../dot-domain/model-identity.html#model-Dot" class="xref page">generated Dot reference</a>
+contains the complete field inventory and example. Java validation mechanics
+belong in <a href="../dot-domain/index.html" class="xref page">the library guide</a>.</p>
 </div>
 </div>
 </div>

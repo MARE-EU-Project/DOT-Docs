@@ -69,7 +69,46 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
@@ -366,7 +405,7 @@
 composition. Start with the <a href="#one-command-demo">one-command guided experience</a>,
 then explore the <a href="#official-demo-route">official ecosystem demo</a>,
 choose the shorter 10-15-minute standards route, or the five-minute
-read-only stages later on this page. These paths connect authoritative Contracts,
+<a href="#read-only-tour">read-only tour</a>. These paths connect authoritative Contracts,
 Anchors, deployment choices and explicit wires; they prove different things.</p>
 </div>
 <div class="paragraph">
@@ -441,7 +480,7 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disposable Docker and Kubernetes resources</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only overview</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#read-only-tour">Read-only overview</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">About 5 minutes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Repository validation, a reusable external DOT, 21 cross-standard wires, and
   a Kubernetes lifecycle rendering</p></td>
@@ -938,7 +977,8 @@ demonstrate rejection of an invalid wire, and show where a PoC contribution belo
 <p>Follow <a href="live-multi-runtime-demo.html#_prepare_before_presenting" class="xref page">the mixed-runtime prerequisites</a>
 and rehearse on the same Linux-amd64 checkout, installed CLI, Docker and local
 Minikube context that you will present. Install this checkout&#8217;s CLI for the exact
-pinned acceptance suite. Published <code>v0.4.0</code> includes native
+pinned acceptance suite. The
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.0">published CLI v0.4.0</a> includes native
 topology and the CLI operations used by the presenter harnesses; a release
 binary does not include later source fixes, and the version
 string alone does not identify the tested binary.
@@ -1394,56 +1434,19 @@ do not assume an older release contains them.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_story_in_one_diagram"><a class="anchor" href="#_the_story_in_one_diagram"></a>The story in one diagram</h2>
+<h2 id="read-only-tour"><a class="anchor" href="#read-only-tour"></a>Read-only tour</h2>
 <div class="sectionbody">
-<div class="imageblock text-center interactive-diagram">
-<div class="content">
-<img src="_images/diagrams/contract-anchor-wire-chain.svg" alt="Contract to Anchor to binding to wire resolution chain">
+<div id="_prepare_the_checkout" class="paragraph">
+<p>Use the full <a href="contributor-guide.html" class="xref page">contributor checkout and pinned CLI</a>;
+run these commands from the DOT-Design root. This route needs <code>dotx</code>, <code>jq</code>, and
+HTTPS for documents that are not already cached. It creates no workloads;
+any temporary rendering files are removed on exit.</p>
 </div>
-<div class="title">Figure 1. From an authoritative Contract operation to a deployed connection</div>
-</div>
-<div class="paragraph">
-<p>The Contract owns protocol semantics. An Anchor gives one selected Contract
-operation a stable logical identity. A deployment-service binding identifies
-the service port that implements the Anchor. A composition wire connects two
-named DOT instances and may materialize the resolved endpoint into configuration
-already declared by the consumer.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_prepare_the_checkout"><a class="anchor" href="#_prepare_the_checkout"></a>Prepare the checkout</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For a first deployment with the released CLI, follow
-<a href="getting-started.html" class="xref page">Getting started</a>. This presenter path uses a full
-checkout from <a href="contributor-guide.html" class="xref page">Contributor guide</a> with initialized
-<code>DOT-CLI</code> and <code>DOT-Repository</code> submodules. The demo
-needs <code>dotx</code>, <code>jq</code>, and network access when URL-backed Contracts are not already
-cached.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git submodule update --init --recursive
-task cli:install
-dotx version</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Source builds use <code>DOT-CLI/VERSION</code>, which may advance independently of the
-published release. The published release reports:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dotx 0.4.0</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The independently released Linux-amd64 binary, its SBOM, release manifest, and
-checksums are also available from the
-<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.0">DOT-CLI v0.4.0 release</a>.
-Follow the <a href="getting-started.html#_install_the_released_cli" class="xref page">binary-specific checksum verification</a>
-before installing or executing a downloaded release asset.</p>
+<div id="_the_story_in_one_diagram" class="paragraph">
+<p>For the conceptual chain, use
+<a href="architecture.html#_contract_anchor_binding_and_wire" class="xref page">the architecture diagram</a>.
+For a shorter exercise focused on changing a DOT and rejecting a bad wire,
+use <a href="developer-demo.html" class="xref page">the developer demo</a>.</p>
 </div>
 </div>
 </div>
@@ -1494,25 +1497,8 @@ dotx inspect "$KEYCLOAK" --json |
 </div>
 </div>
 <div class="paragraph">
-<p>The current source catalogue produces this compact projection:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "name": "Keycloak",
-  "version": "26.8.1",
-  "skills": 2,
-  "contracts": 3,
-  "anchors": 4,
-  "deployments": 5,
-  "supportedDeploymentSystems": [
-    "DOCKER_COMPOSE",
-    "DOCKER_IMAGE",
-    "HELM_CHART",
-    "KUBERNETES_MANIFEST"
-  ]
-}</code></pre>
-</div>
+<p>Read the counts from the selected definition instead of comparing them with a
+second, manually maintained catalogue snapshot here.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1671,61 +1657,12 @@ HTTP behavior; those require the live acceptance layer.</p>
 <div class="sect1">
 <h2 id="_stage_5_connect_claims_to_evidence"><a class="anchor" href="#_stage_5_connect_claims_to_evidence"></a>Stage 5: connect claims to evidence</h2>
 <div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 37.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Claim</th>
-<th class="tableblock halign-left valign-top">Executable evidence</th>
-<th class="tableblock halign-left valign-top">Boundary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Catalogue correctness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx validate DOT-Repository</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Static and Contract resolution evidence; no deployment</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-standard interoperability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">21 deterministically compatible wires; no live traffic</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Live Contract probes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-probes:live</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Standards-native test producer and real brokers on disposable Docker resources</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime configuration portability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:runtime-configuration</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dry-run rendering across six adapters</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Workload isolation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:service-workloads:live</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Live repeated Compose, Kubernetes, and Helm instances</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Portable-runtime isolation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:runtime-isolation:live</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Live Vagrant/libvirt and WASI CLI instances</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Released-product acceptance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/39504667195">0.2.4 downloaded-binary acceptance</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Linux amd64, single-host supported profile</p></td>
-</tr>
-</tbody>
-</table>
 <div class="paragraph">
-<p>See <a href="verification-and-examples.html" class="xref page">Verification and examples</a> for the
-complete test matrix and the distinction between model, resolved composition, dry-run,
-source-adapted, and live production evidence.</p>
+<p>The preceding steps establish catalogue validity, compatibility for the selected
+21-Wire fixture and deployment rendering. None sends application traffic.
+Use <a href="verification-and-examples.html" class="xref page">the verification matrix</a> to choose the
+next gate: live probes, runtime portability, isolation or producer acceptance.
+That page owns the command/evidence inventory and recorded acceptance limits.</p>
 </div>
 </div>
 </div>
@@ -1754,54 +1691,13 @@ capacity is uncertain.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The harness builds a standards-native GraphQL/gRPC producer and an independent
-consumer, then deploys the canonical Mosquitto, NATS, Kafka, and RabbitMQ DOTs.
-It proves GraphQL query, mutation verification/cleanup, and GraphQL-over-SSE;
-all four finite Proto3 <code>NO_SIDE_EFFECTS</code> gRPC shapes through reflection; and
-correlated MQTT, NATS, Kafka, and AMQP 0-9-1 delivery. It records redacted
-evidence and destroys composition-owned resources on success, failure, or
-interruption.</p>
+<p>The <a href="verification-and-examples.html#_coverage_claims_and_gates" class="xref page">verification
+guide</a> describes this harness&#8217;s supported interactions and evidence. Require
+its cleanup result; this is test-producer evidence, not production acceptance.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_five_minute_presenter_script"><a class="anchor" href="#_five_minute_presenter_script"></a>Five-minute presenter script</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Show the Contract-to-Anchor-to-wire diagram and explain the four ownership
-boundaries.</p>
-</li>
-<li>
-<p>Run <code>dotx validate DOT-Repository</code> to establish that the catalogue is the
-checked source of truth.</p>
-</li>
-<li>
-<p>Inspect Keycloak to demonstrate one reusable product identity with several
-deployment choices.</p>
-</li>
-<li>
-<p>Print the 21-wire resolved composition summary and highlight the four Contract standards and
-eight interaction forms.</p>
-</li>
-<li>
-<p>Inspect the Kafka wire to distinguish Contract semantics from its resolved
-broker endpoint.</p>
-</li>
-<li>
-<p>Render the APISIX/Keycloak/OAuth lifecycle with <code>--dry-run</code>.</p>
-</li>
-<li>
-<p>Finish on the evidence table and state the supported boundary explicitly.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Keep the published
-<a href="release-notes.html" class="xref page">release notes</a> and
-<a href="verification-and-examples.html" class="xref page">verification matrix</a> open as fallback
-evidence if a local network or runtime is unavailable.</p>
+<div id="_five_minute_presenter_script" class="paragraph">
+<p>For a five-minute presentation, follow the <a href="#read-only-tour">read-only tour</a>
+above and finish at its evidence boundary.</p>
 </div>
 </div>
 </div>
@@ -1809,19 +1705,11 @@ evidence if a local network or runtime is unavailable.</p>
 <h2 id="_supported_boundary"><a class="anchor" href="#_supported_boundary"></a>Supported boundary</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The stable profile supports Linux amd64 and private single-host composition
-state. Multi-host orchestration, automatic cross-platform gateway provisioning,
-general stateful-data migration, AMQPS, AMQP 1.0, native arm64 and non-Linux
-executables, the DOT-Registry REST API, and joint SFC or partner acceptance are
-separate activities. Unsupported combinations fail closed rather than being
-silently approximated.</p>
-</div>
-<div class="paragraph">
-<p>All eleven MARE PoCs have resolution or source-adapted evidence. That evidence is
-not presented as acceptance of every unmodified partner workload. Continue with
-<a href="architecture.html" class="xref page">Architecture</a> for system boundaries or
-<a href="anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a> for authoring and
-lifecycle details.</p>
+<p>Use the <a href="anchors-and-composition.html#release-status-and-supported-profile" class="xref page">supported
+Composition profile</a> for the executor boundary and
+<a href="production-readiness.html" class="xref page">production integration requirements</a> for claims
+that these demonstrations cannot establish. Neither a resolved PoC graph nor a
+source-adapted rehearsal accepts every unmodified partner workload.</p>
 </div>
 </div>
 </div>

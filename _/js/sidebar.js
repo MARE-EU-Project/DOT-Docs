@@ -27,6 +27,16 @@
     collapsed = !collapsed
     update()
   }, true)
+  navigation.addEventListener('click', event => {
+    const link = event.target.closest('a.nav-link')
+    if (!link || desktop.matches || !navigation.classList.contains('is-active') ||
+      event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return
+    if (link.origin === location.origin && link.pathname === location.pathname &&
+      link.search === location.search && link.hash && (!link.target || link.target === '_self')) {
+      // Let the browser follow the fragment after the native overlay closes.
+      toggle.click()
+    }
+  })
   new MutationObserver(update).observe(navigation, {attributes: true, attributeFilter: ['class']})
   desktop.addEventListener('change', () => {
     navigation.querySelector('.nav')?.style.removeProperty('height')

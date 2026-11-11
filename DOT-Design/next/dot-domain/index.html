@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.0/dot-domain/index.html">
     <link rel="prev" href="../dot-design/release-readiness.html">
     <link rel="next" href="model-reference.html">
-    <meta name="description" content="Java domain models for reusable DOT definitions, Contracts, Anchors, deployments, and separate multi-DOT Compositions.">
+    <meta name="description" content="Use the Java domain library, validate its objects, and find the authoritative model reference.">
     <meta name="generator" content="Antora 3.2.1">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,46 @@
     <a class="nav-link" href="../dot-design/index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/getting-started.html">Getting started</a>
@@ -363,9 +402,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>DOT-Domain</code> is the Java library that defines reusable DOTs, compositions and
-their validation rules. These models generate the JSON Schemas and CLI input
-types. The library does not deploy services or manage databases.</p>
+<p><code>DOT-Domain</code> is the Java library for portable DOT and Composition declarations.
+It supplies the models and validation rules from which JSON Schemas and CLI
+input types are generated. It does not deploy services or manage databases.</p>
 </div>
 </div>
 </div>
@@ -373,80 +412,10 @@ types. The library does not deploy services or manage databases.</p>
 <h2 id="_aggregate_overview"><a class="anchor" href="#_aggregate_overview"></a>Aggregate overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A DOT describes one reusable tool. A composition selects exact DOT releases,
-chooses one deployment per instance and connects their Anchors. Read the core
-relationships below first; field-level and validation details follow separately.</p>
-</div>
-<div class="imageblock text-center interactive-diagram">
-<div class="content">
-<img src="../dot-design/_images/diagrams/dot-domain-overview.svg" alt="Composition instances and Wires referencing reusable Dot definitions, Contracts, Anchors and deployments">
-</div>
-<div class="title">Figure 1. Simplified domain model: reusable DOT definitions and a separate Composition</div>
-</div>
-<div class="paragraph">
-<p>Diamonds indicate embedded values; arrows indicate declarations or references.
-The dashed arrow applies to Contract-backed Anchors. Field lists, collection sizes,
-configuration, ports, binding helpers and audit metadata are omitted for
-readability; see the full <a href="#_class_diagram">generated class diagram</a>
-for implementation detail. <code>Composition</code> is a separate DOT-Domain aggregate:
-its instances reference DOTs and its Wires reference their Anchors.</p>
-</div>
-<div class="paragraph">
-<p><a href="../dot-design/_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Responsibility</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Aggregate root: identity, version, description, classification groups,
-  metadata, Skills, Contracts, Anchors, and Runtimes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Skill</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Standalone human-readable capability description.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Composition</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Separate aggregate: pinned DOT instances, Anchor Wires, exposed Anchors,
-  deployment inputs, Secret references and active probe expectations.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Contract</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Standalone authoritative OpenAPI, AsyncAPI, Protobuf, GraphQL or supported SPARQL Service Description.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Anchor</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Embedded named integration point that provides or requires an interface; Wires connect compatible Anchors.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Runtime</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A target <code>Platform</code> plus one or more compatible deployment definitions.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Deployment</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stable deployment ID, one polymorphic manifest, and the logical services it materializes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service identity, host, named ports, Contract references, Anchor bindings, and
-  its supported configuration surface.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> are independently identified domain entities.
-Other types are embedded values owned by these aggregates. The module carries no database
-or ORM annotations; persistence is an adapter concern.</p>
+<p><code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> are independently identified
+entities; their other model types are embedded values. For the conceptual
+relationships, start with <a href="../dot-design/dots-for-dummies.html" class="xref page">DOTs for Dummies</a>.
+This page covers Java integration and model maintenance.</p>
 </div>
 </div>
 </div>
@@ -454,40 +423,10 @@ or ORM annotations; persistence is an adapter concern.</p>
 <h2 id="_model_overview_and_complete_reference"><a class="anchor" href="#_model_overview_and_complete_reference"></a>Model overview and complete reference</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use the <a href="model-reference.html" class="xref page">complete model reference</a> for every public
-type&#8217;s purpose, fields, relationships, validation boundaries and JSON example.
-It is organized into five chapters and available as a
-<a href="_attachments/dot-domain-reference.pdf" class="xref attachment">comprehensive A4 PDF</a>. The README stays
-a short entry point; these chapters provide the detailed reference.</p>
-</div>
-<div class="paragraph">
-<p>The <a href="_attachments/dot-domain-a4.pdf" class="xref attachment">A4 landscape reference sheet</a> combines a
-readable core class diagram with an inventory of every exported public model
-type (77 in this source revision). Scalars, generated accessors and validation
-implementation helpers are omitted. Supporting types are listed by their
-nearest core-model family, not presented as exclusively owned values, extra
-aggregates or guaranteed runtime features. Shared types are listed once.</p>
-</div>
-<div class="imageblock text-center interactive-diagram">
-<div class="content">
-<img src="../dot-design/_images/diagrams/domain-a4.svg" alt="Core DOT-Domain class relationships">
-</div>
-</div>
-<div class="paragraph">
-<p>The <a href="../dot-design/_images/diagrams/domain-complete.svg" class="xref image">complete vector diagram</a>
-shows all 77 public classes/enums and their relationships individually.
-Both the <a href="../dot-design/_attachments/diagrams/domain-a4.mmd" class="xref attachment">compact Mermaid source</a>
-and <a href="../dot-design/_attachments/diagrams/domain-complete.mmd" class="xref attachment">complete Mermaid source</a>
-come from the existing Java-generated diagram and exported schema inventory.
-The DOT-Domain README renders them natively and includes a schema/semantically
-validated, compact Prometheus <code>dot.json</code> projection using the real catalogue
-Contract and deployment, rather than another product descriptor.</p>
-</div>
-<div class="paragraph">
-<p>After an intentional model/catalogue documentation change, run
-<code>task docs:domain:generate</code> from DOT-Design with the source-built CLI installed.
-<code>task docs:domain:check</code> verifies source/output drift and the exact JSON example
-offline; it is part of <code>task testing:models</code>, not a live deployment test.</p>
+<p>Use the <a href="model-reference.html" class="xref page">complete model reference</a> for generated field
+tables, enum values, relationships, JSON examples and both downloadable
+references. The sections below link to its relevant entries instead of keeping
+a second field inventory here.</p>
 </div>
 </div>
 </div>
@@ -495,16 +434,14 @@ offline; it is part of <code>task testing:models</code>, not a live deployment t
 <h2 id="_one_model_authority"><a class="anchor" href="#_one_model_authority"></a>One model authority</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>DOT-Domain defines <strong>all</strong> portable models, including Composition, not just
-<code>Dot</code>. The existing Victools build generates <code>Schema/schema.json</code> for DOTs,
-<code>Schema/composition-v1.schema.json</code> for Composition v1, and standalone
-<code>Schema/models/*.schema.json</code> files for every public domain data class and enum.
-Jackson reference views remain intentional: a Skill reference containing only
-<code>id</code> is not the full standalone Skill entity.</p>
+<p>All portable models, including <code>Composition</code>, originate in DOT-Domain. The
+Victools build produces <code>Schema/schema.json</code>,
+<code>Schema/composition-v1.schema.json</code>, and <code>Schema/models/*.schema.json</code> in the
+catalogue. The CLI uses generated Go bindings and embeds the Composition
+schema; it does not require Java at runtime.</p>
 </div>
 <div class="paragraph">
-<p>The CLI consumes generated Go input types and embeds the generated Composition
-schema. It does not require Java at runtime. From DOT-Design, regenerate with:</p>
+<p>From the DOT-Design checkout root, after an intentional model change:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -513,25 +450,16 @@ task cli:domain:generate</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Never edit generated files manually. <code>task testing:composition:model</code> checks
-generation drift and v1 compatibility after the Contract validator bootstrap.</p>
+<p>Never hand-edit generated artifacts. Run <code>task testing:composition:model</code> to
+check generation drift and the shared compatibility corpus. See the
+<a href="../dot-design/contributor-guide.html" class="xref page">contributor guide</a> for the toolchain and
+full workflow gates.</p>
 </div>
 <div class="paragraph">
-<p><code>Composition</code> references reusable DOTs; it neither inherits from <code>Dot</code> nor
-copies its runtimes or Contracts. Resolved execution details, lock digests,
-private lifecycle state, endpoint allocation and runtime policy enforcement
-remain CLI/executor concerns. Standard Jakarta constraints and Jackson shape
-annotations describe fields; model-owned JSON Schema annotations express
-conditional input rules such as exactly one literal value or Secret reference.
-Jakarta validation also checks the exclusive environment, workload, probe and
-gRPC request choices, and the fields allowed for each materializer destination.
-Cross-DOT resolution, secret authorization and ownership checks still run in
-the CLI after schema validation.</p>
-</div>
-<div class="paragraph">
-<p>This migration preserves <code>dot.mare6g.eu/v1</code>, existing documents and reviewed
-locks. Composition <code>version</code> and <code>dotVersion</code> retain the existing v1 string
-semantics; they have not silently become stricter Java <code>Version</code> fields.</p>
+<p>Resolved compositions, locks, concrete endpoints, secrets and private lifecycle
+state remain executor concerns; they are not additional portable Java models.
+The <a href="../dot-design/architecture.html#_source_of_truth_boundaries" class="xref page">architecture
+boundaries</a> explain which component owns each fact.</p>
 </div>
 </div>
 </div>
@@ -539,15 +467,43 @@ semantics; they have not silently become stricter Java <code>Version</code> fiel
 <h2 id="_model_baseline_and_compatibility"><a class="anchor" href="#_model_baseline_and_compatibility"></a>Model baseline and compatibility</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The published baseline is 0.4.0, including the approved shared Payload, Anchor
-cleanup and bounded SPARQL changes. The model baseline distinguishes those
-changes from historical 0.3.0 evidence and later source validation corrections.
-Preserve the selected baseline&#8217;s valid inputs and reviewed locks; further model
-changes require review and the existing generation/compatibility gates. Probe
-and materializer selections use
-typed Java enums: <code>AsyncAPIProtocol</code>, <code>GraphQLTransport</code>, <code>GRPCResponseMatch</code>,
-<code>MaterializerType</code>, and <code>MaterializerValueFrom</code>. Existing wire values remain
-unchanged and exact, for example <code>MQTT</code>, <code>SSE</code>, and <code>CONFIG_FILE</code>.</p>
+<p>The published baseline is 0.4.0. Select <code>dot-domain-models-0.4.0.tar.gz</code> with its
+matching release manifest and checksums. The earlier
+<code>dot-domain-models-0.3.0.tar.gz</code> and historical corpus labels remain evidence of
+that earlier baseline, not the schema package for 0.4.0.</p>
+</div>
+<div class="paragraph">
+<p>Preserve valid inputs and reviewed locks for the selected baseline. Source/API
+compatibility changes, migration steps and remaining gates are recorded in the
+<a href="../dot-design/compatibility.html" class="xref page">compatibility policy</a> and
+<a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/MODEL-SPEC.md">model specification</a>.
+Neither a schema archive nor passing tests establishes live producer acceptance.</p>
+</div>
+<div class="sect2">
+<h3 id="_deployment_free_model_gate"><a class="anchor" href="#_deployment_free_model_gate"></a>Deployment-free model gate</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:models</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This runs the full Java/schema/Go/catalogue/lock gate without deploying
+workloads. Initial bootstrap may download pinned validation tools. Runtime
+acceptance (<code>task ci:live</code>), presenter qualification (<code>task testing:demo</code>),
+independent onboarding and owner approval remain separate.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reference_aware_validation_and_collection_safety"><a class="anchor" href="#_reference_aware_validation_and_collection_safety"></a>Reference-aware validation and collection safety</h3>
+<div class="paragraph">
+<p>Validate raw required-property presence with the generated schema <strong>before</strong>
+deserialization. Java constructor defaults cannot distinguish an omitted
+required property from an explicitly supplied default. Then use ordinary
+<code>validator.validate(dot)</code> for Jakarta Bean Validation and aggregate invariants.</p>
+</div>
+<div class="paragraph">
+<p>For example, this Java builder creates a typed declaration; it does not connect
+to a broker or prove message delivery:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -558,160 +514,20 @@ unchanged and exact, for example <code>MQTT</code>, <code>SSE</code>, and <code>
 </div>
 </div>
 <div class="paragraph">
-<p>This constructs a declaration, not a broker connection or successful delivery
-probe. Validate Java objects with Jakarta Bean Validation and raw input with the
-generated schema. Raw-input validation must precede deserialization when
-required-property presence matters: defaulted Java fields cannot distinguish an
-omitted required property from an explicitly supplied default. Optional empty
-Java Wire collections serialize as absent; explicit empty JSON collections
-remain invalid where the schema requires a nonempty value. Materializer target
-pointers such as <code>/routes/0/uri</code> remain accepted without rewriting.</p>
+<p>The portable <code>IdentityReference</code> group validates ID-only Skill and service
+Contract references. A standalone entity needs its complete declaration. Root
+Contracts use <code>ContractDeclaration</code>; model-level ID-only references remain
+readable, but catalogue/CLI publication requires complete owned declarations.
+The Java model performs no catalogue or network I/O: use full <code>dotx validate</code>
+for authoritative assets, selectors and cross-DOT resolution.</p>
 </div>
 <div class="paragraph">
-<p>The Java build enforces 100% instruction and branch coverage. Compatibility
-tests compare generated schemas to the frozen v1 oracle, including existing
-composition inputs and all 128 materializer field combinations. These checks
-do not establish independent adoption or live producer acceptance.</p>
-</div>
-<div class="paragraph">
-<p><code>DOT-Domain/MODEL-SPEC.md</code> records the current cross-model invariants and
-validation boundaries. Select <code>dot-domain-models-0.4.0.tar.gz</code> with its matching
-release manifest/checksums for the published 0.4.0 baseline. The earlier
-<code>dot-domain-models-0.3.0.tar.gz</code> is historical freeze evidence, not the schema
-package for 0.4.0. Historical corpus labels remain unchanged. Neither package
-is a permanent 1.0 guarantee or whole-catalogue live acceptance.</p>
-</div>
-<div class="paragraph">
-<p>The service-configuration audit now rejects duplicate environment/CDI names,
-configuration-file paths, and volume names/target paths within one service.
-Distinct services keep separate scopes, so the same key may occur in both.
-Declarations retain their order and are never silently collapsed. Java and
-installed-CLI tests share the same positive/negative corpus. These are semantic
-checks: standard JSON Schema cannot express uniqueness by one property of an
-array item. The generated JSON shapes and reviewed composition locks remain
-unchanged; use full DOT validation rather than schema-only acceptance.
-These checks belong to DOT-Domain and its existing generation pipeline, not
-independent CLI models. They do not close independent-adopter/owner reviews or
-the practical book&#8217;s pending qualification of a released cleanup audit.</p>
-</div>
-<div class="sect2">
-<h3 id="_deployment_free_model_gate"><a class="anchor" href="#_deployment_free_model_gate"></a>Deployment-free model gate</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:models</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This sequential, fail-fast local gate runs Java tests and coverage, shared
-positive/negative examples and serialized Java/schema agreement, generated Go
-drift checks, CLI race tests and coverage, offline catalogue validation and
-reviewed locks. Every exported model needs reviewed examples; all enum values
-and registered manifest subtypes are covered. This is a baseline, not an
-exhaustive proof of every field combination.</p>
-</div>
-<div class="paragraph">
-<p>No deployment, runtime startup or GitHub workflow dispatch occurs. Contributor
-toolchains are required; initial bootstrap may download pinned validation tools.
-Use <code>task ci:live</code> separately for actual adapter/runtime acceptance and
-<code>task testing:demo</code> separately for full presenter qualification. A coding-only
-push is not a live-runtime qualification or documentation publication.</p>
-</div>
-<div class="paragraph">
-<p>Optional null manifest/configuration fields serialize as absent, not
-schema-invalid JSON nulls; JSON assertions intentionally retain <code>equals: null</code>.
-OCI capabilities/host namespaces reject duplicates before Set conversion.
-Java callers of their previous Set-specific setters must recompile. Generated
-schemas now retain existing Java patterns for Helm repositories and WASM module
-references/digests, rejecting malformed inputs earlier without changing valid
-document shapes.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_reference_aware_validation_and_collection_safety"><a class="anchor" href="#_reference_aware_validation_and_collection_safety"></a>Reference-aware validation and collection safety</h3>
-<div class="paragraph">
-<p>Anchors use exact DOT-local kebab-case keys such as <code>search-api</code>, not generated
-UUIDs for new catalogue entries. <code>Anchor.ID_PATTERN</code> is shared by the Java
-definition, service bindings and composition references and exported to the
-generated schemas/Go inputs. A wire&#8217;s <code>instance</code> identifies the owning DOT, so
-two different DOTs may reuse the same local key. Display labels and operation
-selectors remain separate and never act as lookup aliases.
-Legacy UUID strings remain readable when explicitly declared. These three
-Java properties now use <code>String</code>; recompile callers and convert old UUID
-arguments explicitly. Composition ownership UUIDs are unchanged. Catalogue
-migration updates references and reviewed locks together, not private live state.</p>
-</div>
-<div class="paragraph">
-<p>Use ordinary <code>validator.validate(dot)</code> to cascade validation. ID-only Skill and
-service Contract views use the portable Jakarta <code>IdentityReference</code> group;
-ignored entity metadata is not validated as a complete declaration. Validating
-a standalone <code>Skill</code> or <code>Contract</code> still requires a full entity. Root Contracts
-use the <code>ContractDeclaration</code> group, admitting either a complete declaration
-with validated payload/version or the existing ID-only migration reference.
-Partial declarations fail. Serializing a root ID-only reference does not add
-the Java default version to its JSON.</p>
-</div>
-<div class="paragraph">
-<p>Service Contract references must identify a root declaration or an explicitly
-sourced external Anchor Contract. A different release or similar name is not
-an alias. The model does no catalogue or network I/O: Skill existence, verified
-Contract assets and operation resolution remain CLI/resolver checks.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Scope</th>
-<th class="tableblock halign-left valign-top">Unique keys</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Runtime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment IDs</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service IDs</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port names</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DOT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root Contract IDs and Anchor IDs</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Composition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instance names, Contract-input IDs, wire names, exposed-Anchor names</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Jackson&#8217;s <code>Deployment.setServices(Collection&lt;DeploymentService&gt;)</code> rejects
-duplicate service IDs before constructing its ordered Set; it never silently
-chooses one conflicting service. Recompile Java callers of the former
-Set-specific setter. Validation also rechecks keys after in-place ID mutation.
-The CLI applies the corresponding semantic checks to raw definitions and emits
-field locations without copying the portable models into handwritten Go types.</p>
-</div>
-<div class="paragraph">
-<p>Dependencies, security scopes, CDI bindings and OCI grants retain their existing
-v1 <code>uniqueItems</code> constraints, now checked in Java lists too. Generated schemas
-also retain their annotated item-level nonempty-string/capability constraints.
-The portable <code>@UniqueElements</code> constraint drives both Jakarta validation and
-the shared Victools schema module; there is no separate hand-maintained list
-of unique fields.
-No blanket deduplication or reordering applies to arbitrary lists. Missing
-required values and null nested entries produce validation violations rather
-than aggregate-traversal exceptions. Validate raw required-property presence
-before deserialization, as described above.
-Optional null Dot/Skill fields serialize as absent, not schema-invalid nulls.
-Shared golden examples run through both Java round trips and generated-schema
-validation. The broader optional-value serialization audit remains open.</p>
+<p><code>@ValidAnchor</code> delegates aggregate reference and binding checks to
+<code>AnchorValidator</code>. Collection setters reject duplicate service IDs before
+constructing an ordered Set; validation also detects collisions after in-place
+ID mutation. <code>@UniqueElements</code> supplies the shared Java/schema list constraints,
+without blanket deduplication or reordering. Service configuration keys are
+unique within their own service, not across unrelated services.</p>
 </div>
 </div>
 </div>
@@ -720,80 +536,11 @@ validation. The broader optional-value serialization audit remains open.</p>
 <h2 id="_identity_versioning_and_references"><a class="anchor" href="#_identity_versioning_and_references"></a>Identity, versioning, and references</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Dot</code>, <code>Skill</code>, and <code>Contract</code> use case-sensitive textual IDs. The catalogue uses
-<code>Prometheus@3.15.1</code>, <code>Metrics-Scraping</code>, and <code>Prometheus@3.15.1::OpenAPI::HTTP</code>,
-respectively. DOT IDs follow <code>&lt;name&gt;@&lt;version&gt;</code> using the actual tool release;
-Contract IDs follow <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code>. The local Contract name
-is <code>HTTP</code> in this example. Consumers retain the originating identity, even when
-their own DOT has a different name or version. Contract standard versions and chart
-packaging versions are independent. IDs are explicit keys, not download URLs or
-filesystem paths. Existing UUID-shaped strings remain accepted, without
-implicit aliases to migrated entries. Anchor IDs are DOT-local kebab-case;
-Composition identities remain UUIDs. IDs are not URLs. The catalogue naming convention requires an explicit
-identity/reference update when changing a DOT name or tool release;
-mutating a Java object&#8217;s fields does not silently regenerate its ID.
-Equality for <code>Dot</code>, <code>Skill</code>, <code>Contract</code>, and <code>Composition</code> is
-ID-based so changes to mutable metadata or collections do not destabilize sets
-or persistence identity.</p>
-</div>
-<div class="paragraph">
-<p>Every DOT must reference at least one meaningful Skill. The catalogue&#8217;s
-capability assets resolve through <code>Skills/</code>. Prometheus, for example, contains:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"skills": [{"id": "Metrics-Scraping"}, {"id": "Observability"}]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>dotx repository inspect &lt;id&gt;@&lt;version&gt; --repository DOT-Repository --json</code>
-resolves those IDs to the authoritative labels, descriptions and
-<code>Monitoring-and-Analysis</code> category. References require the exact ID; search
-filters may additionally match a name case-insensitively. A display-label change
-never implicitly changes identity. See the catalogue&#8217;s <code>IDENTIFIER-MIGRATION.md</code>
-for the completed DOT/Contract migration and safe lock/state handling.</p>
-</div>
-<div class="paragraph">
-<p><code>Version</code> accepts Semantic Versioning 2.0.0 values and the special <code>latest</code>
-selector. It serializes as a string and implements SemVer precedence; <code>latest</code>
-sorts after concrete versions. A new <code>Dot</code> defaults to <code>0.0.0</code>,
-while <code>Platform.version</code> defaults to <code>latest</code> so no platform-specific release is
-implied.</p>
-</div>
-<div class="paragraph">
-<p><code>Contract.version</code> is a standard-specific string, not a software/API release:
-OpenAPI and AsyncAPI copy their exact top-level <code>openapi</code>/<code>asyncapi</code> version;
-Protobuf uses the native <code>syntax</code>/<code>edition</code> value (implicit <code>proto2</code> when absent).
-GraphQL SDL declares no version, so that field is omitted. There is no default
-or placeholder Contract version. <code>info.version</code> remains unchanged inside the
-upstream payload. <code>dotx validate</code>, composition loading and URL authoring reject
-mismatches even when the declared number is otherwise well formed.</p>
-</div>
-<div class="paragraph">
-<p>JSON serializes <code>Dot.skills</code> and <code>DeploymentService.contracts</code> as ID-only
-references. Root <code>Dot.contracts</code> carries authoritative Contract declarations:
-identity, standard, format, and a structured <code>payload</code> with an HTTPS <code>url</code> and
-<code>sha256</code> pin. Raw API documents are not embedded in <code>dot.json</code>.
-Current catalogue roots must carry complete declarations; CLI validation rejects
-ID-only roots instead of searching local or sibling files. Verified bytes are
-cached outside the DOT; cold offline validation fails until warmed online. An Anchor references the root declaration by Contract ID and selector.</p>
-</div>
-<div class="paragraph">
-<p>Current source uses one shared <code>Payload</code> value for Contracts and file documents:
-<code>DockerCompose.payload</code>, <code>KubernetesManifest.payload</code>, <code>Vagrantfile.payload</code>,
-<code>HelmValues.payload</code>, <code>EnvFile.payload</code>, and optional
-<code>ConfigFile.payload</code>. Each reference selects exact raw document bytes,
-not an application endpoint. There is no inline-text, Base64 or adjacent-file
-fallback. This deliberately breaks former string-based file declarations and
-renames the Java <code>ContractPayload</code> type to <code>Payload</code>; valid Contract JSON keeps
-its URL/hash shape. Published stable-tag documentation retains its historical
-model baseline. See <a href="model-reference.html" class="xref page">the current-source reference</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>dotx validate</code> enforces catalogue identity uniqueness, including DOT
-<code>(id, version)</code> and <code>(name, version)</code>, and rejects conflicting documents for one
-Contract ID across bundles. These catalogue rules are not database indexes
-or persistence requirements enforced by the Java entities.</p>
+<p>Use <a href="model-identity.html" class="xref page">identity and capability entries</a> for IDs, metadata,
+Skills and <code>Version</code>, and
+<a href="../dot-design/catalogue-versioning.html" class="xref page">product/release conventions</a> when
+publishing a catalogue bundle. Entity equality is ID-based; changing mutable
+fields does not regenerate identity.</p>
 </div>
 </div>
 </div>
@@ -801,57 +548,10 @@ or persistence requirements enforced by the Java entities.</p>
 <h2 id="_contracts"><a class="anchor" href="#_contracts"></a>Contracts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Contract <code>standard</code> accepts only the canonical JSON spellings <code>OpenAPI</code>,
-<code>AsyncAPI</code>, <code>Protobuf</code>, <code>GraphQL</code>, and <code>SPARQL</code>. Use those values exactly;
-alternative casing and surrounding whitespace are rejected. The Java enum constants remain
-uppercase; Jackson serialization and the generated JSON Schemas use their
-canonical values. <code>DataFormat</code> is a separate enum and is unchanged.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Standard</th>
-<th class="tableblock halign-left valign-top">Payload format</th>
-<th class="tableblock halign-left valign-top">Anchor selector</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpenAPI</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AsyncAPI</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>YAML</code> or <code>JSON</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RFC 6901 URI-fragment JSON Pointer to an Operation Object</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Protobuf</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROTOBUF</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified service method</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GraphQL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GRAPHQL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root-field schema coordinate</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPARQL</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>N_TRIPLES</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact query endpoint IRI from a SPARQL Service Description</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><code>Contract.isFormatCompatibleWithStandard()</code> rejects mismatched standard/format
-pairs. Payload parsing and selected-element existence are resolver concerns;
-the domain model validates selector syntax and references within the aggregate.</p>
+<p>The <a href="model-interfaces.html#model-Contract" class="xref page">Contract entry</a> defines its fields.
+The <a href="../dot-design/authoring-anchors.html#supported-contract-representation-matrix" class="xref page">representation
+matrix</a> is the maintained standard/format/selector guide. Do not infer allowed
+owner combinations from the <code>DataFormat</code> enum alone.</p>
 </div>
 </div>
 </div>
@@ -859,62 +559,9 @@ the domain model validates selector syntax and references within the aggregate.<
 <h2 id="_anchors_and_bindings"><a class="anchor" href="#_anchors_and_bindings"></a>Anchors and bindings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A contract-backed Anchor contains:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>a stable DOT-local ID and a separate display name;</p>
-</li>
-<li>
-<p>a <code>PROVIDES</code> or <code>REQUIRES</code> role; and</p>
-</li>
-<li>
-<p>a Contract ID plus standard-specific selector.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>It omits direction, protocol, and media type because those facts come from the
-selected Contract operation. A contractless Anchor must declare <code>direction</code>, at
-least one protocol, and at least one media type explicitly.</p>
-</div>
-<div class="paragraph">
-<p><code>DeploymentService.anchorBindings</code> maps an exact Anchor ID to a named <code>ServicePort</code>
-on that same service. An Anchor contains no host, numeric port, credential,
-placement, or live policy state.</p>
-</div>
-<div class="paragraph">
-<p>The class-level <code>@ValidAnchor</code> constraint delegates cross-reference validation
-to <code>AnchorValidator</code>. It rejects:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>duplicate Anchor IDs within one DOT;</p>
-</li>
-<li>
-<p>local Contract references not declared by the same DOT (external references
-instead require an explicit originating DOT; its actual declaration is
-resolved separately by the CLI);</p>
-</li>
-<li>
-<p>selectors invalid for the referenced Contract standard;</p>
-</li>
-<li>
-<p>bindings to undeclared Anchors;</p>
-</li>
-<li>
-<p>bindings to port names absent from that service; and</p>
-</li>
-<li>
-<p>duplicate bindings of one Anchor within the same service.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>See <a href="../dot-design/anchors-and-composition.html" class="xref page">DOT Anchors and Composition</a>
-for authoring and wiring examples.</p>
+<p>See <a href="model-interfaces.html" class="xref page">Anchor model entries</a> for fields and constraints,
+and <a href="../dot-design/authoring-anchors.html" class="xref page">Anchor authoring</a> for operation
+selection, compatibility and deployment binding.</p>
 </div>
 </div>
 </div>
@@ -922,44 +569,11 @@ for authoring and wiring examples.</p>
 <h2 id="_runtime_two_layer_model"><a class="anchor" href="#_runtime_two_layer_model"></a>Runtime two-layer model</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Runtime</code> separates infrastructure from deployment mechanism:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Enum</th>
-<th class="tableblock halign-left valign-top">Used by</th>
-<th class="tableblock halign-left valign-top">Answers</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PlatformEngine</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Platform.engine</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Where the workload runs: <code>DOCKER</code>, <code>KUBERNETES</code>, <code>VAGRANT</code>, or <code>WEBASSEMBLY</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentManifestType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentManifest.type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">How it is deployed: Docker image, Docker Compose, Kubernetes manifest, Helm
-  chart, Vagrantfile, or WASM module.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Every <code>DeploymentManifestType</code> declares its required <code>PlatformEngine</code>.
-<code>Runtime.isDeploymentPlatformAligned()</code> validates every deployment against the
-runtime platform. <code>Runtime.isDeploymentIdsUnique()</code> enforces stable deployment
-selection within that runtime.</p>
-</div>
-<div class="paragraph">
-<p><code>Deployment.services</code> is a set. <code>DeploymentService</code> uses ID-based equality, so
-logical service IDs remain unique within the deployment.</p>
+<p>The <a href="model-deployment.html#model-Runtime" class="xref page">Runtime</a> and
+<a href="model-deployment.html#model-Platform" class="xref page">Platform</a> entries explain platform
+versus mechanism. Java runtime validation checks deployment/platform alignment
+and distinct deployment IDs; enum membership alone does not promise executor
+support.</p>
 </div>
 </div>
 </div>
@@ -967,69 +581,10 @@ logical service IDs remain unique within the deployment.</p>
 <h2 id="_deployment_manifests"><a class="anchor" href="#_deployment_manifests"></a>Deployment manifests</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>DeploymentManifest</code> is polymorphic JSON dispatched by its existing <code>type</code>
-property.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 28.5714%;">
-<col style="width: 28.5714%;">
-<col style="width: 42.8572%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Java subtype</th>
-<th class="tableblock halign-left valign-top">Important fields</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_IMAGE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DockerImage</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Image reference and ordered dotenv payloads</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_COMPOSE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DockerCompose</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Complete YAML/JSON payload and ordered dotenv payloads</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KUBERNETES_MANIFEST</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KubernetesManifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Complete YAML/JSON manifest payload</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HELM_CHART</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HelmChart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Repository, chart or OCI reference, version, and ordered values payloads</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VAGRANTFILE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Vagrantfile</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Complete Ruby DSL payload</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WASM_MODULE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WebAssemblyModule</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Relative/file or HTTPS module URI, WASI execution world, command arguments,
-  and required SHA-256 integrity pin</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>Docker Compose and Kubernetes manifest payloads accept YAML or JSON only. Helm
-values also preserve YAML/JSON order: later entries override earlier entries as
-with repeated Helm <code>-f</code> arguments.
-These formats describe the downloaded bytes, not embedded strings in
-<code>dot.json</code>. Image/chart references and the WASM module URI/hash remain separate
-from the shared file-document <code>Payload</code> model. Digest verification alone does
-not establish publisher identity, execution safety or successful deployment.</p>
-</div>
-<div class="paragraph">
-<p>Runtime instance concerns do not belong in a manifest. For example, a Helm
-release name and namespace are selected by deployment tooling, not embedded in
-<code>HelmChart</code>.</p>
+<p>Use <a href="model-deployment.html#model-DeploymentManifest" class="xref page">the manifest reference</a>
+for subtype fields, exact discriminator values and examples. Adapter execution
+and supported runtime operations belong in the
+<a href="../dot-cli/index.html" class="xref page">CLI guide</a>.</p>
 </div>
 </div>
 </div>
@@ -1037,51 +592,12 @@ release name and namespace are selected by deployment tooling, not embedded in
 <h2 id="_service_configuration_declarations"><a class="anchor" href="#_service_configuration_declarations"></a>Service configuration declarations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Every <code>DeploymentService</code> owns one <code>DeploymentConfig</code> containing:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>environment variables, including default, required, and sensitive metadata;</p>
-</li>
-<li>
-<p>configuration-file paths, content type, defaults, and sensitivity;</p>
-</li>
-<li>
-<p>logical volume mounts;</p>
-</li>
-<li>
-<p>logical CNCF CDI device requirements; and</p>
-</li>
-<li>
-<p>optional OCI capability and host-namespace requirements.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These are supported inputs and requirements, not applied runtime state.
-An omitted <code>ConfigFile.payload</code> means no declared default. A supplied
-default is a pinned <code>Payload</code>; a sensitive file must not declare any non-null
-default, even a public or empty document. Scalar environment defaults remain
-strings. Java null omission does not imply that explicit JSON null is accepted.</p>
-</div>
-<div class="paragraph">
-<p><code>ConfigFile.payload</code> replaces the former <code>defaultContent</code> name. Only <code>payload</code>
-is accepted by current source; operator or composition inputs still override
-this optional default. A sensitive file must receive its content at deployment
-time, never through a reusable payload URL.
-Operator values, host paths, concrete CDI device names, and permission grants
-belong to deployment or composition input.</p>
-</div>
-<div class="paragraph">
-<p>OCI requirements use standard <code>CAP_*</code> capability names and typed Linux
-namespaces. The model deliberately has no unrestricted <code>privileged</code> flag.</p>
-</div>
-<div class="paragraph">
-<p>A CDI requirement declares a stable logical name and a
-<code>vendor.example/class</code> kind. A composition binds it to one exact
-<code>vendor.example/class=device</code> identifier. CDI installation, allocation, and
-authorization remain operator responsibilities.</p>
+<p>The <a href="model-deployment.html#model-DeploymentConfig" class="xref page">configuration reference</a>
+explains service-scoped defaults, files, storage and device/privilege
+requirements. Use <a href="../dot-design/architecture.html#multi-service-dots" class="xref page">the
+multi-service design guide</a> to select logical services and native workloads.
+The <a href="../dot-design/compatibility.html#payload-migration-040" class="xref page">payload migration</a>
+covers retired file-document fields; it does not provide a local-file fallback.</p>
 </div>
 </div>
 </div>
@@ -1091,60 +607,61 @@ authorization remain operator responsibilities.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Collections have initialized builder defaults and do not become <code>null</code> when
-constructed through Lombok builders.</p>
+<p>Builder collections have initialized mutable defaults.</p>
 </li>
 <li>
-<p><code>Version</code> is JSON-serialized as a normalized string.</p>
+<p>Optional null fields serialize as absent where specified; this does not
+imply that explicit JSON null is accepted. JSON assertions retain
+<code>equals: null</code> intentionally.</p>
 </li>
 <li>
-<p>Persistence adapters must preserve UUID, textual identifier and version representations.</p>
+<p>Jackson reference views serialize Skill and service Contract references as
+ID-only objects; validate them in the appropriate reference context above.</p>
 </li>
 <li>
-<p>Skill and service-level Contract references expose only <code>id</code>; published root
-<code>Dot.contracts</code> contains complete owned URL/hash declarations. Model-level
-ID-only values are not a local-asset fallback or publishable root declaration.</p>
-</li>
-<li>
-<p>Domain values carry no database or ORM annotations.</p>
+<p>Preserve textual/UUID identifiers and version representations. The Java
+library has no database or ORM annotations; persistence belongs to adapters.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Java callers affected by collection-setter or shared <code>Payload</code> API changes must
+recompile. Consult the compatibility policy before exchanging an existing
+artifact set or migrating authored documents.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_class_diagram"><a class="anchor" href="#_class_diagram"></a>Class diagram</h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<a class="image" href="../_images/dot-domain.class-diagram.svg" target="_blank" rel="noopener"><img src="../_images/dot-domain.class-diagram.svg" alt="DOT-Domain class diagram"></a>
-</div>
+<div class="paragraph">
+<p>The <a href="../dot-design/_images/diagrams/domain-complete.svg" class="xref image">complete generated Mermaid
+diagram</a> shows every public type. The
+<a href="_attachments/dot-domain-a4.pdf" class="xref attachment">A4 reference sheet</a> is the compact export;
+<a href="../_images/dot-domain.class-diagram.svg" class="xref image">PlantUML export</a> is also available. Detailed fields and examples remain in the complete reference.</p>
 </div>
 <div class="paragraph">
-<p>The published diagram is a reviewed export of the Java sources.
-Ordinary model builds keep generated PlantUML under <code>target</code> and leave these
-committed images unchanged. Maintainers refresh the exports with
-<code>task docs:domain:generate</code>, then review the differences.
-Open the diagram separately for the full-resolution view.</p>
+<p>Ordinary model builds leave committed exports unchanged. Follow
+<a href="model-reference.html#_maintaining_the_reference" class="xref page">reference maintenance</a> to
+regenerate and check them through the existing Java/schema authority.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_build_and_test"><a class="anchor" href="#_build_and_test"></a>Build and test</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>From the DOT-Design checkout root:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Unit tests only; no service or database required
-mvn -pl DOT-Domain test
-
-# Regenerate schema and diagram through the reactor lifecycle
-mvn -pl DOT-Domain clean install</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Library unit tests; no service or database required
+mvn -pl DOT-Domain test</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Representative tests cover version precedence, reference serialization,
-manifest polymorphism, runtime/manifest alignment, deployment configuration,
-Anchor rules, and entity equality.</p>
+<p>The Java build enforces 100% instruction and branch coverage. For schema
+regeneration, complete builds and test selection, use the contributor guide.</p>
 </div>
 </div>
 </div>

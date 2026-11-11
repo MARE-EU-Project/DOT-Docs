@@ -69,7 +69,46 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_what_problem_do_dots_solve">Why DOTs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_how_the_pieces_fit_together">How the pieces fit together</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_keep_four_ideas_in_view">Four ideas to keep in view</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_start_with_the_models">The model and its sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_a_tool_identity_capabilities_and_audit_information">Tool identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor">Contracts, Payloads and Anchors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_execution_runtime_platform_deployment_and_service">Runtimes, Deployments and Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Compositions, instances and Wires</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_know_the_project_components">Project components</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html#_check_your_understanding">Check your understanding</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Getting started</a>
@@ -363,25 +402,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The lifecycle deliberately separates reproducible input locking, model
-validation, deterministic resolution, runtime mutation, recorded state, and
-active acceptance evidence. This keeps review and CI read-only while making
-execution recoverable and auditable.</p>
-</div>
-<div class="paragraph">
-<p>Use <code>dotx compose inspect composition.yaml --locked</code> to explain the resolved
-DOTs, deployments, Contracts, wires, endpoints and configuration destinations
-before execution. It does not deploy workloads or probe services, although it
-may fetch and cache referenced definitions and Contracts. Use <code>topology</code> for a
-graph, <code>apply --dry-run</code> for deployment commands, and <code>status</code> for recorded
-runtime state. <code>inspect --json</code> returns the resolved composition as structured JSON.</p>
-</div>
-<div class="paragraph">
-<p>The resolved composition is computed from your document and the referenced DOTs;
-it is not another file to author or another portable domain model. Locks and
-saved execution state use <code>resolutionDigest</code>. Regenerate and review locks after
-updating the CLI. Before changing binaries, clean up running compositions with
-their original CLI: saved state is not migrated or adopted.</p>
+<p>Follow this reference after <a href="wiring-and-security.html" class="xref page">wiring the selected
+Anchors</a>. It covers command guarantees, state ownership and recovery; use
+<a href="../dot-cli/composition-authoring.html" class="xref page">composition authoring</a> to create a draft.</p>
 </div>
 </div>
 </div>
@@ -530,6 +553,12 @@ records secret values, runtime addresses, or checkout-local absolute paths.
 Validate, inspect, and apply verify an adjacent lock automatically; <code>--locked</code>
 additionally requires it, and <code>--lock &lt;path&gt;</code> selects an explicit file. Any
 mismatch fails before runtime mutation.</p>
+</div>
+<div class="paragraph">
+<p>The resolved composition is computed, not a second document to author. Locks
+and saved state identify it with <code>resolutionDigest</code>. Regenerate and review locks
+after updating the CLI. Clean up an existing run with its original binary and
+context before switching; saved state is not migrated or adopted.</p>
 </div>
 <div class="paragraph">
 <p><code>probe</code> deliberately reuses the interaction selected by the wire instead of
