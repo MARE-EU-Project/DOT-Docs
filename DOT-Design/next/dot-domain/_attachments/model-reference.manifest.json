@@ -80,7 +80,7 @@
     "WireSecurity"
   ],
   "publicInputs": {
-    "DOT-Docs/scripts/model-reference.mjs": "b3d547dcc7f72e4f36b5c734b4e8d1e8f397584651a8380956ae31bf9815f274",
+    "DOT-Docs/scripts/model-reference.mjs": "e740b1ff54dac6500cfcc21cfefa600307a2e07317fbb08036ea843f50a181da",
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "18c3b1a92edadb3542d9bd3a753e259a2d1f0101f24bed0b748655a24bbfc0ae",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "adf9f070830acd731739219c00d3429d88af13d5a6f894da05a3bef20cb90c46",
     "DOT-Docs/scripts/model-notes-composition.mjs": "34fcae9fc675e77aa529fa1794ed86a8cc978554b0d11e69153d9ce8a615a03f",
@@ -328,7 +328,7 @@
     "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "323b9785a835c64403e49a2715d8cb4563dd0f1033a05d746ae1ca41758010ff",
     "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "63cedc25855f3c9f5c2ff25c27b2cbc838c7323ce17b5aa0250bdcb93e88240b",
     "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "d133fd0e6620052d9bcba0fb761c811a958d1ddfa08477adcc74e383c013897b",
-    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "ae1df9d9ed3db213660bb6be6a57ec9cce170a2679a6d67ccd084f2c15c80922",
+    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "dffeb363506f7e78b5d2a350b9fc1685aadb5b2ff28199dbfb19344667373dd5",
     "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "900a77c7fa11d4a77e9c2052599f1d08a4285eaddfe15db520028bdd57bd2b3c"
   }
 }
