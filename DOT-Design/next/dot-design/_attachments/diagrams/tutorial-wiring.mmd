@@ -1,7 +1,7 @@
 %%{init: {"themeCSS": ".edgeLabel rect { opacity: 1 !important; }", "flowchart": {"wrappingWidth": 280, "rankSpacing": 40}}}%%
 flowchart TB
   accTitle: One monitoring connection, three views
-  accDescr: The composition Wire connects Node Exporter's node-metrics Anchor, which provides the interface, to Prometheus's scrape-target Anchor, which requires it. A materializer writes the Node Exporter endpoint into Prometheus's scrape configuration. At runtime Prometheus sends HTTP GET /metrics to Node Exporter, opposite to the Wire direction.
+  accDescr: The composition Wire connects Node Exporter's node-metrics Anchor, which provides the interface, to Prometheus's scrape-target Anchor, which requires it. A materializer writes the Node Exporter endpoint into Prometheus's scrape configuration. The runtime panel reads left to right from Prometheus, the HTTP client and consumer, to Node Exporter, the HTTP server and provider. The Wire connects provider to consumer; the HTTP request goes from consumer to provider.
 
   subgraph declaration["1. Declare the Wire in composition.yaml"]
     direction LR
@@ -18,9 +18,9 @@ flowchart TB
   end
 
   subgraph runtime["3. Prometheus initiates the HTTP request"]
-    direction RL
-    prometheus["Prometheus"]
-    exporter["Node Exporter"]
+    direction LR
+    prometheus["Prometheus<br/>HTTP client (consumer)"]
+    exporter["Node Exporter<br/>HTTP server (provider)"]
     prometheus ==>|"HTTP GET /metrics"| exporter
   end
 
