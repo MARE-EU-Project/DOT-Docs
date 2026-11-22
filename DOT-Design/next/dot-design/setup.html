@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Setup on Ubuntu 26.04 LTS :: MARE DOT-Design</title>
+    <title>Setup :: MARE DOT-Design</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="dots-for-dummies.html">
-    <meta name="description" content="Install Git and Go on Ubuntu 26.04 LTS and prepare to install dotx from GitHub.">
+    <meta name="description" content="Set up Git, Go, dotx, and the Docker tools for the quickstart on Ubuntu 26.04 LTS.">
     <meta name="generator" content="Antora 3.2.1">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -68,7 +68,55 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#git">Git</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#git-ubuntu">Ubuntu 26.04 LTS</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#go">Go</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#go-ubuntu">Ubuntu 26.04 LTS</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#install-dotx">dotx</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dotx-ubuntu">Ubuntu 26.04 LTS</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#docker-engine">Docker Engine</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#docker-engine-ubuntu">Ubuntu 26.04 LTS</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#docker-compose">Docker Compose</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#docker-compose-ubuntu">Ubuntu 26.04 LTS</a>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -405,54 +453,69 @@
 </div>
 </div>
   <div class="content">
-<aside class="toc sidebar" data-title="Contents" data-levels="2">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Setup on Ubuntu 26.04 LTS</h1>
+<h1 class="page">Setup</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use Ubuntu 26.04 LTS for this setup. Install <code>dotx</code> on the machine where you
-will run it.</p>
+<p>These instructions cover Ubuntu 26.04 LTS. Install <code>dotx</code> on the machine
+where you will run it.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Git</strong> fetches the private DOT-CLI source. Use a GitHub account with read
-access to <code>MARE-EU-Project/DOT-CLI</code> and working Git credentials.</p>
-</li>
-<li>
-<p><strong>Go</strong> builds and installs <code>dotx</code>. The current release needs a Go 1.27.2 or
-newer toolchain. Ubuntu 26.04&#8217;s
-<a href="https://packages.ubuntu.com/resolute/golang-go"><code>golang-go</code> package</a>
-supplies Go 1.26, which can download a compatible toolchain automatically.</p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
-<p>If Git or Go is missing, install them with APT using an account with sudo
-access.</p>
+<p>Install Git and Go before installing <code>dotx</code>. If you already have either tool,
+skip its APT commands and run the version check.</p>
+</div>
+<div class="sect2">
+<h3 id="git"><a class="anchor" href="#git"></a>Git</h3>
+<div class="paragraph">
+<p>Git fetches the private DOT-CLI source. Use a GitHub account with read access
+to <code>MARE-EU-Project/DOT-CLI</code> and working Git credentials.</p>
+</div>
+<div class="sect3">
+<h4 id="git-ubuntu"><a class="anchor" href="#git-ubuntu"></a>Ubuntu 26.04 LTS</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt update &amp;&amp;
+sudo apt install git</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git --version</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="go"><a class="anchor" href="#go"></a>Go</h3>
+<div class="paragraph">
+<p>Go builds and installs <code>dotx</code>. The current release needs a Go 1.27.2 or newer
+toolchain.</p>
+</div>
+<div class="sect3">
+<h4 id="go-ubuntu"><a class="anchor" href="#go-ubuntu"></a>Ubuntu 26.04 LTS</h4>
+<div class="paragraph">
+<p>Ubuntu 26.04&#8217;s
+<a href="https://packages.ubuntu.com/resolute/golang-go"><code>golang-go</code> package</a> supplies
+Go 1.26, which can download a compatible toolchain automatically.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt update &amp;&amp;
-sudo apt install git golang-go</code></pre>
+sudo apt install golang-go</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Check that your shell can find both commands and that Go can select a newer
-toolchain.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git --version &amp;&amp;
-go version &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go version &amp;&amp;
 go env GOTOOLCHAIN</code></pre>
 </div>
 </div>
@@ -465,19 +528,60 @@ run <code>export GOTOOLCHAIN=auto</code> in the same terminal before installing
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="install-dotx"><a class="anchor" href="#install-dotx"></a>Install dotx</h2>
+<h2 id="install-dotx"><a class="anchor" href="#install-dotx"></a>dotx</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="dotx-ubuntu"><a class="anchor" href="#dotx-ubuntu"></a>Ubuntu 26.04 LTS</h3>
 <div class="paragraph">
 <p>Follow <a href="../dot-cli/index.html#install-with-go" class="xref page">Install from GitHub with Go</a>
 to check Git access, configure <code>GOPRIVATE</code> for the install command, and
 install <code>dotx</code> in your local bin directory. Use the pinned example when a
 walkthrough specifies a release.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_runtime_tools"><a class="anchor" href="#_runtime_tools"></a>Runtime tools</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Install the runtime required by your chosen walkthrough before you deploy.
-The <a href="getting-started.html" class="xref page">Prometheus quickstart</a> uses Docker Engine and
+<p>Install the runtime your walkthrough uses. The
+<a href="getting-started.html" class="xref page">Prometheus quickstart</a> uses Docker Engine and
 Docker Compose.</p>
+</div>
+<div class="sect2">
+<h3 id="docker-engine"><a class="anchor" href="#docker-engine"></a>Docker Engine</h3>
+<div class="sect3">
+<h4 id="docker-engine-ubuntu"><a class="anchor" href="#docker-engine-ubuntu"></a>Ubuntu 26.04 LTS</h4>
+<div class="paragraph">
+<p>Follow <a href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine on Ubuntu</a>.
+Check that your account can reach the Docker daemon.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker info --format '{{.ServerVersion}}'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="docker-compose"><a class="anchor" href="#docker-compose"></a>Docker Compose</h3>
+<div class="sect3">
+<h4 id="docker-compose-ubuntu"><a class="anchor" href="#docker-compose-ubuntu"></a>Ubuntu 26.04 LTS</h4>
+<div class="paragraph">
+<p>Docker&#8217;s APT installation includes the Compose plugin. If Docker Engine is
+already installed and Compose is missing, follow
+<a href="https://docs.docker.com/compose/install/linux/">Install the Docker Compose plugin</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker compose version</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
