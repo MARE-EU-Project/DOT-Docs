@@ -423,20 +423,20 @@ for Docker, Kubernetes, Helm, Vagrant or Wasmtime.</p>
 <h2 id="install-with-go"><a class="anchor" href="#install-with-go"></a>Install directly from GitHub with Go</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use Go 1.27.2 or newer and Git access to the private DOT-CLI repository.
-With automatic toolchain selection enabled, Go can fetch a compatible version.</p>
+<p>Use Go 1.27.2 or newer and Git with read access to the private DOT-CLI
+repository. With automatic toolchain selection enabled, Go can fetch a
+compatible version.</p>
 </div>
 <div class="paragraph">
-<p><code>GOPRIVATE</code> routes private module requests. Git authenticates separately.
-Configure GitHub CLI as Git&#8217;s HTTPS credential helper. Skip the sign-in
-command if <code>gh auth status --hostname github.com</code> already shows the intended
-account.</p>
+<p><code>GOPRIVATE</code> routes private module requests. Git handles authentication.
+Use your existing Git credentials. If you need to set up HTTPS access, see the
+<a href="https://docs.github.com/en/get-started/git-basics/caching-your-github-credentials-in-git">GitHub credential guide</a>.
+If you use SSH for GitHub, configure Git to rewrite the MARE HTTPS repository
+URLs to SSH, then run the same access check.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login --hostname github.com --git-protocol https
-gh auth setup-git --hostname github.com &amp;&amp;
-git ls-remote https://github.com/MARE-EU-Project/DOT-CLI.git HEAD</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GIT_TERMINAL_PROMPT=0 git ls-remote https://github.com/MARE-EU-Project/DOT-CLI.git HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -480,31 +480,19 @@ dotx version</code></pre>
 <div class="sect2">
 <h3 id="matching-catalogue-commit"><a class="anchor" href="#matching-catalogue-commit"></a>Find the matching DOT-Repository commit</h3>
 <div class="paragraph">
-<p>After either install, use the installed Go module tag to look up that tag&#8217;s
-release manifest. This block uses <code>jq</code> and verifies the manifest tag before
-printing the catalogue commit.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx_tag="$(go version -m -json "$(command -v dotx)" | jq -er '
-  select(.Path == "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx") |
-  .Main.Version | select(startswith("v"))')" &amp;&amp;
-dot_catalogue_commit="$(gh release download "$dotx_tag" \
-  --repo MARE-EU-Project/DOT-CLI --pattern release-manifest.json --output - |
-  jq -er --arg tag "$dotx_tag" '
-    select(.tag == $tag) | .acceptance.dotRepository |
-    select(type == "string" and test("^[0-9a-f]{40}$"))')" &amp;&amp;
-printf 'DOT-Repository commit: %s\n' "$dot_catalogue_commit"</code></pre>
-</div>
+<p>Run <code>go version -m "$(command -v dotx)"</code> and note the version on the
+<code>mod</code> line. Open <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases">DOT-CLI releases</a> in your browser, select that version&#8217;s tag,
+and open <code>release-manifest.json</code> from its assets. Check that <code>tag</code> matches
+the installed version and copy the commit under <code>acceptance.dotRepository</code>.</p>
 </div>
 <div class="paragraph">
-<p>From a directory where the new checkout can be created, run this in the same
-shell.</p>
+<p>From a directory where the new checkout can be created, replace
+<code>CATALOGUE_COMMIT</code> with that commit and run:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository &amp;&amp;
-git -C DOT-Repository checkout --detach "$dot_catalogue_commit"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
+git -C DOT-Repository checkout --detach CATALOGUE_COMMIT</code></pre>
 </div>
 </div>
 <div class="paragraph">
