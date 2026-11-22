@@ -261,7 +261,13 @@
     <span class="nav-text">DOT-CLI</span>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">CLI overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#install-with-go">Install from GitHub with Go</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-design/getting-started.html">Installation and first DOT</a>
@@ -410,6 +416,102 @@
 <a href="https://github.com/MARE-EU-Project/DOT-CLI">DOT-CLI repository</a>. It operates on
 DOT definitions and compositions; it is not a catalogue server or a replacement
 for Docker, Kubernetes, Helm, Vagrant or Wasmtime.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-with-go"><a class="anchor" href="#install-with-go"></a>Install directly from GitHub with Go</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use Go 1.27.2 or newer and Git access to the private DOT-CLI repository.
+With automatic toolchain selection enabled, Go can fetch a compatible version.</p>
+</div>
+<div class="paragraph">
+<p><code>GOPRIVATE</code> routes private module requests. Git authenticates separately.
+Configure GitHub CLI as Git&#8217;s HTTPS credential helper. Skip the sign-in
+command if <code>gh auth status --hostname github.com</code> already shows the intended
+account.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login --hostname github.com --git-protocol https
+gh auth setup-git --hostname github.com &amp;&amp;
+git ls-remote https://github.com/MARE-EU-Project/DOT-CLI.git HEAD</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The last command checks that Git can read the private repository. If it fails,
+check the active account and its MARE repository access before installing.</p>
+</div>
+<div class="paragraph">
+<p>Install the latest available Go module version into your local bin directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p "$HOME/.local/bin" &amp;&amp;
+GOBIN="$HOME/.local/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
+  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@latest &amp;&amp;
+export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
+dotx version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add <code>$HOME/.local/bin</code> to your shell&#8217;s <code>PATH</code> for future sessions if needed.
+Use <code>command -v dotx</code> to check which executable your shell selects and
+<code>go version -m "$(command -v dotx)"</code> to check the installed module tag. The
+command-scoped <code>GOPRIVATE</code> tells Go to fetch private MARE modules directly
+under its default settings. The
+<a href="https://go.dev/ref/mod#go-install">Go Modules Reference</a>
+explains version suffixes and install locations.</p>
+</div>
+<div class="paragraph">
+<p>For a reproducible walkthrough, use its pinned CLI tag. Use this block for
+the selected quickstart release.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p "$HOME/.local/bin" &amp;&amp;
+GOBIN="$HOME/.local/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
+  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.4.1 &amp;&amp;
+export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
+dotx version</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="matching-catalogue-commit"><a class="anchor" href="#matching-catalogue-commit"></a>Find the matching DOT-Repository commit</h3>
+<div class="paragraph">
+<p>After either install, use the installed Go module tag to look up that tag&#8217;s
+release manifest. This block uses <code>jq</code> and verifies the manifest tag before
+printing the catalogue commit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx_tag="$(go version -m -json "$(command -v dotx)" | jq -er '
+  select(.Path == "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx") |
+  .Main.Version | select(startswith("v"))')" &amp;&amp;
+dot_catalogue_commit="$(gh release download "$dotx_tag" \
+  --repo MARE-EU-Project/DOT-CLI --pattern release-manifest.json --output - |
+  jq -er --arg tag "$dotx_tag" '
+    select(.tag == $tag) | .acceptance.dotRepository |
+    select(type == "string" and test("^[0-9a-f]{40}$"))')" &amp;&amp;
+printf 'DOT-Repository commit: %s\n' "$dot_catalogue_commit"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From a directory where the new checkout can be created, run this in the same
+shell.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository &amp;&amp;
+git -C DOT-Repository checkout --detach "$dot_catalogue_commit"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If GitHub has no matching release manifest, use the walkthrough&#8217;s pinned CLI
+tag and catalogue revision. Install the local tools required by your selected
+runtime before deploying.</p>
+</div>
 </div>
 </div>
 </div>
