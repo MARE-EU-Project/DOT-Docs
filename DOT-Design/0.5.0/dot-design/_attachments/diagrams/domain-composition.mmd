@@ -1,0 +1,79 @@
+classDiagram
+  direction TB
+  accTitle: Composition vertices, edges, channels, and deployment inputs
+  accDescr: Edges connect named vertices. Each edge owns channels that select a connector on each endpoint. Each connector identifies an Anchor on the DOT chosen by its vertex.
+
+  class Composition {
+    UUID id
+    String name
+    String version
+    String apiVersion
+    String kind
+    List~ContractInput~ contracts
+  }
+  class Vertex {
+    String name
+    String source
+    String dotId
+    String dotVersion
+    String deployment
+    List~String~ dependsOn
+  }
+  class DeploymentInputs {
+    List~DeploymentEnvironment~ environment
+    List~DeploymentConfigFile~ configFiles
+    List~DeploymentVolumeSource~ volumes
+    List~ServiceWorkloadBinding~ workloads
+    List~CdiDeviceBinding~ cdiDevices
+    OciRuntimeGrant ociRuntime
+  }
+  class Edge {
+    String name
+    String from
+    String to
+  }
+  class Channel {
+    String name
+    String fromConnector
+    String toConnector
+    Map parameters
+    ServicePortReference endpoint
+    NetworkBinding network
+    EdgeSecurity security
+    EdgeProbe probe
+  }
+  class Connector {
+    String anchorId
+  }
+  class Materializer {
+    String type
+    String source
+    String valueFrom
+    String uriTemplate
+    MaterializerTarget target
+  }
+  class ExposedAnchor {
+    String name
+    String vertex
+    String connector
+  }
+
+  Composition "1" *-- "1..*" Vertex : vertices
+  Composition "1" *-- "0..*" Edge : connections
+  Composition "1" *-- "0..*" ExposedAnchor : public entry points
+  Vertex "1" *-- "0..1" DeploymentInputs : instance configuration
+  Edge ..> Vertex : from / to
+  Edge "1" *-- "1..*" Channel : channels
+  Vertex "1" *-- "0..*" Connector : connectors
+  Channel ..> Connector : fromConnector / toConnector
+  Channel "1" *-- "0..*" Materializer : derived configuration
+  ExposedAnchor ..> Vertex : vertex
+  ExposedAnchor ..> Connector : connector
+
+  style Composition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style Vertex fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style Edge fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style ExposedAnchor fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style DeploymentInputs fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Materializer fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Connector fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px

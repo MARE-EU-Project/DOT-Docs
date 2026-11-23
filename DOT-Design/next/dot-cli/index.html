@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOT-CLI :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-cli/index.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-cli/index.html">
     <link rel="prev" href="../dot-domain/model-probes.html">
     <link rel="next" href="../dot-design/getting-started.html">
     <meta name="description" content="Install and use dotx to validate, inspect, deploy and connect reusable DOTs.">
@@ -392,12 +392,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.4.1/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="../dot-design/index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.4.1/dot-design/index.html">0.4.1</a>
         </li>
         <li class="version">
@@ -443,6 +446,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="index.html">Next</a>
+    <a class="version" href="../../0.5.0/dot-cli/index.html">0.5.0</a>
     <a class="version" href="../../0.4.1/dot-cli/index.html">0.4.1</a>
     <a class="version" href="../../0.4.0/dot-cli/index.html">0.4.0</a>
     <a class="version" href="../../0.3.0/dot-cli/index.html">0.3.0</a>
@@ -496,13 +500,14 @@ URLs to SSH, then run the same access check.</p>
 check the active account and its MARE repository access before installing.</p>
 </div>
 <div class="paragraph">
-<p>Install the latest available Go module version into your local bin directory.</p>
+<p>Run this block as written to install <code>dotx@latest</code> into your local bin
+directory. Set <code>CLI_VERSION</code> before running it to select a tag or commit.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p "$HOME/.local/bin" &amp;&amp;
 GOBIN="$HOME/.local/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
-  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@latest &amp;&amp;
+  go install "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@${CLI_VERSION:-latest}" &amp;&amp;
 export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
 dotx version</code></pre>
 </div>
@@ -524,7 +529,7 @@ the selected quickstart release.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p "$HOME/.local/bin" &amp;&amp;
 GOBIN="$HOME/.local/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
-  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.4.1 &amp;&amp;
+  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.5.0 &amp;&amp;
 export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
 dotx version</code></pre>
 </div>
@@ -538,19 +543,19 @@ and open <code>release-manifest.json</code> from its assets. Check that <code>ta
 the installed version and copy the commit under <code>acceptance.dotRepository</code>.</p>
 </div>
 <div class="paragraph">
-<p>From a directory where the new checkout can be created, replace
-<code>CATALOGUE_COMMIT</code> with that commit and run:</p>
+<p>Run this block from the directory where you want the new checkout. Set
+<code>REPOSITORY_VERSION</code> to the matching commit if you have one. An unset
+<code>REPOSITORY_VERSION</code> selects the catalogue&#8217;s <code>main</code> branch.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
-git -C DOT-Repository checkout --detach CATALOGUE_COMMIT</code></pre>
+git -C DOT-Repository checkout --detach "${REPOSITORY_VERSION:-origin/main}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If GitHub has no matching release manifest, use the walkthrough&#8217;s pinned CLI
-tag and catalogue revision. Install the local tools required by your selected
-runtime before deploying.</p>
+<p>Record the selected commit with <code>git -C DOT-Repository rev-parse HEAD</code>.
+Install the local tools required by your selected runtime before deploying.</p>
 </div>
 </div>
 </div>

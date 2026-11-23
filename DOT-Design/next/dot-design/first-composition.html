@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Run your first composition :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/first-composition.html">
     <link rel="prev" href="getting-started.html">
     <link rel="next" href="adopting-dot.html">
     <meta name="description" content="Connect Node Exporter to Prometheus, verify a real scrape, and remove the composition.">
@@ -391,12 +392,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.4.1/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.4.1/dot-design/index.html">0.4.1</a>
         </li>
         <li class="version">
@@ -441,6 +445,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="first-composition.html">Next</a>
+    <a class="version" href="../../0.5.0/dot-design/first-composition.html">0.5.0</a>
     <a class="version is-missing" href="../../0.4.1/dot-design/index.html">0.4.1</a>
     <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
     <a class="version is-missing" href="../../0.3.0/dot-design/index.html">0.3.0</a>
@@ -489,24 +494,31 @@ Compose plugin.</p>
 <h2 id="_install_the_cli_and_check_out_the_catalogue"><a class="anchor" href="#_install_the_cli_and_check_out_the_catalogue"></a>Install the CLI and check out the catalogue</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Choose one matched pair and set its variables. The Next source pair uses the
-Vertex, Edge and Channel model and publishes Prometheus on IPv4 loopback.</p>
+<p>With no version variables set, the install block below uses <code>dotx@latest</code>
+and the catalogue&#8217;s <code>main</code> branch. Each variable can be overridden
+independently. To reproduce this locked walkthrough, select one of the
+matched pairs below before running the install block. The latest tagged CLI
+can lag behind the catalogue&#8217;s <code>main</code> branch. If locked validation fails
+with schema or lock errors, install and check out the same pinned pair.</p>
+</div>
+<div class="paragraph">
+<p>The Next source pair uses the Vertex, Edge and Channel model and publishes
+Prometheus on IPv4 loopback.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_REF=9a9a54dc7d88f887d709847ab1e9d8045161371d
-CATALOGUE_REF=74594b9c50e8eab4bc88fa2a061f380315e8294e</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=9a9a54dc7d88f887d709847ab1e9d8045161371d
+REPOSITORY_VERSION=74594b9c50e8eab4bc88fa2a061f380315e8294e</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you are following the 0.4.1 release, use its matching
-catalogue and an isolated Docker host. That CLI leaves the bind address to
-Docker, and the example&#8217;s HTTP API has no authentication.</p>
+<p>For the published 0.5.0 CLI, select the catalogue commit
+recorded in its release manifest.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_REF=v0.4.1
-CATALOGUE_REF=6613a995a7406012aed1bc7bde2f1feabc3db935</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=v0.5.0
+REPOSITORY_VERSION=7a196ddb7dd4f7e18d720f00818a1367d2401bdb</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -518,11 +530,11 @@ Git credentials and access to both repositories, then repeat the failed command.
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p "$HOME/.local/bin" &amp;&amp;
 GOBIN="$HOME/.local/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
-  go install "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@$CLI_REF" &amp;&amp;
+  go install "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@${CLI_VERSION:-latest}" &amp;&amp;
 export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
 git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
 cd DOT-Repository &amp;&amp;
-git checkout --detach "$CATALOGUE_REF" &amp;&amp;
+git checkout --detach "${REPOSITORY_VERSION:-origin/main}" &amp;&amp;
 dotx version &amp;&amp;
 git rev-parse HEAD &amp;&amp;
 dotx tool check docker</code></pre>
@@ -532,15 +544,27 @@ dotx tool check docker</code></pre>
 <p>If you already installed the pinned CLI or cloned its catalogue, reuse that
 setup and start at the checkout and tool checks instead of cloning again.
 For the Next source pair, the CLI version ends with the first 12 characters
-of <code>CLI_REF</code>. For the release pair, it shows the release version.
-Continue from the catalogue root when the catalogue revision matches
-<code>CATALOGUE_REF</code> and Docker reports ready. Keep the same shell and Docker context
-through cleanup. Use the existing <a href="getting-started.html" class="xref page">single-DOT quickstart</a>
+of <code>CLI_VERSION</code>. For the release pair, it shows the release version. With
+the defaults, record the version and commit printed by the commands.
+For a pinned pair, confirm that the catalogue revision matches
+<code>REPOSITORY_VERSION</code>. Continue from the catalogue root when Docker reports
+ready. Keep the same shell and Docker context through cleanup. Use the existing <a href="getting-started.html" class="xref page">single-DOT quickstart</a>
 if you want to run one tool first.</p>
 </div>
 <div class="paragraph">
-<p>If validation reports missing <code>vertices</code> or <code>channels</code>, or a different lock,
-check that the installed CLI and catalogue revisions come from the same pair.</p>
+<p>If locked validation reports a schema or lock mismatch, select a matched pair
+above. From the existing catalogue root, run these commands to switch both
+versions and retry validation. Keep any local edits in a separate checkout.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GOBIN="$HOME/.local/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
+  go install "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@${CLI_VERSION:?select a matched pair}" &amp;&amp;
+export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
+git fetch origin &amp;&amp;
+git checkout --detach "${REPOSITORY_VERSION:?select a matched pair}" &amp;&amp;
+dotx compose validate Compositions/node-exporter-prometheus-monitoring/composition.yaml --locked</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -559,10 +583,9 @@ dotx compose apply "$GRAPH" --locked --dry-run \
 </div>
 </div>
 <div class="paragraph">
-<p>Expect two Docker image deployments and the <code>node-metrics-to-prometheus</code> connection.
-With released <code>dotx</code> 0.4.1 and the default port, the preview shows
-<code>-p 19040:9090</code> for Prometheus. A matching source build with loopback forwarding
-shows <code>-p 127.0.0.1:19040:9090</code> instead. The preview creates no workloads and
+<p>Expect two Docker image deployments and the <code>node-metrics-to-prometheus</code>
+Channel. The preview shows <code>-p 127.0.0.1:19040:9090</code> for Prometheus at the
+default port. The preview creates no workloads and
 writes no lifecycle state. Validation and preview can populate the cache with
 verified inputs.</p>
 </div>

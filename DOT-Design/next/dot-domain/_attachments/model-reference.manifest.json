@@ -1,5 +1,5 @@
 {
-  "version": "0.4.1",
+  "version": "0.5.0",
   "models": [
     "Anchor",
     "AnchorBinding",
@@ -89,7 +89,7 @@
     "DOT-Domain/src/test/resources/model-compatibility.json": "2959bbe799c689d1ab6f92fe926b2a526f3067d59ac76b62569f4276b28b62d9",
     "DOT-Docs/modules/ROOT/attachments/dot-domain.class-diagram.puml": "ff9ce85e6f510262bd5672306b861c43f89d258c3dece0ec7ca98035d8d84ab1",
     "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "657c2d11722cfc60cb9779da350164308339019778faae33621805d0a681ce9c",
-    "VERSION": "f62184cee8787f2f6941c82041a5725d4edc9aa293ebe5dbf664406e82ec1fe1",
+    "VERSION": "a0ad50640139a524f86591157145bf1d4674ea9c065bfea21558f0f7b04430c8",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java": "48342110ec1de31c057d635e96141bcb97787e772053025924b1f0360f201480",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/AnchorBinding.java": "eee594cea2b9b2c8d0012344b96b14986d9c8722172a0c6e81b4b3915eab958f",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorContract.java": "6d5a039da312db62f25eb1dfd7cef471be67aee4fece91790e064174f0ac2d7b",

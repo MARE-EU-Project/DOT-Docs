@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>1. Run your first DOT :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/tutorial-first-dot.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/tutorial-first-dot.html">
     <link rel="prev" href="dots-in-action.html">
     <link rel="next" href="tutorial-authoring.html">
     <meta name="description" content="Install one matching binary and catalogue, run Prometheus, verify its official API and clean up.">
@@ -392,12 +392,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.4.1/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.4.1/dot-design/index.html">0.4.1</a>
         </li>
         <li class="version">
@@ -443,6 +446,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="tutorial-first-dot.html">Next</a>
+    <a class="version" href="../../0.5.0/dot-design/tutorial-first-dot.html">0.5.0</a>
     <a class="version" href="../../0.4.1/dot-design/tutorial-first-dot.html">0.4.1</a>
     <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
     <a class="version is-missing" href="../../0.3.0/dot-design/index.html">0.3.0</a>
@@ -651,22 +655,22 @@ to this command and tells Go to fetch the private MARE module directly. If
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">test ! -e bin/dotx &amp;&amp;
 mkdir -p bin &amp;&amp;
 GOBIN="$PWD/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
-  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.4.1 &amp;&amp;
+  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.5.0 &amp;&amp;
 export PATH="$PWD/bin:$PATH" &amp;&amp;
 dotx version &amp;&amp;
 printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected version: <code>dotx 0.4.1</code>. Keep the setup directory and
+<p>Expected version: <code>dotx 0.5.0</code>. Keep the setup directory and
 the same shell through cleanup. Continue at <a href="#_check_out_the_catalogue">Clone DOT-Repository from GitHub</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="_install_the_released_cli"><a class="anchor" href="#_install_the_released_cli"></a>Alternative: install the checksummed release binary</h3>
 <div class="paragraph">
 <p>If you prefer the prebuilt binary, open the
-<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.1">selected GitHub release</a>
-in your browser. Download <code>dotx-0.4.1-linux-amd64</code> and
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.5.0">selected GitHub release</a>
+in your browser. Download <code>dotx-0.5.0-linux-amd64</code> and
 <code>SHA256SUMS</code> into a directory named <code>dot-quickstart-download</code> inside your setup
 directory. From your setup directory, verify the files and install the binary.
 Use <a href="#existing-setup">Existing or interrupted setup</a> if you already installed it there.</p>
@@ -674,10 +678,10 @@ Use <a href="#existing-setup">Existing or interrupted setup</a> if you already i
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd dot-quickstart-download &amp;&amp;
-(set -o pipefail; sha256sum dotx-0.4.1-linux-amd64 |
+(set -o pipefail; sha256sum dotx-0.5.0-linux-amd64 |
   grep -Fx -f - SHA256SUMS) &amp;&amp;
 mkdir bin &amp;&amp;
-install -m 0755 dotx-0.4.1-linux-amd64 \
+install -m 0755 dotx-0.5.0-linux-amd64 \
   "$PWD/bin/dotx" &amp;&amp;
 export PATH="$PWD/bin:$PATH" &amp;&amp;
 dotx version &amp;&amp;
@@ -687,7 +691,7 @@ cd ..</code></pre>
 </div>
 <div class="paragraph">
 <p>The checksum must match the downloaded filename and bytes. Continue when
-<code>dotx version</code> reports <code>dotx 0.4.1</code>. Keep the printed bin path
+<code>dotx version</code> reports <code>dotx 0.5.0</code>. Keep the printed bin path
 for recovery. The GitHub release also provides an SBOM and a build manifest.</p>
 </div>
 </div>
@@ -704,7 +708,7 @@ revision recorded in the CLI release manifest:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
 cd DOT-Repository &amp;&amp;
-git checkout --detach 6613a995a7406012aed1bc7bde2f1feabc3db935</code></pre>
+git checkout --detach 7a196ddb7dd4f7e18d720f00818a1367d2401bdb</code></pre>
 </div>
 </div>
 <details id="existing-setup">
@@ -725,7 +729,7 @@ git rev-parse HEAD</code></pre>
 </div>
 <div class="paragraph">
 <p>The <code>mod</code> line should show <code>github.com/MARE-EU-Project/DOT-CLI</code> at
-<code>v0.4.1</code> and Git should report <code>6613a995a7406012aed1bc7bde2f1feabc3db935</code>.</p>
+<code>v0.5.0</code> and Git should report <code>7a196ddb7dd4f7e18d720f00818a1367d2401bdb</code>.</p>
 </div>
 <div class="paragraph">
 <p>For a checksummed release binary, compare the catalogue revision and the
@@ -735,13 +739,13 @@ installed bytes against the original download:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
 set -euo pipefail
-test "$(dotx version)" = "dotx 0.4.1"
-test "$(git rev-parse HEAD)" = "6613a995a7406012aed1bc7bde2f1feabc3db935"
+test "$(dotx version)" = "dotx 0.5.0"
+test "$(git rev-parse HEAD)" = "7a196ddb7dd4f7e18d720f00818a1367d2401bdb"
 cd ../dot-quickstart-download
-sha256sum dotx-0.4.1-linux-amd64 |
+sha256sum dotx-0.5.0-linux-amd64 |
   grep -Fx -f - SHA256SUMS
 installed="$(sha256sum "$(command -v dotx)")"
-downloaded="$(sha256sum dotx-0.4.1-linux-amd64)"
+downloaded="$(sha256sum dotx-0.5.0-linux-amd64)"
 test "${installed%% *}" = "${downloaded%% *}"
 printf 'Matching CLI and catalogue verified.\n'
 )</code></pre>
