@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>0.4.0 release qualification and limits :: MARE DOT-Design</title>
+    <title>Release qualification and limits :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/release-readiness.html">
     <link rel="prev" href="release-notes.html">
     <link rel="next" href="../dot-domain/index.html">
     <meta name="description" content="Exact technical evidence, migration requirements and honestly pending adopter and owner reviews.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -436,7 +436,7 @@
   <ul>
     <li>DOT-Design</li>
     <li><a href="release-notes.html">Release notes</a></li>
-    <li><a href="release-readiness.html">0.4.0 readiness and remaining gates</a></li>
+    <li><a href="release-readiness.html">Release readiness and remaining gates</a></li>
   </ul>
 </nav>
 <div class="page-versions">
@@ -459,16 +459,13 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">0.4.0 release qualification and limits</h1>
+<h1 class="page">Release qualification and limits</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <strong>0.4.0 release baseline</strong> targets <strong>Linux amd64</strong> and the existing single-host
-execution profiles. The owner authorized direct stable publication on
-2026-11-03, without requiring a public candidate first. Three unfamiliar-developer
-trials and licensing/redistribution/hosting reviews remain <strong>pending follow-up</strong>;
-they are not reported as complete. Publication in the existing private repositories
-does not establish independent adoption or blanket production certification.</p>
+<p>The <strong>0.4.1 release</strong> targets <strong>Linux amd64</strong> and the existing single-host execution
+profiles. Three unfamiliar-developer trials and owner reviews of licensing,
+redistribution and hosting remain pending.</p>
 </div>
 <div class="paragraph">
 <p>Use the selected release&#8217;s actual assets and <code>release-manifest.json</code> for final
@@ -479,8 +476,53 @@ separate coordinates, not a circular chain of floating latest revisions.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="source-evidence"><a class="anchor" href="#source-evidence"></a>Published stable release — 2026-11-03</h2>
+<h2 id="_published_stable_release_0_4_1"><a class="anchor" href="#_published_stable_release_0_4_1"></a>Published stable release 0.4.1</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The verified release manifests pin these revisions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DOT-Design <code>0.4.1</code> — <code>db4de4005853dcff83149f709efda3f8f2081ba5</code></p>
+</li>
+<li>
+<p>DOT-CLI <code>v0.4.1</code> — <code>4cd48f066ab626dc55f43e57c086ef92d2082d2c</code></p>
+</li>
+<li>
+<p>CLI revision pinned by Design — <code>0f71e39a7db6875f8d69e1edabf9f6e6968de934</code>
+(documentation follow-up; identical executable)</p>
+</li>
+<li>
+<p>DOT-Repository — <code>6613a995a7406012aed1bc7bde2f1feabc3db935</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <a href="https://github.com/MARE-EU-Project/DOT-Design/releases/tag/0.4.1">Design release</a>
+and <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.1">CLI release</a>
+contain the same executable. The actual downloads passed inventory, checksum
+and provenance verification.
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/actions/runs/43079229893">CLI acceptance</a>
+covered the Docker tutorial route and eight cleanup failure, interruption and
+retry cases.
+<a href="https://github.com/MARE-EU-Project/DOT-Design/actions/runs/43104394282">Design acceptance</a>
+ran two lifecycle and cleanup cycles across eight deployment variants.</p>
+</div>
+<div class="paragraph">
+<p>Release packages reproduced byte-for-byte across builds on each host. The
+standalone CLI SBOM&#8217;s generator self-hashes and the Domain JAR&#8217;s entry
+permission attributes differed between the maintainer host and the runner.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="source-evidence"><a class="anchor" href="#source-evidence"></a>Historical release 0.4.0 — 2026-11-03</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The 0.4.0 release baseline was published directly as stable with owner approval
+on 2026-11-03.</p>
+</div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/releases/tag/0.4.0">DOT-Design 0.4.0</a>
 and <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.0">DOT-CLI v0.4.0</a>
@@ -727,7 +769,7 @@ before switching; unrelated model changes remain out of scope.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="remaining-release-gates"><a class="anchor" href="#remaining-release-gates"></a>Release checks and pending follow-up</h2>
+<h2 id="remaining-release-gates"><a class="anchor" href="#remaining-release-gates"></a>Historical 0.4.0 checks and pending follow-up</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -755,7 +797,7 @@ The <code>v</code> prefix belongs to Go module tagging, not a different product 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Remote checks and publication</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passed for the recorded final sources and artifacts.</strong> Require every applicable job to succeed and verify released
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passed for the recorded 0.4.0 sources and artifacts.</strong> Require every applicable job to succeed and verify released
 assets and documentation. Queued, running, failed, cancelled and skipped jobs
 are not passes; optional skips are reported separately. Required Vagrant and
 other adapters are not waived because a different adapter passed.</p></td>

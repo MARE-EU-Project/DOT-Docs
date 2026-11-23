@@ -1,0 +1,102 @@
+---
+config:
+  class:
+    hideEmptyMembersBox: true
+    nodeSpacing: 24
+    rankSpacing: 38
+    padding: 8
+  layout: elk
+---
+classDiagram
+  accTitle: DOT-Design core concepts and relationships
+  accDescr: A reusable Dot declares Skills and Contracts, names Anchors, and supports Runtime alternatives. Runtimes target Platforms and offer Deployments. Deployments define Services. A Composition selects named vertices that reference exact Dot releases and deployments. Edges connect vertices. Each Channel uses Connectors to select Anchors on the two endpoint vertices.
+  direction TB
+
+  class Dot {
+    +String id
+    +String name
+    +Version version
+    +List~Skill~ skills
+    +List~Contract~ contracts
+    +List~Anchor~ anchors
+    +List~Runtime~ runtimes
+  }
+  class Skill {
+    +String id
+    +String name
+  }
+  class Contract {
+    +String id
+    +ContractStandard standard
+    +Payload payload
+  }
+  class Anchor {
+    +String id
+    +AnchorDirection direction
+    +AnchorContract contract
+  }
+  class Runtime {
+    +Platform platform
+    +List~Deployment~ deployments
+  }
+  class Platform {
+    +PlatformEngine engine
+    +Version version
+  }
+  class Deployment {
+    +String id
+    +Manifest manifest
+    +Set~Service~ services
+  }
+  class Manifest {
+    +ManifestType type
+  }
+  class Service {
+    +String id
+    +List~ServicePort~ ports
+    +Configuration config
+  }
+  class Composition {
+    +UUID id
+    +List~Vertex~ vertices
+    +List~Edge~ edges
+  }
+  class Vertex {
+    +String name
+    +String source
+    +String dotId
+    +String dotVersion
+    +String deployment
+  }
+  class Edge {
+    +String name
+    +String from
+    +String to
+  }
+  class Channel {
+    +String name
+    +String fromConnector
+    +String toConnector
+  }
+  class Connector {
+    +String anchorId
+  }
+
+  Dot "1" *-- "0..*" Skill : declares
+  Dot "1" *-- "0..*" Contract : owns interfaces
+  Dot "1" *-- "0..*" Anchor : names integration points
+  Dot "1" *-- "1..*" Runtime : supports
+  Anchor ..> Contract : selects operations
+  Runtime "1" *-- "1" Platform : targets
+  Runtime "1" *-- "1..*" Deployment : offers alternatives
+  Deployment "1" *-- "1" Manifest : describes how to deploy
+  Deployment "1" *-- "1..*" Service : materializes
+  Composition "1" *-- "1..*" Vertex : selects named tool
+  Vertex ..> Dot : references exact release
+  Vertex ..> Deployment : selects
+  Composition "1" *-- "0..*" Edge : connects
+  Edge ..> Vertex : from / to
+  Edge "1" *-- "1..*" Channel : channels
+  Vertex "1" *-- "0..*" Connector : connectors
+  Channel ..> Connector : selects endpoints
+  Connector ..> Anchor : resolves within vertex

@@ -8,7 +8,7 @@
     <link rel="prev" href="authoring.html">
     <link rel="next" href="../dot-design/external-dot-examples.html">
     <meta name="description" content="Reuse a reviewed example or select exact DOTs to create a validated draft without deploying workloads.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="../dot-design/release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -464,7 +464,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>A DOT describes one component. A Composition chooses concrete deployments of
-several DOTs and connects their Anchors through Wires. Start from a catalogue
+several DOTs and connects their Anchors through Edges. Start from a catalogue
 example whose README describes your intended use case and its acceptance limits.
 The selected release <code>v0.4.1</code> and its matching source CLI
 provide template-based <code>dotx compose new</code>. Selecting DOTs with <code>--from-dots</code>
@@ -508,7 +508,7 @@ dotx compose topology my-monitoring.yaml --locked</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: a preview of two DOTs and one wire, a fresh ownership UUID, and a new
+<p>Expected: a preview of two DOTs and one edge, a fresh ownership UUID, and a new
 YAML file with the same exact tool releases, deployment choices, Contract and
 Anchor IDs. The reviewed template and its lock are unchanged. The new lock is
 created only by your explicit <code>lock</code> command; review it before committing.
@@ -518,6 +518,19 @@ The Composition graph version is retained; it is not another tool release.</p>
 <p>No workloads are started. Offline creation needs a warm verified Contract cache;
 without <code>--offline</code>, bounded downloads and cache writes may occur even if no
 draft is published. Printed follow-up commands retain <code>--offline</code> when selected.</p>
+</div>
+<div class="paragraph">
+<p>Current-source <code>dotx</code> includes the locked topology command in the draft&#8217;s
+follow-up steps. You can use the same verified cache for the visual review.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology my-monitoring.yaml --locked --offline</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This displays the declared instances and Edges without querying live runtimes.
+Use the topology command without <code>--offline</code> in the preceding 0.4.1 example.</p>
 </div>
 <details>
 <summary class="title">How draft validation works</summary>
@@ -530,7 +543,7 @@ candidate with the same generated schema and resolver. YAML merge keys are expan
 by the YAML parser where necessary: inherited IDs, names and file sources must
 receive the intended new values too. Authoring uses a fresh model of the verified
 input bytes, separate from inferred execution services and probes. It does not
-infer compatibility, invent wires, copy product definitions, download templates
+infer compatibility, invent edges, copy product definitions, download templates
 from Git, change secret values or start a runtime.</p>
 </div>
 </div>
@@ -759,7 +772,7 @@ review the existing monitoring README rather than inventing a producer interface
 <div class="paragraph">
 <p>If you already supplied a direct configuration file or environment binding for
 the same service target, the wizard asks whether to <strong>transfer that target to the
-Wire</strong>. Confirm only after reviewing the named instance, service and target. The
+Edge</strong>. Confirm only after reviewing the named instance, service and target. The
 draft then retains one binding; it does not remove the input file or read a
 Secret value. Declining or cancelling stops without publishing. Preview checks
 these merged inputs using the same conflict rules as execution, without fetching
@@ -778,7 +791,7 @@ Missing, ambiguous, unsupported or unsafe inputs fail closed without output.</p>
 <div class="paragraph">
 <p>Brokered AsyncAPI send/receive pairs require a separately selected broker
 service/port, including existing MQTT, NATS, Kafka and AMQP profiles. This endpoint
-is not another Anchor wire. Cross-runtime pairs require an explicit, already
+is not another Anchor edge. Cross-runtime pairs require an explicit, already
 provisioned <code>EXTERNAL_GATEWAY</code> host/port. The operator owns that gateway and its
 cleanup; the CLI neither creates networking infrastructure nor uses host-network
 fallbacks. The complete graph still passes the existing resolver&#8217;s constraints.</p>

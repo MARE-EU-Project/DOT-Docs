@@ -8,7 +8,7 @@
     <link rel="prev" href="integration-handoff.html">
     <link rel="next" href="release-notes.html">
     <meta name="description" content="Build DOT-Design, validate repository DOTs, inspect a resolved composition, and generate the documentation.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -791,7 +791,7 @@ stable binary while documenting unreleased source features.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Docs/scripts/test-publication.sh</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:publication:test</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1047,6 +1047,8 @@ owns the benchmark options.</p>
 <div class="paragraph">
 <p>Use the same source fixtures, verified cache, toolchain and otherwise idle host
 for comparisons. These benchmarks have no machine-dependent pass threshold.
+Use <a href="verification-and-examples.html#opt-in-maintainer-checks" class="xref page">the composition
+performance task</a> to measure complete CLI commands on the canonical graphs.
 Fuzz targets in <code>authoring_fuzz_test.go</code> exercise the real four-standard
 selector and composition parser; seed execution is part of ordinary tests.
 Longer fuzz campaigns supplement, rather than replace, regression tests.
@@ -1234,7 +1236,7 @@ dotx compose inspect "$composition" --locked --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The three Wires connect Keycloak discovery to APISIX, Keycloak&#8217;s token endpoint
+<p>The three Edges connect Keycloak discovery to APISIX, Keycloak&#8217;s token endpoint
 to the OAuth client, and APISIX&#8217;s protected operation to that client. Inspection
 shows the selected instances, endpoints, security requirements and configuration
 destinations. Preview the Kubernetes actions for that same locked graph:</p>
@@ -1326,25 +1328,45 @@ networks were exercised.</p>
 <h2 id="build-the-documentation"><a class="anchor" href="#build-the-documentation"></a>Build the documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Install the documentation toolchain once:</p>
+<p>Run these commands from the <strong>DOT-Design checkout root</strong>. Install the
+documentation toolchain once, then check availability:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:setup</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:setup
+task docs:check</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then generate the Antora HTML site and PDF export:</p>
+<p>For an editing pass, build the Antora HTML site and PDF exports:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:check
-task docs:build</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task docs:build</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Generated artifacts are written under <code>DOT-Docs/build/site</code> and are intentionally
-ignored by Git. To build and serve the site locally:</p>
+<p>Open the changed Next pages under <code>DOT-Docs/build/site</code> and check the rendered
+headings, links, code blocks and any affected PDFs. Complete release-tag
+history is required for the versioned site. The browser checks also require a
+host that permits local TCP sockets.</p>
+</div>
+<div class="paragraph">
+<p>Before handing off a docs change, run the workflow-equivalent check:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task ci:docs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It adds source and publication regressions, runs the same build, and audits the
+rendered public tree. For changes to the generated model reference or catalogue
+interface inventory, also run <code>task docs:domain:check</code> or
+<code>task docs:contracts:check</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>To rebuild and serve the site locally:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1352,8 +1374,8 @@ ignored by Git. To build and serve the site locally:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Open <code><a href="http://localhost:8000" class="bare">http://localhost:8000</a></code>. Do not edit files under <code>DOT-Docs/build</code>; update the
-AsciiDoc sources instead.</p>
+<p>Open <code><a href="http://localhost:8000" class="bare">http://localhost:8000</a></code>. Make corrections in the AsciiDoc sources and
+rebuild to refresh the ignored site output.</p>
 </div>
 <div class="paragraph">
 <p>Mermaid sources are stored as Antora attachments and rendered locally by

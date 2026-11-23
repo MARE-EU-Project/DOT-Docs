@@ -8,7 +8,7 @@
     <link rel="prev" href="tutorial-composition.html">
     <link rel="next" href="tutorial-next-steps.html">
     <meta name="description" content="Extend the metrics graph with Grafana, query the same labelled sample through its datasource and verify cleanup.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -464,7 +464,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Your reviewed two-tool draft describes Node Exporter and Prometheus. Extend
-that draft with Grafana, adding one instance, one Wire and one browser exposure.
+that draft with Grafana, adding one instance, one Edge and one browser exposure.
 Review its declaration and lock, then start it and verify the full chain.</p>
 </div>
 <div class="paragraph">
@@ -475,7 +475,7 @@ resource absence. The new draft gets a fresh ownership UUID; it does not adopt
 another graph&#8217;s runtime resources.</p>
 </div>
 <div class="paragraph">
-<p><strong>Goal:</strong> a reviewed three-DOT, two-Wire graph, Grafana returning the same
+<p><strong>Goal:</strong> a reviewed three-DOT, two-Edge graph, Grafana returning the same
 labelled scrape, and verified cleanup.
 <strong>You will learn:</strong> extending a graph, provisioning a datasource and supplying a
 password through a reference.</p>
@@ -511,7 +511,7 @@ datasources:
     uid: hero-prometheus
     type: prometheus
     access: proxy
-    url: http://replaced-by-the-wire.invalid
+    url: http://replaced-by-the-edge.invalid
     isDefault: true
 YAML
 cat &gt; "$LAB/grafana-empty.yml" &lt;&lt;'YAML'
@@ -537,12 +537,12 @@ You extended its <strong>configuration surface</strong>, not its API identity.</
 <p>The datasource file is an instance input. <code>uid: hero-prometheus</code> makes it easy to
 select and test. <code>access: proxy</code> makes Grafana&#8217;s backend query Prometheus over
 the composition network; the browser does not need to reach an internal
-container address. The Wire replaces the <code>.invalid</code> URL before deployment.</p>
+container address. The Edge replaces the <code>.invalid</code> URL before deployment.</p>
 </div>
 <div class="paragraph">
 <p>This catalogue release also requires an Elasticsearch provisioning file. The
 empty, valid <code>grafana-empty.yml</code> deliberately provisions no Elasticsearch
-datasource: that integration is outside this lab. Do not draw a fictitious Wire
+datasource: that integration is outside this lab. Do not draw a fictitious Edge
 or claim that it has been tested.</p>
 </div>
 </div>
@@ -560,15 +560,15 @@ or claim that it has been tested.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Before editing, it has two DOTs and one Wire. You
+<p>Before editing, it has two DOTs and one Edge. You
 will add one item to each of three <strong>existing</strong> lists. Keep the earlier items,
-Contract inputs and ownership UUID; do not paste another root <code>dots:</code> or <code>wires:</code>
+Contract inputs and ownership UUID; do not paste another root <code>vertices:</code> or <code>edges:</code>
 key. Each snippet below is a list item, beginning with <code>- name</code>, at the same
 indentation as the existing items. Keep the four leading spaces shown before
 each <code>- name</code> in the CLI-created draft.</p>
 </div>
 <div class="sect2">
-<h3 id="_add_grafana_under_dots"><a class="anchor" href="#_add_grafana_under_dots"></a>Add Grafana under <code>dots</code></h3>
+<h3 id="_add_grafana_under_vertices"><a class="anchor" href="#_add_grafana_under_vertices"></a>Add Grafana under <code>vertices</code></h3>
 <div class="paragraph">
 <p>Append this after the existing <code>prometheus</code> instance:</p>
 </div>
@@ -579,6 +579,9 @@ each <code>- name</code> in the CLI-created draft.</p>
       dotId: Grafana@13.3.0
       dotVersion: 13.3.0
       deployment: docker
+      connectors:
+        - anchorId: promql-query-api
+        - anchorId: monitoring-dashboard
       dependsOn: [prometheus]
       deploymentInputs:
         environment:
@@ -591,24 +594,28 @@ each <code>- name</code> in the CLI-created draft.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_add_the_second_connection_under_wires"><a class="anchor" href="#_add_the_second_connection_under_wires"></a>Add the second connection under <code>wires</code></h3>
+<h3 id="_add_the_second_connection_under_edges"><a class="anchor" href="#_add_the_second_connection_under_edges"></a>Add the second connection under <code>edges</code></h3>
 <div class="paragraph">
-<p>Append this after <code>node-metrics-to-prometheus</code>:</p>
+<p>Append this after the <code>node-exporter-to-prometheus</code> Edge:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: prometheus-to-grafana
-      from: {instance: prometheus, anchorId: promql-query-api}
-      to: {instance: grafana, anchorId: promql-query-api}
-      materializer:
-        type: CONFIG_FILE
-        source: grafana-prometheus.yml
-        valueFrom: ENDPOINT_URL
-        target:
-          instance: grafana
-          service: grafana
-          path: /etc/grafana/provisioning/datasources/prometheus.yml
-          jsonPointer: /datasources/0/url</code></pre>
+      from: prometheus
+      to: grafana
+      channels:
+        - name: prometheus-to-grafana
+          fromConnector: promql-query-api
+          toConnector: promql-query-api
+          materializer:
+            type: CONFIG_FILE
+            source: grafana-prometheus.yml
+            valueFrom: ENDPOINT_URL
+            target:
+              instance: grafana
+              service: grafana
+              path: /etc/grafana/provisioning/datasources/prometheus.yml
+              jsonPointer: /datasources/0/url</code></pre>
 </div>
 </div>
 </div>
@@ -620,13 +627,14 @@ each <code>- name</code> in the CLI-created draft.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: dashboard
-      target: {instance: grafana, anchorId: monitoring-dashboard}</code></pre>
+      vertex: grafana
+      connector: monitoring-dashboard</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The new Wire connects a provided PromQL operation to Grafana&#8217;s required
+<p>The new Edge connects the Prometheus and Grafana vertices. Its Channel links the provided PromQL operation to Grafana’s required
 operation. Its materializer writes the selected Prometheus base URL into
-<code>/datasources/0/url</code>. The two Wires have different jobs: the first configures
+<code>/datasources/0/url</code>. The two Edges have different jobs: the first configures
 scraping; the second configures querying.</p>
 </div>
 <div class="paragraph">
@@ -649,7 +657,7 @@ dotx compose validate "$LAB/dashboard.yaml" \
 dotx compose lock "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
 dotx compose topology "$LAB/dashboard.yaml" \
   --repository "$DOT_REPOSITORY" --locked
-printf 'Extended graph verified: three DOTs, two Wires.\n'
+printf 'Extended graph verified: three DOTs, two Edges.\n'
 printf '%s\n' \
   'Declaration review complete.' \
   'Next: supply a lab password, then preview and apply.' \
@@ -658,10 +666,10 @@ printf '%s\n' \
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: <strong>three DOTs, two Wires</strong>. Open <code>$LAB/dashboard.lock.json</code> and use
+<p>Expected: <strong>three DOTs, two Edges</strong>. Open <code>$LAB/dashboard.lock.json</code> and use
 <a href="tutorial-composition.html#tutorial-lock-review" class="xref page">Lesson 3&#8217;s lock-field checklist</a>.
 Keep the local Prometheus and catalogue Node Exporter selections. The additional
-<code>dots[]</code> entry must have <code>instance: "grafana"</code>, <code>source: "./grafana"</code>,
+<code>vertices[]</code> entry must have <code>instance: "grafana"</code>, <code>source: "./grafana"</code>,
 <code>dotId: "Grafana@13.3.0"</code>, <code>deploymentId: "docker"</code> and a definition <code>digest</code>.
 The <code>inputs[]</code> now also pin <code>grafana-prometheus.yml</code> and <code>grafana-empty.yml</code>.
 Creating or inspecting the lock does not require the password; never paste a
@@ -672,7 +680,7 @@ secret value into it.</p>
 <h3 id="lesson4-preview-complete"><a class="anchor" href="#lesson4-preview-complete"></a>Preview checkpoint</h3>
 <div class="paragraph">
 <p>The declaration exercise is complete when validation and lock review succeed
-and topology shows three DOTs and two Wires with the inputs listed above.
+and topology shows three DOTs and two Edges with the inputs listed above.
 No composition has started yet. Continue below to supply the password, launch
 the graph and verify its query. If you choose only declaration review, keep
 these files and continue to <a href="tutorial-next-steps.html" class="xref page">Lesson 5&#8217;s extension choices</a>;
@@ -933,7 +941,7 @@ alone does not establish a working dashboard.</p>
 <div class="content">
 <div class="paragraph">
 <p>Prometheus keeps its product identity, Contract and Anchors. Grafana&#8217;s datasource,
-the selected Prometheus instance, the password reference and both Wires belong
+the selected Prometheus instance, the password reference and both Edges belong
 to this composition. The private Grafana copy adds a supported sensitive
 configuration declaration; it contains no password value. Live addresses and
 resolved credentials remain execution concerns.</p>

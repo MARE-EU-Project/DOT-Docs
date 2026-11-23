@@ -8,7 +8,7 @@
     <link rel="prev" href="../dot-domain/model-probes.html">
     <link rel="next" href="../dot-design/getting-started.html">
     <meta name="description" content="Install and use dotx to validate, inspect, deploy and connect reusable DOTs.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="../dot-design/release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -947,11 +947,11 @@ the composition file. Raw parser, document and transport values are withheld.</p
 </div>
 <div class="paragraph">
 <p>Successful composition validation still returns its existing <code>valid</code>,
-<code>compositionId</code> and <code>unknownWires</code> summary, and successful inspection still
+<code>compositionId</code> and <code>unknownEdges</code> summary, and successful inspection still
 returns resolved execution details. Check the exit code and result, not merely
 whether stdout contains JSON. These failure-report guarantees do not extend to
 runtime <code>apply</code>, <code>upgrade</code>, <code>probe</code> or <code>status</code> commands. No lock is regenerated
-automatically, and an unknown wire remains an explicit limitation rather than
+automatically, and an unknown edge remains an explicit limitation rather than
 live acceptance.</p>
 </div>
 <div class="sect2">
@@ -985,7 +985,7 @@ resources. Keep the original CLI and execution context for existing workloads.</
 and <code>destroy</code> secret-safe diagnostic codes and recovery hints on stderr.
 This is <strong>not</strong> a new runtime JSON failure envelope: successful JSON shapes and
 existing exit-code meanings are preserved. Raw tool, parser, transport and
-credential values are withheld. A diagnostic identifies an instance or wire
+credential values are withheld. A diagnostic identifies an instance or edge
 when the failing boundary supplies that context; generic failures identify the
 composition instead.</p>
 </div>
@@ -1007,7 +1007,7 @@ composition instead.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>COMPOSITION_WIRE_PROBE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Review the named wire&#8217;s operation, endpoint, authentication and probe inputs. A failed probe is not producer acceptance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Review the named edge&#8217;s operation, endpoint, authentication and probe inputs. A failed probe is not producer acceptance.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>COMPOSITION_BUSY</code> / <code>COMPOSITION_RESUME_STATE</code></p></td>
@@ -1052,7 +1052,7 @@ meanings remain unchanged.</p>
 <div class="paragraph">
 <p>For reusable catalogue examples and explicit deployment selection, see
 <a href="../dot-design/external-dot-examples.html" class="xref page">Deployments and examples</a>. For
-Anchor selectors, Wires, native Secret references, locks and lifecycle safety,
+Anchor selectors, Edges, native Secret references, locks and lifecycle safety,
 use <a href="../dot-design/anchors-and-composition.html" class="xref page">the composition guide</a>.</p>
 </div>
 <div class="paragraph">

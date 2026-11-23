@@ -7,7 +7,7 @@
     <link rel="prev" href="index.html">
     <link rel="next" href="dots-for-dummies.html">
     <meta name="description" content="Set up Git, Go, dotx, and the Docker tools for the quickstart on Ubuntu 26.04 LTS.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -147,7 +147,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -185,12 +185,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -270,7 +270,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -481,15 +481,29 @@ to <code>MARE-EU-Project/DOT-CLI</code> and working Git credentials.</p>
 </div>
 <div class="sect3">
 <h4 id="git-ubuntu"><a class="anchor" href="#git-ubuntu"></a>Ubuntu 26.04 LTS</h4>
+<div class="exampleblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">APT package</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt update &amp;&amp;
 sudo apt install git</code></pre>
 </div>
 </div>
+</dd>
+<dt class="hdlist1">Verify</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git --version</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
 </div>
 </div>
 </div>
@@ -507,16 +521,30 @@ toolchain.</p>
 <a href="https://packages.ubuntu.com/resolute/golang-go"><code>golang-go</code> package</a> supplies
 Go 1.26, which can download a compatible toolchain automatically.</p>
 </div>
+<div class="exampleblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">APT package</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt update &amp;&amp;
 sudo apt install golang-go</code></pre>
 </div>
 </div>
+</dd>
+<dt class="hdlist1">Verify</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go version &amp;&amp;
 go env GOTOOLCHAIN</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
 </div>
 </div>
 <div class="paragraph">

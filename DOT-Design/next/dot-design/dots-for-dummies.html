@@ -8,7 +8,7 @@
     <link rel="prev" href="setup.html">
     <link rel="next" href="dots-in-action.html">
     <meta name="description" content="Learn what a DOT describes and how Skills, Contracts, Anchors, Runtimes, Deployments, Services and compositions fit together, with no installation needed.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -524,14 +524,14 @@ named service port.</p>
 <li>
 <p><strong>Connections between tools.</strong> A composition selects one deployment
 per instance and connects compatible provided and required Anchors through
-Wires. A Wire&#8217;s materializer supplies the selected endpoint in the consumer&#8217;s
+Edges. An Edge&#8217;s materializer supplies the selected endpoint in the consumer&#8217;s
 configuration.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>For example, Node Exporter <strong>provides</strong> a metrics Anchor and Prometheus <strong>requires</strong>
-a scrape target. A Wire connects those integration points; Prometheus then
+a scrape target. An Edge connects those integration points; Prometheus then
 makes HTTP requests to collect the measurements. A second connection lets
 Grafana query Prometheus. The application performs the requests; the DOTs and
 composition describe the interfaces and configuration needed for them.</p>
@@ -573,8 +573,8 @@ to a service port, and explain what a composition adds.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>build-information</code> selects one operation from Prometheus&#8217;s verified Contract.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Composition</strong>: connect instances through Wires</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus requires a metrics source; Node Exporter provides it. The Wire
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Composition</strong>: connect instances through Edges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus requires a metrics source; Node Exporter provides it. The Edge
 supplies the selected endpoint through configuration.</p></td>
 </tr>
 </tbody>
@@ -619,16 +619,16 @@ DOT-Domain model.</p>
 <div class="title">Figure 1. Conceptual map: a use case references reusable tools and selects how they run</div>
 </div>
 <div class="paragraph">
-<p><code>Dot</code> leads to the reusable product definition; <code>Composition</code> leads to instances
-and Wires that reference those definitions. These arrows describe model
-relationships, not network packets. Wires connect the selected DOTs' Anchors.</p>
+<p><code>Dot</code> describes a reusable product release. A <code>Composition</code> selects releases as
+Vertices and connects them with Edges. Each Channel uses a Connector on each
+Vertex to select its DOT&#8217;s Anchor. The arrows describe model relationships.</p>
 </div>
 <details>
 <summary class="title">See the core class relationships</summary>
 <div class="content">
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/dot-domain-overview.svg" alt="Composition instances and Wires referencing reusable Dot definitions, Contracts, Anchors and deployments">
+<img src="_images/diagrams/dot-domain-overview.svg" alt="Composition instances and Edges referencing reusable Dot definitions, Contracts, Anchors and deployments">
 </div>
 <div class="title">Figure 2. Simplified domain model: reusable DOT definitions and a separate Composition</div>
 </div>
@@ -638,7 +638,7 @@ The dashed arrow applies to Contract-backed Anchors. Field lists, collection siz
 configuration, ports, binding helpers and audit metadata are omitted for
 readability; see the full <a href="../dot-domain/index.html#_class_diagram" class="xref page">generated class diagram</a>
 for implementation detail. <code>Composition</code> is a separate DOT-Domain aggregate:
-its instances reference DOTs and its Wires reference their Anchors.</p>
+its Vertices reference DOTs, its Edges connect Vertices, and its Channels select Anchors through Connectors.</p>
 </div>
 <div class="paragraph">
 <p><a href="_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>
@@ -805,14 +805,14 @@ not create a verified Contract where none exists. See
 <td class="tableblock halign-left valign-top"><p class="tableblock">Choose the exact ID <code>docker-compose</code> or a Docker image deployment.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentManifest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Manifest</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">What native specification deploys it?</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DOCKER_COMPOSE</code> points to the verified Compose document. An image deployment
 instead names its container image. Other mechanisms include Kubernetes manifests,
 Helm charts, Vagrantfiles and WASM modules.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Service</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Which logical services does that deployment materialize?</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service <code>prometheus</code> declares its ports, interface references and configuration.
 One deployment can materialize several services.</p></td>
@@ -858,7 +858,7 @@ declaration stays at the DOT root.</p>
 <h2 id="_describe_configuration_where_it_belongs"><a class="anchor" href="#_describe_configuration_where_it_belongs"></a>Describe configuration where it belongs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each service owns a <strong><code>DeploymentConfig</code></strong>: supported environment variables,
+<p>Each service owns a <strong><code>Configuration</code></strong>: supported environment variables,
 configuration-file paths and volume mounts. A multi-service DOT gives each
 service its own configuration and bindings.</p>
 </div>
@@ -891,21 +891,21 @@ these exact model fields and supported bindings.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_connect_tools_composition_dotinstance_and_wire"><a class="anchor" href="#_connect_tools_composition_dotinstance_and_wire"></a>Connecting the DOTs: Compositions, Instances and Wires</h2>
+<h2 id="_connect_tools_composition_vertex_and_edge"><a class="anchor" href="#_connect_tools_composition_vertex_and_edge"></a>Connecting the DOTs: Compositions, Vertices and Edges</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>Composition</strong> selects exact definitions and one deployment for each named
-<strong><code>DotInstance</code></strong>. In the tutorial, <code>prometheus</code> is an instance name while
+<strong><code>Vertex</code></strong>. In the tutorial, <code>prometheus</code> is the vertex name while
 <code>Prometheus@3.15.1</code> is the product identity. You can select the same definition
 for several distinctly named instances.</p>
 </div>
 <div class="paragraph">
-<p>A <strong>Wire</strong> connects an Anchor that provides an interface to one that requires it.
+<p>An <strong>Edge</strong> connects an Anchor that provides an interface to one that requires it.
 The first monitoring connection has three distinct parts:</p>
 </div>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/tutorial-wiring.svg" alt="A Wire points from Node Exporter to Prometheus; a materializer configures Prometheus&#8217;s scrape target; Prometheus sends the HTTP request to Node Exporter">
+<img src="_images/diagrams/tutorial-wiring.svg" alt="An Edge points from Node Exporter to Prometheus; a materializer configures Prometheus&#8217;s scrape target; Prometheus sends the HTTP request to Node Exporter">
 </div>
 <div class="title">Figure 3. One connection: declaration, configuration and HTTP request</div>
 </div>
@@ -913,13 +913,13 @@ The first monitoring connection has three distinct parts:</p>
 <p><a href="_attachments/diagrams/tutorial-wiring.mmd" class="xref attachment">Mermaid source</a></p>
 </div>
 <div class="paragraph">
-<p><strong>Read the arrows separately:</strong> the Wire points from <strong>PROVIDES</strong> to <strong>REQUIRES</strong>;
+<p><strong>Read the arrows separately:</strong> the Edge points from <strong>PROVIDES</strong> to <strong>REQUIRES</strong>;
 the HTTP request goes from <strong>Prometheus</strong> to <strong>Node Exporter</strong>.</p>
 </div>
 <div class="paragraph">
 <p>A <strong>materializer</strong> writes the selected producer&#8217;s endpoint into a declared
 consumer input. Here it updates one target in Prometheus&#8217;s scrape file. The
-Wire supplies configuration; Prometheus implements the HTTP scrape. No automatic
+Edge supplies configuration; Prometheus implements the HTTP scrape. No automatic
 protocol translation or managed networking is implied.</p>
 </div>
 <div class="paragraph">
@@ -945,7 +945,7 @@ resolved values remain execution concerns.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dependsOn</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit startup dependencies. This is separate from the Wire&#8217;s interface relationship.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit startup dependencies. This is separate from the Edge&#8217;s interface relationship.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exposed Anchors</p></td>
@@ -953,14 +953,14 @@ resolved values remain execution concerns.</p></td>
 An exposure does not add authentication.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wire probes and response assertions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge probes and response assertions</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bounded checks of supported operations and expected responses. A declaration or
 successful compatibility result alone does not prove a running interaction.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broker and external-gateway bindings</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Explicit transport endpoints or cross-runtime reachability supplied by the
-operator. They do not create extra Anchor Wires. Infrastructure remains
+operator. They do not create extra Anchor Edges. Infrastructure remains
 operator-owned and is not adopted or deleted by the composition.</p></td>
 </tr>
 </tbody>
@@ -1101,7 +1101,7 @@ manifest and logical Services.</p>
 <p>A provided Anchor selects an operation and is bound to a Service&#8217;s named port.</p>
 </li>
 <li>
-<p>A separate Composition references DOT instances and connects Anchors through Wires.</p>
+<p>A separate Composition references DOT instances and connects Anchors through Edges.</p>
 </li>
 </ol>
 </div>

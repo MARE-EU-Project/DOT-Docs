@@ -8,7 +8,7 @@
     <link rel="prev" href="production-readiness.html">
     <link rel="next" href="developer-demo.html">
     <meta name="description" content="A reproducible DOT-Design walkthrough for onboarding, workshops, and live presentations.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -467,7 +467,7 @@ composition. Start with the <a href="#one-command-demo">one-command guided exper
 then explore the <a href="#official-demo-route">official ecosystem demo</a>,
 choose the shorter 10-15-minute standards route, or the five-minute
 <a href="#read-only-tour">read-only tour</a>. These paths connect authoritative Contracts,
-Anchors, deployment choices and explicit wires; they prove different things.</p>
+Anchors, deployment choices and explicit edges; they prove different things.</p>
 </div>
 <div class="paragraph">
 <p>The read-only core path takes about five minutes on an existing checkout. It is
@@ -507,7 +507,7 @@ automatic cleanup, with the same live assertions used by acceptance.</p>
 </div>
 <div class="paragraph">
 <p>For a fully executable local presentation spanning Docker, Kubernetes, and
-OpenAPI/GraphQL/Protobuf/AsyncAPI wires, follow
+OpenAPI/GraphQL/Protobuf/AsyncAPI edges, follow
 <a href="live-multi-runtime-demo.html" class="xref page">Docker/Kubernetes four-Contract composition</a>.
 It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries.</p>
 </div>
@@ -543,14 +543,14 @@ It includes the rehearsal, real probe outcomes, cleanup, and evidence boundaries
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#read-only-tour">Read-only overview</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">About 5 minutes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Repository validation, a reusable external DOT, 21 cross-standard wires, and
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository validation, a reusable external DOT, 21 cross-standard edges, and
   a Kubernetes lifecycle rendering</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Live presenter route</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">About 10-15 minutes after preparation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Six core concepts, one traced wire, four Contract standards across Docker and
+<td class="tableblock halign-left valign-top"><p class="tableblock">Six core concepts, one traced edge, four Contract standards across Docker and
   Kubernetes, and a real MARE use-case graph</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Disposable Docker and Kubernetes resources</p></td>
 </tr>
@@ -714,7 +714,7 @@ not prerequisites. The small display intentionally leaves deeper concepts until
 there is a working service to explain.</p>
 </div>
 <div class="paragraph">
-<p>This first chapter has no wires. The optional composition is the existing
+<p>This first chapter has no edges. The optional composition is the existing
 source-adapted PoC10 slice, including an Oxigraph substitution and synthetic
 OAuth client—not acceptance of the whole producer PoC or every catalogue DOT.</p>
 </div>
@@ -737,8 +737,8 @@ The shorter <a href="#presenter-route">standards-focused route</a> remains avail
 <p>The story is: <strong>one authoritative definition → explicit composition → observed
 behaviour → controlled recovery</strong>. DOT-Domain and its generated Schemas define
 the portable models; <code>dotx</code> resolves and executes them. Docker/Kubernetes remain
-the workload engines. A wire connects declared Anchors; it does not magically
-translate protocols or implement missing producer functionality.</p>
+the workload engines. A Channel selects a declared Anchor at each end of an Edge.
+The producer and consumer still implement the protocol.</p>
 </div>
 <div class="paragraph">
 <p>For questions about the rest of the catalogue, use
@@ -890,7 +890,7 @@ as though they were current online service health.</p>
 </div>
 <div class="paragraph">
 <p><strong>Say:</strong> both nodes use the same Prometheus release ID, official OpenAPI Contract and
-immutable image, with two selected deployment mechanisms. There are <strong>zero wires</strong>
+immutable image, with two selected deployment mechanisms. There are <strong>zero edges</strong>
 between these independent servers: this proves reuse, not replication/migration.
 <strong>Show:</strong> both build-information API versions match the selected image, <code>GOGC=75</code>,
 the declared default configuration and a real self-scrape <code>up=1</code>. At the verified
@@ -908,7 +908,7 @@ See <a href="portability-demo.html" class="xref page">the complete comparison an
 </div>
 <div class="paragraph">
 <p><strong>Say:</strong> identity, gateway, policy engine, RDF service and client are independently
-reusable DOTs, connected by reviewed Anchors/wires and deployment-instance inputs.
+reusable DOTs, connected by reviewed Anchors/edges and deployment-instance inputs.
 Existing Contracts remain authoritative where present; explicit interfaces are
 not misrepresented as vendor-official OpenAPI documents.
 <strong>Show:</strong> anonymous/invalid-bearer rejection, token acquisition and authenticated
@@ -1008,7 +1008,7 @@ not automatically a public live-service dashboard.</p>
 <div class="paragraph">
 <p>Use this route for an audience new to DOTs. The detailed stages below remain
 the reference walkthrough; this section is the talk track, not another harness.
-For a ten-minute slot, shorten the wire inspection and show the MARE graph as
+For a ten-minute slot, shorten the edge inspection and show the MARE graph as
 the closing example rather than starting a second deployment.</p>
 </div>
 <div class="paragraph">
@@ -1020,7 +1020,7 @@ the closing example rather than starting a second deployment.</p>
 <p>Reuse a product definition; put PoC-specific configuration in the composition.</p>
 </li>
 <li>
-<p>Keep existing interface standards authoritative; wires are not protocol translators.</p>
+<p>Keep existing interface standards authoritative; edges are not protocol translators.</p>
 </li>
 <li>
 <p>Distinguish a compatible resolved composition from a verified live exchange and production acceptance.</p>
@@ -1030,7 +1030,7 @@ the closing example rather than starting a second deployment.</p>
 <div class="paragraph">
 <p>For technical Q&amp;A, add <a href="developer-demo.html" class="xref page">the five-minute developer extension</a>:
 inspect a real product&#8217;s deployment choices and official Contract provenance,
-demonstrate rejection of an invalid wire, and show where a PoC contribution belongs.</p>
+demonstrate rejection of an invalid edge, and show where a PoC contribution belongs.</p>
 </div>
 <div class="sect2">
 <h3 id="_before_the_audience_arrives"><a class="anchor" href="#_before_the_audience_arrives"></a>Before the audience arrives</h3>
@@ -1123,7 +1123,7 @@ deployment and composition choices; it does not replace those standards."</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The provider and consumer select the REST alerts operation from its Contract.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wire</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connection between compatible Anchors</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>rest-alerts</code> connects the provider&#8217;s Anchor to the consumer&#8217;s Anchor.</p></td>
 </tr>
@@ -1135,7 +1135,7 @@ deployment and composition choices; it does not replace those standards."</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Composition</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Participants, connections and deployment-instance inputs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">One locked graph selects those DOTs, deployments, wires and configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One locked graph selects those DOTs, deployments, edges and configuration.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1155,36 +1155,36 @@ and executable acceptance harnesses. The synthetic demo graph stays in
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Show:</strong> three DOTs and four logical wires. Match the diagram&#8217;s <code>N</code> and <code>W</code>
+<p><strong>Show:</strong> three DOTs and four logical edges. Match the diagram&#8217;s <code>N</code> and <code>W</code>
 identifiers to the aligned DOT and connection tables. <code>CONTRACT</code> names the
 interface standard; the separate <code>PROTOCOL</code> column names the transport protocol.
 Explain provider versus
 consumer and the selected runtime, rather than reading UUIDs aloud.
 The separate <code>T4</code> connection identifies MQTT&#8217;s broker transport endpoint;
-it is not a fifth Anchor wire. Arrows mean logical PROVIDES-to-REQUIRES,
+it is not a fifth Anchor edge. Arrows mean logical PROVIDES-to-REQUIRES,
 not packet direction: an HTTP consumer may initiate the request.</p>
 </div>
 <div class="paragraph">
 <p><strong>Expected observation:</strong> the graph is available without deploying anything.
-Parallel wires may share one arrow, but every wire remains in the table.
+Parallel edges may share one arrow, but every edge remains in the table.
 This is a locked composition view, not a live health display.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_minutes_4_6_trace_one_wire_from_contract_to_configuration"><a class="anchor" href="#_minutes_4_6_trace_one_wire_from_contract_to_configuration"></a>Minutes 4-6: trace one wire from Contract to configuration</h3>
+<h3 id="_minutes_4_6_trace_one_edge_from_contract_to_configuration"><a class="anchor" href="#_minutes_4_6_trace_one_edge_from_contract_to_configuration"></a>Minutes 4-6: trace one edge from Contract to configuration</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose inspect DOT-Testing/composition/docker-kubernetes-four-contracts/scenario.yaml --locked --json |
-  jq '.wires[] | select(.name == "rest-alerts") |
+  jq '.edges[] | select(.name == "rest-alerts") |
       {name, from, to, contractStandard, selector, operationPath,
        compatibility, materializer}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><strong>Say:</strong> "The OpenAPI Contract owns <code>GET /alerts</code>. The Anchors select that
-operation; the wire names the two participants. The materializer puts the
+operation; the edge names the two participants. The materializer puts the
 resolved operation URL into the consumer&#8217;s declared <code>OPENAPI_YAML_URL</code>
-environment variable. We are not copying the API definition into the wire."</p>
+environment variable. We are not copying the API definition into the edge."</p>
 </div>
 <div class="paragraph">
 <p><strong>Expected observation:</strong> <code>OpenAPI</code>, the selected operation, provider/consumer
@@ -1244,7 +1244,7 @@ and diagnostic-log location. Ordinary noninteractive acceptance remains verbose.
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 200 plus the expected JSON alert; the running consumer derives
-  <code>REVIEW_REQUIRED</code> from its wired endpoint.</p></td>
+  <code>REVIEW_REQUIRED</code> from its connected endpoint.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL</p></td>
@@ -1266,7 +1266,7 @@ and diagnostic-log location. Ordinary noninteractive acceptance remains verbose.
 recorded status checks pass. Keep the first terminal at this pause. In a second
 terminal, copy the exact recovery/status command printed by the harness; it
 selects this run&#8217;s private cache and Kubernetes configuration. Inspect the
-per-wire outcomes and redacted <code>result.json</code>, not access tokens or Secrets.
+per-edge outcomes and redacted <code>result.json</code>, not access tokens or Secrets.
 The final live-results table separates <code>CONTRACT</code>, <code>PROTOCOL</code>, <code>OBSERVED</code> and
 <code>OUTCOME</code>. It is generated only after each successful probe is also present in
 recorded lifecycle status; <code>COMPATIBLE</code> and running workloads do not populate it.
@@ -1296,7 +1296,7 @@ and state, even when they use the same cluster.</p>
 <code>RUNNING</code> describes a process, container or VM; <code>CONTROLLERS_AVAILABLE</code> describes
 selected Kubernetes controller status, not rollout or API acceptance. An empty
 selection is <code>NO_CONTROLLERS</code>; query failures are <code>UNKNOWN</code> and return nonzero.
-Historical wire probes show their original timestamps. <code>RECENT_RECORD</code> means
+Historical edge probes show their original timestamps. <code>RECENT_RECORD</code> means
 recently recorded, never a fresh API call; <code>STALE_RECORD</code> requires a fresh probe
 before claiming current acceptance. The default record age boundary is five
 minutes, adjustable with <code>--probe-max-age 2m</code> (positive, at most 24 hours).
@@ -1330,7 +1330,7 @@ mechanics across runtimes, not a production application or the whole MARE stack.
 <p><strong>Say:</strong> "The same model expresses a PoC10-derived protected data service:
 Keycloak supplies identity, APISIX gates access, OPA decides policy, Oxigraph
 serves SPARQL and a client obtains a token and requests the protected capability."
-Point to the five wires, then explain that this graph has not been deployed by
+Point to the five edges, then explain that this graph has not been deployed by
 the four-Contract demo.</p>
 </div>
 <div class="paragraph">
@@ -1352,7 +1352,7 @@ producer deployment, LDAP, telemetry or automated response.</p>
 <p>For deployment reuse, <a href="portability-demo.html" class="xref page">the Prometheus portability lane</a>
 runs one canonical DOT and official Contract on Docker Compose and Kubernetes,
 with the same pinned image and fresh API/self-scrape checks. It compares two
-independent servers; it does not claim a wire, replication or data migration.</p>
+independent servers; it does not claim a edge, replication or data migration.</p>
 </div>
 <div class="paragraph">
 <p>For a separate technical follow-up, <a href="upgrade-demo.html" class="xref page">the stateless upgrade
@@ -1413,7 +1413,7 @@ means <em>where</em> it runs; deployment mechanism means <em>how</em> it is depl
 <div class="sect2">
 <h3 id="_does_connecting_two_anchors_make_incompatible_apis_work_together"><a class="anchor" href="#_does_connecting_two_anchors_make_incompatible_apis_work_together"></a>Does connecting two Anchors make incompatible APIs work together?</h3>
 <div class="paragraph">
-<p>No. Wires connect declared compatible interactions; they do not translate
+<p>No. Edges connect declared compatible interactions; they do not translate
 OpenAPI, GraphQL, gRPC or MQTT automatically. An application-specific adapter,
 if required, must be implemented and described explicitly. The four-Contract
 demo verifies four separate standards-native exchanges, not one message
@@ -1431,7 +1431,7 @@ Use vendor/project-official documents when available. Source-derived Contracts
 and test-fixture Contracts must be labelled, not advertised as official.
 An explicit protocol interface is not an invented official Contract; the
 topology labels that case <code>explicit interface</code>. A <code>-</code> on a transport-only
-<code>T</code> link does not create another Contract-backed Anchor wire.</p>
+<code>T</code> link does not create another Contract-backed Anchor edge.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1505,8 +1505,8 @@ any temporary rendering files are removed on exit.</p>
 </div>
 <div id="_the_story_in_one_diagram" class="paragraph">
 <p>For the conceptual chain, use
-<a href="architecture.html#_contract_anchor_binding_and_wire" class="xref page">the architecture diagram</a>.
-For a shorter exercise focused on changing a DOT and rejecting a bad wire,
+<a href="architecture.html#_contract_anchor_binding_and_edge" class="xref page">the architecture diagram</a>.
+For a shorter exercise focused on changing a DOT and rejecting a bad edge,
 use <a href="developer-demo.html" class="xref page">the developer demo</a>.</p>
 </div>
 </div>
@@ -1580,8 +1580,8 @@ product/release folders; the exact selection never falls back to another release
 <h2 id="_stage_3_resolve_the_cross_standard_composition"><a class="anchor" href="#_stage_3_resolve_the_cross_standard_composition"></a>Stage 3: resolve the cross-standard composition</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The canonical Contract matrix connects six DOT instances with 21 compatible
-wires. Its committed lock pins every DOT, Contract, configuration input, and
+<p>The canonical Contract matrix connects six DOT vertices with 21 compatible
+edges. Its committed lock pins every DOT, Contract, configuration input, and
 portable resolved composition.</p>
 </div>
 <div class="listingblock">
@@ -1595,12 +1595,12 @@ dotx compose validate \
 dotx compose inspect \
   DOT-Testing/composition/contract-standards/scenario.yaml --locked --json |
   jq '{apiVersion, name, version,
-       dotInstances: (.dots | length),
-       wires: (.wires | length),
-       compatibleWires: ([.wires[] |
+       vertices: (.vertices | length),
+       edges: (.edges | length),
+       compatibleEdges: ([.edges[] |
          select(.compatibility == "COMPATIBLE")] | length),
-       standards: ([.wires[].contractStandard] | unique),
-       interactions: ([.wires[].providerInteraction] | unique)}'</code></pre>
+       standards: ([.edges[].contractStandard] | unique),
+       interactions: ([.edges[].providerInteraction] | unique)}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1612,9 +1612,9 @@ dotx compose inspect \
   "apiVersion": "dot.mare6g.eu/v1",
   "name": "contract-standards-matrix",
   "version": "1.0.0",
-  "dotInstances": 6,
-  "wires": 21,
-  "compatibleWires": 21,
+  "vertices": 6,
+  "edges": 21,
+  "compatibleEdges": 21,
   "standards": ["AsyncAPI", "GraphQL", "OpenAPI", "Protobuf"],
   "interactions": [
     "BIDIRECTIONAL_STREAM", "CLIENT_STREAM", "MUTATION", "QUERY",
@@ -1644,16 +1644,16 @@ Anchors.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_follow_one_asyncapi_wire"><a class="anchor" href="#_follow_one_asyncapi_wire"></a>Follow one AsyncAPI wire</h3>
+<h3 id="_follow_one_asyncapi_edge"><a class="anchor" href="#_follow_one_asyncapi_edge"></a>Follow one AsyncAPI edge</h3>
 <div class="paragraph">
-<p>Inspect the Kafka wire to see how standard-derived facts and deployment facts
+<p>Inspect the Kafka edge to see how standard-derived facts and deployment facts
 remain separate:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose inspect \
   DOT-Testing/composition/contract-standards/scenario.yaml --locked --json |
-  jq '.wires[] | select(.name == "asyncapi-kafka") |
+  jq '.edges[] | select(.name == "asyncapi-kafka") |
       {name, compatibility, contractStandard, contractFormat,
        providerInteraction, consumerInteraction, channelAddress,
        connectionEndpoint, materializers, probe}'</code></pre>
@@ -1720,7 +1720,7 @@ HTTP behavior; those require the live acceptance layer.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The preceding steps establish catalogue validity, compatibility for the selected
-21-Wire fixture and deployment rendering. None sends application traffic.
+21-Edge fixture and deployment rendering. None sends application traffic.
 Use <a href="verification-and-examples.html" class="xref page">the verification matrix</a> to choose the
 next gate: live probes, runtime portability, isolation or producer acceptance.
 That page owns the command/evidence inventory and recorded acceptance limits.</p>

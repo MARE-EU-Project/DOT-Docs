@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Adopting DOT :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/adopting-dot.html">
-    <link rel="prev" href="getting-started.html">
-    <link rel="next" href="evaluation-kit.html">
+    <link rel="prev" href="first-composition.html">
+    <link rel="next" href="catalogue-versioning.html">
     <meta name="description" content="Choose compatible artifacts, author with generated schemas, check prerequisites safely and measure independent onboarding.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -185,13 +185,13 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -463,7 +463,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>DOT connects reusable component descriptions, authoritative API Contracts,
-deployment choices and explicit composition wires. It does not replace OpenAPI,
+deployment choices and explicit composition edges. It does not replace OpenAPI,
 AsyncAPI, Protobuf, GraphQL, Docker Compose, Helm or Kubernetes. Start by
 reusing a complete catalogue bundle, not by inventing a new descriptor.</p>
 </div>
@@ -473,10 +473,10 @@ reusing a complete catalogue bundle, not by inventing a new descriptor.</p>
 <h2 id="_choose_a_compatible_set"><a class="anchor" href="#_choose_a_compatible_set"></a>Choose a compatible set</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For an authorized evaluation without contributor toolchains, use the
-<a href="evaluation-kit.html" class="xref page">matching prebuilt evaluation kit</a>. Its first composition
-stays on Docker and retains the same binary/catalogue throughout. Availability
-and sharing require an authorized issuer; no new public release is implied.</p>
+<p>Install <code>dotx</code> from the CLI release, clone <code>DOT-Repository</code> from GitHub at the
+matching revision, and install the runtime tools required by your selected
+deployment. The <a href="getting-started.html" class="xref page">quickstart</a> uses Docker and the
+Compose plugin.</p>
 </div>
 <div class="paragraph">
 <p>The site opens <strong>Next</strong>: documentation for the current source checkout, not a
@@ -597,13 +597,21 @@ its computed digest pins downloaded bytes, not upstream authority.</p>
 <h2 id="_check_the_selected_deployment_without_starting_it"><a class="anchor" href="#_check_the_selected_deployment_without_starting_it"></a>Check the selected deployment without starting it</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Selected release or matching source.</strong> From the pinned DOT-Design checkout
-with the selected release or its source CLI installed:</p>
+<p>Install the prerequisites for the deployment you want to run. Docker image
+deployments use a reachable Docker Engine. For Vagrant, use the Vagrant,
+<code>vagrant-libvirt</code>, libvirt and KVM setup on your local execution host. For
+Kubernetes, install <code>kubectl</code> and configure access to a cluster. Helm deployments
+also require Helm. On supported Ubuntu systems, <code>dotx tool install --help</code> lists
+installer options. Use <code>dotx tool check docker compose</code> or
+<code>dotx tool check vagrant</code> to check the selected tools.</p>
+</div>
+<div class="paragraph">
+<p>From the pinned standalone <code>DOT-Repository</code> checkout root with <code>dotx</code> installed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version --verbose
-PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository DOT-Repository)"
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository .)"
 PROMETHEUS_BUNDLE="$(dirname -- "$PROMETHEUS_JSON")"
 dotx inspect "$PROMETHEUS_BUNDLE"
 dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose
@@ -611,8 +619,7 @@ dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose --json</c
 </div>
 </div>
 <div class="paragraph">
-<p>From a standalone catalogue checkout resolve with <code>--repository .</code> instead.
-Exact identity resolution works with the released and product/version layouts. For a standalone bundle outside a catalogue add
+<p>Exact identity resolution works with the released and product/version layouts. For a standalone bundle outside a catalogue add
 <code>--schema /path/to/matching/Schema/schema.json</code>.</p>
 </div>
 <div class="paragraph">
@@ -735,7 +742,7 @@ hands-on work, recording cold-download time separately.</p>
 </li>
 <li>
 <p>Using the current-source route, ask them to inspect another deployment,
-explain one Contract/Anchor/wire, introduce an invalid reference, interpret the
+explain one Contract/Anchor/edge, introduce an invalid reference, interpret the
 diagnostic and repair it. Record every undocumented intervention.</p>
 </li>
 <li>
@@ -759,8 +766,8 @@ the project owners' approval; this guide does not grant new reuse rights.</p>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="getting-started.html">Quick start: run one DOT</a></span>
-  <span class="next"><a href="evaluation-kit.html">Evaluate with one matching kit</a></span>
+  <span class="prev"><a href="first-composition.html">Run your first composition</a></span>
+  <span class="next"><a href="catalogue-versioning.html">Catalogue products and releases</a></span>
 </nav>
 </article>
   </div>

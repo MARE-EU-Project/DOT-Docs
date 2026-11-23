@@ -8,7 +8,7 @@
     <link rel="prev" href="wiring-and-security.html">
     <link rel="next" href="verification-and-examples.html">
     <meta name="description" content="Lock, validate, inspect, apply, actively probe, check status, and destroy compositions using fail-closed rules, explicit extension points, 6G security patterns, and executable examples.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -571,7 +571,7 @@ context; unknown ownership refuses cleanup. See
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose status</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances, wire/exposure configuration evidence,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances, edge/exposure configuration evidence,
   and the latest recorded active-probe outcomes.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Current reachability after the probe timestamp, authentication mechanisms not
   explicitly identified by the evidence, authorization semantics, response
@@ -622,7 +622,7 @@ after updating the CLI. Clean up an existing run with its original binary and
 context before switching; saved state is not migrated or adopted.</p>
 </div>
 <div class="paragraph">
-<p><code>probe</code> deliberately reuses the interaction selected by the wire instead of
+<p><code>probe</code> deliberately reuses the interaction selected by the edge instead of
 introducing health-check fields in an Anchor or DOT. For OpenAPI, it derives the
 request from the authoritative operation, accepts only <code>GET</code>, <code>HEAD</code>, and
 <code>OPTIONS</code>, and requires one fully bound path. The OAuth 2.0 adapter reuses one
@@ -636,7 +636,7 @@ only through the runner environment.</p>
 </div>
 <div class="paragraph">
 <p>The 0.4.0 CLI supports an optional native JSON response assertion on safe
-OpenAPI <code>GET</code> or <code>OPTIONS</code> wires:</p>
+OpenAPI <code>GET</code> or <code>OPTIONS</code> edges:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -668,7 +668,7 @@ probes through the existing bounded HTTP runner and selected service binding.
 The published v0.3.0 probe behavior is unchanged.</p>
 </div>
 <div class="paragraph">
-<p>A SPARQL query wire sends exactly one GET with the encoded fixed <code>query=ASK {}</code>
+<p>A SPARQL query edge sends exactly one GET with the encoded fixed <code>query=ASK {}</code>
 and <code>Accept: application/sparql-results+json</code>. Success requires HTTP 200,
 that response media type, a JSON <code>head</code> object and <code>boolean: true</code>.
 It does not follow redirects, accept arbitrary query/update fixtures, manage
@@ -759,7 +759,7 @@ and a Kubernetes/Helm provider through a reviewed <code>EXTERNAL_GATEWAY</code>;
 shares the actual consumer&#8217;s network namespace. The operator provisions and owns
 that gateway. Other cross-platform probe pairs remain unsupported. Runner output
 is capped at 1 MiB before parsing. Secrets and bearer tokens never appear in the
-argument vector or state. Contractless, unresolved and unsupported-protocol wires
+argument vector or state. Contractless, unresolved and unsupported-protocol edges
 are reported as unsupported rather than inferred healthy. Diagnostics, documents,
 variables, requests, messages, and response bodies are not persisted; state
 contains only normalized identifiers, adapter, result metadata, failure code,
@@ -852,8 +852,8 @@ dotx compose apply scenario.yaml --locked --dry-run
 
 # Execute, inspect recorded evidence, and clean up owned resources
 dotx compose apply scenario.yaml --locked
-dotx compose probe scenario.yaml --locked --wire oidc-provider-to-gateway
-dotx compose probe scenario.yaml --locked --wire protected-gateway-to-client
+dotx compose probe scenario.yaml --locked --edge oidc-provider-to-gateway
+dotx compose probe scenario.yaml --locked --edge protected-gateway-to-client
 dotx compose status scenario.yaml
 dotx compose destroy scenario.yaml
 
@@ -904,7 +904,7 @@ restoring a deployment specification cannot undo workload data changes.</p>
 </div>
 <div class="paragraph">
 <p>Current-source upgrade detection fingerprints configuration-file bytes as well
-as declarations, including templates supplied by Wire materializers. Changing a
+as declarations, including templates supplied by Edge materializers. Changing a
 template at the same relative path updates its receiving instance; an unchanged
 filename alone does not establish unchanged deployment inputs. Retain both
 reviewed input trees and locks for recovery.</p>
@@ -1000,18 +1000,18 @@ or runtime mutations.</p>
 <p>the recorded phase and native runtime status of each DOT instance;</p>
 </li>
 <li>
-<p>recorded wire compatibility, security configuration, selected endpoint, and materializer count; and</p>
+<p>recorded edge compatibility, security configuration, selected endpoint, and materializer count; and</p>
 </li>
 <li>
 <p>recorded exposed-Anchor bindings; and</p>
 </li>
 <li>
-<p>the latest redacted active Contract-probe result for each probed wire.</p>
+<p>the latest redacted active Contract-probe result for each probed edge.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Wire and exposure entries remain configuration evidence. Only entries under
+<p>Edge and exposure entries remain configuration evidence. Only entries under
 active Contract-probe evidence demonstrate a runtime request and declared
 OpenAPI response match, bounded by their timestamp and adapter scope.</p>
 </div>
@@ -1027,7 +1027,7 @@ OpenAPI response match, bounded by their timestamp and adapter scope.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>UNKNOWN</code> wire compatibility;</p>
+<p><code>UNKNOWN</code> edge compatibility;</p>
 </li>
 <li>
 <p>missing, duplicate, or mismatched IDs and versions;</p>
@@ -1054,7 +1054,7 @@ OpenAPI response match, bounded by their timestamp and adapter scope.</p>
 <p>repeated DOT instances on deployment mechanisms that cannot isolate their resource names; and</p>
 </li>
 <li>
-<p>materialized cross-platform wires without an explicit network binding.</p>
+<p>materialized cross-platform edges without an explicit network binding.</p>
 </li>
 </ul>
 </div>
@@ -1100,7 +1100,7 @@ silently upgrades <code>UNKNOWN</code> to compatible.</p>
 </div>
 <div class="paragraph">
 <p>Use Contracts for interaction semantics, service bindings for deployable ports,
-composition inputs for operator-controlled configuration, wires for topology,
+composition inputs for operator-controlled configuration, edges for topology,
 materializers or mediator DOTs for explicit adaptation, and policy engines for
 deployment/security decisions.</p>
 </div>
@@ -1127,7 +1127,7 @@ deployment/security decisions.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Consumer needs a provider address</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wire materializer targeting declared service configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge materializer targeting declared service configuration.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Payload/protocol transformation</p></td>
@@ -1147,7 +1147,7 @@ deployment/security decisions.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broker service</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit wire <code>endpoint</code> selecting the broker service port.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit edge <code>endpoint</code> selecting the broker service port.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Network attachment, eBPF/XDP, WASM import/export, or lifecycle event</p></td>
@@ -1177,11 +1177,11 @@ secret references and issuer URLs.</p>
 <li>
 <p><strong>Closed-loop detection and response:</strong> telemetry, inference, CACAO
 interpretation, and OpenC2 actuation remain separate DOTs. HTTP and MQTT
-Contracts define the boundaries; the wire selects the broker endpoint and
+Contracts define the boundaries; the edge selects the broker endpoint and
 supplies only deployment-specific channel values.</p>
 </li>
 <li>
-<p><strong>Multi-domain federation:</strong> peer DOT instances can have reciprocal wires while
+<p><strong>Multi-domain federation:</strong> peer DOT instances can have reciprocal edges while
 <code>dependsOn</code> contains only real readiness dependencies. Trust-domain, roaming,
 and federation policy belongs in policy inputs or a dedicated policy DOT, not
 in the Anchor.</p>
@@ -1190,7 +1190,7 @@ in the Anchor.</p>
 <p><strong>Near-real-time RAN control:</strong> E2 or management APIs are Contract-backed
 Anchors. Host networking, accelerators, eBPF/XDP attachments, and radio-device
 access are explicit deployment requirements and grants, never inferred from
-a wire.</p>
+a edge.</p>
 </li>
 <li>
 <p><strong>Observability and digital twins:</strong> metrics, logs, events, and integrity APIs
@@ -1383,7 +1383,7 @@ does not promise an automatic repair or authorize a native deletion.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Anchor ID is not found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The wire references the pinned DOT version, the exact local ID is stable, and the
+<td class="tableblock halign-left valign-top"><p class="tableblock">The edge references the pinned DOT version, the exact local ID is stable, and the
   Anchor is present in that version&#8217;s <code>dot.json</code>.</p></td>
 </tr>
 <tr>
@@ -1407,7 +1407,7 @@ does not promise an automatic repair or authorize a native deletion.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Materializer target is rejected</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The target service declares the environment variable or config-file path,
-  the JSON Pointer is valid, and no other wire writes a conflicting value.</p></td>
+  the JSON Pointer is valid, and no other edge writes a conflicting value.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Security remains unresolved</p></td>
@@ -1420,8 +1420,8 @@ does not promise an automatic repair or authorize a native deletion.</p>
   command finish; do not delete the lock while a lifecycle process is running.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status shows a configured wire but no active evidence</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Run <code>dotx compose probe scenario.yaml --wire &lt;wire&gt;</code>. If the wire is skipped,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status shows a configured edge but no active evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run <code>dotx compose probe scenario.yaml --edge &lt;edge&gt;</code>. If the edge is skipped,
   its operation requires a dedicated adapter or application-level acceptance
   test. Configuration evidence alone is not reachability evidence.</p></td>
 </tr>
@@ -1452,10 +1452,10 @@ contractless Anchors, validation failures, bindings, and compatibility.</p>
 <p><code>DOT-Testing/composition/poc6-closed-loop/</code> demonstrates an explicit MQTT broker endpoint and OpenC2/AsyncAPI operations.</p>
 </li>
 <li>
-<p><code>DOT-Testing/composition/federation-peers/</code> demonstrates reciprocal wires without false readiness cycles.</p>
+<p><code>DOT-Testing/composition/federation-peers/</code> demonstrates reciprocal edges without false readiness cycles.</p>
 </li>
 <li>
-<p><code>DOT-Testing/e2e/poc1-ric-aaa/</code> demonstrates identity, OPA authorization, forwarding, metrics feedback, and deny-list update across seven wires.</p>
+<p><code>DOT-Testing/e2e/poc1-ric-aaa/</code> demonstrates identity, OPA authorization, forwarding, metrics feedback, and deny-list update across seven edges.</p>
 </li>
 <li>
 <p><code>DOT-Testing/interoperability/pocs.yaml</code> is the evidence ledger for all eleven MARE PoCs and records every remaining acceptance gap.</p>

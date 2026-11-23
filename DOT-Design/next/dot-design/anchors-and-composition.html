@@ -8,7 +8,7 @@
     <link rel="prev" href="compatibility.html">
     <link rel="next" href="authoring-anchors.html">
     <meta name="description" content="Understand the ownership boundaries, supported profile, and resolution model for composing independently authored DOTs.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -498,8 +498,8 @@ It can select a Contract operation, express a supported provider-neutral
 requirement, or declare a contractless boundary.</p>
 </li>
 <li>
-<p>A <strong>Wire</strong> connects compatible Anchors of selected DOT instances and remains
-outside both reusable DOT definitions. Declaring a Wire does not deploy it.</p>
+<p>A <strong>Edge</strong> connects compatible Anchors of selected DOT instances and remains
+outside both reusable DOT definitions. Declaring a Edge does not deploy it.</p>
 </li>
 </ol>
 </div>
@@ -546,12 +546,12 @@ Anchor.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connect existing DOTs</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="composition-documents.html#composition-documents-and-dot-instances" class="xref page">Composition
-  documents and DOT instances</a>, <a href="wiring-and-security.html#direct-requestresponse-wire" class="xref page">direct
-  request/response wires</a>, and <a href="wiring-and-security.html#materializers" class="xref page">materializers</a>.</p></td>
+  documents and DOT instances</a>, <a href="wiring-and-security.html#direct-requestresponse-edge" class="xref page">direct
+  request/response edges</a>, and <a href="wiring-and-security.html#materializers" class="xref page">materializers</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Model messaging through a broker</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wiring-and-security.html#brokered-wire" class="xref page">Brokered wires</a> and
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wiring-and-security.html#brokered-edge" class="xref page">Brokered edges</a> and
   <a href="wiring-and-security.html#path-and-channel-parameters" class="xref page">path and channel parameters</a>.</p></td>
 </tr>
 <tr>
@@ -607,7 +607,7 @@ with explicitly owned, digest-verified Contract documents;</p>
 <p>explicit environment-variable and config-file materializers;</p>
 </li>
 <li>
-<p>explicit externally owned gateway bindings for cross-platform wires, with
+<p>explicit externally owned gateway bindings for cross-platform edges, with
 ownership and no-cleanup semantics recorded in resolved composition, lock, and state;</p>
 </li>
 <li>
@@ -638,7 +638,7 @@ one Docker network or Kubernetes namespace; and</p>
 <code>DOT-Testing/acceptance/composition/v1/profile.json</code>. Run
 <code>task testing:compose:acceptance</code> to compare the installed CLI help and emitted
 schema with that profile, verify every committed lock, exercise all twenty-one
-cross-standard wires and six runtime dry-run adapters, and emit revision-pinned,
+cross-standard edges and six runtime dry-run adapters, and emit revision-pinned,
 secret-free JSON evidence.</p>
 </div>
 <div class="paragraph">
@@ -692,7 +692,7 @@ for each adapter.</p>
   contain a live address.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wire</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Composer/operator</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connects one named DOT instance and Anchor ID to another. It may select a
   provider, consumer, or broker service-port endpoint.</p></td>
@@ -729,16 +729,16 @@ for each adapter.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Logical composition point and provider/consumer role</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot.anchors[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wire <code>from</code> or <code>to</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge <code>from</code> or <code>to</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service and named port implementing an Anchor</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService.anchorBindings[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Service.anchorBindings[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Resolved service endpoint</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Configuration the service permits a deployer to supply</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeploymentService.config</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Service.config</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Deployment input or materializer target</p></td>
 </tr>
 <tr>
@@ -771,7 +771,7 @@ for each adapter.</p>
 <p><a href="_attachments/diagrams/dot-ownership-chain.mmd" class="xref attachment">View the Mermaid source</a>.</p>
 </div>
 <div class="paragraph">
-<p>These objects must not collapse into one schema. In particular, a wire is not
+<p>These objects must not collapse into one schema. In particular, a edge is not
 part of either DOT, and a live URL is not part of an Anchor.</p>
 </div>
 </div>

@@ -1,10 +1,13 @@
-dots:
+vertices:
 # tag::grafana-dot[]
     - name: grafana
       source: ./grafana
       dotId: Grafana@13.3.0
       dotVersion: 13.3.0
       deployment: docker
+      connectors:
+        - anchorId: promql-query-api
+        - anchorId: monitoring-dashboard
       dependsOn: [prometheus]
       deploymentInputs:
         environment:
@@ -14,23 +17,28 @@ dots:
           - source: grafana-empty.yml
             target: /etc/grafana/provisioning/datasources/elasticsearch.yml
 # end::grafana-dot[]
-wires:
-# tag::grafana-wire[]
+edges:
+# tag::grafana-edge[]
     - name: prometheus-to-grafana
-      from: {instance: prometheus, anchorId: promql-query-api}
-      to: {instance: grafana, anchorId: promql-query-api}
-      materializer:
-        type: CONFIG_FILE
-        source: grafana-prometheus.yml
-        valueFrom: ENDPOINT_URL
-        target:
-          instance: grafana
-          service: grafana
-          path: /etc/grafana/provisioning/datasources/prometheus.yml
-          jsonPointer: /datasources/0/url
-# end::grafana-wire[]
+      from: prometheus
+      to: grafana
+      channels:
+        - name: prometheus-to-grafana
+          fromConnector: promql-query-api
+          toConnector: promql-query-api
+          materializer:
+            type: CONFIG_FILE
+            source: grafana-prometheus.yml
+            valueFrom: ENDPOINT_URL
+            target:
+              instance: grafana
+              service: grafana
+              path: /etc/grafana/provisioning/datasources/prometheus.yml
+              jsonPointer: /datasources/0/url
+# end::grafana-edge[]
 exposedAnchors:
 # tag::grafana-exposure[]
     - name: dashboard
-      target: {instance: grafana, anchorId: monitoring-dashboard}
+      vertex: grafana
+      connector: monitoring-dashboard
 # end::grafana-exposure[]

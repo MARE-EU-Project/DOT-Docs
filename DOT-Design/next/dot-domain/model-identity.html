@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-domain/model-identity.html">
     <link rel="prev" href="model-reference.html">
     <link rel="next" href="model-interfaces.html">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -147,7 +147,7 @@
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -185,12 +185,12 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -270,7 +270,7 @@
     <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="../dot-design/release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -547,7 +547,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchors</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of Anchor</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Embedded logical integration points provided or required by the component. Their IDs are local to this DOT and are the keys used by service bindings and composition wires; addresses and credentials do not belong here.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Embedded logical integration points provided or required by the component. Their IDs are local to this DOT and are the keys used by service bindings and composition edges; addresses and credentials do not belong here.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>runtimes</code></p></td>
@@ -581,7 +581,7 @@
 <p>To <a href="model-deployment.html#model-Runtime" class="xref page">Runtime</a>: containment via runtimes; diagram multiplicity 0..*.</p>
 </li>
 <li>
-<p>From <a href="model-composition.html#model-DotInstance" class="xref page">DotInstance</a>: ID/name reference via dotId / source.</p>
+<p>From <a href="model-composition.html#model-Vertex" class="xref page">Vertex</a>: ID/name reference via dotId / source.</p>
 </li>
 </ul>
 </div>

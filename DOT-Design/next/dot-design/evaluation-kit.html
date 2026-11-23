@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Evaluate DOT with one matching artifact set :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/evaluation-kit.html">
-    <link rel="prev" href="adopting-dot.html">
-    <link rel="next" href="catalogue-versioning.html">
     <meta name="description" content="A private prebuilt evaluation route, measurable user trials and explicit conformance boundaries.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +146,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +184,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +269,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -434,9 +432,8 @@
   <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li>DOT-Design</li>
-    <li><a href="adopting-dot.html">Adoption, compatibility and editor setup</a></li>
-    <li><a href="evaluation-kit.html">Evaluate with one matching kit</a></li>
+    <li><a href="index.html">DOT-Design</a></li>
+    <li><a href="evaluation-kit.html">Evaluate DOT with one matching artifact set</a></li>
   </ul>
 </nav>
 <div class="page-versions">
@@ -463,6 +460,12 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>For current onboarding, use <a href="getting-started.html" class="xref page">Getting started</a> to
+install the released CLI and local runtime tools and clone <code>DOT-Repository</code>
+from GitHub. This page records the private evaluation kit procedure for
+maintainers and existing rehearsal evidence.</p>
+</div>
+<div class="paragraph">
 <p>An evaluation kit keeps one source-qualified Linux-amd64 CLI, catalogue, schemas
 and instructions together. It is an evaluation build, not a published release.
 Its source version label can equal an older release; exact commits and hashes in
@@ -471,14 +474,36 @@ the kit receipt identify its capabilities.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_participant_route"><a class="anchor" href="#_participant_route"></a>Participant route</h2>
+<h2 id="_participant_route"><a class="anchor" href="#_participant_route"></a>Private kit procedure</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Obtain the kit and its independently recorded outer SHA-256 from your authorized
 project contact. No public download or redistribution approval is implied.
-Follow the included <code>START-HERE.md</code> from a fresh private folder. It verifies the
-complete inventory, installs the binary in that private workspace and extracts
-the matching local catalogue. Use that binary for the entire attempt.
+In Bash, set <code>KIT_ARCHIVE</code> to the downloaded file and <code>KIT_SHA256</code> to the hash
+from your project contact. Use the actual path and hash in place of these values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KIT_ARCHIVE="$HOME/Downloads/dot-evaluation.tar.gz"
+KIT_SHA256="paste-the-issuer-hash-here"
+
+if [[ "$KIT_SHA256" =~ ^[0-9a-f]{64}$ ]] &amp;&amp;
+   actual="$(sha256sum &lt; "$KIT_ARCHIVE")" &amp;&amp;
+   [[ "${actual%% *}" == "$KIT_SHA256" ]]; then
+  kit_dir="$(mktemp -d "$HOME/dot-evaluation.XXXXXXXX")" &amp;&amp;
+  tar -xzf "$KIT_ARCHIVE" --no-same-owner -C "$kit_dir" &amp;&amp;
+  cd "$kit_dir" &amp;&amp;
+  printf 'Open START-HERE.md in %s\n' "$PWD"
+else
+  printf 'Kit verification failed. Check the file and issuer hash.\n' &gt;&amp;2
+  false
+fi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Follow the extracted <code>START-HERE.md</code>. It verifies the complete inventory,
+installs the binary in the private workspace, and extracts the matching
+catalogue. Use that binary for the entire attempt.
 Keep its scoped extraction mask: non-secret example configurations must be
 readable by unprivileged containers even when your shell uses <code>umask 077</code>.
 The enclosing trial folder stays private; operator secret-file permissions
@@ -495,12 +520,12 @@ not close the book&#8217;s separate qualified-release gate.</p>
 <div class="paragraph">
 <p>The first graph is <strong>Node Exporter &#8594; Prometheus on Docker</strong>: inspect the DOTs,
 create a fresh draft, review topology and lock, deploy, query the real scrape and
-clean up. Linux amd64, Bash, Docker/Compose, curl and jq are needed. Java, Go,
-Task and Kubernetes are not participant prerequisites for this graph.</p>
+clean up. The live example needs Linux amd64, Bash, Docker Engine, curl, jq,
+tar, gzip, and coreutils.</p>
 </div>
 <div class="paragraph">
 <p>The exporter observes its container rather than the physical host. Its metrics
-Wire selects an operation from a release-scoped, source-derived OpenAPI Contract
+Edge selects an operation from a release-scoped, source-derived OpenAPI Contract
 for the HTTP metrics endpoint. This is not a vendor-published specification or
 complete OpenMetrics validation.
 First validation may download pinned documents; images are a separate runtime
@@ -512,6 +537,12 @@ ports, namespaces, inputs or external gateways. Keep the original binary/cache
 until cleanup is verified; stop on unknown ownership. Never prune unrelated
 resources. Advanced Contract authoring, safe edit/cancel, graph creation and lock
 review remain part of the <a href="adopting-dot.html#_independent_onboarding_trial" class="xref page">trial protocol</a>.</p>
+</div>
+<div class="paragraph">
+<p>For an unassisted trial, use one
+<a href="_attachments/onboarding-trial-template.md" class="xref attachment">blank trial record</a> per participant.
+Record first-download waits separately from hands-on time and retain any
+intervention as an observation of the workflow.</p>
 </div>
 </div>
 </div>
@@ -536,7 +567,7 @@ Standalone checking is data-only: it never executes a supplied binary.</p>
 <div class="paragraph">
 <p>The <a href="mare-poc-compositions.html" class="xref page">secure-API walkthrough</a> is a separate
 Kubernetes operator chapter. The <a href="portability-demo.html" class="xref page">Prometheus portability
-example</a> has zero Wires and demonstrates independent deployments, not
+example</a> has zero Edges and demonstrates independent deployments, not
 cross-runtime data flow. Actual cross-runtime qualification must identify the
 intended producer from the consumer context and prove interruption/recovery.</p>
 </div>
@@ -578,10 +609,6 @@ making release or production claims. Stable-tag documentation remains unchanged.
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="adopting-dot.html">Adoption, compatibility and editor setup</a></span>
-  <span class="next"><a href="catalogue-versioning.html">Catalogue products and releases</a></span>
-</nav>
 </article>
   </div>
 </main>

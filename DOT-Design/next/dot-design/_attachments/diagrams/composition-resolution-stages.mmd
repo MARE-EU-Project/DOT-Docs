@@ -10,7 +10,7 @@ flowchart LR
     Config["Service configuration<br/>declared materializer targets"]
     Contract --> Anchor
     Anchor --> Binding
-    Binding -.->|same DeploymentService| Config
+    Binding -.->|same Service| Config
   end
 
   subgraph ResolutionStage["Inspection time · deterministic resolution"]

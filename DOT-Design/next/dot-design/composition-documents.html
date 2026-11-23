@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connecting the DOTs: Composition Documents and Instances :: MARE DOT-Design</title>
+    <title>Connecting the DOTs: Composition Documents :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/composition-documents.html">
     <link rel="prev" href="authoring-anchors.html">
     <link rel="next" href="wiring-and-security.html">
-    <meta name="description" content="Define a strict, versioned composition document with pinned DOT definitions, independently named runtime instances, contracts, wires, and exposed Anchors.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="description" content="Define a strict, versioned composition document with pinned DOT definitions, named vertices, edges, channels, and exposed Anchors.">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -459,13 +459,12 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Connecting the DOTs: Composition Documents and Instances</h1>
+<h1 class="page">Connecting the DOTs: Composition Documents</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>A composition document is owned by the composer or operator, not by any member
-DOT. It selects immutable DOT identities and creates deployment instances whose
-topology may vary between environments.</p>
+DOT. Its Vertices select exact DOT releases. Edges connect Vertices, and Channels select the Anchors used by each connection.</p>
 </div>
 </div>
 </div>
@@ -501,24 +500,23 @@ There is no separate composition inventory or Scenario domain type.</p>
 <p>A scenario is the broader use-case narrative and acceptance procedure described
 by the README. Synthetic matrices, negative controls, source-adapted PoC
 fixtures, executable harnesses, and evidence remain in DOT-Design&#8217;s <code>DOT-Testing/</code>.
-See <a href="getting-started.html" class="xref page">Getting started</a> for the gateway&#8217;s three Wires and
+See <a href="getting-started.html" class="xref page">Getting started</a> for the gateway&#8217;s three Edges and
 <a href="guided-demo.html" class="xref page">Guided demo</a> for live acceptance. Catalogue inclusion or
 a valid resolved composition never implies production or live producer acceptance.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="composition-documents-and-dot-instances"><a class="anchor" href="#composition-documents-and-dot-instances"></a>Composition documents and DOT instances</h2>
+<h2 id="composition-documents-and-dot-instances"><a class="anchor" href="#composition-documents-and-dot-instances"></a>Composition documents and Vertices</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A composition is a separate versioned document. It names concrete instances of
-DOT definitions and pins their identities through the authoritative
+<p>A composition is a separate versioned document. Its Vertices select exact DOT definitions and pin their identities through the authoritative
 <code>DOT-Repository</code> catalogue. The <code>repository://&lt;dot-id&gt;@&lt;version&gt;</code> form is stable
 across checkout locations and prevents a scenario-local copy from drifting away
 from the reviewed definition:</p>
 </div>
 <div class="paragraph">
-<p>This structural excerpt omits the required instance inputs and wires. Use
+<p>This structural excerpt omits the required instance inputs and edges. Use
 <code>DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml</code> for the
 complete runnable document; Contract paths below are relative to that directory.</p>
 </div>
@@ -529,7 +527,7 @@ kind: Composition
 id: e3000000-0000-4000-8000-000000000001
 name: keycloak-apisix-oauth
 version: 1.0.0
-dots:
+vertices:
   - name: identity
     source: repository://Keycloak@26.8.1
     dotId: Keycloak@26.8.1
@@ -547,7 +545,7 @@ contracts:
 </div>
 </div>
 <div class="paragraph">
-<p><code>name</code> identifies an instance inside this composition. <code>source</code> selects the
+<p><code>name</code> identifies a Vertex inside this composition. <code>source</code> selects the
 repository definition by ID and exact version. <code>dotx compose</code> locates the
 nearest <code>DOT-Repository</code> containing a <code>DOTs/</code> directory, discovers its
 definitions recursively, resolves the ID/version to its reviewed bundle, and
@@ -577,8 +575,8 @@ in the repository does not copy OpenAPI, AsyncAPI, Protobuf, or GraphQL facts
 into its Anchors.</p>
 </div>
 <div class="paragraph">
-<p><code>dependsOn</code> is a readiness graph, not a connection graph. A wire does not imply
-startup order. This distinction permits reciprocal peer wires and brokered
+<p><code>dependsOn</code> is a readiness graph, not a connection graph. An Edge does not imply
+startup order. This distinction permits reciprocal peer edges and brokered
 topologies without creating false dependency cycles.</p>
 </div>
 <div class="sect2">
@@ -617,11 +615,12 @@ topologies without creating false dependency cycles.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Human-readable identity and version of the composition document.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vertices[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes, at least one</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named deployment instances. Every entry pins <code>source</code>, <code>dotId</code>, and
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named selections of DOT releases and deployments. Every entry pins <code>source</code>, <code>dotId</code>, and
   <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;name&gt;@&lt;tool-release&gt;</code>
-  source. <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
+  source. Each Vertex declares the Anchors it uses as <code>connectors[]</code> entries.
+  <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts[]</code></p></td>
@@ -633,24 +632,24 @@ topologies without creating false dependency cycles.</p>
   OpenAPI file or an implicit adjacent-file fallback.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wires[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edges[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Connections between one <code>PROVIDES</code> and one <code>REQUIRES</code> Anchor. A composition
-  with no wires can still expose a standalone capability.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directed connections between named Vertices. Each Edge contains one or more Channels. A composition
+  with no edges can still expose a standalone capability.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedAnchors[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local names for member Anchors that an operator may expose or forward.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local names for Anchors that an operator may expose or forward. Each entry selects a <code>vertex</code> and one of its declared Connectors.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Each wire requires <code>name</code>, <code>from</code>, and <code>to</code>. Both ends contain an instance name
-and Anchor ID. Optional <code>endpoint</code> selects a third-party or otherwise
-non-default service port; <code>parameters</code> supplies only Contract-declared template
-values; <code>materializer</code> or <code>materializers</code> writes resolved values; and <code>security</code>
-binds Contract security requirements to declared participant configuration.
+<p>Each Edge requires <code>name</code>, <code>from</code>, <code>to</code>, and <code>channels</code>. The two endpoint fields
+name Vertices. A Channel names its <code>fromConnector</code> and <code>toConnector</code> using their
+DOT-local <code>anchorId</code> values. Channel names are unique within the composition.
+Each Channel can carry its own <code>endpoint</code>, <code>network</code>, <code>parameters</code>, <code>probe</code>,
+<code>materializer</code> or <code>materializers</code>, and <code>security</code> settings.
 Unknown fields are rejected.</p>
 </div>
 </div>
@@ -658,7 +657,7 @@ Unknown fields are rejected.</p>
 <h3 id="deployment-inputs-and-native-workload-bindings"><a class="anchor" href="#deployment-inputs-and-native-workload-bindings"></a>Deployment inputs and native workload bindings</h3>
 <div class="paragraph">
 <p><code>deploymentInputs.environment</code>, <code>configFiles</code>, and <code>volumes</code> identify the
-logical <code>DeploymentService</code> that owns each input. <code>ociRuntime</code> and <code>cdiDevices</code>
+logical <code>Service</code> that owns each input. <code>ociRuntime</code> and <code>cdiDevices</code>
 authorize only requirements already declared by that selected DOT deployment.
 These fields supply instance values and grants; they do not expand the DOT&#8217;s
 declared configuration surface.</p>
@@ -742,11 +741,11 @@ process. Operator-managed privileged exposure remains a separate responsibility.
 <div class="paragraph">
 <p>One pinned DOT definition can appear more than once in a composition. Each
 entry has a distinct composition-local <code>name</code>, runtime identity, deployment
-inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersion</code>:</p>
+inputs, and edges while retaining the same <code>dotId</code> and <code>dotVersion</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">vertices:
   - name: site-a
     source: ./federation-agent
     dotId: poc11-federation-agent@0.0.0-source.g303b353
@@ -766,7 +765,7 @@ inputs, and wires while retaining the same <code>dotId</code> and <code>dotVersi
 </div>
 </div>
 <div class="paragraph">
-<p>Wires reference <code>site-a</code> or <code>site-b</code>, never the source path. Docker Image
+<p>Edges reference <code>site-a</code> or <code>site-b</code>, never the source path. Docker Image
 deployments receive deterministic per-instance container, DNS, network, and
 named-volume identities. Apply rejects repeated instances for deployment
 mechanisms whose manifest-owned resource names cannot yet be isolated safely.
@@ -786,7 +785,7 @@ This conservative guard is not an identifier alias and does not change locks.</p
 <p>The executable example is <code>DOT-Testing/composition/federation-peers/scenario.yaml</code>.</p>
 </div>
 <div class="paragraph">
-<p>After defining the participants, <a href="wiring-and-security.html" class="xref page">wire and
+<p>After defining the participants, <a href="wiring-and-security.html" class="xref page">connect and
 configure their selected Anchors</a>.</p>
 </div>
 </div>

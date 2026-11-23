@@ -8,7 +8,7 @@
     <link rel="prev" href="external-dot-examples.html">
     <link rel="next" href="guided-demo.html">
     <meta name="description" content="Qualify a selected deployment, distinguish catalogue gaps and prepare the remaining producer, recovery and owner decisions.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -508,11 +508,9 @@ monitoring and ownership-safe cleanup in the intended environment.</p></td>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Use <a href="release-readiness.html" class="xref page">the release record</a> for exact 0.4.0 identities.
-The manifest-pinned released catalogue retains its original tool versions.
-Current Next may update a product without changing the models: the post-release
-Loki definition selects 3.7.9 and chart 20.2.2. Do not attribute a new catalogue
-deployment to an older receipt or silently upgrade an existing data store.</p>
+<p>Use <a href="release-readiness.html" class="xref page">the release record</a> for exact 0.4.1 identities.
+Its catalogue pins Loki 3.7.9 and chart 20.2.2. Match any acceptance receipt to
+the exact catalogue revision and deployment before using it as evidence.</p>
 </div>
 </div>
 </div>
@@ -573,6 +571,16 @@ resources and externally owned gateways. A running Pod or matching protocol
 name is insufficient evidence.</p>
 </div>
 <div class="paragraph">
+<p>Check the native host binding for every forwarded service. A CLI built from
+current source binds Docker image forwards to IPv4 loopback and rejects
+forwarding with Docker host networking. CLI 0.4.1 omits the host IP and uses
+the Docker engine&#8217;s publishing policy. Docker Compose takes its port bindings
+from the selected manifest. Stopping and starting an existing Docker container
+preserves its port bindings. See
+<a href="https://docs.docker.com/engine/network/port-publishing/">Docker&#8217;s port publishing documentation</a>
+for reachability limits, including versions earlier than 28.0.0.</p>
+</div>
+<div class="paragraph">
 <p>Retain the original binary, source hashes, frozen kubeconfig and private resource
 receipts until cleanup is verified. The external harness persists the actual
 namespace creation response with owner-only permissions. Recovery checks its
@@ -587,13 +595,12 @@ a restarted Minikube host-path provisioner can refuse its earlier volumes;
 retire confirmed test data through a separately reviewed operator action.</p>
 </div>
 <div class="paragraph">
-<p>A post-release Helm fix removes the automatically injected <code>rolloutToken</code> chart
-value. Strict chart schemas must remain enabled; a CLI must not invent a chart
-option to request a restart. This source fix is separate from the immutable
-released <code>v0.4.0</code> binary. A second fix makes path-based Docker <code>start</code>/<code>stop</code>
-honour <code>--name</code>; the restart acceptance checks the selected container actually
-stops and retains its identity and original log after restart. Explicit Docker
-container names retain their exact case, matching deployment and destruction;
+<p>CLI 0.4.1 omits the former automatically injected Helm <code>rolloutToken</code> chart
+value, so charts can keep strict value schemas. Path-based Docker <code>start</code> and
+<code>stop</code> honour <code>--name</code>. The restart acceptance checks that the selected
+container stops and retains its identity and original log after restart.
+Explicit Docker container names retain their exact case, matching deployment and
+destruction.
 Compose project names retain Docker Compose&#8217;s normalization. Keep the original
 binary and recorded context when operating existing resources. Kubernetes/Helm
 path start/stop reject <code>--name</code> rather than silently targeting a product peer;
@@ -673,22 +680,28 @@ profile. Keep the present single-host boundary unchanged.</p></td>
 unsupported path look successful through a placeholder Contract, automatic
 state adoption, a weaker timeout or a test double described as the producer.</p>
 </div>
+<div class="paragraph">
+<p>The <a href="verification-and-examples.html#opt-in-maintainer-checks" class="xref page">opt-in
+maintainer checks</a> cover two interim steps. The Protobuf comparison exercises
+an entirely synthetic import graph. The Prometheus rehearsal verifies native
+snapshot and same-version restore of one synthetic series on a single host.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_human_trials_and_owner_handoff"><a class="anchor" href="#_human_trials_and_owner_handoff"></a>Human trials and owner handoff</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Three actual unfamiliar developers must still follow the complete
-<a href="_attachments/onboarding-trial-template.md" class="xref attachment">onboarding protocol</a>. Start from one
-verified binary/catalogue kit; retain first failures, assistance, timing,
-Contract selection, safe edit/cancel, composition/lock review, live results and
-cleanup. Automated terminal tests and maintainer rehearsals do not count as
-participants. Use <a href="evaluation-kit.html" class="xref page">the existing evaluation kit</a>; no Java
-or Go is required for the first participant monitoring path.</p>
+<p>For independent trials, give newcomers the
+<a href="_attachments/onboarding-trial-template.md" class="xref attachment">blank trial record</a> and the
+<a href="getting-started.html" class="xref page">released quickstart</a>. Participants install the
+released CLI and selected runtime tools and clone the matching GitHub
+catalogue. Record first failures, assistance, timing, Contract selection, safe
+edit/cancel, composition and lock review, live results, and cleanup. Automated
+terminal tests and maintainer rehearsals are recorded separately.</p>
 </div>
 <div class="paragraph">
-<p>The kit&#8217;s <code>asset-inventory.json</code> supplies source declarations and pending owner
+<p>The evaluation kit&#8217;s existing <code>asset-inventory.json</code> supplies source declarations and pending owner
 questions. The owner must record terms, permitted distribution, custodian,
 hosting/recovery responsibility and access policy for each relevant asset.
 Unlisted Gist URLs are anonymously readable and currently use a personal account;

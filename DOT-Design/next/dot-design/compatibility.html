@@ -8,7 +8,7 @@
     <link rel="prev" href="catalogue-versioning.html">
     <link rel="next" href="anchors-and-composition.html">
     <meta name="description" content="Select reproducible artifact sets and review intentional compatibility changes without repairing state or locks silently.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -519,9 +519,9 @@ adopt existing runtime state or establish API compatibility.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Anchor identifiers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local kebab-case IDs and exact legacy UUID strings are accepted. Composition
-references still pair an instance with its Anchor ID; Composition ownership stays UUID-based.</p></td>
+references combine a Vertex name with the Anchor ID declared by its Connector. Composition ownership stays UUID-based.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java Anchor IDs and references change from <code>UUID</code> to <code>String</code>; recompile callers.
-Migrate declarations, bindings, wires and exposed interfaces together, then review
+Migrate declarations, bindings, edges and exposed interfaces together, then review
 new locks. Old UUIDs and display names are never lookup aliases.</p></td>
 </tr>
 <tr>
@@ -548,6 +548,16 @@ or authored document is needed to represent that derived view.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Rebuild the CLI and regenerate reviewed locks using the <code>resolutionDigest</code>
 field. Clean up running compositions with their original binary before upgrading;
 saved state is not migrated or adopted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Vertex declares its Connectors. An Edge names its source and target Vertices.
+Each Channel selects one Connector on each Vertex and carries its own settings.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For each old connection, copy its Anchor IDs into the corresponding Vertices'
+<code>connectors</code> lists and move its name and settings into a Channel under the Edge
+for that ordered pair. Set each exposure&#8217;s <code>vertex</code> and <code>connector</code> directly.
+Clean up any running composition with the original CLI and lock, then generate
+and review a new lock for the migrated declaration.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java Composition API</p></td>
@@ -621,7 +631,7 @@ See <a href="authoring-anchors.html#native-query-and-metrics-profiles" class="xr
 <div class="paragraph">
 <p>The approved file-payload migration is an intentional input-format break, not a
 transparent 0.3.0 update. It changes file-document storage, not the selected tool
-releases or the meaning of Anchors and Wires.</p>
+releases or the meaning of Anchors and Edges.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -707,6 +717,26 @@ test-owned instance; do not copy or edit saved state to adopt old workloads.</p>
 <div class="sect1">
 <h2 id="_safe_migration_procedure"><a class="anchor" href="#_safe_migration_procedure"></a>Safe migration procedure</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>In a source-built CLI that lists <code>repository migrate</code> in its help, preview
+changes to one legacy DOT file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository migrate --dry-run ./legacy/dot.json --json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The report proposes replacements for historical uppercase Contract standards
+and removal of empty <code>semanticTypes</code> arrays. Nonempty labels and embedded
+documents need review. The command reads the source and prints the JSON
+report without fetching payloads or writing files. It still emits the report
+when it exits with status 1 for a candidate that needs review.
+A <code>structurallyValid</code> result means the in-memory candidate passed
+the current generated DOT validator. Write only reviewed edits to a separate
+draft and use the full validation steps below for the exact catalogue and
+payloads.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -742,7 +772,7 @@ editing private state. Stateful application migration remains application-owned.
 <div class="paragraph">
 <p><code>dotx compose new</code> already creates a template-based draft from a reviewed,
 adjacent-lock-verified composition, with a fresh ownership UUID. It preserves
-the selected DOT releases and wires; it does not infer a new graph, isolate
+the selected DOT releases and edges; it does not infer a new graph, isolate
 fixed ports or shared inputs, migrate state, or create a lock automatically.
 See <a href="../dot-cli/composition-authoring.html" class="xref page">Connecting the DOTs: create from a reviewed example</a>
 for preview, offline-cache requirements and explicit lock review.</p>

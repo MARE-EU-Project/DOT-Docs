@@ -8,7 +8,7 @@
     <link rel="prev" href="dots-for-dummies.html">
     <link rel="next" href="tutorial-first-dot.html">
     <meta name="description" content="Run Prometheus, author a DOT, connect Node Exporter and Grafana, verify the monitoring chain and clean up.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -504,9 +504,9 @@ explained in the introduction and applied in the lessons.</p>
 </div>
 <div class="paragraph">
 <p>Grafana sends queries to Prometheus; Prometheus pulls metrics from Node Exporter.
-The CLI&#8217;s topology uses a different, logical direction: a Wire points from the
+The CLI&#8217;s topology uses a different, logical direction: a Edge points from the
 Anchor that <strong>provides</strong> an interface to the Anchor that <strong>requires</strong> it. Both views
-describe the same system. A Wire does not determine which tool sends a request.</p>
+describe the same system. A Edge does not determine which tool sends a request.</p>
 </div>
 <div class="paragraph">
 <p>The reusable DOT says what a tool can do and how it runs. Your composition says

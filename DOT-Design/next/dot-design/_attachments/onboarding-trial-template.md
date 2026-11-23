@@ -9,14 +9,13 @@ maintainer rehearsals. Three independent trials are the adoption goal.
 - Anonymous participant code: [not enrolled]
 - Trial date and observer: [not recorded; avoid personal details in public copies]
 - Documentation entry URL/version: [not recorded]
-- Artifact route: [released quickstart / source-qualified route; do not mix]
+- Artifact route: [released CLI and GitHub catalogue / source checkout]
 - Design, CLI and catalogue revisions or release-manifest pins: [not recorded]
 - Installed CLI version/build revision and SHA-256: [not recorded]
 - Linux amd64, Docker/Compose prerequisites checked by: [not recorded]
 - Images and verified Contracts already cached: [not recorded]
 - Access granted without sharing or recording credential values: [not recorded]
 - Setup performed by a maintainer beforehand: [none / describe]
-- Exact evaluation-kit manifest and outer SHA-256: [not recorded]
 - Consent to participate and approved private-record retention policy: [not obtained]
 - Assigned operator, exclusive environment/profile and reserved session window: [not assigned]
 - Residual-resource recovery owner and original binary/context location: [not assigned]
@@ -25,10 +24,11 @@ maintainer rehearsals. Three independent trials are the adoption goal.
 - Names, ports and namespaces checked; no concurrent manual/harness use: [not checked]
 - Persistent restricted evidence archive and custodian: [not provisioned]
 
-Give the participant only repository access, the documented prerequisites and
-the published Getting started entry point for their selected artifact set.
-Do not replace the documentation with private commands or coaching. Use the
-existing walkthrough; this record is not another command sequence.
+Provide MARE GitHub access and the matching Getting started entry point.
+Participants install the released CLI and required tools and clone the
+catalogue, then follow the walkthrough without coaching. For a cold trial,
+record the initial verified payload cache and Docker image store state. Use
+an empty workspace and an isolated Docker store.
 
 ## Observe the first working DOT
 
@@ -36,12 +36,13 @@ existing walkthrough; this record is not another command sequence.
 | --- | --- |
 | Participant starts the documented route | not measured |
 | CLI installation/checksum verification completes | not measured |
-| Catalogue definition found and validated | not measured |
+| Catalogue definition or private locked graph reviewed | not measured |
 | Deployment starts | not measured |
-| First expected Prometheus build-information response, version checked | not measured |
+| First verified result (single DOT: build version; composition: Node Exporter sample value 1) | not measured |
 | Status inspected and service explained | not measured |
 | Cleanup and test-owned leftover checks complete | not measured |
-| Cold network/download waiting time | not measured |
+| Cold pinned-document download time | not measured |
+| Cold Docker image download time, including failed attempts | not measured |
 | Operator/prerequisite preparation time | not measured |
 | Total elapsed time, including preparation/downloads | not measured |
 | Hands-on time to first verified API | not measured |
@@ -53,8 +54,8 @@ participant's owned resources; never remove another trial's resources.
 
 ## Observe understanding and recovery
 
-- Explain the selected DOT, deployment, Contract, Anchor and (where present) wire:
-  [not observed; the first Prometheus chapter has no wires]
+- Explain the selected DOT, deployment, Contract, Anchor and (where present) edge:
+  [not observed; the first Prometheus chapter has no edges]
 - Inspect an alternative deployment with the matching current-source route:
   [not observed; separate this from the released introductory timing]
 - Introduce an invalid reference in a private draft, read the diagnostic and

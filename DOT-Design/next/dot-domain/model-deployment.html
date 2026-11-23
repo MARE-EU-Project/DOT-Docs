@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-domain/model-deployment.html">
     <link rel="prev" href="model-interfaces.html">
     <link rel="next" href="model-composition.html">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -147,7 +147,7 @@
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -185,12 +185,12 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -270,7 +270,7 @@
     <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="../dot-design/release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -515,7 +515,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentService">DeploymentService</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Service">Service</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
 </li>
 <li>
 <p>To <a href="model-interfaces.html#model-Anchor" class="xref page">Anchor</a>: ID/name reference via anchorId.</p>
@@ -590,7 +590,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via cdiDevices; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Configuration">Configuration</a>: containment via cdiDevices; diagram multiplicity 0..*.</p>
 </li>
 </ul>
 </div>
@@ -680,7 +680,7 @@
 <p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 0..1.</p>
 </li>
 <li>
-<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via configFiles; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Configuration">Configuration</a>: containment via configFiles; diagram multiplicity 0..*.</p>
 </li>
 </ul>
 </div>
@@ -701,86 +701,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="model-Deployment"><a class="anchor" href="#model-Deployment"></a>Deployment</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Describes one selectable deployment mechanism and the logical services it materializes.</p>
-</div>
-<div class="paragraph">
-<p>The selected manifest, including its explicit pinned Payload references, is the complete deployment input; files beside dot.json are not an implicit fallback. Keep service IDs distinct within the deployment and select the deployment explicitly. Configuration belongs to each service, while instance names, live state and lifecycle ownership belong to the executor.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/Deployment.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Deployment.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The stable name used to select this deployment alternative. minimum length: 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>manifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DockerImage or DockerCompose or KubernetesManifest or HelmChart or Vagrantfile or WebAssemblyModule</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The platform-specific specification used to create the workload. conditional constraints (see schema).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>services</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of DeploymentService</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The logical services supplied by this particular deployment.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>To <a href="#model-DeploymentService">DeploymentService</a>: containment via services; diagram multiplicity 0..*.</p>
-</li>
-<li>
-<p>To <a href="#model-DeploymentManifest">DeploymentManifest</a>: containment via manifest; diagram multiplicity 1.</p>
-</li>
-<li>
-<p>From <a href="#model-Runtime">Runtime</a>: containment via deployments; diagram multiplicity 1..*.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "image",
-  "manifest": {
-    "type": "DOCKER_IMAGE",
-    "image": "docker.io/example/api:1.0.0"
-  },
-  "services": []
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-DeploymentConfig"><a class="anchor" href="#model-DeploymentConfig"></a>DeploymentConfig</h2>
+<h2 id="model-Configuration"><a class="anchor" href="#model-Configuration"></a>Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Declares the configuration options and execution requirements supported by one service.</p>
@@ -789,7 +710,7 @@
 <p>This is not a bag of applied operator values. Keep environment names, configuration paths, volume names and paths, and CDI requirement names unambiguous within the service; separate services can reuse those keys. Instance inputs supply overrides, storage bindings and secrets. Requirements never grant privileges by themselves.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/DeploymentConfig.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentConfig.schema.json">Generated JSON Schema</a></p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/config/Configuration.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Configuration.schema.json">Generated JSON Schema</a></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -845,7 +766,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentService">DeploymentService</a>: containment via config; diagram multiplicity 1.</p>
+<p>From <a href="#model-Service">Service</a>: containment via config; diagram multiplicity 1.</p>
 </li>
 <li>
 <p>To <a href="#model-ConfigFile">ConfigFile</a>: containment via configFiles; diagram multiplicity 0..*.</p>
@@ -878,136 +799,16 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="model-DeploymentManifest"><a class="anchor" href="#model-DeploymentManifest"></a>DeploymentManifest</h2>
+<h2 id="model-Deployment"><a class="anchor" href="#model-Deployment"></a>Deployment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Provides the common base for concrete deployment specifications.</p>
+<p>Describes one selectable deployment mechanism and the logical services it materializes.</p>
 </div>
 <div class="paragraph">
-<p>The existing type property selects the concrete manifest shape; it is not a second infrastructure selector. Supply the fields of that concrete manifest. Domain validation does not execute a payload, fetch a chart or establish deployment success.</p>
+<p>The selected manifest, including its explicit pinned Payload references, is the complete deployment input; files beside dot.json are not an implicit fallback. Keep service IDs distinct within the deployment and select the deployment explicitly. Configuration belongs to each service, while instance names, live state and lifecycle ownership belong to the executor.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/DeploymentManifest.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentManifest.schema.json">Generated JSON Schema</a></p>
-</div>
-<div class="paragraph">
-<p><strong>Manifest alternatives:</strong> <a href="#model-DockerImage">DockerImage</a>, <a href="#model-DockerCompose">DockerCompose</a>, <a href="#model-KubernetesManifest">KubernetesManifest</a>, <a href="#model-HelmChart">HelmChart</a>, <a href="#model-Vagrantfile">Vagrantfile</a>, <a href="#model-WebAssemblyModule">WebAssemblyModule</a>.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator identifying how this manifest is deployed. conditional constraints (see schema).</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>To <a href="#model-DockerCompose">DockerCompose</a>: inheritance.</p>
-</li>
-<li>
-<p>To <a href="#model-DockerImage">DockerImage</a>: inheritance.</p>
-</li>
-<li>
-<p>To <a href="#model-HelmChart">HelmChart</a>: inheritance.</p>
-</li>
-<li>
-<p>To <a href="#model-KubernetesManifest">KubernetesManifest</a>: inheritance.</p>
-</li>
-<li>
-<p>To <a href="#model-Vagrantfile">Vagrantfile</a>: inheritance.</p>
-</li>
-<li>
-<p>To <a href="#model-WebAssemblyModule">WebAssemblyModule</a>: inheritance.</p>
-</li>
-<li>
-<p>From <a href="#model-Deployment">Deployment</a>: containment via manifest; diagram multiplicity 1.</p>
-</li>
-<li>
-<p>To <a href="#model-DeploymentManifestType">DeploymentManifestType</a>: typed association via type; diagram multiplicity 1.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "type": "DOCKER_IMAGE",
-  "image": "docker.io/example/api:1.0.0"
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-DeploymentManifestType"><a class="anchor" href="#model-DeploymentManifestType"></a>DeploymentManifestType</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Names how a workload is deployed and links that mechanism to its target platform.</p>
-</div>
-<div class="paragraph">
-<p>Do not substitute this value for Platform.engine. The manifest subtype and its type must agree, and its target platform must match the enclosing runtime. Executor capabilities and installed tools remain separate from this model vocabulary.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/DeploymentManifestType.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentManifestType.schema.json">Generated JSON Schema</a></p>
-</div>
-<div class="paragraph">
-<p><strong>Exact JSON values:</strong> <code>DOCKER_IMAGE</code>, <code>DOCKER_COMPOSE</code>, <code>KUBERNETES_MANIFEST</code>, <code>HELM_CHART</code>, <code>VAGRANTFILE</code>, <code>WASM_MODULE</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>JSON representation:</strong> string.</p>
-</div>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>To <a href="#model-PlatformEngine">PlatformEngine</a>: typed association via platform; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: typed association via type; diagram multiplicity 1.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"DOCKER_IMAGE"</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-DeploymentService"><a class="anchor" href="#model-DeploymentService"></a>DeploymentService</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Describes a logical service provided by one deployment, including its interfaces and configuration surface.</p>
-</div>
-<div class="paragraph">
-<p>Use stable service IDs for composition inputs and named ports for Anchor bindings. Contract entries are identity references, not copied declarations; their origin must resolve through the DOT interfaces. A logical service is not a native workload selector, and its host is not a promised public endpoint.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/DeploymentService.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/DeploymentService.schema.json">Generated JSON Schema</a></p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/Deployment.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Deployment.schema.json">Generated JSON Schema</a></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1029,43 +830,19 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The stable service identifier within its deployment. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The stable name used to select this deployment alternative. minimum length: 1.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>manifest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DockerImage or DockerCompose or KubernetesManifest or HelmChart or Vagrantfile or WebAssemblyModule</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The readable name of the service. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The platform-specific specification used to create the workload. conditional constraints (see schema).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>host</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>services</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of Service</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The host by which the service is reached inside the deployment. minimum length: 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ports</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of ServicePort</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named service ports that can be selected by Anchor bindings.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of Contract (ID reference)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ID-only references to the interfaces exposed or consumed by this service.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorBindings</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of AnchorBinding</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mappings from this DOT&#8217;s logical Anchors to the service&#8217;s named ports.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>config</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentConfig</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The environment, files, storage and execution requirements supported by this service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The logical services supplied by this particular deployment.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1075,19 +852,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>To <a href="model-interfaces.html#model-Contract" class="xref page">Contract</a>: ID/name reference via contracts (ref); diagram multiplicity 0..*.</p>
+<p>To <a href="#model-Service">Service</a>: containment via services; diagram multiplicity 0..*.</p>
 </li>
 <li>
-<p>To <a href="#model-AnchorBinding">AnchorBinding</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
+<p>To <a href="#model-Manifest">Manifest</a>: containment via manifest; diagram multiplicity 1.</p>
 </li>
 <li>
-<p>To <a href="#model-ServicePort">ServicePort</a>: containment via ports; diagram multiplicity 0..*.</p>
-</li>
-<li>
-<p>To <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via config; diagram multiplicity 1.</p>
-</li>
-<li>
-<p>From <a href="#model-Deployment">Deployment</a>: containment via services; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Runtime">Runtime</a>: containment via deployments; diagram multiplicity 1..*.</p>
 </li>
 </ul>
 </div>
@@ -1095,17 +866,12 @@
 <div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "api",
-  "name": "API",
-  "host": "api",
-  "ports": [],
-  "contracts": [],
-  "config": {
-    "environment": [],
-    "configFiles": [],
-    "volumes": [],
-    "cdiDevices": []
-  }
+  "id": "image",
+  "manifest": {
+    "type": "DOCKER_IMAGE",
+    "image": "docker.io/example/api:1.0.0"
+  },
+  "services": []
 }</code></pre>
 </div>
 </div>
@@ -1141,7 +907,7 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ManifestType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Docker Compose manifest. exact value "DOCKER_COMPOSE".</p></td>
 </tr>
@@ -1171,7 +937,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+<p>From <a href="#model-Manifest">Manifest</a>: inheritance.</p>
 </li>
 <li>
 <p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
@@ -1229,7 +995,7 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ManifestType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Docker image manifest. exact value "DOCKER_IMAGE".</p></td>
 </tr>
@@ -1253,7 +1019,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+<p>From <a href="#model-Manifest">Manifest</a>: inheritance.</p>
 </li>
 <li>
 <p>To <a href="#model-DockerImageTag">DockerImageTag</a>: containment via image; diagram multiplicity 1.</p>
@@ -1438,7 +1204,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via environment; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Configuration">Configuration</a>: containment via environment; diagram multiplicity 0..*.</p>
 </li>
 </ul>
 </div>
@@ -1460,7 +1226,7 @@
 <p>References a Helm chart and preserves its reusable chart-level values.</p>
 </div>
 <div class="paragraph">
-<p>Keep chart version separate from the represented tool release. The portable model permits an omitted repository, but the current dotx executor needs repository plus chart name, a complete OCI chart reference, or an explicit --registry / DOTX_REGISTRY input. It does not resolve pre-registered Helm aliases from the operator environment. Values are ordered, with later entries overriding earlier ones. Release name and namespace are instance concerns, while service-facing configuration belongs on DeploymentService.config.</p>
+<p>Keep chart version separate from the represented tool release. The portable model permits an omitted repository, but the current dotx executor needs repository plus chart name, a complete OCI chart reference, or an explicit --registry / DOTX_REGISTRY input. It does not resolve pre-registered Helm aliases from the operator environment. Values are ordered, with later entries overriding earlier ones. Release name and namespace are instance concerns, while service-facing configuration belongs on Service.config.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/helm/HelmChart.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/HelmChart.schema.json">Generated JSON Schema</a></p>
@@ -1495,7 +1261,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ManifestType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting a Helm chart deployment. exact value "HELM_CHART".</p></td>
 </tr>
@@ -1519,7 +1285,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+<p>From <a href="#model-Manifest">Manifest</a>: inheritance.</p>
 </li>
 <li>
 <p>To <a href="model-identity.html#model-Version" class="xref page">Version</a>: containment via version; diagram multiplicity 1.</p>
@@ -1665,7 +1431,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ManifestType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Kubernetes manifest deployment. exact value "KUBERNETES_MANIFEST".</p></td>
 </tr>
@@ -1677,7 +1443,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+<p>From <a href="#model-Manifest">Manifest</a>: inheritance.</p>
 </li>
 <li>
 <p>To <a href="model-interfaces.html#model-DataFormat" class="xref page">DataFormat</a>: typed association via format; diagram multiplicity 1.</p>
@@ -1698,6 +1464,126 @@
     "sha256": "ab0749b1a3e9ab748f7a531c69b90d45161ff42eac0688edee2812533be26174"
   }
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-Manifest"><a class="anchor" href="#model-Manifest"></a>Manifest</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Provides the common base for concrete deployment specifications.</p>
+</div>
+<div class="paragraph">
+<p>The existing type property selects the concrete manifest shape; it is not a second infrastructure selector. Supply the fields of that concrete manifest. Domain validation does not execute a payload, fetch a chart or establish deployment success.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/manifest/Manifest.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Manifest.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Manifest alternatives:</strong> <a href="#model-DockerImage">DockerImage</a>, <a href="#model-DockerCompose">DockerCompose</a>, <a href="#model-KubernetesManifest">KubernetesManifest</a>, <a href="#model-HelmChart">HelmChart</a>, <a href="#model-Vagrantfile">Vagrantfile</a>, <a href="#model-WebAssemblyModule">WebAssemblyModule</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator identifying how this manifest is deployed. conditional constraints (see schema).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-DockerCompose">DockerCompose</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-DockerImage">DockerImage</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-HelmChart">HelmChart</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-KubernetesManifest">KubernetesManifest</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-Vagrantfile">Vagrantfile</a>: inheritance.</p>
+</li>
+<li>
+<p>To <a href="#model-WebAssemblyModule">WebAssemblyModule</a>: inheritance.</p>
+</li>
+<li>
+<p>From <a href="#model-Deployment">Deployment</a>: containment via manifest; diagram multiplicity 1.</p>
+</li>
+<li>
+<p>To <a href="#model-ManifestType">ManifestType</a>: typed association via type; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "DOCKER_IMAGE",
+  "image": "docker.io/example/api:1.0.0"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ManifestType"><a class="anchor" href="#model-ManifestType"></a>ManifestType</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Names how a workload is deployed and links that mechanism to its target platform.</p>
+</div>
+<div class="paragraph">
+<p>Do not substitute this value for Platform.engine. The manifest subtype and its type must agree, and its target platform must match the enclosing runtime. Executor capabilities and installed tools remain separate from this model vocabulary.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/ManifestType.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ManifestType.schema.json">Generated JSON Schema</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Exact JSON values:</strong> <code>DOCKER_IMAGE</code>, <code>DOCKER_COMPOSE</code>, <code>KUBERNETES_MANIFEST</code>, <code>HELM_CHART</code>, <code>VAGRANTFILE</code>, <code>WASM_MODULE</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>JSON representation:</strong> string.</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <a href="#model-PlatformEngine">PlatformEngine</a>: typed association via platform; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>From <a href="#model-Manifest">Manifest</a>: typed association via type; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"DOCKER_IMAGE"</code></pre>
 </div>
 </div>
 </div>
@@ -1789,7 +1675,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via ociRuntime; diagram multiplicity 0..1.</p>
+<p>From <a href="#model-Configuration">Configuration</a>: containment via ociRuntime; diagram multiplicity 0..1.</p>
 </li>
 <li>
 <p>To <a href="#model-OciLinuxNamespace">OciLinuxNamespace</a>: typed association via hostNamespaces; diagram multiplicity 0..*.</p>
@@ -1906,7 +1792,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentManifestType">DeploymentManifestType</a>: typed association via platform; diagram multiplicity 0..1.</p>
+<p>From <a href="#model-ManifestType">ManifestType</a>: typed association via platform; diagram multiplicity 0..1.</p>
 </li>
 <li>
 <p>From <a href="#model-Platform">Platform</a>: typed association via engine; diagram multiplicity 1.</p>
@@ -2003,6 +1889,120 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="model-Service"><a class="anchor" href="#model-Service"></a>Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Describes a logical service provided by one deployment, including its interfaces and configuration surface.</p>
+</div>
+<div class="paragraph">
+<p>Use stable service IDs for composition inputs and named ports for Anchor bindings. Contract entries are identity references, not copied declarations; their origin must resolve through the DOT interfaces. A logical service is not a native workload selector, and its host is not a promised public endpoint.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/Service.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Service.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The stable service identifier within its deployment. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The readable name of the service. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>host</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The host by which the service is reached inside the deployment. minimum length: 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ports</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ServicePort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named service ports that can be selected by Anchor bindings.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of Contract (ID reference)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID-only references to the interfaces exposed or consumed by this service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorBindings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of AnchorBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mappings from this DOT&#8217;s logical Anchors to the service&#8217;s named ports.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>config</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The environment, files, storage and execution requirements supported by this service.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Deployment">Deployment</a>: containment via services; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-Contract" class="xref page">Contract</a>: ID/name reference via contracts (ref); diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-AnchorBinding">AnchorBinding</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-ServicePort">ServicePort</a>: containment via ports; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="#model-Configuration">Configuration</a>: containment via config; diagram multiplicity 1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "id": "api",
+  "name": "API",
+  "host": "api",
+  "ports": [],
+  "contracts": [],
+  "config": {
+    "environment": [],
+    "configFiles": [],
+    "volumes": [],
+    "cdiDevices": []
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="model-ServicePort"><a class="anchor" href="#model-ServicePort"></a>ServicePort</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2056,7 +2056,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentService">DeploymentService</a>: containment via ports; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Service">Service</a>: containment via ports; diagram multiplicity 0..*.</p>
 </li>
 <li>
 <p>From <a href="#model-AnchorBinding">AnchorBinding</a>: ID/name reference via port.</p>
@@ -2111,7 +2111,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ManifestType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the Vagrant deployment. exact value "VAGRANTFILE".</p></td>
 </tr>
@@ -2123,7 +2123,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+<p>From <a href="#model-Manifest">Manifest</a>: inheritance.</p>
 </li>
 <li>
 <p>To <a href="model-interfaces.html#model-Payload" class="xref page">Payload</a>: containment via payload; diagram multiplicity 1.</p>
@@ -2210,7 +2210,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentConfig">DeploymentConfig</a>: containment via volumes; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Configuration">Configuration</a>: containment via volumes; diagram multiplicity 0..*.</p>
 </li>
 </ul>
 </div>
@@ -2316,7 +2316,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentManifestType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ManifestType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The discriminator selecting the WebAssembly deployment. exact value "WASM_MODULE".</p></td>
 </tr>
@@ -2328,7 +2328,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-DeploymentManifest">DeploymentManifest</a>: inheritance.</p>
+<p>From <a href="#model-Manifest">Manifest</a>: inheritance.</p>
 </li>
 <li>
 <p>To <a href="#model-WebAssemblyExecution">WebAssemblyExecution</a>: typed association via execution; diagram multiplicity 1.</p>

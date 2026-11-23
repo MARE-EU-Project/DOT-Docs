@@ -8,7 +8,7 @@
     <link rel="prev" href="mare-poc-compositions.html">
     <link rel="next" href="upgrade-demo.html">
     <meta name="description" content="Three DOTs, Docker and Kubernetes, four Contract standards, real exchanges and verified cleanup.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -513,7 +513,7 @@ not an application-level request/response implementation.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Wire</th>
+<th class="tableblock halign-left valign-top">Edge</th>
 <th class="tableblock halign-left valign-top">Authoritative Contract</th>
 <th class="tableblock halign-left valign-top">Kubernetes endpoint</th>
 <th class="tableblock halign-left valign-top">Docker-side assertion</th>
@@ -547,8 +547,8 @@ not an application-level request/response implementation.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Anchors select Contract operations. Wires select participants and materialize
-resolved endpoints into the consumer&#8217;s declared environment. Each wire declares
+<p>Anchors select Contract operations. Edges select participants and materialize
+resolved endpoints into the consumer&#8217;s declared environment. Each edge declares
 <code>EXTERNAL_GATEWAY</code>: the selected DOT declares the NodePort Service, and Minikube
 provides the reachable node address. Docker normally isolates its bridge
 networks: the harness explicitly attaches only its disposable consumer to the
@@ -582,7 +582,7 @@ configuration; it is not needed to enable the native CLI response assertion.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Docker consumer now runs a small synthetic application, not <code>sleep</code>.
-It repeatedly fetches the wire-materialized <code>OPENAPI_YAML_URL</code>, validates the
+It repeatedly fetches the edge-materialized <code>OPENAPI_YAML_URL</code>, validates the
 bounded response, and derives <code>REVIEW_REQUIRED</code> when any alert is critical;
 otherwise it derives <code>NO_CRITICAL_ALERTS</code>. It does not hard-code the demo UUID
 or emit a canned decision. Its owner-only, atomically replaced receipt lives
@@ -734,7 +734,7 @@ or availability settings. Never delete an unrelated namespace or Service.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This resolves three DOTs/four wires, writes and verifies a lock, checks both
+<p>This resolves three DOTs/four edges, writes and verifies a lock, checks both
 platforms and all four standards, and renders deployment actions in a private
 directory under <code>DOT-Testing/e2e/target/multi-runtime-demo/</code>. The template uses
 documentation-only address <code>192.0.2.1</code>; never manually apply that template.</p>
@@ -754,10 +754,10 @@ documentation-only address <code>192.0.2.1</code>; never manually apply that tem
 <div class="paragraph">
 <p>Run in a real interactive terminal. The composition-derived Mermaid graph is laid out
 by the Go <code>mermaid-ascii</code> library embedded in <code>dotx</code>: Unicode boxes, cyan Kubernetes labels,
-magenta Docker labels and amber connection IDs. Parallel wires share a labelled
+magenta Docker labels and amber connection IDs. Parallel edges share a labelled
 arrow and each retains its own legend entry. The node inventory shows selected
 runtimes/deployments/versions; a <code>T4</code> link identifies the MQTT transport endpoint,
-not another Anchor wire or an application publisher. Arrows mean logical
+not another Anchor edge or an application publisher. Arrows mean logical
 PROVIDES-to-REQUIRES relationships, not packet direction. The graph is printed
 again after all four real probes and recorded status checks pass.</p>
 </div>
@@ -824,7 +824,7 @@ requires verified cleanup. It is an acceptance preparation task, not the talk.</
 The harness locks
 the real Minikube address, builds/loads images, creates an isolated namespace and
 state cache, deploys through <code>dotx compose apply --locked</code>, checks readiness, and
-probes each wire with a 45-second timeout. It verifies recorded status, destroys
+probes each edge with a 45-second timeout. It verifies recorded status, destroys
 the composition, removes its namespace, and checks for owned Docker leftovers.</p>
 </div>
 <div class="paragraph">

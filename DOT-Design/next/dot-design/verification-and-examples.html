@@ -8,7 +8,7 @@
     <link rel="prev" href="composition-lifecycle.html">
     <link rel="next" href="external-dot-examples.html">
     <meta name="description" content="Test layers, evidence levels, conformance commands, and MARE PoC-derived DOT composition scenarios.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -499,7 +499,7 @@ never implies a higher one.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Composition validation and resolved composition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pinned DOTs, wires, endpoints, materializers, parameters, grants, and
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pinned DOTs, edges, endpoints, materializers, parameters, grants, and
   readiness ordering resolve deterministically</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Successful deployment</p></td>
 </tr>
@@ -607,7 +607,9 @@ does not describe a tool&#8217;s complete interface. HTTP/WebSocket AsyncAPI flo
 and imported Protobuf graphs remain separate implementation gaps.</p>
 </div>
 <div class="paragraph">
-<p>From the <strong>DOT-Design checkout</strong>, warm the verified cache and regenerate the report:</p>
+<p>From the <strong>DOT-Design checkout</strong>, warm the verified cache and regenerate the
+report. If <code>dotx</code> on your <code>PATH</code> is a different release, set <code>DOTX_BIN</code> to the
+verified executable&#8217;s absolute path for both Tasks.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -618,9 +620,10 @@ jq '.dots | group_by(.status) | map({status: .[0].status, count: length})' \
 </div>
 </div>
 <div class="paragraph">
-<p>The report records <code>liveProducerAcceptance: false</code>, each definition&#8217;s SHA-256
-and its strict-profile diagnostic. Regenerate it after catalogue changes;
-counts describe that exact snapshot, not a permanent readiness percentage.
+<p>The report records <code>liveProducerAcceptance: false</code>, the CLI and schema SHA-256
+values, each definition&#8217;s SHA-256 and its strict-profile diagnostic.
+Regenerate it after catalogue changes. The counts describe that exact snapshot,
+not a permanent readiness percentage.
 The report also includes each diagnostic code and <code>review.category</code> with a
 concrete next action. These context categories do not change strict outcomes:
 planning entries, clients and runtime fixtures are not automatically exempt or
@@ -729,7 +732,7 @@ capability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Two canonical test DOT definitions connected through OpenAPI 3.0/3.1/3.2 and AsyncAPI
   3.0/3.1 YAML/JSON, Protocol Buffers (including gRPC service declarations), and GraphQL SDL; asserts selectors, participant
-  interactions, endpoints, probe fixtures, and materializers across twenty-one wires</p></td>
+  interactions, endpoints, probe fixtures, and materializers across twenty-one edges</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions</p></td>
 </tr>
 <tr>
@@ -745,7 +748,7 @@ capability</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:acceptance</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative <code>v1</code> command/schema parity, every committed lock, twenty-one
-  Contract wires, contractless compatibility, all six runtime dry-runs,
+  Contract edges, contractless compatibility, all six runtime dry-runs,
   service-scoped configuration, recovery/status/destroy, and focused
   fail-closed controls; emits revision-pinned JSON evidence</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A globally installed <code>dotx</code> from the checked-out CLI revision, Go, Task, and
@@ -832,6 +835,53 @@ capability</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opt-in-maintainer-checks"><a class="anchor" href="#opt-in-maintainer-checks"></a>Opt-in maintainer checks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Run these focused checks from the <strong>DOT-Design checkout root</strong>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>task testing:compose:performance</code> records wall-clock times for locked
+validation, JSON inspection and deployment previews of the canonical
+monitoring and secure-API graphs. Use a matching <code>dotx</code> on <code>PATH</code> and warm
+the verified payload cache with <code>task testing:contracts:warm</code>. Validation
+and inspection run offline. The preview can fetch missing pinned documents
+into the verified cache. The report
+includes the executable, composition and lock hashes. Compare runs with fixed
+inputs on an otherwise idle host. The task measures elapsed time and starts no
+workloads.</p>
+</li>
+<li>
+<p><code>task testing:contracts:protobuf-imports</code> compares descriptor sets and
+source bundles with a synthetic transitive import. It uses cached Go
+dependencies from the pinned CLI module and compares operation selection and
+rejection of malformed import graphs. Production Protobuf support remains
+defined by the CLI&#8217;s <a href="../dot-cli/authoring.html" class="xref page">Contract authoring guide</a>.</p>
+</li>
+<li>
+<p><code>task testing:recovery:prometheus:checks</code> runs the recovery harness regressions
+with Python and fixture data. To exercise a native snapshot and restore on a
+Linux amd64 host, obtain the verified upstream Prometheus 3.15.1 executable
+described in <code>DOT-Testing/stateful-recovery/README.md</code>, then run:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_PROMETHEUS_BIN=/absolute/path/to/prometheus task testing:recovery:prometheus</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The rehearsal starts temporary loopback processes, restores one synthetic
+sample and timestamp into a separate TSDB, and verifies cleanup. The README
+also shows the SIGTERM control after snapshot verification. Recovery timings
+describe the exercised fixture and host.</p>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1025,7 +1075,7 @@ from <code>DOT-Repository</code>:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The composition uses three OpenAPI Contracts, three wires, explicit security
+<p>The composition uses three OpenAPI Contracts, three edges, explicit security
 configuration, Kubernetes Secret references, configuration-file and environment
 materializers, readiness dependencies, and one exposed Anchor.</p>
 </div>
@@ -1147,7 +1197,7 @@ and does not silently grant privileged runtime access.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>PoC7 rejects a collector-to-scorer wire when the collector declares no such
+<p>PoC7 rejects a collector-to-scorer edge when the collector declares no such
 Anchor or configuration input;</p>
 </li>
 <li>

@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/index.html">
     <link rel="next" href="setup.html">
     <meta name="description" content="Choose a learning path, run your first DOT, or find the right project reference.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -147,7 +147,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -185,12 +185,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -270,7 +270,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -472,6 +472,40 @@ and runs the deployment you choose.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_dot_design_at_a_glance"><a class="anchor" href="#_dot_design_at_a_glance"></a>DOT-Design at a glance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The diagram introduces the core DOT models and shows how reusable definitions,
+runtime choices, and compositions relate.</p>
+</div>
+<div class="imageblock text-center interactive-diagram">
+<div class="content">
+<img src="_images/diagrams/overview-concepts.svg" alt="Core DOT models and their relationships: Dot, Contract, Anchor, Runtime, Deployment, Composition, Vertex, Edge, Channel, and Connector">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>DOTs</strong> describe reusable tool releases and their capabilities and interfaces.</p>
+</li>
+<li>
+<p><strong>Runtimes and deployments</strong> describe where a tool runs and how it starts.</p>
+</li>
+<li>
+<p><strong>A composition</strong> selects tool releases as Vertices. Edges connect Vertices, and each Channel selects an Anchor at both ends through Connectors.</p>
+</li>
+<li>
+<p><strong><code>dotx</code></strong> validates and operates the selected composition.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Start with <a href="dots-for-dummies.html" class="xref page">DOTs for Dummies</a> for the concepts, or
+continue to <a href="getting-started.html" class="xref page">the quick start</a> to run a DOT.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_choose_your_first_step"><a class="anchor" href="#_choose_your_first_step"></a>Choose your first step</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -504,6 +538,11 @@ and runs the deployment you choose.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="getting-started.html" class="xref page">Quick start: run one DOT</a>: install the released Linux-amd64
   CLI and matching catalogue, run Prometheus, verify its API and clean up.
   Repository access and Docker are required; Java, Go, Task and Kubernetes are not.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connect two tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="first-composition.html" class="xref page">Run your first composition</a>: reuse the installed
+  CLI and GitHub catalogue checkout to connect Node Exporter and Prometheus.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Present a working system</p></td>
@@ -594,7 +633,7 @@ and the model reference below for exact fields.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="anchors-and-composition.html" class="xref page">Connecting the DOTs</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">How do I select interfaces, bind services, wire instances and operate the graph?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How do I select interfaces, bind services, edge instances and operate the graph?</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="verification-and-examples.html" class="xref page">Verification and examples</a></p></td>

@@ -1,6 +1,6 @@
 flowchart TB
   accTitle: Contract to runtime connection chain
-  accDescr: Contract semantics are selected by a stable Anchor, implemented by a service-port binding, connected by a composition wire, and resolved to a runtime endpoint with an optional configuration materializer.
+  accDescr: Contract semantics are selected by a stable Anchor, implemented by a service-port binding, connected by a composition edge, and resolved to a runtime endpoint with an optional configuration materializer.
 
   subgraph Definition["Reusable DOT definition"]
     direction LR
@@ -12,7 +12,7 @@ flowchart TB
   end
 
   subgraph Topology["Composition topology"]
-    Wire["4 · Wire<br/>named DOT instances"]
+    Edge["4 · Edge<br/>named DOT vertices"]
   end
 
   subgraph Runtime["Deployment instance"]
@@ -29,5 +29,5 @@ flowchart TB
   classDef topology fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
   classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   class Contract,Anchor,Binding definition;
-  class Wire topology;
+  class Edge topology;
   class Endpoint,Materializer runtime;

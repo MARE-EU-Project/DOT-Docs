@@ -8,7 +8,7 @@
     <link rel="prev" href="dots-in-action.html">
     <link rel="next" href="tutorial-authoring.html">
     <meta name="description" content="Install one matching binary and catalogue, run Prometheus, verify its official API and clean up.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -508,48 +508,40 @@ creating or replacing anything.</p>
 SSH, connect to that machine first. Before setting any lesson variables, type
 bash and press Enter. Keep this Bash terminal for the commands that follow.</p>
 </div>
-<div class="paragraph">
-<p>For a <strong>fresh setup only</strong>, create a new directory under your home directory:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_SETUP="$(mktemp -d "$HOME/dot-setup.XXXXXXXX")" &amp;&amp;
-cd "$DOT_SETUP" &amp;&amp;
-pwd</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>pwd</code> prints your current directory. Keep that path. Completed quickstart
-readers should use the book&#8217;s entry-point instructions and reuse their setup.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_check_before_installing"><a class="anchor" href="#_check_before_installing"></a>Check before installing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run these checks on the machine where you will run the example, as your normal
-user. If you connect over SSH, run the commands on that remote machine.
-Stop if a check fails; fix the missing tool or access before continuing.</p>
+<p>Paste this block as your normal user on the machine where you will run Docker.
+It checks the platform, lists missing commands, and tests access to both Docker
+Engine and its Compose plugin.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>System:</strong> <code>uname -sm</code> should show <code>Linux x86_64</code> for this documented route.</p>
-</li>
-<li>
-<p><strong>Commands:</strong> <code>command -v bash git gh curl jq sha256sum</code> should print one
-executable path for each of the six commands. Install any missing tools first.</p>
-</li>
-<li>
-<p><strong>Docker:</strong> <code>docker info</code> must show Docker server details without a permission
-or connection error.</p>
-</li>
-<li>
-<p><strong>Compose:</strong> <code>docker compose version</code> must print a plugin version.
-The older <code>docker-compose</code> command is not used here.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+  missing=()
+  for tool in bash git gh curl jq docker grep \
+    sha256sum install mktemp uname; do
+    command -v "$tool" &gt;/dev/null || missing+=("$tool")
+  done
+  if (( ${#missing[@]} )); then
+    printf 'Missing command: %s\n' "${missing[@]}" &gt;&amp;2
+    exit 1
+  fi
+  if [[ "$(uname -sm)" != 'Linux x86_64' ]]; then
+    printf 'This quickstart needs Linux amd64.\n' &gt;&amp;2
+    exit 1
+  fi
+  docker info --format '{{.ServerVersion}}' &amp;&amp;
+  docker compose version &amp;&amp;
+  printf 'Quickstart prerequisites are ready.\n'
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Continue when you see <code>Quickstart prerequisites are ready.</code></p>
 </div>
 <div class="paragraph">
 <p>If a tool is missing, use its installation instructions for your Linux
@@ -578,11 +570,28 @@ distribution, then repeat the failed check:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Bash and <code>sha256sum</code> normally come from your distribution&#8217;s Bash and coreutils
-packages. If either is missing, install those packages through your system
-administrator or distribution package manager. For Docker permission errors,
+<p>Bash is available as a distribution package. Coreutils supplies <code>sha256sum</code>,
+<code>install</code>, <code>mktemp</code>, and <code>uname</code>. For Docker permission errors,
 ask the administrator for the intended access and rerun <code>docker info</code> as your
-normal user. Do not switch the tutorial commands to sudo to bypass that check.</p>
+normal user. If Engine responds and Compose fails, install the Compose plugin
+with the linked instructions and rerun the block.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_a_setup_directory"><a class="anchor" href="#_create_a_setup_directory"></a>Create a setup directory</h3>
+<div class="paragraph">
+<p>For a fresh setup, create a private directory under your home directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_SETUP="$(mktemp -d "$HOME/dot-setup.XXXXXXXX")" &amp;&amp;
+cd "$DOT_SETUP" &amp;&amp;
+pwd</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Keep the path printed by <code>pwd</code>. If you already finished the quickstart, reuse
+your setup through the book&#8217;s entry-point instructions.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="browser-over-ssh"><a class="anchor" href="#browser-over-ssh"></a>Browser access from an SSH session</h3>
@@ -698,7 +707,7 @@ also provides an SBOM and build/acceptance revision manifest.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_check_out_the_catalogue"><a class="anchor" href="#_check_out_the_catalogue"></a>Check out the catalogue</h2>
+<h2 id="_check_out_the_catalogue"><a class="anchor" href="#_check_out_the_catalogue"></a>Clone DOT-Repository from GitHub</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Only the independently cloneable catalogue is needed. Pin the acceptance

@@ -1,6 +1,6 @@
 flowchart TB
   accTitle: Ownership chain from provider DOT to consumer DOT
-  accDescr: A provider Contract, Anchor, and service-port binding are connected through a composition-owned wire, resolved endpoint, and optional materializer to a consumer Anchor and declared configuration target.
+  accDescr: A provider Contract, Anchor, and service-port binding are connected through a composition-owned edge, resolved endpoint, and optional materializer to a consumer Anchor and declared configuration target.
 
   subgraph Provider["Provider DOT A · authored independently"]
     direction LR
@@ -13,10 +13,10 @@ flowchart TB
 
   subgraph Resolution["Composition resolution · owned outside both DOTs"]
     direction LR
-    Wire["Wire<br/>provider and consumer Anchor references"]
+    Edge["Edge<br/>provider and consumer Anchor references"]
     Endpoint["Resolved provider endpoint<br/>instance · service · port"]
     Materializer["Optional materializer<br/>derived value · explicit target"]
-    Wire -->|selects provider binding| Endpoint
+    Edge -->|selects provider binding| Endpoint
     Endpoint -.->|when configuration handoff is required| Materializer
   end
 
@@ -30,11 +30,11 @@ flowchart TB
   end
 
   Provider -->|logical provider side| Resolution
-  Resolution -->|wire targets Anchor; materializer targets declaration| Consumer
+  Resolution -->|edge targets Anchor; materializer targets declaration| Consumer
 
   classDef definition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px;
   classDef topology fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px;
   classDef runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px;
   class PContract,PAnchor,PBinding,CContract,CAnchor,CConfig definition;
-  class Wire,Materializer topology;
+  class Edge,Materializer topology;
   class Endpoint runtime;

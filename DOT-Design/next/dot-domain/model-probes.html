@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-domain/model-probes.html">
     <link rel="prev" href="model-composition.html">
     <link rel="next" href="../dot-cli/index.html">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -147,7 +147,7 @@
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="../dot-design/dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -185,12 +185,12 @@
     <a class="nav-link" href="../dot-design/getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-design/first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dot-design/adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -270,7 +270,7 @@
     <a class="nav-link" href="../dot-design/release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="../dot-design/release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -539,7 +539,7 @@
 <p>To <a href="#model-AsyncAPIProtocol">AsyncAPIProtocol</a>: typed association via protocol; diagram multiplicity 1.</p>
 </li>
 <li>
-<p>From <a href="#model-WireProbe">WireProbe</a>: containment via asyncapi; diagram multiplicity 0..1.</p>
+<p>From <a href="#model-EdgeProbe">EdgeProbe</a>: containment via asyncapi; diagram multiplicity 0..1.</p>
 </li>
 </ul>
 </div>
@@ -664,6 +664,97 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="model-EdgeProbe"><a class="anchor" href="#model-EdgeProbe"></a>EdgeProbe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose a protocol-specific active-check fixture for a edge.</p>
+</div>
+<div class="paragraph">
+<p>Select one protocol fixture matching the resolved Contract standard. Portable fixture validity does not promise that an executor supports every deployment, operation or transport combination. Active checks may call APIs or publish messages and must be deliberately selected; they are not passive topology inspection.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/EdgeProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/EdgeProbe.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openapi</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPIProbe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response-value expectation for a supported OpenAPI operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>graphql</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQLProbe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL operation, transport and any verification or cleanup operations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grpc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GRPCProbe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reflection-based RPC request and finite-response assertions. conditional constraints (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>asyncapi</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPIProbe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broker delivery fixture with message correlation and optional authentication.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="model-composition.html#model-Channel" class="xref page">Channel</a>: containment via probe; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-AsyncAPIProbe">AsyncAPIProbe</a>: containment via asyncapi; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-GRPCProbe">GRPCProbe</a>: containment via grpc; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-GraphQLProbe">GraphQLProbe</a>: containment via graphql; diagram multiplicity 0..1.</p>
+</li>
+<li>
+<p>To <a href="#model-OpenAPIProbe">OpenAPIProbe</a>: containment via openapi; diagram multiplicity 0..1.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "openapi": {
+    "expect": {
+      "pointer": "/status",
+      "equals": "ready"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="model-GRPCProbe"><a class="anchor" href="#model-GRPCProbe"></a>GRPCProbe</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -741,13 +832,13 @@
 <div class="ulist">
 <ul>
 <li>
+<p>From <a href="#model-EdgeProbe">EdgeProbe</a>: containment via grpc; diagram multiplicity 0..1.</p>
+</li>
+<li>
 <p>To <a href="#model-GRPCResponseMatch">GRPCResponseMatch</a>: typed association via responseMatch; diagram multiplicity 0..1.</p>
 </li>
 <li>
 <p>To <a href="#model-JSONExpectation">JSONExpectation</a>: containment via expect; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>From <a href="#model-WireProbe">WireProbe</a>: containment via grpc; diagram multiplicity 0..1.</p>
 </li>
 </ul>
 </div>
@@ -964,6 +1055,9 @@
 <div class="ulist">
 <ul>
 <li>
+<p>From <a href="#model-EdgeProbe">EdgeProbe</a>: containment via graphql; diagram multiplicity 0..1.</p>
+</li>
+<li>
 <p>To <a href="#model-GraphQLOperation">GraphQLOperation</a>: containment via cleanup; diagram multiplicity 0..1.</p>
 </li>
 <li>
@@ -977,9 +1071,6 @@
 </li>
 <li>
 <p>To <a href="#model-JSONExpectation">JSONExpectation</a>: containment via expect; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>From <a href="#model-WireProbe">WireProbe</a>: containment via graphql; diagram multiplicity 0..1.</p>
 </li>
 </ul>
 </div>
@@ -1104,10 +1195,10 @@
 <h2 id="model-OpenAPIProbe"><a class="anchor" href="#model-OpenAPIProbe"></a>OpenAPIProbe</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Add a JSON response-value assertion to a supported OpenAPI wire probe.</p>
+<p>Add a JSON response-value assertion to a supported OpenAPI edge probe.</p>
 </div>
 <div class="paragraph">
-<p>The operation comes from the wire Anchor and verified Contract, not a second handwritten URL or operation definition. When this assertion block is present, expect is required and the selected operation must be a safe GET or OPTIONS operation; HEAD cannot carry this JSON assertion. A successful HTTP status alone is different from a matched response expectation.</p>
+<p>The operation comes from the edge Anchor and verified Contract, not a second handwritten URL or operation definition. When this assertion block is present, expect is required and the selected operation must be a safe GET or OPTIONS operation; HEAD cannot carry this JSON assertion. A successful HTTP status alone is different from a matched response expectation.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/OpenAPIProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/OpenAPIProbe.schema.json">Generated JSON Schema</a></p>
@@ -1142,10 +1233,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>To <a href="#model-JSONExpectation">JSONExpectation</a>: containment via expect; diagram multiplicity 1.</p>
+<p>From <a href="#model-EdgeProbe">EdgeProbe</a>: containment via openapi; diagram multiplicity 0..1.</p>
 </li>
 <li>
-<p>From <a href="#model-WireProbe">WireProbe</a>: containment via openapi; diagram multiplicity 0..1.</p>
+<p>To <a href="#model-JSONExpectation">JSONExpectation</a>: containment via expect; diagram multiplicity 1.</p>
 </li>
 </ul>
 </div>
@@ -1156,97 +1247,6 @@
   "expect": {
     "pointer": "/status",
     "equals": "ready"
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-WireProbe"><a class="anchor" href="#model-WireProbe"></a>WireProbe</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Choose a protocol-specific active-check fixture for a wire.</p>
-</div>
-<div class="paragraph">
-<p>Select one protocol fixture matching the resolved Contract standard. Portable fixture validity does not promise that an executor supports every deployment, operation or transport combination. Active checks may call APIs or publish messages and must be deliberately selected; they are not passive topology inspection.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/WireProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/WireProbe.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openapi</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPIProbe</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Response-value expectation for a supported OpenAPI operation.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>graphql</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQLProbe</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GraphQL operation, transport and any verification or cleanup operations.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grpc</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GRPCProbe</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reflection-based RPC request and finite-response assertions. conditional constraints (see schema).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>asyncapi</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AsyncAPIProbe</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Broker delivery fixture with message correlation and optional authentication.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>To <a href="#model-AsyncAPIProbe">AsyncAPIProbe</a>: containment via asyncapi; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>To <a href="#model-GRPCProbe">GRPCProbe</a>: containment via grpc; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>To <a href="#model-GraphQLProbe">GraphQLProbe</a>: containment via graphql; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>To <a href="#model-OpenAPIProbe">OpenAPIProbe</a>: containment via openapi; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>From <a href="model-composition.html#model-Wire" class="xref page">Wire</a>: containment via probe; diagram multiplicity 0..1.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "openapi": {
-    "expect": {
-      "pointer": "/status",
-      "equals": "ready"
-    }
   }
 }</code></pre>
 </div>

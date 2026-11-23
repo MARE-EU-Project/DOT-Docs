@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/release-notes.html">
     <link rel="prev" href="contributor-guide.html">
     <link rel="next" href="release-readiness.html">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -147,7 +147,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -185,12 +185,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -270,7 +270,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -551,7 +551,7 @@ of all producers; publication requires the separate release/runtime gates.</p>
 </div>
 <div class="paragraph">
 <p><code>dotx compose topology &lt;composition-or-directory&gt; --write</code> now maintains the
-README Mermaid block, wire legend and adjacent <code>topology.mmd</code> natively in Go.
+README Mermaid block, edge legend and adjacent <code>topology.mmd</code> natively in Go.
 <code>--check</code> rejects drift without writing. Both require verified locks and
 preflight all graphs/targets; Task wrappers delegate to the command instead of
 the removed <code>Compositions/topology.sh</code> generator. These remain resolved composition artifacts,
@@ -709,7 +709,7 @@ operations from acting on a reused PID.</p>
 <p>Antora publication now deduplicates an exact stable tag from its identical
 release-commit worktree, closing the tag-push race while preserving immutable
 stable documentation. Current-profile documentation is guarded against the
-machine-readable acceptance profile: twenty-one wires, all four finite
+machine-readable acceptance profile: twenty-one edges, all four finite
 side-effect-free gRPC shapes, and MQTT, NATS, Kafka, and AMQP 0-9-1 delivery.</p>
 </div>
 <div class="paragraph">
@@ -717,7 +717,7 @@ side-effect-free gRPC shapes, and MQTT, NATS, Kafka, and AMQP 0-9-1 delivery.</p
 <code>77d8f099e5f42430f1d30e8d01c27b2c534b8d49</code>. It includes 100% DOT-Domain
 instruction and branch coverage, 100% DOT-CLI aggregate and per-executable-
 package statement coverage, repository conformance, all twenty-one
-cross-standard wires, real-producer and real-broker active probes, Docker,
+cross-standard edges, real-producer and real-broker active probes, Docker,
 Kubernetes, Helm, Vagrant, and WebAssembly lifecycle evidence, and versioned
 Antora publication. DOT-CLI <code>v0.2.4</code> additionally passed two-pass reproducible
 packaging and downloaded-binary acceptance.</p>
@@ -775,7 +775,7 @@ assignment before publishing, and verifies the exact correlated record through
 the digest-pinned official Apache Kafka 4.3.1 JVM image. The ephemeral consumer
 group is removed; the record itself remains subject to the topic&#8217;s broker
 retention policy. The canonical runtime-only Kafka DOT expands the locked
-standards composition to twenty wires and three real message brokers.</p>
+standards composition to twenty edges and three real message brokers.</p>
 </div>
 <div class="paragraph">
 <p>AsyncAPI delivery now also supports AMQP 0-9-1 through the official 0.3.0
@@ -785,7 +785,7 @@ queue before publish; acknowledges and correlation-matches the delivered JSON;
 and obtains RabbitMQ credentials only through a secret reference. Queue-bound
 channels, headers exchanges, AMQPS, and AMQP 1.0 fail closed. The canonical
 digest-pinned RabbitMQ 4.3.6 runtime DOT expands the locked standards
-composition to twenty-one wires and four real message brokers.</p>
+composition to twenty-one edges and four real message brokers.</p>
 </div>
 <div class="paragraph">
 <p>The complete pushed workflow matrix passed on
@@ -841,7 +841,7 @@ bounded timeout, and exact non-retained delivery. All fixtures remain
 composition-owned and persisted evidence remains redacted.</p>
 </div>
 <div class="paragraph">
-<p>The fifteen-wire deterministic matrix covers OpenAPI 3.0/3.1/3.2, AsyncAPI
+<p>The fifteen-edge deterministic matrix covers OpenAPI 3.0/3.1/3.2, AsyncAPI
 3.0/3.1, Proto3, and GraphQL. A real GraphQL.js/gRPC producer and Eclipse
 Mosquitto broker provide live Docker acceptance. The complete pushed workflow
 matrix passed on <code>70b0e94760d60bc0fc37f887db0466796627829a</code>, including
@@ -1320,7 +1320,7 @@ complete candidate notes and upgrade guidance.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="contributor-guide.html">Contributor guide</a></span>
-  <span class="next"><a href="release-readiness.html">0.4.0 readiness and remaining gates</a></span>
+  <span class="next"><a href="release-readiness.html">Release readiness and remaining gates</a></span>
 </nav>
 </article>
   </div>

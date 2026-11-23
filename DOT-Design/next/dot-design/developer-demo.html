@@ -7,8 +7,8 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.4.1/dot-design/developer-demo.html">
     <link rel="prev" href="guided-demo.html">
     <link rel="next" href="mare-poc-compositions.html">
-    <meta name="description" content="A five-minute technical extension showing a reusable real DOT, official Contract provenance, a rejected wire and the path to a MARE contribution.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="description" content="A five-minute technical extension showing a reusable real DOT, official Contract provenance, a rejected edge and the path to a MARE contribution.">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -539,12 +539,12 @@ certify every variant or every Admin REST operation. Compare each resolved compo
 </div>
 <div class="paragraph">
 <p>The task repeats the short inspection, validates the existing two-DOT PoC7
-validation-only graph, then attempts its existing deliberately rejected wire. Expect:</p>
+validation-only graph, then attempts its existing deliberately rejected edge. Expect:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">EXPECTED REJECTION (exit=1): scoring-api-to-collector mixes Contract-backed and contractless Anchors.
-The valid two-DOT graph has zero wires; no runtime was deployed by either validation command.</code></pre>
+The valid two-DOT graph has zero edges; no runtime was deployed by either validation command.</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -555,7 +555,7 @@ are not counted as a successful negative test.</p>
 </div>
 <div class="paragraph">
 <p><strong>Say:</strong> "Putting two boxes on a diagram is not an implemented integration. We
-cannot make an undeclared collector interface compatible by drawing a wire."
+cannot make an undeclared collector interface compatible by drawing a edge."
 At the <a href="https://github.com/MARE-EU-Project/PoC7/blob/b32f0df923d9f55dfe51dddd308ce07fec6cdfb7/UBI/netflow_collector.py#L95-L101">pinned source boundary</a>,
 the collector prints flow data rather than
 calling the scorer. This control demonstrates interface admission, not a
@@ -565,7 +565,7 @@ live trust-scoring result or a runtime security test.</p>
 <p>The first current rejection is Contract-backed/contractless incompatibility;
 it does not prove that a later undeclared-configuration check ran. After
 implementing a real consumer, declare its supported endpoint configuration,
-Anchor and binding, then validate the resulting wire and test the actual call.</p>
+Anchor and binding, then validate the resulting edge and test the actual call.</p>
 </div>
 </div>
 </div>
@@ -596,7 +596,7 @@ Anchor and binding, then validate the resulting wire and test the actual call.</
 <td class="tableblock halign-left valign-top"><p class="tableblock">API or messaging semantics</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Official Contract, or an explicitly labelled source-derived Contract</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Select an existing operation. Do not redefine request/response schemas or
-  invent a consumer implementation in a wire.</p></td>
+  invent a consumer implementation in a edge.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Deployment choice</p></td>
@@ -675,9 +675,9 @@ the concrete interoperability boundary.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Four Contract standards, 21 selected wires</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Four Contract standards, 21 selected edges</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:contract-standards</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Broader deterministic interface coverage than the four-wire live demo;
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broader deterministic interface coverage than the four-edge live demo;
   a compatible resolved composition is not traffic.</p></td>
 </tr>
 <tr>

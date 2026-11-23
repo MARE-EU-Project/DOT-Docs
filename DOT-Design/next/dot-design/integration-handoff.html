@@ -8,7 +8,7 @@
     <link rel="prev" href="architecture.html">
     <link rel="next" href="contributor-guide.html">
     <meta name="description" content="Technology-neutral requirements for catalogues, composers, and Security Function Composition consumers of DOT Anchors.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -589,7 +589,7 @@ from <code>COMPATIBLE</code>; and</p>
 <div class="paragraph">
 <p>Contractless Anchors are valid only when a supported Contract standard cannot
 describe the interaction. Their explicit direction, protocols and media types
-must be compatible before a wire is accepted. These communication checks do
+must be compatible before a edge is accepted. These communication checks do
 not establish application meaning or arbitrary schema substitutability.
 Contract-backed compatibility uses verified operation selectors and the
 supported interface rules; documentation URLs and capability names do not
@@ -603,7 +603,7 @@ establish a match.</p>
 <div class="paragraph">
 <p>The versioned consumer profile is under
 <code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
-verifies the committed composition lock, and resolves 21 compatible wires across
+verifies the committed composition lock, and resolves 21 compatible edges across
 OpenAPI, AsyncAPI, Protobuf and GraphQL. The supported SPARQL query profile is
 outside this focused matrix; passing it does not establish SPARQL runtime
 acceptance. See <a href="composition-lifecycle.html" class="xref page">the individual probe profiles</a>

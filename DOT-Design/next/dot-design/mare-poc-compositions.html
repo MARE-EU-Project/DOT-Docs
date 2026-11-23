@@ -8,7 +8,7 @@
     <link rel="prev" href="developer-demo.html">
     <link rel="next" href="live-multi-runtime-demo.html">
     <meta name="description" content="Three localhost-first MARE PoC slices with explicit producer and test-double boundaries.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -490,7 +490,7 @@ task testing:pocs:present:remediation</code></pre>
 <div class="paragraph">
 <p>Each follows five stages: <strong>inspect topology &#8594; deploy &#8594; verify &#8594; inspect the
 running result &#8594; clean up</strong>. The terminal prints resolved DOT versions,
-deployments, wires and evidence boundaries. It pauses only <strong>after</strong> every API
+deployments, edges and evidence boundaries. It pauses only <strong>after</strong> every API
 assertion passes. While paused, open the printed Prometheus targets page or
 inspect the redacted <code>result.json</code>; the secure API must still deny anonymous
 requests. Do not paste access tokens or Secret values into the presentation.</p>
@@ -499,9 +499,9 @@ requests. Do not paste access tokens or Secret values into the presentation.</p>
 <p>The topology is generated from the locked composition by <code>dotx compose topology</code>, using
 the MIT-licensed <code>mermaid-ascii</code> 1.6.1 Go library embedded in the binary.
 There is no Python renderer or separate executable to install. DOTs appear once, with connected
-Unicode boxes. Parallel wires share a connection labelled <code>W1,W2,&#8230;&#8203;</code>; the
-connection legend lists every wire, Contract standard and protocol separately.
-<code>T</code> links show broker transport endpoints, not extra Anchor wires or invented
+Unicode boxes. Parallel edges share a connection labelled <code>W1,W2,&#8230;&#8203;</code>; the
+connection legend lists every edge, Contract standard and protocol separately.
+<code>T</code> links show broker transport endpoints, not extra Anchor edges or invented
 application publishers. Aligned tables show full instance names, platforms,
 deployments and versions, plus each connection&#8217;s provider, consumer, Contract
 standard, protocol and name. Long values wrap inside their columns without
@@ -589,7 +589,7 @@ task testing:pocs:dry-run</code></pre>
 <div class="paragraph">
 <p>Install from this checkout&#8217;s pinned CLI and retain the same artifact set.
 Dry-runs must pass before deployment. The three paths
-contain respectively 1, 5 and 2 compatible wires. Inspect their exact Anchor
+contain respectively 1, 5 and 2 compatible edges. Inspect their exact Anchor
 IDs, selected deployments and materializers; <code>COMPATIBLE</code> is not a live result.</p>
 </div>
 </div>
@@ -599,7 +599,7 @@ IDs, selected deployments and materializers; <code>COMPATIBLE</code> is not a li
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Node Exporter -- metrics scrape wire --&gt; Prometheus -- query API --&gt; presenter</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Node Exporter -- metrics scrape edge --&gt; Prometheus -- query API --&gt; presenter</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -717,7 +717,7 @@ pause happens after restoration, so the displayed composition remains usable.</p
 <div class="paragraph">
 <p>Policy administration is an explicit operator-side demonstration action using
 <a href="https://www.openpolicyagent.org/docs/rest-api#policy-api">OPA&#8217;s Policy API</a>,
-not a sixth Anchor wire, automatic remediation, or a production policy-management
+not a sixth Anchor edge, automatic remediation, or a production policy-management
 design. The harness requires ownership of the applied namespace and an exact
 match to the reviewed policy before mutation. A failed or ambiguous update
 triggers a restoration attempt; any failure still invokes the parent harness&#8217;s
@@ -769,7 +769,7 @@ producer PoC. Those remain separate operational acceptance work.</p>
 <div class="sect2">
 <h3 id="_composition_and_ordinary_live_route"><a class="anchor" href="#_composition_and_ordinary_live_route"></a>Composition and ordinary live route</h3>
 <div class="paragraph">
-<p>These arrows show logical PROVIDES-to-REQUIRES wires, not HTTP packet direction:</p>
+<p>These arrows show logical PROVIDES-to-REQUIRES edges, not HTTP packet direction:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -781,7 +781,7 @@ Keycloak ---------------- token -------------------------&gt; Client</code></pre
 <div class="paragraph">
 <p>Graph: <code>DOT-Repository/Compositions/keycloak-apisix-opa-sparql/composition.yaml</code>.
 Producer context: PoC10 <code>e6a755145bbb71551916163209c0be6e9e996f9c</code>.
-Five instances exchange through five wires:</p>
+Five instances exchange through five edges:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -866,7 +866,7 @@ Override <code>DOTX_POC10_FORWARD_PORT</code> if 19010 is busy.</p>
 </table>
 <div class="paragraph">
 <p>During the presenter pause, inspect the printed private-cache <code>compose status</code>
-command and <code>result.json</code>. The five compatible wires are composition/configuration
+command and <code>result.json</code>. The five compatible edges are composition/configuration
 evidence; the four HTTP assertions above are the live end-to-end evidence.
 They are not five independent native Contract probes or full response-schema
 validation. Press Enter to clean up and retain the receipt. Re-run from the
@@ -912,7 +912,7 @@ task testing:pocs:remediation:live</code></pre>
 <div class="paragraph">
 <p>A guarded interpreter adapter resolves the CACAO external broker URI. The
 unchanged pinned actuator receives OpenC2 over real Mosquitto/MQTT through the
-AsyncAPI wire, then calls the OpenAPI remediation endpoint. The exact job UUID
+AsyncAPI edge, then calls the OpenAPI remediation endpoint. The exact job UUID
 must reach the far end. That endpoint is an <strong>NWDAF double</strong>, not real NWDAF
 remediation. Telemetry, AI and playbook selection remain unaccepted.
 Override <code>DOTX_POC6_INTERPRETER_PORT</code>/<code>DOTX_POC6_NWDAF_PORT</code> if 18261/18262 are busy.</p>

@@ -8,7 +8,7 @@
     <link rel="prev" href="tutorial-dashboard.html">
     <link rel="next" href="getting-started.html">
     <meta name="description" content="Extend the tutorial's learning path into secure APIs, multi-service tools, additional runtimes and supported interface standards.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -495,7 +495,7 @@ publish the exercise copies as additional Prometheus or Grafana catalogue roots.
 <p><strong>Select</strong> a deployment and declare its service configuration.</p>
 </li>
 <li>
-<p><strong>Connect</strong> provided and required Anchors through reviewed Wires.</p>
+<p><strong>Connect</strong> provided and required Anchors through reviewed Edges.</p>
 </li>
 <li>
 <p><strong>Review</strong> exact inputs with validation, a lock and a deployment preview.</p>
@@ -543,7 +543,7 @@ interruption and recovery affect only the selected instance.</p></td>
 configuration, native workload selection and required permissions.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Readiness, real API behavior and cleanup on that adapter. The
 <a href="portability-demo.html" class="xref page">Docker/Kubernetes example</a> is deployment portability,
-not proof of a cross-runtime Wire.</p></td>
+not proof of a cross-runtime Edge.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cross a runtime boundary</p></td>
@@ -600,7 +600,7 @@ Keycloak/APISIX/OPA/SPARQL composition provides a five-DOT exercise:</p>
 <p>This is a <strong>separate advanced graph</strong>, not a claim that the preceding Grafana lab
 has already been secured or connected to it. Keep your tested monitoring system
 as the small reference while learning native Secret references, policy, multiple
-Wires and service startup. Only combine graphs after defining and testing the
+Edges and service startup. Only combine graphs after defining and testing the
 actual additional interfaces and ownership boundaries.</p>
 </div>
 <div class="paragraph">

@@ -275,7 +275,7 @@ dotx compose topology "$LAB/composition.yaml" \
 dotx compose apply "$LAB/composition.yaml" \
   --repository "$DOT_REPOSITORY" \
   --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
-printf 'Graph verified: two DOTs, one Wire. No service has started.\n'
+printf 'Graph verified: two DOTs, one Edge. No service has started.\n'
 )
 # end::review[]
 
@@ -379,7 +379,7 @@ datasources:
     uid: hero-prometheus
     type: prometheus
     access: proxy
-    url: http://replaced-by-the-wire.invalid
+    url: http://replaced-by-the-edge.invalid
     isDefault: true
 YAML
 cat > "$LAB/grafana-empty.yml" <<'YAML'
@@ -403,7 +403,7 @@ dotx compose validate "$LAB/dashboard.yaml" \
 dotx compose lock "$LAB/dashboard.yaml" --repository "$DOT_REPOSITORY"
 dotx compose topology "$LAB/dashboard.yaml" \
   --repository "$DOT_REPOSITORY" --locked
-printf 'Extended graph verified: three DOTs, two Wires.\n'
+printf 'Extended graph verified: three DOTs, two Edges.\n'
 printf '%s\n' \
   'Declaration review complete.' \
   'Next: supply a lab password, then preview and apply.' \

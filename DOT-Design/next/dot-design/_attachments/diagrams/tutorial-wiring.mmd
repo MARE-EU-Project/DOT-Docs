@@ -1,13 +1,13 @@
 %%{init: {"flowchart": {"wrappingWidth": 280, "rankSpacing": 40}}}%%
 flowchart TB
   accTitle: One monitoring connection, three views
-  accDescr: The composition Wire connects Node Exporter's node-metrics Anchor, which provides the interface, to Prometheus's scrape-target Anchor, which requires it. A materializer writes the Node Exporter endpoint into Prometheus's scrape configuration. The runtime panel reads left to right from Prometheus, the HTTP client and consumer, to Node Exporter, the HTTP server and provider. The Wire connects provider to consumer; the HTTP request goes from consumer to provider.
+  accDescr: The composition Edge connects Node Exporter's node-metrics Anchor, which provides the interface, to Prometheus's scrape-target Anchor, which requires it. A materializer writes the Node Exporter endpoint into Prometheus's scrape configuration. The runtime panel reads left to right from Prometheus, the HTTP client and consumer, to Node Exporter, the HTTP server and provider. The Edge connects provider to consumer; the HTTP request goes from consumer to provider.
 
-  subgraph declaration["1. Declare the Wire in composition.yaml"]
+  subgraph declaration["1. Declare the Edge in composition.yaml"]
     direction LR
-    provides["DotInstance: node-exporter<br/>Anchor: node-metrics<br/>PROVIDES"]
-    requires["DotInstance: prometheus<br/>Anchor: scrape-target<br/>REQUIRES"]
-    provides -->|"Wire"| requires
+    provides["Vertex: node-exporter<br/>Anchor: node-metrics<br/>PROVIDES"]
+    requires["Vertex: prometheus<br/>Anchor: scrape-target<br/>REQUIRES"]
+    provides -->|"Edge"| requires
   end
 
   subgraph configuration["2. Write the consumer configuration"]

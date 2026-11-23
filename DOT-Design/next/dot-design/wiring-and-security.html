@@ -8,7 +8,7 @@
     <link rel="prev" href="composition-documents.html">
     <link rel="next" href="composition-lifecycle.html">
     <meta name="description" content="Connect request-response and messaging Anchors, derive deployment-specific values, bind contract security requirements, and expose composed capabilities.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -463,7 +463,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Wires express composition topology outside every participating DOT. They refer
+<p>Edges express composition topology outside every participating DOT. They refer
 to stable Anchor IDs, resolve deployable endpoints through service bindings,
 and materialize only values that the target service has declared as
 configurable.</p>
@@ -471,22 +471,22 @@ configurable.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="direct-requestresponse-wire"><a class="anchor" href="#direct-requestresponse-wire"></a>Direct request/response wire</h2>
+<h2 id="direct-requestresponse-edge"><a class="anchor" href="#direct-requestresponse-edge"></a>Direct request/response edge</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A wire uses instance names and stable Anchor IDs:</p>
+<p>A edge uses instance names and stable Anchor IDs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">edges:
   - name: oauth-token-to-client
     parameters:
       realm: {value: dotx}
     from:
-      instance: identity
+      vertex: identity
       anchorId: client-credentials-token
     to:
-      instance: client
+      vertex: client
       anchorId: oauth-token
     materializer:
       type: ENVIRONMENT_VARIABLE
@@ -534,20 +534,24 @@ or the Anchor.</p>
 <div class="sect2">
 <h3 id="cross-platform-external-gateway"><a class="anchor" href="#cross-platform-external-gateway"></a>Cross-platform external gateway</h3>
 <div class="paragraph">
-<p>A wire whose participants use different runtime platforms must declare a
+<p>A Channel between vertices on different runtime platforms must declare a
 reviewed network adapter. The first supported adapter represents a gateway that
 the operator provisions outside <code>dotx</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">edges:
   - name: identity-discovery-to-proxy
-    from: {instance: identity, anchorId: oidc-discovery}
-    to: {instance: proxy, anchorId: oidc-discovery}
-    network:
-      adapter: EXTERNAL_GATEWAY
-      host: identity-gateway.example.net
-      port: 8080</code></pre>
+    from: identity
+    to: proxy
+    channels:
+      - name: identity-discovery-to-proxy
+        fromConnector: oidc-discovery
+        toConnector: oidc-discovery
+        network:
+          adapter: EXTERNAL_GATEWAY
+          host: identity-gateway.example.net
+          port: 8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -556,20 +560,20 @@ interaction semantics. The binding replaces only the deployment-specific host
 and port used by materializers. The resolved composition, lock, and private lifecycle state
 record <code>ownership=EXTERNAL</code> and <code>cleanup=NONE</code>; apply, resume, status, and
 destroy never claim to create, inspect, or remove the gateway. Cross-platform
-wires without a binding, same-platform wires with a redundant binding, unknown
+edges without a binding, same-platform edges with a redundant binding, unknown
 adapters, URL-shaped hosts, and invalid ports fail before runtime mutation.</p>
 </div>
 <div class="paragraph">
 <p>The <code>EXTERNAL_GATEWAY</code> adapter does not provision gateways, ingresses, tunnels
 or brokers. An explicitly selected broker DOT is an ordinary composition member:
 its selected deployment is applied and destroyed through the usual lifecycle.
-The wire&#8217;s <code>endpoint.instance</code> selects that declared broker service; a Wire
+The Channel&#8217;s <code>endpoint.instance</code> selects that declared broker service. A Channel
 never creates a broker or network infrastructure implicitly.</p>
 </div>
 <div class="paragraph">
-<p>A wire and a materializer are intentionally separate. The wire says <em>these
+<p>A Channel and a materializer are intentionally separate. The Channel says <em>these
 Anchors are connected</em>; the materializer says <em>write this derived value into
-this declared consumer setting</em>. A wire needs no materializer when the runtime
+this declared consumer setting</em>. A Channel needs no materializer when the runtime
 already provides discovery, a service mesh performs routing, both participants
 use a fixed broker declared elsewhere, or the composition is documenting an
 Anchor relation without an executable handoff. Apply still requires every
@@ -603,7 +607,7 @@ rather than scrape the human-readable form.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="brokered-wire"><a class="anchor" href="#brokered-wire"></a>Brokered wire</h2>
+<h2 id="brokered-edge"><a class="anchor" href="#brokered-edge"></a>Brokered edge</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>For messaging, the semantic provider, semantic consumer, and connection
@@ -611,13 +615,13 @@ endpoint may be three different instances. Select the broker explicitly:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">wires:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">edges:
   - name: openc2-command-via-mqtt
     from:
-      instance: interpreter
+      vertex: interpreter
       anchorId: send-openc2-command
     to:
-      instance: actuator
+      vertex: actuator
       anchorId: receive-openc2-command
     endpoint:
       instance: broker
@@ -641,7 +645,7 @@ endpoint may be three different instances. Select the broker explicitly:</p>
 <div class="paragraph">
 <p>The AsyncAPI operations and message schema stay in the Contract. The broker&#8217;s
 host and port stay in the resolved composition. If a channel has a templated address,
-the wire supplies only values for parameters declared by the Contract.</p>
+the edge supplies only values for parameters declared by the Contract.</p>
 </div>
 </div>
 </div>
@@ -783,7 +787,7 @@ Contract or redefine the Anchor.</p>
 <div class="paragraph">
 <p>Materialization fails when the target configuration is undeclared, the
 Contract path/channel remains unresolved, alternative server paths are
-ambiguous, two wires produce conflicting values for one target, or the endpoint
+ambiguous, two edges produce conflicting values for one target, or the endpoint
 and target are on different runtime platforms without an explicit network
 binding.</p>
 </div>
@@ -794,7 +798,7 @@ binding.</p>
 <h2 id="path-and-channel-parameters"><a class="anchor" href="#path-and-channel-parameters"></a>Path and channel parameters</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Only deployment-specific scalar values belong in the wire:</p>
+<p>Only deployment-specific scalar values belong in the edge:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -816,7 +820,7 @@ parameter values require explicit future adapters.</p>
 <h2 id="security-and-secrets"><a class="anchor" href="#security-and-secrets"></a>Security and secrets</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Contract security remains authoritative. A wire may demonstrate how one
+<p>Contract security remains authoritative. A edge may demonstrate how one
 declared scheme is satisfied by deployment configuration:</p>
 </div>
 <div class="listingblock">
@@ -838,7 +842,7 @@ DOT instance whose selected deployment consumes them:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">dots:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">vertices:
   - name: client
     source: repository://oauth-client@1.0.0
     dotId: oauth-client@1.0.0
@@ -873,7 +877,7 @@ issuer trust, mTLS, workload identity, or remote attestation.</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">exposedAnchors:
   - name: protected-metadata-through-gateway
     target:
-      instance: gateway
+      vertex: gateway
       anchorId: protected-metadata</code></pre>
 </div>
 </div>
@@ -896,7 +900,7 @@ Kubernetes/Helm forwarding currently targets the deployment&#8217;s first servic
 with a declared port. The matching Next executor refuses an exposure on another
 logical service before deployment rather than forwarding a different endpoint.
 Use separately operator-managed exposure for other services. This execution
-limit does not restrict Wires or make the composition declaration invalid.
+limit does not restrict Edges or make the composition declaration invalid.
 Older recorded forwarding that cannot identify its intended service also
 requires review before resume or upgrade; verified owned cleanup remains
 separate from that admission check.</p>

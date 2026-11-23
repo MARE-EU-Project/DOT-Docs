@@ -9,33 +9,35 @@ config:
 classDiagram
   direction TB
   accTitle: Simplified DOT domain model
-  accDescr: Dot references Skills, declares Contracts, and contains Anchors and Runtime alternatives. An Anchor selects a Contract operation. Each Runtime targets a Platform and contains Deployments. A Deployment contains one manifest and its logical services. A separate Composition aggregate owns pinned DOT instances and wires referencing Anchors, never embedded DOT definitions.
+  accDescr: Dot declares Contracts and contains Anchors and Runtime alternatives. An Anchor selects a Contract operation. Each Runtime offers Deployments. A Deployment contains one manifest and its logical services. A separate Composition aggregate owns vertices that select exact DOT releases. Edges connect vertices and contain channels that select their connectors.
 
   class Dot
-  class Skill
   class Contract
   class Anchor
   class Runtime
-  class Platform
   class Deployment
-  class DeploymentManifest {
+  class Manifest {
     <<abstract>>
   }
-  class DeploymentService
+  class Service
   class Composition
-  class DotInstance
-  class Wire
+  class Vertex
+  class Edge
+  class Channel
+  class Connector
 
-  Composition *-- DotInstance : pinned instances
-  Composition *-- Wire : wires
-  DotInstance ..> Dot : references
-  Wire ..> Anchor : references endpoints
-  Dot --> Skill : references
+  Composition *-- Vertex : vertices
+  Composition *-- Edge : edges
+  Vertex ..> Dot : references
+  Edge ..> Vertex : from / to
+  Edge *-- Channel : channels
+  Vertex *-- Connector : connectors
+  Channel ..> Connector : selects endpoints
+  Connector ..> Anchor : selects Anchor
   Dot --> Contract : declares
   Dot *-- Anchor : anchors
   Dot *-- Runtime : runtimes
   Anchor ..> Contract : selects operation
-  Runtime *-- Platform : target
   Runtime *-- Deployment : alternatives
-  Deployment *-- DeploymentManifest : manifest
-  Deployment *-- DeploymentService : services
+  Deployment *-- Manifest : manifest
+  Deployment *-- Service : services

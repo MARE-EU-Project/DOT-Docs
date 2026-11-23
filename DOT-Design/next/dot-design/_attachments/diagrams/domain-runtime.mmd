@@ -11,11 +11,11 @@ classDiagram
   class Deployment {
     String id
   }
-  class DeploymentManifest {
+  class Manifest {
     <<abstract>>
-    DeploymentManifestType type
+    ManifestType type
   }
-  class DeploymentService {
+  class Service {
     String id
     String name
     String host
@@ -30,7 +30,7 @@ classDiagram
     String anchorId
     String port
   }
-  class DeploymentConfig {
+  class Configuration {
     List~EnvironmentVariable~ environment
     List~ConfigFile~ configFiles
     List~VolumeMount~ volumes
@@ -40,17 +40,17 @@ classDiagram
 
   Runtime "1" *-- "1" Platform : where
   Runtime "1" *-- "1..*" Deployment : deployment alternatives
-  Deployment "1" *-- "1" DeploymentManifest : how
-  Deployment "1" *-- "0..*" DeploymentService : logical services
-  DeploymentService "1" *-- "0..*" ServicePort : named ports
-  DeploymentService "1" *-- "0..*" AnchorBinding : binds logical interfaces
-  DeploymentService "1" *-- "1" DeploymentConfig : supported configuration
+  Deployment "1" *-- "1" Manifest : how
+  Deployment "1" *-- "0..*" Service : logical services
+  Service "1" *-- "0..*" ServicePort : named ports
+  Service "1" *-- "0..*" AnchorBinding : binds logical interfaces
+  Service "1" *-- "1" Configuration : supported configuration
 
   style Runtime fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
   style Platform fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
   style Deployment fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
-  style DeploymentManifest fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
-  style DeploymentService fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style Manifest fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Service fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
   style ServicePort fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style AnchorBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style DeploymentConfig fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Configuration fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px

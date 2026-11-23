@@ -19,49 +19,47 @@ classDiagram
   class Runtime
   class Platform
   class Deployment
-  class DeploymentManifest
-  class DeploymentService
-  class DeploymentConfig
+  class Manifest
+  class Service
+  class Configuration
   class Composition
-  class DotInstance
-  class Wire
-  class AnchorReference
+  class Vertex
+  class Edge
+  class Connector
   class Materializer
   class DeploymentInputs
-  class WireProbe
+  class EdgeProbe
   Dot ..> Skill
   Dot *-- Anchor
   Dot *-- Contract
   Dot *-- Runtime
-  Composition *-- DotInstance
-  Composition *-- Wire
-  DotInstance *-- DeploymentInputs
-  Wire *-- AnchorReference
-  Wire *-- Materializer
-  Wire *-- WireProbe
-  DeploymentService ..> Contract
-  DeploymentService *-- DeploymentConfig
-  Deployment *-- DeploymentService
-  Deployment *-- DeploymentManifest
+  Composition *-- Edge
+  Composition *-- Vertex
+  Vertex *-- Connector
+  Vertex *-- DeploymentInputs
+  Deployment *-- Service
+  Deployment *-- Manifest
+  Service ..> Contract
+  Service *-- Configuration
   Runtime *-- Deployment
   Runtime *-- Platform
-  DotInstance ..> Dot
-  AnchorReference ..> DotInstance
-  AnchorReference ..> Anchor
+  Vertex ..> Dot
+  Edge ..> Vertex
+  Connector ..> Anchor
   style Dot fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
   style Skill fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style Anchor fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style AnchorReference fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style Composition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style Connector fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style DeploymentInputs fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style DotInstance fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Edge fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style EdgeProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style Materializer fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style Wire fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style WireProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Vertex fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style Contract fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style Deployment fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style DeploymentService fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style DeploymentConfig fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style DeploymentManifest fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style Service fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Configuration fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Manifest fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
   style Runtime fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style Platform fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px

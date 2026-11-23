@@ -8,7 +8,7 @@
     <link rel="prev" href="tutorial-authoring.html">
     <link rel="next" href="tutorial-dashboard.html">
     <meta name="description" content="Connect an authored Prometheus DOT to Node Exporter, review the lock, verify a labelled scrape and clean up.">
-    <meta name="generator" content="Antora 3.2.1">
+    <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/dot-design.css">
@@ -148,7 +148,7 @@
     <a class="nav-link" href="dots-for-dummies.html#_describe_configuration_where_it_belongs">Service configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_dotinstance_and_wire">Connecting the DOTs</a>
+    <a class="nav-link" href="dots-for-dummies.html#_connect_tools_composition_vertex_and_edge">Connecting the DOTs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="dots-for-dummies.html#_understand_the_workflow_and_its_evidence">Workflow and evidence</a>
@@ -186,12 +186,12 @@
     <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="adopting-dot.html">Adoption, compatibility and editor setup</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="evaluation-kit.html">Evaluate with one matching kit</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="catalogue-versioning.html">Catalogue products and releases</a>
   </li>
@@ -271,7 +271,7 @@
     <a class="nav-link" href="release-notes.html">Release notes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="release-readiness.html">0.4.0 readiness and remaining gates</a>
+    <a class="nav-link" href="release-readiness.html">Release readiness and remaining gates</a>
   </li>
 </ul>
   </li>
@@ -468,9 +468,9 @@ catalogue&#8217;s Node Exporter, then verify that Prometheus scrapes its metrics
 Continue in the same Bash shell after verifying Lesson 1&#8217;s standalone cleanup.</p>
 </div>
 <div class="paragraph">
-<p><strong>Goal:</strong> a reviewed two-DOT, one-Wire graph, a labelled scrape returning <code>1</code>,
+<p><strong>Goal:</strong> a reviewed two-DOT, one-Edge graph, a labelled scrape returning <code>1</code>,
 and verified cleanup of its owned resources.
-<strong>You will learn:</strong> exact instance selection, provided-to-required Wires,
+<strong>You will learn:</strong> exact instance selection, provided-to-required Edges,
 configuration and reviewed inputs.</p>
 </div>
 </div>
@@ -505,7 +505,7 @@ chmod 0644 "$LAB/prometheus.yml"
 <div class="paragraph">
 <p>The file is non-secret. Mode 0644 lets the unprivileged Prometheus container read
 the mounted file; its enclosing workspace stays private. Do not apply these
-permissions to secret files. The initial target is a placeholder: the Wire
+permissions to secret files. The initial target is a placeholder: the Edge
 will write the selected instance&#8217;s real host and port into the execution copy.</p>
 </div>
 </div>
@@ -524,7 +524,7 @@ dotx compose new --from "$MONITORING_TEMPLATE" \
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: a new UUID and a two-DOT, one-Wire preview. The template and its lock
+<p>Expected: a new UUID and a two-DOT, one-Edge preview. The template and its lock
 stay untouched. No lock is created for your draft and no service is deployed.
 The template&#8217;s configuration references are initially shared; redirect them
 before editing a configuration.</p>
@@ -554,7 +554,7 @@ before editing a configuration.</p>
 The graph&#8217;s <code>1.0.0</code> is separate from each tool&#8217;s release.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vertices</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named instances, exact tool identities, selected deployments and instance inputs.
 <code>prometheus</code> is an instance name; <code>Prometheus@3.15.1</code> is its tool identity.</p></td>
 </tr>
@@ -563,7 +563,7 @@ The graph&#8217;s <code>1.0.0</code> is separate from each tool&#8217;s release.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verified interface inputs resolved from their exact owning DOTs, not copied specifications.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>wires</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edges</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connections and the configuration needed to materialize them.</p></td>
 </tr>
 <tr>
@@ -585,7 +585,7 @@ An exposure does not add authentication.</p></td>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Replace only the <code>prometheus</code> entry under <code>dots</code> with:</p>
+<p>Replace only the <code>prometheus</code> entry under <code>vertices</code> with:</p>
 <div class="paragraph">
 <p>Keep the four leading spaces shown before <code>- name</code>, matching the other DOT
 item in the CLI-created draft. YAML indentation is part of the document.</p>
@@ -597,6 +597,9 @@ item in the CLI-created draft. YAML indentation is part of the document.</p>
       dotId: Prometheus@3.15.1
       dotVersion: 3.15.1
       deployment: docker-image
+      connectors:
+        - anchorId: scrape-target
+        - anchorId: promql-query-api
       dependsOn: [node-exporter]</code></pre>
 </div>
 </div>
@@ -608,7 +611,7 @@ definition. Its identity, tool release and readiness dependency stay the same.</
 </li>
 <li>
 <p>In <code>node-metrics-to-prometheus</code>, change <code>materializer.source</code> to
-<code>prometheus.yml</code>. Keep the other Wire fields unchanged.</p>
+<code>prometheus.yml</code>. Keep the other Edge fields unchanged.</p>
 <div class="paragraph">
 <p>Before, the source points to the template&#8217;s <code>runtime/prometheus.yml</code> (the draft
 may show its full absolute path). After, it names your own file beside the draft:</p>
@@ -640,28 +643,32 @@ catalogue declaration. Relative file paths resolve beside this YAML file.</p>
 <h2 id="_understand_the_connection"><a class="anchor" href="#_understand_the_connection"></a>Understand the connection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The retained Wire names these model relationships:</p>
+<p>The Edge connects the two vertices. Its Channel selects a connector declared by each vertex:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">from: {instance: node-exporter, anchorId: node-metrics}
-to: {instance: prometheus, anchorId: scrape-target}
-materializer:
-  type: CONFIG_FILE
-  source: prometheus.yml
-  valueFrom: ENDPOINT_HOST_PORT
-  target:
-    instance: prometheus
-    service: prometheus
-    path: /etc/prometheus/prometheus.yml
-    jsonPointer: /scrape_configs/0/static_configs/0/targets/0</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">from: node-exporter
+to: prometheus
+channels:
+  - name: node-metrics-to-prometheus
+    fromConnector: node-metrics
+    toConnector: scrape-target
+    materializer:
+      type: CONFIG_FILE
+      source: prometheus.yml
+      valueFrom: ENDPOINT_HOST_PORT
+      target:
+        instance: prometheus
+        service: prometheus
+        path: /etc/prometheus/prometheus.yml
+        jsonPointer: /scrape_configs/0/static_configs/0/targets/0</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><code>from</code> provides metrics; <code>to</code> requires them. The materializer derives the
 producer&#8217;s address and places it at one location in the consumer&#8217;s configuration.
 It does not implement the scrape: Prometheus does that. <code>dependsOn</code> expresses
-startup ordering; a Wire expresses an interface connection.</p>
+startup ordering. A Channel expresses an interface connection.</p>
 </div>
 <div class="paragraph">
 <p>In the pointer <code>/scrape_configs/0/static_configs/0/targets/0</code>, each <code>0</code> means the
@@ -701,12 +708,12 @@ dotx compose topology "$LAB/composition.yaml" \
 dotx compose apply "$LAB/composition.yaml" \
   --repository "$DOT_REPOSITORY" \
   --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
-printf 'Graph verified: two DOTs, one Wire. No service has started.\n'
+printf 'Graph verified: two DOTs, one Edge. No service has started.\n'
 )</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: two DOTs, one Wire and a deployment preview using your local
+<p>Expected: two DOTs, one Edge and a deployment preview using your local
 <code>docker-image</code> definition. Review <code>$LAB/composition.lock.json</code>: it binds exact
 definitions, documents and configuration. A lock is reproducibility evidence,
 not runtime state or a second authored model. Intentional input changes require
@@ -726,21 +733,21 @@ another explicit lock review; never regenerate locks just to hide an error.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code>, entry with <code>instance: "prometheus"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vertices[]</code>, entry with <code>instance: "prometheus"</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>source: "./prometheus"</code>, <code>dotId: "Prometheus@3.15.1"</code>,
 <code>deploymentId: "docker-image"</code>, and a <code>digest</code> beginning <code>sha256:</code>
 Your private definition and selected deployment are pinned by their bytes.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dots[]</code>, entry with <code>instance: "node-exporter"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vertices[]</code>, entry with <code>instance: "node-exporter"</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>source: "repository://Node-Exporter@1.12.1"</code>,
 <code>deploymentId: "docker"</code>, and a <code>digest</code>
 The exact catalogue release is selected.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>inputs[]</code>, entry with <code>source: "prometheus.yml"</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>name</code> beginning <code>wire:node-metrics-to-prometheus:config:</code> and a <code>digest</code>
-The Wire&#8217;s materializer uses the pinned input scrape configuration.
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>name</code> beginning <code>edge:node-metrics-to-prometheus:config:</code> and a <code>digest</code>
+The Edge&#8217;s materializer uses the pinned input scrape configuration.
 This does not establish that a scrape has run.</p></td>
 </tr>
 </tbody>
@@ -780,8 +787,9 @@ cat "$LAB/composition.yaml" &gt; "$LAB/diagnostic.yaml"
 </div>
 <div class="paragraph">
 <p>After that succeeds, open <code>$LAB/diagnostic.yaml</code> using the editor workflow.
-Change only <code>node-metrics-to-prometheus&#8217;s `from.anchorId</code> from <code>node-metrics</code>
-to <code>missing-metrics</code>, save, and run:</p>
+In the <code>node-exporter</code> Vertex, change its Connector&#8217;s <code>anchorId</code> from
+<code>node-metrics</code> to <code>missing-metrics</code>. Make the same change to the
+<code>node-metrics-to-prometheus</code> Channel&#8217;s <code>fromConnector</code>. Save and run:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -791,7 +799,7 @@ to <code>missing-metrics</code>, save, and run:</p>
 <div class="paragraph">
 <p>Expect a nonzero exit and a missing-Anchor message naming <code>missing-metrics</code> in
 <code>node-exporter</code>. A different error is not the intended result. Restore
-<code>node-metrics</code> in that copy and repeat the same validation; it should succeed.
+<code>node-metrics</code> in both fields in that copy and repeat the same validation; it should succeed.
 Create no diagnostic lock and leave the reviewed original unchanged.</p>
 </div>
 </div>
@@ -804,6 +812,18 @@ Create no diagnostic lock and leave the reviewed original unchanged.</p>
 <p>Use an unused <code>TUTORIAL_PORT</code> (default <code>19041</code>). Before applying, keep the stop
 command below available. <strong>Run it even if apply or a query fails.</strong> Preserve the
 original workspace, cache and binary for recovery.</p>
+</div>
+<div class="paragraph">
+<p>When using a current-source build of <code>dotx</code>, the Docker image forward for
+<code>prometheus-query</code> publishes on <code>127.0.0.1</code> on the Docker Engine host. The
+preview shows <code>-p 127.0.0.1:19041:9090</code> with the default tutorial port.
+This applies when Docker creates the container. To change an existing
+container&#8217;s published ports, clean up with the original CLI and apply again
+with the current build. Released <code>dotx</code> 0.4.1 leaves the bind address to
+Docker, so use an isolated Docker host for the released walkthrough. Use
+Docker Engine 28.0.0 or later when relying on loopback isolation.
+<a href="https://docs.docker.com/engine/network/port-publishing/">Docker port publishing</a>
+describes the behavior of older engines and custom network configurations.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -887,7 +907,7 @@ with this lesson&#8217;s selected port:</p>
 </div>
 <div class="paragraph">
 <p>The result <code>1</code> establishes your labelled scrape, not merely an HTTP 200. The
-label came from your configuration; the target address came from the Wire.
+label came from your configuration; the target address came from the Edge.
 The original catalogue and its configuration are unchanged.</p>
 </div>
 </div>
@@ -941,7 +961,7 @@ time-series data is disposable; do not prune unrelated resources. A later
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>INPUT_YAML</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check the edited list item&#8217;s four leading spaces and the surrounding list.
-Do not add a second <code>dots:</code> key. Validate again before creating a lock.</p></td>
+Do not add a second <code>vertices:</code> key. Validate again before creating a lock.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A missing Anchor or a lock mismatch</p></td>
@@ -953,7 +973,7 @@ recreating the lock. A new lock cannot repair an invalid reference.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No sample, or a sample with value <code>0</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code> means the target&#8217;s scrape failed; no sample means the selected series is
 absent. Check lifecycle status, the <code>node-exporter</code> job, the tutorial label and
-the Wire&#8217;s materializer source. The API build-information check alone is insufficient.</p></td>
+the Edge&#8217;s materializer source. The API build-information check alone is insufficient.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A readiness or query timeout</p></td>
@@ -978,9 +998,9 @@ alone establishes declaration review, not a working scrape.</p>
 <summary class="title">Explain it back: which direction does this connection run?</summary>
 <div class="content">
 <div class="paragraph">
-<p>The Wire points from Node Exporter&#8217;s provided Anchor to Prometheus&#8217;s required
+<p>The Edge points from Node Exporter&#8217;s provided Anchor to Prometheus&#8217;s required
 Anchor. At runtime, Prometheus sends an HTTP scrape request to Node Exporter.
-The Wire describes the interface relationship; the application implements the
+The Edge describes the interface relationship; the application implements the
 request. The materializer supplies its address through configuration.</p>
 </div>
 </div>
