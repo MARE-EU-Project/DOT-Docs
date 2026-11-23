@@ -6,7 +6,7 @@
     <title>Quick Start :: MARE DOT-Design</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="setup.html">
-    <meta name="description" content="Authenticate with GitHub and install dotx from its private repository.">
+    <meta name="description" content="Install dotx and run your first DOT with one command.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -429,22 +429,17 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>On Ubuntu 26.04 LTS, install <a href="https://cli.github.com/">GitHub CLI (<code>gh</code>)</a>
-using its <a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md">official Linux installation instructions</a>.
-Git must also be installed before configuring the credential helper; see
-<a href="setup.html#requirements" class="xref page">Requirements</a>.
-Your GitHub account needs read access to the private DOT-CLI and DOT-Repository
-repositories.</p>
+<p>On Ubuntu 26.04 LTS, have Git, <a href="https://cli.github.com/">GitHub CLI (<code>gh</code>)</a> and
+<a href="https://docs.docker.com/engine/install/ubuntu/">Docker Engine</a> installed.
+Docker must be running and accessible to your normal user. See
+<a href="setup.html#requirements" class="xref page">Requirements</a> for official installation links.
+Your GitHub account needs read access to DOT-CLI and DOT-Repository.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_authenticate_once"><a class="anchor" href="#_authenticate_once"></a>Authenticate once</h2>
+<h2 id="_sign_in_once"><a class="anchor" href="#_sign_in_once"></a>Sign in once</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>In a Bash terminal, sign in through your browser and configure Git to reuse
-GitHub CLI authentication:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login --hostname github.com --git-protocol https --web
@@ -454,55 +449,71 @@ gh auth setup-git --hostname github.com</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_install_dotx"><a class="anchor" href="#_install_dotx"></a>Install dotx</h2>
+<h2 id="_install"><a class="anchor" href="#_install"></a>Install</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Download the installer directly from the private DOT-CLI repository using
-GitHub&#8217;s authenticated API:</p>
+<p>The installer prepares missing Go and CA certificates and installs <code>dotx</code> into
+<code>$HOME/.local/bin</code>. Run it as your normal user; sudo is used only for missing
+system packages.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>dotx run</code> is a new source-build feature, absent from release 0.5.0.
+Until a release includes it, this command selects <code>main</code> explicitly.
+The installer&#8217;s default remains <code>latest</code> for released installations.
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
-gh api --hostname github.com \
-  -H 'Accept: application/vnd.github.raw+json' \
-  'repos/MARE-EU-Project/DOT-CLI/contents/scripts/install.sh?ref=main' |
-  bash</code></pre>
+gh api repos/MARE-EU-Project/DOT-CLI/contents/scripts/install.sh \
+  -H 'Accept: application/vnd.github.raw+json' | CLI_VERSION=main bash
+export PATH="$HOME/.local/bin:$PATH"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_hello_world"><a class="anchor" href="#_run_hello_world"></a>Run Hello World</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx run hello-world</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Run this as your normal user. On Ubuntu 26.04, the installer prepares missing
-Go and CA certificates (and Git if needed), using sudo for missing system
-packages. It then installs the latest released <code>dotx</code> into <code>$HOME/.local/bin</code>
-and prints its version followed by <code>dotx installation complete.</code>
-The same Git credential helper supplies access to the private Go module;
-you do not need to copy a token into the command.</p>
-</div>
-<div class="paragraph">
-<p>For a reproducible installation, replace the final <code>bash</code> with
-<code>CLI_VERSION=v0.5.0 bash</code>. See <a href="../dot-cli/index.html#install-with-go" class="xref page">Install with Go</a>
-for version selection and matching DOT-Repository commits.</p>
-</div>
-<div class="paragraph">
-<p>The installer does not change your shell profile. Use the installed command
-by its full path, or enable it in the current terminal:</p>
+<p>Expect Docker&#8217;s <code>Hello from Docker!</code> greeting followed by:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH="$HOME/.local/bin:$PATH"
-dotx version</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DOT completed successfully. Container removed; setup is ready.</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>A private GitHub URL can return <code>404</code> when your signed-in account lacks access.
-Run <code>gh auth status --hostname github.com</code>, check repository membership and
-any organization SSO authorization, then retry. A failed download stops the
-pipeline because <code>pipefail</code> is enabled.</p>
+<p>The command uses the <code>Hello-World</code> DOT from DOT-Repository and its pinned official
+Docker image. This upstream has no numbered release, so its definition is
+<code>DOTs/external/Hello-World/dot.json</code>, without a version directory. Inside an existing catalogue checkout it uses that checkout;
+otherwise <code>gh</code> retrieves only the definition from GitHub, without cloning or
+caching the catalogue. The first run downloads the image if it is not already
+present. The container is removed automatically; no cleanup command is needed.</p>
 </div>
 <div class="paragraph">
-<p>Continue with <a href="first-composition.html" class="xref page">Run your first composition</a> to deploy
-Node Exporter and Prometheus, or <a href="getting-started.html" class="xref page">Run a single DOT</a>
-to start with one tool. Install the runtime tools listed in
-<a href="setup.html#requirements" class="xref page">Requirements</a> before following either walkthrough.</p>
+<p>If GitHub reports <code>404</code>, check <code>gh auth status</code> and repository access. If Docker
+reports permission denied or cannot connect, follow its official installation
+and post-installation instructions. A failed run returns nonzero and does not
+print the success message. If a local checkout lacks <code>Hello-World</code>, update it.</p>
+</div>
+<div class="paragraph">
+<p>Next: <a href="first-composition.html" class="xref page">Run your first composition</a> with Node Exporter
+and Prometheus. For manual installation and reproducible version pins, see
+<a href="../dot-cli/index.html#install-with-go" class="xref page">Install with Go</a>.</p>
 </div>
 </div>
 </div>

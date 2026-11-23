@@ -438,7 +438,7 @@ for Docker, Kubernetes, Helm, Vagrant or Wasmtime.</p>
 </div>
 <div class="paragraph">
 <p>Use <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a> to install the CLI and
-its Git and Go requirements with one command on Ubuntu.</p>
+run Hello World on Ubuntu using GitHub CLI authentication.</p>
 </div>
 </div>
 </div>
@@ -529,6 +529,28 @@ Install the local tools required by your selected runtime before deploying.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_run_a_first_dot"><a class="anchor" href="#_run_a_first_dot"></a>Run a first DOT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the current source build and Docker Engine ready:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx run hello-world</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command resolves the catalogue&#8217;s <code>Hello-World</code>, streams the greeting, and
+removes the container on exit. See <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>
+for GitHub authentication and installation. Release 0.5.0 does not include <code>run</code>.
+For other one-shot Docker-image DOTs, use a local catalogue or <code>--repository</code>;
+unversioned names select the highest release, and <code>name@version</code> selects an exact
+version. Multiple Docker-image deployments fail as ambiguous. Long-lived
+services continue to use <code>deploy</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_start_with_a_working_dot"><a class="anchor" href="#_start_with_a_working_dot"></a>Start with a working DOT</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -574,6 +596,10 @@ presenter pause for inspecting verified live results before cleanup.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Author a DOT; create a separate editing candidate in 0.4.0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx new</code>; <code>dotx edit</code> (both available in 0.4.0)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execute a Docker-image DOT to completion (source build)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx run</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Operate one selected DOT deployment</p></td>
