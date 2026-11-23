@@ -513,8 +513,9 @@ not packet direction. The graph reappears after successful live verification.</p
 IDs. Set <code>NO_COLOR=1</code> or <code>DOTX_TOPOLOGY_COLOR=never</code> for plain output; <code>always</code>
 forces colour when capturing a demonstration (<code>NO_COLOR</code> and <code>TERM=dumb</code> still
 disable it). Logs are plain by default. <code>DOTX_TOPOLOGY_WIDTH=80</code> controls width
-(40-240 columns). The renderer tries vertical/compact layouts for narrow screens
-and fails clearly if it cannot show every connection; it never silently clips.</p>
+(40-240 columns). The renderer tries vertical and compact layouts for narrow
+screens. If the diagram still will not fit, the terminal shows the complete
+Vertex and Channel tables. Use <code>--format mermaid</code> to export the full diagram.</p>
 </div>
 <div class="paragraph">
 <p>For all four Contract standards across Docker and Kubernetes, use
