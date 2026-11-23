@@ -1420,8 +1420,9 @@ does not promise an automatic repair or authorize a native deletion.</p>
   command finish; do not delete the lock while a lifecycle process is running.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status shows a configured edge but no active evidence</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Run <code>dotx compose probe scenario.yaml --edge &lt;edge&gt;</code>. If the edge is skipped,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status shows a configured Channel without active evidence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run <code>dotx compose probe scenario.yaml --locked --edge "$CHANNEL_NAME"</code> with the Channel&#8217;s name.
+  If the Channel is skipped,
   its operation requires a dedicated adapter or application-level acceptance
   test. Configuration evidence alone is not reachability evidence.</p></td>
 </tr>

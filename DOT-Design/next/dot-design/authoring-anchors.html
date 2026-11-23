@@ -976,7 +976,7 @@ contractless Anchor states <code>INGRESS</code>, <code>EGRESS</code>, or <code>B
 </div>
 <div class="paragraph">
 <p>When two DOTs implement the same published Contract, referencing the same
-Contract ID is required by ordinary Contract-backed Edge matching. Different
+Contract ID is required by ordinary Contract-backed Channel matching. Different
 Contract IDs are rejected even if names or document shapes look identical.
 Arbitrary structural substitutability across Contract identities is not an
 implemented matching mode. Supported provider-neutral requirements have their
@@ -991,10 +991,10 @@ own explicit rules; they are not a fallback for a rejected identity.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The exact <code>id</code>, not <code>name</code>, identifies an Anchor in a edge. New catalogue IDs use DOT-local kebab-case keys such as <code>search-api</code>.</p>
+<p>The Connector&#8217;s <code>anchorId</code> must match the Anchor&#8217;s <code>id</code>. New catalogue IDs use DOT-local kebab-case keys such as <code>search-api</code>.</p>
 </li>
 <li>
-<p>IDs are unique within their owning DOT. Composition references pair <code>vertex</code> with <code>anchorId</code>; different DOTs may use the same local key.</p>
+<p>IDs are unique within their owning DOT. The Edge&#8217;s Vertices scope its Channel&#8217;s Connector references, so different DOTs may use the same local key.</p>
 </li>
 <li>
 <p>A display-name rename or documentation correction preserves the ID. Do not derive an existing ID again from its current name.</p>

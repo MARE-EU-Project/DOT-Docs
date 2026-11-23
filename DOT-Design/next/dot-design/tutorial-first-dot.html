@@ -489,7 +489,7 @@ continue to deployment.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Just completed the quickstart?</strong> After its cleanup is verified, keep the same
-Bash terminal, checksummed CLI and pinned catalogue. Skip the installation
+Bash terminal, installed CLI and pinned catalogue. Skip the installation
 below and continue at <a href="#tutorial-workspace">Make a private learning workspace</a>.
 Do not download or clone the same files again.</p>
 </div>
@@ -522,8 +522,7 @@ Engine and its Compose plugin.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
   missing=()
-  for tool in bash git gh curl jq docker grep \
-    sha256sum install mktemp uname; do
+  for tool in bash git curl jq docker mktemp uname; do
     command -v "$tool" &gt;/dev/null || missing+=("$tool")
   done
   if (( ${#missing[@]} )); then
@@ -550,10 +549,7 @@ distribution, then repeat the failed check:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://git-scm.com/install/linux">Git</a></p>
-</li>
-<li>
-<p><a href="https://github.com/cli/cli#installation">GitHub CLI</a></p>
+<p><a href="setup.html#git" class="xref page">Git</a></p>
 </li>
 <li>
 <p><a href="https://jqlang.org/download/">jq</a></p>
@@ -562,16 +558,16 @@ distribution, then repeat the failed check:</p>
 <p><a href="https://curl.se/download.html">curl</a></p>
 </li>
 <li>
-<p><a href="https://docs.docker.com/engine/install/">Docker Engine</a></p>
+<p><a href="setup.html#docker-engine" class="xref page">Docker Engine</a></p>
 </li>
 <li>
-<p><a href="https://docs.docker.com/compose/install/linux/">Docker Compose plugin</a></p>
+<p><a href="setup.html#docker-compose" class="xref page">Docker Compose plugin</a></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Bash is available as a distribution package. Coreutils supplies <code>sha256sum</code>,
-<code>install</code>, <code>mktemp</code>, and <code>uname</code>. For Docker permission errors,
+<p>Bash is available as a distribution package. Coreutils supplies <code>mktemp</code> and
+<code>uname</code>. For Docker permission errors,
 ask the administrator for the intended access and rerun <code>docker info</code> as your
 normal user. If Engine responds and Compose fails, install the Compose plugin
 with the linked instructions and rerun the block.</p>
@@ -620,67 +616,66 @@ restriction: a tunnel does not change the deployment&#8217;s published interface
 </div>
 </div>
 <div class="sect1">
-<h2 id="_sign_in_and_check_repository_access"><a class="anchor" href="#_sign_in_and_check_repository_access"></a>Sign in and check repository access</h2>
+<h2 id="_check_git_access"><a class="anchor" href="#_check_git_access"></a>Check Git access</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You need access to the private <code>MARE-EU-Project/DOT-CLI</code> release assets and
-<code>MARE-EU-Project/DOT-Repository</code> catalogue. Signing in to GitHub does not grant
-that access: ask your MARE project contact if you have not been invited.
-You can read the published books without repository access.</p>
-</div>
-<div class="paragraph">
-<p>Git handles the catalogue checkout. The GitHub CLI (<code>gh</code>) signs in and downloads
-the private release assets. Sign in once, then enable Git to use that account.
-If <code>gh auth status</code> already confirms the intended account and HTTPS Git access
-works, keep that setup and skip the sign-in block:</p>
+<p>Use a Git credential helper or SSH configuration that can read both private
+MARE repositories. See <a href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/next/dot-cli/index.html#install-with-go">the Git credential
+setup for Go</a> for help. Check access from the same terminal:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login &amp;&amp;
-gh auth setup-git</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GIT_TERMINAL_PROMPT=0 git ls-remote \
+  https://github.com/MARE-EU-Project/DOT-CLI.git HEAD &amp;&amp;
+GIT_TERMINAL_PROMPT=0 git ls-remote \
+  https://github.com/MARE-EU-Project/DOT-Repository.git HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Check that the account can see both repositories:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo view MARE-EU-Project/DOT-CLI --json nameWithOwner &amp;&amp;
-gh repo view MARE-EU-Project/DOT-Repository --json nameWithOwner</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected: a JSON result naming each repository. If a command reports denied
-access or cannot find the repository, stop before downloading. Use
-<code>gh auth status</code> to check the active account, and ask your MARE project contact
-to resolve repository and release access if needed.</p>
+<p>Expect two lines ending in <code>HEAD</code>. If access fails, check your Git credentials
+and ask your MARE project contact to verify your repository access.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_install_the_released_cli"><a class="anchor" href="#_install_the_released_cli"></a>Install the released CLI</h2>
+<h2 id="_install_dotx_with_go"><a class="anchor" href="#_install_dotx_with_go"></a>Install dotx with Go</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run each block only after the previous block succeeds, in the same Bash
-terminal. From your fresh setup directory, download the binary and checksum file.
-For existing files, use <a href="#existing-setup">Existing or interrupted setup</a> instead of overwriting them.</p>
+<p>From your setup directory, install the CLI tag matched to the catalogue below.
+Use the Go toolchain described in <a href="setup.html#go" class="xref page">Setup</a>. <code>GOPRIVATE</code> applies
+to this command and tells Go to fetch the private MARE module directly. If
+<code>bin/dotx</code> already exists, use <a href="#existing-setup">Existing or interrupted setup</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p dot-quickstart-download &amp;&amp;
-cd dot-quickstart-download &amp;&amp;
-gh release download v0.4.1 --repo MARE-EU-Project/DOT-CLI \
-  --pattern dotx-0.4.1-linux-amd64 --pattern SHA256SUMS</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">test ! -e bin/dotx &amp;&amp;
+mkdir -p bin &amp;&amp;
+GOBIN="$PWD/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
+  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.4.1 &amp;&amp;
+export PATH="$PWD/bin:$PATH" &amp;&amp;
+dotx version &amp;&amp;
+printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Verify the downloaded bytes, then install the matching binary:</p>
+<p>Expected version: <code>dotx 0.4.1</code>. Keep the setup directory and
+the same shell through cleanup. Continue at <a href="#_check_out_the_catalogue">Clone DOT-Repository from GitHub</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_install_the_released_cli"><a class="anchor" href="#_install_the_released_cli"></a>Alternative: install the checksummed release binary</h3>
+<div class="paragraph">
+<p>If you prefer the prebuilt binary, open the
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.1">selected GitHub release</a>
+in your browser. Download <code>dotx-0.4.1-linux-amd64</code> and
+<code>SHA256SUMS</code> into a directory named <code>dot-quickstart-download</code> inside your setup
+directory. From your setup directory, verify the files and install the binary.
+Use <a href="#existing-setup">Existing or interrupted setup</a> if you already installed it there.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
-sha256sum dotx-0.4.1-linux-amd64 |
-  grep -Fx -f - SHA256SUMS &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd dot-quickstart-download &amp;&amp;
+(set -o pipefail; sha256sum dotx-0.4.1-linux-amd64 |
+  grep -Fx -f - SHA256SUMS) &amp;&amp;
 mkdir bin &amp;&amp;
 install -m 0755 dotx-0.4.1-linux-amd64 \
   "$PWD/bin/dotx" &amp;&amp;
@@ -691,18 +686,10 @@ cd ..</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The checksum must match the downloaded binary&#8217;s exact filename and bytes;
-installation is skipped if its entry is missing or wrong. Stop on any error.
-Expected version: <code>dotx 0.4.1</code>.
-This installation belongs to this setup directory. It leaves an existing <code>dotx</code>
-installation in place and changes <code>PATH</code> only in this terminal. Keep the printed
-bin path. The book&#8217;s saved session restores it in a new terminal; quickstart
-recovery must select that same directory explicitly. A normal new terminal
-keeps its usual command selection. After cleanup, close the tutorial terminal
-when you want to return to that selection; do not delete binaries needed for
-recovery.
-The <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.4.1">release</a>
-also provides an SBOM and build/acceptance revision manifest.</p>
+<p>The checksum must match the downloaded filename and bytes. Continue when
+<code>dotx version</code> reports <code>dotx 0.4.1</code>. Keep the printed bin path
+for recovery. The GitHub release also provides an SBOM and a build manifest.</p>
+</div>
 </div>
 </div>
 </div>
@@ -710,12 +697,12 @@ also provides an SBOM and build/acceptance revision manifest.</p>
 <h2 id="_check_out_the_catalogue"><a class="anchor" href="#_check_out_the_catalogue"></a>Clone DOT-Repository from GitHub</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Only the independently cloneable catalogue is needed. Pin the acceptance
-revision recorded in this CLI release&#8217;s manifest so it matches the binary:</p>
+<p>From your setup directory, clone the catalogue and select the acceptance
+revision recorded in the CLI release manifest:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo clone MARE-EU-Project/DOT-Repository &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
 cd DOT-Repository &amp;&amp;
 git checkout --detach 6613a995a7406012aed1bc7bde2f1feabc3db935</code></pre>
 </div>
@@ -724,20 +711,25 @@ git checkout --detach 6613a995a7406012aed1bc7bde2f1feabc3db935</code></pre>
 <summary class="title">Existing or interrupted setup</summary>
 <div class="content">
 <div class="paragraph">
-<p>If the download files or DOT-Repository directory already exist, stop: do not
-add --clobber or delete a checkout to make the next command succeed. Return to
-the directory that contains your original downloads and catalogue. If another
-run still owns resources, keep its original binary and finish its cleanup first.</p>
+<p>If a previous run still owns resources, finish cleanup with its original CLI,
+catalogue and Docker context before changing the setup. Keep existing files.
+To reuse a completed setup, return to its catalogue root with the original
+private <code>bin</code> selected on <code>PATH</code>. For a Go install, verify the installed module
+tag and catalogue revision:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go version -m "$(command -v dotx)" &amp;&amp;
+git rev-parse HEAD</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>For a completed setup, check the existing download against SHA256SUMS, verify
-that your selected dotx has those same bytes, and check the catalogue revision.
-Reuse it only when all checks pass. Otherwise keep those files and begin a
-separate setup in a fresh directory.</p>
+<p>The <code>mod</code> line should show <code>github.com/MARE-EU-Project/DOT-CLI</code> at
+<code>v0.4.1</code> and Git should report <code>6613a995a7406012aed1bc7bde2f1feabc3db935</code>.</p>
 </div>
 <div class="paragraph">
-<p>From the existing catalogue root, with the original private <code>bin</code> selected on
-<code>PATH</code>, run:</p>
+<p>For a checksummed release binary, compare the catalogue revision and the
+installed bytes against the original download:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -757,11 +749,8 @@ printf 'Matching CLI and catalogue verified.\n'
 </div>
 <div class="paragraph">
 <p>Expected: <code>Matching CLI and catalogue verified.</code> The sibling download path is
-this guide&#8217;s layout. For an older/custom layout, use its actual retained
-download location. Do not move a binary needed for recovery. An empty <code>bin</code>
-left by a failed install may be inspected and removed with <code>rmdir</code> before
-retrying; keep any nonempty directory and use the verification above or start
-in a new setup directory after previous cleanup is verified.</p>
+this guide&#8217;s layout. Use the actual retained download location if yours differs.
+If the checks fail, start in a fresh directory after verifying previous cleanup.</p>
 </div>
 </div>
 </details>
@@ -1099,7 +1088,7 @@ location. A recorded Docker ID must also match the current daemon. A fresh
 session without a recorded runtime target can resume declaration work only;
 its live blocks require the target-recording step first. A missing ID field is
 an incomplete older receipt, not permission to adopt the current daemon.
-If the binary or Docker check fails, stop and recover the original checksummed
+If the binary or Docker check fails, stop and recover the original
 CLI before managing existing resources. Passwords are never saved: for a running
 Grafana instance, repeat Lesson 4&#8217;s
 <a href="tutorial-dashboard.html#tutorial-grafana-password" class="xref page">password prompt</a> with the
@@ -1220,9 +1209,10 @@ cache and follow its lesson&#8217;s recovery instructions instead.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Release or clone returns 404/403</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>gh auth status</code> and organization repository access, including SSO
-authorization if required. Run <code>gh auth setup-git</code> for HTTPS cloning.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install or clone returns 404/403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeat the Git access checks. Verify the account, Git credentials and
+organization SSO authorization if required. Check browser access to the release
+if you chose the prebuilt binary.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CLI missing or wrong version</p></td>
@@ -1257,7 +1247,7 @@ the operator before lifecycle commands; do not adopt an arbitrary current daemon
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract download or digest check fails</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Check network/proxy access to the declared URL. Never bypass its digest.
 Private raw GitHub URLs require <code>MARE_READ_ONLY_TOKEN</code> or <code>GITHUB_TOKEN</code>;
-<code>gh</code> login alone does not supply those to <code>dotx</code>. Use <code>--offline</code> only with
+Git credentials do not supply those to <code>dotx</code>. Use <code>--offline</code> only with
 matching documents already in the verified local cache.</p></td>
 </tr>
 <tr>

@@ -481,8 +481,8 @@ selected interactions, roles and provider-neutral requirements.</p>
 versus mechanism, manifests, services, ports, configuration and requirements.</p>
 </li>
 <li>
-<p><a href="model-composition.html" class="xref page">Connecting the DOTs: Composition Model Reference</a>: exact instances,
-Edges, deployment inputs, materializers, Secret references and security.</p>
+<p><a href="model-composition.html" class="xref page">Connecting the DOTs: Composition Model Reference</a>:
+Vertices, Edges, Connectors, Channels, deployment inputs, materializers, Secret references and security.</p>
 </li>
 <li>
 <p><a href="model-probes.html" class="xref page">Probes and assertions</a>: bounded checks for supported
@@ -572,14 +572,16 @@ or explicitly declares a contractless boundary.</p>
 interfaces to named `ServicePort`s and declares its supported configuration.</p>
 </li>
 <li>
-<p>A <code>Composition</code> selects `Vertex`s and connects their Anchors with `Edge`s.</p>
+<p>A <code>Composition</code> selects DOTs through its Vertices. Each <code>Edge</code> connects two
+Vertices and contains one or more Channels. A <code>Channel</code> connects their Anchors
+through the Connectors declared on those Vertices.</p>
 </li>
 <li>
 <p><code>DeploymentInputs</code> and materializers supply reviewed instance-specific inputs;
 Secret references name secret sources without embedding their values.</p>
 </li>
 <li>
-<p>A <code>EdgeProbe</code> declares a bounded acceptance check where the CLI supports it.</p>
+<p>A Channel&#8217;s <code>EdgeProbe</code> declares a bounded acceptance check where the CLI supports it.</p>
 </li>
 </ol>
 </div>

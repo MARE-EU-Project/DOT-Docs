@@ -498,13 +498,12 @@ requests. Do not paste access tokens or Secret values into the presentation.</p>
 <div class="paragraph">
 <p>The topology is generated from the locked composition by <code>dotx compose topology</code>, using
 the MIT-licensed <code>mermaid-ascii</code> 1.6.1 Go library embedded in the binary.
-There is no Python renderer or separate executable to install. DOTs appear once, with connected
-Unicode boxes. Parallel edges share a connection labelled <code>W1,W2,&#8230;&#8203;</code>; the
-connection legend lists every edge, Contract standard and protocol separately.
-<code>T</code> links show broker transport endpoints, not extra Anchor edges or invented
-application publishers. Aligned tables show full instance names, platforms,
-deployments and versions, plus each connection&#8217;s provider, consumer, Contract
-standard, protocol and name. Long values wrap inside their columns without
+Each Vertex appears once in a Unicode box. An Edge joins two Vertices and can
+carry several Channels. Short labels such as <code>C1</code> and <code>C2</code> identify Channels
+in the diagram. The legend gives each Channel&#8217;s name and its authored Edge.
+<code>T</code> links identify broker transport endpoints. The tables list Vertex names,
+platforms, deployments and versions, plus each Channel&#8217;s provider, consumer,
+Contract standard and protocol. Long values wrap inside their columns without
 truncation, using the same width as the graph.
 Arrows mean logical PROVIDES-to-REQUIRES relationships,
 not packet direction. The graph reappears after successful live verification.</p>

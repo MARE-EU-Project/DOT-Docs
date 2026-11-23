@@ -461,59 +461,91 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run two tools together on Docker. The catalogue&#8217;s monitoring composition
-connects Node Exporter&#8217;s <code>node-metrics</code> Anchor to Prometheus&#8217;s <code>scrape-target</code>
-Anchor through the <code>node-metrics-to-prometheus</code> Edge. Prometheus runs the scrape.
-You verify it through the exposed <code>prometheus-query</code> Anchor.</p>
+<p>Run Node Exporter and Prometheus together on Docker. In the Next source graph,
+the <code>node-exporter-to-prometheus</code> Edge joins the two Vertices. Its
+<code>node-metrics-to-prometheus</code> Channel connects the <code>node-metrics</code> and
+<code>scrape-target</code> Anchors. Use the <code>prometheus-query</code> exposure for the
+<code>promql-query-api</code> Anchor to verify the scrape.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_before_you_start"><a class="anchor" href="#_before_you_start"></a>Before you start</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Use Bash, Git, <code>curl</code>, <code>ss</code> (from iproute2), and Docker Engine on Linux
-amd64. Run the commands on the Docker host. This graph uses Docker images.</p>
-</li>
-<li>
-<p>Reuse the installed release of <code>dotx</code> and the matching GitHub catalogue
-checkout from the <a href="getting-started.html" class="xref page">quickstart</a>. For a fresh setup,
-follow that guide through <a href="getting-started.html#_check_out_the_catalogue" class="xref page">cloning
-DOT-Repository from GitHub</a>. You can start here once setup succeeds.</p>
-</li>
-<li>
-<p>Use an isolated development Docker host. Released <code>dotx</code> 0.4.1 leaves the
-host bind address to Docker, and this example&#8217;s HTTP API has no authentication.
-Run one copy at a time and allow for initial image and document downloads.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use Bash, Git, Go, <code>curl</code>, <code>ss</code> (from iproute2), and Docker Engine on Ubuntu
+26.04 amd64. Run these commands on the Docker host. See
+<a href="setup.html#prerequisites" class="xref page">Setup</a> for Git and Go. Use a Git credential helper
+or SSH configuration with read access to both private MARE repositories.
+The first run can download images and Contract documents.</p>
+</div>
+<div class="paragraph">
+<p>Use Docker Engine 28 or later. The graph uses Docker images and needs no
+Compose plugin.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_check_your_installation"><a class="anchor" href="#_check_your_installation"></a>Check your installation</h2>
+<h2 id="_install_the_cli_and_check_out_the_catalogue"><a class="anchor" href="#_install_the_cli_and_check_out_the_catalogue"></a>Install the CLI and check out the catalogue</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run these commands from the standalone <code>DOT-Repository</code> checkout root.
-Keep this shell and Docker context through cleanup.</p>
+<p>Choose one matched pair and set its variables. The Next source pair uses the
+Vertex, Edge and Channel model and publishes Prometheus on IPv4 loopback.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_REF=9a9a54dc7d88f887d709847ab1e9d8045161371d
+CATALOGUE_REF=74594b9c50e8eab4bc88fa2a061f380315e8294e</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are following the 0.4.1 release, use its matching
+catalogue and an isolated Docker host. That CLI leaves the bind address to
+Docker, and the example&#8217;s HTTP API has no authentication.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_REF=v0.4.1
+CATALOGUE_REF=6613a995a7406012aed1bc7bde2f1feabc3db935</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the following from the directory where you want the new
+<code>DOT-Repository</code> checkout. If installation or cloning fails, check your
+Git credentials and access to both repositories, then repeat the failed command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p "$HOME/.local/bin" &amp;&amp;
+GOBIN="$HOME/.local/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
+  go install "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@$CLI_REF" &amp;&amp;
+export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
+git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
+cd DOT-Repository &amp;&amp;
+git checkout --detach "$CATALOGUE_REF" &amp;&amp;
+dotx version &amp;&amp;
 git rev-parse HEAD &amp;&amp;
 dotx tool check docker</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Check the CLI version and catalogue revision against the quickstart&#8217;s selected
-release and pin. Continue when Docker reports ready.</p>
+<p>If you already installed the pinned CLI or cloned its catalogue, reuse that
+setup and start at the checkout and tool checks instead of cloning again.
+For the Next source pair, the CLI version ends with the first 12 characters
+of <code>CLI_REF</code>. For the release pair, it shows the release version.
+Continue from the catalogue root when the catalogue revision matches
+<code>CATALOGUE_REF</code> and Docker reports ready. Keep the same shell and Docker context
+through cleanup. Use the existing <a href="getting-started.html" class="xref page">single-DOT quickstart</a>
+if you want to run one tool first.</p>
+</div>
+<div class="paragraph">
+<p>If validation reports missing <code>vertices</code> or <code>channels</code>, or a different lock,
+check that the installed CLI and catalogue revisions come from the same pair.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_validate_see_the_edge_and_preview"><a class="anchor" href="#_validate_see_the_edge_and_preview"></a>Validate, see the Edge, and preview</h2>
+<h2 id="_validate_view_the_topology_and_preview"><a class="anchor" href="#_validate_view_the_topology_and_preview"></a>Validate, view the topology, and preview</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -527,7 +559,7 @@ dotx compose apply "$GRAPH" --locked --dry-run \
 </div>
 </div>
 <div class="paragraph">
-<p>Expect two Docker image deployments and the <code>node-metrics-to-prometheus</code> Edge.
+<p>Expect two Docker image deployments and the <code>node-metrics-to-prometheus</code> connection.
 With released <code>dotx</code> 0.4.1 and the default port, the preview shows
 <code>-p 19040:9090</code> for Prometheus. A matching source build with loopback forwarding
 shows <code>-p 127.0.0.1:19040:9090</code> instead. The preview creates no workloads and
@@ -580,21 +612,47 @@ development host.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>After apply succeeds, ask Prometheus whether it can scrape Node Exporter.</p>
+<p>After apply succeeds, paste this block. It waits up to 90 seconds for a
+successful scrape and prints the matching Prometheus response.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -fsSG --max-time 5 \
-  "http://127.0.0.1:$PORT/api/v1/query" \
-  --data-urlencode 'query=up{job="node-exporter"}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+  deadline=$((SECONDS + 90))
+  sample='"value"[[:space:]]*:[[:space:]]*\[[0-9.]+[[:space:]]*,[[:space:]]*"1"[[:space:]]*\]'
+  while (( (remaining = deadline - SECONDS) &gt; 0 )); do
+    timeout=$((remaining &lt; 3 ? remaining : 3))
+    if reply=$(curl -fsSG --max-time "$timeout" \
+      "http://127.0.0.1:$PORT/api/v1/query" \
+      --data-urlencode 'query=up{job="node-exporter"} == 1' 2&gt;/dev/null) &amp;&amp;
+      [[ $reply =~ $sample ]]; then
+      printf '%s\n' "$reply"
+      exit 0
+    fi
+    (( SECONDS + 2 &lt; deadline )) || break
+    sleep 2
+  done
+  printf '%s\n' 'No successful scrape yet. Run status, then clean up.' &gt;&amp;2
+  exit 1
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expect <code>"status":"success"</code> and a sample whose <code>job</code> is <code>node-exporter</code>
-and whose value is <code>"1"</code>. An empty result or a connection error immediately
-after apply can mean Prometheus is still starting or waiting for the first
-scrape. Retry the query for up to 90 seconds. If it still fails, inspect status
-and then clean up. This example observes the Node Exporter container.</p>
+<p>Expect a sample for <code>node-exporter</code> with value <code>"1"</code>. Before the first scrape,
+Prometheus can return an empty result. If the check times out, inspect status
+and clean up. This example observes the Node Exporter container.</p>
+</div>
+<div class="paragraph">
+<p>If Prometheus exits with a permissions error on <code>/etc/prometheus/prometheus.yml</code>,
+check the catalogue file. A checkout created with <code>umask 077</code> can leave it at
+mode <code>0600</code>, unreadable by the container. After cleanup, set this public fixture
+to mode <code>0644</code> from the catalogue root, then apply again:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chmod 0644 \
+  Compositions/node-exporter-prometheus-monitoring/runtime/prometheus.yml</code></pre>
+</div>
 </div>
 </div>
 </div>

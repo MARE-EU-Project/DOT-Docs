@@ -552,7 +552,8 @@ saved state is not migrated or adopted.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Composition graph</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A Vertex declares its Connectors. An Edge names its source and target Vertices.
-Each Channel selects one Connector on each Vertex and carries its own settings.</p></td>
+Each Channel selects one Connector on each Vertex and carries its own settings.
+The current reader accepts the Vertex, Edge and Channel shape only.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">For each old connection, copy its Anchor IDs into the corresponding Vertices'
 <code>connectors</code> lists and move its name and settings into a Channel under the Edge
 for that ordered pair. Set each exposure&#8217;s <code>vertex</code> and <code>connector</code> directly.
