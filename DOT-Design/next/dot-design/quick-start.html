@@ -499,7 +499,7 @@ export PATH="$HOME/.local/bin:$PATH"</code></pre>
 <div class="paragraph">
 <p>The command uses the <code>Hello-World</code> DOT from DOT-Repository and its pinned official
 Docker image. This upstream has no numbered release, so its definition is
-<code>DOTs/external/Hello-World/dot.json</code>, without a version directory. Inside an existing catalogue checkout it uses that checkout;
+<code>DOTs/external/Hello-World/dot.json</code>, without a version directory. It uses an existing catalogue checkout when it contains Hello World;
 otherwise <code>gh</code> retrieves only the definition from GitHub, without cloning or
 caching the catalogue. The first run downloads the image if it is not already
 present. The container is removed automatically; no cleanup command is needed.</p>
@@ -508,7 +508,8 @@ present. The container is removed automatically; no cleanup command is needed.</
 <p>If GitHub reports <code>404</code>, check <code>gh auth status</code> and repository access. If Docker
 reports permission denied or cannot connect, follow its official installation
 and post-installation instructions. A failed run returns nonzero and does not
-print the success message. If a local checkout lacks <code>Hello-World</code>, update it.</p>
+print the success message. An explicitly selected <code>--repository</code> is authoritative:
+if it lacks the DOT, update that checkout. Dry runs never fetch from GitHub.</p>
 </div>
 <div class="paragraph">
 <p>Next: <a href="first-composition.html" class="xref page">Run your first composition</a> with Node Exporter
