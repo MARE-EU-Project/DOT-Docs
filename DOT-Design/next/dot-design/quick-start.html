@@ -6,7 +6,7 @@
     <title>Quick Start :: MARE DOT-Design</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="setup.html">
-    <meta name="description" content="Install dotx and its build requirements on Ubuntu with one command.">
+    <meta name="description" content="Authenticate with GitHub and install dotx from its private repository.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -426,26 +426,85 @@
 </aside>
 <article class="doc">
 <h1 class="page">Quick Start</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>On Ubuntu 26.04 LTS with <code>curl</code> available, run this command as your normal user. Have Git credentials
-with read access to the private DOT-CLI repository ready. The installer uses
-sudo if it needs to install missing system packages.</p>
+<p>On Ubuntu 26.04 LTS, install <a href="https://cli.github.com/">GitHub CLI (<code>gh</code>)</a>
+using its <a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md">official Linux installation instructions</a>.
+Git must also be installed before configuring the credential helper; see
+<a href="setup.html#requirements" class="xref page">Requirements</a>.
+Your GitHub account needs read access to the private DOT-CLI and DOT-Repository
+repositories.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authenticate_once"><a class="anchor" href="#_authenticate_once"></a>Authenticate once</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a Bash terminal, sign in through your browser and configure Git to reuse
+GitHub CLI authentication:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -fsSL https://mare-eu-project.github.io/DOT-Docs/DOT-Design/next/dot-cli/_attachments/install.sh |
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh auth login --hostname github.com --git-protocol https --web
+gh auth setup-git --hostname github.com</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_dotx"><a class="anchor" href="#_install_dotx"></a>Install dotx</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Download the installer directly from the private DOT-CLI repository using
+GitHub&#8217;s authenticated API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
+gh api --hostname github.com \
+  -H 'Accept: application/vnd.github.raw+json' \
+  'repos/MARE-EU-Project/DOT-CLI/contents/scripts/install.sh?ref=main' |
   bash</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The installer prepares Git, Go and CA certificates, installs the latest released <code>dotx</code> into
-<code>$HOME/.local/bin</code>, and prints the installed version when it succeeds.</p>
+<p>Run this as your normal user. On Ubuntu 26.04, the installer prepares missing
+Go and CA certificates (and Git if needed), using sudo for missing system
+packages. It then installs the latest released <code>dotx</code> into <code>$HOME/.local/bin</code>
+and prints its version followed by <code>dotx installation complete.</code>
+The same Git credential helper supplies access to the private Go module;
+you do not need to copy a token into the command.</p>
+</div>
+<div class="paragraph">
+<p>For a reproducible installation, replace the final <code>bash</code> with
+<code>CLI_VERSION=v0.5.0 bash</code>. See <a href="../dot-cli/index.html#install-with-go" class="xref page">Install with Go</a>
+for version selection and matching DOT-Repository commits.</p>
+</div>
+<div class="paragraph">
+<p>The installer does not change your shell profile. Use the installed command
+by its full path, or enable it in the current terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH="$HOME/.local/bin:$PATH"
+dotx version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A private GitHub URL can return <code>404</code> when your signed-in account lacks access.
+Run <code>gh auth status --hostname github.com</code>, check repository membership and
+any organization SSO authorization, then retry. A failed download stops the
+pipeline because <code>pipefail</code> is enabled.</p>
 </div>
 <div class="paragraph">
 <p>Continue with <a href="first-composition.html" class="xref page">Run your first composition</a> to deploy
 Node Exporter and Prometheus, or <a href="getting-started.html" class="xref page">Run a single DOT</a>
-to start with one tool. The <a href="setup.html#requirements" class="xref page">Requirements</a> table
-links to the runtime tools each walkthrough uses.</p>
+to start with one tool. Install the runtime tools listed in
+<a href="setup.html#requirements" class="xref page">Requirements</a> before following either walkthrough.</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Overview</a></span>
