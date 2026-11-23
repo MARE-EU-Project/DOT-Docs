@@ -34,7 +34,7 @@ jq -e '.contracts[] | select(.name == "Admin") |
     dotx compose validate DOT-Testing/composition/poc7-trust-scoring/rejected-collector-scoring.yaml \
       > "$scratch/rejection.txt" 2>&1 || rejected=$?
     if [[ "$rejected" != 1 ]] || ! grep -Fq \
-      'edge "scoring-api-to-collector": cannot compose a contract-backed anchor with a contractless anchor' \
+      'channel "scoring-api-to-collector" on edge "trust-scoring-engine-to-netflow-collector": cannot compose a contract-backed anchor with a contractless anchor' \
       "$scratch/rejection.txt"; then
       echo "FAIL: expected the specific interface-compatibility rejection, got exit=$rejected." >&2
       echo 'Rerun dotx compose validate on the rejected fixture to inspect the diagnostic.' >&2
