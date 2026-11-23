@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOT-Design overview :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/index.html">
-    <link rel="next" href="setup.html">
+    <link rel="next" href="quick-start.html">
     <meta name="description" content="Choose a learning path, run your first DOT, or find the right project reference.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
@@ -68,53 +68,17 @@
     <a class="nav-link" href="index.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="quick-start.html">Quick Start</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup.html#git">Git</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#git-ubuntu">Ubuntu 26.04 LTS</a>
-  </li>
-</ul>
+    <a class="nav-link" href="setup.html#requirements">Requirements</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup.html#go">Go</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#go-ubuntu">Ubuntu 26.04 LTS</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="setup.html#install-dotx">dotx</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#dotx-ubuntu">Ubuntu 26.04 LTS</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup.html#docker-engine">Docker Engine</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#docker-engine-ubuntu">Ubuntu 26.04 LTS</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup.html#docker-compose">Docker Compose</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#docker-compose-ubuntu">Ubuntu 26.04 LTS</a>
-  </li>
-</ul>
   </li>
 </ul>
   </li>
@@ -182,7 +146,7 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Quick start: run one DOT</a>
+    <a class="nav-link" href="getting-started.html">Run a single DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="first-composition.html">Run your first composition</a>
@@ -201,19 +165,19 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="anchors-and-composition.html">Connecting the DOTs</a>
+    <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="authoring-anchors.html">Authoring Anchors</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition-documents.html">Composition Documents and Instances</a>
+    <a class="nav-link" href="composition-documents.html">Composition declarations</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="wiring-and-security.html">Wiring, Materialization and Security</a>
+    <a class="nav-link" href="wiring-and-security.html">Channels, configuration and security</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="composition-lifecycle.html">Lifecycle and Design Guidance</a>
+    <a class="nav-link" href="composition-lifecycle.html">Lifecycle and recovery</a>
   </li>
 </ul>
   </li>
@@ -243,10 +207,10 @@
     <a class="nav-link" href="developer-demo.html">Developer demo: reuse and extend</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mare-poc-compositions.html">Connecting the DOTs: MARE PoCs</a>
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC walkthroughs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="live-multi-runtime-demo.html">Connecting the DOTs: Four Contracts</a>
+    <a class="nav-link" href="live-multi-runtime-demo.html">Mixed-runtime Contract demo</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="upgrade-demo.html">Stateless upgrades and recovery</a>
@@ -338,13 +302,13 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT and its interfaces</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-cli/composition-authoring.html">Connecting the DOTs: Authoring</a>
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="external-dot-examples.html">Deployments and examples</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="anchors-and-composition.html">Connecting the DOTs: Reference</a>
+    <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="guided-demo.html">Topology and guided demo</a>
@@ -371,10 +335,10 @@
     <a class="nav-link" href="../dot-cli/authoring.html">Create or improve a DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../dot-cli/composition-authoring.html">Connecting the DOTs: Authoring</a>
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="mare-poc-compositions.html">Connecting the DOTs: Walkthroughs</a>
+    <a class="nav-link" href="mare-poc-compositions.html">MARE PoC walkthroughs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="production-readiness.html">Interface coverage and readiness</a>
@@ -503,10 +467,6 @@ runtime choices, and compositions relate.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Start with <a href="dots-for-dummies.html" class="xref page">DOTs for Dummies</a> for the concepts, or
-continue to <a href="getting-started.html" class="xref page">the quick start</a> to run a DOT.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -528,6 +488,10 @@ continue to <a href="getting-started.html" class="xref page">the quick start</a>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install the CLI and its requirements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="quick-start.html" class="xref page">Quick Start</a> installs Git, Go and the CLI with one command.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Install <code>dotx</code> on Ubuntu 26.04 LTS</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="setup.html" class="xref page">Setup</a> covers Git and Go prerequisites and the GitHub install.</p></td>
 </tr>
@@ -539,7 +503,7 @@ continue to <a href="getting-started.html" class="xref page">the quick start</a>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Run your first tool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="getting-started.html" class="xref page">Quick start: run one DOT</a>: install the pinned CLI with
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="getting-started.html" class="xref page">Run a single DOT</a>: install the pinned CLI with
   Git and Go, clone its matching catalogue, run Prometheus, verify its API and clean up.</p></td>
 </tr>
 <tr>
@@ -564,46 +528,21 @@ continue to <a href="getting-started.html" class="xref page">the quick start</a>
 </tr>
 </tbody>
 </table>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>DOTs in Action Lessons 1–2 are runnable on the selected release. Lessons 3–4
-remain previews until the
-<a href="dots-in-action.html#composition-completion-gate" class="xref page">released cleanup-audit gate</a>
-closes. Use the installation, safety and cleanup instructions for the route you
-choose; do not switch binaries during a run.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>Use each route&#8217;s matching CLI and catalogue. The practical book documents
+its <a href="dots-in-action.html#composition-completion-gate" class="xref page">released route and cleanup
+requirements</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_model_in_one_minute"><a class="anchor" href="#_the_model_in_one_minute"></a>How the pieces fit together</h2>
+<h2 id="_follow_one_api_call"><a class="anchor" href="#_follow_one_api_call"></a>Explore the concepts</h2>
 <div class="sectionbody">
-<div id="_supported_contract_standards" class="paragraph">
-<p>Keep a reusable tool definition in <code>dot.json</code>; put a use case&#8217;s selected tools,
-connections and configuration in <code>composition.yaml</code>. The
-<a href="dots-for-dummies.html#_how_the_pieces_fit_together" class="xref page">concepts chapter</a>
-explains Skills, Contracts, Anchors, Runtimes, Deployments and Services together.</p>
-</div>
-<div id="_from_one_dot_to_a_working_composition" class="paragraph">
-<p>Use <a href="../dot-cli/composition-authoring.html" class="xref page">composition authoring</a> to connect
-existing tools without copying their definitions.</p>
-</div>
-<div id="_follow_one_api_call" class="paragraph">
-<p>Trace a Contract operation through its Anchor and service binding in
-<a href="dots-for-dummies.html#_describe_an_interface_contract_payload_and_anchor" class="xref page">the
-concepts chapter</a>. For larger examples, use the
-<a href="mare-poc-compositions.html" class="xref page">MARE PoC walkthroughs</a>. See
-<a href="architecture.html" class="xref page">Architecture</a> for ownership and resolution decisions,
-and the model reference below for exact fields.</p>
+<div class="paragraph">
+<p>The <a href="dots-for-dummies.html#_how_the_pieces_fit_together" class="xref page">concepts chapter</a>
+explains Skills, Contracts, Anchors, Runtimes, Deployments and Services.
+Use the <a href="../dot-domain/model-reference.html" class="xref page">model reference</a> for exact fields
+and <a href="architecture.html" class="xref page">Architecture</a> for ownership and resolution decisions.</p>
 </div>
 </div>
 </div>
@@ -636,7 +575,7 @@ and the model reference below for exact fields.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="anchors-and-composition.html" class="xref page">Connecting the DOTs</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">How do I select interfaces, bind services, edge instances and operate the graph?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How do I select interfaces, configure Channels and operate the graph?</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="verification-and-examples.html" class="xref page">Verification and examples</a></p></td>
@@ -699,7 +638,7 @@ use the selected route&#8217;s instructions to verify the required documents fir
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="setup.html">Setup</a></span>
+  <span class="next"><a href="quick-start.html">Quick Start</a></span>
 </nav>
 </article>
   </div>
