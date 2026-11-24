@@ -352,7 +352,9 @@
 <p><strong>Find a tool, choose its deployment and connect it to others.</strong> DOT-Repository
 is the version-controlled catalogue used by <code>dotx</code>. It holds reusable DOT
 definitions, capability references, generated schemas and reviewed compositions.
-It can be cloned independently of the DOT-Design development workspace.</p>
+The current source CLI acquires and caches it automatically. Running catalogue
+DOTs or named compositions needs no user-managed checkout. Clone it only when
+you want to edit or contribute catalogue definitions.</p>
 </div>
 <div class="paragraph">
 <p>New to DOT-Design? Complete <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>, then
@@ -367,20 +369,20 @@ For manual version selection and repository access, see
 <h2 id="_find_and_inspect_a_dot"><a class="anchor" href="#_find_and_inspect_a_dot"></a>Find and inspect a DOT</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use one matching CLI/catalogue revision set. Released walkthroughs use the
-catalogue recorded in the CLI release manifest. For current-source work, use
-one DOT-Design checkout&#8217;s pinned CLI and catalogue; a version label alone does
-not identify later changes. See
-<a href="../dot-design/adopting-dot.html" class="xref page">compatibility and access guidance</a>.</p>
+<p>Use the current-source CLI installed by Quick Start for automatic catalogue
+access. Released walkthroughs retain their release-manifest catalogue pins;
+release 0.5.0 does not include managed named compositions. For exact source
+selection, set <code>REPOSITORY_VERSION</code> to a compatible commit before the first
+catalogue command. See <a href="../dot-design/adopting-dot.html" class="xref page">compatibility guidance</a>.</p>
 </div>
 <div class="paragraph">
-<p>With that CLI installed, run from the <strong>DOT-Repository checkout root</strong>:</p>
+<p>Browse from any working directory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository list --repository .
-dotx repository inspect Prometheus@3.15.1 --repository .
-dotx repository resolve Prometheus@3.15.1 --repository .</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository list
+dotx repository inspect Prometheus@3.15.1
+dotx repository resolve Prometheus@3.15.1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -464,10 +466,11 @@ See <a href="../dot-design/catalogue-versioning.html" class="xref page">products
 </div>
 </div>
 <div class="sect1">
-<h2 id="_validate_declarations"><a class="anchor" href="#_validate_declarations"></a>Validate declarations</h2>
+<h2 id="_validate_declarations_as_a_catalogue_author"><a class="anchor" href="#_validate_declarations_as_a_catalogue_author"></a>Validate declarations as a catalogue author</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From the same <strong>DOT-Repository checkout root</strong>:</p>
+<p>Cloning remains useful when editing or reviewing catalogue changes. From your
+caller-owned <strong>DOT-Repository checkout root</strong>:</p>
 </div>
 <div class="listingblock">
 <div class="content">

@@ -366,104 +366,45 @@ version-matched catalogue and a real, two-tool deployment to that setup.
 You can reuse an existing matching installation.</p>
 </div>
 <div class="paragraph">
-<p>Use Bash, Git, Go, <code>curl</code>, <code>ss</code> (from iproute2), and Docker Engine on Ubuntu
-26.04 amd64. Run these commands on the Docker host. See
-<a href="setup.html#requirements" class="xref page">Setup</a> for Git and Go. Use a Git credential helper
-or SSH configuration with read access to both private MARE repositories.
-The first run can download images and Contract documents.</p>
+<p>Use Bash, <code>curl</code>, <code>ss</code> (from iproute2), GitHub CLI (<code>gh</code>), and Docker Engine
+28 or later on Ubuntu 26.04 amd64. Run the commands on the Docker host, with
+Docker accessible to your normal user. The graph uses Docker images and needs
+no Compose plugin. See <a href="setup.html#requirements" class="xref page">Requirements</a>.</p>
 </div>
 <div class="paragraph">
-<p>Use Docker Engine 28 or later. The graph uses Docker images and needs no
-Compose plugin.</p>
+<p>Keep the current-source CLI installed by Quick Start. Named catalogue
+compositions are an unreleased source feature, absent from release 0.5.0.
+For manual installation, use <a href="../dot-cli/installation.html#install-with-go" class="xref page">Install with Go</a>.
+The <a href="getting-started.html" class="xref page">single-DOT quickstart</a> remains available separately.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prepare_the_catalogue"><a class="anchor" href="#_prepare_the_catalogue"></a>Prepare the catalogue</h2>
+<h2 id="_check_your_setup"><a class="anchor" href="#_check_your_setup"></a>Check your setup</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Keep the source <code>dotx</code> installed by Quick Start: the Connector format on <code>main</code>
-requires the matching source CLI. A published release requires its matching
-catalogue pair below. In a fresh working directory, clone
-the catalogue and enter it:</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
-cd DOT-Repository &amp;&amp;
-git checkout --detach "${REPOSITORY_VERSION:-origin/main}" &amp;&amp;
-dotx version &amp;&amp;
-git rev-parse HEAD &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version
 dotx tool check docker</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Already have a checkout? Enter its root and run the last three checks instead
-of cloning again. Keep the same Bash terminal and Docker context through cleanup.
-Record the printed CLI version and catalogue commit. If repository access fails,
-check your Git credentials before continuing. The full composition uses the
-checkout; Hello World&#8217;s single-definition download did not create one.</p>
+<p>No catalogue clone or working directory is required. <code>dotx</code> uses your <code>gh</code>
+authentication to retrieve a private, verified snapshot of DOT-Repository.
+The first catalogue command prints its exact revision and caches the selected
+composition, DOT definitions, reviewed lock and non-secret configuration files.
+If access fails, check <code>gh auth status</code> and read access to DOT-Repository.
+Your repository credentials stay with GitHub CLI.</p>
 </div>
 <div class="paragraph">
-<p>For an exact, reproducible version pair, or a fresh installation without Quick
-Start, expand the instructions below. The normal route above uses catalogue
-<code>main</code>; a released CLI can lag behind it.</p>
+<p>The selection stays pinned through preview, deployment, probes and cleanup.
+Changes to <code>main</code> do not change a recorded selection. An optional
+<code>REPOSITORY_VERSION</code> selects a catalogue revision before the first command;
+use an exact commit for a reproducible trial. An active deployment cannot be
+redirected to another revision. After verified destroy, a later run can select
+the current catalogue again. Existing local-file commands and explicit
+<code>--repository</code> selections remain available for authors.</p>
 </div>
-<details>
-<summary class="title">Pinned versions and fresh installation</summary>
-<div class="content">
-<div class="paragraph">
-<p>For a reproducible setup, choose one matched pair below before installing or
-cloning. The source pair uses the Vertex, Edge and Channel model and publishes
-Prometheus on IPv4 loopback.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=90c1cfe2fdebffe3ea820b82810c13e67ad8a60c
-REPOSITORY_VERSION=d572d56a79650c702df639ed9add0bf095ea0734</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For the published 0.5.0 CLI, use its release-manifest pair:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=v0.5.0
-REPOSITORY_VERSION=7a196ddb7dd4f7e18d720f00818a1367d2401bdb</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Install your selected <code>CLI_VERSION</code> using
-<a href="../dot-cli/installation.html#install-with-go" class="xref page">Manual installation</a>. Keep the
-same terminal so both variables remain set, then use the catalogue setup above.
-That setup uses <code>REPOSITORY_VERSION</code> when supplied and <code>main</code> otherwise.
-The manual install defaults to <code>latest</code> when <code>CLI_VERSION</code> is unset.</p>
-</div>
-<div class="paragraph">
-<p>For an existing checkout, preserve local edits and run the following from its
-root after installing the matching CLI:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git fetch origin &amp;&amp;
-git checkout --detach "${REPOSITORY_VERSION:?select a matched pair}" &amp;&amp;
-dotx version &amp;&amp;
-git rev-parse HEAD &amp;&amp;
-dotx tool check docker</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>A source build&#8217;s version ends with the first 12 characters of <code>CLI_VERSION</code>;
-a released build reports its release version. Check the printed catalogue
-revision against <code>REPOSITORY_VERSION</code>. A schema or lock mismatch means the pair
-needs checking before you continue.</p>
-</div>
-<div class="paragraph">
-<p>For a single-service alternative, use the
-<a href="getting-started.html" class="xref page">single-DOT quickstart</a>.</p>
-</div>
-</div>
-</details>
 </div>
 </div>
 <div class="sect1">
@@ -471,7 +412,7 @@ needs checking before you continue.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GRAPH=Compositions/node-exporter-prometheus-monitoring/composition.yaml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GRAPH=node-exporter-prometheus-monitoring
 PORT="${PORT:-19040}"
 
 dotx compose validate "$GRAPH" --locked &amp;&amp;
@@ -564,16 +505,9 @@ Prometheus can return an empty result. If the check times out, inspect status
 and clean up. This example observes the Node Exporter container.</p>
 </div>
 <div class="paragraph">
-<p>If Prometheus exits with a permissions error on <code>/etc/prometheus/prometheus.yml</code>,
-check the catalogue file. A checkout created with <code>umask 077</code> can leave it at
-mode <code>0600</code>, unreadable by the container. After cleanup, set this public fixture
-to mode <code>0644</code> from the catalogue root, then apply again:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chmod 0644 \
-  Compositions/node-exporter-prometheus-monitoring/runtime/prometheus.yml</code></pre>
-</div>
+<p>The managed cache preserves the readability of published, non-secret input
+files even when your shell uses <code>umask 077</code>; no manual cache-file edits are
+needed. Cache contents and runtime state stay private to your user.</p>
 </div>
 </div>
 </div>
