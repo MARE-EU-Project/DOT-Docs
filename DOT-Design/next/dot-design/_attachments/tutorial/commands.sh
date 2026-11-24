@@ -388,7 +388,7 @@ datasources: []
 YAML
 chmod 0644 "$LAB/grafana-prometheus.yml" "$LAB/grafana-empty.yml"
 
-dotx compose new --from "$LAB/composition.yaml" \
+dotx compose new --from "$MONITORING_TEMPLATE" \
   --repository "$DOT_REPOSITORY" --name hero-dashboard \
   --output "$LAB/dashboard.yaml" --yes
 )

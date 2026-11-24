@@ -351,7 +351,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Your reviewed two-tool draft describes Node Exporter and Prometheus. Extend
-that draft with Grafana, adding one Vertex, one Edge and explicit browser forwarding.
+the catalogue version of that graph with Grafana, adding one Vertex, one Edge and explicit browser forwarding.
 Review its declaration and lock, then start it and verify the full chain.</p>
 </div>
 <div class="paragraph">
@@ -407,7 +407,7 @@ datasources: []
 YAML
 chmod 0644 "$LAB/grafana-prometheus.yml" "$LAB/grafana-empty.yml"
 
-dotx compose new --from "$LAB/composition.yaml" \
+dotx compose new --from "$MONITORING_TEMPLATE" \
   --repository "$DOT_REPOSITORY" --name hero-dashboard \
   --output "$LAB/dashboard.yaml" --yes
 )</code></pre>
@@ -415,7 +415,10 @@ dotx compose new --from "$LAB/composition.yaml" \
 </div>
 <div class="paragraph">
 <p>Expected: the Grafana candidate validates and <code>dashboard.yaml</code> retains the
-earlier monitoring graph with a fresh UUID. The catalogue remains unchanged.
+catalogue monitoring graph with a fresh UUID. Grafana’s required Prometheus
+Connector refers to the catalogue Prometheus Contract owner, so this graph
+uses that same Prometheus definition. The Lesson 3 authoring draft stays
+separate. The catalogue remains unchanged.
 The copied product already carries its official pinned OpenAPI declaration,
 required Prometheus Connector, provided dashboard Connector and service bindings.
 You extended its <strong>configuration surface</strong>, not its API identity.</p>
@@ -545,7 +548,7 @@ printf '%s\n' \
 <div class="paragraph">
 <p>Expected: <strong>three DOTs, two Edges</strong>. Open <code>$LAB/dashboard.lock.json</code> and use
 <a href="tutorial-composition.html#tutorial-lock-review" class="xref page">Lesson 3&#8217;s lock-field checklist</a>.
-Keep the local Prometheus and catalogue Node Exporter selections. The additional
+Keep the catalogue Prometheus and Node Exporter selections. The additional
 <code>vertices[]</code> entry must have <code>instance: "grafana"</code>, <code>source: "./grafana"</code>,
 <code>dotId: "Grafana@13.3.0"</code>, <code>deploymentId: "docker"</code> and a definition <code>digest</code>.
 The <code>inputs[]</code> now also pin <code>grafana-prometheus.yml</code> and <code>grafana-empty.yml</code>.
