@@ -392,11 +392,11 @@ the matching catalogue with <code>--repository</code> for external Contract refe
 their exact originating DOTs must remain available.</p>
 </li>
 <li>
-<p>Add named, ID/version-pinned DOT instances and ID-pinned Contract inputs
-to a separate composition document.</p>
+<p>Add named, ID/version-pinned Vertices to a separate composition document.
+Their DOTs supply the authoritative Connector and Contract declarations.</p>
 </li>
 <li>
-<p>Connect the Connector IDs with a edge. Add an explicit broker endpoint,
+<p>Connect the Connector IDs through Channels on an Edge. Add an explicit broker endpoint,
 parameter values, security binding, or materializer only when the connection
 requires it.</p>
 </li>
@@ -534,12 +534,12 @@ After a declaration changes, regenerate and review the affected locks and rerun
 live acceptance; previous receipts do not qualify the changed graph.</p>
 </div>
 <div class="paragraph">
-<p>Current Contract inputs use <code>source: repository://&lt;owner-name&gt;@&lt;release&gt;</code>.
-The exact owner supplies the declaration, raw URL and digest. Locks fingerprint
-that <code>dot.json</code>, never a machine-specific cache path. <code>compose validate</code>,
-<code>inspect</code> and <code>lock</code> accept <code>--offline</code> after one online validation has warmed
-the shared verified cache; use a local pinned catalogue checkout in that mode.
-Historical wrappers remain readable, not a fallback for missing owner metadata.</p>
+<p>Contracts are resolved automatically from each selected DOT and the exact
+owners named by qualified external <code>contractId</code> values. No separate Contract
+input list is needed. The exact owner supplies the declaration, raw URL and
+digest. Locks fingerprint that <code>dot.json</code>, never a machine-specific cache path.
+<code>compose validate</code>, <code>inspect</code> and <code>lock</code> accept <code>--offline</code> after online
+validation has warmed the verified cache. Missing owners fail closed.</p>
 </div>
 </div>
 <div class="sect2">
@@ -878,7 +878,7 @@ own explicit rules; they are not a fallback for a rejected identity.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Each ID in <code>Vertex.connectors[]</code> must match a Connector&#8217;s <code>id</code> in the selected DOT. New catalogue IDs use DOT-local kebab-case keys such as <code>search-api</code>.</p>
+<p>All Connectors declared by a selected DOT are available to its Vertex. Channels select their DOT-local IDs, such as <code>search-api</code>; no duplicate Vertex list is needed.</p>
 </li>
 <li>
 <p>IDs are unique within their owning DOT. The Edge&#8217;s Vertices scope its Channel&#8217;s Connector references, so different DOTs may use the same local key.</p>

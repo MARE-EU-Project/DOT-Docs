@@ -157,20 +157,11 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
     - name: String
     - version: String
     - vertices: List<Vertex>
-    - contracts: List<ContractInput>
     - edges: List<Edge>
-    - exposedConnectors: List<ExposedConnector>
     --
     + isVertexNamesUnique(): boolean
-    + isContractIdsUnique(): boolean
     + isEdgeNamesUnique(): boolean
     + isChannelNamesUnique(): boolean
-    + isExposedConnectorNamesUnique(): boolean
-  }
-
-  class "ContractInput" as eu_mare6g_dot_domain_composition_ContractInput #FFFFFF {
-    - id: String
-    - source: String
   }
 
   class "DeploymentConfigFile" as eu_mare6g_dot_domain_composition_DeploymentConfigFile #FFFFFF {
@@ -222,12 +213,6 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
 
   class "EdgeSecurity" as eu_mare6g_dot_domain_composition_EdgeSecurity #FFFFFF {
     - bindings: List<SecurityBinding>
-  }
-
-  class "ExposedConnector" as eu_mare6g_dot_domain_composition_ExposedConnector #FFFFFF {
-    - name: String
-    - vertex: String
-    - connector: String
   }
 
   class "GRPCProbe" as eu_mare6g_dot_domain_composition_GRPCProbe #FFFFFF {
@@ -380,7 +365,6 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
     - dotVersion: String
     - deployment: String
     - dependsOn: List<String>
-    - connectors: List<String>
     - deploymentInputs: DeploymentInputs
   }
 
@@ -772,16 +756,14 @@ eu_mare6g_dot_domain_composition_AsyncAPIProtocol -[hidden]down- eu_mare6g_dot_d
 eu_mare6g_dot_domain_composition_CdiDeviceBinding -[hidden]down- eu_mare6g_dot_domain_composition_Channel
 eu_mare6g_dot_domain_composition_Channel -[hidden]down- eu_mare6g_dot_domain_composition_ComposeWorkloadBinding
 eu_mare6g_dot_domain_composition_ComposeWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Composition
-eu_mare6g_dot_domain_composition_Composition -[hidden]down- eu_mare6g_dot_domain_composition_ContractInput
-eu_mare6g_dot_domain_composition_ContractInput -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentConfigFile
+eu_mare6g_dot_domain_composition_Composition -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentConfigFile
 eu_mare6g_dot_domain_composition_DeploymentConfigFile -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentEnvironment
 eu_mare6g_dot_domain_composition_DeploymentEnvironment -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentInputs
 eu_mare6g_dot_domain_composition_DeploymentInputs -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentVolumeSource
 eu_mare6g_dot_domain_composition_DeploymentVolumeSource -[hidden]down- eu_mare6g_dot_domain_composition_Edge
 eu_mare6g_dot_domain_composition_Edge -[hidden]down- eu_mare6g_dot_domain_composition_EdgeProbe
 eu_mare6g_dot_domain_composition_EdgeProbe -[hidden]down- eu_mare6g_dot_domain_composition_EdgeSecurity
-eu_mare6g_dot_domain_composition_EdgeSecurity -[hidden]down- eu_mare6g_dot_domain_composition_ExposedConnector
-eu_mare6g_dot_domain_composition_ExposedConnector -[hidden]down- eu_mare6g_dot_domain_composition_GRPCProbe
+eu_mare6g_dot_domain_composition_EdgeSecurity -[hidden]down- eu_mare6g_dot_domain_composition_GRPCProbe
 eu_mare6g_dot_domain_composition_GRPCProbe -[hidden]down- eu_mare6g_dot_domain_composition_GRPCResponseMatch
 eu_mare6g_dot_domain_composition_GRPCResponseMatch -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLOperation
 eu_mare6g_dot_domain_composition_GraphQLOperation -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLProbe
@@ -833,9 +815,6 @@ eu_mare6g_dot_domain_composition_EdgeSecurity -[hidden]right- eu_mare6g_dot_doma
 eu_mare6g_dot_domain_composition_Materializer -[hidden]right- eu_mare6g_dot_domain_composition_NetworkBinding
 eu_mare6g_dot_domain_composition_NetworkBinding -[hidden]right- eu_mare6g_dot_domain_composition_OperationParameterBinding
 eu_mare6g_dot_domain_composition_OperationParameterBinding -[hidden]right- eu_mare6g_dot_domain_composition_ServicePortReference
-eu_mare6g_dot_domain_composition_ContractInput -[hidden]right- eu_mare6g_dot_domain_composition_Edge
-eu_mare6g_dot_domain_composition_Edge -[hidden]right- eu_mare6g_dot_domain_composition_ExposedConnector
-eu_mare6g_dot_domain_composition_ExposedConnector -[hidden]right- eu_mare6g_dot_domain_composition_Vertex
 eu_mare6g_dot_domain_composition_CdiDeviceBinding -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentConfigFile
 eu_mare6g_dot_domain_composition_DeploymentConfigFile -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentEnvironment
 eu_mare6g_dot_domain_composition_DeploymentEnvironment -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentVolumeSource
@@ -883,9 +862,7 @@ eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..*" eu_mare6g_d
 eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_NetworkBinding : network
 eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_OperationParameterBinding : parameters
 eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_ServicePortReference : endpoint
-eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ContractInput : contracts
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_Edge : edges
-eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ExposedConnector : exposedConnectors
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_Vertex : vertices
 eu_mare6g_dot_domain_composition_DeploymentEnvironment "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_SecretReference : secretRef
 eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_CdiDeviceBinding : cdiDevices

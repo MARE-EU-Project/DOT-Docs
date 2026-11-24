@@ -351,7 +351,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Your reviewed two-tool draft describes Node Exporter and Prometheus. Extend
-that draft with Grafana, adding one instance, one Edge and one browser exposure.
+that draft with Grafana, adding one Vertex, one Edge and explicit browser forwarding.
 Review its declaration and lock, then start it and verify the full chain.</p>
 </div>
 <div class="paragraph">
@@ -448,8 +448,8 @@ or claim that it has been tested.</p>
 </div>
 <div class="paragraph">
 <p>Before editing, it has two DOTs and one Edge. You
-will add one item to each of three <strong>existing</strong> lists. Keep the earlier items,
-Contract inputs and ownership UUID; do not paste another root <code>vertices:</code> or <code>edges:</code>
+will add one item to each of two <strong>existing</strong> lists. Keep the earlier items,
+ownership UUID; do not paste another root <code>vertices:</code> or <code>edges:</code>
 key. Each snippet below is a list item, beginning with <code>- name</code>, at the same
 indentation as the existing items. Keep the four leading spaces shown before
 each <code>- name</code> in the CLI-created draft.</p>
@@ -466,9 +466,6 @@ each <code>- name</code> in the CLI-created draft.</p>
       dotId: Grafana@13.3.0
       dotVersion: 13.3.0
       deployment: docker
-      connectors:
-        - promql-query-api
-        - monitoring-dashboard
       dependsOn: [prometheus]
       deploymentInputs:
         environment:
@@ -505,18 +502,11 @@ each <code>- name</code> in the CLI-created draft.</p>
               jsonPointer: /datasources/0/url</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_add_the_browser_endpoint_under_exposedconnectors"><a class="anchor" href="#_add_the_browser_endpoint_under_exposedconnectors"></a>Add the browser endpoint under <code>exposedConnectors</code></h3>
 <div class="paragraph">
-<p>Append this after <code>prometheus-query</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: dashboard
-      vertex: grafana
-      connector: monitoring-dashboard</code></pre>
-</div>
+<p>Grafana&#8217;s <code>monitoring-dashboard</code> Connector becomes available automatically when
+you add its Vertex. The apply command below selects
+<code>grafana/monitoring-dashboard</code> explicitly for local browser access; no separate
+exposure declaration is needed.</p>
 </div>
 <div class="paragraph">
 <p>The new Edge connects the Prometheus and Grafana vertices. Its Channel links the provided PromQL operation to Grafana’s required
@@ -601,7 +591,7 @@ fi</code></pre>
 <p>Ports <code>19041</code> and <code>13000</code> must be free. Use only the isolated development host
 and network described at the start. Keep the cleanup command below available
 before applying; use it after a failure as well. The next block previews both
-exposures first; a failed preview prevents its apply command from running.
+forwarding selections first; a failed preview prevents its apply command from running.
 Runtime preflight, including the dry-run, needs the referenced password available.</p>
 </div>
 <div class="listingblock">
@@ -615,12 +605,12 @@ Runtime preflight, including the dry-run, needs the referenced password availabl
     'pinned images may need downloading...'
   dotx compose apply "$LAB/dashboard.yaml" \
     --repository "$DOT_REPOSITORY" --locked --dry-run \
-    --forward "prometheus-query=$TUTORIAL_PORT" \
-    --forward "dashboard=$DASHBOARD_PORT" &amp;&amp;
+    --forward "prometheus/promql-query-api=$TUTORIAL_PORT" \
+    --forward "grafana/monitoring-dashboard=$DASHBOARD_PORT" &amp;&amp;
   dotx compose apply "$LAB/dashboard.yaml" \
     --repository "$DOT_REPOSITORY" --locked \
-    --forward "prometheus-query=$TUTORIAL_PORT" \
-    --forward "dashboard=$DASHBOARD_PORT"
+    --forward "prometheus/promql-query-api=$TUTORIAL_PORT" \
+    --forward "grafana/monitoring-dashboard=$DASHBOARD_PORT"
 else
   printf '%s\n' \
     'Docker target is missing, changed or unreachable.' \

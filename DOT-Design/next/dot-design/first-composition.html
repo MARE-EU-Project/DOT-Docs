@@ -352,8 +352,8 @@
 <p>Run Node Exporter and Prometheus together on Docker. In the Next source graph,
 the <code>node-exporter-to-prometheus</code> Edge joins the two Vertices. Its
 <code>node-metrics-to-prometheus</code> Channel connects the <code>node-metrics</code> and
-<code>scrape-target</code> Connectors. Use the <code>prometheus-query</code> exposure for the
-<code>promql-query-api</code> Connector to verify the scrape.</p>
+<code>scrape-target</code> Connectors. Forward <code>prometheus/promql-query-api</code> explicitly to verify the scrape. All
+Connectors remain available for composition without an exposure list.</p>
 </div>
 </div>
 </div>
@@ -418,7 +418,7 @@ PORT="${PORT:-19040}"
 dotx compose validate "$GRAPH" --locked &amp;&amp;
 dotx compose topology "$GRAPH" --locked &amp;&amp;
 dotx compose apply "$GRAPH" --locked --dry-run \
-  --forward "prometheus-query=$PORT"</code></pre>
+  --forward "prometheus/promql-query-api=$PORT"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -470,7 +470,7 @@ development host.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply "$GRAPH" --locked \
-  --forward "prometheus-query=$PORT"</code></pre>
+  --forward "prometheus/promql-query-api=$PORT"</code></pre>
 </div>
 </div>
 <div class="paragraph">

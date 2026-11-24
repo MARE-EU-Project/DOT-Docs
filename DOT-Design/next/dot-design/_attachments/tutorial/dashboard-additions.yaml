@@ -5,9 +5,6 @@ vertices:
       dotId: Grafana@13.3.0
       dotVersion: 13.3.0
       deployment: docker
-      connectors:
-        - promql-query-api
-        - monitoring-dashboard
       dependsOn: [prometheus]
       deploymentInputs:
         environment:
@@ -36,9 +33,3 @@ edges:
               path: /etc/grafana/provisioning/datasources/prometheus.yml
               jsonPointer: /datasources/0/url
 # end::grafana-edge[]
-exposedConnectors:
-# tag::grafana-exposure[]
-    - name: dashboard
-      vertex: grafana
-      connector: monitoring-dashboard
-# end::grafana-exposure[]

@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/composition-documents.html">
     <link rel="prev" href="authoring-anchors.html">
     <link rel="next" href="wiring-and-security.html">
-    <meta name="description" content="Define a strict, versioned composition document with pinned DOT definitions, named vertices, edges, channels, and exposed Connectors.">
+    <meta name="description" content="Define a strict, versioned composition document with pinned DOT definitions, named vertices, edges, channels, and direct Connector selections.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -406,7 +406,7 @@ from the reviewed definition:</p>
 <div class="paragraph">
 <p>This structural excerpt omits the required instance inputs and edges. Use
 <code>DOT-Repository/Compositions/keycloak-apisix-oauth/composition.yaml</code> for the
-complete runnable document; Contract paths below are relative to that directory.</p>
+complete runnable document. Contracts are derived automatically from the selected DOTs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -426,10 +426,7 @@ vertices:
     dotId: APISIX@3.19.0
     dotVersion: 3.19.0
     deployment: kubernetes
-    dependsOn: [identity]
-contracts:
-  - id: Keycloak@26.8.1::OpenAPI::Discovery
-    source: repository://Keycloak@26.8.1</code></pre>
+    dependsOn: [identity]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -455,8 +452,8 @@ rejected; authentication remains external through Git credential helpers, SSH
 agents, or environment-backed CI credentials.</p>
 </div>
 <div class="paragraph">
-<p>Relative paths remain supported for authoring experiments and external Contract
-documents. Reusable stable, sample, and test-only DOT definitions belong in
+<p>Relative paths remain supported for authored DOT definitions and deployment
+input files. Reusable stable, sample, and test-only DOT definitions belong in
 <code>DOT-Repository</code>, under their corresponding catalogue scope. Contracts remain
 authoritative protocol documents and are referenced independently; placing a DOT
 in the repository does not copy OpenAPI, AsyncAPI, Protobuf, or GraphQL facts
@@ -507,28 +504,14 @@ topologies without creating false dependency cycles.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes, at least one</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named selections of DOT releases and deployments. Every entry pins <code>source</code>, <code>dotId</code>, and
   <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;name&gt;@&lt;tool-release&gt;</code>
-  source. Each Vertex declares the Connectors it uses as <code>connectors[]</code> entries.
+  source. All Connectors from the selected DOT are available automatically.
   <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">When a referenced Contract is needed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maps an exact Contract ID to its originating DOT, normally selected by
-  <code>source: repository://&lt;name&gt;@&lt;tool-release&gt;</code>. The resolver verifies the matching
-  complete owned declaration and its URL/hash payload. Explicit local full
-  Contract wrappers remain a historical compatibility mode, not a raw
-  OpenAPI file or an implicit adjacent-file fallback.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edges[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Directed connections between named Vertices. Each Edge contains one or more Channels. A composition
   with no edges can still expose a standalone capability.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedConnectors[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local names for Connectors that an operator may expose or forward. Each entry selects a <code>vertex</code> and one of its declared Connectors.</p></td>
 </tr>
 </tbody>
 </table>

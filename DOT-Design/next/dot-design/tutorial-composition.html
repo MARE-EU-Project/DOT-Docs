@@ -446,17 +446,8 @@ The graph&#8217;s <code>1.0.0</code> is separate from each tool&#8217;s release.
 <code>prometheus</code> is an instance name; <code>Prometheus@3.15.1</code> is its tool identity.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Verified interface inputs resolved from their exact owning DOTs, not copied specifications.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edges</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connections and the configuration needed to materialize them.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedConnectors</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Names you can select with <code>--forward</code>, such as <code>prometheus-query</code>.
-An exposure does not add authentication.</p></td>
 </tr>
 </tbody>
 </table>
@@ -484,9 +475,6 @@ item in the CLI-created draft. YAML indentation is part of the document.</p>
       dotId: Prometheus@3.15.1
       dotVersion: 3.15.1
       deployment: docker-image
-      connectors:
-        - scrape-target
-        - promql-query-api
       dependsOn: [node-exporter]</code></pre>
 </div>
 </div>
@@ -520,7 +508,7 @@ materializer: retain its existing <code>valueFrom</code> and <code>target</code>
 <div class="paragraph">
 <p><code>./prometheus</code> selects <strong>your authored definition</strong>, not the catalogue&#8217;s deployment.
 The local <code>docker-image</code> ID comes from your <code>dotx new</code> output. Leave Node Exporter
-and the composition&#8217;s Contract inputs at their exact catalogue coordinates.
+at its exact catalogue coordinates. Contracts are derived from the selected DOTs.
 The owned Prometheus Contract has the same verified bytes as that release&#8217;s
 catalogue declaration. Relative file paths resolve beside this YAML file.</p>
 </div>
@@ -594,7 +582,7 @@ dotx compose topology "$LAB/composition.yaml" \
   --repository "$DOT_REPOSITORY" --locked
 dotx compose apply "$LAB/composition.yaml" \
   --repository "$DOT_REPOSITORY" \
-  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
+  --locked --dry-run --forward "prometheus/promql-query-api=$TUTORIAL_PORT"
 printf 'Graph verified: two DOTs, one Edge. No service has started.\n'
 )</code></pre>
 </div>
@@ -674,9 +662,9 @@ cat "$LAB/composition.yaml" &gt; "$LAB/diagnostic.yaml"
 </div>
 <div class="paragraph">
 <p>After that succeeds, open <code>$LAB/diagnostic.yaml</code> using the editor workflow.
-In the <code>node-exporter</code> Vertex, change the selected ID in <code>connectors</code> from
-<code>node-metrics</code> to <code>missing-metrics</code>. Make the same change to the
-<code>node-metrics-to-prometheus</code> Channel&#8217;s <code>fromConnector</code>. Save and run:</p>
+In the <code>node-metrics-to-prometheus</code> Channel, change <code>fromConnector</code> from
+<code>node-metrics</code> to <code>missing-metrics</code>. Connector IDs are resolved directly against
+the endpoint DOT, so no Vertex list needs editing. Save and run:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -686,7 +674,7 @@ In the <code>node-exporter</code> Vertex, change the selected ID in <code>connec
 <div class="paragraph">
 <p>Expect a nonzero exit and a missing-Connector message naming <code>missing-metrics</code> in
 <code>node-exporter</code>. A different error is not the intended result. Restore
-<code>node-metrics</code> in both fields in that copy and repeat the same validation; it should succeed.
+<code>node-metrics</code> in that field in the copy and repeat the same validation; it should succeed.
 Create no diagnostic lock and leave the reviewed original unchanged.</p>
 </div>
 </div>
@@ -702,13 +690,13 @@ original workspace, cache and binary for recovery.</p>
 </div>
 <div class="paragraph">
 <p>When using a current-source build of <code>dotx</code>, the Docker image forward for
-<code>prometheus-query</code> publishes on <code>127.0.0.1</code> on the Docker Engine host. The
+<code>prometheus/promql-query-api</code> publishes on <code>127.0.0.1</code> on the Docker Engine host. The
 preview shows <code>-p 127.0.0.1:19041:9090</code> with the default tutorial port.
 This applies when Docker creates the container. To change an existing
 container&#8217;s published ports, clean up with the original CLI and apply again
-with the current build. Released <code>dotx</code> 0.4.1 leaves the bind address to
-Docker, so use an isolated Docker host for the released walkthrough. Use
-Docker Engine 28.0.0 or later when relying on loopback isolation.
+with the matching source build. These lessons do not target the released
+composition format. Use Docker Engine 28.0.0 or later when relying on
+loopback isolation.
 <a href="https://docs.docker.com/engine/network/port-publishing/">Docker port publishing</a>
 describes the behavior of older engines and custom network configurations.</p>
 </div>
@@ -723,7 +711,7 @@ describes the behavior of older engines and custom network configurations.</p>
     'the next check waits for their labelled scrape...'
   dotx compose apply "$LAB/composition.yaml" \
     --repository "$DOT_REPOSITORY" \
-    --locked --forward "prometheus-query=$TUTORIAL_PORT"
+    --locked --forward "prometheus/promql-query-api=$TUTORIAL_PORT"
 else
   printf '%s\n' \
     'Docker target is missing, changed or unreachable.' \

@@ -488,7 +488,7 @@ inspectable before apply:</p>
 <p>The same resolved composition with <code>--json</code> is the machine-readable automation output. It includes stable
 instance and Connector references, compatibility reasons, the selected Contract,
 resolved endpoint, derived operation/channel value, materializer targets,
-security status, and exposed-Connector endpoints. Consumers should parse JSON
+security status, and forwardable Connector endpoints. Consumers should parse JSON
 rather than scrape the human-readable form.</p>
 </div>
 </div>
@@ -755,43 +755,35 @@ issuer trust, mTLS, workload identity, or remote attestation.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="exposed-connectors"><a class="anchor" href="#exposed-connectors"></a>Exposed Connectors</h2>
+<h2 id="connector-access-and-local-forwarding"><a class="anchor" href="#connector-access-and-local-forwarding"></a>Connector access and local forwarding</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A composition may re-export a member Connector under a composition-local name:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">exposedConnectors:
-  - name: protected-metadata-through-gateway
-    target:
-      vertex: gateway
-      connectorId: protected-metadata</code></pre>
-</div>
+<p>Every Connector declared by a selected DOT is available to its Vertex. Channels
+refer directly to DOT-local Connector IDs; a composition needs neither a copied
+Contract list nor an exposed-Connector list. The resolver loads the authoritative
+Contract declarations and verifies their pinned payloads automatically.</p>
 </div>
 <div class="paragraph">
-<p>At apply time, an operator may request a local forward:</p>
+<p>Host publication is an explicit operator action. Select a provided Connector by
+its Vertex name and DOT-local ID:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose apply scenario.yaml \
-  --forward protected-metadata-through-gateway=19080</code></pre>
+  --forward gateway/protected-metadata=19080</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The exposure name belongs to the composition boundary. It does not rename or
-replace the member Connector ID.</p>
+<p>The Connector must resolve to one service-port binding. Forwarding binds to the
+loopback interface; logical availability does not publish every Connector to the
+host or bypass authentication. Managed Kubernetes/Helm forwarding currently
+supports the deployment&#8217;s first service with a declared port. A selection on
+another logical service is refused before deployment. This adapter limit does
+not restrict Channels or make the composition declaration invalid.</p>
 </div>
 <div class="paragraph">
-<p>An exposure may describe any provided Integration Point, but managed
-Kubernetes/Helm forwarding currently targets the deployment&#8217;s first service
-with a declared port. The matching Next executor refuses an exposure on another
-logical service before deployment rather than forwarding a different endpoint.
-Use separately operator-managed exposure for other services. This execution
-limit does not restrict Edges or make the composition declaration invalid.
-Older recorded forwarding that cannot identify its intended service also
-requires review before resume or upgrade; verified owned cleanup remains
-separate from that admission check.</p>
+<p>Recorded forwarding retains the selected Connector identity. Resume and upgrade
+verify it against the reviewed definition; owned cleanup remains separate.</p>
 </div>
 <div class="paragraph">
 <p>Before runtime mutation, follow the

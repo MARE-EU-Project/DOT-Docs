@@ -3,7 +3,4 @@
       dotId: Prometheus@3.15.1
       dotVersion: 3.15.1
       deployment: docker-image
-      connectors:
-        - scrape-target
-        - promql-query-api
       dependsOn: [node-exporter]

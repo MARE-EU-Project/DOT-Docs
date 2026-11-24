@@ -376,16 +376,15 @@ continue to deployment.</p>
 <h2 id="tutorial-entry"><a class="anchor" href="#tutorial-entry"></a>Choose your entry point</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Already completed <a href="getting-started.html" class="xref page">the Prometheus Compose tutorial</a>?</strong> After its cleanup is verified, keep the same
-Bash terminal, installed CLI and pinned catalogue. Skip the installation
-below and continue at <a href="#tutorial-workspace">Make a private learning workspace</a>.
-Do not download or clone the same files again.</p>
+<p><strong>Already completed a deployment exercise?</strong> First verify its cleanup with its
+original CLI and catalogue. These lessons use the simplified Next composition
+format and need the matching source setup below; a released binary is not a
+substitute. Keep any earlier setup intact for recovery.</p>
 </div>
 <div class="paragraph">
-<p><strong>Starting here, or coming from Hello World?</strong> Follow the pinned installation
-below from a new setup directory. It creates the reproducible learning setup.
-If an earlier setup was interrupted, use the existing-setup instructions before
-creating or replacing anything.</p>
+<p><strong>Starting here, or coming from Hello World?</strong> Use a new setup directory below.
+The catalogue checkout is for authoring local drafts; ordinary <code>dotx run</code> and
+named composition commands do not require this manual clone.</p>
 </div>
 </div>
 </div>
@@ -505,122 +504,51 @@ and ask your MARE project contact to verify your repository access.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_install_dotx_with_go"><a class="anchor" href="#_install_dotx_with_go"></a>Install dotx with Go</h2>
+<h2 id="_install_the_matching_source_cli"><a class="anchor" href="#_install_the_matching_source_cli"></a>Install the matching source CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From your setup directory, install the CLI tag matched to the catalogue below.
-Use the Go toolchain described in <a href="setup.html#go" class="xref page">Setup</a>. <code>GOPRIVATE</code> applies
-to this command and tells Go to fetch the private MARE module directly. If
-<code>bin/dotx</code> already exists, use <a href="#existing-setup">Existing or interrupted setup</a>.</p>
+<p>The next lessons use the simplified Next composition format, which is absent
+from release 0.5.0. Use the Go toolchain listed in <a href="setup.html#go" class="xref page">Setup</a>
+and install a source build into this private setup directory.
+<code>CLI_VERSION</code> can select a compatible exact source commit; it defaults to <code>main</code>.
+Keep this binary through cleanup rather than replacing an active installation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">test ! -e bin/dotx &amp;&amp;
 mkdir -p bin &amp;&amp;
+CLI_VERSION="${CLI_VERSION:-main}" &amp;&amp;
 GOBIN="$PWD/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
-  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.5.0 &amp;&amp;
+  go install "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@$CLI_VERSION" &amp;&amp;
 export PATH="$PWD/bin:$PATH" &amp;&amp;
 dotx version &amp;&amp;
 printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD"</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Expected version: <code>dotx 0.5.0</code>. Keep the setup directory and
-the same shell through cleanup. Continue at <a href="#_check_out_the_catalogue">Clone DOT-Repository from GitHub</a>.</p>
-</div>
-<div class="sect2">
-<h3 id="_install_the_released_cli"><a class="anchor" href="#_install_the_released_cli"></a>Alternative: install the checksummed release binary</h3>
-<div class="paragraph">
-<p>If you prefer the prebuilt binary, open the
-<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.5.0">selected GitHub release</a>
-in your browser. Download <code>dotx-0.5.0-linux-amd64</code> and
-<code>SHA256SUMS</code> into a directory named <code>dot-quickstart-download</code> inside your setup
-directory. From your setup directory, verify the files and install the binary.
-Use <a href="#existing-setup">Existing or interrupted setup</a> if you already installed it there.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd dot-quickstart-download &amp;&amp;
-(set -o pipefail; sha256sum dotx-0.5.0-linux-amd64 |
-  grep -Fx -f - SHA256SUMS) &amp;&amp;
-mkdir bin &amp;&amp;
-install -m 0755 dotx-0.5.0-linux-amd64 \
-  "$PWD/bin/dotx" &amp;&amp;
-export PATH="$PWD/bin:$PATH" &amp;&amp;
-dotx version &amp;&amp;
-printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD" &amp;&amp;
-cd ..</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The checksum must match the downloaded filename and bytes. Continue when
-<code>dotx version</code> reports <code>dotx 0.5.0</code>. Keep the printed bin path
-for recovery. The GitHub release also provides an SBOM and a build manifest.</p>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_check_out_the_catalogue"><a class="anchor" href="#_check_out_the_catalogue"></a>Clone DOT-Repository from GitHub</h2>
+<h2 id="_check_out_the_source_catalogue_for_authoring"><a class="anchor" href="#_check_out_the_source_catalogue_for_authoring"></a>Check out the source catalogue for authoring</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From your setup directory, clone the catalogue and select the acceptance
-revision recorded in the CLI release manifest:</p>
+<p>Unlike Quick Start and named composition runs, these authoring lessons edit
+local drafts and need a working checkout. <code>REPOSITORY_VERSION</code> may select an
+exact matching source commit; the default is the catalogue&#8217;s <code>main</code> branch.
+A released catalogue is not compatible with these Next-only graph edits.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
 cd DOT-Repository &amp;&amp;
-git checkout --detach 7a196ddb7dd4f7e18d720f00818a1367d2401bdb</code></pre>
-</div>
-</div>
-<details id="existing-setup">
-<summary class="title">Existing or interrupted setup</summary>
-<div class="content">
-<div class="paragraph">
-<p>If a previous run still owns resources, finish cleanup with its original CLI,
-catalogue and Docker context before changing the setup. Keep existing files.
-To reuse a completed setup, return to its catalogue root with the original
-private <code>bin</code> selected on <code>PATH</code>. For a Go install, verify the installed module
-tag and catalogue revision:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go version -m "$(command -v dotx)" &amp;&amp;
+git checkout --detach "${REPOSITORY_VERSION:-origin/main}" &amp;&amp;
 git rev-parse HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>mod</code> line should show <code>github.com/MARE-EU-Project/DOT-CLI</code> at
-<code>v0.5.0</code> and Git should report <code>7a196ddb7dd4f7e18d720f00818a1367d2401bdb</code>.</p>
+<p>Retain the printed revision and the private CLI directory. If resources from
+an earlier exercise still exist, finish their cleanup with the original binary,
+catalogue and Docker context before starting this source setup.</p>
 </div>
-<div class="paragraph">
-<p>For a checksummed release binary, compare the catalogue revision and the
-installed bytes against the original download:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
-set -euo pipefail
-test "$(dotx version)" = "dotx 0.5.0"
-test "$(git rev-parse HEAD)" = "7a196ddb7dd4f7e18d720f00818a1367d2401bdb"
-cd ../dot-quickstart-download
-sha256sum dotx-0.5.0-linux-amd64 |
-  grep -Fx -f - SHA256SUMS
-installed="$(sha256sum "$(command -v dotx)")"
-downloaded="$(sha256sum dotx-0.5.0-linux-amd64)"
-test "${installed%% *}" = "${downloaded%% *}"
-printf 'Matching CLI and catalogue verified.\n'
-)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected: <code>Matching CLI and catalogue verified.</code> The sibling download path is
-this guide&#8217;s layout. Use the actual retained download location if yours differs.
-If the checks fail, start in a fresh directory after verifying previous cleanup.</p>
-</div>
-</div>
-</details>
 </div>
 </div>
 <div class="sect1">

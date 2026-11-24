@@ -409,7 +409,7 @@ adopt existing runtime state or establish API compatibility.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local kebab-case IDs and exact legacy UUID strings are accepted. Composition
 references combine a Vertex name with the Connector ID declared by its Connector. Composition ownership stays UUID-based.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java Connector IDs and references change from <code>UUID</code> to <code>String</code>; recompile callers.
-Migrate declarations, bindings, edges and exposed interfaces together, then review
+Migrate declarations, bindings, Channels and forwarding selections together, then review
 new locks. Old UUIDs and display names are never lookup aliases.</p></td>
 </tr>
 <tr>
@@ -439,14 +439,14 @@ saved state is not migrated or adopted.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Composition graph</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A Vertex declares its Connectors. An Edge names its source and target Vertices.
-Each Channel selects one Connector on each Vertex and carries its own settings.
-The current reader accepts the Vertex, Edge and Channel shape only.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For each old connection, copy its Connector IDs into the corresponding Vertices'
-<code>connectors</code> lists and move its name and settings into a Channel under the Edge
-for that ordered pair. Set each exposure&#8217;s <code>vertex</code> and <code>connector</code> directly.
-Clean up any running composition with the original CLI and lock, then generate
-and review a new lock for the migrated declaration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Vertex selects an exact DOT and deployment. All its DOT&#8217;s Connectors are
+available automatically. An Edge names its source and target Vertices; each
+Channel selects a DOT-local Connector on each endpoint.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove <code>Vertex.connectors</code>, root <code>contracts</code> and root <code>exposedConnectors</code>.
+The resolver derives Contracts from the selected DOTs and exact external owners.
+Replace forwarding aliases with <code>vertex/connector</code>, such as
+<code>prometheus/promql-query-api</code>. Clean up with the original CLI and lock before
+switching, then regenerate and review locks. No legacy-format alias is supplied.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java Composition API</p></td>

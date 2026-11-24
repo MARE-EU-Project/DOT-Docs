@@ -30,7 +30,6 @@ classDiagram
   Vertex ..> Dot : references
   Edge ..> Vertex : from / to
   Edge *-- Channel : channels
-  Vertex ..> Connector : selects IDs
   Channel ..> Connector : selects endpoints
   Dot --> Contract : declares
   Dot *-- Connector : connectors

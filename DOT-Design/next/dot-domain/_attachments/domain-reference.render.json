@@ -1,27 +1,27 @@
 {
   "inputs": {
-    "DOT-Docs/modules/dot-design/attachments/diagrams/domain-a4.mmd": "588255cede054b9cecb2c3e0c21ee1485f16ccc359002a494ffc665073ab70f0",
-    "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "e87364b463d456a25649227b98a5694699caaef1f7402bc8d2fd6a313203ec48",
-    "DOT-Docs/scripts/domain-reference.mjs": "ea8b7ab4473ab20ef8eff4b4e91d3553e09e42a357e76618782d3435a01c1b81",
+    "DOT-Docs/modules/dot-design/attachments/diagrams/domain-a4.mmd": "f21228da103085f1b1db7f4c7b110d459e366265e346fd259b88f75e90c5c7db",
+    "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "a94cdbfc2395cd519dbba15497e093bb0fbbb519940ea8561cda5799738e7ed9",
+    "DOT-Docs/scripts/domain-reference.mjs": "eecc8642ac0847d77c432c99f563085d83f761b7f3e2986608e019dbbad80a7a",
     "DOT-Docs/scripts/render-domain-reference.mjs": "931c751ecebd1796e391ebff178b99e6b948edf007750cb9afcb786269a32dfd",
     "DOT-Docs/mermaid-config.json": "66656e9f50bc4fd959bac02059f17c22b8b0cf8f4c120f83b66aedc051548852",
     "DOT-Docs/mermaid-puppeteer-config.json": "c73c7331b5a12e1108475aad4e976420a6bec1a482b64ff0faf445a98a050191",
     "VERSION": "a0ad50640139a524f86591157145bf1d4674ea9c065bfea21558f0f7b04430c8",
-    "DOT-Docs/scripts/model-reference.mjs": "b103ab427cc4b51f1e5e01a47faa45e7cc8db36d0ff947ff13fd917828839657",
+    "DOT-Docs/scripts/model-reference.mjs": "837c1dc4c91bae3ec6025fa8e275a8de3b7b1ca476c9b8839e929ca89473bdfe",
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "96fe51cc1900478ff625971dfa8fa88a8467e4ec377aa61b59f8747c6a9718c4",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "de9e5e5fe53fa93f8fa7fc9c19b92939d9e19fdb5d3f0baca67ec698024179da",
-    "DOT-Docs/scripts/model-notes-composition.mjs": "49f93af05950a16dbdfda0559d03e0329aa6eeec734e77a3afb9bb43fb02af81",
-    "DOT-Docs/modules/dot-domain/attachments/model-reference.manifest.json": "0a347c0e882ba4366fe93745b5f3ce634a31b52aff38968cd75b80462f704cae",
+    "DOT-Docs/scripts/model-notes-composition.mjs": "345d547aa84b04a4326d8df1c5352216e167a0f8fafa59d25e14cddcf1be4690",
+    "DOT-Docs/modules/dot-domain/attachments/model-reference.manifest.json": "503ae0eb11cff244022d1696a4ae2ea5ead242f9151096d451fb70f81d85a170",
     "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "42e621ab2a4cc6afcea20cd5d9f3cbe7dcf5efc53f8ca483ea436d8430ea127d",
-    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "38cab1895e0f068005f94df7b6bfbcd6a1a43e32ae9a057576cd409f583a49e4",
+    "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "7217191cab474f98c8decda4648e486012fbbf8ee42bee210889d8834cdcc882",
     "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "c9e09e814307ccde8beee3c104a425b1b232a789e1471034201c842c36b07c90",
-    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "311b8b4d677e0d0a00e2f8c1b1e34ac1ed53a02b6eb327b4c5d9146b5999cccc",
+    "DOT-Docs/modules/dot-domain/pages/model-composition.adoc": "8e307fde7de85077a8d2fb2d6bbd4e4443229d5984af5ee920969457be1c1858",
     "DOT-Docs/modules/dot-domain/pages/model-probes.adoc": "4536f53a9ab2cf7596b506c6f35e7447791d5a8f5eee798b0aa379a93e592571"
   },
   "outputs": {
-    "DOT-Docs/modules/dot-design/images/diagrams/domain-a4.svg": "70f20bec55714b50057086e8976e3de3d65b0f03a604b7d40773ab1a318724f6",
-    "DOT-Docs/modules/dot-design/images/diagrams/domain-complete.svg": "c147228372f31aced9c084d87c835f753c6adc4c2cd14dd909705b1e5e70af3b",
-    "DOT-Docs/modules/dot-domain/attachments/dot-domain-a4.pdf": "2bac2f8afcc9b00279badd08520cb8ae041fbf7536998d434eb0b71032d93fb6",
-    "DOT-Docs/modules/dot-domain/attachments/dot-domain-reference.pdf": "575e988d6f3beca7cd8e65a399055e64cda99b88597db8fe87917ad7e503a872"
+    "DOT-Docs/modules/dot-design/images/diagrams/domain-a4.svg": "9fac5d80899034ba1cd5788e26cd7ca21979a66483c10fe7c63a4d0265847f81",
+    "DOT-Docs/modules/dot-design/images/diagrams/domain-complete.svg": "11c7bad704bd404586ec05c9f45e69e603694e0736543ac16e672fbb520899e6",
+    "DOT-Docs/modules/dot-domain/attachments/dot-domain-a4.pdf": "5c7d6f02d17615aa4ecaa38129049cbd14c8568e76c5a53d8dabea30f1a2781a",
+    "DOT-Docs/modules/dot-domain/attachments/dot-domain-reference.pdf": "81968c6f46018c33749e50de904ac10ff642385cd0155f3842a52c09f56a07c8"
   }
 }

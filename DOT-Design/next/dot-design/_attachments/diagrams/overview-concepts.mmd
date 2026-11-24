@@ -81,9 +81,7 @@ classDiagram
     -String name
     -String version
     -List~Vertex~ vertices
-    -List~ContractInput~ contracts
     -List~Edge~ edges
-    -List~ExposedConnector~ exposedConnectors
   }
   class Vertex {
     -String name
@@ -92,7 +90,6 @@ classDiagram
     -String dotVersion
     -String deployment
     -List~String~ dependsOn
-    -List~String~ connectors
     -DeploymentInputs deploymentInputs
   }
   class Edge {
@@ -129,5 +126,4 @@ classDiagram
   Composition "1" *-- "0..*" Edge : connects
   Edge ..> Vertex : from / to
   Edge "1" *-- "1..*" Channel : channels
-  Vertex ..> Connector : selects IDs from DOT
   Channel ..> Connector : selects endpoints

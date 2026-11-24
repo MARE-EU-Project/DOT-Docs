@@ -7,7 +7,7 @@ config:
 classDiagram
   direction LR
   accTitle: Complete DOT-Domain class diagram
-  accDescr: All 76 exported public model types, their declared instance fields and enum values. Inherited fields appear on their superclass with inheritance arrows. Accessors, static constants and validation implementation classes are omitted.
+  accDescr: All 74 exported public model types, their declared instance fields and enum values. Inherited fields appear on their superclass with inheritance arrows. Accessors, static constants and validation implementation classes are omitted.
 
   namespace Identity {
     class DataFormat {
@@ -94,13 +94,7 @@ classDiagram
       -String name
       -String version
       -List~Vertex~ vertices
-      -List~ContractInput~ contracts
       -List~Edge~ edges
-      -List~ExposedConnector~ exposedConnectors
-    }
-    class ContractInput {
-      -String id
-      -String source
     }
     class DeploymentConfigFile {
       -String service
@@ -141,11 +135,6 @@ classDiagram
     }
     class EdgeSecurity {
       -List~SecurityBinding~ bindings
-    }
-    class ExposedConnector {
-      -String name
-      -String vertex
-      -String connector
     }
     class GRPCProbe {
       -Boolean plaintext
@@ -272,7 +261,6 @@ classDiagram
       -String dotVersion
       -String deployment
       -List~String~ dependsOn
-      -List~String~ connectors
       -DeploymentInputs deploymentInputs
     }
   }
@@ -512,9 +500,7 @@ classDiagram
   Channel "1" *-- "0..1" NetworkBinding : network
   Channel "1" *-- "0..*" OperationParameterBinding : parameters
   Channel "1" *-- "0..1" ServicePortReference : endpoint
-  Composition "1" *-- "0..*" ContractInput : contracts
   Composition "1" *-- "0..*" Edge : edges
-  Composition "1" *-- "0..*" ExposedConnector : exposedConnectors
   Composition "1" *-- "1..*" Vertex : vertices
   DeploymentEnvironment "1" *-- "0..1" SecretReference : secretRef
   DeploymentInputs "1" *-- "0..*" CdiDeviceBinding : cdiDevices
@@ -588,13 +574,9 @@ classDiagram
   Vertex ..> Dot : dotId / source
   Edge ..> Vertex : from / to
   Channel ..> Connector : fromConnector / toConnector
-  ExposedConnector ..> Vertex : vertex
-  ExposedConnector ..> Connector : connector
-  Vertex ..> Connector : connectors (IDs)
   Connector ..> Contract : contractId / selector
   ConnectorBinding ..> Connector : connectorId
   ConnectorBinding ..> ServicePort : port
-  ContractInput ..> Contract : id
 
   style DataFormat fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
   style Dot fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
@@ -609,7 +591,6 @@ classDiagram
   style Channel fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style ComposeWorkloadBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style Composition fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
-  style ContractInput fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style DeploymentConfigFile fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style DeploymentEnvironment fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style DeploymentInputs fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
@@ -617,7 +598,6 @@ classDiagram
   style Edge fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style EdgeProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style EdgeSecurity fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
-  style ExposedConnector fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style GRPCProbe fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
   style GRPCResponseMatch fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
   style GraphQLOperation fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px

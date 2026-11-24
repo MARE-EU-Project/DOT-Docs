@@ -1563,7 +1563,7 @@ the consumer. A resolved composition still does not claim that a message was del
 <div class="paragraph">
 <p>The APISIX, Keycloak, and OAuth-client scenario demonstrates dependency order,
 configuration materialization, native Kubernetes Secret references, rollout
-readiness, and an exposed Connector:</p>
+readiness, and direct Connector forwarding:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1575,7 +1575,7 @@ dotx compose apply \
   --locked \
   --namespace dot-guided-demo \
   --dry-run \
-  --forward protected-metadata-through-gateway=19080</code></pre>
+  --forward gateway/protected-metadata=19080</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -834,9 +834,10 @@ resolved values remain execution concerns.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Explicit startup dependencies. This is separate from the Edge&#8217;s interface relationship.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exposed Connectors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named interfaces selected for access, such as <code>prometheus-query</code> with <code>--forward</code>.
-An exposure does not add authentication.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector forwarding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit local access through <code>--forward vertex/connector=port</code>, such as
+<code>prometheus/promql-query-api=19040</code>. Every DOT Connector is already available for
+Channels; forwarding publishes only the selected endpoint and does not add authentication.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Edge probes and response assertions</p></td>

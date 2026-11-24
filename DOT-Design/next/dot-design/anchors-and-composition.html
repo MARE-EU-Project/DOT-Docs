@@ -510,12 +510,12 @@ runtime data.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Binding <code>connectorId</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vertex <code>connectors: [{anchorId: node-metrics}]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vertex <code>connectors: [node-metrics]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vertex <code>connectors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removed; Channels select IDs from the endpoint DOTs directly</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Composition.exposedAnchors</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Composition.exposedConnectors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removed; select <code>vertex/connector</code> directly for forwarding</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connector <code>contract.id</code> and <code>contract.selector</code></p></td>
@@ -683,7 +683,7 @@ for each adapter.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Logical composition point and provider/consumer role</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot.connectors[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Vertex.connectors[]</code> IDs, selected by <code>Channel.fromConnector</code> or <code>Channel.toConnector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Channel.fromConnector</code> or <code>Channel.toConnector</code>, resolved against each endpoint DOT</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service and named port implementing a Connector</p></td>
@@ -703,7 +703,7 @@ for each adapter.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Concrete runtime address and port</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Explicit composition network binding or resolved service endpoint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Materializer or exposed-Connector forwarding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Materializer or explicit Connector forwarding</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Live reachability, authentication result, and policy decision</p></td>

@@ -456,13 +456,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fromConnector</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Connector ID declared by the provider vertex. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector ID declared by the provider vertex. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>toConnector</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Connector ID declared by the consumer vertex. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector ID declared by the consumer vertex. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>parameters</code></p></td>
@@ -617,7 +617,7 @@
 <p>Describe one reusable use case by selecting DOTs as Vertices and connecting their logical interfaces.</p>
 </div>
 <div class="paragraph">
-<p>This is a separate aggregate, not a DOT containing other DOT definitions. Vertex references must name declared members and explicit readiness dependencies must be acyclic; interface edges may form cycles. Catalogue resolution, reviewed locks, credentials, deployment ownership and live acceptance remain separate executor concerns.</p>
+<p>This is a separate aggregate, not a DOT containing other DOT definitions. Vertex references must name declared members and explicit readiness dependencies must be acyclic; interface edges may form cycles. All Connectors declared by each selected DOT are available to Channels; Contracts are resolved from their authoritative DOT owners without separate composition lists. Host forwarding remains explicit through vertex/connector selections. Catalogue resolution, reviewed locks, credentials, deployment ownership and live acceptance remain separate executor concerns.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Composition.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/composition-v1.schema.json">Generated JSON Schema</a></p>
@@ -675,22 +675,10 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named graph vertices selecting canonical DOT definitions and their deployments. minimum items: 1.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of ContractInput</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit interface-document inputs resolved from authoritative owners, without transferring Contract ownership.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edges</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of Edge</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Directed connections between vertices, with channels selecting their logical interfaces.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedConnectors</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of ExposedConnector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Names for selected member Connectors at the composition boundary; these do not themselves publish a network listener.</p></td>
 </tr>
 </tbody>
 </table>
@@ -700,13 +688,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>To <a href="#model-ContractInput">ContractInput</a>: containment via contracts; diagram multiplicity 0..*.</p>
-</li>
-<li>
 <p>To <a href="#model-Edge">Edge</a>: containment via edges; diagram multiplicity 0..*.</p>
-</li>
-<li>
-<p>To <a href="#model-ExposedConnector">ExposedConnector</a>: containment via exposedConnectors; diagram multiplicity 0..*.</p>
 </li>
 <li>
 <p>To <a href="#model-Vertex">Vertex</a>: containment via vertices; diagram multiplicity 1..*.</p>
@@ -727,78 +709,9 @@
       "name": "metrics",
       "source": "repository://Example@1.0.0",
       "dotId": "Example@1.0.0",
-      "dotVersion": "1.0.0",
-      "connectors": [
-        "http-api"
-      ]
+      "dotVersion": "1.0.0"
     }
   ]
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-ContractInput"><a class="anchor" href="#model-ContractInput"></a>ContractInput</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Make an authoritative Contract document available to composition resolution.</p>
-</div>
-<div class="paragraph">
-<p>Reference the originating DOT instead of copying its Contract declaration or payload into a consumer. The owner supplies the pinned URL and digest. Historical wrapper sources remain a compatibility path, not a fallback when an owning declaration is missing.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ContractInput.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ContractInput.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact originating Contract identity used by the selected interfaces. minimum length: 1; pattern restrictions (see schema).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Source identifying the owning DOT whose root declaration supplies the Contract metadata and verified payload. minimum length: 1.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>From <a href="#model-Composition">Composition</a>: containment via contracts; diagram multiplicity 0..*.</p>
-</li>
-<li>
-<p>To <a href="model-interfaces.html#model-Contract" class="xref page">Contract</a>: ID/name reference via id.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "Prometheus@3.15.1::OpenAPI::HTTP",
-  "source": "repository://Prometheus@3.15.1"
 }</code></pre>
 </div>
 </div>
@@ -1296,82 +1209,6 @@
       }
     }
   ]
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-ExposedConnector"><a class="anchor" href="#model-ExposedConnector"></a>ExposedConnector</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Give a member Connector a stable name at the composition boundary.</p>
-</div>
-<div class="paragraph">
-<p>Exposure names an existing logical interface; it does not create an API, a public listener or an authorization policy. Forwarding, reachable addresses and live checks are explicit executor operations.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ExposedConnector.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ExposedConnector.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local boundary name used to refer to this exposed interface. minimum length: 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vertex</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vertex containing the exposed connector. minimum length: 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>connector</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local Connector ID declared by that vertex. minimum length: 1.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>From <a href="#model-Composition">Composition</a>: containment via exposedConnectors; diagram multiplicity 0..*.</p>
-</li>
-<li>
-<p>To <a href="#model-Vertex">Vertex</a>: ID/name reference via vertex.</p>
-</li>
-<li>
-<p>To <a href="model-interfaces.html#model-Connector" class="xref page">Connector</a>: ID/name reference via connector.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "name": "api",
-  "vertex": "metrics",
-  "connector": "http-api"
 }</code></pre>
 </div>
 </div>
@@ -2396,12 +2233,6 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Other Vertex names whose readiness is a prerequisite for this Vertex. distinct items.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectors</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Selected DOT-local Connector IDs. Definitions stay on the DOT; no interface metadata is copied into the Vertex. distinct items.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>deploymentInputs</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentInputs</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
@@ -2426,12 +2257,6 @@
 <li>
 <p>From <a href="#model-Edge">Edge</a>: ID/name reference via from / to.</p>
 </li>
-<li>
-<p>From <a href="#model-ExposedConnector">ExposedConnector</a>: ID/name reference via vertex.</p>
-</li>
-<li>
-<p>To <a href="model-interfaces.html#model-Connector" class="xref page">Connector</a>: ID/name reference via connectors (IDs).</p>
-</li>
 </ul>
 </div>
 <div class="listingblock">
@@ -2444,9 +2269,6 @@
   "dotVersion": "1.0.0",
   "dependsOn": [
     "identity"
-  ],
-  "connectors": [
-    "http-api"
   ]
 }</code></pre>
 </div>

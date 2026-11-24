@@ -457,7 +457,7 @@ to review each result.</p>
 <p>To watch before authoring, ask a presenter with a prepared source checkout to show
 <a href="guided-demo.html" class="xref page">the guided demo</a>.
 Running that demo yourself requires its separate contributor/operator
-preparation. These lessons use the selected CLI release and their own setup. You
+preparation. These lessons use the matching Next source CLI and their own setup. You
 create and inspect the files as you work.</p>
 </div>
 </div>
@@ -468,14 +468,15 @@ create and inspect the files as you work.</p>
 <div class="paragraph">
 <p>Use <strong>Ubuntu 26.04 LTS (amd64)</strong>, Bash, Git, <code>curl</code>, <code>jq</code>, SHA-256 utilities and
 Docker with Compose. You need read access to the MARE repositories. Use Go to
-install the CLI as shown in Lesson 1, or use its checksummed release binary.</p>
+install the matching source CLI as shown in Lesson 1.</p>
 </div>
 <div class="paragraph">
-<p>Use the released CLI <code>v0.5.0</code> with its manifest-pinned
-catalogue <code>7a196ddb7dd4f7e18d720f00818a1367d2401bdb</code> throughout. Lesson 1 includes installation.
-Do not switch to floating <code>main</code> halfway through: a version string alone does
-not identify later source changes. Identity-based lookups select the exact
-product release without guessing its catalogue path.</p>
+<p>These lessons use the simplified Next composition format, absent from release
+0.5.0. Lesson 1 installs a matching source CLI and checks out the source catalogue;
+<code>CLI_VERSION</code> and <code>REPOSITORY_VERSION</code> allow exact compatible commits. Keep that
+binary and checkout unchanged through cleanup rather than updating <code>main</code> during
+the exercise. Identity-based lookups select each exact product release without
+guessing its catalogue path.</p>
 </div>
 <div id="composition-completion-gate" class="admonitionblock important">
 <table>
@@ -485,9 +486,9 @@ product release without guessing its catalogue path.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p><strong>Released route:</strong> CLI <code>v0.5.0</code> and the catalogue pinned
-above support all four main lessons. The downloaded release has been rehearsed
-through the two composition graphs, including failure, interruption and retry.
+<p><strong>Source route:</strong> follow Lesson 1&#8217;s source setup for all four lessons. A released
+binary and its older composition declarations are not interchangeable with this
+Next walkthrough.
 Require <code>Cleanup verified:</code> after composition destroy before calling cleanup
 complete. A missing lifecycle record alone is not resource-absence proof. Keep
 the original binary, files and cache until cleanup succeeds.</p>

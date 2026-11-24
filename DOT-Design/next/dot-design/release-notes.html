@@ -348,6 +348,22 @@
 <article class="doc">
 <h1 class="page">Release notes</h1>
 <div class="sect1">
+<h2 id="_next_simpler_composition_graphs"><a class="anchor" href="#_next_simpler_composition_graphs"></a>Next: simpler composition graphs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compositions now contain identity metadata, Vertices and Edges. All Connectors
+from each selected DOT are available automatically; <code>Vertex.connectors</code>,
+<code>Composition.contracts</code> and <code>Composition.exposedConnectors</code> are removed. dotx
+loads and verifies Contract declarations from their authoritative DOT owners.
+Forward a provided Connector directly with <code>--forward vertex/connector=port</code>,
+for example <code>--forward prometheus/promql-query-api=19040</code>. Resolved execution
+output lists eligible <code>forwardTargets</code>; this does not publish ports automatically.
+Use matching source builds and regenerate reviewed locks. Clean up existing
+workloads with their original CLI before changing formats.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_next_managed_catalogue_access"><a class="anchor" href="#_next_managed_catalogue_access"></a>Next: managed catalogue access</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -376,10 +392,9 @@ source declarations and review regenerated locks; published formats remain uncha
 <h2 id="_next_one_connector_concept"><a class="anchor" href="#_next_one_connector_concept"></a>Next: one Connector concept</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>DOTs now define interfaces in <code>connectors</code>. Vertices select their IDs as a list
-of strings, removing the extra reference wrapper and duplicate terminology.
-Service bindings use <code>connectorBindings</code> and <code>connectorId</code>; compositions expose
-<code>exposedConnectors</code>. Edges still join Vertices and Channels select Connector IDs.
+<p>DOTs now define interfaces in <code>connectors</code>, removing the extra reference wrapper
+and duplicate terminology. Service bindings use <code>connectorBindings</code> and
+<code>connectorId</code>. Edges join Vertices and Channels select DOT-local Connector IDs.
 This is an unreleased source-format change. Use matching CLI/catalogue sources,
 clean up with the original CLI before upgrading, and migrate declarations and
 reviewed locks. Published releases keep the formats documented below.</p>

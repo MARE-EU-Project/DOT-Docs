@@ -274,7 +274,7 @@ dotx compose topology "$LAB/composition.yaml" \
   --repository "$DOT_REPOSITORY" --locked
 dotx compose apply "$LAB/composition.yaml" \
   --repository "$DOT_REPOSITORY" \
-  --locked --dry-run --forward "prometheus-query=$TUTORIAL_PORT"
+  --locked --dry-run --forward "prometheus/promql-query-api=$TUTORIAL_PORT"
 printf 'Graph verified: two DOTs, one Edge. No service has started.\n'
 )
 # end::review[]
@@ -289,7 +289,7 @@ if test -n "${DOTX_TUTORIAL_DOCKER_ID:-}" &&
     'the next check waits for their labelled scrape...'
   dotx compose apply "$LAB/composition.yaml" \
     --repository "$DOT_REPOSITORY" \
-    --locked --forward "prometheus-query=$TUTORIAL_PORT"
+    --locked --forward "prometheus/promql-query-api=$TUTORIAL_PORT"
 else
   printf '%s\n' \
     'Docker target is missing, changed or unreachable.' \
@@ -394,7 +394,7 @@ dotx compose new --from "$LAB/composition.yaml" \
 )
 # end::dashboard-inputs[]
 
-# The learner appends the three YAML entries shown in the dashboard lesson.
+# The learner appends the two YAML entries shown in the dashboard lesson.
 # tag::dashboard-review[]
 (
 set -euo pipefail
@@ -434,12 +434,12 @@ if test -n "${DOTX_TUTORIAL_DOCKER_ID:-}" &&
     'pinned images may need downloading...'
   dotx compose apply "$LAB/dashboard.yaml" \
     --repository "$DOT_REPOSITORY" --locked --dry-run \
-    --forward "prometheus-query=$TUTORIAL_PORT" \
-    --forward "dashboard=$DASHBOARD_PORT" &&
+    --forward "prometheus/promql-query-api=$TUTORIAL_PORT" \
+    --forward "grafana/monitoring-dashboard=$DASHBOARD_PORT" &&
   dotx compose apply "$LAB/dashboard.yaml" \
     --repository "$DOT_REPOSITORY" --locked \
-    --forward "prometheus-query=$TUTORIAL_PORT" \
-    --forward "dashboard=$DASHBOARD_PORT"
+    --forward "prometheus/promql-query-api=$TUTORIAL_PORT" \
+    --forward "grafana/monitoring-dashboard=$DASHBOARD_PORT"
 else
   printf '%s\n' \
     'Docker target is missing, changed or unreachable.' \

@@ -459,7 +459,7 @@ context; unknown ownership refuses cleanup. See
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose status</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances, edge/exposure configuration evidence,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native status for recorded instances, edge/Connector forwarding configuration evidence,
   and the latest recorded active-probe outcomes.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Current reachability after the probe timestamp, authentication mechanisms not
   explicitly identified by the evidence, authorization semantics, response
@@ -891,7 +891,7 @@ or runtime mutations.</p>
 <p>recorded edge compatibility, security configuration, selected endpoint, and materializer count; and</p>
 </li>
 <li>
-<p>recorded exposed-Connector bindings; and</p>
+<p>recorded Connector forwarding bindings; and</p>
 </li>
 <li>
 <p>the latest redacted active Contract-probe result for each probed edge.</p>
@@ -899,7 +899,7 @@ or runtime mutations.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Edge and exposure entries remain configuration evidence. Only entries under
+<p>Edge and Connector forwarding entries remain configuration evidence. Only entries under
 active Contract-probe evidence demonstrate a runtime request and declared
 OpenAPI response match, bounded by their timestamp and adapter scope.</p>
 </div>
@@ -1276,11 +1276,10 @@ does not promise an automatic repair or authorize a native deletion.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract or selector cannot be resolved</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For a <code>repository://</code> source, select the exact originating DOT release and
-  verify it owns the complete matching Contract declaration and URL/hash payload.
-  The owner&#8217;s DOT ID is different from the Contract ID. Check the operation
-  selector separately. Only historical local Contract wrappers carry their own
-  matching Contract <code>id</code>; do not add that field to a raw standard document.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspect the selected DOT&#8217;s root declarations and the exact owner named by
+  an external <code>contractId</code> prefix. Verify the matching complete declaration,
+  URL/hash payload and operation selector. Contracts are derived automatically;
+  do not add a composition Contract list or an adjacent wrapper as a fallback.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connector has no deployable endpoint</p></td>
