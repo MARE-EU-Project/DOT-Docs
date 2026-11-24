@@ -496,7 +496,7 @@ trap 'rm -f -- "$credentials"' EXIT
 dashboard_queried=false
 started=$SECONDS
 next_notice=$SECONDS
-printf 'Querying the labelled scrape through Grafana...\n'
+printf 'Querying the Node Exporter scrape through Grafana...\n'
 for ((attempt=0; attempt<90; attempt++)); do
   if curl --config "$credentials" --fail --silent --max-time 5 \
     --header 'Content-Type: application/json' \
@@ -504,7 +504,7 @@ for ((attempt=0; attempt<90; attempt++)); do
       "from":"now-5m", "to":"now",
       "queries":[{
         "refId":"A",
-        "expr":"up{job=\"node-exporter\",tutorial=\"zero-to-hero\"}",
+        "expr":"up{job=\"node-exporter\"}",
         "instant":true,
         "datasource":{"type":"prometheus","uid":"hero-prometheus"}
       }]
@@ -529,7 +529,7 @@ if ! $dashboard_queried; then
     'run the Lesson 4 cleanup block before retrying.' >&2
   exit 1
 fi
-printf 'Verified: Grafana queried the labelled scrape (value 1).\n'
+printf 'Verified: Grafana queried the Node Exporter scrape (value 1).\n'
 )
 # end::dashboard-query[]
 

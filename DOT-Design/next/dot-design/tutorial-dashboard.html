@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>4. Grow the system with Grafana :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/tutorial-dashboard.html">
-    <meta name="description" content="Extend the metrics graph with Grafana, query the same labelled sample through its datasource and verify cleanup.">
+    <meta name="description" content="Extend the metrics graph with Grafana, query the Node Exporter sample through its datasource and verify cleanup.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -362,8 +362,8 @@ resource absence. The new draft gets a fresh ownership UUID; it does not adopt
 another graph&#8217;s runtime resources.</p>
 </div>
 <div class="paragraph">
-<p><strong>Goal:</strong> a reviewed three-DOT, two-Edge graph, Grafana returning the same
-labelled scrape, and verified cleanup.
+<p><strong>Goal:</strong> a reviewed three-DOT, two-Edge graph, Grafana returning the Node Exporter
+scrape, and verified cleanup.
 <strong>You will learn:</strong> extending a graph, provisioning a datasource and supplying a
 password through a reference.</p>
 </div>
@@ -417,8 +417,9 @@ dotx compose new --from "$MONITORING_TEMPLATE" \
 <p>Expected: the Grafana candidate validates and <code>dashboard.yaml</code> retains the
 catalogue monitoring graph with a fresh UUID. Grafana’s required Prometheus
 Connector refers to the catalogue Prometheus Contract owner, so this graph
-uses that same Prometheus definition. The Lesson 3 authoring draft stays
-separate. The catalogue remains unchanged.
+uses that same Prometheus definition and the catalogue scrape configuration.
+The query selects the catalogue job label <code>job="node-exporter"</code>. The Lesson 3
+authoring draft stays separate. The catalogue remains unchanged.
 The copied product already carries its official pinned OpenAPI declaration,
 required Prometheus Connector, provided dashboard Connector and service bindings.
 You extended its <strong>configuration surface</strong>, not its API identity.</p>
@@ -630,7 +631,7 @@ fi</code></pre>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Grafana health is the first check. The datasource query is the second: it
-exercises the connection to Prometheus and the labelled scrape from Node Exporter.
+exercises the connection to Prometheus and the Node Exporter scrape from Node Exporter.
 Complete both before calling the chain successful.</p>
 </div>
 <div class="paragraph">
@@ -685,7 +686,7 @@ and open <strong>Explore</strong>. Choose the provisioned <strong>Prometheus</st
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-promql hljs" data-lang="promql">up{job="node-exporter",tutorial="zero-to-hero"}</code></pre>
+<pre class="highlightjs highlight"><code class="language-promql hljs" data-lang="promql">up{job="node-exporter"}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -717,7 +718,7 @@ trap 'rm -f -- "$credentials"' EXIT
 dashboard_queried=false
 started=$SECONDS
 next_notice=$SECONDS
-printf 'Querying the labelled scrape through Grafana...\n'
+printf 'Querying the Node Exporter scrape through Grafana...\n'
 for ((attempt=0; attempt&lt;90; attempt++)); do
   if curl --config "$credentials" --fail --silent --max-time 5 \
     --header 'Content-Type: application/json' \
@@ -725,7 +726,7 @@ for ((attempt=0; attempt&lt;90; attempt++)); do
       "from":"now-5m", "to":"now",
       "queries":[{
         "refId":"A",
-        "expr":"up{job=\"node-exporter\",tutorial=\"zero-to-hero\"}",
+        "expr":"up{job=\"node-exporter\"}",
         "instant":true,
         "datasource":{"type":"prometheus","uid":"hero-prometheus"}
       }]
@@ -750,12 +751,12 @@ if ! $dashboard_queried; then
     'run the Lesson 4 cleanup block before retrying.' &gt;&amp;2
   exit 1
 fi
-printf 'Verified: Grafana queried the labelled scrape (value 1).\n'
+printf 'Verified: Grafana queried the Node Exporter scrape (value 1).\n'
 )</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: <code>Verified: Grafana queried the labelled scrape (value 1).</code> The bounded
+<p>Expected: <code>Verified: Grafana queried the Node Exporter scrape (value 1).</code> The bounded
 loop allows 90 attempts with five-second HTTP timeouts and one-second pauses.
 The native request selects datasource UID <code>hero-prometheus</code> and runs an instant
 query. This verifies Grafana &#8594; Prometheus &#8594; Node Exporter; the diagram alone
@@ -811,7 +812,7 @@ If it fails, retain the current environment and use the
 <h2 id="_checkpoint"><a class="anchor" href="#_checkpoint"></a>Checkpoint</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Complete this lesson when Grafana returns the same labelled sample and
+<p>Complete this lesson when Grafana returns the Node Exporter sample and
 <code>Cleanup verified:</code> confirms absence of the owned resources. Retain the draft,
 lock and inputs for reference. The <a href="#lesson4-preview-complete">declaration checkpoint</a>
 alone does not establish a working dashboard.</p>
