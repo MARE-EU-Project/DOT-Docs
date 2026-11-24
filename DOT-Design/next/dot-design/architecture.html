@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -425,16 +425,16 @@ state are executor representations, not alternative domain definitions.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract semantics</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI, AsyncAPI, Protobuf, GraphQL, or bounded SPARQL query Contract payload</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Repeated protocol, media, schema, or security fields on a contract-backed Anchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeated protocol, media, schema, or security fields on a contract-backed Connector</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Logical composition point</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot.anchors[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Dot.connectors[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Hosts, URLs, credentials, placement, health, and policy decisions</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Deployable endpoint declaration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Service.ports[]</code> and <code>anchorBindings[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Service.ports[]</code> and <code>connectorBindings[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Allocated addresses, forwarded ports, and certificates</p></td>
 </tr>
 <tr>
@@ -450,7 +450,7 @@ state are executor representations, not alternative domain definitions.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Runtime state</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Platform-native resources plus private <code>dotx</code> composition state</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contract or Anchor metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract or Connector metadata</p></td>
 </tr>
 </tbody>
 </table>
@@ -483,7 +483,7 @@ repositories for assets that evolve with the DOT catalogue.</p>
 <h2 id="_dot_aggregate"><a class="anchor" href="#_dot_aggregate"></a>DOT aggregate</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Dot</code> owns the embedded Anchors, Runtimes, deployments and service declarations.
+<p><code>Dot</code> owns the embedded Connectors, Runtimes, deployments and service declarations.
 <code>Skill</code> and <code>Contract</code> have independent identities; root Contract declarations
 are authoritative while services reference interfaces by ID. A <code>Composition</code>
 references reusable DOTs rather than owning copies of them.</p>
@@ -496,14 +496,14 @@ belong in <a href="../dot-domain/index.html" class="xref page">the library guide
 </div>
 </div>
 <div class="sect1">
-<h2 id="_contract_anchor_binding_and_edge"><a class="anchor" href="#_contract_anchor_binding_and_edge"></a>Connecting the DOTs: Contracts, Anchors, Bindings and Edges</h2>
+<h2 id="_contract_anchor_binding_and_edge"><a class="anchor" href="#_contract_anchor_binding_and_edge"></a>Connecting the DOTs: Contracts, Connectors, Bindings and Edges</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>These four concepts form a resolution chain but have different owners:</p>
 </div>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/contract-anchor-wire-chain.svg" alt="Contract to Anchor to binding to edge resolution chain">
+<img src="_images/diagrams/contract-anchor-wire-chain.svg" alt="Contract to Connector to binding to edge resolution chain">
 </div>
 <div class="title">Figure 2. From an authoritative Contract operation to deployed configuration</div>
 </div>
@@ -516,10 +516,10 @@ belong in <a href="../dot-domain/index.html" class="xref page">the library guide
 <p>The <strong>Contract</strong> defines the interaction.</p>
 </li>
 <li>
-<p>The <strong>Anchor</strong> identifies one logical participation point.</p>
+<p>The <strong>Connector</strong> identifies one logical participation point.</p>
 </li>
 <li>
-<p>The <strong>binding</strong> says which declared service port implements that Anchor.</p>
+<p>The <strong>binding</strong> says which declared service port implements that Connector.</p>
 </li>
 <li>
 <p>The <strong>edge</strong> connects named deployment instances.</p>
@@ -575,7 +575,7 @@ deployment whose manifest mechanism does not align with its platform.</p>
 </div>
 <div class="paragraph">
 <p><code>Service</code> is the unit that binds a deployed service to Contracts,
-named ports, Anchors, and supported configuration. Configuration is
+named ports, Connectors, and supported configuration. Configuration is
 service-scoped; there is no deployment-level shared configuration surface.</p>
 </div>
 <div class="sect2">
@@ -584,7 +584,7 @@ service-scoped; there is no deployment-level shared configuration surface.</p>
 <p>Use one DOT when a tool&#8217;s native Compose project, Kubernetes manifest or Helm
 chart deploys several cooperating services. List those services in the selected
 deployment&#8217;s <code>services</code> collection. Each service has its own <code>config</code>, ports and
-Anchor bindings. You do not need a Composition just to describe the tool&#8217;s
+Connector bindings. You do not need a Composition just to describe the tool&#8217;s
 internal containers; a Composition selects and connects independently reusable
 DOT instances.</p>
 </div>
@@ -680,11 +680,11 @@ and destroy, not general stateful recovery.</p>
 <h2 id="_contract_resolution"><a class="anchor" href="#_contract_resolution"></a>Contract resolution</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The reference resolver maps an Anchor selector to an authoritative Contract element:</p>
+<p>The reference resolver maps a Connector selector to an authoritative Contract element:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">AnchorContract(id, selector)
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Connector(contractId, selector)
         |
         v
 load Contract by case-sensitive ID
@@ -699,7 +699,7 @@ identifier + interaction + protocols + media types
 </div>
 <div class="paragraph">
 <p>Resolution is read-only. Derived facts are returned to consumers and never
-written back into the Anchor. Contractless Anchors already carry their explicit
+written back into the Connector. Contractless Connectors already carry their explicit
 direction, protocols, and media types and therefore have no selected Contract
 element.</p>
 </div>
@@ -732,14 +732,14 @@ element.</p>
 <p>Load each Contract input and verify its case-sensitive textual ID.</p>
 </li>
 <li>
-<p>Resolve exact external Anchor Contract sources without copying their
+<p>Resolve exact external Connector Contract sources without copying their
 declarations or searching other bundles; lock the originating definitions.</p>
 </li>
 <li>
 <p>Select one deployment for every named DOT instance.</p>
 </li>
 <li>
-<p>Resolve Anchor references and service-port bindings.</p>
+<p>Resolve Connector references and service-port bindings.</p>
 </li>
 <li>
 <p>Evaluate three-state compatibility: <code>COMPATIBLE</code>, <code>INCOMPATIBLE</code>, or <code>UNKNOWN</code>.</p>

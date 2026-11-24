@@ -15,7 +15,7 @@ dotx inspect "$KEYCLOAK" --json |
   jq -e '{name, version,
           deployments: [.deployments[] |
             {id, platformEngine, type, supported}],
-          anchor: (.anchors[] | select(.name == "admin-realm-read") |
+          connector: (.connectors[] | select(.name == "admin-realm-read") |
             {name, role, contract})} |
          select(([.deployments[].platformEngine] | unique) ==
            ["DOCKER", "KUBERNETES"])'
@@ -34,14 +34,14 @@ jq -e '.contracts[] | select(.name == "Admin") |
     dotx compose validate DOT-Testing/composition/poc7-trust-scoring/rejected-collector-scoring.yaml \
       > "$scratch/rejection.txt" 2>&1 || rejected=$?
     if [[ "$rejected" != 1 ]] || ! grep -Fq \
-      'channel "scoring-api-to-collector" on edge "trust-scoring-engine-to-netflow-collector": cannot compose a contract-backed anchor with a contractless anchor' \
+      'channel "scoring-api-to-collector" on edge "trust-scoring-engine-to-netflow-collector": cannot compose a contract-backed connector with a contractless connector' \
       "$scratch/rejection.txt"; then
       echo "FAIL: expected the specific interface-compatibility rejection, got exit=$rejected." >&2
       echo 'Rerun dotx compose validate on the rejected fixture to inspect the diagnostic.' >&2
       exit 1
     fi
     printf '%s\n' \
-      'EXPECTED REJECTION (exit=1): scoring-api-to-collector mixes Contract-backed and contractless Anchors.' \
+      'EXPECTED REJECTION (exit=1): scoring-api-to-collector mixes Contract-backed and contractless Connectors.' \
       'The valid two-DOT graph has zero edges; no runtime was deployed by either validation command.'
     ;;
   *) echo "Usage: $0 <--inspect|--guardrail>" >&2; exit 2 ;;

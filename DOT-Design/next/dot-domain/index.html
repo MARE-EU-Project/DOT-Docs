@@ -134,7 +134,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
@@ -471,8 +471,8 @@ The Java model performs no catalogue or network I/O: use full <code>dotx validat
 for authoritative assets, selectors and cross-DOT resolution.</p>
 </div>
 <div class="paragraph">
-<p><code>@ValidAnchor</code> delegates aggregate reference and binding checks to
-<code>AnchorValidator</code>. Collection setters reject duplicate service IDs before
+<p><code>@ValidConnector</code> delegates aggregate reference and binding checks to
+<code>ConnectorValidator</code>. Collection setters reject duplicate service IDs before
 constructing an ordered Set; validation also detects collisions after in-place
 ID mutation. <code>@UniqueElements</code> supplies the shared Java/schema list constraints,
 without blanket deduplication or reordering. Service configuration keys are
@@ -505,11 +505,11 @@ owner combinations from the <code>DataFormat</code> enum alone.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_anchors_and_bindings"><a class="anchor" href="#_anchors_and_bindings"></a>Anchors and bindings</h2>
+<h2 id="_connectors_and_bindings"><a class="anchor" href="#_connectors_and_bindings"></a>Connectors and bindings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>See <a href="model-interfaces.html" class="xref page">Anchor model entries</a> for fields and constraints,
-and <a href="../dot-design/authoring-anchors.html" class="xref page">Anchor authoring</a> for operation
+<p>See <a href="model-interfaces.html" class="xref page">Connector model entries</a> for fields and constraints,
+and <a href="../dot-design/authoring-anchors.html" class="xref page">Connector authoring</a> for operation
 selection, compatibility and deployment binding.</p>
 </div>
 </div>

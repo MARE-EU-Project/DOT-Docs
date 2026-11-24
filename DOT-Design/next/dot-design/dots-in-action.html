@@ -132,7 +132,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -219,7 +219,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -385,7 +385,7 @@ explanation; it is not a prerequisite for running Hello World.</p>
 <div class="paragraph">
 <p>Grafana sends queries to Prometheus; Prometheus pulls metrics from Node Exporter.
 The CLI&#8217;s topology uses a different, logical direction: an Edge points from the
-Anchor that <strong>provides</strong> an interface to the Anchor that <strong>requires</strong> it. Both views
+Connector that <strong>provides</strong> an interface to the Connector that <strong>requires</strong> it. Both views
 describe the same system. An Edge does not determine which tool sends a request.</p>
 </div>
 <div class="paragraph">
@@ -415,7 +415,7 @@ targets, datasource configuration and credentials belong to that use case.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="dots-for-dummies.html" class="xref page">Start here: DOTs for Dummies</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A mental model of the ecosystem and its main DOT-Domain building blocks</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">You can trace Contract &#8594; Anchor &#8594; service port and explain what a composition adds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You can trace Contract &#8594; Connector &#8594; service port and explain what a composition adds.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="tutorial-first-dot.html" class="xref page">1. Run your first DOT</a></p></td>
@@ -424,9 +424,9 @@ targets, datasource configuration and credentials belong to that use case.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="tutorial-authoring.html" class="xref page">2. Create an interface-aware DOT</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Your own Prometheus definition, with a pinned official Contract, named Anchors,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your own Prometheus definition, with a pinned official Contract, named Connectors,
 configuration and two Docker deployment choices</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable validation passes; you can identify its three Anchors and two Docker deployment choices.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable validation passes; you can identify its three Connectors and two Docker deployment choices.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="tutorial-composition.html" class="xref page">3. Connecting the DOTs</a></p></td>

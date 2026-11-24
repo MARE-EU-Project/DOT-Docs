@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -654,7 +654,7 @@ dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
 </div>
 <div class="paragraph">
 <p>Validation checks the schema, official HTTPS OpenAPI Contract and SHA-256,
-Anchor selectors, and reusable deployment bindings. Inspection shows deployment
+Connector selectors, and reusable deployment bindings. Inspection shows deployment
 choices. The exact ID <code>docker-compose</code> selects only that mechanism. Dry-run
 prints its commands; it does not prove that a service is running.</p>
 </div>
@@ -765,9 +765,9 @@ to view Prometheus. If your browser is on another computer, follow
 <a href="#browser-over-ssh">Browser access from an SSH session</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>build-information</code> Anchor selects the official OpenAPI operation whose
+<p>The <code>build-information</code> Connector selects the official OpenAPI operation whose
 server prefix produces <code>/api/v1/status/buildinfo</code>. The <code>promql-query-api</code>
-Anchor selects query operations; both bind to the deployed service&#8217;s <code>http</code>
+Connector selects query operations; both bind to the deployed service&#8217;s <code>http</code>
 port. Its <code>scrape-target</code> requirement references Node Exporter&#8217;s metrics
 interface; this first example does not connect another DOT as a scrape target.</p>
 </div>

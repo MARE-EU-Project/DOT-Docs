@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -367,7 +367,7 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 <p>direct <code>dotx validate</code>, using the reusable publication profile where applicable;</p>
 </li>
 <li>
-<p>Contract-selector and DOT-to-DOT Anchor composition for reusable definitions;</p>
+<p>Contract-selector and DOT-to-DOT Connector composition for reusable definitions;</p>
 </li>
 <li>
 <p>offline inspection and deployment rendering;</p>
@@ -425,7 +425,7 @@ artifact set rather than treating this table as an instruction to upgrade it.</p
 <th class="tableblock halign-left valign-top">DOT</th>
 <th class="tableblock halign-left valign-top">Catalogue status</th>
 <th class="tableblock halign-left valign-top">Mechanisms in the same DOT</th>
-<th class="tableblock halign-left valign-top">Contract/Anchor surface</th>
+<th class="tableblock halign-left valign-top">Contract/Connector surface</th>
 <th class="tableblock halign-left valign-top">Live assertions</th>
 </tr>
 </thead>
@@ -434,7 +434,7 @@ artifact set rather than treating this table as an instruction to upgrade it.</p
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Keycloak@26.8.1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stable reusable external DOT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Codecentric <code>HELM_CHART</code> <code>7.4.0</code>; official Keycloak <code>DOCKER_COMPOSE</code>, <code>DOCKER_IMAGE</code> and native Kubernetes deployments, all targeting 26.8.1 in one release definition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.8.1 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Anchors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact Keycloak 26.8.1 Admin REST OpenAPI plus an attributed OIDC endpoint projection; Admin realm, JWKS, and client-credentials provider Connectors</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exact StatefulSet binding and Compose <code>start-dev</code>; readiness; obtain an admin token and assert <code>GET /admin/realms/master</code> returns the master realm through both mechanisms</p></td>
 </tr>
 <tr>
@@ -657,7 +657,7 @@ CLI and repository revisions.</p>
 <div class="paragraph">
 <p>A pass means the pinned public artifacts satisfied the assertions executed in
 the disposable test environment. For Keycloak and Prometheus this includes a
-successful request to the exact operation selected by the DOT Anchor, in
+successful request to the exact operation selected by the DOT Connector, in
 addition to readiness. It does not establish production sizing,
 availability, security hardening, backup/restore, or every upstream feature.
 In particular, the Wireshark example checks its web application surface; it

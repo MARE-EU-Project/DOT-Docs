@@ -1,9 +1,9 @@
 flowchart TD
   accTitle: Fail-closed composition resolution pipeline
-  accDescr: The composer validates and pins its inputs, resolves Anchor bindings, evaluates compatibility, produces a deterministic evidence-bearing resolved composition, and permits apply only when evidence is complete.
+  accDescr: The composer validates and pins its inputs, resolves Connector bindings, evaluates compatibility, produces a deterministic evidence-bearing resolved composition, and permits apply only when evidence is complete.
 
   Source["Composition document"] --> Validate["1 · Validate and pin inputs<br/>schema · UUIDs · versions · Contracts"]
-  Validate --> Resolve["2 · Resolve topology<br/>deployments · Anchors · bindings · ports"]
+  Validate --> Resolve["2 · Resolve topology<br/>deployments · Connectors · bindings · ports"]
   Resolve --> Compatibility{"3 · Compatibility<br/>result"}
 
   Compatibility -->|COMPATIBLE| Derive["Derive endpoints, parameters,<br/>security status, and materializers"]

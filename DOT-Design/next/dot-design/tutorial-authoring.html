@@ -132,7 +132,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -219,7 +219,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -362,7 +362,7 @@ set. No runtime is started in this lesson.</p>
 <div class="paragraph">
 <p><strong>Goal:</strong> create <code>$LAB/prometheus/dot.json</code> with verified interfaces and two
 deployment choices. <strong>You will learn:</strong> Contract ownership, provided/required
-Anchors and service-scoped configuration. Keep the generated scaffold so you
+Connectors and service-scoped configuration. Keep the generated scaffold so you
 can review exactly what the enrichment changes.</p>
 </div>
 </div>
@@ -400,14 +400,14 @@ dotx new --from docker-image "$IMAGE" \
 dotx validate "$LAB/base/dot.json" \
   --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$LAB/base/dot.json"
-printf 'Draft verified: two provided Anchors.\n'
+printf 'Draft verified: two provided Connectors.\n'
 printf 'Follow their Contract references in %s/base/dot.json\n' "$LAB"
 )</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Expected: an owned interface is verified, the output is saved, and reusable
-validation succeeds. <code>Draft verified: two provided Anchors</code> is your checkpoint.
+validation succeeds. <code>Draft verified: two provided Connectors</code> is your checkpoint.
 You supplied the release and selected operations; the CLI constructed their
 readable IDs and service bindings.</p>
 </div>
@@ -462,7 +462,7 @@ A graphical editor must open the printed full path, not the literal <code>$LAB/&
 <code>sha256</code> pins them. Contract version <code>3.1.0</code> is the OpenAPI standard version.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectors</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>build-information</code> and <code>promql-query-api</code> provide selected operations from
 that Contract. Their selectors are JSON Pointers, separate from Contract IDs.</p></td>
 </tr>
@@ -475,8 +475,8 @@ that Contract. Their selectors are JSON Pointers, separate from Contract IDs.</p
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>docker-image</code> selects a <code>DOCKER_IMAGE</code> mechanism and exact image bytes.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>services</code>, <code>ports</code>, <code>anchorBindings</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Service <code>prometheus</code> materializes both Anchors on the named <code>http</code> port, 9090.
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>services</code>, <code>ports</code>, <code>connectorBindings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service <code>prometheus</code> materializes both Connectors on the named <code>http</code> port, 9090.
 The flag <code>http:9090</code> supplies a port name and number. The generated port&#8217;s
 <code>protocol</code> is initially <code>TCP</code>; naming it <code>http</code> does not change that field.</p></td>
 </tr>
@@ -497,7 +497,7 @@ Keep the image pin; this exercise uses the CLI.</p>
 </div>
 </details>
 <div class="paragraph">
-<p>For example, one generated Anchor looks like this:</p>
+<p>For example, one generated Connector looks like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -505,10 +505,8 @@ Keep the image pin; this exercise uses the CLI.</p>
   "id": "build-information",
   "name": "build-information",
   "role": "PROVIDES",
-  "contract": {
-    "id": "Prometheus@3.15.1::OpenAPI::HTTP",
-    "selector": "#/paths/~1status~1buildinfo/get"
-  }
+  "contractId": "Prometheus@3.15.1::OpenAPI::HTTP",
+  "selector": "#/paths/~1status~1buildinfo/get"
 }</code></pre>
 </div>
 </div>
@@ -538,7 +536,7 @@ set -euo pipefail
 set -o noclobber
 mkdir "$LAB/prometheus"
 jq --slurpfile product "$PROMETHEUS_JSON" '
-  .anchors += [$product[0].anchors[] | select(.id == "scrape-target")]
+  .connectors += [$product[0].connectors[] | select(.id == "scrape-target")]
   | .runtimes[0].deployments[0].services[0].ports[0].protocol = "HTTP"
   | .runtimes[0].deployments[0].services[0].config =
       ($product[0].runtimes[].deployments[] | select(.id == "docker")
@@ -552,7 +550,7 @@ dotx validate "$LAB/prometheus/dot.json" \
   --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$LAB/prometheus/dot.json"
 printf 'Definition verified: %s\n' \
-  'three Anchors and two Docker deployment choices.'
+  'three Connectors and two Docker deployment choices.'
 printf 'Review the changes below.\n'
 diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" ||
   test "$?" -eq 1
@@ -565,7 +563,7 @@ diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" ||
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>scrape-target</code> is a <strong>REQUIRES</strong> Anchor referencing Node Exporter&#8217;s exact
+<p><code>scrape-target</code> is a <strong>REQUIRES</strong> Connector referencing Node Exporter&#8217;s exact
 Contract and originating DOT. Prometheus does not copy or own that Contract.</p>
 </li>
 <li>
@@ -584,7 +582,7 @@ including its verified URL payload and declared defaults.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The final <code>$LAB/prometheus/dot.json</code> has three Anchors and two deployments. It
+<p>The final <code>$LAB/prometheus/dot.json</code> has three Connectors and two deployments. It
 is complete for the interfaces taught here; it is not a copy of every capability
 Prometheus could have. <code>DOCKER_IMAGE</code> and <code>DOCKER_COMPOSE</code> are mechanisms on the
 same engine. A Kubernetes deployment would belong in another Runtime.</p>
@@ -620,7 +618,7 @@ line menus. The default publication choice is Cancel.
 In that fallback, <code>/text</code> filters, the displayed number selects, and <code>q</code> cancels.</p>
 </div>
 <div class="paragraph">
-<p>Compare the candidate to the original. Unchanged Anchor IDs, manifests and
+<p>Compare the candidate to the original. Unchanged Connector IDs, manifests and
 configuration stay intact. The candidate is not automatically promoted; the
 remaining lessons deliberately use <code>$LAB/prometheus/dot.json</code>. Try another edit
 with an unused output path and cancel: no second candidate should appear.</p>
@@ -661,7 +659,7 @@ an edited definition just to make the block run again.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Continue when reusable validation passes for <code>$LAB/prometheus/dot.json</code> and
-inspection shows three Anchors and both <code>docker-image</code> and <code>docker-compose</code>.
+inspection shows three Connectors and both <code>docker-image</code> and <code>docker-compose</code>.
 The optional editor candidate is separate; the next lesson uses the enriched
 <code>prometheus/dot.json</code> you just validated.</p>
 </div>

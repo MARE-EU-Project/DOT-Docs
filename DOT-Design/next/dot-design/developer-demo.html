@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -379,7 +379,7 @@ dotx inspect "$KEYCLOAK" --json |
   jq -e '{name, version,
           deployments: [.deployments[] |
             {id, platformEngine, type, supported}],
-          anchor: (.anchors[] | select(.name == "admin-realm-read") |
+          connector: (.connectors[] | select(.name == "admin-realm-read") |
             {name, role, contract})} |
          select(([.deployments[].platformEngine] | unique) ==
            ["DOCKER", "KUBERNETES"])'
@@ -394,10 +394,10 @@ deployment choices in one release <code>dot.json</code>. Supported tool releases
 separate exact release folders in the same product folder. All deployment artifacts must match 26.8.1. PoC-specific
 configuration stays in composition inputs or named deployments, not a cloned
 product identity. The selected <code>admin-realm-read</code>
-Anchor refers to the Admin REST Contract and its <code>GET</code> selector. The
+Connector refers to the Admin REST Contract and its <code>GET</code> selector. The
 root Contract declaration identifies the release-specific official raw document
 and SHA-256; source/provenance boundaries remain in the audit. No API definition
-is copied into the Anchor.</p>
+is copied into the Connector.</p>
 </div>
 <div class="paragraph">
 <p>This bundle declares every owned Contract completely in <code>dot.json</code>, using
@@ -431,7 +431,7 @@ validation-only graph, then attempts its existing deliberately rejected edge. Ex
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">EXPECTED REJECTION (exit=1): scoring-api-to-collector mixes Contract-backed and contractless Anchors.
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">EXPECTED REJECTION (exit=1): scoring-api-to-collector mixes Contract-backed and contractless Connectors.
 The valid two-DOT graph has zero edges; no runtime was deployed by either validation command.</code></pre>
 </div>
 </div>
@@ -453,7 +453,7 @@ live trust-scoring result or a runtime security test.</p>
 <p>The first current rejection is Contract-backed/contractless incompatibility;
 it does not prove that a later undeclared-configuration check ran. After
 implementing a real consumer, declare its supported endpoint configuration,
-Anchor and binding, then validate the resulting edge and test the actual call.</p>
+Connector and binding, then validate the resulting edge and test the actual call.</p>
 </div>
 </div>
 </div>
@@ -476,7 +476,7 @@ Anchor and binding, then validate the resulting edge and test the actual call.</
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Product capability and interfaces</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The existing DOT bundle, root Skills/Contracts, Anchors and service bindings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The existing DOT bundle, root Skills/Contracts, Connectors and service bindings</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reuse it. Extend the shared definition only when the software genuinely
   supports an additional capability or interface.</p></td>
 </tr>
@@ -524,7 +524,7 @@ check its README, source revision and declared gaps.</p>
 export or derive the Contract from the implementation and review its limits.</p>
 </li>
 <li>
-<p>Declare the provided/required Anchor and the selected deployment&#8217;s service
+<p>Declare the provided/required Connector and the selected deployment&#8217;s service
 binding. Ensure the application really reads the declared configuration.</p>
 </li>
 <li>
@@ -540,7 +540,7 @@ dry-run, then add a far-end behavioral assertion and success/failure cleanup.</p
 </div>
 <div class="paragraph">
 <p><code>Skill</code> is a required high-level capability reference; it is not an API
-operation or a command executor. Anchors and authoritative Contracts describe
+operation or a command executor. Connectors and authoritative Contracts describe
 the concrete interoperability boundary.</p>
 </div>
 </div>

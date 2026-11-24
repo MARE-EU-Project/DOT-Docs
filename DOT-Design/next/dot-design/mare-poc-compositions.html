@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -477,7 +477,7 @@ task testing:pocs:dry-run</code></pre>
 <div class="paragraph">
 <p>Install from this checkout&#8217;s pinned CLI and retain the same artifact set.
 Dry-runs must pass before deployment. The three paths
-contain respectively 1, 5 and 2 compatible edges. Inspect their exact Anchor
+contain respectively 1, 5 and 2 compatible edges. Inspect their exact Connector
 IDs, selected deployments and materializers; <code>COMPATIBLE</code> is not a live result.</p>
 </div>
 </div>
@@ -495,7 +495,7 @@ IDs, selected deployments and materializers; <code>COMPATIBLE</code> is not a li
 Producer context: PoC4 <code>c03eca71a9d87358603a1d89fa0eca58a9dabe03</code>.
 Node Exporter provides metrics; Prometheus requires the scrape endpoint. A
 <code>CONFIG_FILE</code> materializer inserts <code>ENDPOINT_HOST_PORT</code> at
-<code>/scrape_configs/0/static_configs/0/targets/0</code>. Prometheus&#8217;s query Anchor uses
+<code>/scrape_configs/0/static_configs/0/targets/0</code>. Prometheus&#8217;s query Connector uses
 its DOT-local Contract. OpenMetrics is not a fabricated OpenAPI operation.</p>
 </div>
 <div class="listingblock">
@@ -605,7 +605,7 @@ pause happens after restoration, so the displayed composition remains usable.</p
 <div class="paragraph">
 <p>Policy administration is an explicit operator-side demonstration action using
 <a href="https://www.openpolicyagent.org/docs/rest-api#policy-api">OPA&#8217;s Policy API</a>,
-not a sixth Anchor edge, automatic remediation, or a production policy-management
+not a sixth Connector edge, automatic remediation, or a production policy-management
 design. The harness requires ownership of the applied namespace and an exact
 match to the reviewed policy before mutation. A failed or ambiguous update
 triggers a restoration attempt; any failure still invokes the parent harness&#8217;s
@@ -823,7 +823,7 @@ under <code>DOT-Testing/e2e/target/</code>. Changed inputs invalidate the aggreg
 Dirty-worktree evidence does not claim those changes were already published.</p>
 </div>
 <div class="paragraph">
-<p>The manual <strong>Anchor live E2E</strong> workflow&#8217;s <code>first-wave</code> selection runs the same
+<p>The manual <strong>Connector live E2E</strong> workflow&#8217;s <code>first-wave</code> selection runs the same
 checks and rehearsal driver. Remote infrastructure and queue failures remain
 separate from local acceptance; no workflow success is claimed before it runs.</p>
 </div>

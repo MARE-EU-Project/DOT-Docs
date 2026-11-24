@@ -9,11 +9,11 @@ config:
 classDiagram
   direction TB
   accTitle: Simplified DOT domain model
-  accDescr: Dot declares Contracts and contains Anchors and Runtime alternatives. An Anchor selects a Contract operation. Each Runtime offers Deployments. A Deployment contains one manifest and its logical services. A separate Composition aggregate owns vertices that select exact DOT releases. Edges connect vertices and contain channels that select their connectors.
+  accDescr: Dot declares Contracts and contains Connectors and Runtime alternatives. A Connector selects a Contract operation. Each Runtime offers Deployments. A Deployment contains one manifest and its logical services. A separate Composition aggregate owns vertices that select exact DOT releases. Edges connect vertices and contain channels that select their connectors.
 
   class Dot
   class Contract
-  class Anchor
+  class Connector
   class Runtime
   class Deployment
   class Manifest {
@@ -24,20 +24,18 @@ classDiagram
   class Vertex
   class Edge
   class Channel
-  class Connector
 
   Composition *-- Vertex : vertices
   Composition *-- Edge : edges
   Vertex ..> Dot : references
   Edge ..> Vertex : from / to
   Edge *-- Channel : channels
-  Vertex *-- Connector : connectors
+  Vertex ..> Connector : selects IDs
   Channel ..> Connector : selects endpoints
-  Connector ..> Anchor : selects Anchor
   Dot --> Contract : declares
-  Dot *-- Anchor : anchors
+  Dot *-- Connector : connectors
   Dot *-- Runtime : runtimes
-  Anchor ..> Contract : selects operation
+  Connector ..> Contract : selects operation
   Runtime *-- Deployment : alternatives
   Deployment *-- Manifest : manifest
   Deployment *-- Service : services

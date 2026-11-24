@@ -133,7 +133,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
@@ -362,7 +362,7 @@
 <p>Describe one reusable software product or component: its identity, capabilities, interfaces and supported deployment alternatives. A DOT definition is not a running instance or a complete multi-tool use case.</p>
 </div>
 <div class="paragraph">
-<p>Keep one canonical product definition for the selected tool release. A composition selects instances and deployments, connects Anchors and supplies use-case inputs; do not copy product definitions for each scenario. The CLI deploys from the selected dot.json, not from nearby Dockerfiles or manifests. Java validation checks the aggregate and its declared relationships; catalogue resolution, verified Contract downloads and live acceptance are separate checks.</p>
+<p>Keep one canonical product definition for the selected tool release. A composition selects instances and deployments, connects Connectors and supplies use-case inputs; do not copy product definitions for each scenario. The CLI deploys from the selected dot.json, not from nearby Dockerfiles or manifests. Java validation checks the aggregate and its declared relationships; catalogue resolution, verified Contract downloads and live acceptance are separate checks.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/Dot.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/schema.json">Generated JSON Schema</a></p>
@@ -429,11 +429,11 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of (Contract (ID reference) or Contract)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative interface declarations owned by this exact DOT release. Published catalogue roots need complete URL-backed declarations. References to dependency interfaces belong on Anchors with an explicit origin, not as copied declarations here.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authoritative interface declarations owned by this exact DOT release. Published catalogue roots need complete URL-backed declarations. References to dependency interfaces belong on Connectors with an explicit origin, not as copied declarations here.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchors</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of Anchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of Connector</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Embedded logical integration points provided or required by the component. Their IDs are local to this DOT and are the keys used by service bindings and composition edges; addresses and credentials do not belong here.</p></td>
 </tr>
@@ -460,7 +460,7 @@
 <p>To <a href="#model-Version">Version</a>: containment via version; diagram multiplicity 1.</p>
 </li>
 <li>
-<p>To <a href="model-interfaces.html#model-Anchor" class="xref page">Anchor</a>: containment via anchors; diagram multiplicity 0..*.</p>
+<p>To <a href="model-interfaces.html#model-Connector" class="xref page">Connector</a>: containment via connectors; diagram multiplicity 0..*.</p>
 </li>
 <li>
 <p>To <a href="model-interfaces.html#model-Contract" class="xref page">Contract</a>: containment via contracts; diagram multiplicity 0..*.</p>
@@ -505,15 +505,13 @@
       }
     }
   ],
-  "anchors": [
+  "connectors": [
     {
       "id": "build-information",
       "name": "build-information",
       "role": "PROVIDES",
-      "contract": {
-        "id": "Prometheus@3.15.1::OpenAPI::HTTP",
-        "selector": "#/paths/~1status~1buildinfo/get"
-      }
+      "contractId": "Prometheus@3.15.1::OpenAPI::HTTP",
+      "selector": "#/paths/~1status~1buildinfo/get"
     }
   ],
   "runtimes": [
@@ -550,9 +548,9 @@
                   "id": "Prometheus@3.15.1::OpenAPI::HTTP"
                 }
               ],
-              "anchorBindings": [
+              "connectorBindings": [
                 {
-                  "anchorId": "build-information",
+                  "connectorId": "build-information",
                   "port": "http"
                 }
               ],
@@ -757,7 +755,7 @@
 </div>
 <nav class="pagination">
   <span class="prev"><a href="model-reference.html">Complete model reference</a></span>
-  <span class="next"><a href="model-interfaces.html">Contracts and Anchors</a></span>
+  <span class="next"><a href="model-interfaces.html">Contracts and Connectors</a></span>
 </nav>
 </article>
   </div>

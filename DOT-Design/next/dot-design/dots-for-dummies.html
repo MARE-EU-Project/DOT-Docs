@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOTs for Dummies :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/dots-for-dummies.html">
-    <meta name="description" content="Learn what a DOT describes and how Skills, Contracts, Anchors, Runtimes, Deployments, Services and compositions fit together, with no installation needed.">
+    <meta name="description" content="Learn what a DOT describes and how Skills, Contracts, Connectors, Runtimes, Deployments, Services and compositions fit together, with no installation needed.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -132,7 +132,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -219,7 +219,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -395,9 +395,9 @@ selection. You can reuse the same DOT in several compositions.</p>
 <p><strong>Capabilities (<code>skills</code>).</strong> Prometheus declares abilities such as metrics scraping.</p>
 </li>
 <li>
-<p><strong>Interfaces (<code>contracts</code> and <code>anchors</code>).</strong> The root <code>contracts</code> list declares owned interface
-specifications; <code>anchors</code> names integration points that provide or require
-operations. An Anchor can refer to an owned Contract or one from another DOT.</p>
+<p><strong>Interfaces (<code>contracts</code> and <code>connectors</code>).</strong> The root <code>contracts</code> list declares owned interface
+specifications; <code>connectors</code> names integration points that provide or require
+operations. A Connector can refer to an owned Contract or one from another DOT.</p>
 </li>
 <li>
 <p><strong>Where it runs.</strong> A Runtime&#8217;s <code>platform</code> identifies an engine such as Docker
@@ -405,19 +405,19 @@ or Kubernetes. Its <code>deployments</code> are alternative ways to launch that 
 </li>
 <li>
 <p><strong>What runs together.</strong> The chosen deployment&#8217;s <code>services</code> describe the logical
-services, ports and configuration. <code>anchorBindings</code> connects an Anchor to a
+services, ports and configuration. <code>connectorBindings</code> connects a Connector to a
 named service port.</p>
 </li>
 <li>
 <p><strong>Connections between tools.</strong> A composition selects one deployment
 per Vertex. Edges join Vertices; each Channel connects compatible provided
-and required Anchors. Its materializer supplies the selected endpoint in the consumer&#8217;s
+and required Connectors. Its materializer supplies the selected endpoint in the consumer&#8217;s
 configuration.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>For example, Node Exporter <strong>provides</strong> a metrics Anchor and Prometheus <strong>requires</strong>
+<p>For example, Node Exporter <strong>provides</strong> a metrics Connector and Prometheus <strong>requires</strong>
 a scrape target. A Channel connects those integration points; Prometheus then
 makes HTTP requests to collect the measurements. A second connection lets
 Grafana query Prometheus. The application performs the requests; the DOTs and
@@ -427,7 +427,7 @@ composition describe the interfaces and configuration needed for them.</p>
 <p>You do not need Java knowledge, a running service or a complete understanding
 of every field to begin. Read the four ideas below, then use the remaining
 sections as a reference while following the practical lessons. By the end,
-you should be able to trace an interface from its Contract through an Anchor
+you should be able to trace an interface from its Contract through a Connector
 to a service port, and explain what a composition adds.</p>
 </div>
 </div>
@@ -456,7 +456,7 @@ to a service port, and explain what a composition adds.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Start with Docker Compose; choosing it does not launch the other alternatives.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Anchor</strong>: name an Integration Point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Connector</strong>: name an Integration Point</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>build-information</code> selects one operation from Prometheus&#8217;s verified Contract.</p></td>
 </tr>
 <tr>
@@ -508,24 +508,24 @@ DOT-Domain model.</p>
 <div class="paragraph">
 <p><code>Dot</code> describes a reusable product release. A <code>Composition</code> selects releases as
 Vertices and connects them with Edges. Each Channel uses a Connector on each
-Vertex to select its DOT&#8217;s Anchor. The arrows describe model relationships.</p>
+Vertex to select its DOT&#8217;s Connector. The arrows describe model relationships.</p>
 </div>
 <details>
 <summary class="title">See the core class relationships</summary>
 <div class="content">
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/dot-domain-overview.svg" alt="Composition instances and Edges referencing reusable Dot definitions, Contracts, Anchors and deployments">
+<img src="_images/diagrams/dot-domain-overview.svg" alt="Composition instances and Edges referencing reusable Dot definitions, Contracts, Connectors and deployments">
 </div>
 <div class="title">Figure 2. Simplified domain model: reusable DOT definitions and a separate Composition</div>
 </div>
 <div class="paragraph">
 <p>Diamonds indicate embedded values; arrows indicate declarations or references.
-The dashed arrow applies to Contract-backed Anchors. Field lists, collection sizes,
+The dashed arrow applies to Contract-backed Connectors. Field lists, collection sizes,
 configuration, ports, binding helpers and audit metadata are omitted for
 readability; see the full <a href="../dot-domain/index.html#_class_diagram" class="xref page">generated class diagram</a>
 for implementation detail. <code>Composition</code> is a separate DOT-Domain aggregate:
-its Vertices reference DOTs, its Edges connect Vertices, and its Channels select Anchors through Connectors.</p>
+its Vertices reference DOTs, its Edges connect Vertices, and its Channels select Connector IDs on those Vertices.</p>
 </div>
 <div class="paragraph">
 <p><a href="_attachments/diagrams/dot-domain-overview.mmd" class="xref attachment">View the editable Mermaid source</a>.</p>
@@ -604,7 +604,7 @@ own private learning definition without changing the catalogue.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_describe_an_interface_contract_payload_and_anchor"><a class="anchor" href="#_describe_an_interface_contract_payload_and_anchor"></a>Describe an interface: Contract, Payload and Anchor</h2>
+<h2 id="_describe_an_interface_contract_payload_and_connector"><a class="anchor" href="#_describe_an_interface_contract_payload_and_connector"></a>Describe an interface: Contract, Payload and Connector</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>Contract</strong> documents an interface in a supported machine-readable standard:
@@ -627,9 +627,9 @@ as described. The document URL is separate from the running API address.
 Choose release-matched official specifications and record where they came from.</p>
 </div>
 <div class="paragraph">
-<p>An <strong>Anchor</strong> is a named <strong>Integration Point</strong>. It gives a useful interface a
+<p>An <strong>Connector</strong> is a named <strong>Integration Point</strong>. It gives a useful interface a
 DOT-local name and declares whether this tool <code>PROVIDES</code> or <code>REQUIRES</code> it.
-For a Contract-backed Anchor, the selector identifies the operation inside the
+For a Contract-backed Connector, the selector identifies the operation inside the
 verified specification:</p>
 </div>
 <div class="listingblock">
@@ -638,26 +638,25 @@ verified specification:</p>
   "id": "build-information",
   "name": "build-information",
   "role": "PROVIDES",
-  "contract": {
-    "id": "Prometheus@3.15.1::OpenAPI::HTTP",
-    "selector": "#/paths/~1status~1buildinfo/get"
-  }
+  "contractId": "Prometheus@3.15.1::OpenAPI::HTTP",
+  "selector": "#/paths/~1status~1buildinfo/get"
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Read this as: “Prometheus provides build information through this selected
 OpenAPI operation.” <code>~1</code> encodes <code>/</code> in the JSON Pointer. The selector is separate
-from the Contract ID; an Anchor contains no running host, port or password.</p>
+from the Contract ID; a Connector contains no running host, port or password.</p>
 </div>
 <div class="paragraph">
 <p>Root <code>Dot.contracts</code> holds complete declarations <strong>owned by that tool release</strong>.
-An Anchor requiring another tool&#8217;s Contract names its exact originating DOT
-through <code>contract.source</code>; the consumer does not copy the producer&#8217;s Contract.
+A Connector requiring another tool&#8217;s Contract keeps its owner-qualified
+<code>contractId</code>. dotx derives the exact owning DOT from that prefix in the selected
+catalogue; the consumer does not copy the producer&#8217;s Contract.
 The model also supports a provider-neutral requirement profile, initially OIDC
 discovery, and explicit contractless communication boundaries. Those modes do
 not create a verified Contract where none exists. See
-<a href="authoring-anchors.html" class="xref page">Anchor authoring</a> for their distinct validation rules.</p>
+<a href="authoring-anchors.html" class="xref page">Connector authoring</a> for their distinct validation rules.</p>
 </div>
 </div>
 </div>
@@ -705,7 +704,7 @@ Helm charts, Vagrantfiles and WASM modules.</p></td>
 One deployment can materialize several services.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ServicePort</code> and <code>AnchorBinding</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ServicePort</code> and <code>ConnectorBinding</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Where does a provided interface become reachable?</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named port <code>http</code>, application protocol <code>HTTP</code>, service port <code>9090</code>;
 <code>build-information</code> is bound to that named port.</p></td>
@@ -719,7 +718,7 @@ contains the references and declarations needed for deployment; a neighbouring
 Compose file or Dockerfile is not an implicit input.</p>
 </div>
 <div class="paragraph">
-<p>This service fragment completes the connection between the logical Anchor and
+<p>This service fragment completes the connection between the logical Connector and
 its implementation:</p>
 </div>
 <div class="listingblock">
@@ -728,12 +727,12 @@ its implementation:</p>
   "id": "prometheus",
   "ports": [{"name": "http", "protocol": "HTTP", "port": 9090}],
   "contracts": [{"id": "Prometheus@3.15.1::OpenAPI::HTTP"}],
-  "anchorBindings": [{"anchorId": "build-information", "port": "http"}]
+  "connectorBindings": [{"connectorId": "build-information", "port": "http"}]
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Follow the chain: <strong>Contract operation &#8594; Anchor &#8594; service binding &#8594; named
+<p>Follow the chain: <strong>Contract operation &#8594; Connector &#8594; service binding &#8594; named
 port</strong>. The deployment supplies the implementation. A published host port such as
 <code>18909</code> is an instance-facing choice; it is not the service&#8217;s <code>9090</code> port.
 The service&#8217;s Contract list contains ID-only references; the complete owned
@@ -787,7 +786,7 @@ these exact model fields and supported bindings.</p>
 for several distinctly named instances.</p>
 </div>
 <div class="paragraph">
-<p>An <strong>Edge</strong> connects an Anchor that provides an interface to one that requires it.
+<p>An <strong>Edge</strong> connects a Connector that provides an interface to one that requires it.
 The first monitoring connection has three distinct parts:</p>
 </div>
 <div class="imageblock text-center interactive-diagram">
@@ -835,7 +834,7 @@ resolved values remain execution concerns.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Explicit startup dependencies. This is separate from the Edge&#8217;s interface relationship.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exposed Anchors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposed Connectors</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named interfaces selected for access, such as <code>prometheus-query</code> with <code>--forward</code>.
 An exposure does not add authentication.</p></td>
 </tr>
@@ -847,7 +846,7 @@ successful compatibility result alone does not prove a running interaction.</p><
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broker and external-gateway bindings</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Explicit transport endpoints or cross-runtime reachability supplied by the
-operator. They do not create extra Anchor Edges. Infrastructure remains
+operator. They do not create extra Connector Edges. Infrastructure remains
 operator-owned and is not adopted or deleted by the composition.</p></td>
 </tr>
 </tbody>
@@ -978,17 +977,17 @@ No mandatory registry is required for this catalogue-based route.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The DOT references a Skill, owns Contracts and contains Anchors and Runtime alternatives.</p>
+<p>The DOT references a Skill, owns Contracts and contains Connectors and Runtime alternatives.</p>
 </li>
 <li>
 <p>A Runtime targets a Platform and contains Deployments; each Deployment has a
 manifest and logical Services.</p>
 </li>
 <li>
-<p>A provided Anchor selects an operation and is bound to a Service&#8217;s named port.</p>
+<p>A provided Connector selects an operation and is bound to a Service&#8217;s named port.</p>
 </li>
 <li>
-<p>A separate Composition references DOT instances and connects Anchors through Edges.</p>
+<p>A separate Composition references DOT instances and connects Connectors through Edges.</p>
 </li>
 </ol>
 </div>

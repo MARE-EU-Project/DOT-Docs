@@ -133,7 +133,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
@@ -422,7 +422,7 @@
 <h2 id="model-Channel"><a class="anchor" href="#model-Channel"></a>Channel</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Connect a provided Anchor to a required Anchor and declare how the consumer receives its connection details.</p>
+<p>Connect a provided Connector to a required Connector and declare how the consumer receives its connection details.</p>
 </div>
 <div class="paragraph">
 <p>The arrow expresses logical provision, not necessarily packet direction. Parameter, endpoint, security and materializer choices must agree with the resolved interfaces. Use the singular or plural materializer form, not both. A compatible declaration or configured connection is not proof of network reachability or a successful live operation.</p>
@@ -456,13 +456,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fromConnector</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor ID declared by the provider vertex. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector ID declared by the provider vertex. minimum length: 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>toConnector</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor ID declared by the consumer vertex. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector ID declared by the consumer vertex. minimum length: 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>parameters</code></p></td>
@@ -538,7 +538,7 @@
 <p>From <a href="#model-Edge">Edge</a>: containment via channels; diagram multiplicity 1..*.</p>
 </li>
 <li>
-<p>To <a href="#model-Connector">Connector</a>: ID/name reference via fromConnector / toConnector.</p>
+<p>To <a href="model-interfaces.html#model-Connector" class="xref page">Connector</a>: ID/name reference via fromConnector / toConnector.</p>
 </li>
 </ul>
 </div>
@@ -614,10 +614,10 @@
 <h2 id="model-Composition"><a class="anchor" href="#model-Composition"></a>Composition</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Describe one reusable use case by selecting DOT instances and connecting their logical interfaces.</p>
+<p>Describe one reusable use case by selecting DOTs as Vertices and connecting their logical interfaces.</p>
 </div>
 <div class="paragraph">
-<p>This is a separate aggregate, not a DOT containing other DOT definitions. Instance references must name declared members and explicit readiness dependencies must be acyclic; interface edges may form cycles. Catalogue resolution, reviewed locks, credentials, deployment ownership and live acceptance remain separate executor concerns.</p>
+<p>This is a separate aggregate, not a DOT containing other DOT definitions. Vertex references must name declared members and explicit readiness dependencies must be acyclic; interface edges may form cycles. Catalogue resolution, reviewed locks, credentials, deployment ownership and live acceptance remain separate executor concerns.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Composition.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/composition-v1.schema.json">Generated JSON Schema</a></p>
@@ -687,10 +687,10 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Directed connections between vertices, with channels selecting their logical interfaces.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedAnchors</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of ExposedAnchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedConnectors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ExposedConnector</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Names for selected member Anchors at the composition boundary; these do not themselves publish a network listener.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Names for selected member Connectors at the composition boundary; these do not themselves publish a network listener.</p></td>
 </tr>
 </tbody>
 </table>
@@ -706,7 +706,7 @@
 <p>To <a href="#model-Edge">Edge</a>: containment via edges; diagram multiplicity 0..*.</p>
 </li>
 <li>
-<p>To <a href="#model-ExposedAnchor">ExposedAnchor</a>: containment via exposedAnchors; diagram multiplicity 0..*.</p>
+<p>To <a href="#model-ExposedConnector">ExposedConnector</a>: containment via exposedConnectors; diagram multiplicity 0..*.</p>
 </li>
 <li>
 <p>To <a href="#model-Vertex">Vertex</a>: containment via vertices; diagram multiplicity 1..*.</p>
@@ -729,77 +729,10 @@
       "dotId": "Example@1.0.0",
       "dotVersion": "1.0.0",
       "connectors": [
-        {
-          "anchorId": "http-api"
-        }
+        "http-api"
       ]
     }
   ]
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-Connector"><a class="anchor" href="#model-Connector"></a>Connector</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Identify a logical Anchor on one composition member.</p>
-</div>
-<div class="paragraph">
-<p>The containing vertex gives the Anchor ID its scope. The executor resolves addresses and service bindings from the selected DOT and deployment.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Connector.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Connector.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact DOT-local Anchor key on that member. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>From <a href="#model-Vertex">Vertex</a>: containment via connectors; diagram multiplicity 0..*.</p>
-</li>
-<li>
-<p>From <a href="#model-Channel">Channel</a>: ID/name reference via fromConnector / toConnector.</p>
-</li>
-<li>
-<p>From <a href="#model-ExposedAnchor">ExposedAnchor</a>: ID/name reference via connector.</p>
-</li>
-<li>
-<p>To <a href="model-interfaces.html#model-Anchor" class="xref page">Anchor</a>: ID/name reference via anchorId.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "anchorId": "http-api"
 }</code></pre>
 </div>
 </div>
@@ -1369,16 +1302,16 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="model-ExposedAnchor"><a class="anchor" href="#model-ExposedAnchor"></a>ExposedAnchor</h2>
+<h2 id="model-ExposedConnector"><a class="anchor" href="#model-ExposedConnector"></a>ExposedConnector</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Give a member Anchor a stable name at the composition boundary.</p>
+<p>Give a member Connector a stable name at the composition boundary.</p>
 </div>
 <div class="paragraph">
 <p>Exposure names an existing logical interface; it does not create an API, a public listener or an authorization policy. Forwarding, reachable addresses and live checks are explicit executor operations.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ExposedAnchor.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ExposedAnchor.schema.json">Generated JSON Schema</a></p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/ExposedConnector.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ExposedConnector.schema.json">Generated JSON Schema</a></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1412,7 +1345,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>connector</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local Anchor ID declared by that vertex. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local Connector ID declared by that vertex. minimum length: 1.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1422,13 +1355,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-Composition">Composition</a>: containment via exposedAnchors; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Composition">Composition</a>: containment via exposedConnectors; diagram multiplicity 0..*.</p>
 </li>
 <li>
 <p>To <a href="#model-Vertex">Vertex</a>: ID/name reference via vertex.</p>
 </li>
 <li>
-<p>To <a href="#model-Connector">Connector</a>: ID/name reference via connector.</p>
+<p>To <a href="model-interfaces.html#model-Connector" class="xref page">Connector</a>: ID/name reference via connector.</p>
 </li>
 </ul>
 </div>
@@ -2405,7 +2338,7 @@
 <p>Select one canonical DOT release for a named role in a composition.</p>
 </div>
 <div class="paragraph">
-<p>Use the instance name in graph references and the DOT identity for catalogue resolution. A qualified source must agree with the selected DOT metadata. Choose a deployment ID rather than a manifest-type label; dependencies express readiness order, not interface compatibility or application data flow.</p>
+<p>Use the Vertex name in graph references and the DOT identity for catalogue resolution. A qualified source must agree with the selected DOT metadata. Choose a deployment ID rather than a manifest-type label; dependencies express readiness order, not interface compatibility or application data flow.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Vertex.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Vertex.schema.json">Generated JSON Schema</a></p>
@@ -2430,7 +2363,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local name used by edges, dependencies and other instance references. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local name used by edges, dependencies and other Vertex references. minimum length: 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
@@ -2460,13 +2393,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dependsOn</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Other instance names whose readiness is a prerequisite for this instance. distinct items.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Other Vertex names whose readiness is a prerequisite for this Vertex. distinct items.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectors</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of Connector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local Anchors selected for this vertex. distinct items.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected DOT-local Connector IDs. Definitions stay on the DOT; no interface metadata is copied into the Vertex. distinct items.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>deploymentInputs</code></p></td>
@@ -2485,9 +2418,6 @@
 <p>From <a href="#model-Composition">Composition</a>: containment via vertices; diagram multiplicity 1..*.</p>
 </li>
 <li>
-<p>To <a href="#model-Connector">Connector</a>: containment via connectors; diagram multiplicity 0..*.</p>
-</li>
-<li>
 <p>To <a href="#model-DeploymentInputs">DeploymentInputs</a>: containment via deploymentInputs; diagram multiplicity 0..1.</p>
 </li>
 <li>
@@ -2497,7 +2427,10 @@
 <p>From <a href="#model-Edge">Edge</a>: ID/name reference via from / to.</p>
 </li>
 <li>
-<p>From <a href="#model-ExposedAnchor">ExposedAnchor</a>: ID/name reference via vertex.</p>
+<p>From <a href="#model-ExposedConnector">ExposedConnector</a>: ID/name reference via vertex.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-Connector" class="xref page">Connector</a>: ID/name reference via connectors (IDs).</p>
 </li>
 </ul>
 </div>
@@ -2513,9 +2446,7 @@
     "identity"
   ],
   "connectors": [
-    {
-      "anchorId": "http-api"
-    }
+    "http-api"
   ]
 }</code></pre>
 </div>

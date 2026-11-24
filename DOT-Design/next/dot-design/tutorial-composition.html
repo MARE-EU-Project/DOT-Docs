@@ -132,7 +132,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -219,7 +219,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -454,7 +454,7 @@ The graph&#8217;s <code>1.0.0</code> is separate from each tool&#8217;s release.
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connections and the configuration needed to materialize them.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedAnchors</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedConnectors</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Names you can select with <code>--forward</code>, such as <code>prometheus-query</code>.
 An exposure does not add authentication.</p></td>
 </tr>
@@ -485,8 +485,8 @@ item in the CLI-created draft. YAML indentation is part of the document.</p>
       dotVersion: 3.15.1
       deployment: docker-image
       connectors:
-        - anchorId: scrape-target
-        - anchorId: promql-query-api
+        - scrape-target
+        - promql-query-api
       dependsOn: [node-exporter]</code></pre>
 </div>
 </div>
@@ -674,7 +674,7 @@ cat "$LAB/composition.yaml" &gt; "$LAB/diagnostic.yaml"
 </div>
 <div class="paragraph">
 <p>After that succeeds, open <code>$LAB/diagnostic.yaml</code> using the editor workflow.
-In the <code>node-exporter</code> Vertex, change its Connector&#8217;s <code>anchorId</code> from
+In the <code>node-exporter</code> Vertex, change the selected ID in <code>connectors</code> from
 <code>node-metrics</code> to <code>missing-metrics</code>. Make the same change to the
 <code>node-metrics-to-prometheus</code> Channel&#8217;s <code>fromConnector</code>. Save and run:</p>
 </div>
@@ -684,7 +684,7 @@ In the <code>node-exporter</code> Vertex, change its Connector&#8217;s <code>anc
 </div>
 </div>
 <div class="paragraph">
-<p>Expect a nonzero exit and a missing-Anchor message naming <code>missing-metrics</code> in
+<p>Expect a nonzero exit and a missing-Connector message naming <code>missing-metrics</code> in
 <code>node-exporter</code>. A different error is not the intended result. Restore
 <code>node-metrics</code> in both fields in that copy and repeat the same validation; it should succeed.
 Create no diagnostic lock and leave the reviewed original unchanged.</p>
@@ -851,8 +851,8 @@ time-series data is disposable; do not prune unrelated resources. A later
 Do not add a second <code>vertices:</code> key. Validate again before creating a lock.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A missing Anchor or a lock mismatch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compare the exact instance, Anchor and local definition references with the
+<td class="tableblock halign-left valign-top"><p class="tableblock">A missing Connector or a lock mismatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compare the exact instance, Connector and local definition references with the
 reviewed edit. If an input changed intentionally, inspect it before explicitly
 recreating the lock. A new lock cannot repair an invalid reference.</p></td>
 </tr>
@@ -885,8 +885,8 @@ alone establishes declaration review, not a working scrape.</p>
 <summary class="title">Explain it back: which direction does this connection run?</summary>
 <div class="content">
 <div class="paragraph">
-<p>The Edge points from Node Exporter&#8217;s provided Anchor to Prometheus&#8217;s required
-Anchor. At runtime, Prometheus sends an HTTP scrape request to Node Exporter.
+<p>The Edge points from Node Exporter&#8217;s provided Connector to Prometheus&#8217;s required
+Connector. At runtime, Prometheus sends an HTTP scrape request to Node Exporter.
 The Edge describes the interface relationship; the application implements the
 request. The materializer supplies its address through configuration.</p>
 </div>

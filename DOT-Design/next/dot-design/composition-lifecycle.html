@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -352,7 +352,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Follow this reference after <a href="wiring-and-security.html" class="xref page">wiring the selected
-Anchors</a>. It covers command guarantees, state ownership and recovery; use
+Connectors</a>. It covers command guarantees, state ownership and recovery; use
 <a href="../dot-cli/composition-authoring.html" class="xref page">composition authoring</a> to create a draft.</p>
 </div>
 </div>
@@ -402,7 +402,7 @@ context; unknown ownership refuses cleanup. See
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>compose validate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The strict document shape, references, selected deployments, Anchors,
+<td class="tableblock halign-left valign-top"><p class="tableblock">The strict document shape, references, selected deployments, Connectors,
   Contracts, compatibility evidence, and materializer declarations resolve.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The exact runtime actions or live availability.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
@@ -511,7 +511,7 @@ context before switching; saved state is not migrated or adopted.</p>
 </div>
 <div class="paragraph">
 <p><code>probe</code> deliberately reuses the interaction selected by the edge instead of
-introducing health-check fields in an Anchor or DOT. For OpenAPI, it derives the
+introducing health-check fields in a Connector or DOT. For OpenAPI, it derives the
 request from the authoritative operation, accepts only <code>GET</code>, <code>HEAD</code>, and
 <code>OPTIONS</code>, and requires one fully bound path. The OAuth 2.0 adapter reuses one
 configured RFC 6749
@@ -544,7 +544,7 @@ to 1 MiB. Only redacted outcomes and failure codes are recorded, never response
 bodies or actual values. This is explicit value checking, not complete OpenAPI
 response-schema validation. Without the fixture, ordinary operations retain
 status-only behavior; declared native metrics use the bounded profile below.
-The assertion is a lock-covered composition input, not a new DOT or Anchor
+The assertion is a lock-covered composition input, not a new DOT or Connector
 property. <code>HEAD</code> cannot carry a JSON body assertion.</p>
 </div>
 </div>
@@ -597,7 +597,7 @@ results retain redacted outcomes, not bodies or credentials.</p>
 non-sensitive operation document with optional operation name and variables.
 Before resolution succeeds, <code>dotx</code> parses the authoritative SDL, validates every
 document and variable set, requires exactly one direct top-level field, and
-requires that field to equal the Anchor-selected coordinate. It never guesses
+requires that field to equal the Connector-selected coordinate. It never guesses
 <code>/graphql</code>. Queries use HTTP (the default) and may declare an <code>expect</code> assertion;
 they cannot declare <code>verify</code>, <code>trigger</code> or <code>cleanup</code> operations. Mutations require
 HTTP, <code>expect</code>, an observable <code>verify</code> query and a <code>cleanup</code> mutation; they cannot
@@ -662,7 +662,7 @@ reusable DOT metadata.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Composition-level probe input; the DOT and Anchor still contain only the
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Composition-level probe input; the DOT and Connector still contain only the
 # authoritative Contract reference and selector Query.health.
 probe:
   graphql:
@@ -891,7 +891,7 @@ or runtime mutations.</p>
 <p>recorded edge compatibility, security configuration, selected endpoint, and materializer count; and</p>
 </li>
 <li>
-<p>recorded exposed-Anchor bindings; and</p>
+<p>recorded exposed-Connector bindings; and</p>
 </li>
 <li>
 <p>the latest redacted active Contract-probe result for each probed edge.</p>
@@ -953,10 +953,10 @@ silently upgrades <code>UNKNOWN</code> to compatible.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="what-does-not-belong-in-an-anchor"><a class="anchor" href="#what-does-not-belong-in-an-anchor"></a>What does not belong in an Anchor</h2>
+<h2 id="what-does-not-belong-in-a-connector"><a class="anchor" href="#what-does-not-belong-in-a-connector"></a>What does not belong in a Connector</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Do not add these as optional Anchor fields:</p>
+<p>Do not add these as optional Connector fields:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1011,7 +1011,7 @@ deployment/security decisions.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">New API/message operation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add or update the authoritative Contract and select it from an Anchor.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add or update the authoritative Contract and select it from a Connector.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Consumer needs a provider address</p></td>
@@ -1019,7 +1019,7 @@ deployment/security decisions.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Payload/protocol transformation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit mediator DOT with two Contracts and two Anchors.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explicit mediator DOT with two Contracts and two Connectors.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Startup/readiness ordering</p></td>
@@ -1040,7 +1040,7 @@ deployment/security decisions.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Network attachment, eBPF/XDP, WASM import/export, or lifecycle event</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Separately reviewed polymorphic binding type when a real use case requires it;
-  do not grow <code>Anchor</code> with nullable fields.</p></td>
+  do not grow <code>Connector</code> with nullable fields.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1057,8 +1057,8 @@ orchestrator&#8217;s topology language into every DOT:</p>
 <ul>
 <li>
 <p><strong>Zero-trust API chain:</strong> identity-provider and policy-decision DOTs expose
-token, discovery, and authorization Anchors; an API gateway consumes them and
-exposes a protected application Anchor. Contracts carry OAuth/OpenID Connect
+token, discovery, and authorization Connectors; an API gateway consumes them and
+exposes a protected application Connector. Contracts carry OAuth/OpenID Connect
 and application semantics, while the composition supplies client-specific
 secret references and issuer URLs.</p>
 </li>
@@ -1072,17 +1072,17 @@ supplies only deployment-specific channel values.</p>
 <p><strong>Multi-domain federation:</strong> peer DOT instances can have reciprocal edges while
 <code>dependsOn</code> contains only real readiness dependencies. Trust-domain, roaming,
 and federation policy belongs in policy inputs or a dedicated policy DOT, not
-in the Anchor.</p>
+in the Connector.</p>
 </li>
 <li>
 <p><strong>Near-real-time RAN control:</strong> E2 or management APIs are Contract-backed
-Anchors. Host networking, accelerators, eBPF/XDP attachments, and radio-device
+Connectors. Host networking, accelerators, eBPF/XDP attachments, and radio-device
 access are explicit deployment requirements and grants, never inferred from
 a edge.</p>
 </li>
 <li>
 <p><strong>Observability and digital twins:</strong> metrics, logs, events, and integrity APIs
-are distinct Anchors. A storage or message broker is selected explicitly as a
+are distinct Connectors. A storage or message broker is selected explicitly as a
 connection endpoint; a shared host path is not treated as a portable
 integration boundary.</p>
 </li>
@@ -1270,9 +1270,9 @@ does not promise an automatic repair or authorize a native deletion.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor ID is not found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector ID is not found</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The edge references the pinned DOT version, the exact local ID is stable, and the
-  Anchor is present in that version&#8217;s <code>dot.json</code>.</p></td>
+  Connector is present in that version&#8217;s <code>dot.json</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contract or selector cannot be resolved</p></td>
@@ -1283,8 +1283,8 @@ does not promise an automatic repair or authorize a native deletion.</p>
   matching Contract <code>id</code>; do not add that field to a raw standard document.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor has no deployable endpoint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The selected deployment contains exactly one service binding for the Anchor,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector has no deployable endpoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The selected deployment contains exactly one service binding for the Connector,
   and its named port exists on that same service.</p></td>
 </tr>
 <tr>
@@ -1331,8 +1331,8 @@ does not promise an automatic repair or authorize a native deletion.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>DOT-Testing/conformance/anchors/</code> covers all four Contract standards,
-contractless Anchors, validation failures, bindings, and compatibility.</p>
+<p><code>DOT-Testing/conformance/connectors/</code> covers all four Contract standards,
+contractless Connectors, validation failures, bindings, and compatibility.</p>
 </li>
 <li>
 <p><code>DOT-Testing/e2e/api-gateway-oidc/</code> is the canonical authenticated request/response lifecycle example.</p>

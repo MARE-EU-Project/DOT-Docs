@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-cli/authoring.html">
     <link rel="prev" href="installation.html">
     <link rel="next" href="composition-authoring.html">
-    <meta name="description" content="Confirm the tool release, verify an owned OpenAPI Contract, and generate Anchors and service bindings with dotx.">
+    <meta name="description" content="Confirm the tool release, verify an owned OpenAPI Contract, and generate Connectors and service bindings with dotx.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -134,7 +134,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -429,13 +429,13 @@ in v0.3.0; <code>Owned interface verified</code> in current source). The command
 declaration against the generated schema, checks exact ownership, downloads
 and verifies the payload using the ordinary bounded HTTPS/SHA-256 verifier,
 and resolves the selected operation using the composition resolver. It writes
-the complete Contract, the explicit Anchor ID, its service Contract reference and
+the complete Contract, the explicit Connector ID, its service Contract reference and
 the named-port binding into <code>dot.json</code> only after verification succeeds.</p>
 </div>
 <div class="paragraph">
 <p><code>build-information</code> is the stable DOT-local edge identity, not a generated UUID
-or a display-name alias. <code>--operation &lt;anchor-id&gt;=&lt;selector&gt;</code> uses that exact key
-for both the Anchor and its service binding; <code>name</code> initially has the same value
+or a display-name alias. <code>--operation &lt;connector-id&gt;=&lt;selector&gt;</code> uses that exact key
+for both the Connector and its service binding; <code>name</code> initially has the same value
 but may subsequently change independently. Use kebab-case keys. The selector
 remains separate from the Contract ID. Repeat <code>--operation</code>
 for additional provided operations on the same declared TCP port. <code>--bind</code>
@@ -465,7 +465,7 @@ dotx deploy "$AUTHORING_DIR/bundle" --deployment docker-image --dry-run</code></
 </div>
 <div class="paragraph">
 <p>Expected: the reusable profile passes, inspection shows one owned Contract and
-one provided Anchor, and dry-run renders the Docker command. This checks the
+one provided Connector, and dry-run renders the Docker command. This checks the
 declared interface and binding, <strong>not</strong> a running API. The flow does not establish
 that a URL is vendor-owned or that its release metadata is truthful; review
 provenance. For live acceptance, follow
@@ -555,7 +555,7 @@ The digest selected during that prompt must still match at publication.</p>
 </li>
 <li>
 <p>Ownership mismatch: use the actual originating product/release, or an external
-Anchor reference for a dependency. Do not rename a dependency into ownership.</p>
+Connector reference for a dependency. Do not rename a dependency into ownership.</p>
 </li>
 <li>
 <p>Download or digest failure: check access, the official raw URL and expected
@@ -583,10 +583,10 @@ unsupported filesystems fail closed rather than falling back to truncation.</p>
 </div>
 <div class="paragraph">
 <p><code>new</code> creates a fresh definition; it is not an incremental editor or migration
-command. <code>--force</code> replaces the whole scaffold using the supplied Anchor IDs;
+command. <code>--force</code> replaces the whole scaffold using the supplied Connector IDs;
 it does not preserve interfaces omitted from the new command.
 For an existing integrated DOT, edit its definition while retaining stable
-Anchor identities and review affected composition locks instead of regenerating
+Connector identities and review affected composition locks instead of regenerating
 the scaffold.</p>
 </div>
 <div class="listingblock">
@@ -756,9 +756,9 @@ dotx edit "$PROMETHEUS_JSON" --interactive \
 </div>
 </div>
 <div class="paragraph">
-<p>Choose Skills, add an owned Contract, update its URL, add/change an Anchor
-operation or rebind an owned Anchor to a named service/port. IDs are retained
-for existing Anchors; no unaffected ID is regenerated. Selecting an AsyncAPI
+<p>Choose Skills, add an owned Contract, update its URL, add/change a Connector
+operation or rebind an owned Connector to a named service/port. IDs are retained
+for existing Connectors; no unaffected ID is regenerated. Selecting an AsyncAPI
 send/receive operation derives the correct role. Runtime-only definitions can
 gain their first interface; incomplete interoperability cannot be saved as a
 reusable candidate.</p>

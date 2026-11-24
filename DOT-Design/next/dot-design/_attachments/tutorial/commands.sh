@@ -202,7 +202,7 @@ dotx new --from docker-image "$IMAGE" \
 dotx validate "$LAB/base/dot.json" \
   --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$LAB/base/dot.json"
-printf 'Draft verified: two provided Anchors.\n'
+printf 'Draft verified: two provided Connectors.\n'
 printf 'Follow their Contract references in %s/base/dot.json\n' "$LAB"
 )
 # end::author[]
@@ -213,7 +213,7 @@ set -euo pipefail
 set -o noclobber
 mkdir "$LAB/prometheus"
 jq --slurpfile product "$PROMETHEUS_JSON" '
-  .anchors += [$product[0].anchors[] | select(.id == "scrape-target")]
+  .connectors += [$product[0].connectors[] | select(.id == "scrape-target")]
   | .runtimes[0].deployments[0].services[0].ports[0].protocol = "HTTP"
   | .runtimes[0].deployments[0].services[0].config =
       ($product[0].runtimes[].deployments[] | select(.id == "docker")
@@ -227,7 +227,7 @@ dotx validate "$LAB/prometheus/dot.json" \
   --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$LAB/prometheus/dot.json"
 printf 'Definition verified: %s\n' \
-  'three Anchors and two Docker deployment choices.'
+  'three Connectors and two Docker deployment choices.'
 printf 'Review the changes below.\n'
 diff -u "$LAB/base/dot.json" "$LAB/prometheus/dot.json" ||
   test "$?" -eq 1

@@ -133,7 +133,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
@@ -352,75 +352,6 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="model-reference.html" class="xref page">How to read this reference</a> explains full objects versus ID-only views, conditional fields and validation boundaries.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-AnchorBinding"><a class="anchor" href="#model-AnchorBinding"></a>AnchorBinding</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Maps a logical DOT Anchor to a named port of one deployment service.</p>
-</div>
-<div class="paragraph">
-<p>Use an exact Anchor ID from the same DOT and an existing port name on the containing service. The binding connects logical interface selection to deployment structure; it does not contain a URL, credentials or a host-port publication rule.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/AnchorBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorBinding.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The exact DOT-local Anchor identifier being materialized. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the containing service port, not its numeric port value. minimum length: 1.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>From <a href="#model-Service">Service</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
-</li>
-<li>
-<p>To <a href="model-interfaces.html#model-Anchor" class="xref page">Anchor</a>: ID/name reference via anchorId.</p>
-</li>
-<li>
-<p>To <a href="#model-ServicePort">ServicePort</a>: ID/name reference via port.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "anchorId": "build-information",
-  "port": "http"
-}</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -681,6 +612,75 @@
   "configFiles": [],
   "volumes": [],
   "cdiDevices": []
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-ConnectorBinding"><a class="anchor" href="#model-ConnectorBinding"></a>ConnectorBinding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Maps a logical DOT Connector to a named port of one deployment service.</p>
+</div>
+<div class="paragraph">
+<p>Use an exact Connector ID from the same DOT and an existing port name on the containing service. The binding connects logical interface selection to deployment structure; it does not contain a URL, credentials or a host-port publication rule.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/ConnectorBinding.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ConnectorBinding.schema.json">Generated JSON Schema</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0002%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">JSON field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Base presence</th>
+<th class="tableblock halign-left valign-top">Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectorId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact DOT-local Connector identifier being materialized. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the containing service port, not its numeric port value. minimum length: 1.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Relationships</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From <a href="#model-Service">Service</a>: containment via connectorBindings; diagram multiplicity 0..*.</p>
+</li>
+<li>
+<p>To <a href="model-interfaces.html#model-Connector" class="xref page">Connector</a>: ID/name reference via connectorId.</p>
+</li>
+<li>
+<p>To <a href="#model-ServicePort">ServicePort</a>: ID/name reference via port.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example derived from the canonical Prometheus definition (not a second product)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "connectorId": "build-information",
+  "port": "http"
 }</code></pre>
 </div>
 </div>
@@ -1783,7 +1783,7 @@
 <p>Describes a logical service provided by one deployment, including its interfaces and configuration surface.</p>
 </div>
 <div class="paragraph">
-<p>Use stable service IDs for composition inputs and named ports for Anchor bindings. Contract entries are identity references, not copied declarations; their origin must resolve through the DOT interfaces. A logical service is not a native workload selector, and its host is not a promised public endpoint.</p>
+<p>Use stable service IDs for composition inputs and named ports for Connector bindings. Contract entries are identity references, not copied declarations; their origin must resolve through the DOT interfaces. A logical service is not a native workload selector, and its host is not a promised public endpoint.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/Service.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Service.schema.json">Generated JSON Schema</a></p>
@@ -1826,7 +1826,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ports</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of ServicePort</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named service ports that can be selected by Anchor bindings.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named service ports that can be selected by Connector bindings.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>contracts</code></p></td>
@@ -1835,10 +1835,10 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID-only references to the interfaces exposed or consumed by this service.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anchorBindings</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array of AnchorBinding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>connectorBindings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of ConnectorBinding</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mappings from this DOT&#8217;s logical Anchors to the service&#8217;s named ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mappings from this DOT&#8217;s logical Connectors to the service&#8217;s named ports.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>config</code></p></td>
@@ -1860,7 +1860,7 @@
 <p>To <a href="model-interfaces.html#model-Contract" class="xref page">Contract</a>: ID/name reference via contracts (ref); diagram multiplicity 0..*.</p>
 </li>
 <li>
-<p>To <a href="#model-AnchorBinding">AnchorBinding</a>: containment via anchorBindings; diagram multiplicity 0..*.</p>
+<p>To <a href="#model-ConnectorBinding">ConnectorBinding</a>: containment via connectorBindings; diagram multiplicity 0..*.</p>
 </li>
 <li>
 <p>To <a href="#model-ServicePort">ServicePort</a>: containment via ports; diagram multiplicity 0..*.</p>
@@ -1897,7 +1897,7 @@
 <p>Names a service endpoint port so interfaces can bind to it without copying runtime addresses.</p>
 </div>
 <div class="paragraph">
-<p>Port names must be distinct within the service and must match AnchorBinding.port exactly. A protocol label describes the endpoint; it does not itself supply an API Contract or authorize a probe. Host forwarding and externally reachable addresses are deployment-instance concerns.</p>
+<p>Port names must be distinct within the service and must match ConnectorBinding.port exactly. A protocol label describes the endpoint; it does not itself supply an API Contract or authorize a probe. Host forwarding and externally reachable addresses are deployment-instance concerns.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/deployment/ServicePort.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ServicePort.schema.json">Generated JSON Schema</a></p>
@@ -1947,7 +1947,7 @@
 <p>From <a href="#model-Service">Service</a>: containment via ports; diagram multiplicity 0..*.</p>
 </li>
 <li>
-<p>From <a href="#model-AnchorBinding">AnchorBinding</a>: ID/name reference via port.</p>
+<p>From <a href="#model-ConnectorBinding">ConnectorBinding</a>: ID/name reference via port.</p>
 </li>
 </ul>
 </div>
@@ -2238,7 +2238,7 @@
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="model-interfaces.html">Contracts and Anchors</a></span>
+  <span class="prev"><a href="model-interfaces.html">Contracts and Connectors</a></span>
   <span class="next"><a href="model-composition.html">Composition models</a></span>
 </nav>
 </article>

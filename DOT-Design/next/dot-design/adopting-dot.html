@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -428,7 +428,7 @@ appear compatible. Follow the pinned source route in the
 <a href="contributor-guide.html" class="xref page">contributor guide</a> for current catalogue work.
 See <a href="compatibility.html" class="xref page">the compatibility and migration policy</a> for
 intentional spelling/identity boundaries, release-version rules and preservation
-of existing files, Anchor IDs and reviewed locks.</p>
+of existing files, Connector IDs and reviewed locks.</p>
 </div>
 <div class="paragraph">
 <p>The native SPARQL addition uses a pinned W3C Service Description in
@@ -439,10 +439,10 @@ binary remains unchanged.</p>
 </div>
 <div class="paragraph">
 <p>Current source also distinguishes owned Contract declarations, explicit external
-Anchor references and provider-neutral OIDC requirements. Consumer bundles no
+Connector references and provider-neutral OIDC requirements. Consumer bundles no
 longer carry producer Contract copies. An external reference requires its exact
 originating DOT in the selected catalogue; missing dependencies fail validation,
-including offline validation. See <a href="anchors-and-composition.html" class="xref page">Anchors and
+including offline validation. See <a href="anchors-and-composition.html" class="xref page">Connectors and
 composition</a> for syntax, resolution and the deliberately narrow OIDC profile.</p>
 </div>
 </div>
@@ -468,14 +468,14 @@ instead, preserving the portable document shape.</p>
 </div>
 <div class="paragraph">
 <p>Editor validation is only the first check. It cannot replace bundle-local
-Contract integrity, Anchor selector resolution, catalogue identity checks or
+Contract integrity, Connector selector resolution, catalogue identity checks or
 locked composition validation. Run <code>dotx validate</code> and the applicable local
 CI Tasks before committing. There is no automatic migration or lock repair.</p>
 </div>
 <div class="paragraph">
 <p>For guided creation, <a href="../dot-cli/authoring.html" class="xref page">author an owned OpenAPI interface</a>
 with the same generated Contract model and existing verifier. The actual tool
-release is explicit; the wizard can generate provided Anchors and service-port
+release is explicit; the wizard can generate provided Connectors and service-port
 bindings without copying a dependency Contract or inferring live acceptance.
 Raw-URL import can construct that declaration without hand-writing Contract JSON;
 its computed digest pins downloaded bytes, not upstream authority.</p>
@@ -592,7 +592,7 @@ are CLI concerns rather than portable domain inputs.</p>
 <p>DOT, Skill and Contract identities are case-sensitive textual IDs; legacy
 UUID-shaped strings remain accepted. Catalogue DOT IDs use <code>&lt;name&gt;@&lt;tool-release&gt;</code>;
 Contract IDs use <code>&lt;origin-DOT.id&gt;::&lt;standard&gt;::&lt;name&gt;</code> with canonical standard spelling.
-Every DOT must reference at least one meaningful Skill. Anchors use exact DOT-local
+Every DOT must reference at least one meaningful Skill. Connectors use exact DOT-local
 kebab-case IDs (explicit legacy UUID strings remain readable); Composition
 ownership identities remain UUIDs. A DOT name or version change therefore changes its
 catalogue identity; update composition pins and regenerate reviewed locks.
@@ -631,7 +631,7 @@ hands-on work, recording cold-download time separately.</p>
 </li>
 <li>
 <p>Using the current-source route, ask them to inspect another deployment,
-explain one Contract/Anchor/edge, introduce an invalid reference, interpret the
+explain one Contract/Connector/edge, introduce an invalid reference, interpret the
 diagnostic and repair it. Record every undocumented intervention.</p>
 </li>
 <li>

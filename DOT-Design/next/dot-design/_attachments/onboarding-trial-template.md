@@ -54,7 +54,7 @@ participant's owned resources; never remove another trial's resources.
 
 ## Observe understanding and recovery
 
-- Explain the selected DOT, deployment, Contract, Anchor and (where present) edge:
+- Explain the selected DOT, deployment, Contract, Connector and (where present) edge:
   [not observed; the first Prometheus chapter has no edges]
 - Inspect an alternative deployment with the matching current-source route:
   [not observed; separate this from the released introductory timing]
@@ -76,7 +76,7 @@ substitute automated PTY tests or a maintainer's rehearsal for the participant:
 | Import/select an owned Contract operation without constructing identifiers | not observed |
 | Edit an existing DOT into a separate candidate and explain identity preservation | not observed |
 | Cancel an edit and verify the canonical definition and output are unchanged | not observed |
-| Build a graph from exact DOT/deployment/Anchor menu choices | not observed |
+| Build a graph from exact DOT/deployment/Connector menu choices | not observed |
 | Explain incompatible/UNKNOWN matches and explicit broker/gateway ownership | not observed |
 | Review the topology, explicitly create/review a lock, run the documented live path and clean up | not observed |
 | Add a scrape-job label in owned inputs and query the label-selected result | not observed |

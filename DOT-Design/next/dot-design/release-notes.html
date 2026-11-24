@@ -133,7 +133,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -347,6 +347,32 @@
 </aside>
 <article class="doc">
 <h1 class="page">Release notes</h1>
+<div class="sect1">
+<h2 id="_next_flat_connector_references"><a class="anchor" href="#_next_flat_connector_references"></a>Next: flat Connector references</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connectors now select a Contract using <code>contractId</code> and <code>selector</code> directly.
+The <code>ConnectorContract</code> wrapper and its source field are removed. External
+references require an owner-qualified ID, from which dotx derives the exact
+origin in the selected catalogue. Local opaque IDs remain supported. Migrate
+source declarations and review regenerated locks; published formats remain unchanged.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_one_connector_concept"><a class="anchor" href="#_next_one_connector_concept"></a>Next: one Connector concept</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOTs now define interfaces in <code>connectors</code>. Vertices select their IDs as a list
+of strings, removing the extra reference wrapper and duplicate terminology.
+Service bindings use <code>connectorBindings</code> and <code>connectorId</code>; compositions expose
+<code>exposedConnectors</code>. Edges still join Vertices and Channels select Connector IDs.
+This is an unreleased source-format change. Use matching CLI/catalogue sources,
+clean up with the original CLI before upgrading, and migrate declarations and
+reviewed locks. Published releases keep the formats documented below.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_0_5_0"><a class="anchor" href="#_0_5_0"></a>0.5.0</h2>
 <div class="sectionbody">

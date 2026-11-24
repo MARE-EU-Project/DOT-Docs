@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/wiring-and-security.html">
     <link rel="prev" href="composition-documents.html">
     <link rel="next" href="composition-lifecycle.html">
-    <meta name="description" content="Connect request-response and messaging Anchors, derive deployment-specific values, bind contract security requirements, and expose composed capabilities.">
+    <meta name="description" content="Connect request-response and messaging Connectors, derive deployment-specific values, bind contract security requirements, and expose composed capabilities.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -352,7 +352,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Edges express composition topology outside every participating DOT. They refer
-to stable Anchor IDs, resolve deployable endpoints through service bindings,
+to stable Connector IDs, resolve deployable endpoints through service bindings,
 and materialize only values that the target service has declared as
 configurable.</p>
 </div>
@@ -362,7 +362,7 @@ configurable.</p>
 <h2 id="direct-requestresponse-edge"><a class="anchor" href="#direct-requestresponse-edge"></a>Direct request/response edge</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A edge uses instance names and stable Anchor IDs:</p>
+<p>A edge uses instance names and stable Connector IDs:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -372,10 +372,10 @@ configurable.</p>
       realm: {value: dotx}
     from:
       vertex: identity
-      anchorId: client-credentials-token
+      connectorId: client-credentials-token
     to:
       vertex: client
-      anchorId: oauth-token
+      connectorId: oauth-token
     materializer:
       type: ENVIRONMENT_VARIABLE
       valueFrom: OPERATION_URL
@@ -394,7 +394,7 @@ configurable.</p>
 <p>Resolve the two pinned DOT instances.</p>
 </li>
 <li>
-<p>Resolve both Anchor IDs and require complementary <code>PROVIDES</code>/<code>REQUIRES</code> roles.</p>
+<p>Resolve both Connector IDs and require complementary <code>PROVIDES</code>/<code>REQUIRES</code> roles.</p>
 </li>
 <li>
 <p>Resolve the selected Contract elements.</p>
@@ -405,7 +405,7 @@ and security requirements; do not infer arbitrary
 schema or domain-meaning compatibility.</p>
 </li>
 <li>
-<p>Resolve the connection endpoint through the selected deployment&#8217;s <code>anchorBindings</code>.</p>
+<p>Resolve the connection endpoint through the selected deployment&#8217;s <code>connectorBindings</code>.</p>
 </li>
 <li>
 <p>Verify that the target service declares <code>TOKEN_URL</code>.</p>
@@ -417,7 +417,7 @@ schema or domain-meaning compatibility.</p>
 </div>
 <div class="paragraph">
 <p>The resulting URL is deployment data. It is never copied back into <code>dot.json</code>
-or the Anchor.</p>
+or the Connector.</p>
 </div>
 <div class="sect2">
 <h3 id="cross-platform-external-gateway"><a class="anchor" href="#cross-platform-external-gateway"></a>Cross-platform external gateway</h3>
@@ -460,11 +460,11 @@ never creates a broker or network infrastructure implicitly.</p>
 </div>
 <div class="paragraph">
 <p>A Channel and a materializer are intentionally separate. The Channel says <em>these
-Anchors are connected</em>; the materializer says <em>write this derived value into
+Connectors are connected</em>; the materializer says <em>write this derived value into
 this declared consumer setting</em>. A Channel needs no materializer when the runtime
 already provides discovery, a service mesh performs routing, both participants
 use a fixed broker declared elsewhere, or the composition is documenting an
-Anchor relation without an executable handoff. Apply still requires every
+Connector relation without an executable handoff. Apply still requires every
 actually required service configuration value to have a default or explicit
 input.</p>
 </div>
@@ -486,9 +486,9 @@ inspectable before apply:</p>
 </div>
 <div class="paragraph">
 <p>The same resolved composition with <code>--json</code> is the machine-readable automation output. It includes stable
-instance and Anchor references, compatibility reasons, the selected Contract,
+instance and Connector references, compatibility reasons, the selected Contract,
 resolved endpoint, derived operation/channel value, materializer targets,
-security status, and exposed-Anchor endpoints. Consumers should parse JSON
+security status, and exposed-Connector endpoints. Consumers should parse JSON
 rather than scrape the human-readable form.</p>
 </div>
 </div>
@@ -507,10 +507,10 @@ endpoint may be three different instances. Select the broker explicitly:</p>
   - name: openc2-command-via-mqtt
     from:
       vertex: interpreter
-      anchorId: send-openc2-command
+      connectorId: send-openc2-command
     to:
       vertex: actuator
-      anchorId: receive-openc2-command
+      connectorId: receive-openc2-command
     endpoint:
       instance: broker
       service: mqtt
@@ -610,7 +610,7 @@ configuration surface already declared by a service.</p>
 </table>
 <div class="paragraph">
 <p>An optional RFC 6570 <code>uriTemplate</code> can derive an application-specific URI from
-one resolved scalar. It is explicit composition behavior, not an Anchor or
+one resolved scalar. It is explicit composition behavior, not a Connector or
 Contract fact.</p>
 </div>
 <div class="sect2">
@@ -623,7 +623,7 @@ and <code>jsonPointer</code> selects the scalar to replace.</p>
 </div>
 <div class="paragraph">
 <p>For endpoint injection, current-source validation requires exactly one YAML or
-JSON document and rejects duplicate keys before editing. YAML anchors and aliases
+JSON document and rejects duplicate keys before editing. YAML connectors and aliases
 are preserved where the selected replacement permits them; a replacement that
 would leave a dangling alias is rejected. Failed validation or encoding publishes
 no generated file; the original source stays unchanged. These checks do not
@@ -670,7 +670,7 @@ derivation that is not already the selected Contract operation URL:</p>
 <div class="paragraph">
 <p>The RFC 6570 variable is named <code>value</code>. The template belongs to the
 composition because it adapts one deployment to another; it does not amend the
-Contract or redefine the Anchor.</p>
+Contract or redefine the Connector.</p>
 </div>
 <div class="paragraph">
 <p>Materialization fails when the target configuration is undeclared, the
@@ -755,18 +755,18 @@ issuer trust, mTLS, workload identity, or remote attestation.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="exposed-anchors"><a class="anchor" href="#exposed-anchors"></a>Exposed Anchors</h2>
+<h2 id="exposed-connectors"><a class="anchor" href="#exposed-connectors"></a>Exposed Connectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A composition may re-export a member Anchor under a composition-local name:</p>
+<p>A composition may re-export a member Connector under a composition-local name:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">exposedAnchors:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">exposedConnectors:
   - name: protected-metadata-through-gateway
     target:
       vertex: gateway
-      anchorId: protected-metadata</code></pre>
+      connectorId: protected-metadata</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -780,7 +780,7 @@ issuer trust, mTLS, workload identity, or remote attestation.</p>
 </div>
 <div class="paragraph">
 <p>The exposure name belongs to the composition boundary. It does not rename or
-replace the member Anchor ID.</p>
+replace the member Connector ID.</p>
 </div>
 <div class="paragraph">
 <p>An exposure may describe any provided Integration Point, but managed

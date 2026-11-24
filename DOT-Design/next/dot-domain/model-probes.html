@@ -133,7 +133,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
@@ -860,7 +860,7 @@
 <p>Describe a GraphQL query, mutation or subscription check against the selected interface.</p>
 </div>
 <div class="paragraph">
-<p>The executable document must agree with the verified schema and Anchor-selected operation. Queries use HTTP (the default), may declare expect, and cannot declare verify, trigger or cleanup. Mutations require HTTP, expect, a verify query and a cleanup mutation; trigger is forbidden. Subscriptions require explicit SSE transport, expect, a trigger mutation and a cleanup mutation; verify is forbidden. These are bounded acceptance fixtures, not a general GraphQL client or a guarantee of application rollback.</p>
+<p>The executable document must agree with the verified schema and Connector-selected operation. Queries use HTTP (the default), may declare expect, and cannot declare verify, trigger or cleanup. Mutations require HTTP, expect, a verify query and a cleanup mutation; trigger is forbidden. Subscriptions require explicit SSE transport, expect, a trigger mutation and a cleanup mutation; verify is forbidden. These are bounded acceptance fixtures, not a general GraphQL client or a guarantee of application rollback.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/GraphQLProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/GraphQLProbe.schema.json">Generated JSON Schema</a></p>
@@ -1086,7 +1086,7 @@
 <p>Add a JSON response-value assertion to a supported OpenAPI edge probe.</p>
 </div>
 <div class="paragraph">
-<p>The operation comes from the edge Anchor and verified Contract, not a second handwritten URL or operation definition. When this assertion block is present, expect is required and the selected operation must be a safe GET or OPTIONS operation; HEAD cannot carry this JSON assertion. A successful HTTP status alone is different from a matched response expectation.</p>
+<p>The operation comes from the edge Connector and verified Contract, not a second handwritten URL or operation definition. When this assertion block is present, expect is required and the selected operation must be a safe GET or OPTIONS operation; HEAD cannot carry this JSON assertion. A successful HTTP status alone is different from a matched response expectation.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/OpenAPIProbe.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/OpenAPIProbe.schema.json">Generated JSON Schema</a></p>

@@ -134,7 +134,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -352,7 +352,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>A DOT describes one component. A Composition chooses concrete deployments of
-several DOTs and connects their Anchors through Edges. Start from a catalogue
+several DOTs and connects their Connectors through Edges. Start from a catalogue
 example whose README describes your intended use case and its acceptance limits.
 The selected release <code>v0.5.0</code> and its matching source CLI
 provide template-based <code>dotx compose new</code>. Selecting DOTs with <code>--from-dots</code>
@@ -398,7 +398,7 @@ dotx compose topology my-monitoring.yaml --locked</code></pre>
 <div class="paragraph">
 <p>Expected: a preview of two DOTs and one edge, a fresh ownership UUID, and a new
 YAML file with the same exact tool releases, deployment choices, Contract and
-Anchor IDs. The reviewed template and its lock are unchanged. The new lock is
+Connector IDs. The reviewed template and its lock are unchanged. The new lock is
 created only by your explicit <code>lock</code> command; review it before committing.
 The Composition graph version is retained; it is not another tool release.</p>
 </div>
@@ -521,7 +521,7 @@ before creating it, add a README, review its lock and use
 interfaces. The following deployment table groups that DOT&#8217;s choices by engine,
 type and profile. Origin comes from the same ownership/evidence paths
 used by catalogue validation. <code>testing</code> can include fixtures or planning
-definitions; <code>Contracts</code> and <code>Anchors</code> describe declarations,
+definitions; <code>Contracts</code> and <code>Connectors</code> describe declarations,
 not live compatibility or production readiness. No entries are silently hidden.</p>
 </div>
 <div class="paragraph">
@@ -600,7 +600,7 @@ menus. Untrusted display text is escaped rather than interpreted by the terminal
 with ↑/↓, type initial letters such as <code>Pro</code> or <code>Key</code> to filter immediately,
 select with Enter and cancel with Ctrl-C. Backspace edits the case-insensitive
 substring query; no <code>/</code> prefix is needed. New and edit use this same TUI. Deployment,
-Anchor and connection choices use the same UI. No DOT, Contract or Anchor ID
+Connector and connection choices use the same UI. No DOT, Contract or Connector ID
 needs to be constructed manually.</p>
 </div>
 <div class="paragraph">
@@ -679,7 +679,7 @@ Missing, ambiguous, unsupported or unsafe inputs fail closed without output.</p>
 <div class="paragraph">
 <p>Brokered AsyncAPI send/receive pairs require a separately selected broker
 service/port, including existing MQTT, NATS, Kafka and AMQP profiles. This endpoint
-is not another Anchor edge. Cross-runtime pairs require an explicit, already
+is not another Connector edge. Cross-runtime pairs require an explicit, already
 provisioned <code>EXTERNAL_GATEWAY</code> host/port. The operator owns that gateway and its
 cleanup; the CLI neither creates networking infrastructure nor uses host-network
 fallbacks. The complete graph still passes the existing resolver&#8217;s constraints.</p>

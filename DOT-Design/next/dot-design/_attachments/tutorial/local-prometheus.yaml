@@ -4,6 +4,6 @@
       dotVersion: 3.15.1
       deployment: docker-image
       connectors:
-        - anchorId: scrape-target
-        - anchorId: promql-query-api
+        - scrape-target
+        - promql-query-api
       dependsOn: [node-exporter]

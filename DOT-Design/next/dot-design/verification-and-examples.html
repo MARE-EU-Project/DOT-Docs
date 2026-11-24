@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -441,7 +441,7 @@ applicable bindings. It permits explicitly lower-evidence runtime-only entries.<
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>INTERFACE_PROFILE_PASSED</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Passes <code>--profile interoperable</code> for declared Anchors and exposed ports. This
+<td class="tableblock halign-left valign-top"><p class="tableblock">Passes <code>--profile interoperable</code> for declared Connectors and exposed ports. This
 is not live producer acceptance or proof of complete API coverage.</p></td>
 </tr>
 <tr>
@@ -558,7 +558,7 @@ in that link with the recorded commit; do not attribute today&#8217;s audit to a
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mvn -pl DOT-Domain test</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain value objects, manifests, Anchors, and aggregate validation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain value objects, manifests, Connectors, and aggregate validation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java and Maven only</p></td>
 </tr>
 <tr>
@@ -612,7 +612,7 @@ capability</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:compose:keycloak-prometheus-openapi-validation</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reusable-profile validation and a locked three-DOT resolved composition proving the stable
-  Keycloak and Prometheus Anchors resolve against exact official OpenAPI payloads,
+  Keycloak and Prometheus Connectors resolve against exact official OpenAPI payloads,
   compose compatibly, bind the Keycloak realm parameter, and materialize the
   expected consumer operation URLs</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx</code>, <code>jq</code>, and the checked-out repository/schema revisions; no live runtime</p></td>
@@ -708,7 +708,7 @@ capability</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>task testing:conformance</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-language Anchor and composition gate, including all deterministic PoC
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-language Connector and composition gate, including all deterministic PoC
   fixtures and lifecycle dry-runs</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Java, Maven, Go, Task, and fixture-specific local tools</p></td>
 </tr>
@@ -799,8 +799,8 @@ configuration belong under scenario-local <code>target/</code> directories and m
 committed.</p>
 </div>
 <div class="paragraph">
-<p>The focused <code>task testing:anchors:acceptance</code> gate verifies the versioned
-<a href="integration-handoff.html" class="xref page">DOT Anchor consumer profile</a>. It resolves pinned
+<p>The focused <code>task testing:connectors:acceptance</code> gate verifies the versioned
+<a href="integration-handoff.html" class="xref page">DOT Connector consumer profile</a>. It resolves pinned
 test definitions from <code>DOT-Repository</code>, verifies the composition lock, and
 asserts the complete cross-standard resolved composition without a deployed workload.</p>
 </div>
@@ -943,7 +943,7 @@ or partner acceptance.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_canonical_anchor_scenario"><a class="anchor" href="#_canonical_anchor_scenario"></a>Canonical Anchor scenario</h2>
+<h2 id="_canonical_connector_scenario"><a class="anchor" href="#_canonical_connector_scenario"></a>Canonical Connector scenario</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>DOT-Testing/e2e/api-gateway-oidc/</code> is the primary tutorial and lifecycle fixture.
@@ -966,7 +966,7 @@ from <code>DOT-Repository</code>:</p>
 <div class="paragraph">
 <p>The composition uses three OpenAPI Contracts, three edges, explicit security
 configuration, Kubernetes Secret references, configuration-file and environment
-materializers, readiness dependencies, and one exposed Anchor.</p>
+materializers, readiness dependencies, and one exposed Connector.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1087,14 +1087,14 @@ and does not silently grant privileged runtime access.</p>
 <ul>
 <li>
 <p>PoC7 rejects a collector-to-scorer edge when the collector declares no such
-Anchor or configuration input;</p>
+Connector or configuration input;</p>
 </li>
 <li>
 <p>PoC8 rejects an undeclared Prometheus-to-NDT handoff; and</p>
 </li>
 <li>
 <p>invalid conformance fixtures cover missing Contracts, selectors, ports,
-duplicate bindings, and incompatible Anchor pairs.</p>
+duplicate bindings, and incompatible Connector pairs.</p>
 </li>
 </ul>
 </div>
@@ -1127,7 +1127,7 @@ applicable test evidence ledger and select them by exact
 <p>Define Contracts only for supported, observable interactions.</p>
 </li>
 <li>
-<p>Use contractless Anchors only when no supported Contract standard applies.</p>
+<p>Use contractless Connectors only when no supported Contract standard applies.</p>
 </li>
 <li>
 <p>Declare all service ports, configuration targets, privileges, and devices.</p>

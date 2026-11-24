@@ -71,7 +71,7 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #EFF6FF {
     - metadata: Metadata
     - skills: List<Skill>
     - contracts: List<Contract>
-    - anchors: List<Anchor>
+    - connectors: List<Connector>
     - runtimes: List<Runtime>
     --
     + isIdentityConsistent(): boolean
@@ -101,56 +101,6 @@ package "eu.mare6g.dot.domain" as package_eu_mare6g_dot_domain #EFF6FF {
     + isLatest(): boolean
     + compareTo(other: Version): int
     + toString(): String
-  }
-
-}
-
-package "eu.mare6g.dot.domain.anchor" as package_eu_mare6g_dot_domain_anchor #EFF6FF {
-  class "Anchor" as eu_mare6g_dot_domain_anchor_Anchor #FFFFFF {
-    - id: String
-    - name: String
-    - role: AnchorRole
-    - contract: AnchorContract
-    - requirement: AnchorRequirement
-    - direction: AnchorDirection
-    - protocols: List<String>
-    - mediaTypes: List<String>
-    --
-    + rejectUnknownProperty(name: String, value: Object): void
-    + isCommunicationDefinitionValid(): boolean
-  }
-
-  class "AnchorContract" as eu_mare6g_dot_domain_anchor_AnchorContract #FFFFFF {
-    - id: String
-    - selector: String
-    - source: String
-  }
-
-  enum "AnchorDirection" as eu_mare6g_dot_domain_anchor_AnchorDirection #FFF7ED {
-    INGRESS
-    EGRESS
-    BIDIRECTIONAL
-  }
-
-  enum "AnchorRequirement" as eu_mare6g_dot_domain_anchor_AnchorRequirement #FFF7ED {
-    OIDC_DISCOVERY_1_0
-    --
-    - uri: URI {readOnly}
-  }
-
-  enum "AnchorRole" as eu_mare6g_dot_domain_anchor_AnchorRole #FFF7ED {
-    PROVIDES
-    REQUIRES
-  }
-
-}
-
-package "eu.mare6g.dot.domain.anchor.validation" as package_eu_mare6g_dot_domain_anchor_validation #EFF6FF {
-  class "AnchorSelectorSyntax" as eu_mare6g_dot_domain_anchor_validation_AnchorSelectorSyntax #FFFFFF {
-  }
-
-  class "AnchorValidator" as eu_mare6g_dot_domain_anchor_validation_AnchorValidator #FFFFFF {
-    + isValid(dot: Dot, context: ConstraintValidatorContext): boolean
   }
 
 }
@@ -209,17 +159,13 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
     - vertices: List<Vertex>
     - contracts: List<ContractInput>
     - edges: List<Edge>
-    - exposedAnchors: List<ExposedAnchor>
+    - exposedConnectors: List<ExposedConnector>
     --
     + isVertexNamesUnique(): boolean
     + isContractIdsUnique(): boolean
     + isEdgeNamesUnique(): boolean
     + isChannelNamesUnique(): boolean
-    + isExposedAnchorNamesUnique(): boolean
-  }
-
-  class "Connector" as eu_mare6g_dot_domain_composition_Connector #FFFFFF {
-    - anchorId: String
+    + isExposedConnectorNamesUnique(): boolean
   }
 
   class "ContractInput" as eu_mare6g_dot_domain_composition_ContractInput #FFFFFF {
@@ -278,7 +224,7 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
     - bindings: List<SecurityBinding>
   }
 
-  class "ExposedAnchor" as eu_mare6g_dot_domain_composition_ExposedAnchor #FFFFFF {
+  class "ExposedConnector" as eu_mare6g_dot_domain_composition_ExposedConnector #FFFFFF {
     - name: String
     - vertex: String
     - connector: String
@@ -434,7 +380,7 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
     - dotVersion: String
     - deployment: String
     - dependsOn: List<String>
-    - connectors: List<Connector>
+    - connectors: List<String>
     - deploymentInputs: DeploymentInputs
   }
 
@@ -443,6 +389,51 @@ package "eu.mare6g.dot.domain.composition" as package_eu_mare6g_dot_domain_compo
 package "eu.mare6g.dot.domain.composition.validation" as package_eu_mare6g_dot_domain_composition_validation #EFF6FF {
   class "CompositionValidator" as eu_mare6g_dot_domain_composition_validation_CompositionValidator #FFFFFF {
     + isValid(graph: Composition, context: ConstraintValidatorContext): boolean
+  }
+
+}
+
+package "eu.mare6g.dot.domain.connector" as package_eu_mare6g_dot_domain_connector #EFF6FF {
+  class "Connector" as eu_mare6g_dot_domain_connector_Connector #FFFFFF {
+    - id: String
+    - name: String
+    - role: ConnectorRole
+    - contractId: String
+    - selector: String
+    - requirement: ConnectorRequirement
+    - direction: ConnectorDirection
+    - protocols: List<String>
+    - mediaTypes: List<String>
+    --
+    + rejectUnknownProperty(name: String, value: Object): void
+    + isCommunicationDefinitionValid(): boolean
+  }
+
+  enum "ConnectorDirection" as eu_mare6g_dot_domain_connector_ConnectorDirection #FFF7ED {
+    INGRESS
+    EGRESS
+    BIDIRECTIONAL
+  }
+
+  enum "ConnectorRequirement" as eu_mare6g_dot_domain_connector_ConnectorRequirement #FFF7ED {
+    OIDC_DISCOVERY_1_0
+    --
+    - uri: URI {readOnly}
+  }
+
+  enum "ConnectorRole" as eu_mare6g_dot_domain_connector_ConnectorRole #FFF7ED {
+    PROVIDES
+    REQUIRES
+  }
+
+}
+
+package "eu.mare6g.dot.domain.connector.validation" as package_eu_mare6g_dot_domain_connector_validation #EFF6FF {
+  class "ConnectorSelectorSyntax" as eu_mare6g_dot_domain_connector_validation_ConnectorSelectorSyntax #FFFFFF {
+  }
+
+  class "ConnectorValidator" as eu_mare6g_dot_domain_connector_validation_ConnectorValidator #FFFFFF {
+    + isValid(dot: Dot, context: ConstraintValidatorContext): boolean
   }
 
 }
@@ -483,8 +474,8 @@ package "eu.mare6g.dot.domain.contract" as package_eu_mare6g_dot_domain_contract
 }
 
 package "eu.mare6g.dot.domain.deployment" as package_eu_mare6g_dot_domain_deployment #EFF6FF {
-  class "AnchorBinding" as eu_mare6g_dot_domain_deployment_AnchorBinding #FFF7ED {
-    - anchorId: String
+  class "ConnectorBinding" as eu_mare6g_dot_domain_deployment_ConnectorBinding #FFF7ED {
+    - connectorId: String
     - port: String
   }
 
@@ -515,7 +506,7 @@ package "eu.mare6g.dot.domain.deployment" as package_eu_mare6g_dot_domain_deploy
     - host: String
     - ports: List<ServicePort>
     - contracts: List<Contract>
-    - anchorBindings: List<AnchorBinding>
+    - connectorBindings: List<ConnectorBinding>
     - config: Configuration
     --
     + isPortNamesUnique(): boolean
@@ -758,8 +749,8 @@ package "eu.mare6g.dot.serialization" as package_eu_mare6g_dot_serialization #EF
 }
 
 ' Layout hints (hidden)
-package_eu_mare6g_dot_domain_anchor -[hidden]down- package_eu_mare6g_dot_domain_composition
-package_eu_mare6g_dot_domain_composition -[hidden]down- package_eu_mare6g_dot_domain_contract
+package_eu_mare6g_dot_domain_composition -[hidden]down- package_eu_mare6g_dot_domain_connector
+package_eu_mare6g_dot_domain_connector -[hidden]down- package_eu_mare6g_dot_domain_contract
 package_eu_mare6g_dot_domain_contract -[hidden]down- package_eu_mare6g_dot_domain_deployment
 package_eu_mare6g_dot_domain_deployment -[hidden]down- package_eu_mare6g_dot_domain_runtime
 package_eu_mare6g_dot_domain_runtime -[hidden]down- package_eu_mare6g_dot_domain_validation
@@ -775,19 +766,13 @@ eu_mare6g_dot_domain_Dot -[hidden]down- eu_mare6g_dot_domain_Metadata
 eu_mare6g_dot_domain_Metadata -[hidden]down- eu_mare6g_dot_domain_Payload
 eu_mare6g_dot_domain_Payload -[hidden]down- eu_mare6g_dot_domain_Skill
 eu_mare6g_dot_domain_Skill -[hidden]down- eu_mare6g_dot_domain_Version
-eu_mare6g_dot_domain_anchor_Anchor -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorContract
-eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorDirection
-eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorRequirement
-eu_mare6g_dot_domain_anchor_AnchorRequirement -[hidden]down- eu_mare6g_dot_domain_anchor_AnchorRole
-eu_mare6g_dot_domain_anchor_validation_AnchorSelectorSyntax -[hidden]down- eu_mare6g_dot_domain_anchor_validation_AnchorValidator
 eu_mare6g_dot_domain_composition_AsyncAPIProbe -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication
 eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication -[hidden]down- eu_mare6g_dot_domain_composition_AsyncAPIProtocol
 eu_mare6g_dot_domain_composition_AsyncAPIProtocol -[hidden]down- eu_mare6g_dot_domain_composition_CdiDeviceBinding
 eu_mare6g_dot_domain_composition_CdiDeviceBinding -[hidden]down- eu_mare6g_dot_domain_composition_Channel
 eu_mare6g_dot_domain_composition_Channel -[hidden]down- eu_mare6g_dot_domain_composition_ComposeWorkloadBinding
 eu_mare6g_dot_domain_composition_ComposeWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Composition
-eu_mare6g_dot_domain_composition_Composition -[hidden]down- eu_mare6g_dot_domain_composition_Connector
-eu_mare6g_dot_domain_composition_Connector -[hidden]down- eu_mare6g_dot_domain_composition_ContractInput
+eu_mare6g_dot_domain_composition_Composition -[hidden]down- eu_mare6g_dot_domain_composition_ContractInput
 eu_mare6g_dot_domain_composition_ContractInput -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentConfigFile
 eu_mare6g_dot_domain_composition_DeploymentConfigFile -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentEnvironment
 eu_mare6g_dot_domain_composition_DeploymentEnvironment -[hidden]down- eu_mare6g_dot_domain_composition_DeploymentInputs
@@ -795,8 +780,8 @@ eu_mare6g_dot_domain_composition_DeploymentInputs -[hidden]down- eu_mare6g_dot_d
 eu_mare6g_dot_domain_composition_DeploymentVolumeSource -[hidden]down- eu_mare6g_dot_domain_composition_Edge
 eu_mare6g_dot_domain_composition_Edge -[hidden]down- eu_mare6g_dot_domain_composition_EdgeProbe
 eu_mare6g_dot_domain_composition_EdgeProbe -[hidden]down- eu_mare6g_dot_domain_composition_EdgeSecurity
-eu_mare6g_dot_domain_composition_EdgeSecurity -[hidden]down- eu_mare6g_dot_domain_composition_ExposedAnchor
-eu_mare6g_dot_domain_composition_ExposedAnchor -[hidden]down- eu_mare6g_dot_domain_composition_GRPCProbe
+eu_mare6g_dot_domain_composition_EdgeSecurity -[hidden]down- eu_mare6g_dot_domain_composition_ExposedConnector
+eu_mare6g_dot_domain_composition_ExposedConnector -[hidden]down- eu_mare6g_dot_domain_composition_GRPCProbe
 eu_mare6g_dot_domain_composition_GRPCProbe -[hidden]down- eu_mare6g_dot_domain_composition_GRPCResponseMatch
 eu_mare6g_dot_domain_composition_GRPCResponseMatch -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLOperation
 eu_mare6g_dot_domain_composition_GraphQLOperation -[hidden]down- eu_mare6g_dot_domain_composition_GraphQLProbe
@@ -818,8 +803,12 @@ eu_mare6g_dot_domain_composition_SecurityParameterBinding -[hidden]down- eu_mare
 eu_mare6g_dot_domain_composition_ServicePortReference -[hidden]down- eu_mare6g_dot_domain_composition_ServiceReference
 eu_mare6g_dot_domain_composition_ServiceReference -[hidden]down- eu_mare6g_dot_domain_composition_ServiceWorkloadBinding
 eu_mare6g_dot_domain_composition_ServiceWorkloadBinding -[hidden]down- eu_mare6g_dot_domain_composition_Vertex
+eu_mare6g_dot_domain_connector_Connector -[hidden]down- eu_mare6g_dot_domain_connector_ConnectorDirection
+eu_mare6g_dot_domain_connector_ConnectorDirection -[hidden]down- eu_mare6g_dot_domain_connector_ConnectorRequirement
+eu_mare6g_dot_domain_connector_ConnectorRequirement -[hidden]down- eu_mare6g_dot_domain_connector_ConnectorRole
+eu_mare6g_dot_domain_connector_validation_ConnectorSelectorSyntax -[hidden]down- eu_mare6g_dot_domain_connector_validation_ConnectorValidator
 eu_mare6g_dot_domain_contract_Contract -[hidden]down- eu_mare6g_dot_domain_contract_ContractStandard
-eu_mare6g_dot_domain_deployment_AnchorBinding -[hidden]down- eu_mare6g_dot_domain_deployment_Deployment
+eu_mare6g_dot_domain_deployment_ConnectorBinding -[hidden]down- eu_mare6g_dot_domain_deployment_Deployment
 eu_mare6g_dot_domain_deployment_Deployment -[hidden]down- eu_mare6g_dot_domain_deployment_ManifestType
 eu_mare6g_dot_domain_deployment_ManifestType -[hidden]down- eu_mare6g_dot_domain_deployment_Service
 eu_mare6g_dot_domain_deployment_Service -[hidden]down- eu_mare6g_dot_domain_deployment_ServicePort
@@ -839,17 +828,14 @@ eu_mare6g_dot_domain_validation_ContractDeclaration -[hidden]down- eu_mare6g_dot
 eu_mare6g_dot_domain_validation_IdentityReference -[hidden]down- eu_mare6g_dot_domain_validation_UniqueElementsValidator
 eu_mare6g_dot_domain_Metadata -[hidden]right- eu_mare6g_dot_domain_Skill
 eu_mare6g_dot_domain_Skill -[hidden]right- eu_mare6g_dot_domain_Version
-eu_mare6g_dot_domain_anchor_AnchorContract -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorDirection
-eu_mare6g_dot_domain_anchor_AnchorDirection -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorRequirement
-eu_mare6g_dot_domain_anchor_AnchorRequirement -[hidden]right- eu_mare6g_dot_domain_anchor_AnchorRole
 eu_mare6g_dot_domain_composition_EdgeProbe -[hidden]right- eu_mare6g_dot_domain_composition_EdgeSecurity
 eu_mare6g_dot_domain_composition_EdgeSecurity -[hidden]right- eu_mare6g_dot_domain_composition_Materializer
 eu_mare6g_dot_domain_composition_Materializer -[hidden]right- eu_mare6g_dot_domain_composition_NetworkBinding
 eu_mare6g_dot_domain_composition_NetworkBinding -[hidden]right- eu_mare6g_dot_domain_composition_OperationParameterBinding
 eu_mare6g_dot_domain_composition_OperationParameterBinding -[hidden]right- eu_mare6g_dot_domain_composition_ServicePortReference
 eu_mare6g_dot_domain_composition_ContractInput -[hidden]right- eu_mare6g_dot_domain_composition_Edge
-eu_mare6g_dot_domain_composition_Edge -[hidden]right- eu_mare6g_dot_domain_composition_ExposedAnchor
-eu_mare6g_dot_domain_composition_ExposedAnchor -[hidden]right- eu_mare6g_dot_domain_composition_Vertex
+eu_mare6g_dot_domain_composition_Edge -[hidden]right- eu_mare6g_dot_domain_composition_ExposedConnector
+eu_mare6g_dot_domain_composition_ExposedConnector -[hidden]right- eu_mare6g_dot_domain_composition_Vertex
 eu_mare6g_dot_domain_composition_CdiDeviceBinding -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentConfigFile
 eu_mare6g_dot_domain_composition_DeploymentConfigFile -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentEnvironment
 eu_mare6g_dot_domain_composition_DeploymentEnvironment -[hidden]right- eu_mare6g_dot_domain_composition_DeploymentVolumeSource
@@ -862,7 +848,9 @@ eu_mare6g_dot_domain_composition_GraphQLOperation -[hidden]right- eu_mare6g_dot_
 eu_mare6g_dot_domain_composition_GraphQLTransport -[hidden]right- eu_mare6g_dot_domain_composition_JSONExpectation
 eu_mare6g_dot_domain_composition_MaterializerTarget -[hidden]right- eu_mare6g_dot_domain_composition_MaterializerType
 eu_mare6g_dot_domain_composition_MaterializerType -[hidden]right- eu_mare6g_dot_domain_composition_MaterializerValueFrom
-eu_mare6g_dot_domain_deployment_AnchorBinding -[hidden]right- eu_mare6g_dot_domain_deployment_ServicePort
+eu_mare6g_dot_domain_connector_ConnectorDirection -[hidden]right- eu_mare6g_dot_domain_connector_ConnectorRequirement
+eu_mare6g_dot_domain_connector_ConnectorRequirement -[hidden]right- eu_mare6g_dot_domain_connector_ConnectorRole
+eu_mare6g_dot_domain_deployment_ConnectorBinding -[hidden]right- eu_mare6g_dot_domain_deployment_ServicePort
 eu_mare6g_dot_domain_deployment_ServicePort -[hidden]right- eu_mare6g_dot_domain_deployment_config_Configuration
 eu_mare6g_dot_domain_deployment_config_ConfigFile -[hidden]right- eu_mare6g_dot_domain_deployment_config_EnvironmentVariable
 eu_mare6g_dot_domain_deployment_config_EnvironmentVariable -[hidden]right- eu_mare6g_dot_domain_deployment_config_VolumeMount
@@ -882,13 +870,9 @@ eu_mare6g_dot_domain_validation_IdentityReference <|-[#7E22CE]down- eu_mare6g_do
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Metadata : metadata
 eu_mare6g_dot_domain_Dot "1" -[#64748B]down-> "1..*" eu_mare6g_dot_domain_Skill : skills (ref)
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_Version : version
-eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_anchor_Anchor : anchors
+eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_connector_Connector : connectors
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_contract_Contract : contracts
 eu_mare6g_dot_domain_Dot "1" *-[#2563EB]left- "0..*" eu_mare6g_dot_domain_runtime_Runtime : runtimes
-eu_mare6g_dot_domain_anchor_Anchor "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_anchor_AnchorContract : contract
-eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_anchor_AnchorDirection : direction
-eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_anchor_AnchorRequirement : requirement
-eu_mare6g_dot_domain_anchor_Anchor "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_anchor_AnchorRole : role
 eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_SecretReference : passwordSecretRef
 eu_mare6g_dot_domain_composition_AsyncAPIProbe "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_AsyncAPIProbeAuthentication : authentication
 eu_mare6g_dot_domain_composition_AsyncAPIProbe "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_composition_AsyncAPIProtocol : protocol
@@ -901,7 +885,7 @@ eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..*" eu_mare6g_d
 eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_ServicePortReference : endpoint
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ContractInput : contracts
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_Edge : edges
-eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ExposedAnchor : exposedAnchors
+eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_ExposedConnector : exposedConnectors
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_Vertex : vertices
 eu_mare6g_dot_domain_composition_DeploymentEnvironment "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_SecretReference : secretRef
 eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_CdiDeviceBinding : cdiDevices
@@ -932,8 +916,10 @@ eu_mare6g_dot_domain_composition_SecurityBinding "1" *-[#2563EB]down- "1..*" eu_
 eu_mare6g_dot_domain_composition_SecurityBinding "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_composition_ServiceReference : participant
 eu_mare6g_dot_domain_composition_ServiceWorkloadBinding "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_ComposeWorkloadBinding : compose
 eu_mare6g_dot_domain_composition_ServiceWorkloadBinding "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_KubernetesWorkloadBinding : kubernetes
-eu_mare6g_dot_domain_composition_Vertex "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_Connector : connectors
 eu_mare6g_dot_domain_composition_Vertex "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_DeploymentInputs : deploymentInputs
+eu_mare6g_dot_domain_connector_Connector "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_connector_ConnectorDirection : direction
+eu_mare6g_dot_domain_connector_Connector "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_connector_ConnectorRequirement : requirement
+eu_mare6g_dot_domain_connector_Connector "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_connector_ConnectorRole : role
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_DataFormat : format
 eu_mare6g_dot_domain_contract_Contract "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_Payload : payload
 eu_mare6g_dot_domain_contract_Contract "1" -[#64748B]down-> "1" eu_mare6g_dot_domain_contract_ContractStandard : standard
@@ -941,7 +927,7 @@ eu_mare6g_dot_domain_deployment_Deployment "1" *-[#2563EB]right- "0..*" eu_mare6
 eu_mare6g_dot_domain_deployment_Deployment "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_deployment_manifest_Manifest : manifest
 eu_mare6g_dot_domain_deployment_ManifestType "1" -[#64748B]down-> "0..1" eu_mare6g_dot_domain_runtime_platform_PlatformEngine : platform
 eu_mare6g_dot_domain_deployment_Service "1" -[#64748B]down-> "0..*" eu_mare6g_dot_domain_contract_Contract : contracts (ref)
-eu_mare6g_dot_domain_deployment_Service "1" *-[#2563EB]left- "0..*" eu_mare6g_dot_domain_deployment_AnchorBinding : anchorBindings
+eu_mare6g_dot_domain_deployment_Service "1" *-[#2563EB]left- "0..*" eu_mare6g_dot_domain_deployment_ConnectorBinding : connectorBindings
 eu_mare6g_dot_domain_deployment_Service "1" *-[#2563EB]right- "0..*" eu_mare6g_dot_domain_deployment_ServicePort : ports
 eu_mare6g_dot_domain_deployment_Service "1" *-[#2563EB]down- "1" eu_mare6g_dot_domain_deployment_config_Configuration : config
 eu_mare6g_dot_domain_deployment_config_ConfigFile "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_Payload : payload

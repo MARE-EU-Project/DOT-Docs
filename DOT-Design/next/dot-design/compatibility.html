@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -395,7 +395,7 @@ Review an explicit document migration and affected locks.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identifiers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Legacy textual/UUID DOT, Skill and Contract keys remain readable. Current
 catalogue coordinates use <code>name@actual-tool-release</code> and
-<code>origin-DOT.id::standard::name</code>; Anchors use DOT-local keys; Composition UUIDs retain their ownership role.</p></td>
+<code>origin-DOT.id::standard::name</code>; Connectors use DOT-local keys; Composition UUIDs retain their ownership role.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Renaming a catalogue identity changes references and lock inputs. It does not
 adopt existing runtime state or establish API compatibility.</p></td>
 </tr>
@@ -405,19 +405,19 @@ adopt existing runtime state or establish API compatibility.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Older empty scaffolds need reviewed capability declarations, not guessed IDs.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor identifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector identifiers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOT-local kebab-case IDs and exact legacy UUID strings are accepted. Composition
-references combine a Vertex name with the Anchor ID declared by its Connector. Composition ownership stays UUID-based.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Java Anchor IDs and references change from <code>UUID</code> to <code>String</code>; recompile callers.
+references combine a Vertex name with the Connector ID declared by its Connector. Composition ownership stays UUID-based.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Connector IDs and references change from <code>UUID</code> to <code>String</code>; recompile callers.
 Migrate declarations, bindings, edges and exposed interfaces together, then review
 new locks. Old UUIDs and display names are never lookup aliases.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor operation references</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contract-backed Anchors select operations from verified Contracts. The retired
-<code>semanticTypes</code> field is absent; Java decoding and generated Anchor schemas
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector operation references</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract-backed Connectors select operations from verified Contracts. The retired
+<code>semanticTypes</code> field is absent; Java decoding and generated Connector schemas
 reject undeclared properties, including empty or null retired values.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the retired field explicitly and preserve unrelated Anchor IDs/bindings.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the retired field explicitly and preserve unrelated Connector IDs/bindings.
 Choose an actual supported operation, not a schema or documentation URL; keep
 contractless gaps explicit. Review affected locks and clean old workloads with
 the original CLI and inputs before switching. No alias or state migration exists.</p></td>
@@ -442,7 +442,7 @@ saved state is not migrated or adopted.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A Vertex declares its Connectors. An Edge names its source and target Vertices.
 Each Channel selects one Connector on each Vertex and carries its own settings.
 The current reader accepts the Vertex, Edge and Channel shape only.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For each old connection, copy its Anchor IDs into the corresponding Vertices'
+<td class="tableblock halign-left valign-top"><p class="tableblock">For each old connection, copy its Connector IDs into the corresponding Vertices'
 <code>connectors</code> lists and move its name and settings into a Channel under the Edge
 for that ordered pair. Set each exposure&#8217;s <code>vertex</code> and <code>connector</code> directly.
 Clean up any running composition with the original CLI and lock, then generate
@@ -520,7 +520,7 @@ See <a href="authoring-anchors.html#native-query-and-metrics-profiles" class="xr
 <div class="paragraph">
 <p>The approved file-payload migration is an intentional input-format break, not a
 transparent 0.3.0 update. It changes file-document storage, not the selected tool
-releases or the meaning of Anchors and Edges.</p>
+releases or the meaning of Connectors and Edges.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -637,7 +637,7 @@ and application-data recovery instructions. Preserve the original files.</p>
 Contract-ownership notes before changing IDs, enum spellings or dependencies.</p>
 </li>
 <li>
-<p>Retain stable Anchor IDs for unchanged logical interfaces. <code>dotx new
+<p>Retain stable Connector IDs for unchanged logical interfaces. <code>dotx new
 --force</code> creates a replacement scaffold; it is not an incremental editor.</p>
 </li>
 <li>
@@ -670,7 +670,7 @@ for preview, offline-cache requirements and explicit lock review.</p>
 <p>Current-source <code>dotx edit</code> is a guided interface editor that writes a separate,
 validated candidate; it does not replace the canonical DOT, migrate state or
 repair locks. Current-source <code>dotx compose new --from-dots</code> selects exact DOTs,
-deployments and Anchors for a fresh draft, with conservative compatibility
+deployments and Connectors for a fresh draft, with conservative compatibility
 checks. Neither is present in the released v0.3.0 binary. See
 <a href="../dot-cli/authoring.html#_improve_an_existing_dot_safely" class="xref page">Edit an existing DOT</a>
 and <a href="../dot-cli/composition-authoring.html#_current_source_alternative_build_from_selected_dots" class="xref page">Build from selected DOTs</a>.

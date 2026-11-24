@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Contracts and Anchors :: MARE DOT-Design</title>
+    <title>Contracts and Connectors :: MARE DOT-Design</title>
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-domain/model-interfaces.html">
     <link rel="prev" href="model-identity.html">
     <link rel="next" href="model-deployment.html">
@@ -133,7 +133,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
@@ -323,7 +323,7 @@
     <li><a href="../dot-design/index.html">DOT-Design</a></li>
     <li>DOT-Domain</li>
     <li><a href="model-reference.html">Complete model reference</a></li>
-    <li><a href="model-interfaces.html">Contracts and Anchors</a></li>
+    <li><a href="model-interfaces.html">Contracts and Connectors</a></li>
   </ul>
 </nav>
 <div class="page-versions">
@@ -347,7 +347,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Contracts and Anchors</h1>
+<h1 class="page">Contracts and Connectors</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -356,16 +356,16 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="model-Anchor"><a class="anchor" href="#model-Anchor"></a>Anchor</h2>
+<h2 id="model-Connector"><a class="anchor" href="#model-Connector"></a>Connector</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Give one provided or required interaction a stable, DOT-local integration key. Compositions connect these logical points; deployment service bindings connect locally provided, non-brokered interfaces to named ports.</p>
 </div>
 <div class="paragraph">
-<p>Choose exactly one communication mode: a Contract operation, a supported provider-neutral requirement, or explicit contractless communication facts. Do not duplicate direction, protocols or media types for a Contract-backed Anchor. Aggregate validation checks references, selector syntax and deployment bindings; the CLI resolves actual Contract operations. Declarations and a compatible wire are not live reachability, authentication or production acceptance.</p>
+<p>Choose exactly one communication mode: a Contract operation, a supported provider-neutral requirement, or explicit contractless communication facts. Do not duplicate direction, protocols or media types for a Contract-backed Connector. Aggregate validation checks references, selector syntax and deployment bindings; the CLI resolves actual Contract operations. Declarations and a compatible wire are not live reachability, authentication or production acceptance.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/Anchor.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Anchor.schema.json">Generated JSON Schema</a></p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/connector/Connector.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/Connector.schema.json">Generated JSON Schema</a></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -387,37 +387,43 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stable key used by composition endpoints and deployment Anchor bindings. Prefer meaningful DOT-local kebab-case names. Legacy UUID strings remain readable, but display names and selectors are not aliases for this key. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stable key used by composition endpoints and deployment Connector bindings. Prefer meaningful DOT-local kebab-case names. Legacy UUID strings remain readable, but display names and selectors are not aliases for this key. minimum length: 1; pattern restrictions (see schema); conditional constraints (see schema).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Readable label for the interaction. It can help an author choose an Anchor, but edges and service bindings reference id rather than this display label. minimum length: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Readable label for the interaction. It can help an author choose a Connector, but edges and service bindings reference id rather than this display label. minimum length: 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorRole</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConnectorRole</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether this component offers the interaction or depends on it. This logical provider/consumer relationship is independent of which participant initiates a network request or the direction of payload flow. schema enum: "PROVIDES", "REQUIRES".</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contract</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorContract</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contractId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reference to an authoritative Contract plus one standard-specific operation selector. Local ownership resolves through this DOT; external ownership requires the exact originating DOT source. Communication facts come from the selected document.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exact authoritative Contract identity, required together with selector. Local IDs resolve only against this DOT’s declarations. External IDs must be owner-qualified; dotx derives the exact originating DOT from the prefix and resolves it in the selected catalogue without searching other owners or releases. pattern restrictions (see schema).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>selector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard-specific operation within contractId. Communication facts come from that verified operation; do not duplicate them on the Connector. Omit both fields in requirement-based and contractless modes. minimum length: 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>requirement</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorRequirement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConnectorRequirement</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provider-neutral, versioned requirement on a REQUIRES Anchor. A composition chooses and verifies the concrete provider. It cannot be combined with a Contract reference or explicit contractless communication facts. exact value "OIDC_DISCOVERY_1_0".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider-neutral, versioned requirement on a REQUIRES Connector. A composition chooses and verifies the concrete provider. It cannot be combined with a Contract reference or explicit contractless communication facts. exact value "OIDC_DISCOVERY_1_0".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>direction</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AnchorDirection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConnectorDirection</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Payload-flow direction relative to the declaring DOT, only for a contractless Anchor. Do not infer it solely from PROVIDES or REQUIRES; request/response interactions and transport initiation are different concepts. schema enum: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payload-flow direction relative to the declaring DOT, only for a contractless Connector. Do not infer it solely from PROVIDES or REQUIRES; request/response interactions and transport initiation are different concepts. schema enum: "INGRESS", "EGRESS", "BIDIRECTIONAL".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>protocols</code></p></td>
@@ -439,25 +445,31 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="model-identity.html#model-Dot" class="xref page">Dot</a>: containment via anchors; diagram multiplicity 0..*.</p>
+<p>From <a href="model-identity.html#model-Dot" class="xref page">Dot</a>: containment via connectors; diagram multiplicity 0..*.</p>
 </li>
 <li>
-<p>To <a href="#model-AnchorContract">AnchorContract</a>: containment via contract; diagram multiplicity 0..1.</p>
+<p>To <a href="#model-ConnectorDirection">ConnectorDirection</a>: typed association via direction; diagram multiplicity 0..1.</p>
 </li>
 <li>
-<p>To <a href="#model-AnchorDirection">AnchorDirection</a>: typed association via direction; diagram multiplicity 0..1.</p>
+<p>To <a href="#model-ConnectorRequirement">ConnectorRequirement</a>: typed association via requirement; diagram multiplicity 0..1.</p>
 </li>
 <li>
-<p>To <a href="#model-AnchorRequirement">AnchorRequirement</a>: typed association via requirement; diagram multiplicity 0..1.</p>
+<p>To <a href="#model-ConnectorRole">ConnectorRole</a>: typed association via role; diagram multiplicity 1.</p>
 </li>
 <li>
-<p>To <a href="#model-AnchorRole">AnchorRole</a>: typed association via role; diagram multiplicity 1.</p>
+<p>From <a href="model-composition.html#model-Channel" class="xref page">Channel</a>: ID/name reference via fromConnector / toConnector.</p>
 </li>
 <li>
-<p>From <a href="model-composition.html#model-Connector" class="xref page">Connector</a>: ID/name reference via anchorId.</p>
+<p>From <a href="model-composition.html#model-ExposedConnector" class="xref page">ExposedConnector</a>: ID/name reference via connector.</p>
 </li>
 <li>
-<p>From <a href="model-deployment.html#model-AnchorBinding" class="xref page">AnchorBinding</a>: ID/name reference via anchorId.</p>
+<p>From <a href="model-composition.html#model-Vertex" class="xref page">Vertex</a>: ID/name reference via connectors (IDs).</p>
+</li>
+<li>
+<p>To <a href="#model-Contract">Contract</a>: ID/name reference via contractId / selector.</p>
+</li>
+<li>
+<p>From <a href="model-deployment.html#model-ConnectorBinding" class="xref page">ConnectorBinding</a>: ID/name reference via connectorId.</p>
 </li>
 </ul>
 </div>
@@ -468,98 +480,24 @@
   "id": "build-information",
   "name": "build-information",
   "role": "PROVIDES",
-  "contract": {
-    "id": "Prometheus@3.15.1::OpenAPI::HTTP",
-    "selector": "#/paths/~1status~1buildinfo/get"
-  }
+  "contractId": "Prometheus@3.15.1::OpenAPI::HTTP",
+  "selector": "#/paths/~1status~1buildinfo/get"
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="model-AnchorContract"><a class="anchor" href="#model-AnchorContract"></a>AnchorContract</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Select one composable interaction from an existing authoritative Contract. Use it on an Anchor rather than copying an interface document or declaring another product-owned Contract.</p>
-</div>
-<div class="paragraph">
-<p>The referenced identity, origin and selector must agree. OpenAPI and AsyncAPI use operation references; Protobuf uses a service method, GraphQL uses a root-field coordinate, and SPARQL uses the exact sd:endpoint IRI of a supported query service. A data-schema pointer is not an operation. Java aggregate validation checks local relationships and selector syntax; the CLI resolves the exact originating declaration, verifies its bytes and checks the selected operation. Matching shapes in independently authored Contracts do not make their identities interchangeable.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorContract.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorContract.schema.json">Generated JSON Schema</a></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50.0002%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">JSON field</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Base presence</th>
-<th class="tableblock halign-left valign-top">Meaning and constraints</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact, case-sensitive Contract identity. An external dependency retains the producer identity; merely declaring a syntactically valid key does not make a Contract available. minimum length: 1; pattern restrictions (see schema).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>selector</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Standard-specific operation reference within the authoritative document. Select the interaction rather than a request/response data type; required operation parameters and security still need composition and deployment inputs. minimum length: 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>source</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exact originating DOT coordinate for an external Contract reference in the selected catalogue. Omit it for a locally owned declaration. An unavailable origin is an error, not permission to search sibling folders, infer another release or copy a dependency declaration. pattern restrictions (see schema).</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><strong>Relationships</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>From <a href="#model-Anchor">Anchor</a>: containment via contract; diagram multiplicity 0..1.</p>
-</li>
-<li>
-<p>To <a href="#model-Contract">Contract</a>: ID/name reference via id.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">Shape example from the reviewed Java compatibility corpus (not a runnable deployment)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "id": "Example@1.0.0::OpenAPI::HTTP",
-  "selector": "#/paths/~1ready/get"
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="model-AnchorDirection"><a class="anchor" href="#model-AnchorDirection"></a>AnchorDirection</h2>
+<h2 id="model-ConnectorDirection"><a class="anchor" href="#model-ConnectorDirection"></a>ConnectorDirection</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Describe the direction of data flow at a contractless interaction relative to the declaring DOT. It fills in a communication fact that cannot be derived from an authoritative Contract.</p>
 </div>
 <div class="paragraph">
-<p>Ingress means flow into the DOT, egress means flow out, and bidirectional means both. Keep this separate from the Anchor provider/consumer role and from the direction of a TCP connection. The current contractless matcher requires complementary directions alongside compatible protocols and media types; the enum alone proves none of those other conditions.</p>
+<p>Ingress means flow into the DOT, egress means flow out, and bidirectional means both. Keep this separate from the Connector provider/consumer role and from the direction of a TCP connection. The current contractless matcher requires complementary directions alongside compatible protocols and media types; the enum alone proves none of those other conditions.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorDirection.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorDirection.schema.json">Generated JSON Schema</a></p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/connector/ConnectorDirection.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ConnectorDirection.schema.json">Generated JSON Schema</a></p>
 </div>
 <div class="paragraph">
 <p><strong>Exact JSON values:</strong> <code>INGRESS</code>, <code>EGRESS</code>, <code>BIDIRECTIONAL</code>.</p>
@@ -573,7 +511,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-Anchor">Anchor</a>: typed association via direction; diagram multiplicity 0..1.</p>
+<p>From <a href="#model-Connector">Connector</a>: typed association via direction; diagram multiplicity 0..1.</p>
 </li>
 </ul>
 </div>
@@ -586,16 +524,16 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="model-AnchorRequirement"><a class="anchor" href="#model-AnchorRequirement"></a>AnchorRequirement</h2>
+<h2 id="model-ConnectorRequirement"><a class="anchor" href="#model-ConnectorRequirement"></a>ConnectorRequirement</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>State a narrow, versioned provider-neutral interface requirement instead of hard-coding a particular producer Contract. The current supported profile concerns OIDC discovery.</p>
 </div>
 <div class="paragraph">
-<p>Use it only on a REQUIRES Anchor and do not combine it with Contract or explicit contractless fields. A composition edge selects the real provider and the CLI checks the supported requirement profile against its verified Contract. This is not an arbitrary semantic label, automatic provider discovery or full OIDC, TLS and production IAM acceptance.</p>
+<p>Use it only on a REQUIRES Connector and do not combine it with Contract or explicit contractless fields. A composition edge selects the real provider and the CLI checks the supported requirement profile against its verified Contract. This is not an arbitrary semantic label, automatic provider discovery or full OIDC, TLS and production IAM acceptance.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorRequirement.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorRequirement.schema.json">Generated JSON Schema</a></p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/connector/ConnectorRequirement.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ConnectorRequirement.schema.json">Generated JSON Schema</a></p>
 </div>
 <div class="paragraph">
 <p><strong>Exact JSON values:</strong> <code>OIDC_DISCOVERY_1_0</code>.</p>
@@ -609,7 +547,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-Anchor">Anchor</a>: typed association via requirement; diagram multiplicity 0..1.</p>
+<p>From <a href="#model-Connector">Connector</a>: typed association via requirement; diagram multiplicity 0..1.</p>
 </li>
 </ul>
 </div>
@@ -622,16 +560,16 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="model-AnchorRole"><a class="anchor" href="#model-AnchorRole"></a>AnchorRole</h2>
+<h2 id="model-ConnectorRole"><a class="anchor" href="#model-ConnectorRole"></a>ConnectorRole</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Distinguish a component that provides an interaction from one that requires it. This is the logical relationship used to connect a provider Anchor to a consumer Anchor.</p>
+<p>Distinguish a component that provides an interaction from one that requires it. This is the logical relationship used to connect a provider Connector to a consumer Connector.</p>
 </div>
 <div class="paragraph">
 <p>Role is not payload-flow direction, server/client process type or permission to call an API. A component can provide an HTTP operation even when another component initiates the request. Complementary roles do not replace Contract identity, operation, protocol, security or live acceptance checks.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/anchor/AnchorRole.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/AnchorRole.schema.json">Generated JSON Schema</a></p>
+<p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/connector/ConnectorRole.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/models/ConnectorRole.schema.json">Generated JSON Schema</a></p>
 </div>
 <div class="paragraph">
 <p><strong>Exact JSON values:</strong> <code>PROVIDES</code>, <code>REQUIRES</code>.</p>
@@ -645,7 +583,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-Anchor">Anchor</a>: typed association via role; diagram multiplicity 1.</p>
+<p>From <a href="#model-Connector">Connector</a>: typed association via role; diagram multiplicity 1.</p>
 </li>
 </ul>
 </div>
@@ -661,7 +599,7 @@
 <h2 id="model-Contract"><a class="anchor" href="#model-Contract"></a>Contract</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Identify one authoritative interface specification and the exact downloadable document that describes it. Anchors select interactions from that document instead of copying its protocol and payload details.</p>
+<p>Identify one authoritative interface specification and the exact downloadable document that describes it. Connectors select interactions from that document instead of copying its protocol and payload details.</p>
 </div>
 <div class="paragraph">
 <p>Keep the declaration at its owning DOT and retain that identity when another component consumes or implements the interface. Qualified identities must agree with the exact owning DOT release, standard and local Contract name. Complete definitions carry a verified URL/hash payload; an ID-only reference view is not a publishable owned declaration. Domain validation checks declaration relationships and metadata, while the CLI fetches, hashes and parses the document and resolves operations. Neither establishes that a producer implements the interface at runtime.</p>
@@ -713,7 +651,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>standard</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ContractStandard</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Interface language used to interpret the document and Anchor selectors. Use the exact generated wire spelling; the Java enum constant name is not necessarily the serialized value. schema enum: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interface language used to interpret the document and Connector selectors. Use the exact generated wire spelling; the Java enum constant name is not necessarily the serialized value. schema enum: "OpenAPI", "AsyncAPI", "Protobuf", "GraphQL", "SPARQL".</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
@@ -744,7 +682,7 @@
 <p>From <a href="model-deployment.html#model-Service" class="xref page">Service</a>: ID/name reference via contracts (ref); diagram multiplicity 0..*.</p>
 </li>
 <li>
-<p>From <a href="#model-AnchorContract">AnchorContract</a>: ID/name reference via id.</p>
+<p>From <a href="#model-Connector">Connector</a>: ID/name reference via contractId / selector.</p>
 </li>
 <li>
 <p>From <a href="model-composition.html#model-ContractInput" class="xref page">ContractInput</a>: ID/name reference via id.</p>
@@ -773,7 +711,7 @@
 <h2 id="model-ContractStandard"><a class="anchor" href="#model-ContractStandard"></a>ContractStandard</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Choose the interface-description language used by a Contract. This choice determines how the document is parsed, which encoding is valid and how an Anchor operation is selected.</p>
+<p>Choose the interface-description language used by a Contract. This choice determines how the document is parsed, which encoding is valid and how a Connector operation is selected.</p>
 </div>
 <div class="paragraph">
 <p>Use the exact serialized values shown by the generated enum reference; alternative capitalization, whitespace and Java constant names are not aliases. Standard version and document format remain separate properties. Selecting a supported language is not a claim that every optional feature or live protocol behavior is implemented by the current CLI.</p>

@@ -133,7 +133,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -388,8 +388,8 @@ On a terminal, headings are cyan, field names bold and borders dim;
 Colors are disabled for redirected output, <code>TERM=dumb</code>, <code>ACCESSIBLE=1</code>, or a
 non-empty <code>NO_COLOR</code> value. For example, use <code>NO_COLOR=1 dotx inspect &lt;DOT-path&gt;</code>.
 <code>--json</code> always emits plain JSON, including when stdout is a terminal.
-The <code>contracts</code>, <code>anchors</code> and <code>skills</code> tables use the declared field names,
-with separate <code>id</code> and <code>name</code> columns where applicable. <strong>Every Anchor is shown</strong>,
+The <code>contracts</code>, <code>connectors</code> and <code>skills</code> tables use the declared field names,
+with separate <code>id</code> and <code>name</code> columns where applicable. <strong>Every Connector is shown</strong>,
 grouped under <code>role: PROVIDES</code> (interfaces this tool offers) and <code>role: REQUIRES</code>
 (interfaces this tool needs from other tools). Source order is preserved within
 each role; empty role groups are omitted. Contract and Skill previews show up to three entries each;
@@ -586,7 +586,7 @@ meanings remain unchanged.</p>
 <div class="paragraph">
 <p>For reusable catalogue examples and explicit deployment selection, see
 <a href="../dot-design/external-dot-examples.html" class="xref page">Deployments and examples</a>. For
-Anchor selectors, Edges, native Secret references, locks and lifecycle safety,
+Connector selectors, Edges, native Secret references, locks and lifecycle safety,
 use <a href="../dot-design/anchors-and-composition.html" class="xref page">the composition guide</a>.</p>
 </div>
 <div class="paragraph">

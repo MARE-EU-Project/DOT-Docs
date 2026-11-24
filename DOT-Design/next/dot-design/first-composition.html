@@ -132,7 +132,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -219,7 +219,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -352,8 +352,8 @@
 <p>Run Node Exporter and Prometheus together on Docker. In the Next source graph,
 the <code>node-exporter-to-prometheus</code> Edge joins the two Vertices. Its
 <code>node-metrics-to-prometheus</code> Channel connects the <code>node-metrics</code> and
-<code>scrape-target</code> Anchors. Use the <code>prometheus-query</code> exposure for the
-<code>promql-query-api</code> Anchor to verify the scrape.</p>
+<code>scrape-target</code> Connectors. Use the <code>prometheus-query</code> exposure for the
+<code>promql-query-api</code> Connector to verify the scrape.</p>
 </div>
 </div>
 </div>
@@ -382,7 +382,9 @@ Compose plugin.</p>
 <h2 id="_prepare_the_catalogue"><a class="anchor" href="#_prepare_the_catalogue"></a>Prepare the catalogue</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Keep the <code>dotx</code> installed by Quick Start. In a fresh working directory, clone
+<p>Keep the source <code>dotx</code> installed by Quick Start: the Connector format on <code>main</code>
+requires the matching source CLI. A published release requires its matching
+catalogue pair below. In a fresh working directory, clone
 the catalogue and enter it:</p>
 </div>
 <div class="listingblock">
@@ -417,8 +419,8 @@ Prometheus on IPv4 loopback.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=9a9a54dc7d88f887d709847ab1e9d8045161371d
-REPOSITORY_VERSION=74594b9c50e8eab4bc88fa2a061f380315e8294e</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=90c1cfe2fdebffe3ea820b82810c13e67ad8a60c
+REPOSITORY_VERSION=d572d56a79650c702df639ed9add0bf095ea0734</code></pre>
 </div>
 </div>
 <div class="paragraph">

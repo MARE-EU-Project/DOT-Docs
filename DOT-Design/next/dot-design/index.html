@@ -132,7 +132,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -219,7 +219,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -368,7 +368,7 @@ runtime choices, and compositions relate.</p>
 </div>
 <div class="imageblock text-center interactive-diagram">
 <div class="content">
-<img src="_images/diagrams/overview-concepts.svg" alt="Core DOT models and their relationships: Dot, Contract, Anchor, Runtime, Deployment, Composition, Vertex, Edge, Channel, and Connector">
+<img src="_images/diagrams/overview-concepts.svg" alt="Core DOT models and their relationships: Dot, Contract, Connector, Runtime, Deployment, Composition, Vertex, Edge, Channel">
 </div>
 </div>
 <div class="ulist">
@@ -380,17 +380,24 @@ runtime choices, and compositions relate.</p>
 <p><strong>Runtimes and deployments</strong> describe where a tool runs and how it starts.</p>
 </li>
 <li>
-<p><strong>A composition</strong> selects tool releases as Vertices. Edges connect Vertices, and each Channel selects an Anchor at both ends through Connectors.</p>
+<p><strong>A composition</strong> selects tool releases as Vertices. Edges connect Vertices, and each Channel selects a Connector ID at each end.</p>
 </li>
 <li>
 <p><strong><code>dotx</code></strong> validates and operates the selected composition.</p>
 </li>
 </ul>
 </div>
+<div id="_choose_your_first_step" class="paragraph">
+<p>A <strong>Connector</strong> is a provided or required interface defined once by a DOT.
+A <strong>Vertex</strong> selects that DOT, a deployment, and the Connector IDs it uses.
+An <strong>Edge</strong> joins two Vertices; its <strong>Channels</strong> select one Connector ID on each side.
+Service bindings map those interfaces to named ports. Container IDs, addresses,
+and live status belong to the running deployment, not the portable graph.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_choose_your_first_step"><a class="anchor" href="#_choose_your_first_step"></a>Get started</h2>
+<h2 id="_get_started"><a class="anchor" href="#_get_started"></a>Get started</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Follow one short path, then explore the areas you need:</p>

@@ -132,7 +132,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -219,7 +219,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -417,7 +417,7 @@ dotx compose new --from "$LAB/composition.yaml" \
 <p>Expected: the Grafana candidate validates and <code>dashboard.yaml</code> retains the
 earlier monitoring graph with a fresh UUID. The catalogue remains unchanged.
 The copied product already carries its official pinned OpenAPI declaration,
-required Prometheus Anchor, provided dashboard Anchor and service bindings.
+required Prometheus Connector, provided dashboard Connector and service bindings.
 You extended its <strong>configuration surface</strong>, not its API identity.</p>
 </div>
 <div class="paragraph">
@@ -467,8 +467,8 @@ each <code>- name</code> in the CLI-created draft.</p>
       dotVersion: 13.3.0
       deployment: docker
       connectors:
-        - anchorId: promql-query-api
-        - anchorId: monitoring-dashboard
+        - promql-query-api
+        - monitoring-dashboard
       dependsOn: [prometheus]
       deploymentInputs:
         environment:
@@ -507,7 +507,7 @@ each <code>- name</code> in the CLI-created draft.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_add_the_browser_endpoint_under_exposedanchors"><a class="anchor" href="#_add_the_browser_endpoint_under_exposedanchors"></a>Add the browser endpoint under <code>exposedAnchors</code></h3>
+<h3 id="_add_the_browser_endpoint_under_exposedconnectors"><a class="anchor" href="#_add_the_browser_endpoint_under_exposedconnectors"></a>Add the browser endpoint under <code>exposedConnectors</code></h3>
 <div class="paragraph">
 <p>Append this after <code>prometheus-query</code>:</p>
 </div>
@@ -827,7 +827,7 @@ alone does not establish a working dashboard.</p>
 <summary class="title">Explain it back: what stays reusable when you add a dashboard?</summary>
 <div class="content">
 <div class="paragraph">
-<p>Prometheus keeps its product identity, Contract and Anchors. Grafana&#8217;s datasource,
+<p>Prometheus keeps its product identity, Contract and Connectors. Grafana&#8217;s datasource,
 the selected Prometheus instance, the password reference and both Edges belong
 to this composition. The private Grafana copy adds a supported sensitive
 configuration declaration; it contains no password value. Live addresses and

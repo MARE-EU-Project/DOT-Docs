@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -435,7 +435,7 @@ not an application-level request/response implementation.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Anchors select Contract operations. Edges select participants and materialize
+<p>Connectors select Contract operations. Edges select participants and materialize
 resolved endpoints into the consumer&#8217;s declared environment. Each edge declares
 <code>EXTERNAL_GATEWAY</code>: the selected DOT declares the NodePort Service, and Minikube
 provides the reachable node address. Docker normally isolates its bridge
@@ -645,7 +645,7 @@ by the Go <code>mermaid-ascii</code> library embedded in <code>dotx</code>: Unic
 magenta Docker labels and amber connection IDs. Parallel edges share a labelled
 arrow and each retains its own legend entry. The node inventory shows selected
 runtimes/deployments/versions; a <code>T4</code> link identifies the MQTT transport endpoint,
-not another Anchor edge or an application publisher. Arrows mean logical
+not another Connector edge or an application publisher. Arrows mean logical
 PROVIDES-to-REQUIRES relationships, not packet direction. The graph is printed
 again after all four real probes and recorded status checks pass.</p>
 </div>

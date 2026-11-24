@@ -133,7 +133,7 @@
     <a class="nav-link" href="../dot-design/anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="../dot-design/authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-design/composition-documents.html">Composition declarations</a>
@@ -220,7 +220,7 @@
     <a class="nav-link" href="model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-deployment.html">Runtimes and deployment</a>
@@ -361,7 +361,7 @@ is discovered from the Java-generated schemas, not maintained as a second model.
 reusable Skills, audit timestamps and software versions.</p>
 </li>
 <li>
-<p><a href="model-interfaces.html" class="xref page">Contracts and Anchors</a>: owned specifications,
+<p><a href="model-interfaces.html" class="xref page">Contracts and Connectors</a>: owned specifications,
 selected interactions, roles and provider-neutral requirements.</p>
 </li>
 <li>
@@ -384,6 +384,27 @@ for the same model explanations, generated field tables, relationships and
 examples. Its diagram page is landscape; the detailed chapters are portrait.
 The <a href="_attachments/dot-domain-a4.pdf" class="xref attachment">single-page A4 overview</a> remains a compact
 visual companion, not a substitute for the detailed reference.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_complete_class_diagram"><a class="anchor" href="#_complete_class_diagram"></a>Complete class diagram</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="../dot-design/_attachments/diagrams/domain-complete.mmd" class="xref attachment">complete Mermaid source</a>
+and <a href="../dot-design/_images/diagrams/domain-complete.svg" class="xref image">zoomable SVG</a> include every
+public model, its declared instance fields, exact Java types and enum constants.
+Inherited fields appear on the superclass connected by an inheritance arrow;
+for example, <code>Manifest.type</code> applies to each concrete manifest.
+<code>-</code> denotes private fields and <code>#</code> protected fields. Accessors, validation methods
+and static implementation constants are omitted. JSON names and enum wire values
+are documented in the generated tables below (for example,
+<code>JSONExpectation.expectedValue</code> serializes as <code>equals</code>).</p>
+</div>
+<div class="paragraph">
+<p>The overview and interface/runtime/composition diagrams use the same generated
+field inventory for every class they show. The separate single-page A4 overview
+remains a relationship map.</p>
 </div>
 </div>
 </div>
@@ -449,19 +470,19 @@ a structurally valid fixture alone does not satisfy them.</p>
 <p>Its owned <code>Contract</code> declarations locate exact specification bytes by URL/hash.</p>
 </li>
 <li>
-<p>An <code>Anchor</code> selects one Contract interaction, expresses a supported requirement,
+<p>An <code>Connector</code> selects one Contract interaction, expresses a supported requirement,
 or explicitly declares a contractless boundary.</p>
 </li>
 <li>
 <p>A <code>Runtime</code> offers compatible <code>Deployment</code> alternatives for one <code>Platform</code>.</p>
 </li>
 <li>
-<p>A deployment&#8217;s <code>Service</code> uses <code>AnchorBinding</code> to connect logical
+<p>A deployment&#8217;s <code>Service</code> uses <code>ConnectorBinding</code> to connect logical
 interfaces to named `ServicePort`s and declares its supported configuration.</p>
 </li>
 <li>
 <p>A <code>Composition</code> selects DOTs through its Vertices. Each <code>Edge</code> connects two
-Vertices and contains one or more Channels. A <code>Channel</code> connects their Anchors
+Vertices and contains one or more Channels. A <code>Channel</code> connects their Connectors
 through the Connectors declared on those Vertices.</p>
 </li>
 <li>
@@ -476,7 +497,7 @@ Secret references name secret sources without embedding their values.</p>
 <div class="paragraph">
 <p>These relationships are not a packet-flow graph. In particular, <code>PROVIDES</code> to
 <code>REQUIRES</code> describes interface ownership and dependency, not who initiates a
-network request. See <a href="../dot-design/authoring-anchors.html" class="xref page">Anchor authoring</a> for
+network request. See <a href="../dot-design/authoring-anchors.html" class="xref page">Connector authoring</a> for
 the distinction between operation identity, data schemas and semantic meaning.</p>
 </div>
 </div>

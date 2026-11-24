@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -356,7 +356,7 @@ composition. Start with the <a href="#one-command-demo">one-command guided exper
 then explore the <a href="#official-demo-route">official ecosystem demo</a>,
 choose the shorter 10-15-minute standards route, or the five-minute
 <a href="#read-only-tour">read-only tour</a>. These paths connect authoritative Contracts,
-Anchors, deployment choices and explicit edges; they prove different things.</p>
+Connectors, deployment choices and explicit edges; they prove different things.</p>
 </div>
 <div class="paragraph">
 <p>The read-only core path takes about five minutes on an existing checkout. It is
@@ -626,7 +626,7 @@ The shorter <a href="#presenter-route">standards-focused route</a> remains avail
 <p>The story is: <strong>one authoritative definition → explicit composition → observed
 behaviour → controlled recovery</strong>. DOT-Domain and its generated Schemas define
 the portable models; <code>dotx</code> resolves and executes them. Docker/Kubernetes remain
-the workload engines. A Channel selects a declared Anchor at each end of an Edge.
+the workload engines. A Channel selects a declared Connector at each end of an Edge.
 The producer and consumer still implement the protocol.</p>
 </div>
 <div class="paragraph">
@@ -797,7 +797,7 @@ See <a href="portability-demo.html" class="xref page">the complete comparison an
 </div>
 <div class="paragraph">
 <p><strong>Say:</strong> identity, gateway, policy engine, RDF service and client are independently
-reusable DOTs, connected by reviewed Anchors/edges and deployment-instance inputs.
+reusable DOTs, connected by reviewed Connectors/edges and deployment-instance inputs.
 Existing Contracts remain authoritative where present; explicit interfaces are
 not misrepresented as vendor-official OpenAPI documents.
 <strong>Show:</strong> anonymous/invalid-bearer rejection, token acquisition and authenticated
@@ -1007,14 +1007,14 @@ deployment and composition choices; it does not replace those standards."</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenAPI, GraphQL SDL, Protobuf and AsyncAPI describe different interactions.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Anchor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named provided or required interaction</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The provider and consumer select the REST alerts operation from its Contract.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Edge</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Connection between compatible Anchors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rest-alerts</code> connects the provider&#8217;s Anchor to the consumer&#8217;s Anchor.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connection between compatible Connectors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rest-alerts</code> connects the provider&#8217;s Connector to the consumer&#8217;s Connector.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
@@ -1050,7 +1050,7 @@ interface standard; the separate <code>PROTOCOL</code> column names the transpor
 Explain provider versus
 consumer and the selected runtime, rather than reading UUIDs aloud.
 The separate <code>T4</code> connection identifies MQTT&#8217;s broker transport endpoint;
-it is not a fifth Anchor edge. Arrows mean logical PROVIDES-to-REQUIRES,
+it is not a fifth Connector edge. Arrows mean logical PROVIDES-to-REQUIRES,
 not packet direction: an HTTP consumer may initiate the request.</p>
 </div>
 <div class="paragraph">
@@ -1070,14 +1070,14 @@ This is a locked composition view, not a live health display.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Say:</strong> "The OpenAPI Contract owns <code>GET /alerts</code>. The Anchors select that
+<p><strong>Say:</strong> "The OpenAPI Contract owns <code>GET /alerts</code>. The Connectors select that
 operation; the edge names the two participants. The materializer puts the
 resolved operation URL into the consumer&#8217;s declared <code>OPENAPI_YAML_URL</code>
 environment variable. We are not copying the API definition into the edge."</p>
 </div>
 <div class="paragraph">
 <p><strong>Expected observation:</strong> <code>OpenAPI</code>, the selected operation, provider/consumer
-Anchor references, <code>COMPATIBLE</code> and the environment-variable materializer.
+Connector references, <code>COMPATIBLE</code> and the environment-variable materializer.
 The template&#8217;s <code>192.0.2.1</code> address is deliberately not a live target. The
 existing harness substitutes the actual Minikube address and locks that
 run-specific graph before applying it. Do not manually apply the template.</p>
@@ -1292,7 +1292,7 @@ scheduler.</p>
 <div class="sect2">
 <h3 id="_what_is_reused_and_what_changes_between_pocs"><a class="anchor" href="#_what_is_reused_and_what_changes_between_pocs"></a>What is reused, and what changes between PoCs?</h3>
 <div class="paragraph">
-<p>The product&#8217;s canonical <code>dot.json</code>, Contracts and Anchor identities are reused.
+<p>The product&#8217;s canonical <code>dot.json</code>, Contracts and Connector identities are reused.
 A composition selects participants and deployments and supplies use-case-specific
 configuration: routes, policies, scrape targets and credential references.
 There is no need to create another Keycloak DOT for every PoC. Runtime platform
@@ -1300,7 +1300,7 @@ means <em>where</em> it runs; deployment mechanism means <em>how</em> it is depl
 </div>
 </div>
 <div class="sect2">
-<h3 id="_does_connecting_two_anchors_make_incompatible_apis_work_together"><a class="anchor" href="#_does_connecting_two_anchors_make_incompatible_apis_work_together"></a>Does connecting two Anchors make incompatible APIs work together?</h3>
+<h3 id="_does_connecting_two_connectors_make_incompatible_apis_work_together"><a class="anchor" href="#_does_connecting_two_connectors_make_incompatible_apis_work_together"></a>Does connecting two Connectors make incompatible APIs work together?</h3>
 <div class="paragraph">
 <p>No. Edges connect declared compatible interactions; they do not translate
 OpenAPI, GraphQL, gRPC or MQTT automatically. An application-specific adapter,
@@ -1320,7 +1320,7 @@ Use vendor/project-official documents when available. Source-derived Contracts
 and test-fixture Contracts must be labelled, not advertised as official.
 An explicit protocol interface is not an invented official Contract; the
 topology labels that case <code>explicit interface</code>. A <code>-</code> on a transport-only
-<code>T</code> link does not create another Contract-backed Anchor edge.</p>
+<code>T</code> link does not create another Contract-backed Connector edge.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1411,7 +1411,7 @@ use <a href="developer-demo.html" class="xref page">the developer demo</a>.</p>
 <div class="paragraph">
 <p>This recursively discovers every <code>dot.json</code>; there is no separate inventory.
 The command validates schema shape, identities, Skills, Contract payload
-integrity, selectors, service ports, Anchor bindings, repository placement,
+integrity, selectors, service ports, Connector bindings, repository placement,
 and catalogue-wide uniqueness. Contract-backed external and internal bundles
 also receive the strict reusable profile.</p>
 </div>
@@ -1441,7 +1441,7 @@ dotx inspect "$KEYCLOAK" --json |
   jq '{name, version,
        skills: (.skills | length),
        contracts: (.contracts | length),
-       anchors: (.anchors | length),
+       connectors: (.connectors | length),
        deployments: (.deployments | length),
        supportedDeploymentSystems}'</code></pre>
 </div>
@@ -1528,7 +1528,7 @@ summary:</p>
 <p>Every provider and consumer selector resolves against its authoritative
 Contract; all 21 pairs are compatible; endpoints, interactions, probes, and
 materializers can be derived without copying standard-specific semantics into
-Anchors.</p>
+Connectors.</p>
 </div>
 </div>
 </div>
@@ -1563,7 +1563,7 @@ the consumer. A resolved composition still does not claim that a message was del
 <div class="paragraph">
 <p>The APISIX, Keycloak, and OAuth-client scenario demonstrates dependency order,
 configuration materialization, native Kubernetes Secret references, rollout
-readiness, and an exposed Anchor:</p>
+readiness, and an exposed Connector:</p>
 </div>
 <div class="listingblock">
 <div class="content">

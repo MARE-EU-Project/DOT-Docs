@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/composition-documents.html">
     <link rel="prev" href="authoring-anchors.html">
     <link rel="next" href="wiring-and-security.html">
-    <meta name="description" content="Define a strict, versioned composition document with pinned DOT definitions, named vertices, edges, channels, and exposed Anchors.">
+    <meta name="description" content="Define a strict, versioned composition document with pinned DOT definitions, named vertices, edges, channels, and exposed Connectors.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -352,7 +352,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>A composition document is owned by the composer or operator, not by any member
-DOT. Its Vertices select exact DOT releases. Edges connect Vertices, and Channels select the Anchors used by each connection.</p>
+DOT. Its Vertices select exact DOT releases. Edges connect Vertices, and Channels select the Connectors used by each connection.</p>
 </div>
 </div>
 </div>
@@ -460,7 +460,7 @@ documents. Reusable stable, sample, and test-only DOT definitions belong in
 <code>DOT-Repository</code>, under their corresponding catalogue scope. Contracts remain
 authoritative protocol documents and are referenced independently; placing a DOT
 in the repository does not copy OpenAPI, AsyncAPI, Protobuf, or GraphQL facts
-into its Anchors.</p>
+into its Connectors.</p>
 </div>
 <div class="paragraph">
 <p><code>dependsOn</code> is a readiness graph, not a connection graph. An Edge does not imply
@@ -507,7 +507,7 @@ topologies without creating false dependency cycles.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes, at least one</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named selections of DOT releases and deployments. Every entry pins <code>source</code>, <code>dotId</code>, and
   <code>dotVersion</code>; published scenarios use an exact <code>repository://&lt;name&gt;@&lt;tool-release&gt;</code>
-  source. Each Vertex declares the Anchors it uses as <code>connectors[]</code> entries.
+  source. Each Vertex declares the Connectors it uses as <code>connectors[]</code> entries.
   <code>deployment</code>, <code>dependsOn</code>, and <code>deploymentInputs</code> refine execution.</p></td>
 </tr>
 <tr>
@@ -526,16 +526,16 @@ topologies without creating false dependency cycles.</p>
   with no edges can still expose a standalone capability.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedAnchors[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposedConnectors[]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local names for Anchors that an operator may expose or forward. Each entry selects a <code>vertex</code> and one of its declared Connectors.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composition-local names for Connectors that an operator may expose or forward. Each entry selects a <code>vertex</code> and one of its declared Connectors.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
 <p>Each Edge requires <code>name</code>, <code>from</code>, <code>to</code>, and <code>channels</code>. The two endpoint fields
 name Vertices. A Channel names its <code>fromConnector</code> and <code>toConnector</code> using their
-DOT-local <code>anchorId</code> values. Channel names are unique within the composition.
+DOT-local <code>connectorId</code> values. Channel names are unique within the composition.
 Each Channel can carry its own <code>endpoint</code>, <code>network</code>, <code>parameters</code>, <code>probe</code>,
 <code>materializer</code> or <code>materializers</code>, and <code>security</code> settings.
 Unknown fields are rejected.</p>
@@ -674,13 +674,13 @@ This conservative guard is not an identifier alias and does not change locks.</p
 </div>
 <div class="paragraph">
 <p>After defining the participants, <a href="wiring-and-security.html" class="xref page">connect and
-configure their selected Anchors</a>.</p>
+configure their selected Connectors</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="authoring-anchors.html">Define Anchors</a></span>
+  <span class="prev"><a href="authoring-anchors.html">Define Connectors</a></span>
   <span class="next"><a href="wiring-and-security.html">Channels and configuration</a></span>
 </nav>
 </article>

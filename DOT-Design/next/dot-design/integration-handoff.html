@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/integration-handoff.html">
     <link rel="prev" href="production-readiness.html">
     <link rel="next" href="contributor-guide.html">
-    <meta name="description" content="Technology-neutral requirements for catalogues, composers, and Security Function Composition consumers of DOT Anchors.">
+    <meta name="description" content="Technology-neutral requirements for catalogues, composers, and Security Function Composition consumers of DOT Connectors.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -365,7 +365,7 @@ or framework.</p>
 <p>The reference source of reusable definitions is <code>DOT-Repository</code>. Resolve a DOT
 by its exact textual ID and pinned version, then verify the returned <code>dot.json</code>
 matches both. Resolve referenced Contract payloads without copying their
-protocol, schema, media, or security facts into an Anchor.</p>
+protocol, schema, media, or security facts into a Connector.</p>
 </div>
 <div class="paragraph">
 <p>Use these commands as executable reference behavior:</p>
@@ -444,7 +444,7 @@ SFC acceptance or prove a partner catalogue/search implementation.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>address DOTs by exact textual ID and pinned version; preserve exact DOT-local Anchor IDs and Composition ownership UUIDs;</p>
+<p>address DOTs by exact textual ID and pinned version; preserve exact DOT-local Connector IDs and Composition ownership UUIDs;</p>
 </li>
 <li>
 <p>resolve Skills and Contracts by their exact, case-sensitive textual IDs;
@@ -460,7 +460,7 @@ generated nonempty-list constraint rather than a separate handwritten rule;</p>
 AsyncAPI, Protobuf, GraphQL or supported SPARQL document;</p>
 </li>
 <li>
-<p>use <code>anchorBindings</code> to map a logical Anchor to a named service port;</p>
+<p>use <code>connectorBindings</code> to map a logical Connector to a named service port;</p>
 </li>
 <li>
 <p>keep instance topology, endpoints, parameter values, credentials, and policy
@@ -476,7 +476,7 @@ from <code>COMPATIBLE</code>; and</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Contractless Anchors are valid only when a supported Contract standard cannot
+<p>Contractless Connectors are valid only when a supported Contract standard cannot
 describe the interaction. Their explicit direction, protocols and media types
 must be compatible before a edge is accepted. These communication checks do
 not establish application meaning or arbitrary schema substitutability.
@@ -491,7 +491,7 @@ establish a match.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The versioned consumer profile is under
-<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
+<code>DOT-Testing/acceptance/dot-connectors/v1/</code>. It resolves two catalogued test DOTs,
 verifies the committed composition lock, and resolves 21 compatible edges across
 OpenAPI, AsyncAPI, Protobuf and GraphQL. The supported SPARQL query profile is
 outside this focused matrix; passing it does not establish SPARQL runtime
@@ -500,7 +500,7 @@ for their separate supported operations and evidence boundaries.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:anchors:acceptance
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:connectors:acceptance
 task testing:conformance</code></pre>
 </div>
 </div>

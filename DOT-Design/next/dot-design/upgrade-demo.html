@@ -134,7 +134,7 @@
     <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="authoring-anchors.html">Define Anchors</a>
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="composition-documents.html">Composition declarations</a>
@@ -221,7 +221,7 @@
     <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Anchors</a>
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
@@ -363,7 +363,7 @@ migrations in this example.</p>
 not the reusable production catalogue: one revision deliberately contains invalid
 Rego. Its three composition documents and locks resolve the same canonical
 <code>DOT-Repository/DOTs/external/OPA-DOT/1.21.4</code> bundle. This lane has one DOT and an exposed
-Anchor, not multiple connected DOTs; use the <a href="live-multi-runtime-demo.html" class="xref page">four-Contract</a>
+Connector, not multiple connected DOTs; use the <a href="live-multi-runtime-demo.html" class="xref page">four-Contract</a>
 and <a href="mare-poc-compositions.html" class="xref page">secure-API</a> lanes for those claims.</p>
 </div>
 </div>
@@ -525,7 +525,7 @@ its <code>XDG_CACHE_HOME</code> and <code>KUBECONFIG</code> for status/destroy. 
 cache or a changed global cluster context. Do not force namespace finalizers.</p>
 </div>
 <div class="paragraph">
-<p>The existing <strong>Anchor live E2E</strong> workflow offers an explicit <code>opa-policy-upgrade</code>
+<p>The existing <strong>Connector live E2E</strong> workflow offers an explicit <code>opa-policy-upgrade</code>
 selection with the same harness and private evidence upload. The default PoC
 <code>all</code> matrix remains the established twelve scenarios; this optional technical
 lane is selected separately. Dry-run CI checks the fixtures through the existing
