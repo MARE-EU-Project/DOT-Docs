@@ -11,7 +11,7 @@
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "96fe51cc1900478ff625971dfa8fa88a8467e4ec377aa61b59f8747c6a9718c4",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "0dfca3e986dea67f7100b4933f440f737c21aa3ec06d944728f781814b64f339",
     "DOT-Docs/scripts/model-notes-composition.mjs": "345d547aa84b04a4326d8df1c5352216e167a0f8fafa59d25e14cddcf1be4690",
-    "DOT-Docs/modules/dot-domain/attachments/model-reference.manifest.json": "7d1d70e7644fe8664dbc25b55c92fe2e90cb95e7158087374d6d4ab72fc30d7a",
+    "DOT-Docs/modules/dot-domain/attachments/model-reference.manifest.json": "127eb95767399a5859a36afdc705d445e62f2f143049f0b137869cd885977330",
     "DOT-Docs/modules/dot-domain/pages/model-identity.adoc": "b7665ae3763360f385e48e594c72f5ea1f930bd1e680854c70eddb2cd4e6cb05",
     "DOT-Docs/modules/dot-domain/pages/model-interfaces.adoc": "7217191cab474f98c8decda4648e486012fbbf8ee42bee210889d8834cdcc882",
     "DOT-Docs/modules/dot-domain/pages/model-deployment.adoc": "95a996a8eb067d4c19b0db38abe654af603013f3bf12b0e45495b8740dcb4f29",
