@@ -518,17 +518,8 @@ printf 'Querying the Node Exporter scrape through Grafana...\n'
 for ((attempt=0; attempt<90; attempt++)); do
   if ! response="$(curl -q --noproxy 127.0.0.1 --config "$credentials" --silent --max-time 5 \
     --write-out '\n%{http_code}' \
-    --header 'Content-Type: application/json' \
-    --data '{
-      "from":"now-5m", "to":"now",
-      "queries":[{
-        "refId":"A",
-        "expr":"up{job=\"node-exporter\"}",
-        "instant":true,
-        "datasource":{"type":"prometheus","uid":"hero-prometheus"}
-      }]
-    }' \
-    "http://127.0.0.1:$DASHBOARD_PORT/api/ds/query")"; then
+    --get --data-urlencode 'query=up{job="node-exporter"}' \
+    "http://127.0.0.1:$DASHBOARD_PORT/api/datasources/proxy/uid/hero-prometheus/api/v1/query")"; then
     query_status='could not reach Grafana'
   elif [[ ! "${response##*$'\n'}" =~ ^[0-9]{3}$ ]]; then
     query_status='Grafana returned an invalid response'
@@ -536,7 +527,7 @@ for ((attempt=0; attempt<90; attempt++)); do
     query_status="Grafana returned HTTP ${response##*$'\n'}"
     # Report a fixed hint without echoing paths, endpoints or response text.
     if hint="$(jq -er '
-      [.message, .error, .results.A.error] | map(strings) | join(" ") |
+      [.message, .error] | map(strings) | join(" ") |
       if test("datasource.*not found|data source.*not found"; "i") then
         "check Prometheus datasource provisioning"
       elif test("no such host|connection refused|deadline exceeded"; "i") then
@@ -547,10 +538,10 @@ for ((attempt=0; attempt<90; attempt++)); do
     ' 2>/dev/null <<< "${response%$'\n'*}")"; then
       query_status+=" ($hint)"
     fi
-  elif ! jq -e '.results.A.status == 200' >/dev/null 2>&1 \
+  elif ! jq -e '.status == "success" and .data.resultType == "vector"' >/dev/null 2>&1 \
     <<< "${response%$'\n'*}"; then
     query_status='Grafana did not return a successful Prometheus result'
-  elif jq -e 'any(.results.A.frames[]?.data.values[1][]?; . == 1)' \
+  elif jq -e 'any(.data.result[]?; .metric.job == "node-exporter" and .value[1] == "1")' \
     >/dev/null 2>&1 <<< "${response%$'\n'*}"; then
     dashboard_queried=true
     break
