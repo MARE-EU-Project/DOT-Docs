@@ -467,6 +467,26 @@ when finished.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_configure_grafana"><a class="anchor" href="#_configure_grafana"></a>Configure Grafana</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Grafana <code>docker</code> deployment accepts <code>/etc/grafana/grafana.ini</code> and
+<code>GF_SECURITY_ADMIN_USER</code>. The environment value takes precedence when
+both set the administrator name. Pass the password separately with
+<code>--env GF_SECURITY_ADMIN_PASSWORD</code> after exporting it in your shell.</p>
+</div>
+<div class="paragraph">
+<p>The deployment also declares provisioning files for Prometheus and
+Elasticsearch under <code>/etc/grafana/provisioning/datasources/</code>. Supply
+<code>prometheus.yml</code> and <code>elasticsearch.yml</code> at their declared target paths.
+If you use only one datasource, supply a provisioning document with
+<code>apiVersion: 1</code> and <code>datasources: []</code> for the other. The
+<a href="../dot-design/tutorial-dashboard.html" class="xref page">dashboard tutorial</a> shows how to
+configure Prometheus and verify that Grafana can query it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_use_configuration_in_a_composition"><a class="anchor" href="#_use_configuration_in_a_composition"></a>Use configuration in a composition</h2>
 <div class="sectionbody">
 <div class="paragraph">
