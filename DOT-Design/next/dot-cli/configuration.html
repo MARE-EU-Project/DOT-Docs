@@ -487,6 +487,24 @@ configure Prometheus and verify that Grafana can query it.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_configure_opa_on_kubernetes"><a class="anchor" href="#_configure_opa_on_kubernetes"></a>Configure OPA on Kubernetes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For <code>OPA@1.21.4</code>, choose <code>kubernetes</code> to supply a Rego policy at
+<code>/policies/policy.rego</code>. Set <code>GOGC</code> if you need to tune garbage collection.
+Choose <code>kubernetes-server-config</code> to also supply native OPA settings at
+<code>/etc/opa/config.yaml</code>. In that profile, the YAML can reference
+<code>${OPA_INSTANCE_LABEL}</code>, which OPA expands from the deployment environment.</p>
+</div>
+<div class="paragraph">
+<p>After deployment, query your policy through the Data API to verify that OPA
+loaded it. The Metrics API reports the effective garbage collection target as
+<code>go_gc_gogc_percent</code>. If you supplied server YAML, use <code>/v1/config</code> to check
+the effective settings.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_use_configuration_in_a_composition"><a class="anchor" href="#_use_configuration_in_a_composition"></a>Use configuration in a composition</h2>
 <div class="sectionbody">
 <div class="paragraph">
