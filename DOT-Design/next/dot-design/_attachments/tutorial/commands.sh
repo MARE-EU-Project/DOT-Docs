@@ -534,6 +534,19 @@ for ((attempt=0; attempt<90; attempt++)); do
     query_status='Grafana returned an invalid response'
   elif [[ "${response##*$'\n'}" != 200 ]]; then
     query_status="Grafana returned HTTP ${response##*$'\n'}"
+    # Report a fixed hint without echoing paths, endpoints or response text.
+    if hint="$(jq -er '
+      [.message, .error, .results.A.error] | map(strings) | join(" ") |
+      if test("datasource.*not found|data source.*not found"; "i") then
+        "check Prometheus datasource provisioning"
+      elif test("no such host|connection refused|deadline exceeded"; "i") then
+        "check connectivity from Grafana to Prometheus"
+      elif test("origin not allowed"; "i") then
+        "Grafana rejected the request origin"
+      else empty end
+    ' 2>/dev/null <<< "${response%$'\n'*}")"; then
+      query_status+=" ($hint)"
+    fi
   elif ! jq -e '.results.A.status == 200' >/dev/null 2>&1 \
     <<< "${response%$'\n'*}"; then
     query_status='Grafana did not return a successful Prometheus result'
