@@ -430,6 +430,12 @@ key. Each snippet below is a list item, beginning with <code>- name</code>, at t
 indentation as the existing items. Keep the four leading spaces shown before
 each <code>- name</code> in the CLI-created draft.</p>
 </div>
+<div class="paragraph">
+<p>In the existing <code>node-metrics-to-prometheus</code> Channel, change the
+materializer&#8217;s <code>source</code> to <code>prometheus.yml</code>. This reuses the scrape
+configuration from the previous lesson, which is readable by the
+non-root Prometheus container.</p>
+</div>
 <div class="sect2">
 <h3 id="_add_grafana_under_vertices"><a class="anchor" href="#_add_grafana_under_vertices"></a>Add Grafana under <code>vertices</code></h3>
 <div class="paragraph">
