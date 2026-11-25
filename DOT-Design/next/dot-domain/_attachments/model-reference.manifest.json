@@ -77,11 +77,11 @@
     "WebAssemblyModule"
   ],
   "publicInputs": {
-    "DOT-Docs/scripts/model-reference.mjs": "837c1dc4c91bae3ec6025fa8e275a8de3b7b1ca476c9b8839e929ca89473bdfe",
+    "DOT-Docs/scripts/model-reference.mjs": "6657036dee346e994feb6eba8ab91c10b8129399cb4912a719a207e41dd26d94",
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "96fe51cc1900478ff625971dfa8fa88a8467e4ec377aa61b59f8747c6a9718c4",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "0dfca3e986dea67f7100b4933f440f737c21aa3ec06d944728f781814b64f339",
     "DOT-Docs/scripts/model-notes-composition.mjs": "345d547aa84b04a4326d8df1c5352216e167a0f8fafa59d25e14cddcf1be4690",
-    "DOT-Docs/scripts/domain-reference.mjs": "eecc8642ac0847d77c432c99f563085d83f761b7f3e2986608e019dbbad80a7a",
+    "DOT-Docs/scripts/domain-reference.mjs": "aee98a374321abe6f9f7863b2d12a9c6a47ad964738c62bcd2246f9aac560604",
     "DOT-Domain/src/test/resources/model-compatibility.json": "1073baa0091f15f14c20b3621e47b496fd1c42ba7e7cdbf81c1c4cabdd1c4bc4",
     "DOT-Docs/modules/ROOT/attachments/dot-domain.class-diagram.puml": "1200f227c517a51abb1ed00d156e4a92d56deddaad74773092b8e0954721cc47",
     "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "e49db543e090941cb97433070021f1f4f64142ea417d3f38c8172ef8d736816b",
@@ -164,7 +164,7 @@
   "authorities": {
     "DOT-Repository/Schema/schema.json": "23042c5227eaec9d0c5f5f56960b1c9e9f8b9a3b773f811fa8c5d213ebf141d0",
     "DOT-Repository/Schema/composition-v1.schema.json": "b7ff4ae5812ffaa4049751f129b0345bfc8b40f244e9179ae438fcf51d2f2d9e",
-    "DOT-Repository/DOTs/external/Prometheus-DOT/3.15.1/dot.json": "856cd08e83d02cd4642e026d9fd88760e8ea577a19d76d2f9b66f5f933b91332",
+    "DOT-Repository/DOTs/external/Prometheus/3.15.1/dot.json": "856cd08e83d02cd4642e026d9fd88760e8ea577a19d76d2f9b66f5f933b91332",
     "DOT-Repository/Schema/models/AsyncAPIProbe.schema.json": "94df291a765649142332a97f8496b40b14399b31146673b9542763bbd0990ee9",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/AsyncAPIProbe.java": "3d5b4894d0eb082f36b6b04e5437ab1a2a7af1f6db8d3f444aa2652e7fe7c42a",
     "DOT-Repository/Schema/models/AsyncAPIProbeAuthentication.schema.json": "a09c5029cd0739b19b0af14d26cdce1e38a5ecc8254e3f1f23265d4795847af0",
