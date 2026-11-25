@@ -613,6 +613,7 @@ package "eu.mare6g.dot.domain.deployment.manifest.docker" as package_eu_mare6g_d
 
   class "DockerImage" as eu_mare6g_dot_domain_deployment_manifest_docker_DockerImage #FFFBEB {
     - image: DockerImageTag
+    - arguments: List<String>
     - envFiles: List<EnvFile>
   }
 

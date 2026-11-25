@@ -246,6 +246,9 @@
     <a class="nav-link" href="../dot-cli/installation.html">Manual installation</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/configuration.html">Configure a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -557,12 +560,25 @@
               "config": {
                 "environment": [
                   {
+                    "name": "PROMETHEUS_CLUSTER",
+                    "description": "Optional value for an external cluster label referenced in prometheus.yml.",
+                    "required": false,
+                    "sensitive": false
+                  },
+                  {
                     "name": "DOTX_HTTP_PORT",
                     "defaultValue": "18909",
                     "description": "Host port used by the Docker Compose example."
                   }
                 ],
-                "configFiles": [],
+                "configFiles": [
+                  {
+                    "path": "/etc/prometheus/prometheus.yml",
+                    "description": "Optional native Prometheus server configuration. Preserve port 9090 for the catalogue connector.",
+                    "required": false,
+                    "contentType": "application/yaml"
+                  }
+                ],
                 "volumes": [
                   {
                     "name": "prometheus-data",

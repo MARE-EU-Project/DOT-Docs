@@ -245,6 +245,9 @@
     <a class="nav-link" href="../dot-cli/installation.html">Manual installation</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/configuration.html">Configure a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -373,56 +376,25 @@ password through a reference.</p>
 <h2 id="lesson4-preview"><a class="anchor" href="#lesson4-preview"></a>Prepare the next real tool</h2>
 <div class="sectionbody">
 <div id="_prepare_the_next_real_tool" class="paragraph">
-<p>Reuse Grafana&#8217;s exact catalogue release in a private exercise copy. Add a
-service-scoped declaration for its supported admin-password environment option:</p>
+<p>Download the <a href="_attachments/tutorial/commands.sh" class="xref attachment">Lesson 4 helper</a> as
+<code>commands.sh</code> into your lab directory. Open it to review the setup, then run
+this from the Lesson 3 shell:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
-set -euo pipefail
-set -o noclobber
-GRAFANA_JSON="$(dotx repository resolve Grafana@13.3.0 \
-  --repository "$DOT_REPOSITORY")"
-mkdir "$LAB/grafana"
-jq '.runtimes[0].deployments[0].services[0].config.environment +=
-  [{"name":"GF_SECURITY_ADMIN_PASSWORD",
-    "required":true,"sensitive":true}]' \
-  "$GRAFANA_JSON" &gt; "$LAB/grafana/dot.json"
-dotx validate "$LAB/grafana/dot.json" \
-  --repository "$DOT_REPOSITORY" --profile reusable
-
-cat &gt; "$LAB/grafana-prometheus.yml" &lt;&lt;'YAML'
-apiVersion: 1
-datasources:
-  - name: Prometheus
-    uid: hero-prometheus
-    type: prometheus
-    access: proxy
-    url: http://replaced-by-the-edge.invalid
-    isDefault: true
-YAML
-cat &gt; "$LAB/grafana-empty.yml" &lt;&lt;'YAML'
-apiVersion: 1
-datasources: []
-YAML
-chmod 0644 "$LAB/grafana-prometheus.yml" "$LAB/grafana-empty.yml"
-
-dotx compose new --from "$MONITORING_TEMPLATE" \
-  --repository "$DOT_REPOSITORY" --name hero-dashboard \
-  --output "$LAB/dashboard.yaml" --yes
-)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">LAB="$LAB" DOT_REPOSITORY="$DOT_REPOSITORY" bash "$LAB/commands.sh" prepare</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: the Grafana candidate validates and <code>dashboard.yaml</code> retains the
-catalogue monitoring graph with a fresh UUID. Grafana’s required Prometheus
-Connector refers to the catalogue Prometheus Contract owner, so this graph
-uses that same Prometheus definition and the catalogue scrape configuration.
-The query selects the catalogue job label <code>job="node-exporter"</code>. The Lesson 3
-authoring draft stays separate. The catalogue remains unchanged.
-The copied product already carries its official pinned OpenAPI declaration,
-required Prometheus Connector, provided dashboard Connector and service bindings.
-You extended its <strong>configuration surface</strong>, not its API identity.</p>
+<p>The helper validates the catalogue Grafana definition, prepares the provisioning
+files and creates <code>dashboard.yaml</code> with a fresh UUID. The graph uses the
+catalogue Prometheus definition that owns the Contract Grafana references.
+The query selects the catalogue job label <code>job="node-exporter"</code>.</p>
+</div>
+<div class="paragraph">
+<p>The Grafana service declares <code>GF_SECURITY_ADMIN_PASSWORD</code> as an optional
+sensitive setting. This lesson supplies it through a secret reference to
+initialize the admin password in a fresh Grafana database.</p>
 </div>
 <div class="paragraph">
 <p>The datasource file is an instance input. <code>uid: hero-prometheus</code> makes it easy to
@@ -466,7 +438,7 @@ each <code>- name</code> in the CLI-created draft.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    - name: grafana
-      source: ./grafana
+      source: repository://Grafana@13.3.0
       dotId: Grafana@13.3.0
       dotVersion: 13.3.0
       deployment: docker
@@ -550,7 +522,7 @@ printf '%s\n' \
 <p>Expected: <strong>three DOTs, two Edges</strong>. Open <code>$LAB/dashboard.lock.json</code> and use
 <a href="tutorial-composition.html#tutorial-lock-review" class="xref page">Lesson 3&#8217;s lock-field checklist</a>.
 Keep the catalogue Prometheus and Node Exporter selections. The additional
-<code>vertices[]</code> entry must have <code>instance: "grafana"</code>, <code>source: "./grafana"</code>,
+<code>vertices[]</code> entry must have <code>instance: "grafana"</code>, <code>source: "repository://Grafana@13.3.0"</code>,
 <code>dotId: "Grafana@13.3.0"</code>, <code>deploymentId: "docker"</code> and a definition <code>digest</code>.
 The <code>inputs[]</code> now also pin <code>grafana-prometheus.yml</code> and <code>grafana-empty.yml</code>.
 Creating or inspecting the lock does not require the password; never paste a
@@ -600,28 +572,8 @@ Runtime preflight, including the dry-run, needs the referenced password availabl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">if test -n "${DOTX_TUTORIAL_DOCKER_ID:-}" &amp;&amp;
-  current_docker_id="$(docker info --format '{{.ID}}')" &amp;&amp;
-  test -n "$current_docker_id" &amp;&amp;
-  test "$current_docker_id" = "$DOTX_TUTORIAL_DOCKER_ID"; then
-  printf '%s\n' \
-    'Previewing, then starting Node Exporter, Prometheus and Grafana;' \
-    'pinned images may need downloading...'
-  dotx compose apply "$LAB/dashboard.yaml" \
-    --repository "$DOT_REPOSITORY" --locked --dry-run \
-    --forward "prometheus/promql-query-api=$TUTORIAL_PORT" \
-    --forward "grafana/monitoring-dashboard=$DASHBOARD_PORT" &amp;&amp;
-  dotx compose apply "$LAB/dashboard.yaml" \
-    --repository "$DOT_REPOSITORY" --locked \
-    --forward "prometheus/promql-query-api=$TUTORIAL_PORT" \
-    --forward "grafana/monitoring-dashboard=$DASHBOARD_PORT"
-else
-  printf '%s\n' \
-    'Docker target is missing, changed or unreachable.' \
-    'Restore the original Docker connection.' \
-    'Do not replace its recorded ID.' &gt;&amp;2
-  false
-fi</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export LAB DOT_REPOSITORY DOTX_TUTORIAL_DOCKER_ID TUTORIAL_PORT DASHBOARD_PORT
+bash "$LAB/commands.sh" start</code></pre>
 </div>
 </div>
 </div>
@@ -635,47 +587,16 @@ exercises the connection to Prometheus and the Node Exporter scrape from Node Ex
 Complete both before calling the chain successful.</p>
 </div>
 <div class="paragraph">
-<p>Wait for Grafana&#8217;s actual health/version response:</p>
+<p>Run the health check and datasource query together:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
-set -euo pipefail
-set -o pipefail
-dashboard_ready=false
-started=$SECONDS
-next_notice=$SECONDS
-printf 'Checking Grafana 13.3.0 health on port %s...\n' \
-  "$DASHBOARD_PORT"
-for ((attempt=0; attempt&lt;90; attempt++)); do
-  if curl --fail --silent --max-time 3 \
-    "http://127.0.0.1:$DASHBOARD_PORT/api/health" |
-    jq -e '.database == "ok" and .version == "13.3.0"' &gt;/dev/null; then
-    dashboard_ready=true
-    break
-  fi
-  if ((SECONDS &gt;= next_notice)); then
-    printf 'Waiting for Grafana: attempt %s/90, %ss elapsed\n' \
-      "$((attempt + 1))" "$((SECONDS - started))"
-    next_notice=$((SECONDS + 5))
-  fi
-  sleep 1
-done
-if ! $dashboard_ready; then
-  printf '%s\n' \
-    'Grafana health check timed out. Inspect compose status, then run' \
-    'the Lesson 4 cleanup block before retrying.' &gt;&amp;2
-  exit 1
-fi
-printf 'Ready: Grafana 13.3.0 at http://127.0.0.1:%s/\n' \
-  "$DASHBOARD_PORT"
-)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash "$LAB/commands.sh" verify</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expected: named waiting messages include elapsed time, followed by
-<code>Ready: Grafana 13.3.0</code> and the browser URL. Its loop permits up to 90
-attempts, with three-second HTTP timeouts and one-second pauses.</p>
+<p>Expect <code>Ready: Grafana 13.3.0</code> followed by
+<code>Verified: Grafana queried the Node Exporter scrape (value 1).</code></p>
 </div>
 <div class="paragraph">
 <p>For a browser on another machine, follow
@@ -691,79 +612,10 @@ and open <strong>Explore</strong>. Choose the provisioned <strong>Prometheus</st
 </div>
 <div class="paragraph">
 <p>Expect a sample with value <code>1</code>. Grafana UI labels can vary by release; the
-backend check below provides a reproducible alternative. You have extended one
+helper provides a reproducible check. You have extended one
 running use case without putting a use-case-specific datasource or password into
 the shared product definitions.</p>
 </div>
-<details>
-<summary class="title">Verify the same query without a browser</summary>
-<div class="content">
-<div class="paragraph">
-<p>Make Grafana&#8217;s backend query the provisioned datasource. The temporary curl
-credentials file is private and removed when the check finishes, including a
-failed query. Neither the password nor its value enters YAML
-or the lock.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
-set -euo pipefail
-set -o pipefail
-# curl reads credentials from a private file, not command-line arguments.
-credentials="$(mktemp "$LAB/grafana.curl.XXXXXXXX")"
-trap 'rm -f -- "$credentials"' EXIT
-(umask 077; jq -nr '
-  "user = " + ("admin:" + env.HERO_GRAFANA_PASSWORD | tojson)
-' &gt; "$credentials")
-dashboard_queried=false
-started=$SECONDS
-next_notice=$SECONDS
-printf 'Querying the Node Exporter scrape through Grafana...\n'
-for ((attempt=0; attempt&lt;90; attempt++)); do
-  if curl --config "$credentials" --fail --silent --max-time 5 \
-    --header 'Content-Type: application/json' \
-    --data '{
-      "from":"now-5m", "to":"now",
-      "queries":[{
-        "refId":"A",
-        "expr":"up{job=\"node-exporter\"}",
-        "instant":true,
-        "datasource":{"type":"prometheus","uid":"hero-prometheus"}
-      }]
-    }' \
-    "http://127.0.0.1:$DASHBOARD_PORT/api/ds/query" |
-    jq -e '.results.A.status == 200 and
-      any(.results.A.frames[]?.data.values[]?[]?; . == 1)' \
-      &gt;/dev/null; then
-    dashboard_queried=true
-    break
-  fi
-  if ((SECONDS &gt;= next_notice)); then
-    printf 'Waiting for the Grafana query: attempt %s/90, %ss\n' \
-      "$((attempt + 1))" "$((SECONDS - started))"
-    next_notice=$((SECONDS + 5))
-  fi
-  sleep 1
-done
-if ! $dashboard_queried; then
-  printf '%s\n' \
-    'Grafana query timed out. Check the password and datasource;' \
-    'run the Lesson 4 cleanup block before retrying.' &gt;&amp;2
-  exit 1
-fi
-printf 'Verified: Grafana queried the Node Exporter scrape (value 1).\n'
-)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expected: <code>Verified: Grafana queried the Node Exporter scrape (value 1).</code> The bounded
-loop allows 90 attempts with five-second HTTP timeouts and one-second pauses.
-The native request selects datasource UID <code>hero-prometheus</code> and runs an instant
-query. This verifies Grafana &#8594; Prometheus &#8594; Node Exporter; the diagram alone
-could not establish it.</p>
-</div>
-</div>
-</details>
 </div>
 </div>
 <div class="sect1">
@@ -823,9 +675,9 @@ alone does not establish a working dashboard.</p>
 <div class="paragraph">
 <p>Prometheus keeps its product identity, Contract and Connectors. Grafana&#8217;s datasource,
 the selected Prometheus instance, the password reference and both Edges belong
-to this composition. The private Grafana copy adds a supported sensitive
-configuration declaration; it contains no password value. Live addresses and
-resolved credentials remain execution concerns.</p>
+to this composition. The catalogue Grafana definition declares the password setting. The
+composition supplies its secret reference, and the executor resolves the value
+when starting the service.</p>
 </div>
 </div>
 </details>

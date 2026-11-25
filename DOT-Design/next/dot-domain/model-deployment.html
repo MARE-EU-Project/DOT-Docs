@@ -246,6 +246,9 @@
     <a class="nav-link" href="../dot-cli/installation.html">Manual installation</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/configuration.html">Configure a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -892,6 +895,12 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">DockerImageTag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The compact image reference to pull and run. Raw schema/CLI input accepts digest pins; Java DockerImageTag decoding currently rejects them. Preserve the pin and use the raw/CLI route; Java parity remains open product/model work.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>arguments</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">array of string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ordered literal container arguments after the image reference. An omitted or empty list preserves the image command. Use public startup flags here and keep secrets in service configuration inputs.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>envFiles</code></p></td>

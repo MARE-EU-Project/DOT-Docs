@@ -1,6 +1,31 @@
 #!/usr/bin/env bash
+# Antora and the rehearsal harness consume the tagged excerpts below the dispatcher.
+# shellcheck disable=SC2317
 # Tagged lesson excerpts, executed individually by the tutorial acceptance test.
-# Follow the Antora lessons in order; this file is not an unattended installer.
+# Run only the named Lesson 4 operation. The marked excerpts remain the
+# single source used by the documentation and tutorial tests.
+set -euo pipefail
+
+case "${1:-}" in
+  prepare) sections=(dashboard-inputs) ;;
+  start) sections=(dashboard-run) ;;
+  verify) sections=(dashboard-ready dashboard-query) ;;
+  *) printf 'Usage: bash %s {prepare|start|verify}\n' "$0" >&2; exit 2 ;;
+esac
+test "$#" -eq 1
+: "${LAB:?Resume your Lesson 3 session first}"
+case "$1" in
+  prepare) : "${DOT_REPOSITORY:?Resume your Lesson 3 session first}" ;;
+  start) : "${DOT_REPOSITORY:?Resume your Lesson 3 session first}" "${TUTORIAL_PORT:?Set the Prometheus port}" "${DASHBOARD_PORT:?Set the Grafana port}" ;;
+  verify) : "${DASHBOARD_PORT:?Set the Grafana port}" "${HERO_GRAFANA_PASSWORD:?Set a lab password first}" ;;
+esac
+
+for section in "${sections[@]}"; do
+  block="$(sed -n "/^# tag::$section\[\]$/,/^# end::$section\[\]$/p" "$0")"
+  [[ -n "$block" ]] || { printf 'Missing tutorial section: %s\n' "$section" >&2; exit 1; }
+  bash -euo pipefail -c "$block"
+done
+exit 0
 
 # tag::workspace[]
 # Start in the matching DOT-Repository checkout, in Bash.
@@ -309,7 +334,7 @@ next_notice=$SECONDS
 printf '%s\n' \
   'Checking the labelled Node Exporter scrape through Prometheus...'
 for ((attempt=0; attempt<90; attempt++)); do
-  if curl --fail --silent --max-time 3 --get \
+  if curl -q --noproxy 127.0.0.1 --fail --silent --max-time 3 --get \
     --data-urlencode \
     'query=up{job="node-exporter",tutorial="zero-to-hero"}' \
     "http://127.0.0.1:$TUTORIAL_PORT/api/v1/query" |
@@ -331,7 +356,7 @@ if ! $scraped; then
     'the Lesson 3 cleanup block before retrying.' >&2
   exit 1
 fi
-curl --fail --silent --show-error --max-time 5 \
+curl -q --noproxy 127.0.0.1 --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$TUTORIAL_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
 dotx compose status "$LAB/composition.yaml" \
@@ -364,13 +389,7 @@ set -euo pipefail
 set -o noclobber
 GRAFANA_JSON="$(dotx repository resolve Grafana@13.3.0 \
   --repository "$DOT_REPOSITORY")"
-mkdir "$LAB/grafana"
-jq '.runtimes[0].deployments[0].services[0].config.environment +=
-  [{"name":"GF_SECURITY_ADMIN_PASSWORD",
-    "required":true,"sensitive":true}]' \
-  "$GRAFANA_JSON" > "$LAB/grafana/dot.json"
-dotx validate "$LAB/grafana/dot.json" \
-  --repository "$DOT_REPOSITORY" --profile reusable
+dotx validate "$GRAFANA_JSON" --repository "$DOT_REPOSITORY" --profile reusable
 
 cat > "$LAB/grafana-prometheus.yml" <<'YAML'
 apiVersion: 1
@@ -388,7 +407,7 @@ datasources: []
 YAML
 chmod 0644 "$LAB/grafana-prometheus.yml" "$LAB/grafana-empty.yml"
 
-dotx compose new --from "$MONITORING_TEMPLATE" \
+dotx compose new --from "$DOT_REPOSITORY/Compositions/node-exporter-prometheus-monitoring/composition.yaml" \
   --repository "$DOT_REPOSITORY" --name hero-dashboard \
   --output "$LAB/dashboard.yaml" --yes
 )
@@ -459,7 +478,7 @@ next_notice=$SECONDS
 printf 'Checking Grafana 13.3.0 health on port %s...\n' \
   "$DASHBOARD_PORT"
 for ((attempt=0; attempt<90; attempt++)); do
-  if curl --fail --silent --max-time 3 \
+  if curl -q --noproxy 127.0.0.1 --fail --silent --max-time 3 \
     "http://127.0.0.1:$DASHBOARD_PORT/api/health" |
     jq -e '.database == "ok" and .version == "13.3.0"' >/dev/null; then
     dashboard_ready=true
@@ -486,7 +505,6 @@ printf 'Ready: Grafana 13.3.0 at http://127.0.0.1:%s/\n' \
 # tag::dashboard-query[]
 (
 set -euo pipefail
-set -o pipefail
 # curl reads credentials from a private file, not command-line arguments.
 credentials="$(mktemp "$LAB/grafana.curl.XXXXXXXX")"
 trap 'rm -f -- "$credentials"' EXIT
@@ -498,7 +516,8 @@ started=$SECONDS
 next_notice=$SECONDS
 printf 'Querying the Node Exporter scrape through Grafana...\n'
 for ((attempt=0; attempt<90; attempt++)); do
-  if curl --config "$credentials" --fail --silent --max-time 5 \
+  if ! response="$(curl -q --noproxy 127.0.0.1 --config "$credentials" --silent --max-time 5 \
+    --write-out '\n%{http_code}' \
     --header 'Content-Type: application/json' \
     --data '{
       "from":"now-5m", "to":"now",
@@ -509,23 +528,32 @@ for ((attempt=0; attempt<90; attempt++)); do
         "datasource":{"type":"prometheus","uid":"hero-prometheus"}
       }]
     }' \
-    "http://127.0.0.1:$DASHBOARD_PORT/api/ds/query" |
-    jq -e '.results.A.status == 200 and
-      any(.results.A.frames[]?.data.values[]?[]?; . == 1)' \
-      >/dev/null; then
+    "http://127.0.0.1:$DASHBOARD_PORT/api/ds/query")"; then
+    query_status='could not reach Grafana'
+  elif [[ ! "${response##*$'\n'}" =~ ^[0-9]{3}$ ]]; then
+    query_status='Grafana returned an invalid response'
+  elif [[ "${response##*$'\n'}" != 200 ]]; then
+    query_status="Grafana returned HTTP ${response##*$'\n'}"
+  elif ! jq -e '.results.A.status == 200' >/dev/null 2>&1 \
+    <<< "${response%$'\n'*}"; then
+    query_status='Grafana did not return a successful Prometheus result'
+  elif jq -e 'any(.results.A.frames[]?.data.values[1][]?; . == 1)' \
+    >/dev/null 2>&1 <<< "${response%$'\n'*}"; then
     dashboard_queried=true
     break
+  else
+    query_status='Prometheus returned no healthy Node Exporter sample'
   fi
   if ((SECONDS >= next_notice)); then
-    printf 'Waiting for the Grafana query: attempt %s/90, %ss\n' \
-      "$((attempt + 1))" "$((SECONDS - started))"
+    printf 'Waiting for the Grafana query: attempt %s/90, %ss (%s)\n' \
+      "$((attempt + 1))" "$((SECONDS - started))" "$query_status"
     next_notice=$((SECONDS + 5))
   fi
   sleep 1
 done
 if ! $dashboard_queried; then
   printf '%s\n' \
-    'Grafana query timed out. Check the password and datasource;' \
+    "Grafana query timed out: $query_status." \
     'run the Lesson 4 cleanup block before retrying.' >&2
   exit 1
 fi

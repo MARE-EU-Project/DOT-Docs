@@ -245,6 +245,9 @@
     <a class="nav-link" href="../dot-cli/installation.html">Manual installation</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/configuration.html">Configure a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -732,7 +735,7 @@ next_notice=$SECONDS
 printf '%s\n' \
   'Checking the labelled Node Exporter scrape through Prometheus...'
 for ((attempt=0; attempt&lt;90; attempt++)); do
-  if curl --fail --silent --max-time 3 --get \
+  if curl -q --noproxy 127.0.0.1 --fail --silent --max-time 3 --get \
     --data-urlencode \
     'query=up{job="node-exporter",tutorial="zero-to-hero"}' \
     "http://127.0.0.1:$TUTORIAL_PORT/api/v1/query" |
@@ -754,7 +757,7 @@ if ! $scraped; then
     'the Lesson 3 cleanup block before retrying.' &gt;&amp;2
   exit 1
 fi
-curl --fail --silent --show-error --max-time 5 \
+curl -q --noproxy 127.0.0.1 --fail --silent --show-error --max-time 5 \
   "http://127.0.0.1:$TUTORIAL_PORT/api/v1/status/buildinfo" |
   jq -e '.status == "success" and .data.version == "3.15.1"'
 dotx compose status "$LAB/composition.yaml" \

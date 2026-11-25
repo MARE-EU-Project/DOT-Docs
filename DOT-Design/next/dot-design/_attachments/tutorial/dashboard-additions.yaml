@@ -1,7 +1,7 @@
 vertices:
 # tag::grafana-dot[]
     - name: grafana
-      source: ./grafana
+      source: repository://Grafana@13.3.0
       dotId: Grafana@13.3.0
       dotVersion: 13.3.0
       deployment: docker
