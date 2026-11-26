@@ -364,21 +364,30 @@ reusing a complete catalogue bundle, not by inventing a new descriptor.</p>
 <div class="sect1">
 <h2 id="_choose_a_compatible_set"><a class="anchor" href="#_choose_a_compatible_set"></a>Choose a compatible set</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Install <code>dotx</code> from the CLI release, clone <code>DOT-Repository</code> from GitHub at the
-matching revision, and install the runtime tools required by your selected
-deployment. The <a href="getting-started.html" class="xref page">quickstart</a> uses Docker and the
-Compose plugin.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Try the current source build.</strong> <a href="quick-start.html" class="xref page">Quick Start</a> installs
+a tested CLI commit. Then <a href="first-composition.html" class="xref page">run your first composition</a>
+using the pinned catalogue snapshot retrieved by <code>dotx</code> through GitHub CLI.</p>
+</li>
+<li>
+<p><strong>Use a released binary.</strong> The <a href="getting-started.html" class="xref page">released Prometheus walkthrough</a>
+gives the exact CLI and catalogue pair and uses Docker with the Compose plugin.</p>
+</li>
+<li>
+<p><strong>Develop the framework or catalogue.</strong> Use the matching submodules from one
+DOT-Design checkout. Start with the <a href="contributor-guide.html" class="xref page">contributor guide</a>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>The site opens <strong>Next</strong>: documentation for the current source checkout, not a
-promise that every command exists in the latest published binary. Use the
-version selector for historical release documentation.</p>
+<p>Use the documentation version selector to switch between <strong>Next</strong> and released guides.</p>
 </div>
 <div class="paragraph">
 <p><strong>Selected release baseline:</strong> CLI <code>v0.5.0</code> includes
-<code>dotx compose new</code> and the current model conventions for the supported
-Linux-amd64 profile. It does not certify every producer or catalogue entry.
+<code>dotx compose new</code> for the supported Linux-amd64 profile. Its release
+manifest selects the catalogue for that release’s model. It does not certify every producer or catalogue entry.
 For the official demo, use the submodules
 pinned by one clean DOT-Design commit, run <code>task testing:demo</code>, and retain its
 exact checkout revisions and binary SHA-256. Do not mix the latest release
@@ -498,16 +507,18 @@ installer options. Use <code>dotx tool check docker compose</code> or
 <code>dotx tool check vagrant</code> to check the selected tools.</p>
 </div>
 <div class="paragraph">
-<p>From the pinned standalone <code>DOT-Repository</code> checkout root with <code>dotx</code> installed:</p>
+<p>Use the matching source CLI and catalogue submodules from one DOT-Design
+checkout. Run this block from its <code>DOT-Repository</code> directory and compare the
+printed revisions with that checkout’s pins:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version --verbose
-PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository .)"
-PROMETHEUS_BUNDLE="$(dirname -- "$PROMETHEUS_JSON")"
-dotx inspect "$PROMETHEUS_BUNDLE"
-dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose
-dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose --json</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version --verbose &amp;&amp;
+git rev-parse HEAD &amp;&amp;
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository .)" &amp;&amp;
+PROMETHEUS_BUNDLE="$(dirname -- "$PROMETHEUS_JSON")" &amp;&amp;
+dotx validate "$PROMETHEUS_BUNDLE" --repository . --profile reusable &amp;&amp;
+dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -515,7 +526,7 @@ dotx tool check --dot "$PROMETHEUS_BUNDLE" --deployment docker-compose --json</c
 <code>--schema /path/to/matching/Schema/schema.json</code>.</p>
 </div>
 <div class="paragraph">
-<p>The command requires an <strong>exact deployment ID</strong>, validates the bundle offline
+<p>Online validation prepares the verified cache. The tool check requires an <strong>exact deployment ID</strong>, validates the bundle offline
 with the ordinary validator, and checks only that adapter&#8217;s prerequisites:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -559,13 +570,13 @@ with the ordinary validator, and checks only that adapter&#8217;s prerequisites:
 <div class="paragraph">
 <p>Expected Compose output includes <code>Definition: validated offline</code>,
 <code>docker: ready=true</code> and <code>compose: ready=true</code>. Every applicable tool is checked
-even when another fails. No downloads, installation, cluster startup, workload
-mutation or cleanup occur. Missing or tampered local Contracts fail before tool
+even when another fails. During the tool check, cached payloads are verified. No downloads, installation, cluster startup or
+workload changes occur. Missing or tampered local Contracts fail before tool
 checks. Warm a bundle&#8217;s verified Contract assets through the ordinary online
 validation path separately if necessary; do not bypass a digest mismatch.</p>
 </div>
 <div class="paragraph">
-<p>JSON has <code>formatVersion: 1</code>, <code>ready</code>, <code>validated</code>, selected <code>deployment</code> and
+<p>Add <code>--json</code> to the tool check for machine-readable output. JSON has <code>formatVersion: 1</code>, <code>ready</code>, <code>validated</code>, selected <code>deployment</code> and
 <code>manifestType</code>, ordered <code>checks</code>, shared validator <code>diagnostics</code> and an explicit
 <code>evidence</code> scope. Check exit status as well as the report: 0 means checks passed,
 1 means validation/tool failure, 2 means usage error. Ordinary JSON failures

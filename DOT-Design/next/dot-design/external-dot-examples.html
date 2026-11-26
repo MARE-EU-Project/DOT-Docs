@@ -389,21 +389,72 @@ evidence. DOT-Design therefore tests each example at separate levels:</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_live_composition_acceptance"><a class="anchor" href="#_live_composition_acceptance"></a>Live composition acceptance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The scheduled External DOT examples workflow checks three catalogue compositions.
+Each run creates an isolated deployment and verifies that unique test data
+reaches the consumer before checking cleanup.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Composition</th>
+<th class="tableblock halign-left valign-top">What the test verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filebeat → Elasticsearch → Kibana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A fresh log line is searchable through Kibana.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kafka → OpenTelemetry Collector → Loki</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An OTLP log published to Kafka is queryable in Loki.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InfluxDB → Grafana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grafana queries a point written to InfluxDB and returns the expected value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>From the DOT-Design checkout, use the matching source build of <code>dotx</code> on a
+supported Docker host to run a profile.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:catalogue:live PROFILE=filebeat-elasticsearch-kibana
+task testing:catalogue:live PROFILE=kafka-otel-loki
+task testing:catalogue:live PROFILE=influxdb-grafana</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The local evidence under <code>DOT-Testing/e2e/target/catalogue-live/</code> records the
+checkout revisions, data exchange, cleanup, and elapsed time.</p>
+</div>
+<div class="paragraph">
+<p>A separate scheduled onboarding check runs the Bash blocks from
+<a href="quick-start.html" class="xref page">Quick Start</a> and <a href="first-composition.html" class="xref page">Run your first composition</a>
+with fresh user and Go caches. It uses a read-only GitHub token in place of
+browser sign-in and checks Docker-image authoring in a terminal.
+Run it locally with <code>task testing:onboarding:cold</code> after exporting a
+<code>GH_TOKEN</code> with read access to DOT-CLI and DOT-Repository.
+Docker images may already be cached on the host.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_canonical_external_catalogue"><a class="anchor" href="#_canonical_external_catalogue"></a>Canonical external catalogue</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The external catalogue currently has one product folder for each of these 20 products, with exact release leaves:
-APISIX, cAdvisor, Elasticsearch, Filebeat, Grafana, GraphDB, InfluxDB,
-Keycloak, Kibana, Loki, Eclipse Mosquitto, Prometheus node-exporter, OPA,
-OpenTelemetry Collector, Oxigraph, Prometheus, Wireshark, NATS, Kafka, and
-RabbitMQ. PoC compositions
-reuse those identities and supply routes, realms, policies, scrape targets,
-data sources, credentials, files, and deployment selection as instance inputs.
-They do not create <code>pocN-*</code> copies of the product.</p>
-</div>
-<div class="paragraph">
-<p>The following four products form the bounded release stress matrix. They are
-not the complete external catalogue.</p>
+<p>Browse the <a href="../dot-repository/index.html" class="xref page">DOT catalogue</a> for the full product
+list and exact releases. Reusable compositions select those definitions and
+supply use-case inputs such as scrape targets, routes and data sources.</p>
 </div>
 </div>
 </div>

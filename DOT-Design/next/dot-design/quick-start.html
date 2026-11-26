@@ -353,10 +353,15 @@
 <div class="paragraph">
 <p>On Ubuntu 26.04 LTS, have Git, <a href="https://cli.github.com/">GitHub CLI (<code>gh</code>)</a> and
 <a href="https://docs.docker.com/engine/install/ubuntu/">Docker Engine</a> installed.
-Use a Bash terminal as your normal user. Check that <code>docker info</code> runs
-successfully before continuing. See
-<a href="setup.html#requirements" class="xref page">Requirements</a> for official installation links.
-Your GitHub account needs read access to DOT-CLI and DOT-Repository.</p>
+Open a Bash terminal as your normal user on the Docker host. Run <code>docker info</code>
+before continuing. For a permission error, follow the
+<a href="https://docs.docker.com/engine/install/linux-postinstall/">Docker Linux post-installation instructions</a>.
+If you change group membership, sign out and back in, then retry <code>docker info</code>.
+For a remote shell, reconnect. See <a href="setup.html#requirements" class="xref page">Requirements</a>
+for the other installation links.</p>
+</div>
+<div class="paragraph">
+<p>Your GitHub account needs read access to DOT-CLI and DOT-Repository.</p>
 </div>
 </div>
 </div>
@@ -391,7 +396,8 @@ gh repo view MARE-EU-Project/DOT-Repository --json name --jq .name</code></pre>
 <div class="paragraph">
 <p>The installer prepares missing Go and CA certificates and installs <code>dotx</code> into
 <code>$HOME/.local/bin</code>. Run it as your normal user; sudo is used only for missing
-system packages.</p>
+system packages. If you lack sudo access, ask the host administrator to install
+Go and CA certificates first.</p>
 </div>
 <div class="paragraph">
 <p>This tutorial uses the installer and CLI build from the same tested commit. Release 0.5.0 does not include
@@ -435,14 +441,14 @@ absolute path, and retry. A second terminal may need the <code>PATH</code> line 
 </div>
 <div class="paragraph">
 <p>The first run may download the official Hello World image. If no local
-catalogue provides the definition, <code>dotx</code> uses <code>gh</code> to fetch it from
-DOT-Repository. The container is removed automatically.</p>
+catalogue provides the definition, <code>dotx</code> uses <code>gh</code> to fetch it from the current
+DOT-Repository default branch. The first-composition guide pins an exact
+catalogue commit. The container is removed automatically.</p>
 </div>
 <div class="paragraph">
 <p>If <code>dotx</code> reports <code>cannot access DOT-Repository through GitHub</code>, repeat the
-repository access checks above. If Docker reports permission denied or cannot
-connect, follow the
-<a href="https://docs.docker.com/engine/install/linux-postinstall/">Docker Linux post-installation instructions</a>.
+repository access checks above. For Docker errors, repeat the <code>docker info</code> check
+from the prerequisites.
 If you explicitly selected a repository that lacks Hello World, update that
 checkout. A <code>dotx run --dry-run</code> preview uses a local or cached catalogue.
 Preview may fetch verified deployment payloads.</p>

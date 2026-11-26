@@ -385,8 +385,26 @@ URLs to SSH, then run the same access check.</p>
 check the active account and its MARE repository access before installing.</p>
 </div>
 <div class="paragraph">
-<p>Run this block as written to install <code>dotx@latest</code> into your local bin
-directory. Set <code>CLI_VERSION</code> before running it to select a tag or commit.</p>
+<p>Choose the version before installing. Leave <code>CLI_VERSION</code> unset for the latest
+tagged release (<code>unset CLI_VERSION</code> clears an earlier selection). For the
+release used by the Prometheus walkthrough, set:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=v0.5.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the source build used by Quick Start and the first composition, set this
+commit instead:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=ad990e269daa5e2b39f95aafa2677ad516047513</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the installation block in the same terminal.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -407,50 +425,36 @@ under its default settings. The
 explains version suffixes and install locations.</p>
 </div>
 <div class="paragraph">
-<p>For a reproducible walkthrough, set its pinned CLI tag before running the
-installation block above. For the selected release:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=v0.5.0</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To install the source build used by Quick Start, set this pin before running
-the same installation block:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=ad990e269daa5e2b39f95aafa2677ad516047513</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Expect a Go pseudo-version ending with the first 12 characters of that commit.
-For managed catalogue runs, complete the GitHub CLI sign-in and Git setup in
-<a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>. Run <code>unset CLI_VERSION</code>
-before reinstalling the default release.</p>
+<p>For the Quick Start source pin, expect a Go pseudo-version ending with the first
+12 characters of that commit. For managed catalogue runs, complete the GitHub CLI
+sign-in and Git setup in <a href="../dot-design/quick-start.html#_sign_in_once" class="xref page">Sign in once</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="matching-catalogue-commit"><a class="anchor" href="#matching-catalogue-commit"></a>Find the matching DOT-Repository commit</h3>
 <div class="paragraph">
-<p>For a released binary, run <code>go version -m "$(command -v dotx)"</code> and note the version on the
-<code>mod</code> line. Open <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases">DOT-CLI releases</a> in your browser, select that version&#8217;s tag,
+<p>Run <code>dotx version</code> to identify a downloaded release binary. For an installation
+made with <code>go install</code>, use the version on the <code>mod</code> line from
+<code>go version -m "$(command -v dotx)"</code>. For a tagged release, open <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases">DOT-CLI releases</a> in your browser, select that version&#8217;s tag,
 and open <code>release-manifest.json</code> from its assets. Check that <code>tag</code> matches
 the installed version and copy the commit under <code>acceptance.dotRepository</code>.</p>
 </div>
 <div class="paragraph">
-<p>For the tested source build in Quick Start, use the catalogue commit printed
-by the <a href="../dot-design/first-composition.html" class="xref page">first-composition guide</a>.</p>
+<p>For the Quick Start source build, the
+<a href="../dot-design/first-composition.html" class="xref page">first-composition guide</a> uses catalogue
+commit <code>ffcfacab7dac451cf7f099dd3ef9b3c752aecee6</code>. That walkthrough retrieves
+its catalogue automatically.</p>
 </div>
 <div class="paragraph">
-<p>For local authoring, run this block from the directory where you want the new checkout. Set
-<code>REPOSITORY_VERSION</code> to the matching commit if you have one. An unset
-<code>REPOSITORY_VERSION</code> selects the catalogue&#8217;s <code>main</code> branch.</p>
+<p>For a local checkout, set <code>REPOSITORY_VERSION</code> to the matching commit, then run
+this block from the directory where you want the checkout. Use <code>origin/main</code>
+explicitly when developing against the latest catalogue with a compatible
+source CLI.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
-git -C DOT-Repository checkout --detach "${REPOSITORY_VERSION:-origin/main}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">: "${REPOSITORY_VERSION:?Set REPOSITORY_VERSION to the matching catalogue commit}" &amp;&amp;
+git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
+git -C DOT-Repository checkout --detach "$REPOSITORY_VERSION"</code></pre>
 </div>
 </div>
 <div class="paragraph">

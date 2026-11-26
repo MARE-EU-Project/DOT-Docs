@@ -357,10 +357,11 @@
 <p>A DOT describes one component. A Composition chooses concrete deployments of
 several DOTs and connects their Connectors through Edges. Start from a catalogue
 example whose README describes your intended use case and its acceptance limits.
-The selected release <code>v0.5.0</code> and its matching source CLI
-provide template-based <code>dotx compose new</code>. Selecting DOTs with <code>--from-dots</code>
-is included in DOT-CLI 0.4.0. Use
-<a href="../dot-design/adopting-dot.html" class="xref page">a matching CLI and pinned catalogue</a>.</p>
+For Next, use a CLI source build and catalogue submodules from one
+<a href="../dot-design/contributor-guide.html" class="xref page">DOT-Design checkout</a>. Run these examples
+from its <code>DOT-Repository</code> directory. For release <code>v0.5.0</code>,
+switch to its versioned documentation and use its manifest-pinned catalogue.
+See <a href="../dot-design/compatibility.html" class="xref page">source and release compatibility</a>.</p>
 </div>
 </div>
 </div>
@@ -372,17 +373,15 @@ is included in DOT-CLI 0.4.0. Use
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate .
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate . &amp;&amp;
 dotx compose new</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>0.4.0 uses native forms: arrows browse, typing filters, Enter selects,
+<p>In the native forms, arrows browse, typing filters, Enter selects,
 and Ctrl-C cancels. Choose a template, accept or edit its suggested name/output,
 review the preview, then explicitly choose <strong>Write draft</strong>. Ctrl-U clears a text
-field before replacement. The published v0.3.0 flow uses numbered prompts and
-requires an unused output path in an existing directory. Neither cancellation
-nor EOF publishes a file. Noninteractive creation requires all choices and
+field before replacement. Cancellation or end-of-input leaves the draft unpublished. Noninteractive creation requires all choices and
 <code>--yes</code>; no CI job needs to wait for input.</p>
 </div>
 <div class="paragraph">
@@ -392,10 +391,10 @@ nor EOF publishes a file. Noninteractive creation requires all choices and
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new \
   --from Compositions/node-exporter-prometheus-monitoring/composition.yaml \
-  --name my-monitoring --output my-monitoring.yaml --offline --yes
-dotx compose lock my-monitoring.yaml --offline
-dotx compose inspect my-monitoring.yaml --offline --locked
-dotx compose topology my-monitoring.yaml --locked</code></pre>
+  --name my-monitoring --output my-monitoring.yaml --offline --yes &amp;&amp;
+dotx compose lock my-monitoring.yaml --offline &amp;&amp;
+dotx compose inspect my-monitoring.yaml --offline --locked &amp;&amp;
+dotx compose topology my-monitoring.yaml --offline --locked</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -409,19 +408,6 @@ The Composition graph version is retained; it is not another tool release.</p>
 <p>No workloads are started. Offline creation needs a warm verified Contract cache;
 without <code>--offline</code>, bounded downloads and cache writes may occur even if no
 draft is published. Printed follow-up commands retain <code>--offline</code> when selected.</p>
-</div>
-<div class="paragraph">
-<p>Current-source <code>dotx</code> includes the locked topology command in the draft&#8217;s
-follow-up steps. You can use the same verified cache for the visual review.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose topology my-monitoring.yaml --locked --offline</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This displays the declared instances and Edges without querying live runtimes.
-Use the topology command without <code>--offline</code> in the preceding 0.4.1 example.</p>
 </div>
 <details>
 <summary class="title">How draft validation works</summary>
@@ -535,16 +521,18 @@ selected repository and offline mode. None of these actions runs automatically.
 Review shared inputs and the newly created lock before any deployment.</p>
 </div>
 <div class="paragraph">
-<p>The selected release <code>v0.5.0</code> includes the configuration-transfer
-and publication safety corrections described below. Future <strong>Next</strong> changes
-require that checkout&#8217;s matching CLI source build; a version label alone does
-not identify later source fixes. Follow
-<a href="../dot-design/compatibility.html" class="xref page">the source/release compatibility guidance</a>.
-From the matching DOT-Repository checkout, with verified cached Contracts:</p>
+<p>From the same DOT-Repository checkout, with the verified cache warmed above,
+prepare an isolated draft directory and its Prometheus input before opening
+the wizard:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new --from-dots --repository . --offline --name my-monitoring</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DRAFT_DIR="$(mktemp -d)" &amp;&amp;
+mkdir -- "$DRAFT_DIR/runtime" &amp;&amp;
+cp -- Compositions/node-exporter-prometheus-monitoring/runtime/prometheus.yml \
+  "$DRAFT_DIR/runtime/prometheus.yml" &amp;&amp;
+dotx compose new --from-dots --repository . --offline --name my-monitoring \
+  --output "$DRAFT_DIR/composition.yaml"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -654,11 +642,31 @@ If the destination or adjacent lock changes during publication, the command
 reports failure; inspect any retained complete candidate and folders before
 retrying. It does not delete a possible peer replacement to make cleanup appear
 successful. Cancellation before confirmation still creates nothing.
-For the real monitoring example choose Node Exporter and Prometheus, then connect
-<code>node-metrics</code> to <code>scrape-target</code>. Select a config-file materializer deriving
-<code>ENDPOINT_HOST_PORT</code>, targeting Prometheus&#8217;s declared configuration file and the
-existing scrape-target JSON Pointer. Input paths are relative to the new YAML;
-review the existing monitoring README rather than inventing a producer interface.</p>
+For the monitoring use case, start with the reviewed template in
+<a href="../dot-design/first-composition.html" class="xref page">Run your first composition</a>. To rebuild
+it in the wizard, use the staged draft directory from the earlier example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select <code>Node-Exporter@1.12.1</code> and <code>Prometheus@3.15.1</code> with the <code>docker</code>
+deployment for each.</p>
+</li>
+<li>
+<p>Leave the optional DeploymentInputs fragment blank. At Prometheus’s required
+configuration prompt, enter <code>runtime/prometheus.yml</code>.</p>
+</li>
+<li>
+<p>Connect <code>node-metrics</code> to <code>scrape-target</code>. Choose a config-file materializer
+that derives <code>ENDPOINT_HOST_PORT</code>. Enter <code>runtime/prometheus.yml</code> as its
+source, <code>/etc/prometheus/prometheus.yml</code> as its target, and
+<code>/scrape_configs/0/static_configs/0/targets/0</code> as the JSON Pointer.</p>
+</li>
+<li>
+<p>Review the binding and confirm its transfer to the Edge. The resulting draft
+keeps one binding to the staged file. The source path is relative to the draft.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>If you already supplied a direct configuration file or environment binding for

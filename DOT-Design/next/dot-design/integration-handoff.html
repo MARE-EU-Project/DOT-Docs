@@ -371,20 +371,23 @@ matches both. Resolve referenced Contract payloads without copying their
 protocol, schema, media, or security facts into a Connector.</p>
 </div>
 <div class="paragraph">
-<p>Use these commands as executable reference behavior:</p>
+<p>From the DOT-Design checkout root, use the matching source CLI and catalogue
+from the <a href="contributor-guide.html" class="xref page">contributor guide</a>. These commands inspect
+and validate the two-tool monitoring example without starting workloads:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx repository inspect Prometheus@3.15.1 --repository DOT-Repository --json
-dotx validate DOT-Repository
-dotx compose validate composition.yaml
-dotx compose inspect composition.yaml --json</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GRAPH=DOT-Repository/Compositions/node-exporter-prometheus-monitoring/composition.yaml
+dotx repository inspect Prometheus@3.15.1 --repository DOT-Repository --json &amp;&amp;
+dotx compose validate "$GRAPH" --repository DOT-Repository --locked &amp;&amp;
+dotx compose inspect "$GRAPH" --repository DOT-Repository --locked --json</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><code>Prometheus@3.15.1</code> is the complete current coordinate: its exact DOT ID already
 contains the tool release. Do not append it again. Verify the returned <code>id</code> and
-<code>version</code> independently against the selected declaration.</p>
+<code>version</code> independently against the selected declaration. The locked graph contains
+Node Exporter and Prometheus with the <code>node-metrics-to-prometheus</code> Channel.</p>
 </div>
 <div class="paragraph">
 <p>An implementation may expose equivalent behavior through REST, gRPC, events,
@@ -455,6 +458,13 @@ legacy UUID-shaped IDs remain valid, but names and case-folded aliases do not
 replace identity;</p>
 </li>
 <li>
+<p>resolve owner-qualified Contract IDs only from the exact owner DOT in the
+selected catalogue. Verify the HTTPS payload and SHA-256 before resolving
+the exact selector. Opaque Contract IDs resolve only within their own DOT.
+Missing or ambiguous ownership fails validation. Follow the
+<a href="anchors-and-composition.html" class="xref page">Connector reference</a> for provider-neutral OIDC;</p>
+</li>
+<li>
 <p>require at least one meaningful Skill reference per DOT and consume the
 generated nonempty-list constraint rather than a separate handwritten rule;</p>
 </li>
@@ -481,7 +491,7 @@ from <code>COMPATIBLE</code>; and</p>
 <div class="paragraph">
 <p>Contractless Connectors are valid only when a supported Contract standard cannot
 describe the interaction. Their explicit direction, protocols and media types
-must be compatible before a edge is accepted. These communication checks do
+must be compatible before an edge is accepted. These communication checks do
 not establish application meaning or arbitrary schema substitutability.
 Contract-backed compatibility uses verified operation selectors and the
 supported interface rules; documentation URLs and capability names do not
@@ -494,7 +504,7 @@ establish a match.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The versioned consumer profile is under
-<code>DOT-Testing/acceptance/dot-connectors/v1/</code>. It resolves two catalogued test DOTs,
+<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
 verifies the committed composition lock, and resolves 21 compatible edges across
 OpenAPI, AsyncAPI, Protobuf and GraphQL. The supported SPARQL query profile is
 outside this focused matrix; passing it does not establish SPARQL runtime

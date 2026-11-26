@@ -370,13 +370,17 @@ You can reuse an existing matching installation.</p>
 <p>Use Bash, <code>curl</code>, <code>jq</code>, <code>ss</code> (from iproute2), GitHub CLI (<code>gh</code>), and Docker Engine
 28 or later on Ubuntu 26.04 amd64. Run the commands on the Docker host, with
 Docker accessible to your normal user. Keep the same Bash terminal open through
-cleanup so <code>GRAPH</code> and <code>PORT</code> stay set. The graph uses Docker images and needs
+cleanup so <code>GRAPH</code> and <code>PORT</code> stay set. Keep the same Docker context and daemon. The graph uses Docker images and needs
 no Compose plugin. See <a href="setup.html#requirements" class="xref page">Requirements</a>.</p>
 </div>
 <div class="paragraph">
 <p>Keep the current-source CLI installed by Quick Start. Named catalogue
 compositions are an unreleased source feature, absent from release 0.5.0.
-For manual installation, use <a href="../dot-cli/installation.html#install-with-go" class="xref page">Install with Go</a>.
+If you reuse an installation, run <code>command -v dotx</code> to check which executable
+your shell selects. For a Go install, the module version from
+<code>go version -m "$(command -v dotx)"</code> should end in the first 12 characters
+of <code>ad990e269daa5e2b39f95aafa2677ad516047513</code>. For manual installation, select the
+Quick Start source commit in <a href="../dot-cli/installation.html#install-with-go" class="xref page">Install with Go</a>.
 The <a href="getting-started.html" class="xref page">single-DOT quickstart</a> remains available separately.</p>
 </div>
 </div>
@@ -405,7 +409,8 @@ Your repository credentials stay with GitHub CLI.</p>
 <p>The selection stays pinned through preview, deployment, probes and cleanup.
 Changes to <code>main</code> do not change a recorded selection. The commands below set
 <code>REPOSITORY_VERSION</code> to the tested catalogue commit unless you have already set
-it. Leave it at that default for this tutorial. An active deployment cannot be
+it. If an earlier session set a different revision, run <code>unset REPOSITORY_VERSION</code>
+before this walkthrough to use its tested default. An active deployment cannot be
 redirected to another revision. After verified destroy, a later run can select
 the current catalogue again. Existing local-file commands and explicit
 <code>--repository</code> selections remain available for authors.</p>
@@ -443,9 +448,13 @@ verified inputs.</p>
 <h2 id="_save_the_cleanup_command_and_check_the_port"><a class="anchor" href="#_save_the_cleanup_command_and_check_the_port"></a>Save the cleanup command and check the port</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Keep this cleanup command handy before you apply. After your apply attempt,
-run it if your run created state, even if the query fails. If apply reports
-<code>has recorded state</code>, stop and leave the existing deployment in place.</p>
+<p>Keep this cleanup command handy before you apply. If apply reports existing
+recorded state or a different recorded source snapshot, stop and leave that
+deployment in place. If a new apply fails, read its rollback output and run
+<code>dotx compose status "$GRAPH"</code>. If status reports <code>has no recorded catalogue selection</code>
+or <code>has no applied state</code> after rollback, there is nothing to destroy. If your
+attempt left a state record or reported incomplete rollback, run the cleanup
+command. A managed network may remain even when status lists no running tools.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -483,7 +492,8 @@ development host.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>After apply succeeds, query Prometheus for a successful Node Exporter scrape:</p>
+<p>Expect <code>Composition applied: node-exporter-prometheus-monitoring</code>. Then query
+Prometheus for a successful Node Exporter scrape:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -511,8 +521,8 @@ needed. Cache contents and runtime state stay private to your user.</p>
 <h2 id="_inspect_and_clean_up"><a class="anchor" href="#_inspect_and_clean_up"></a>Inspect and clean up</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run these commands only for a deployment created by your attempt. If apply
-reported <code>has recorded state</code>, leave that deployment in place.</p>
+<p>Run these commands for the deployment you just created. Use the same terminal,
+Docker context and daemon as apply.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -521,9 +531,9 @@ dotx compose destroy "$GRAPH"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expect destroy to report verified cleanup of both Docker deployments and their
-managed network and disposable volumes. You can repeat the port check to
-confirm the demo listener is gone.</p>
+<p>Expect a message beginning with <code>Cleanup verified: 2 Docker deployment(s)</code>.
+The check covers the recorded containers, managed network and disposable
+volumes. Repeat the port check to confirm the demo listener is gone.</p>
 </div>
 <div class="paragraph">
 <p>Continue with <a href="../dot-cli/composition-authoring.html" class="xref page">Create a composition</a> to

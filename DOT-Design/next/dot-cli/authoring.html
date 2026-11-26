@@ -359,10 +359,22 @@ genuinely new component or a local exercise; do not publish another root for an
 existing product. Add deployment alternatives to its canonical bundle instead.</p>
 </div>
 <div class="paragraph">
-<p>These commands require the <strong>selected release CLI <code>v0.5.0</code>
-or its matching source build</strong>, <code>jq</code>, catalogue access and network access to the
-pinned raw Contract. The released flow below covers owned OpenAPI interfaces;
-the guided editor described later is included in 0.4.0.
+<p>Before starting, choose the CLI and catalogue together:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Next, use the matching source CLI and catalogue submodules from one
+<a href="../dot-design/contributor-guide.html" class="xref page">DOT-Design checkout</a>.</p>
+</li>
+<li>
+<p>For a release, use its versioned guide and the catalogue revision recorded
+in its release manifest. See <a href="installation.html#matching-catalogue-commit" class="xref page">Find the matching DOT-Repository commit</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You need <code>jq</code> and network access to the pinned raw OpenAPI Contract.
 Current-source authoring summaries name the saved file, distinguish declaration
 validation from live acceptance, and confirm unchanged runtime state. Follow-up
 commands use the actual quoted path (including an explicit <code>./</code> prefix for a
@@ -396,8 +408,12 @@ new capability in <code>Skills/</code>. Creation does not infer Skills from an i
 <div class="sectionbody">
 <div class="paragraph">
 <p>This temporary exercise reuses Prometheus&#8217;s existing authoritative declaration;
-it creates no second catalogue entry and copies no dependency interface. From
-DOT-Design, prepare an empty exercise directory:</p>
+it creates no second catalogue entry and copies no dependency interface.
+Run the block from the DOT-Design checkout root to use its pinned catalogue.
+From an independently selected catalogue checkout, run
+<code>export DOT_REPOSITORY="$PWD"</code> first. Use
+<code>git -C "${DOT_REPOSITORY:-$PWD/DOT-Repository}" rev-parse HEAD</code> to confirm
+which catalogue you selected. The block creates a fresh exercise directory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -752,8 +768,9 @@ remain authoritative; declarations do not provision brokers or prove delivery.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p drafts
-PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository .)"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p drafts &amp;&amp;
+PROMETHEUS_JSON="$(dotx repository resolve Prometheus@3.15.1 --repository .)" &amp;&amp;
+dotx validate "$PROMETHEUS_JSON" --repository . --profile reusable &amp;&amp;
 dotx edit "$PROMETHEUS_JSON" --interactive \
   --output drafts/prometheus.candidate.json --repository . --offline</code></pre>
 </div>
