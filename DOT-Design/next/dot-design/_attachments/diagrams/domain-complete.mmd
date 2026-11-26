@@ -501,7 +501,7 @@ classDiagram
   Channel "1" *-- "0..1" NetworkBinding : network
   Channel "1" *-- "0..*" OperationParameterBinding : parameters
   Channel "1" *-- "0..1" ServicePortReference : endpoint
-  Composition "1" *-- "0..*" Edge : edges
+  Composition "1" *-- "1..*" Edge : edges
   Composition "1" *-- "1..*" Vertex : vertices
   DeploymentEnvironment "1" *-- "0..1" SecretReference : secretRef
   DeploymentInputs "1" *-- "0..*" CdiDeviceBinding : cdiDevices

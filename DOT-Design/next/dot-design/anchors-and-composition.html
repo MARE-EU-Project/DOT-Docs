@@ -472,17 +472,17 @@ Connector.</p>
 <div class="paragraph">
 <p>The Connector terminology and ID-list selections described here are a <strong>Next/source
 format change</strong>. Use the matching DOT-CLI and DOT-Repository source revisions.
-Published CLI releases retain their original Anchor-based format; they do not
-accept these new declarations. No compatibility aliases or automatic lock/state
+Each published CLI release uses the format documented for its version. Release
+0.5.0 predates the simplified graph described here. No compatibility aliases or automatic lock/state
 migration are provided. Destroy running compositions with their original CLI
 before switching formats, update authored definitions, and regenerate and review
 locks with the matching source CLI.</p>
 </div>
 <div class="paragraph">
 <p>A Connector is defined once in <code>Dot.connectors</code>. For example, a provider declares
-<code>node-metrics</code>, and a consumer declares <code>scrape-target</code>. Their Vertices select
-those IDs as <code>connectors: [node-metrics]</code> and <code>connectors: [scrape-target]</code>.
-An Edge names the two Vertices; its Channel uses <code>fromConnector: node-metrics</code>
+<code>node-metrics</code>, and a consumer declares <code>scrape-target</code>. All Connectors of the
+selected DOT are available through its Vertex.
+An Edge names the two Vertices. Its Channel uses <code>fromConnector: node-metrics</code>
 and <code>toConnector: scrape-target</code>. Concrete addresses and container IDs remain
 runtime data.</p>
 </div>

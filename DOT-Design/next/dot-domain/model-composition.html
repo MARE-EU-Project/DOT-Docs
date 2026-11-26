@@ -620,7 +620,7 @@
 <p>Describe one reusable use case by selecting DOTs as Vertices and connecting their logical interfaces.</p>
 </div>
 <div class="paragraph">
-<p>This is a separate aggregate, not a DOT containing other DOT definitions. Vertex references must name declared members and explicit readiness dependencies must be acyclic; interface edges may form cycles. All Connectors declared by each selected DOT are available to Channels; Contracts are resolved from their authoritative DOT owners without separate composition lists. Host forwarding remains explicit through vertex/connector selections. Catalogue resolution, reviewed locks, credentials, deployment ownership and live acceptance remain separate executor concerns.</p>
+<p>A Composition requires at least two Vertices and an Edge carrying a Channel between distinct Vertices. Use standalone DOT commands for one tool. Vertex references must name declared members and explicit readiness dependencies must be acyclic; interface edges may form cycles. All Connectors declared by each selected DOT are available to Channels; Contracts are resolved from their authoritative DOT owners without separate composition lists. Host forwarding remains explicit through vertex/connector selections. Catalogue resolution, reviewed locks, credentials, deployment ownership and live acceptance remain separate executor concerns.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/Composition.java">Java authority</a> | <a href="https://github.com/MARE-EU-Project/DOT-Repository/blob/main/Schema/composition-v1.schema.json">Generated JSON Schema</a></p>
@@ -675,13 +675,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>vertices</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of Vertex</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named graph vertices selecting canonical DOT definitions and their deployments. minimum items: 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At least two named graph Vertices selecting canonical DOT definitions and their deployments. minimum items: 2.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edges</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of Edge</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Conditional / optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Directed connections between vertices, with channels selecting their logical interfaces.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At least one directed Edge between distinct Vertices. Channels select their logical interfaces. minimum items: 1.</p></td>
 </tr>
 </tbody>
 </table>
@@ -691,7 +691,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>To <a href="#model-Edge">Edge</a>: containment via edges; diagram multiplicity 0..*.</p>
+<p>To <a href="#model-Edge">Edge</a>: containment via edges; diagram multiplicity 1..*.</p>
 </li>
 <li>
 <p>To <a href="#model-Vertex">Vertex</a>: containment via vertices; diagram multiplicity 1..*.</p>
@@ -713,6 +713,26 @@
       "source": "repository://Example@1.0.0",
       "dotId": "Example@1.0.0",
       "dotVersion": "1.0.0"
+    },
+    {
+      "name": "client",
+      "source": "client",
+      "dotId": "Example@1.0.0",
+      "dotVersion": "1.0.0"
+    }
+  ],
+  "edges": [
+    {
+      "name": "metrics-to-client",
+      "from": "metrics",
+      "to": "client",
+      "channels": [
+        {
+          "name": "link",
+          "fromConnector": "provide",
+          "toConnector": "require"
+        }
+      ]
     }
   ]
 }</code></pre>
@@ -1115,7 +1135,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>From <a href="#model-Composition">Composition</a>: containment via edges; diagram multiplicity 0..*.</p>
+<p>From <a href="#model-Composition">Composition</a>: containment via edges; diagram multiplicity 1..*.</p>
 </li>
 <li>
 <p>To <a href="#model-Channel">Channel</a>: containment via channels; diagram multiplicity 1..*.</p>

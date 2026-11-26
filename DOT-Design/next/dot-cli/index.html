@@ -384,7 +384,8 @@ use <a href="installation.html#install-with-go" class="xref page">Manual install
 <p>The command resolves the catalogue&#8217;s <code>Hello-World</code>, streams the greeting, and
 removes the container on exit. See <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>
 for GitHub authentication and installation. Release 0.5.0 does not include <code>run</code>.
-For other one-shot Docker-image DOTs, use a local catalogue or <code>--repository</code>;
+For other one-shot Docker-image DOTs, dotx uses a local catalogue if it finds one
+and acquires the default catalogue otherwise. Use <code>--repository</code> to override it.
 unversioned names select the highest release, and <code>name@version</code> selects an exact
 version. Multiple Docker-image deployments fail as ambiguous. Long-lived
 services continue to use <code>deploy</code>.</p>
@@ -477,7 +478,7 @@ alone does not identify the exact source build used for a rehearsal.</p>
 <div class="paragraph">
 <p>For source selection and existing-workload recovery, use the matching
 CLI/catalogue and retain the original binary and execution context. See
-<a href="#next-configuration-and-ownership">Next configuration and ownership details</a>
+<a href="diagnostics.html#next-configuration-and-ownership" class="xref page">Next configuration and ownership details</a>
 when configuring or replacing workloads.</p>
 </div>
 <div class="admonitionblock important">
@@ -488,11 +489,11 @@ when configuring or replacing workloads.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>0.4.0 uses raw HTTPS URL and SHA-256 references for deployment manifests,
+<p>Release 0.4.0 introduced raw HTTPS URL and SHA-256 references for deployment manifests,
 Helm values, environment files and optional non-sensitive configuration defaults,
 as Contracts already do. Inline text and Base64 in those file fields are rejected.
-Use the matching 0.4.0 CLI, generated schema and catalogue; historical v0.3.0
-binary and its pinned catalogue retain their original format.</p>
+Use the CLI, generated schema and catalogue for your selected release or
+source revision. Historical v0.3.0 installations use their original format.</p>
 </div>
 </td>
 </tr>
@@ -509,7 +510,7 @@ for the shared model and its integrity/hosting boundaries.</p>
 <p>Current-source repository validation applies reusable publication checks to
 external/internal definitions with owned Contracts or explicitly implemented
 provided interfaces. Consumed dependencies alone cannot qualify an exposed API.
-<code>--profile interoperable</code> additionally requires Contract coverage for every
+For individual bundles, <code>--profile interoperable</code> additionally requires Contract coverage for every
 Connector and exposed service port. Runtime-only, client-only and incomplete
 definitions remain visible as gaps in the
 <a href="../dot-design/verification-and-examples.html#catalogue-readiness" class="xref page">catalogue readiness report</a>;
@@ -593,8 +594,10 @@ names. JSON output reports the authoritative case-sensitive ID and definition.</
 <div class="paragraph">
 <p>Explicit <code>--repository &lt;path-or-git-url&gt;</code> overrides discovery. If the selected
 catalogue is malformed, unreadable or missing, the command fails rather than
-switching to a different catalogue. Without a discoverable catalogue, provide
-that flag explicitly. Composition sources remain
+switching to a different catalogue. If no local catalogue is found and you
+omit the flag, dotx acquires the default catalogue. To resolve a filesystem
+path, use the managed catalogue or a local path. <code>repository resolve</code> rejects
+an explicit Git URL. Composition sources remain
 <code>repository://&lt;id&gt;@&lt;version&gt;</code>; display-name lookup does not replace source identities,
 locks or runtime ownership checks. No separate catalogue inventory is required.</p>
 </div>

@@ -383,7 +383,7 @@ runtime choices, and compositions relate.</p>
 <p><strong>Runtimes and deployments</strong> describe where a tool runs and how it starts.</p>
 </li>
 <li>
-<p><strong>A composition</strong> selects tool releases as Vertices. Edges connect Vertices, and each Channel selects a Connector ID at each end.</p>
+<p><strong>A composition</strong> selects at least two Vertices and connects them with at least one Edge carrying a Channel. Each Channel selects a Connector ID at each end. Use <code>dotx run</code> or <code>dotx deploy</code> for one DOT.</p>
 </li>
 <li>
 <p><strong><code>dotx</code></strong> validates and operates the selected composition.</p>
@@ -392,7 +392,7 @@ runtime choices, and compositions relate.</p>
 </div>
 <div id="_choose_your_first_step" class="paragraph">
 <p>A <strong>Connector</strong> is a provided or required interface defined once by a DOT.
-A <strong>Vertex</strong> selects that DOT, a deployment, and the Connector IDs it uses.
+A <strong>Vertex</strong> selects a DOT and a deployment, making all of that DOT&#8217;s Connectors available.
 An <strong>Edge</strong> joins two Vertices; its <strong>Channels</strong> select one Connector ID on each side.
 Service bindings map those interfaces to named ports. Container IDs, addresses,
 and live status belong to the running deployment, not the portable graph.</p>

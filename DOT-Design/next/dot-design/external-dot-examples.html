@@ -615,6 +615,46 @@ revision.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_stress_test_a_locked_composition"><a class="anchor" href="#_stress_test_a_locked_composition"></a>Stress-test a locked Composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The external DOT stress task repeats individual deployments. To repeat the
+locked Node Exporter and Prometheus Composition, use Linux amd64 with local
+Docker Engine 28 or later and the CLI built from the pinned checkout. Run from
+the DOT-Design checkout root with <code>curl</code>, <code>jq</code>, <code>python3</code>, <code>ss</code>, and <code>flock</code> available.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:contracts:warm
+task testing:compositions:external:stress</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The task runs three sequential cycles by default. Set
+<code>DOTX_COMPOSITION_STRESS_REPEATS</code> to an integer from 1 to 5 to change the count.
+Each cycle verifies the scrape, a port-conflict rollback, and cleanup. The
+harness prints the evidence receipt path for each run, including the CLI hash
+and catalogue revision.</p>
+</div>
+<div class="paragraph">
+<p>To repeat the Kubernetes Keycloak, APISIX, and OAuth client Composition, use a
+ready <code>minikube</code> context:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOTX_COMPOSITION_STRESS_PROFILE=oauth task testing:compositions:external:stress</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The OAuth profile checks that APISIX rejects missing or invalid tokens and
+that a real Keycloak token authorizes the protected operation. Each cycle
+uses its own namespace and verifies cleanup. The scheduled and manually
+dispatched external stress workflow runs both profiles with its configured
+repeat count.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_recorded_0_2_0_rc_3_evidence"><a class="anchor" href="#_recorded_0_2_0_rc_3_evidence"></a>Recorded <code>0.2.0-rc.3</code> evidence</h2>
 <div class="sectionbody">
 <div class="paragraph">

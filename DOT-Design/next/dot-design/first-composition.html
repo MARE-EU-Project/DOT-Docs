@@ -352,11 +352,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run Node Exporter and Prometheus together on Docker. In the Next source graph,
-the <code>node-exporter-to-prometheus</code> Edge joins the two Vertices. Its
-<code>node-metrics-to-prometheus</code> Channel connects the <code>node-metrics</code> and
-<code>scrape-target</code> Connectors. Forward <code>prometheus/promql-query-api</code> explicitly to verify the scrape. All
-Connectors remain available for composition without an exposure list.</p>
+<p>Run two tools together on Docker. Node Exporter provides metrics. Prometheus
+collects them. You&#8217;ll preview the deployment, check that Prometheus received a
+sample, and remove both tools.</p>
 </div>
 </div>
 </div>
@@ -369,9 +367,10 @@ version-matched catalogue and a real, two-tool deployment to that setup.
 You can reuse an existing matching installation.</p>
 </div>
 <div class="paragraph">
-<p>Use Bash, <code>curl</code>, <code>ss</code> (from iproute2), GitHub CLI (<code>gh</code>), and Docker Engine
+<p>Use Bash, <code>curl</code>, <code>jq</code>, <code>ss</code> (from iproute2), GitHub CLI (<code>gh</code>), and Docker Engine
 28 or later on Ubuntu 26.04 amd64. Run the commands on the Docker host, with
-Docker accessible to your normal user. The graph uses Docker images and needs
+Docker accessible to your normal user. Keep the same Bash terminal open through
+cleanup so <code>GRAPH</code> and <code>PORT</code> stay set. The graph uses Docker images and needs
 no Compose plugin. See <a href="setup.html#requirements" class="xref page">Requirements</a>.</p>
 </div>
 <div class="paragraph">
@@ -388,22 +387,25 @@ The <a href="getting-started.html" class="xref page">single-DOT quickstart</a> r
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx version
-dotx tool check docker</code></pre>
+dotx tool check docker &amp;&amp;
+docker version --format '{{.Server.Version}}'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>No catalogue clone or working directory is required. <code>dotx</code> uses your <code>gh</code>
-authentication to retrieve a private, verified snapshot of DOT-Repository.
+<p>Expect <code>docker: ready</code> and a Docker server version of 28 or later. No manual
+catalogue clone is required. <code>dotx</code> retrieves a verified snapshot of DOT-Repository
+using the Git credentials configured in Quick Start.
 The first catalogue command prints its exact revision and caches the selected
 composition, DOT definitions, reviewed lock and non-secret configuration files.
-If access fails, check <code>gh auth status</code> and read access to DOT-Repository.
+If access fails, check <code>gh auth status</code> and read access to DOT-Repository, then
+repeat <code>gh auth setup-git --hostname github.com</code>.
 Your repository credentials stay with GitHub CLI.</p>
 </div>
 <div class="paragraph">
 <p>The selection stays pinned through preview, deployment, probes and cleanup.
-Changes to <code>main</code> do not change a recorded selection. An optional
-<code>REPOSITORY_VERSION</code> selects a catalogue revision before the first command;
-use an exact commit for a reproducible trial. An active deployment cannot be
+Changes to <code>main</code> do not change a recorded selection. The commands below set
+<code>REPOSITORY_VERSION</code> to the tested catalogue commit unless you have already set
+it. Leave it at that default for this tutorial. An active deployment cannot be
 redirected to another revision. After verified destroy, a later run can select
 the current catalogue again. Existing local-file commands and explicit
 <code>--repository</code> selections remain available for authors.</p>
@@ -415,7 +417,8 @@ the current catalogue again. Existing local-file commands and explicit
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GRAPH=node-exporter-prometheus-monitoring
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export REPOSITORY_VERSION="${REPOSITORY_VERSION:-ffcfacab7dac451cf7f099dd3ef9b3c752aecee6}"
+GRAPH=node-exporter-prometheus-monitoring
 PORT="${PORT:-19040}"
 
 dotx compose validate "$GRAPH" --locked &amp;&amp;
@@ -425,8 +428,11 @@ dotx compose apply "$GRAPH" --locked --dry-run \
 </div>
 </div>
 <div class="paragraph">
-<p>Expect two Docker image deployments and the <code>node-metrics-to-prometheus</code>
-Channel. The preview shows <code>-p 127.0.0.1:19040:9090</code> for Prometheus at the
+<p>Continue only if validation, topology, and preview all succeed. The topology
+shows the two tools as Vertices. The Edge joins them, and its
+<code>node-metrics-to-prometheus</code> Channel connects the metrics interfaces, called
+Connectors. See <a href="dots-for-dummies.html" class="xref page">DOTs for Dummies</a> for the model.
+Expect two Docker image deployments. The preview shows <code>-p 127.0.0.1:19040:9090</code> for Prometheus at the
 default port. The preview creates no workloads and
 writes no lifecycle state. Validation and preview can populate the cache with
 verified inputs.</p>
@@ -438,8 +444,8 @@ verified inputs.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Keep this cleanup command handy before you apply. After your apply attempt,
-run it if your run created state, even if the query fails. If apply reports a
-previously applied composition, leave that run to its owner.</p>
+run it if your run created state, even if the query fails. If apply reports
+<code>has recorded state</code>, stop and leave the existing deployment in place.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -477,35 +483,22 @@ development host.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>After apply succeeds, paste this block. It waits up to 90 seconds for a
-successful scrape and prints the matching Prometheus response.</p>
+<p>After apply succeeds, query Prometheus for a successful Node Exporter scrape:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
-  deadline=$((SECONDS + 90))
-  sample='"value"[[:space:]]*:[[:space:]]*\[[0-9.]+[[:space:]]*,[[:space:]]*"1"[[:space:]]*\]'
-  while (( (remaining = deadline - SECONDS) &gt; 0 )); do
-    timeout=$((remaining &lt; 3 ? remaining : 3))
-    if reply=$(curl -fsSG --max-time "$timeout" \
-      "http://127.0.0.1:$PORT/api/v1/query" \
-      --data-urlencode 'query=up{job="node-exporter"} == 1' 2&gt;/dev/null) &amp;&amp;
-      [[ $reply =~ $sample ]]; then
-      printf '%s\n' "$reply"
-      exit 0
-    fi
-    (( SECONDS + 2 &lt; deadline )) || break
-    sleep 2
-  done
-  printf '%s\n' 'No successful scrape yet. Run status, then clean up.' &gt;&amp;2
-  exit 1
-)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -fsSG --max-time 5 "http://127.0.0.1:$PORT/api/v1/query" \
+  --data-urlencode 'query=up{job="node-exporter"} == 1' |
+  jq -ser '.[0].data.result[0].value[1] | select(. == "1")' &amp;&amp;
+  printf 'Verified: Prometheus scraped Node Exporter.\n'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expect a sample for <code>node-exporter</code> with value <code>"1"</code>. Before the first scrape,
-Prometheus can return an empty result. If the check times out, inspect status
-and clean up. This example observes the Node Exporter container.</p>
+<p>Expect <code>1</code> followed by the verification message. If there is no result or
+curl reports an empty reply, wait a few seconds and retry. Prometheus may
+still be starting or waiting for the first scrape. If it still fails after
+90 seconds, check status and clean up.
+This example observes the Node Exporter container.</p>
 </div>
 <div class="paragraph">
 <p>The managed cache preserves the readability of published, non-secret input
@@ -517,6 +510,10 @@ needed. Cache contents and runtime state stay private to your user.</p>
 <div class="sect1">
 <h2 id="_inspect_and_clean_up"><a class="anchor" href="#_inspect_and_clean_up"></a>Inspect and clean up</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Run these commands only for a deployment created by your attempt. If apply
+reported <code>has recorded state</code>, leave that deployment in place.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose status "$GRAPH"
@@ -533,6 +530,10 @@ confirm the demo listener is gone.</p>
 make a separate draft from the monitoring template, review its lock, and view
 its topology. <a href="dots-in-action.html" class="xref page">DOTs in Action</a> walks through extending
 the graph.</p>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re participating in the partner beta, follow the
+<a href="quick-start.html#beta-feedback" class="xref page">feedback instructions</a> after cleanup.</p>
 </div>
 </div>
 </div>

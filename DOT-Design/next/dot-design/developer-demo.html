@@ -429,13 +429,13 @@ certify every variant or every Admin REST operation. Compare each resolved compo
 </div>
 </div>
 <div class="paragraph">
-<p>The task repeats the short inspection, validates the existing two-DOT PoC7
-validation-only graph, then attempts its existing deliberately rejected edge. Expect:</p>
+<p>The task repeats the short inspection, validates the source-adapted three-DOT PoC7 graph, then checks the deliberately
+rejected direct collector-to-scorer edge. Expect:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">EXPECTED REJECTION (exit=1): scoring-api-to-collector mixes Contract-backed and contractless Connectors.
-The valid two-DOT graph has zero edges; no runtime was deployed by either validation command.</code></pre>
+The source-adapted three-DOT graph validates. These checks do not deploy workloads.</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -510,23 +510,21 @@ and ask your MARE project contact to verify your repository access.</p>
 <h2 id="_install_the_matching_source_cli"><a class="anchor" href="#_install_the_matching_source_cli"></a>Install the matching source CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The next lessons use the simplified Next composition format, which is absent
-from release 0.5.0. Use the Go toolchain listed in <a href="setup.html#go" class="xref page">Setup</a>
-and install a source build into this private setup directory.
-<code>CLI_VERSION</code> can select a compatible exact source commit; it defaults to <code>main</code>.
-Keep this binary through cleanup rather than replacing an active installation.</p>
+<p>Complete <a href="quick-start.html" class="xref page">Quick Start</a> if you have not installed its pinned
+source CLI yet. If Hello World already worked with that build, reuse it.
+Check that the current terminal sees the same binary:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">test ! -e bin/dotx &amp;&amp;
-mkdir -p bin &amp;&amp;
-CLI_VERSION="${CLI_VERSION:-main}" &amp;&amp;
-GOBIN="$PWD/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
-  go install "github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@$CLI_VERSION" &amp;&amp;
-export PATH="$PWD/bin:$PATH" &amp;&amp;
-dotx version &amp;&amp;
-printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">command -v dotx
+dotx version</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The version should end with the 12-character prefix of the Quick Start
+CLI commit (<code>ad990e269daa5e2b39f95aafa2677ad516047513</code>). Keep that executable
+through cleanup. A released 0.5.0 binary cannot run the
+Next composition authoring lessons.</p>
 </div>
 </div>
 </div>
@@ -534,23 +532,23 @@ printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD"</code></pre>
 <h2 id="_check_out_the_source_catalogue_for_authoring"><a class="anchor" href="#_check_out_the_source_catalogue_for_authoring"></a>Check out the source catalogue for authoring</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Unlike Quick Start and named composition runs, these authoring lessons edit
-local drafts and need a working checkout. <code>REPOSITORY_VERSION</code> may select an
-exact matching source commit; the default is the catalogue&#8217;s <code>main</code> branch.
-A released catalogue is not compatible with these Next-only graph edits.</p>
+<p>These lessons need a checkout because you will create local drafts. Reuse an
+existing checkout at the tested commit, or run this block in the new setup
+directory. An existing <code>REPOSITORY_VERSION</code> override changes the tested pair.
+Use the same CLI and catalogue throughout the lessons.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">TESTED_COMMIT=ffcfacab7dac451cf7f099dd3ef9b3c752aecee6
+git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
 cd DOT-Repository &amp;&amp;
-git checkout --detach "${REPOSITORY_VERSION:-origin/main}" &amp;&amp;
+git checkout --detach "${REPOSITORY_VERSION:-$TESTED_COMMIT}" &amp;&amp;
 git rev-parse HEAD</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Retain the printed revision and the private CLI directory. If resources from
-an earlier exercise still exist, finish their cleanup with the original binary,
-catalogue and Docker context before starting this source setup.</p>
+<p>Retain the printed revision. If resources from an earlier exercise still exist,
+finish cleaning them up with the original CLI, catalogue and Docker context.</p>
 </div>
 </div>
 </div>

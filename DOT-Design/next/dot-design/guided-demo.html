@@ -782,8 +782,8 @@ as though they were current online service health.</p>
 </div>
 <div class="paragraph">
 <p><strong>Say:</strong> both nodes use the same Prometheus release ID, official OpenAPI Contract and
-immutable image, with two selected deployment mechanisms. There are <strong>zero edges</strong>
-between these independent servers: this proves reuse, not replication/migration.
+immutable image with two deployment mechanisms. The Docker deployment also
+scrapes Node Exporter through a Channel.
 <strong>Show:</strong> both build-information API versions match the selected image, <code>GOGC=75</code>,
 the declared default configuration and a real self-scrape <code>up=1</code>. At the verified
 pause, compare the runtime observations and the localhost endpoints in the table.

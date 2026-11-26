@@ -863,7 +863,7 @@ eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..*" eu_mare6g_d
 eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_NetworkBinding : network
 eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_OperationParameterBinding : parameters
 eu_mare6g_dot_domain_composition_Channel "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_ServicePortReference : endpoint
-eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_Edge : edges
+eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_Edge : edges
 eu_mare6g_dot_domain_composition_Composition "1" *-[#2563EB]down- "1..*" eu_mare6g_dot_domain_composition_Vertex : vertices
 eu_mare6g_dot_domain_composition_DeploymentEnvironment "1" *-[#2563EB]down- "0..1" eu_mare6g_dot_domain_composition_SecretReference : secretRef
 eu_mare6g_dot_domain_composition_DeploymentInputs "1" *-[#2563EB]down- "0..*" eu_mare6g_dot_domain_composition_CdiDeviceBinding : cdiDevices

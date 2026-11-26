@@ -353,7 +353,9 @@
 <div class="paragraph">
 <p>For the shortest first-run route, follow <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>.
 Use this page when you want to choose a version or manage installation yourself.
-Git and Go are required; GitHub CLI is optional for this manual route.</p>
+Git and Go are required for manual installation. The default <code>@latest</code> installs
+the latest release. For Hello World and the named first composition, use Quick
+Start’s tested source build and GitHub CLI authentication.</p>
 </div>
 </div>
 </div>
@@ -398,7 +400,7 @@ dotx version</code></pre>
 <div class="paragraph">
 <p>Add <code>$HOME/.local/bin</code> to your shell&#8217;s <code>PATH</code> for future sessions if needed.
 Use <code>command -v dotx</code> to check which executable your shell selects and
-<code>go version -m "$(command -v dotx)"</code> to check the installed module tag. The
+<code>go version -m "$(command -v dotx)"</code> to check the installed module version. The
 command-scoped <code>GOPRIVATE</code> tells Go to fetch private MARE modules directly
 under its default settings. The
 <a href="https://go.dev/ref/mod#go-install">Go Modules Reference</a>
@@ -414,19 +416,34 @@ installation block above. For the selected release:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For a source build, select <code>CLI_VERSION=main</code> or an exact commit. To return to
-the default released installation, run <code>unset CLI_VERSION</code> before reinstalling.</p>
+<p>To install the source build used by Quick Start, set this pin before running
+the same installation block:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=ad990e269daa5e2b39f95aafa2677ad516047513</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect a Go pseudo-version ending with the first 12 characters of that commit.
+For managed catalogue runs, complete the GitHub CLI sign-in and Git setup in
+<a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>. Run <code>unset CLI_VERSION</code>
+before reinstalling the default release.</p>
 </div>
 <div class="sect2">
 <h3 id="matching-catalogue-commit"><a class="anchor" href="#matching-catalogue-commit"></a>Find the matching DOT-Repository commit</h3>
 <div class="paragraph">
-<p>Run <code>go version -m "$(command -v dotx)"</code> and note the version on the
+<p>For a released binary, run <code>go version -m "$(command -v dotx)"</code> and note the version on the
 <code>mod</code> line. Open <a href="https://github.com/MARE-EU-Project/DOT-CLI/releases">DOT-CLI releases</a> in your browser, select that version&#8217;s tag,
 and open <code>release-manifest.json</code> from its assets. Check that <code>tag</code> matches
 the installed version and copy the commit under <code>acceptance.dotRepository</code>.</p>
 </div>
 <div class="paragraph">
-<p>Run this block from the directory where you want the new checkout. Set
+<p>For the tested source build in Quick Start, use the catalogue commit printed
+by the <a href="../dot-design/first-composition.html" class="xref page">first-composition guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>For local authoring, run this block from the directory where you want the new checkout. Set
 <code>REPOSITORY_VERSION</code> to the matching commit if you have one. An unset
 <code>REPOSITORY_VERSION</code> selects the catalogue&#8217;s <code>main</code> branch.</p>
 </div>

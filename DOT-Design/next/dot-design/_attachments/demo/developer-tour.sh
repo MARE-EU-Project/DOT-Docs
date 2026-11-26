@@ -26,7 +26,7 @@ jq -e '.contracts[] | select(.name == "Admin") |
     ;;
   --guardrail)
     # Prove that the positive fixture resolves before testing a rejected edge.
-    dotx compose validate DOT-Testing/composition/poc7-trust-scoring/scenario.yaml
+    dotx compose validate DOT-Testing/e2e/poc7-trust-scoring/scenario.yaml
     scratch="$(mktemp -d)"
     trap 'rm -rf -- "$scratch"' EXIT
     umask 077
@@ -42,7 +42,7 @@ jq -e '.contracts[] | select(.name == "Admin") |
     fi
     printf '%s\n' \
       'EXPECTED REJECTION (exit=1): scoring-api-to-collector mixes Contract-backed and contractless Connectors.' \
-      'The valid two-DOT graph has zero edges; no runtime was deployed by either validation command.'
+      'The source-adapted three-DOT graph validates. These checks do not deploy workloads.'
     ;;
   *) echo "Usage: $0 <--inspect|--guardrail>" >&2; exit 2 ;;
 esac

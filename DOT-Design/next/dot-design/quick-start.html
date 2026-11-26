@@ -353,7 +353,8 @@
 <div class="paragraph">
 <p>On Ubuntu 26.04 LTS, have Git, <a href="https://cli.github.com/">GitHub CLI (<code>gh</code>)</a> and
 <a href="https://docs.docker.com/engine/install/ubuntu/">Docker Engine</a> installed.
-Docker must be running and accessible to your normal user. See
+Use a Bash terminal as your normal user. Check that <code>docker info</code> runs
+successfully before continuing. See
 <a href="setup.html#requirements" class="xref page">Requirements</a> for official installation links.
 Your GitHub account needs read access to DOT-CLI and DOT-Repository.</p>
 </div>
@@ -368,6 +369,20 @@ Your GitHub account needs read access to DOT-CLI and DOT-Repository.</p>
 gh auth setup-git --hostname github.com</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>If you&#8217;re already signed in with your project account, skip the login command.
+Check that your account can read both repositories before installing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">gh repo view MARE-EU-Project/DOT-CLI --json name --jq .name &amp;&amp;
+gh repo view MARE-EU-Project/DOT-Repository --json name --jq .name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect <code>DOT-CLI</code> and <code>DOT-Repository</code>. If either check fails, run
+<code>gh auth status</code> and ask your MARE project contact to confirm your access.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -378,27 +393,27 @@ gh auth setup-git --hostname github.com</code></pre>
 <code>$HOME/.local/bin</code>. Run it as your normal user; sudo is used only for missing
 system packages.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>dotx run</code> is a new source-build feature, absent from release 0.5.0.
-Until a release includes it, this command selects <code>main</code> explicitly.
-The installer&#8217;s default remains <code>latest</code> for released installations.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>This tutorial uses the installer and CLI build from the same tested commit. Release 0.5.0 does not include
+<code>dotx run</code> or named compositions. On the first build, Go may download a newer
+toolchain and dependencies. Wait for <code>dotx installation complete.</code> before
+running Hello World.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
-gh api repos/MARE-EU-Project/DOT-CLI/contents/scripts/install.sh \
-  -H 'Accept: application/vnd.github.raw+json' | CLI_VERSION=main bash
+CLI_VERSION=ad990e269daa5e2b39f95aafa2677ad516047513
+INSTALLER=repos/MARE-EU-Project/DOT-CLI/contents/scripts/install.sh
+gh api --hostname github.com "$INSTALLER?ref=$CLI_VERSION" \
+  -H 'Accept: application/vnd.github.raw+json' | CLI_VERSION="$CLI_VERSION" bash &amp;&amp;
 export PATH="$HOME/.local/bin:$PATH"</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>If the output reports a disk quota or space error, check free space and quotas
+for your home directory and <code>/tmp</code>. For a temporary-directory error, create
+a writable directory on a filesystem with enough space, set <code>TMPDIR</code> to its
+absolute path, and retry. A second terminal may need the <code>PATH</code> line again.</p>
 </div>
 </div>
 </div>
@@ -419,24 +434,30 @@ export PATH="$HOME/.local/bin:$PATH"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The command uses the <code>Hello-World</code> DOT from DOT-Repository and its pinned official
-Docker image. This upstream has no numbered release, so its definition is
-<code>DOTs/external/Hello-World/dot.json</code>, without a version directory. It uses an existing catalogue checkout when it contains Hello World;
-otherwise <code>gh</code> retrieves only the definition from GitHub, without cloning or
-caching the catalogue. The first run downloads the image if it is not already
-present. The container is removed automatically; no cleanup command is needed.</p>
+<p>The first run may download the official Hello World image. If no local
+catalogue provides the definition, <code>dotx</code> uses <code>gh</code> to fetch it from
+DOT-Repository. The container is removed automatically.</p>
 </div>
 <div class="paragraph">
-<p>If GitHub reports <code>404</code>, check <code>gh auth status</code> and repository access. If Docker
-reports permission denied or cannot connect, follow its official installation
-and post-installation instructions. A failed run returns nonzero and does not
-print the success message. An explicitly selected <code>--repository</code> is authoritative:
-if it lacks the DOT, update that checkout. Dry runs never fetch from GitHub.</p>
+<p>If <code>dotx</code> reports <code>cannot access DOT-Repository through GitHub</code>, repeat the
+repository access checks above. If Docker reports permission denied or cannot
+connect, follow the
+<a href="https://docs.docker.com/engine/install/linux-postinstall/">Docker Linux post-installation instructions</a>.
+If you explicitly selected a repository that lacks Hello World, update that
+checkout. A <code>dotx run --dry-run</code> preview uses a local or cached catalogue.
+Preview may fetch verified deployment payloads.</p>
 </div>
 <div class="paragraph">
 <p>Next: <a href="first-composition.html" class="xref page">Run your first composition</a> with Node Exporter
 and Prometheus. For manual installation and reproducible version pins, see
 <a href="../dot-cli/installation.html#install-with-go" class="xref page">Install with Go</a>.</p>
+</div>
+<div id="beta-feedback" class="paragraph">
+<p>If you&#8217;re participating in the partner beta, send any problem to your
+MARE project contact using the
+<a href="_attachments/onboarding-trial-template.md" class="xref attachment">trial record</a>.
+Include the failing step, the output of <code>dotx version</code> if installed,
+the catalogue revision if printed, and the error with credentials removed.</p>
 </div>
 </div>
 </div>
