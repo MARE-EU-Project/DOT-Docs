@@ -453,6 +453,23 @@ DOT-Repository default branch. The first-composition guide pins an exact
 catalogue commit. The container is removed automatically.</p>
 </div>
 <div class="paragraph">
+<p>If you see <code>unknown command "run"</code>, check which executable your shell is using.
+Put the installed build first on <code>PATH</code>, clear Bash&#8217;s command cache, and check
+the selected executable and version before retrying:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH="$HOME/.local/bin:$PATH"
+hash -r
+command -v dotx
+dotx version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect the path to end in <code>/.local/bin/dotx</code> and the version to identify the
+source build printed by the installer. Then retry <code>dotx run hello-world</code>.</p>
+</div>
+<div class="paragraph">
 <p>If <code>dotx</code> reports <code>cannot access DOT-Repository through GitHub</code>, repeat the
 repository access checks above. For Docker errors, repeat the <code>docker info</code> check
 from the prerequisites.

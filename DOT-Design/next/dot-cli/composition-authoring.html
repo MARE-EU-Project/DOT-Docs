@@ -371,12 +371,11 @@ See <a href="../dot-design/compatibility.html" class="xref page">source and rele
 <h2 id="_choose_preview_and_create"><a class="anchor" href="#_choose_preview_and_create"></a>Choose, preview and create</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From your pinned <strong>DOT-Repository checkout</strong>, warm its verified Contract cache once:</p>
+<p>To select a template interactively, run this from your pinned <strong>DOT-Repository checkout</strong>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate . &amp;&amp;
-dotx compose new</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -387,12 +386,15 @@ field before replacement. Cancellation or end-of-input leaves the draft unpublis
 <code>--yes</code>; no CI job needs to wait for input.</p>
 </div>
 <div class="paragraph">
-<p>For a repeatable exercise using the existing Node Exporter/Prometheus graph:</p>
+<p>For a repeatable exercise, validate the Node Exporter/Prometheus template
+online first. This also caches the verified inputs needed by the offline steps.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx compose new \
-  --from Compositions/node-exporter-prometheus-monitoring/composition.yaml \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">TEMPLATE=Compositions/node-exporter-prometheus-monitoring/composition.yaml
+dotx compose validate "$TEMPLATE" --locked &amp;&amp;
+dotx compose new \
+  --from "$TEMPLATE" \
   --name my-monitoring --output my-monitoring.yaml --offline --yes &amp;&amp;
 dotx compose lock my-monitoring.yaml --offline &amp;&amp;
 dotx compose inspect my-monitoring.yaml --offline --locked &amp;&amp;
@@ -461,9 +463,9 @@ hint, without printing raw parser, filesystem or download errors:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>CONTRACT_CACHE_MISS</code> / cold offline cache: validate the pinned owner/catalogue
-online, then retry offline. Investigate digest mismatches; never change a pin
-merely to bypass verification.</p>
+<p><code>CONTRACT_CACHE_MISS</code> / cold offline cache: validate the selected template
+online as shown above. If you are building from selected DOTs, validate
+their definitions online. Investigate digest mismatches before retrying.</p>
 </li>
 <li>
 <p><code>COMPOSITION_NEW_TEMPLATE_SCHEMA</code>: validate the template against the generated schema.</p>
