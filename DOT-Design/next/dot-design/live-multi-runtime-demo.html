@@ -788,8 +788,10 @@ do not override it to run concurrent copies of this composition.</p>
 <h2 id="_recover_safely"><a class="anchor" href="#_recover_safely"></a>Recover safely</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Normal failure, Ctrl-C and termination attempt cleanup. Do not use <code>kill -9</code> or
-delete state while cleanup runs. After interruption, use the exact printed path:</p>
+<p>Normal failure, Ctrl-C and termination attempt cleanup. Let the original
+harness exit. After interruption, restore the original checkout and source CLI,
+and verify that your Docker context points to the same daemon used by the run.
+Both Docker and Kubernetes resources are involved. Use the exact printed path:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -822,9 +824,27 @@ cleanup separately (using the same <code>RUN_DIR</code>):</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Inspect the namespace in that run&#8217;s <code>render.txt</code>; delete only that test-owned
-namespace if it remains. An apply failure may already have rolled back with no
-applied state; independently verify resource absence. Never prune Docker, remove
+<p>The namespace in that run&#8217;s <code>render.txt</code> is the requested name. For manual
+namespace recovery, require the original creation response with the Namespace
+UID, verify that UID against the object in the frozen Kubernetes context, and
+use a server-side UID precondition for deletion. The harness stores that
+response as <code>namespace-create.json</code> in the private run directory. After
+composition cleanup, run the namespace recovery helper from the original
+DOT-Design checkout if the namespace remains. Set <code>NAMESPACE_SELECTOR</code> to the
+namespace name or its UID from the original receipt:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">bash DOT-Testing/e2e/multi-runtime-demo/recover-namespace.sh "$RUN_DIR" "$NAMESPACE_SELECTOR"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The helper uses the frozen kubeconfig and verifies that the current
+object still has the recorded UID. For older runs without the creation response,
+leave the namespace in place and contact the operator. A current lookup cannot
+reconstruct the receipt.
+An apply failure may already have rolled back with no applied state.
+Independently verify resource absence. Never prune Docker, remove
 Minikube, or delete unrelated volumes. Find the owner of an occupied NodePort
 before proceeding. Fix Docker user permissions before rerunning. Gateway timeouts
 require checking node IP, routing/firewall, readiness and Services; resolution does
@@ -844,8 +864,9 @@ whatever was found, and rerunning the job alone cannot repair those leftovers.</
 <div class="paragraph">
 <p>First confirm that no job or local demo still owns the resources. Correlate the
 cancelled attempt&#8217;s private run path and timestamps with the container&#8217;s exact
-name, image and <code>dotx.runtime.identity</code> label, the dedicated network&#8217;s
-<code>dotx.composition.id</code> label and attached containers, and the namespace&#8217;s workloads.
+name, image and <code>dotx.runtime.identity</code> label and the dedicated network&#8217;s
+<code>dotx.composition.id</code> label and attached containers. Namespace cleanup still
+requires the original creation UID and the server-side precondition above.
 Inspect mounts before considering removal. If the runner checkout no longer
 contains the run&#8217;s state, do not use a new run&#8217;s cache for recovery: an operator
 must verify each exact leftover independently. Remove only confirmed test-owned
@@ -862,7 +883,8 @@ acceptance; the subsequent workflow must still finish its probes and cleanup.</p
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:contracts:readiness
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task testing:contracts:warm &amp;&amp;
+task testing:contracts:readiness &amp;&amp;
 jq '.dots | group_by(.status) | map({status: .[0].status, count: length})' \
   DOT-Testing/e2e/target/catalogue-contract-readiness.json</code></pre>
 </div>

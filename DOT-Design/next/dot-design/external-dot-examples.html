@@ -562,7 +562,10 @@ automated acceptance intentionally target Linux amd64 only.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Fully offline and non-mutating
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># On first use, verify and cache the selected catalogue payloads online
+task testing:contracts:warm
+
+# Cache-only validation and rendering without starting workloads
 task testing:dots:external:offline
 
 # Downloads and renders the pinned charts, but does not deploy them

@@ -404,7 +404,11 @@ commit instead:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Run the installation block in the same terminal.</p>
+<p>Run the installation block in the same terminal.
+If you need to keep an existing build for active deployments, substitute a
+separate absolute directory for each occurrence of <code>$HOME/.local/bin</code> in the
+block. That shell will select the new build. Keep the original binary and
+catalogue available through cleanup.</p>
 </div>
 <div class="listingblock">
 <div class="content">

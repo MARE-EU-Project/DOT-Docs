@@ -419,17 +419,13 @@ boundaries</a> explain which component owns each fact.</p>
 <h2 id="_model_baseline_and_compatibility"><a class="anchor" href="#_model_baseline_and_compatibility"></a>Model baseline and compatibility</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The published baseline is 0.4.0. Select <code>dot-domain-models-0.4.0.tar.gz</code> with its
-matching release manifest and checksums. The earlier
-<code>dot-domain-models-0.3.0.tar.gz</code> and historical corpus labels remain evidence of
-that earlier baseline, not the schema package for 0.4.0.</p>
-</div>
-<div class="paragraph">
-<p>Preserve valid inputs and reviewed locks for the selected baseline. Source/API
-compatibility changes, migration steps and remaining gates are recorded in the
-<a href="../dot-design/compatibility.html" class="xref page">compatibility policy</a> and
-<a href="https://github.com/MARE-EU-Project/DOT-Design/blob/main/DOT-Domain/MODEL-SPEC.md">model specification</a>.
-Neither a schema archive nor passing tests establishes live producer acceptance.</p>
+<p>For a release, select its <code>dot-domain-models-&lt;version&gt;.tar.gz</code> archive,
+release manifest and checksums. For Next, use the generated schemas from
+the catalogue commit pinned by your DOT-Design checkout. Keep the CLI and
+reviewed locks aligned with that selection. Follow the
+<a href="../dot-design/compatibility.html" class="xref page">compatibility policy</a> when migrating between
+formats. A schema archive establishes the input format. Live producer
+acceptance requires tests against the selected deployment.</p>
 </div>
 <div class="sect2">
 <h3 id="_deployment_free_model_gate"><a class="anchor" href="#_deployment_free_model_gate"></a>Deployment-free model gate</h3>

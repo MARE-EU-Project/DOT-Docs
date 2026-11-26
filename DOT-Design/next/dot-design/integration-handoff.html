@@ -504,9 +504,10 @@ establish a match.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The versioned consumer profile is under
-<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. It resolves two catalogued test DOTs,
-verifies the committed composition lock, and resolves 21 compatible edges across
-OpenAPI, AsyncAPI, Protobuf and GraphQL. The supported SPARQL query profile is
+<code>DOT-Testing/acceptance/dot-anchors/v1/</code>. The locked fixture selects a provider,
+a consumer and four broker Vertices. Its one authored Edge carries 21 Channels
+across OpenAPI, AsyncAPI, Protobuf and GraphQL. The acceptance check verifies
+each resolved connection. The supported SPARQL query profile is
 outside this focused matrix; passing it does not establish SPARQL runtime
 acceptance. See <a href="composition-lifecycle.html" class="xref page">the individual probe profiles</a>
 for their separate supported operations and evidence boundaries.</p>

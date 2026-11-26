@@ -24,11 +24,15 @@ maintainer rehearsals. Three independent trials are the adoption goal.
 - Names, ports and namespaces checked; no concurrent manual/harness use: [not checked]
 - Persistent restricted evidence archive and custodian: [not provisioned]
 
-Provide MARE GitHub access and the matching Getting started entry point.
-Participants install the released CLI and required tools and clone the
-catalogue, then follow the walkthrough without coaching. For a cold trial,
-record the initial verified payload cache and Docker image store state. Use
-an empty workspace and an isolated Docker store.
+Provide MARE GitHub access and the entry point for the assigned route.
+For Next, participants follow [Quick Start](https://mare-eu-project.github.io/DOT-Docs/DOT-Design/next/dot-design/quick-start.html)
+and use the managed catalogue. For the released CLI, participants follow the
+[Prometheus Compose walkthrough](https://mare-eu-project.github.io/DOT-Docs/DOT-Design/next/dot-design/getting-started.html)
+with its matching catalogue checkout. Observe without coaching. For a cold
+trial, use an empty workspace, a fresh private `XDG_CACHE_HOME`, and an
+isolated Docker store. Record the initial payload and image cache state.
+Keep that same cache directory through status and cleanup because it also
+holds the CLI's recorded deployment state.
 
 ## Observe the first working DOT
 
@@ -68,8 +72,10 @@ participant's owned resources; never remove another trial's resources.
 
 ## Review, do not infer acceptance
 
-For the 0.4.0 current-source route, additionally observe these tasks. Do not
-substitute automated PTY tests or a maintainer's rehearsal for the participant:
+For the Next source route, use [Quick Start](https://mare-eu-project.github.io/DOT-Docs/DOT-Design/next/dot-design/quick-start.html)
+and the matching catalogue in [Run your first composition](https://mare-eu-project.github.io/DOT-Docs/DOT-Design/next/dot-design/first-composition.html).
+Observe the tasks below separately from the released walkthrough timing.
+Automated PTY tests and maintainer rehearsals are separate evidence:
 
 | Guided task | Result, intervention and time |
 | --- | --- |
@@ -101,9 +107,9 @@ This is a small formative experiment, not evidence of universal efficiency.
 The Docker beginner path, advanced authoring and Kubernetes/cross-runtime operator
 exercises have separate timings. A fresh UUID alone does not isolate resources.
 
-Record the exact source-qualified artifact set; the published v0.3.0 binary does
-not contain these new guided commands. Record every undocumented intervention
-and failed/cancelled task, even if the participant succeeds on a retry.
+Record the CLI version, catalogue commit and guide used for each route.
+Record every undocumented intervention and failed or cancelled task, even if
+the participant succeeds on a retry.
 
 - Outcome: [NOT RUN / independently completed / assisted / failed / interrupted]
 - Proposed regression or documentation issues: [not reviewed]

@@ -365,24 +365,26 @@ DOT. Its Vertices select exact DOT releases. Edges connect Vertices, and Channel
 <div class="paragraph">
 <p><code>DOT-Repository/Compositions/</code> distributes reusable multi-DOT graphs, reviewed
 locks, READMEs, and non-secret deployment inputs. Start with
-<code>keycloak-apisix-oauth/</code> (Keycloak, APISIX, OAuth client) or
-<code>keycloak-prometheus-openapi-validation/</code> (official Keycloak and Prometheus OpenAPI operations).
+<code>node-exporter-prometheus-monitoring/</code> for a two-tool graph, or browse the
+<a href="../dot-repository/index.html" class="xref page">catalogue</a> for other examples.
 Each directory has <code>composition.yaml</code> and <code>composition.lock.json</code>.</p>
 </div>
 <div class="paragraph">
-<p>From the standalone DOT-Repository checkout root:</p>
+<p>From the DOT-Repository checkout root, use the matching source CLI. Run the
+first validation online so it can cache the graph&#8217;s verified payloads:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate . --offline
-composition=Compositions/keycloak-apisix-oauth/composition.yaml
-dotx compose inspect "$composition" --locked --json
-dotx compose apply "$composition" --locked --dry-run</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">composition=Compositions/node-exporter-prometheus-monitoring/composition.yaml
+dotx compose validate "$composition" --repository . --locked &amp;&amp;
+dotx compose inspect "$composition" --repository . --locked --json &amp;&amp;
+dotx compose apply "$composition" --repository . --locked --dry-run</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Use this checkout&#8217;s pinned source CLI for repository-wide composition validation;
-see <a href="contributor-guide.html" class="xref page">the contributor setup</a>. It recursively checks declarations,
+<p>Expect two Vertices and the <code>node-metrics-to-prometheus</code> Channel. The preview
+starts no workloads. For a full catalogue check, use <code>dotx validate .</code> with
+the <a href="contributor-guide.html" class="xref page">pinned contributor setup</a>. It recursively checks declarations,
 semantic resolved compositions, adjacent locks, and READMEs without deploying or resolving Secrets.
 <code>task compositions:render</code> additionally renders every catalogue composition.
 There is no separate composition inventory or Scenario domain type.</p>

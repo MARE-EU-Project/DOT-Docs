@@ -473,7 +473,7 @@ a structurally valid fixture alone does not satisfy them.</p>
 <p>Its owned <code>Contract</code> declarations locate exact specification bytes by URL/hash.</p>
 </li>
 <li>
-<p>An <code>Connector</code> selects one Contract interaction, expresses a supported requirement,
+<p>A <code>Connector</code> selects one Contract interaction, expresses a supported requirement,
 or explicitly declares a contractless boundary.</p>
 </li>
 <li>
@@ -485,8 +485,8 @@ interfaces to named `ServicePort`s and declares its supported configuration.</p>
 </li>
 <li>
 <p>A <code>Composition</code> selects DOTs through its Vertices. Each <code>Edge</code> connects two
-Vertices and contains one or more Channels. A <code>Channel</code> connects their Connectors
-through the Connectors declared on those Vertices.</p>
+Vertices and contains one or more Channels. A <code>Channel</code> selects a Connector
+from the DOT chosen by each Vertex.</p>
 </li>
 <li>
 <p><code>DeploymentInputs</code> and materializers supply reviewed instance-specific inputs;

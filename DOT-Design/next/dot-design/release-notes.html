@@ -408,8 +408,12 @@ reviewed locks. Published releases keep the formats documented below.</p>
 <h2 id="_0_5_0"><a class="anchor" href="#_0_5_0"></a>0.5.0</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Compositions now declare Vertices, Edges, Connectors and Channels. Each Edge
-joins two Vertices and can carry several Channels between their Connectors.
+<p>Compositions now declare Vertices, Edges and Channels. This release&#8217;s DOT
+definitions call their named interfaces Anchors. Each Edge joins two Vertices
+and can carry several Channels between the interfaces selected by those Vertices.
+Vertex <code>connectors</code> select those interfaces by <code>anchorId</code>. The composition&#8217;s
+<code>contracts</code> and <code>exposedAnchors</code> fields record Contract inputs and exposed
+interfaces in this release.
 Generate and review a new lock after converting a composition to this format.
 Finish cleanup with the original CLI and catalogue before switching an active
 deployment to the new format.</p>
@@ -417,9 +421,10 @@ deployment to the new format.</p>
 <div class="paragraph">
 <p>The terminal topology lists authored Edge and Channel names and provides
 complete tables when the diagram exceeds the terminal width. Docker image
-forwards bind to IPv4 loopback on the Docker host. See
-<a href="first-composition.html" class="xref page">Run your first composition</a> for the current source
-pair and the separately pinned published release.</p>
+forwards bind to IPv4 loopback on the Docker host. Use
+<a href="getting-started.html" class="xref page">Deploy Prometheus with Docker Compose</a> for the
+published release and <a href="first-composition.html" class="xref page">Run your first composition</a>
+for the Next source pair.</p>
 </div>
 </div>
 </div>

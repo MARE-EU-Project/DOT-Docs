@@ -597,9 +597,10 @@ catalogue is malformed, unreadable or missing, the command fails rather than
 switching to a different catalogue. If no local catalogue is found and you
 omit the flag, dotx acquires the default catalogue. To resolve a filesystem
 path, use the managed catalogue or a local path. <code>repository resolve</code> rejects
-an explicit Git URL. Composition sources remain
-<code>repository://&lt;id&gt;@&lt;version&gt;</code>; display-name lookup does not replace source identities,
-locks or runtime ownership checks. No separate catalogue inventory is required.</p>
+an explicit Git URL. A catalogue Vertex uses a source such as
+<code>repository://Prometheus@3.15.1</code>, with <code>dotId: Prometheus@3.15.1</code> and
+<code>dotVersion: 3.15.1</code> declared separately. The source takes the tool release
+once. See <a href="../dot-design/catalogue-versioning.html" class="xref page">Catalogue products and releases</a>.</p>
 </div>
 </div>
 </div>

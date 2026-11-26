@@ -364,8 +364,11 @@ existing product. Add deployment alternatives to its canonical bundle instead.</
 <div class="ulist">
 <ul>
 <li>
-<p>For Next, use the matching source CLI and catalogue submodules from one
-<a href="../dot-design/contributor-guide.html" class="xref page">DOT-Design checkout</a>.</p>
+<p>For Next, keep the source CLI from <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>
+and check out its matching catalogue using
+<a href="installation.html#matching-catalogue-commit" class="xref page">Find the matching DOT-Repository commit</a>.
+Framework contributors can use the matching submodules and source build
+from the <a href="../dot-design/contributor-guide.html" class="xref page">contributor guide</a>.</p>
 </li>
 <li>
 <p>For a release, use its versioned guide and the catalogue revision recorded
@@ -409,9 +412,9 @@ new capability in <code>Skills/</code>. Creation does not infer Skills from an i
 <div class="paragraph">
 <p>This temporary exercise reuses Prometheus&#8217;s existing authoritative declaration;
 it creates no second catalogue entry and copies no dependency interface.
-Run the block from the DOT-Design checkout root to use its pinned catalogue.
-From an independently selected catalogue checkout, run
-<code>export DOT_REPOSITORY="$PWD"</code> first. Use
+From your matching DOT-Repository checkout, run
+<code>export DOT_REPOSITORY="$PWD"</code> first. From the DOT-Design checkout root,
+the block defaults to its catalogue submodule. Use
 <code>git -C "${DOT_REPOSITORY:-$PWD/DOT-Repository}" rev-parse HEAD</code> to confirm
 which catalogue you selected. The block creates a fresh exercise directory:</p>
 </div>

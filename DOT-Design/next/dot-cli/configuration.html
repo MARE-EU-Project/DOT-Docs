@@ -386,16 +386,23 @@ application’s target path. The right side is the local file.</p>
 <h2 id="_find_the_supported_inputs"><a class="anchor" href="#_find_the_supported_inputs"></a>Find the supported inputs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This example uses matching current-source versions of <code>dotx</code> and the catalogue,
-plus Docker Engine, Bash, <code>curl</code>, and <code>jq</code>.
-Follow <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a> for installation and access.</p>
+<p>Use the source CLI from <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>. Follow
+<a href="installation.html#matching-catalogue-commit" class="xref page">Find the matching DOT-Repository commit</a>
+to check out its catalogue for this local exercise. Run the following from that
+checkout&#8217;s root with Docker Engine, Bash, <code>curl</code> and <code>jq</code>. Continue only
+if it shows the <code>docker</code> deployment&#8217;s inputs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_FILE="$(dotx repository resolve Prometheus@3.15.1)"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[[ "$(git rev-parse HEAD)" == "ffcfacab7dac451cf7f099dd3ef9b3c752aecee6" ]] &amp;&amp;
+DOT_FILE="$(dotx repository resolve Prometheus@3.15.1 --repository .)" &amp;&amp;
 dotx inspect "$DOT_FILE" --json |
-  jq '.deployments[] | select(.id == "docker") | {environment, configFiles}'</code></pre>
+  jq -e '.deployments[] | select(.id == "docker") | {environment, configFiles}'</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>If the revision check fails, select the catalogue commit from the installation
+guide before retrying.</p>
 </div>
 <div class="paragraph">
 <p>The <code>docker</code> deployment requires a file at <code>/etc/prometheus/prometheus.yml</code>
@@ -408,8 +415,10 @@ path is inside the container. The source path you pass to dotx is local.</p>
 <h2 id="_preview_apply_and_verify"><a class="anchor" href="#_preview_apply_and_verify"></a>Preview, apply, and verify</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use an unused local port. Set <code>PROMETHEUS_PORT</code> before running the block to
-choose a port other than <code>19090</code>.</p>
+<p>Run this lab on the Docker host with Docker Engine 28 or later, Bash, <code>curl</code>,
+<code>jq</code> and <code>ss</code> (iproute2).
+Keep the same shell and Docker daemon through cleanup. Set <code>PROMETHEUS_PORT</code>
+before running the block to choose a port other than <code>19090</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -431,17 +440,28 @@ inputs=(
   --config-file "/etc/prometheus/prometheus.yml=$DEMO_DIR/prometheus.yml"
   --forward "$PROMETHEUS_PORT:9090"
 )
+DOCKER_ID="$(docker info --format '{{.ID}}')" &amp;&amp;
+[[ -n "$DOCKER_ID" ]] &amp;&amp;
 dotx deploy "$DOT_FILE" "${inputs[@]}" --dry-run</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The preview shows the file mount and a loopback port binding. Keep the
-following cleanup commands ready for when you finish the test.</p>
+<p>Continue only after the preview shows the file mount and a loopback port
+binding. Keep the following cleanup commands ready. Use them after a
+successful apply, even if verification fails. If apply fails after creating a
+container, inspect that exact name on the same daemon. Confirm the
+<code>dotx.runtime.identity</code> label matches <code>$DEMO_NAME</code> and the configuration mount
+uses the source file from <code>$DEMO_DIR</code> before cleaning up the partial deployment.
+If apply reports a name collision, leave the existing container in place.
+Keep the lab directory until cleanup is verified.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx destroy "$DOT_FILE" --deployment docker --name "$DEMO_NAME"
-rm -- "$DEMO_DIR/prometheus.yml"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[[ "$(docker info --format '{{.ID}}')" == "${DOCKER_ID:?Run the preview first}" ]] &amp;&amp;
+dotx destroy "$DOT_FILE" --deployment docker --name "$DEMO_NAME" &amp;&amp;
+remaining="$(docker ps -a --filter "name=^/${DEMO_NAME}$" --format '{{.Names}}')" &amp;&amp;
+[[ -z "$remaining" ]] &amp;&amp;
+rm -- "$DEMO_DIR/prometheus.yml" &amp;&amp;
 rmdir -- "$DEMO_DIR"</code></pre>
 </div>
 </div>
@@ -450,13 +470,23 @@ rmdir -- "$DEMO_DIR"</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx deploy "$DOT_FILE" "${inputs[@]}"
-curl -fs --max-time 3 --retry 20 --retry-delay 1 --retry-all-errors \
-  "http://127.0.0.1:$PROMETHEUS_PORT/-/ready" &gt; /dev/null
-curl -fsS --max-time 3 \
-  "http://127.0.0.1:$PROMETHEUS_PORT/api/v1/status/config" |
-  jq -e '.status == "success" and
-    (.data.yaml | contains("scrape_interval: 31s") and contains("cluster: lab"))'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+  set -euo pipefail
+  [[ "$(docker info --format '{{.ID}}')" == "${DOCKER_ID:?Run the preview first}" ]]
+  listeners="$(ss -H -ltn "sport = :$PROMETHEUS_PORT")"
+  if [[ -n "$listeners" ]]; then
+    printf 'Port %s is already in use. Choose another port and repeat the preview.\n' \
+      "$PROMETHEUS_PORT" &gt;&amp;2
+    exit 1
+  fi
+  dotx deploy "$DOT_FILE" "${inputs[@]}"
+  curl -fs --max-time 3 --retry 20 --retry-delay 1 --retry-all-errors \
+    "http://127.0.0.1:$PROMETHEUS_PORT/-/ready" &gt; /dev/null
+  curl -fsS --max-time 3 \
+    "http://127.0.0.1:$PROMETHEUS_PORT/api/v1/status/config" |
+    jq -e '.status == "success" and
+      (.data.yaml | contains("scrape_interval: 31s") and contains("cluster: lab"))'
+)</code></pre>
 </div>
 </div>
 <div class="paragraph">

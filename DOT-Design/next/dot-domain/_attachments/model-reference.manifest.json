@@ -1,5 +1,9 @@
 {
   "version": "0.5.0",
+  "sourceRefs": {
+    "design": "main",
+    "catalogue": "main"
+  },
   "models": [
     "AsyncAPIProbe",
     "AsyncAPIProbeAuthentication",
@@ -77,7 +81,7 @@
     "WebAssemblyModule"
   ],
   "publicInputs": {
-    "DOT-Docs/scripts/model-reference.mjs": "6657036dee346e994feb6eba8ab91c10b8129399cb4912a719a207e41dd26d94",
+    "DOT-Docs/scripts/model-reference.mjs": "ef6c85e09b92b87ab7b8abb91cf14c1348464525a9a115d094c4101a2bc4124e",
     "DOT-Docs/scripts/model-notes-interfaces.mjs": "96fe51cc1900478ff625971dfa8fa88a8467e4ec377aa61b59f8747c6a9718c4",
     "DOT-Docs/scripts/model-notes-runtime.mjs": "0dfca3e986dea67f7100b4933f440f737c21aa3ec06d944728f781814b64f339",
     "DOT-Docs/scripts/model-notes-composition.mjs": "ef2ea5f9678b5f63d0c884f0510ebf647acad9924afa9427556fdb4cfff6d95d",

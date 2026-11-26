@@ -394,6 +394,13 @@ gh repo view MARE-EU-Project/DOT-Repository --json name --jq .name</code></pre>
 <h2 id="_install"><a class="anchor" href="#_install"></a>Install</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>If you already use <code>dotx</code>, finish cleanup of active deployments with their
+original binary, catalogue and runtime context. This installer can replace
+<code>$HOME/.local/bin/dotx</code>. To keep both builds, use
+<a href="../dot-cli/installation.html#install-with-go" class="xref page">manual installation</a> with a
+separate destination directory.</p>
+</div>
+<div class="paragraph">
 <p>The installer prepares missing Go and CA certificates and installs <code>dotx</code> into
 <code>$HOME/.local/bin</code>. Run it as your normal user; sudo is used only for missing
 system packages. If you lack sudo access, ask the host administrator to install

@@ -515,6 +515,13 @@ sources, including those exports. If rendering changes a tracked SVG, diagnose
 the source, renderer and fonts; do not discard the difference blindly or weaken
 the provenance guard to make packaging pass.</p>
 </div>
+<div class="paragraph">
+<p>For a stable release, set the Antora descriptor to the exact release version
+and stage the selected catalogue gitlink before regenerating the reference.
+The HTML and PDF link Java sources to the release tag and generated schemas
+to that catalogue commit. Return to the Next descriptor before regenerating
+development exports.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -714,12 +721,16 @@ ruby DOT-Docs/scripts/test-workflow-impact.rb</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On a Linux host with all runtime prerequisites, run the mutable workflows too:</p>
+<p>For a complete live gate, prepare the PoC source access and Docker Buildx
+requirements in the
+<a href="https://github.com/MARE-EU-Project/DOT-Design/tree/main/DOT-Testing/e2e">end-to-end test guide</a>
+as well as the runtime prerequisites below. Then choose one command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task ci:live
-task ci:all</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">task ci:live  # live workflows
+# Or run the deterministic and live workflows together:
+# task ci:all</code></pre>
 </div>
 </div>
 <div class="paragraph">
