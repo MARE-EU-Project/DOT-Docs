@@ -148,7 +148,7 @@ printf '%s\n' \
 dotx validate "$DOT_BUNDLE" \
   --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$DOT_BUNDLE"
-dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+dotx run --detach "$DOT_BUNDLE" --deployment docker-compose \
   --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT" --dry-run
 printf '%s\n' \
@@ -163,7 +163,7 @@ if test -n "${DOTX_TUTORIAL_DOCKER_ID:-}" &&
   test "$current_docker_id" = "$DOTX_TUTORIAL_DOCKER_ID"; then
   printf '%s\n' \
     'Starting Prometheus; Docker may download its pinned image...'
-  dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+  dotx run --detach "$DOT_BUNDLE" --deployment docker-compose \
     --name "$DOT_NAME" \
     --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"
 else

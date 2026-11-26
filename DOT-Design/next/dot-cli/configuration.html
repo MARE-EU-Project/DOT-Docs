@@ -386,7 +386,8 @@ application’s target path. The right side is the local file.</p>
 <h2 id="_find_the_supported_inputs"><a class="anchor" href="#_find_the_supported_inputs"></a>Find the supported inputs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use the source CLI from <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>. Follow
+<p>Use the source CLI from <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>. Confirm
+that <code>dotx run --help</code> lists <code>--detach</code>. Follow
 <a href="installation.html#matching-catalogue-commit" class="xref page">Find the matching DOT-Repository commit</a>
 to check out its catalogue for this local exercise. Run the following from that
 checkout&#8217;s root with Docker Engine, Bash, <code>curl</code> and <code>jq</code>. Continue only
@@ -394,7 +395,7 @@ if it shows the <code>docker</code> deployment&#8217;s inputs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[[ "$(git rev-parse HEAD)" == "ffcfacab7dac451cf7f099dd3ef9b3c752aecee6" ]] &amp;&amp;
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[[ "$(git rev-parse HEAD)" == "747a0f040860953fc3e924105012a8d8cdb27c2a" ]] &amp;&amp;
 DOT_FILE="$(dotx repository resolve Prometheus@3.15.1 --repository .)" &amp;&amp;
 dotx inspect "$DOT_FILE" --json |
   jq -e '.deployments[] | select(.id == "docker") | {environment, configFiles}'</code></pre>
@@ -442,7 +443,7 @@ inputs=(
 )
 DOCKER_ID="$(docker info --format '{{.ID}}')" &amp;&amp;
 [[ -n "$DOCKER_ID" ]] &amp;&amp;
-dotx deploy "$DOT_FILE" "${inputs[@]}" --dry-run</code></pre>
+dotx run --detach "$DOT_FILE" "${inputs[@]}" --dry-run</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -479,7 +480,7 @@ rmdir -- "$DEMO_DIR"</code></pre>
       "$PROMETHEUS_PORT" &gt;&amp;2
     exit 1
   fi
-  dotx deploy "$DOT_FILE" "${inputs[@]}"
+  dotx run --detach "$DOT_FILE" "${inputs[@]}"
   curl -fs --max-time 3 --retry 20 --retry-delay 1 --retry-all-errors \
     "http://127.0.0.1:$PROMETHEUS_PORT/-/ready" &gt; /dev/null
   curl -fsS --max-time 3 \

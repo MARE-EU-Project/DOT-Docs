@@ -23,7 +23,7 @@ dotx new --from docker-image prom/prometheus:v3.15.1 \
 dotx validate "$AUTHORING_DIR/bundle" \
   --schema "$DOT_REPOSITORY/Schema/schema.json" --profile reusable
 dotx inspect "$AUTHORING_DIR/bundle"
-dotx deploy "$AUTHORING_DIR/bundle" --deployment docker-image --dry-run
+dotx run --detach "$AUTHORING_DIR/bundle" --deployment docker-image --dry-run
 # end::check[]
 
 # tag::url-create[]

@@ -26,7 +26,11 @@ dotx validate "$DOT_BUNDLE" \
   --schema "$DOT_REPOSITORY/Schema/schema.json" \
   --profile reusable
 dotx inspect "$DOT_BUNDLE"
-dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+dot_launch=(dotx run --detach)
+if [[ "$(dotx run --help 2>/dev/null)" != *--detach* ]]; then
+  dot_launch=(dotx deploy) # Rehearsed binaries that predate --detach.
+fi
+"${dot_launch[@]}" "$DOT_BUNDLE" --deployment docker-compose \
   --name "$DOT_NAME" --dry-run
 )
 # end::validate[]
@@ -52,7 +56,11 @@ if test -n "${DOTX_TUTORIAL_DOCKER_ID:-}" &&
   current_docker_id="$(docker info --format '{{.ID}}')" &&
   test -n "$current_docker_id" &&
   test "$current_docker_id" = "$DOTX_TUTORIAL_DOCKER_ID"; then
-  dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+  dot_launch=(dotx run --detach)
+  if [[ "$(dotx run --help 2>/dev/null)" != *--detach* ]]; then
+    dot_launch=(dotx deploy) # Rehearsed binaries that predate --detach.
+  fi
+  "${dot_launch[@]}" "$DOT_BUNDLE" --deployment docker-compose \
     --name "$DOT_NAME" \
     --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"
 else

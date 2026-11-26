@@ -415,7 +415,7 @@ running Hello World.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
-CLI_VERSION=ad990e269daa5e2b39f95aafa2677ad516047513
+CLI_VERSION=1f2636b1da757b1cd6ebfdfc691d3472e6e1b1d1
 INSTALLER=repos/MARE-EU-Project/DOT-CLI/contents/scripts/install.sh
 gh api --hostname github.com "$INSTALLER?ref=$CLI_VERSION" \
   -H 'Accept: application/vnd.github.raw+json' | CLI_VERSION="$CLI_VERSION" bash &amp;&amp;

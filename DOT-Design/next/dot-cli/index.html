@@ -386,9 +386,14 @@ removes the container on exit. See <a href="../dot-design/quick-start.html" clas
 for GitHub authentication and installation. Release 0.5.0 does not include <code>run</code>.
 For other one-shot Docker-image DOTs, dotx uses a local catalogue if it finds one
 and acquires the default catalogue otherwise. Use <code>--repository</code> to override it.
-unversioned names select the highest release, and <code>name@version</code> selects an exact
-version. Multiple Docker-image deployments fail as ambiguous. Long-lived
-services continue to use <code>deploy</code>.</p>
+Unversioned names select the highest release, and <code>name@version</code> selects an exact
+version. Multiple Docker-image deployments fail as ambiguous.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>dotx run --detach</code> for a managed workload on a current source build.
+Launch a versioned catalogue DOT, a local project, or a Git project, then use
+<code>status</code>, <code>start</code>, <code>stop</code>, and <code>destroy</code> to operate it. The published 0.5.0 CLI
+and earlier source builds use <code>dotx deploy</code> for the same lifecycle.</p>
 </div>
 </div>
 </div>
@@ -433,7 +438,7 @@ services continue to use <code>deploy</code>.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Operate one selected DOT deployment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx deploy</code>, <code>status</code>, <code>start</code>, <code>stop</code>, <code>destroy</code>, <code>ps</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dotx run --detach</code>, <code>status</code>, <code>start</code>, <code>stop</code>, <code>destroy</code>, <code>ps</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Validate, lock, inspect and display a multi-DOT graph</p></td>

@@ -482,7 +482,7 @@ runtime-only scaffold. Do not overwrite this exercise&#8217;s output unintention
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx validate "$AUTHORING_DIR/bundle" \
   --schema "$DOT_REPOSITORY/Schema/schema.json" --profile reusable
 dotx inspect "$AUTHORING_DIR/bundle"
-dotx deploy "$AUTHORING_DIR/bundle" --deployment docker-image --dry-run</code></pre>
+dotx run --detach "$AUTHORING_DIR/bundle" --deployment docker-image --dry-run</code></pre>
 </div>
 </div>
 <div class="paragraph">

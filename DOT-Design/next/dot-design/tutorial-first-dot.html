@@ -522,7 +522,7 @@ dotx version</code></pre>
 </div>
 <div class="paragraph">
 <p>The version should end with the 12-character prefix of the Quick Start
-CLI commit (<code>ad990e269daa5e2b39f95aafa2677ad516047513</code>). Keep that executable
+CLI commit (<code>1f2636b1da757b1cd6ebfdfc691d3472e6e1b1d1</code>). Keep that executable
 through cleanup. A released 0.5.0 binary cannot run the
 Next composition authoring lessons.</p>
 </div>
@@ -539,7 +539,7 @@ Use the same CLI and catalogue throughout the lessons.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">TESTED_COMMIT=ffcfacab7dac451cf7f099dd3ef9b3c752aecee6
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">TESTED_COMMIT=747a0f040860953fc3e924105012a8d8cdb27c2a
 git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
 cd DOT-Repository &amp;&amp;
 git checkout --detach "${REPOSITORY_VERSION:-$TESTED_COMMIT}" &amp;&amp;
@@ -636,7 +636,7 @@ printf '%s\n' \
 dotx validate "$DOT_BUNDLE" \
   --repository "$DOT_REPOSITORY" --profile reusable
 dotx inspect "$DOT_BUNDLE"
-dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+dotx run --detach "$DOT_BUNDLE" --deployment docker-compose \
   --name "$DOT_NAME" \
   --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT" --dry-run
 printf '%s\n' \
@@ -723,7 +723,7 @@ replaced. A failed check requires restoring the original connection.</p>
   test "$current_docker_id" = "$DOTX_TUTORIAL_DOCKER_ID"; then
   printf '%s\n' \
     'Starting Prometheus; Docker may download its pinned image...'
-  dotx deploy "$DOT_BUNDLE" --deployment docker-compose \
+  dotx run --detach "$DOT_BUNDLE" --deployment docker-compose \
     --name "$DOT_NAME" \
     --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"
 else
