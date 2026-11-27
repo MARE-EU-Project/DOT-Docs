@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Release notes :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/release-notes.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-design/release-notes.html">
     <link rel="prev" href="contributor-guide.html">
     <link rel="next" href="release-readiness.html">
     <meta name="generator" content="Antora 3.2.3">
@@ -278,12 +278,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.6.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.6.0/dot-design/index.html">0.6.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
         </li>
         <li class="version">
@@ -332,6 +335,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="release-notes.html">Next</a>
+    <a class="version" href="../../0.6.0/dot-design/release-notes.html">0.6.0</a>
     <a class="version" href="../../0.5.0/dot-design/release-notes.html">0.5.0</a>
     <a class="version" href="../../0.4.1/dot-design/release-notes.html">0.4.1</a>
     <a class="version" href="../../0.4.0/dot-design/release-notes.html">0.4.0</a>
@@ -351,56 +355,34 @@
 <article class="doc">
 <h1 class="page">Release notes</h1>
 <div class="sect1">
-<h2 id="_next_simpler_composition_graphs"><a class="anchor" href="#_next_simpler_composition_graphs"></a>Next: simpler composition graphs</h2>
+<h2 id="_0_6_0"><a class="anchor" href="#_0_6_0"></a>0.6.0</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Run <code>dotx run hello-world</code> for the one-shot quickstart and <code>dotx run --detach</code> for
+a managed DOT. Update scripts that still call <code>dotx deploy</code>.</p>
+</li>
+<li>
+<p>Browse the managed catalogue and deploy named compositions at exact GitHub
+revisions. Preview, deploy, verify and clean up Node Exporter and Prometheus with
+<a href="first-composition.html" class="xref page">the first-composition guide</a>.</p>
+</li>
+<li>
+<p>Compose with Vertices, Edges and Channels. Each Vertex exposes the Connectors
+declared by its DOT. Select Contract operations directly with <code>contractId</code> and
+<code>selector</code>. Forward an eligible Connector explicitly with
+<code>--forward vertex/connector=port</code>.</p>
+</li>
+<li>
+<p>Install the verified Linux amd64 binary with <a href="quick-start.html" class="xref page">Quick Start</a>.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>Compositions now contain identity metadata, Vertices and Edges. All Connectors
-from each selected DOT are available automatically; <code>Vertex.connectors</code>,
-<code>Composition.contracts</code> and <code>Composition.exposedConnectors</code> are removed. dotx
-loads and verifies Contract declarations from their authoritative DOT owners.
-Forward a provided Connector directly with <code>--forward vertex/connector=port</code>,
-for example <code>--forward prometheus/promql-query-api=19040</code>. Resolved execution
-output lists eligible <code>forwardTargets</code>; this does not publish ports automatically.
-Use matching source builds and regenerate reviewed locks. Clean up existing
-workloads with their original CLI before changing formats.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_next_managed_catalogue_access"><a class="anchor" href="#_next_managed_catalogue_access"></a>Next: managed catalogue access</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Catalogue browsing and named composition commands retrieve and cache
-DOT-Repository transparently using GitHub CLI authentication and Git. No manual
-clone or working-directory change is needed for the first-composition tutorial.
-Selections use exact commits and remain pinned through deployment and cleanup;
-status and destroy use recorded local data without GitHub access. Explicit local
-paths and repository overrides remain supported for authoring.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_next_flat_connector_references"><a class="anchor" href="#_next_flat_connector_references"></a>Next: flat Connector references</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Connectors now select a Contract using <code>contractId</code> and <code>selector</code> directly.
-The <code>ConnectorContract</code> wrapper and its source field are removed. External
-references require an owner-qualified ID, from which dotx derives the exact
-origin in the selected catalogue. Local opaque IDs remain supported. Migrate
-source declarations and review regenerated locks; published formats remain unchanged.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_next_one_connector_concept"><a class="anchor" href="#_next_one_connector_concept"></a>Next: one Connector concept</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>DOTs now define interfaces in <code>connectors</code>, removing the extra reference wrapper
-and duplicate terminology. Service bindings use <code>connectorBindings</code> and
-<code>connectorId</code>. Edges join Vertices and Channels select DOT-local Connector IDs.
-This is an unreleased source-format change. Use matching CLI/catalogue sources,
-clean up with the original CLI before upgrading, and migrate declarations and
-reviewed locks. Published releases keep the formats documented below.</p>
+<p>Clean up existing workloads with their original CLI and catalogue before
+upgrading. Migrate earlier declarations and regenerate reviewed locks.
+See <a href="release-readiness.html" class="xref page">Release qualification and limits</a>.</p>
 </div>
 </div>
 </div>

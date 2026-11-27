@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sourceRefs": {
     "design": "main",
     "catalogue": "main"
@@ -89,7 +89,7 @@
     "DOT-Domain/src/test/resources/model-compatibility.json": "e80108b2c026674471b80332fe5db392c9c1919eacfc35af0592cecfdbd698cc",
     "DOT-Docs/modules/ROOT/attachments/dot-domain.class-diagram.puml": "93fbc95987d94576e6a0605ed1dc930053229373afa256702e6caa30b1d4b4f1",
     "DOT-Docs/modules/dot-design/attachments/diagrams/domain-complete.mmd": "bcbdc197705070ba090e6af2e2cdfe4105c121b13acd34367c305473b6906e56",
-    "VERSION": "a0ad50640139a524f86591157145bf1d4674ea9c065bfea21558f0f7b04430c8",
+    "VERSION": "97a5d6e540a6120d09c39ddb667e0e8e2bac7fcc2ffef813b82e08fd60365bce",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/AsyncAPIProbe.java": "3d5b4894d0eb082f36b6b04e5437ab1a2a7af1f6db8d3f444aa2652e7fe7c42a",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/AsyncAPIProbeAuthentication.java": "c55c06046d65402cf4e1ffafa24dac96f31465c53d873098055f7b6260592103",
     "DOT-Domain/src/main/java/eu/mare6g/dot/domain/composition/AsyncAPIProtocol.java": "82feb44172acd3bcfb1f140633f2b8db72f1e9182b0a615e133152d3ae53a025",

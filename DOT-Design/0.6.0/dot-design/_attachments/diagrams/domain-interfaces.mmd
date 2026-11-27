@@ -1,0 +1,57 @@
+classDiagram
+  direction TB
+  accTitle: DOT identity and interoperable interfaces
+  accDescr: A DOT references Skills, declares Contracts, and owns Connectors. Complete Contracts use HTTPS payloads pinned by SHA-256. Contract-backed Connectors select operations by Contract ID and selector.
+
+  class Dot {
+    -String id
+    -String name
+    -Version version
+    -String description
+    -List~String~ groups
+    -Metadata metadata
+    -List~Skill~ skills
+    -List~Contract~ contracts
+    -List~Connector~ connectors
+    -List~Runtime~ runtimes
+  }
+  class Skill {
+    -String id
+    -String name
+    -String description
+  }
+  class Contract {
+    -String id
+    -String name
+    -String version
+    -ContractStandard standard
+    -DataFormat format
+    -Payload payload
+  }
+  class Payload {
+    -URI url
+    -String sha256
+  }
+  class Connector {
+    -String id
+    -String name
+    -ConnectorRole role
+    -String contractId
+    -String selector
+    -ConnectorRequirement requirement
+    -ConnectorDirection direction
+    -List~String~ protocols
+    -List~String~ mediaTypes
+  }
+
+  Dot "1" --> "1..*" Skill : ID references
+  Dot "1" --> "0..*" Contract : authoritative declarations
+  Dot "1" *-- "0..*" Connector : logical interfaces
+  Contract "1" *-- "1" Payload : full definition
+  Connector ..> Contract : contractId / selector
+
+  style Dot fill:#e8f2f7,stroke:#2b6777,color:#17232d,stroke-width:1.5px
+  style Skill fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Payload fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Contract fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style Connector fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOT-CLI :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-cli/index.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-cli/index.html">
     <meta name="description" content="Install and use dotx to validate, inspect, deploy and connect reusable DOTs.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
@@ -277,12 +277,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.6.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="../dot-design/index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.6.0/dot-design/index.html">0.6.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
         </li>
         <li class="version">
@@ -331,6 +334,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="index.html">Next</a>
+    <a class="version" href="../../0.6.0/dot-cli/index.html">0.6.0</a>
     <a class="version" href="../../0.5.0/dot-cli/index.html">0.5.0</a>
     <a class="version" href="../../0.4.1/dot-cli/index.html">0.4.1</a>
     <a class="version" href="../../0.4.0/dot-cli/index.html">0.4.0</a>
@@ -373,7 +377,7 @@ use <a href="installation.html#install-with-go" class="xref page">Manual install
 <h2 id="_start_with_a_working_dot"><a class="anchor" href="#_start_with_a_working_dot"></a>Run a first DOT</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the current source build and Docker Engine ready:</p>
+<p>With dotx and Docker Engine ready:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -383,17 +387,17 @@ use <a href="installation.html#install-with-go" class="xref page">Manual install
 <div class="paragraph">
 <p>The command resolves the catalogue&#8217;s <code>Hello-World</code>, streams the greeting, and
 removes the container on exit. See <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>
-for GitHub authentication and installation. Release 0.5.0 does not include <code>run</code>.
+for GitHub authentication and installation.
 For other one-shot Docker-image DOTs, dotx uses a local catalogue if it finds one
 and acquires the default catalogue otherwise. Use <code>--repository</code> to override it.
 Unversioned names select the highest release, and <code>name@version</code> selects an exact
 version. Multiple Docker-image deployments fail as ambiguous.</p>
 </div>
 <div class="paragraph">
-<p>Use <code>dotx run --detach</code> for a managed workload on a current source build.
+<p>Use <code>dotx run --detach</code> for a managed workload.
 Launch a versioned catalogue DOT, a local project, or a Git project, then use
-<code>status</code>, <code>start</code>, <code>stop</code>, and <code>destroy</code> to operate it. The published 0.5.0 CLI
-and earlier source builds use <code>dotx deploy</code> for the same lifecycle.</p>
+<code>status</code>, <code>start</code>, <code>stop</code>, and <code>destroy</code> to operate it. If you are upgrading from 0.5.0, replace <code>dotx deploy</code> in your scripts with
+<code>dotx run --detach</code>.</p>
 </div>
 </div>
 </div>

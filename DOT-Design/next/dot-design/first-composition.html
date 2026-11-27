@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Run your first composition :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/first-composition.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-design/first-composition.html">
     <meta name="description" content="Connect Node Exporter to Prometheus, verify a real scrape, and remove the composition.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
@@ -277,12 +277,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.6.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.6.0/dot-design/index.html">0.6.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
         </li>
         <li class="version">
@@ -331,6 +334,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="first-composition.html">Next</a>
+    <a class="version" href="../../0.6.0/dot-design/first-composition.html">0.6.0</a>
     <a class="version" href="../../0.5.0/dot-design/first-composition.html">0.5.0</a>
     <a class="version is-missing" href="../../0.4.1/dot-design/index.html">0.4.1</a>
     <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
@@ -374,14 +378,12 @@ cleanup so <code>GRAPH</code> and <code>PORT</code> stay set. Keep the same Dock
 no Compose plugin. See <a href="setup.html#requirements" class="xref page">Requirements</a>.</p>
 </div>
 <div class="paragraph">
-<p>Keep the current-source CLI installed by Quick Start. Named catalogue
-compositions are an unreleased source feature, absent from release 0.5.0.
-If you reuse an installation, run <code>command -v dotx</code> to check which executable
-your shell selects. For a Go install, the module version from
-<code>go version -m "$(command -v dotx)"</code> should end in the first 12 characters
-of <code>1f2636b1da757b1cd6ebfdfc691d3472e6e1b1d1</code>. For manual installation, select the
-Quick Start source commit in <a href="../dot-cli/installation.html#install-with-go" class="xref page">Install with Go</a>.
-The <a href="getting-started.html" class="xref page">single-DOT quickstart</a> remains available separately.</p>
+<p>Use the released CLI from Quick Start. If you reuse an installation, run
+<code>command -v dotx</code> and confirm that <code>dotx version</code> prints
+<code>dotx 0.6.0</code>. Keep that binary through cleanup.
+For alternative installation methods, see
+<a href="../dot-cli/installation.html#install-with-go" class="xref page">Install with Go</a>.
+The <a href="getting-started.html" class="xref page">single-DOT quickstart</a> is also available.</p>
 </div>
 </div>
 </div>

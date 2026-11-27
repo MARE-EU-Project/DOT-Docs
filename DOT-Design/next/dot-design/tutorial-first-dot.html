@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>1. Run your first DOT :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/tutorial-first-dot.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-design/tutorial-first-dot.html">
     <meta name="description" content="Install one matching binary and catalogue, run Prometheus, verify its official API and clean up.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
@@ -277,12 +277,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.6.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.6.0/dot-design/index.html">0.6.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
         </li>
         <li class="version">
@@ -332,6 +335,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="tutorial-first-dot.html">Next</a>
+    <a class="version" href="../../0.6.0/dot-design/tutorial-first-dot.html">0.6.0</a>
     <a class="version" href="../../0.5.0/dot-design/tutorial-first-dot.html">0.5.0</a>
     <a class="version" href="../../0.4.1/dot-design/tutorial-first-dot.html">0.4.1</a>
     <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
@@ -380,9 +384,8 @@ continue to deployment.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Already completed a deployment exercise?</strong> First verify its cleanup with its
-original CLI and catalogue. These lessons use the simplified Next composition
-format and need the matching source setup below; a released binary is not a
-substitute. Keep any earlier setup intact for recovery.</p>
+original CLI and catalogue. These lessons use the CLI and catalogue from the selected release.
+Keep any earlier setup intact for recovery.</p>
 </div>
 <div class="paragraph">
 <p><strong>Starting here, or coming from Hello World?</strong> Use a new setup directory below.
@@ -507,29 +510,26 @@ and ask your MARE project contact to verify your repository access.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_install_the_matching_source_cli"><a class="anchor" href="#_install_the_matching_source_cli"></a>Install the matching source CLI</h2>
+<h2 id="_use_the_quick_start_cli"><a class="anchor" href="#_use_the_quick_start_cli"></a>Use the Quick Start CLI</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Complete <a href="quick-start.html" class="xref page">Quick Start</a> if you have not installed its pinned
-source CLI yet. If Hello World already worked with that build, reuse it.
-Check that the current terminal sees the same binary:</p>
+<p>Complete <a href="quick-start.html" class="xref page">Quick Start</a> if you have not installed its
+released CLI. Check that the current terminal sees the same binary:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">command -v dotx
-dotx version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">command -v dotx &amp;&amp;
+dotx version &amp;&amp;
+test "$(dotx version)" = 'dotx 0.6.0'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The version should end with the 12-character prefix of the Quick Start
-CLI commit (<code>1f2636b1da757b1cd6ebfdfc691d3472e6e1b1d1</code>). Keep that executable
-through cleanup. A released 0.5.0 binary cannot run the
-Next composition authoring lessons.</p>
+<p>Keep that executable through cleanup.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_check_out_the_source_catalogue_for_authoring"><a class="anchor" href="#_check_out_the_source_catalogue_for_authoring"></a>Check out the source catalogue for authoring</h2>
+<h2 id="_check_out_the_catalogue_for_authoring"><a class="anchor" href="#_check_out_the_catalogue_for_authoring"></a>Check out the catalogue for authoring</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>These lessons need a checkout because you will create local drafts. Reuse an

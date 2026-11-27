@@ -1,0 +1,129 @@
+---
+config:
+  class:
+    hideEmptyMembersBox: true
+    nodeSpacing: 24
+    rankSpacing: 38
+    padding: 8
+  layout: elk
+---
+classDiagram
+  accTitle: DOT-Design core concepts and relationships
+  accDescr: A reusable Dot declares Skills and Contracts, names Connectors, and supports Runtime alternatives. Runtimes target Platforms and offer Deployments. Deployments define Services. A Composition selects named vertices that reference exact Dot releases and deployments. Edges connect vertices. Each Channel selects a Connector ID on each endpoint Vertex.
+  direction TB
+
+  class Dot {
+    -String id
+    -String name
+    -Version version
+    -String description
+    -List~String~ groups
+    -Metadata metadata
+    -List~Skill~ skills
+    -List~Contract~ contracts
+    -List~Connector~ connectors
+    -List~Runtime~ runtimes
+  }
+  class Skill {
+    -String id
+    -String name
+    -String description
+  }
+  class Contract {
+    -String id
+    -String name
+    -String version
+    -ContractStandard standard
+    -DataFormat format
+    -Payload payload
+  }
+  class Connector {
+    -String id
+    -String name
+    -ConnectorRole role
+    -String contractId
+    -String selector
+    -ConnectorRequirement requirement
+    -ConnectorDirection direction
+    -List~String~ protocols
+    -List~String~ mediaTypes
+  }
+  class Runtime {
+    -Platform platform
+    -List~Deployment~ deployments
+  }
+  class Platform {
+    -PlatformEngine engine
+    -Version version
+  }
+  class Deployment {
+    -String id
+    -Manifest manifest
+    -Set~Service~ services
+  }
+  class Manifest {
+    <<abstract>>
+    #ManifestType type
+  }
+  class Service {
+    -String id
+    -String name
+    -String host
+    -List~ServicePort~ ports
+    -List~Contract~ contracts
+    -List~ConnectorBinding~ connectorBindings
+    -Configuration config
+  }
+  class Composition {
+    -String apiVersion
+    -String kind
+    -UUID id
+    -String name
+    -String version
+    -List~Vertex~ vertices
+    -List~Edge~ edges
+  }
+  class Vertex {
+    -String name
+    -String source
+    -String dotId
+    -String dotVersion
+    -String deployment
+    -List~String~ dependsOn
+    -DeploymentInputs deploymentInputs
+  }
+  class Edge {
+    -String name
+    -String from
+    -String to
+    -List~Channel~ channels
+  }
+  class Channel {
+    -String name
+    -String fromConnector
+    -String toConnector
+    -Map~String, OperationParameterBinding~ parameters
+    -ServicePortReference endpoint
+    -NetworkBinding network
+    -Materializer materializer
+    -List~Materializer~ materializers
+    -EdgeSecurity security
+    -EdgeProbe probe
+  }
+
+  Dot "1" *-- "0..*" Skill : declares
+  Dot "1" *-- "0..*" Contract : owns interfaces
+  Dot "1" *-- "0..*" Connector : names integration points
+  Dot "1" *-- "1..*" Runtime : supports
+  Connector ..> Contract : selects operations
+  Runtime "1" *-- "1" Platform : targets
+  Runtime "1" *-- "1..*" Deployment : offers alternatives
+  Deployment "1" *-- "1" Manifest : describes how to deploy
+  Deployment "1" *-- "1..*" Service : materializes
+  Composition "1" *-- "1..*" Vertex : selects named tool
+  Vertex ..> Dot : references exact release
+  Vertex ..> Deployment : selects
+  Composition "1" *-- "0..*" Edge : connects
+  Edge ..> Vertex : from / to
+  Edge "1" *-- "1..*" Channel : channels
+  Channel ..> Connector : selects endpoints

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Quick Start :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-design/quick-start.html">
     <meta name="description" content="Install dotx and run your first DOT with one command.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
@@ -276,12 +277,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.6.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.6.0/dot-design/index.html">0.6.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
         </li>
         <li class="version">
@@ -330,6 +334,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="quick-start.html">Next</a>
+    <a class="version" href="../../0.6.0/dot-design/quick-start.html">0.6.0</a>
     <a class="version is-missing" href="../../0.5.0/dot-design/index.html">0.5.0</a>
     <a class="version is-missing" href="../../0.4.1/dot-design/index.html">0.4.1</a>
     <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
@@ -351,7 +356,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>On Ubuntu 26.04 LTS, have Git, <a href="https://cli.github.com/">GitHub CLI (<code>gh</code>)</a> and
+<p>On Ubuntu 26.04 LTS (amd64), have Git, <a href="https://cli.github.com/">GitHub CLI (<code>gh</code>)</a> and
 <a href="https://docs.docker.com/engine/install/ubuntu/">Docker Engine</a> installed.
 Open a Bash terminal as your normal user on the Docker host. Run <code>docker info</code>
 before continuing. For a permission error, follow the
@@ -394,39 +399,32 @@ gh repo view MARE-EU-Project/DOT-Repository --json name --jq .name</code></pre>
 <h2 id="_install"><a class="anchor" href="#_install"></a>Install</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If you already use <code>dotx</code>, finish cleanup of active deployments with their
-original binary, catalogue and runtime context. This installer can replace
-<code>$HOME/.local/bin/dotx</code>. To keep both builds, use
-<a href="../dot-cli/installation.html#install-with-go" class="xref page">manual installation</a> with a
-separate destination directory.</p>
-</div>
-<div class="paragraph">
-<p>The installer prepares missing Go and CA certificates and installs <code>dotx</code> into
-<code>$HOME/.local/bin</code>. Run it as your normal user; sudo is used only for missing
-system packages. If you lack sudo access, ask the host administrator to install
-Go and CA certificates first.</p>
-</div>
-<div class="paragraph">
-<p>This tutorial uses the installer and CLI build from the same tested commit. Release 0.5.0 does not include
-<code>dotx run</code> or named compositions. On the first build, Go may download a newer
-toolchain and dependencies. Wait for <code>dotx installation complete.</code> before
-running Hello World.</p>
+<p>This guide uses the published Linux amd64 binary. You need <code>sha256sum</code> to verify
+the download. If you already have active deployments, keep their original binary,
+catalogue and runtime context through cleanup before running this block.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">set -o pipefail
-CLI_VERSION=1f2636b1da757b1cd6ebfdfc691d3472e6e1b1d1
-INSTALLER=repos/MARE-EU-Project/DOT-CLI/contents/scripts/install.sh
-gh api --hostname github.com "$INSTALLER?ref=$CLI_VERSION" \
-  -H 'Accept: application/vnd.github.raw+json' | CLI_VERSION="$CLI_VERSION" bash &amp;&amp;
-export PATH="$HOME/.local/bin:$PATH"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+  CLI_VERSION=0.6.0
+  binary="dotx-$CLI_VERSION-linux-amd64"
+  downloads="$(mktemp -d)" || exit
+  trap 'rm -rf -- "$downloads"' EXIT
+  gh release download "v$CLI_VERSION" --repo MARE-EU-Project/DOT-CLI \
+    --pattern "$binary" --pattern SHA256SUMS --dir "$downloads" &amp;&amp;
+  cd "$downloads" &amp;&amp;
+  sha256sum --ignore-missing --check SHA256SUMS &amp;&amp;
+  mkdir -p "$HOME/.local/bin" &amp;&amp;
+  install -m 0755 "$binary" "$HOME/.local/bin/dotx"
+) &amp;&amp;
+export PATH="$HOME/.local/bin:$PATH" &amp;&amp;
+dotx version</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If the output reports a disk quota or space error, check free space and quotas
-for your home directory and <code>/tmp</code>. For a temporary-directory error, create
-a writable directory on a filesystem with enough space, set <code>TMPDIR</code> to its
-absolute path, and retry. A second terminal may need the <code>PATH</code> line again.</p>
+<p>Continue when the checksum reports <code>OK</code> and the command prints
+<code>dotx 0.6.0</code>. If the download fails, check your GitHub
+access above and retry. A second terminal may need the <code>PATH</code> line again.</p>
 </div>
 </div>
 </div>
@@ -466,8 +464,8 @@ dotx version</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Expect the path to end in <code>/.local/bin/dotx</code> and the version to identify the
-source build printed by the installer. Then retry <code>dotx run hello-world</code>.</p>
+<p>Expect the path to end in <code>/.local/bin/dotx</code> and the version to be
+<code>dotx 0.6.0</code>. Then retry <code>dotx run hello-world</code>.</p>
 </div>
 <div class="paragraph">
 <p>If <code>dotx</code> reports <code>cannot access DOT-Repository through GitHub</code>, repeat the

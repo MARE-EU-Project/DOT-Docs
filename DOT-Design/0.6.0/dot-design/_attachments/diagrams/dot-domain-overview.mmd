@@ -1,0 +1,40 @@
+---
+config:
+  class:
+    hideEmptyMembersBox: true
+    nodeSpacing: 20
+    rankSpacing: 30
+    padding: 6
+---
+classDiagram
+  direction TB
+  accTitle: Simplified DOT domain model
+  accDescr: Dot declares Contracts and contains Connectors and Runtime alternatives. A Connector selects a Contract operation. Each Runtime offers Deployments. A Deployment contains one manifest and its logical services. A separate Composition aggregate owns vertices that select exact DOT releases. Edges connect vertices and contain channels that select their connectors.
+
+  class Dot
+  class Contract
+  class Connector
+  class Runtime
+  class Deployment
+  class Manifest {
+    <<abstract>>
+  }
+  class Service
+  class Composition
+  class Vertex
+  class Edge
+  class Channel
+
+  Composition *-- Vertex : vertices
+  Composition *-- Edge : edges
+  Vertex ..> Dot : references
+  Edge ..> Vertex : from / to
+  Edge *-- Channel : channels
+  Channel ..> Connector : selects endpoints
+  Dot --> Contract : declares
+  Dot *-- Connector : connectors
+  Dot *-- Runtime : runtimes
+  Connector ..> Contract : selects operation
+  Runtime *-- Deployment : alternatives
+  Deployment *-- Manifest : manifest
+  Deployment *-- Service : services

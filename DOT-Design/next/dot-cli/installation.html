@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Install dotx manually :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-cli/installation.html">
     <meta name="description" content="Install a released or source-built CLI with Go, configure private repository access and select a matching catalogue.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
@@ -276,12 +277,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.6.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="../dot-design/index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.6.0/dot-design/index.html">0.6.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
         </li>
         <li class="version">
@@ -330,6 +334,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="installation.html">Next</a>
+    <a class="version" href="../../0.6.0/dot-cli/installation.html">0.6.0</a>
     <a class="version is-missing" href="../../0.5.0/dot-design/index.html">0.5.0</a>
     <a class="version is-missing" href="../../0.4.1/dot-design/index.html">0.4.1</a>
     <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
@@ -354,8 +359,8 @@
 <p>For the shortest first-run route, follow <a href="../dot-design/quick-start.html" class="xref page">Quick Start</a>.
 Use this page when you want to choose a version or manage installation yourself.
 Git and Go are required for manual installation. The default <code>@latest</code> installs
-the latest release. For Hello World and the named first composition, use Quick
-Start’s tested source build and GitHub CLI authentication.</p>
+the latest release. For Hello World and the named first composition, use the
+release and GitHub CLI authentication in Quick Start.</p>
 </div>
 </div>
 </div>
@@ -391,16 +396,7 @@ release used by the Prometheus walkthrough, set:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=v0.5.0</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For the source build used by Quick Start and the first composition, set this
-commit instead:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=1f2636b1da757b1cd6ebfdfc691d3472e6e1b1d1</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">CLI_VERSION=v0.6.0</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -429,8 +425,7 @@ under its default settings. The
 explains version suffixes and install locations.</p>
 </div>
 <div class="paragraph">
-<p>For the Quick Start source pin, expect a Go pseudo-version ending with the first
-12 characters of that commit. For managed catalogue runs, complete the GitHub CLI
+<p>For managed catalogue runs, complete the GitHub CLI
 sign-in and Git setup in <a href="../dot-design/quick-start.html#_sign_in_once" class="xref page">Sign in once</a>.</p>
 </div>
 <div class="sect2">
@@ -443,7 +438,7 @@ and open <code>release-manifest.json</code> from its assets. Check that <code>ta
 the installed version and copy the commit under <code>acceptance.dotRepository</code>.</p>
 </div>
 <div class="paragraph">
-<p>For the Quick Start source build, the
+<p>For the selected release, the
 <a href="../dot-design/first-composition.html" class="xref page">first-composition guide</a> uses catalogue
 commit <code>747a0f040860953fc3e924105012a8d8cdb27c2a</code>. That walkthrough retrieves
 its catalogue automatically.</p>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DOTs in Action :: MARE DOT-Design</title>
-    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.5.0/dot-design/dots-in-action.html">
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-design/dots-in-action.html">
     <meta name="description" content="Run Prometheus, author a DOT, connect Node Exporter and Grafana, verify the monitoring chain and clean up.">
     <meta name="generator" content="Antora 3.2.3">
 <script src="../../../_/js/color-theme.js"></script>
@@ -277,12 +277,15 @@
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="../../0.5.0/dot-design/index.html">DOT-Design</a></div>
+      <div class="title"><a href="../../0.6.0/dot-design/index.html">DOT-Design</a></div>
       <ul class="versions">
         <li class="version is-current">
           <a href="index.html">Next</a>
         </li>
         <li class="version is-latest">
+          <a href="../../0.6.0/dot-design/index.html">0.6.0</a>
+        </li>
+        <li class="version">
           <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
         </li>
         <li class="version">
@@ -331,6 +334,7 @@
   <button class="version-menu-toggle" title="Show other versions of page">Next</button>
   <div class="version-menu">
     <a class="version is-current" href="dots-in-action.html">Next</a>
+    <a class="version" href="../../0.6.0/dot-design/dots-in-action.html">0.6.0</a>
     <a class="version" href="../../0.5.0/dot-design/dots-in-action.html">0.5.0</a>
     <a class="version" href="../../0.4.1/dot-design/dots-in-action.html">0.4.1</a>
     <a class="version is-missing" href="../../0.4.0/dot-design/index.html">0.4.0</a>
@@ -460,7 +464,7 @@ to review each result.</p>
 <p>To watch before authoring, ask a presenter with a prepared source checkout to show
 <a href="guided-demo.html" class="xref page">the guided demo</a>.
 Running that demo yourself requires its separate contributor/operator
-preparation. These lessons use the matching Next source CLI and their own setup. You
+preparation. These lessons use the released CLI and their own setup. You
 create and inspect the files as you work.</p>
 </div>
 </div>
@@ -470,13 +474,11 @@ create and inspect the files as you work.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Use <strong>Ubuntu 26.04 LTS (amd64)</strong>, Bash, Git, <code>curl</code>, <code>jq</code>, SHA-256 utilities and
-Docker with Compose. You need read access to the MARE repositories. Use the source CLI from Quick Start.</p>
+Docker with Compose. You need read access to the MARE repositories. Use the released CLI from Quick Start.</p>
 </div>
 <div class="paragraph">
-<p>These lessons use the simplified Next composition format, absent from release
-0.5.0. Lesson 1 reuses the Quick Start CLI and checks out the matching catalogue
-for local authoring. Keep that
-binary and checkout unchanged through cleanup. The automated Quick Start
+<p>Lesson 1 reuses the released Quick Start CLI and checks out the matching
+catalogue for local authoring. Keep that binary and checkout unchanged through cleanup. The automated Quick Start
 rehearsal covers Hello World and the two-tool monitoring composition.
 Lessons 1–4 have their own verification and cleanup checkpoints. Identity-based lookups select each exact product release without
 guessing its catalogue path.</p>
@@ -489,9 +491,8 @@ guessing its catalogue path.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p><strong>Source route:</strong> follow Lesson 1&#8217;s source setup for all four lessons. A released
-binary and its older composition declarations are not interchangeable with this
-Next walkthrough.
+<p>Follow Lesson 1&#8217;s setup for all four lessons. Use the same CLI and catalogue
+revision throughout.
 Require <code>Cleanup verified:</code> after composition destroy before calling cleanup
 complete. A missing lifecycle record alone is not resource-absence proof. Keep
 the original binary, files and cache until cleanup succeeds.</p>

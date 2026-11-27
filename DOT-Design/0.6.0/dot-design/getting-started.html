@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Deploy Prometheus with Docker Compose :: MARE DOT-Design</title>
+    <link rel="canonical" href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-design/getting-started.html">
+    <link rel="prev" href="first-composition.html">
+    <link rel="next" href="dots-in-action.html">
+    <meta name="description" content="Deploy a long-running Prometheus service with a pinned CLI and catalogue, query its API, and clean up.">
+    <meta name="generator" content="Antora 3.2.3">
+<script src="../../../_/js/color-theme.js"></script>
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/dot-design.css">
+<link rel="stylesheet" href="../../../_/css/color-theme.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../..">MARE DOT-Design</a>
+      <div class="theme-control" hidden>
+        <label class="theme-label" for="color-theme">Theme</label>
+        <select id="color-theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="../../..">Documentation</a>
+        <a class="navbar-item" href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>
+        <a class="navbar-item" href="https://mare6g.eu/pocs/" target="_blank" rel="noopener">PoCs</a>
+        <a class="navbar-item" href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">Source</a>
+        <div class="navbar-item">
+          <span class="control">
+            <a
+              class="button is-primary"
+              href="../../../DOT-Design/0.6.0/_exports/DOT-Design-0.6.0.pdf"
+              download="DOT-Design-0.6.0.pdf"
+              title="Download DOT-Design 0.6.0 as PDF"
+            >Download PDF</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="DOT-Design" data-version="0.6.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">DOT-Design</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Start here</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="quick-start.html">Quick Start</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup.html">Requirements</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tutorials</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="first-composition.html">Run your first composition</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="getting-started.html">Deploy Prometheus with Compose</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="dots-in-action.html">DOTs in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="tutorial-first-dot.html">1. Run Prometheus</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="tutorial-authoring.html">2. Create a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="tutorial-composition.html">3. Connect DOTs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="tutorial-dashboard.html">4. Add Grafana</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="tutorial-next-steps.html">5. Explore larger systems</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Concepts</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dots-for-dummies.html">DOTs for Dummies</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalogue-versioning.html">Products and versions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Composition guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="anchors-and-composition.html">Composition reference</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="authoring-anchors.html">Define Connectors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-documents.html">Composition declarations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="wiring-and-security.html">Channels and configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="composition-lifecycle.html">Lifecycle and recovery</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Examples</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="guided-demo.html">Choose a demo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="developer-demo.html">Reuse and extend</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mare-poc-compositions.html">MARE use cases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="live-multi-runtime-demo.html">Mixed runtimes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="upgrade-demo.html">Upgrades and recovery</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="portability-demo.html">Runtime portability</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="external-dot-examples.html">Catalogue examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adopting-dot.html">Adoption and editor setup</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="compatibility.html">Compatibility and migration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="verification-and-examples.html">Verification and evidence</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="production-readiness.html">Production readiness</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="integration-handoff.html">Integration handoff</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="contributor-guide.html">Contributing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="release-notes.html">Release notes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="release-readiness.html">Release qualification</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Domain</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-domain/index.html">Domain model</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dot-domain/model-reference.html">Complete model reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-identity.html">Identity and capabilities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-interfaces.html">Contracts and Connectors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-deployment.html">Runtimes and deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-composition.html">Composition models</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dot-domain/model-probes.html">Probes and assertions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-CLI</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/index.html">CLI guide</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/installation.html">Manual installation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/configuration.html">Configure a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/authoring.html">Author a DOT</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/composition-authoring.html">Create a composition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-cli/diagnostics.html">Inspection and diagnostics</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DOT-Repository</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../dot-repository/index.html">Catalogue guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">DOT-Design</span>
+    <span class="version">0.6.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">DOT-Design</a></div>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../next/dot-design/index.html">Next</a>
+        </li>
+        <li class="version is-current is-latest">
+          <a href="index.html">0.6.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.5.0/dot-design/index.html">0.5.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.4.1/dot-design/index.html">0.4.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.4.0/dot-design/index.html">0.4.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.3.0/dot-design/index.html">0.3.0</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.4/dot-design/index.html">0.2.4</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.3/dot-design/index.html">0.2.3</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.2/dot-design/index.html">0.2.2</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.1/dot-design/index.html">0.2.1</a>
+        </li>
+        <li class="version">
+          <a href="../../0.2.0/dot-design/index.html">0.2.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../next/dot-design/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">DOT-Design</a></li>
+    <li>Tutorials</li>
+    <li><a href="getting-started.html">Deploy Prometheus with Compose</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">0.6.0</button>
+  <div class="version-menu">
+    <a class="version" href="../../next/dot-design/getting-started.html">Next</a>
+    <a class="version is-current" href="getting-started.html">0.6.0</a>
+    <a class="version" href="../../0.5.0/dot-design/getting-started.html">0.5.0</a>
+    <a class="version" href="../../0.4.1/dot-design/getting-started.html">0.4.1</a>
+    <a class="version" href="../../0.4.0/dot-design/getting-started.html">0.4.0</a>
+    <a class="version" href="../../0.3.0/dot-design/getting-started.html">0.3.0</a>
+    <a class="version" href="../../0.2.4/dot-design/getting-started.html">0.2.4</a>
+    <a class="version" href="../../0.2.3/dot-design/getting-started.html">0.2.3</a>
+    <a class="version" href="../../0.2.2/dot-design/getting-started.html">0.2.2</a>
+    <a class="version" href="../../0.2.1/dot-design/getting-started.html">0.2.1</a>
+    <a class="version" href="../../0.2.0/dot-design/getting-started.html">0.2.0</a>
+  </div>
+</div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Deploy Prometheus with Docker Compose</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use this focused tutorial to run a long-lived service, inspect its API and
+remove its resources. It uses a pinned released CLI and catalogue and is also
+the installation chapter reused by <a href="dots-in-action.html" class="xref page">DOTs in Action</a>.
+For a first installation check, use <a href="quick-start.html" class="xref page">Quick Start</a>.
+For the recommended two-tool route, use
+<a href="first-composition.html" class="xref page">Run your first composition</a>.</p>
+</div>
+<div class="paragraph">
+<p>Before continuing, prepare the Docker Compose tools listed in
+<a href="setup.html#requirements" class="xref page">Requirements</a>. The commands target Ubuntu 26.04
+LTS (amd64) and run on the Docker host in one Bash terminal.</p>
+</div>
+<div class="paragraph">
+<p>This example runs Prometheus 3.15.1 on port <code>18909</code>. Allow time for initial
+image and Contract downloads. Use an isolated development host: the Compose
+manifest publishes unauthenticated HTTP on all host interfaces. Restrict
+access using your host firewall. Cleanup deletes the example&#8217;s metrics data.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_open_a_bash_terminal"><a class="anchor" href="#_open_a_bash_terminal"></a>Open a Bash terminal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use one Bash terminal on the Docker host through cleanup. If you connected
+over SSH, the commands run on that remote host.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_before_installing"><a class="anchor" href="#_check_before_installing"></a>Check before installing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Paste this block as your normal user on the machine where you will run Docker.
+It checks the platform, lists missing commands, and tests access to both Docker
+Engine and its Compose plugin.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+  missing=()
+  for tool in bash git curl jq docker mktemp uname; do
+    command -v "$tool" &gt;/dev/null || missing+=("$tool")
+  done
+  if (( ${#missing[@]} )); then
+    printf 'Missing command: %s\n' "${missing[@]}" &gt;&amp;2
+    exit 1
+  fi
+  if [[ "$(uname -sm)" != 'Linux x86_64' ]]; then
+    printf 'This quickstart needs Linux amd64.\n' &gt;&amp;2
+    exit 1
+  fi
+  docker info --format '{{.ServerVersion}}' &amp;&amp;
+  docker compose version &amp;&amp;
+  printf 'Quickstart prerequisites are ready.\n'
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Continue when you see <code>Quickstart prerequisites are ready.</code></p>
+</div>
+<div class="paragraph">
+<p>If a tool is missing, follow its official installation link in
+<a href="setup.html#requirements" class="xref page">Requirements</a>, then repeat the failed check.</p>
+</div>
+<div class="paragraph">
+<p>For Docker permission errors, ask the administrator for the intended access
+and rerun <code>docker info</code> as your normal user. If Engine responds and
+<code>docker compose version</code> fails, install the Compose plugin and rerun the block.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_a_setup_directory"><a class="anchor" href="#_create_a_setup_directory"></a>Create a setup directory</h3>
+<div class="paragraph">
+<p>For a fresh setup, create a private directory under your home directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_SETUP="$(mktemp -d "$HOME/dot-setup.XXXXXXXX")" &amp;&amp;
+cd "$DOT_SETUP" &amp;&amp;
+pwd</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Keep the path printed by <code>pwd</code>. If you already finished the quickstart, reuse
+your setup through the book&#8217;s entry-point instructions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="browser-over-ssh"><a class="anchor" href="#browser-over-ssh"></a>Browser access from an SSH session</h3>
+<div class="paragraph">
+<p>The printed localhost and 127.0.0.1 URLs refer to the machine running Docker.
+If your browser runs on that machine, open the printed URL. If commands run
+over SSH, the terminal API checks still run on the remote machine. To use a
+browser on your own computer, open a second terminal there and forward the
+chosen port through SSH:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh -N -o ExitOnForwardFailure=yes \
+  -L 127.0.0.1:18909:127.0.0.1:18909 user@host</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Replace <code>user@host</code> with the same SSH destination used for the lesson. Replace
+both <code>18909</code> values if you chose another port. Keep this second terminal open
+and open <code><a href="http://127.0.0.1:18909" class="bare">http://127.0.0.1:18909</a></code> in your local browser. Stop the forward with
+Ctrl-C afterward; keep lesson commands in the original remote Bash terminal.
+The terminal API checks work without a browser. Keep the host firewall
+restriction: a tunnel does not change the deployment&#8217;s published interfaces.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_git_access"><a class="anchor" href="#_check_git_access"></a>Check Git access</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use a Git credential helper or SSH configuration that can read both private
+MARE repositories. See <a href="https://mare-eu-project.github.io/DOT-Docs/DOT-Design/0.6.0/dot-cli/installation.html#install-with-go">the Git credential
+setup for Go</a> for help. Check access from the same terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">GIT_TERMINAL_PROMPT=0 git ls-remote \
+  https://github.com/MARE-EU-Project/DOT-CLI.git HEAD &amp;&amp;
+GIT_TERMINAL_PROMPT=0 git ls-remote \
+  https://github.com/MARE-EU-Project/DOT-Repository.git HEAD</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect two lines ending in <code>HEAD</code>. If access fails, check your Git credentials
+and ask your MARE project contact to verify your repository access.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_dotx_with_go"><a class="anchor" href="#_install_dotx_with_go"></a>Install dotx with Go</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From your setup directory, install the CLI tag matched to the catalogue below.
+Use the Go toolchain described in <a href="setup.html#go" class="xref page">Setup</a>. <code>GOPRIVATE</code> applies
+to this command and tells Go to fetch the private MARE module directly. If
+<code>bin/dotx</code> already exists, use <a href="#existing-setup">Existing or interrupted setup</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">test ! -e bin/dotx &amp;&amp;
+mkdir -p bin &amp;&amp;
+GOBIN="$PWD/bin" GOPRIVATE='github.com/MARE-EU-Project/*' \
+  go install github.com/MARE-EU-Project/DOT-CLI/cmd/dotx@v0.6.0 &amp;&amp;
+export PATH="$PWD/bin:$PATH" &amp;&amp;
+dotx version &amp;&amp;
+printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected version: <code>dotx 0.6.0</code>. Keep the setup directory and
+the same shell through cleanup. Continue at <a href="#_check_out_the_catalogue">Clone DOT-Repository from GitHub</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_install_the_released_cli"><a class="anchor" href="#_install_the_released_cli"></a>Alternative: install the checksummed release binary</h3>
+<div class="paragraph">
+<p>If you prefer the prebuilt binary, open the
+<a href="https://github.com/MARE-EU-Project/DOT-CLI/releases/tag/v0.6.0">selected GitHub release</a>
+in your browser. Download <code>dotx-0.6.0-linux-amd64</code> and
+<code>SHA256SUMS</code> into a directory named <code>dot-quickstart-download</code> inside your setup
+directory. From your setup directory, verify the files and install the binary.
+Use <a href="#existing-setup">Existing or interrupted setup</a> if you already installed it there.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd dot-quickstart-download &amp;&amp;
+(set -o pipefail; sha256sum dotx-0.6.0-linux-amd64 |
+  grep -Fx -f - SHA256SUMS) &amp;&amp;
+mkdir bin &amp;&amp;
+install -m 0755 dotx-0.6.0-linux-amd64 \
+  "$PWD/bin/dotx" &amp;&amp;
+export PATH="$PWD/bin:$PATH" &amp;&amp;
+dotx version &amp;&amp;
+printf 'Keep this CLI directory for recovery: %s/bin\n' "$PWD" &amp;&amp;
+cd ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The checksum must match the downloaded filename and bytes. Continue when
+<code>dotx version</code> reports <code>dotx 0.6.0</code>. Keep the printed bin path
+for recovery. The GitHub release also provides an SBOM and a build manifest.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_out_the_catalogue"><a class="anchor" href="#_check_out_the_catalogue"></a>Clone DOT-Repository from GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From your setup directory, clone the catalogue and select the acceptance
+revision recorded in the CLI release manifest:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/MARE-EU-Project/DOT-Repository.git &amp;&amp;
+cd DOT-Repository &amp;&amp;
+git checkout --detach 747a0f040860953fc3e924105012a8d8cdb27c2a</code></pre>
+</div>
+</div>
+<details id="existing-setup">
+<summary class="title">Existing or interrupted setup</summary>
+<div class="content">
+<div class="paragraph">
+<p>If a previous run still owns resources, finish cleanup with its original CLI,
+catalogue and Docker context before changing the setup. Keep existing files.
+To reuse a completed setup, return to its catalogue root with the original
+private <code>bin</code> selected on <code>PATH</code>. For a Go install, verify the installed module
+tag and catalogue revision:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">go version -m "$(command -v dotx)" &amp;&amp;
+git rev-parse HEAD</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>mod</code> line should show <code>github.com/MARE-EU-Project/DOT-CLI</code> at
+<code>v0.6.0</code> and Git should report <code>747a0f040860953fc3e924105012a8d8cdb27c2a</code>.</p>
+</div>
+<div class="paragraph">
+<p>For a checksummed release binary, compare the catalogue revision and the
+installed bytes against the original download:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+test "$(dotx version)" = "dotx 0.6.0"
+test "$(git rev-parse HEAD)" = "747a0f040860953fc3e924105012a8d8cdb27c2a"
+cd ../dot-quickstart-download
+sha256sum dotx-0.6.0-linux-amd64 |
+  grep -Fx -f - SHA256SUMS
+installed="$(sha256sum "$(command -v dotx)")"
+downloaded="$(sha256sum dotx-0.6.0-linux-amd64)"
+test "${installed%% *}" = "${downloaded%% *}"
+printf 'Matching CLI and catalogue verified.\n'
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: <code>Matching CLI and catalogue verified.</code> The sibling download path is
+this guide&#8217;s layout. Use the actual retained download location if yours differs.
+If the checks fail, start in a fresh directory after verifying previous cleanup.</p>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Run each block only after the preceding block succeeds, in the same Bash
+terminal from the <strong>DOT-Repository root</strong>. The selected <code>dot.json</code> identifies its
+exact Compose document by HTTPS URL and SHA-256 checksum. The CLI does not
+infer a neighbouring Compose file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_select_and_validate"><a class="anchor" href="#_select_and_validate"></a>Select and validate</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The selection block generates and prints a distinct runtime name. Keep that
+name and the same shell for cleanup. To choose your own name, first run
+<code>DOT_NAME=my-prometheus-lab</code> and ensure it belongs only to your run; a random
+default is not permission to adopt an existing project. For a different host port, run
+<code>export DOTX_HTTP_PORT=18919</code> before the selection block.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOT_REPOSITORY="${DOT_REPOSITORY:-$PWD}" &amp;&amp;
+DOT_DEFINITION="$(dotx repository resolve Prometheus@3.15.1 \
+  --repository "$DOT_REPOSITORY")" &amp;&amp;
+DOT_BUNDLE="$(dirname -- "$DOT_DEFINITION")" &amp;&amp;
+DOT_NAME="${DOT_NAME:-dot-quickstart-$RANDOM-$RANDOM}" &amp;&amp;
+DOTX_HTTP_PORT="${DOTX_HTTP_PORT:-18909}" &amp;&amp;
+DOT_PROJECT_FILTER="label=com.docker.compose.project=$DOT_NAME" &amp;&amp;
+export DOTX_HTTP_PORT &amp;&amp;
+printf 'Selected: Prometheus 3.15.1; instance %s; host port %s.\n' \
+  "$DOT_NAME" "$DOTX_HTTP_PORT" &amp;&amp;
+printf 'Keep this shell for cleanup.\n'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+printf '%s\n' \
+  'Checking the definition and previewing Docker Compose;' \
+  'nothing starts yet...'
+dotx validate "$DOT_BUNDLE" \
+  --schema "$DOT_REPOSITORY/Schema/schema.json" \
+  --profile reusable
+dotx inspect "$DOT_BUNDLE"
+dot_launch=(dotx run --detach)
+if [[ "$(dotx run --help 2&gt;/dev/null)" != *--detach* ]]; then
+  dot_launch=(dotx deploy) # Rehearsed binaries that predate --detach.
+fi
+"${dot_launch[@]}" "$DOT_BUNDLE" --deployment docker-compose \
+  --name "$DOT_NAME" --dry-run
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Validation checks the schema, official HTTPS OpenAPI Contract and SHA-256,
+Connector selectors, and reusable deployment bindings. Inspection shows deployment
+choices. The exact ID <code>docker-compose</code> selects only that mechanism. Dry-run
+prints its commands; it does not prove that a service is running.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quickstart-docker-target"><a class="anchor" href="#quickstart-docker-target"></a>Record the Docker target and deploy</h2>
+<div class="sectionbody">
+<div id="_deploy_and_verify" class="paragraph">
+<p>Before this fresh run&#8217;s first deployment, record the effective Docker daemon.
+Keep its printed ID, original private CLI path, cache, instance name, port and
+catalogue path for recovery. Do not recapture an ID to silence a mismatch.
+<code>docker context show</code> names the selected context; <code>DOCKER_CONTEXT</code> or
+<code>DOCKER_HOST</code> can change the effective target. Restore the original connection
+and environment before recovering a run; do not copy credentials into notes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">if current_docker_id="$(docker info --format '{{.ID}}')" &amp;&amp;
+  test -n "$current_docker_id" &amp;&amp;
+  { test -z "${DOTX_TUTORIAL_DOCKER_ID:-}" ||
+    test "$current_docker_id" = "$DOTX_TUTORIAL_DOCKER_ID"; }; then
+  DOTX_TUTORIAL_DOCKER_ID="$current_docker_id" &amp;&amp;
+  printf 'Keep this original Docker daemon ID for recovery: %s\n' \
+    "$DOTX_TUTORIAL_DOCKER_ID"
+else
+  printf '%s\n' \
+    'Docker target is changed or unreachable.' \
+    'Restore the original connection.' &gt;&amp;2
+  false
+fi</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">if test -n "${DOTX_TUTORIAL_DOCKER_ID:-}" &amp;&amp;
+  current_docker_id="$(docker info --format '{{.ID}}')" &amp;&amp;
+  test -n "$current_docker_id" &amp;&amp;
+  test "$current_docker_id" = "$DOTX_TUTORIAL_DOCKER_ID"; then
+  dot_launch=(dotx run --detach)
+  if [[ "$(dotx run --help 2&gt;/dev/null)" != *--detach* ]]; then
+    dot_launch=(dotx deploy) # Rehearsed binaries that predate --detach.
+  fi
+  "${dot_launch[@]}" "$DOT_BUNDLE" --deployment docker-compose \
+    --name "$DOT_NAME" \
+    --env "DOTX_HTTP_PORT=$DOTX_HTTP_PORT"
+else
+  printf '%s\n' \
+    'Docker target is missing, changed or unreachable.' \
+    'Restore the original Docker connection.' \
+    'Do not replace its recorded ID.' &gt;&amp;2
+  false
+fi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait up to 60 attempts (each HTTP attempt has a two-second timeout), then verify
+the service&#8217;s build-information API and version:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+ready=false
+started=$SECONDS
+next_notice=$SECONDS
+printf 'Checking Prometheus readiness on port %s...\n' "$DOTX_HTTP_PORT"
+for ((attempt=0; attempt&lt;60; attempt++)); do
+  if curl --fail --silent --max-time 2 \
+    "http://127.0.0.1:$DOTX_HTTP_PORT/-/ready"; then
+    ready=true
+    break
+  fi
+  if ((SECONDS &gt;= next_notice)); then
+    printf 'Waiting for Prometheus: attempt %s/60, %ss elapsed\n' \
+      "$((attempt + 1))" "$((SECONDS - started))"
+    next_notice=$((SECONDS + 5))
+  fi
+  sleep 1
+done
+if ! $ready; then
+  printf '%s\n' \
+    'Prometheus readiness timed out.' \
+    'Run the cleanup block before retrying.' &gt;&amp;2
+  exit 1
+fi
+curl --fail --silent --show-error --max-time 5 \
+  "http://127.0.0.1:$DOTX_HTTP_PORT/api/v1/status/buildinfo" |
+  jq -e '.status == "success" and .data.version == "3.15.1"'
+printf 'Verified: Prometheus 3.15.1 answered its official API.\n'
+printf 'Open http://127.0.0.1:%s/\n' "$DOTX_HTTP_PORT"
+)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Expected: <code>Prometheus Server is Ready.</code>, <code>true</code> from <code>jq</code>, then
+<code>Verified: Prometheus 3.15.1 answered its official API.</code> and your browser URL.
+Check runtime status:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dotx ps</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect a running workload. Open <code><a href="http://localhost:18909" class="bare">http://localhost:18909</a></code> (or your chosen port)
+to view Prometheus. If your browser is on another computer, follow
+<a href="#browser-over-ssh">Browser access from an SSH session</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>build-information</code> Connector selects the official OpenAPI operation whose
+server prefix produces <code>/api/v1/status/buildinfo</code>. The <code>promql-query-api</code>
+Connector selects query operations; both bind to the deployed service&#8217;s <code>http</code>
+port. Its <code>scrape-target</code> requirement references Node Exporter&#8217;s metrics
+interface; this first example does not connect another DOT as a scrape target.</p>
+</div>
+<div class="paragraph">
+<p>The pinned image&#8217;s default configuration starts the service. The descriptor
+declares a Compose-managed <code>prometheus-data</code> volume. Data survives container
+restarts until the volume is deleted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clean_up"><a class="anchor" href="#_clean_up"></a>Clean up</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For Compose, <code>dotx destroy</code> runs <code>down --volumes</code>: it deletes this instance&#8217;s
+containers, network, and named volume, including collected metrics. Use the
+same <code>DOT_NAME</code> as deployment. Never target another user&#8217;s instance.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">if test -n "${DOTX_TUTORIAL_DOCKER_ID:-}" &amp;&amp;
+  current_docker_id="$(docker info --format '{{.ID}}')" &amp;&amp;
+  test -n "$current_docker_id" &amp;&amp;
+  test "$current_docker_id" = "$DOTX_TUTORIAL_DOCKER_ID"; then
+  dotx destroy "$DOT_BUNDLE" --deployment docker-compose \
+    --name "$DOT_NAME" &amp;&amp;
+  remaining="$(docker ps -aq --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
+  test -z "$remaining" &amp;&amp;
+  remaining="$(docker network ls -q --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
+  test -z "$remaining" &amp;&amp;
+  remaining="$(docker volume ls -q --filter "$DOT_PROJECT_FILTER")" &amp;&amp;
+  test -z "$remaining"
+else
+  printf '%s\n' \
+    'Docker target is missing, changed or unreachable.' \
+    'Restore the original Docker connection.' \
+    'Do not replace its recorded ID.' &gt;&amp;2
+  false
+fi</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The final checks succeed silently. If interrupted, restore your original
+selection variables and repeat cleanup. Before closing the shell, note the
+printed instance name, catalogue checkout, private CLI path, cache, Docker
+daemon ID and selected port. To recover that
+same run in a new shell, set <code>DOT_NAME</code> to its original value and
+<code>DOTX_HTTP_PORT</code> to its original port, change to that same catalogue checkout,
+restore the recorded <code>DOTX_TUTORIAL_DOCKER_ID</code> and private CLI <code>bin</code> on <code>PATH</code>,
+then repeat selection and cleanup. Do not rerun the fresh target-recording block. Do not accept a newly generated
+name for cleanup. Retain the original CLI, cache and Docker context until cleanup
+is verified. <a href="dots-in-action.html" class="xref page">DOTs in Action</a> saves these
+values in a private session file. Downloaded images remain cached.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_connect_existing_dots"><a class="anchor" href="#_next_connect_existing_dots"></a>What next?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Your first run is complete once cleanup is verified with the original binary,
+catalogue and Docker context. Choose a next step:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">You want to…</th>
+<th class="tableblock halign-left valign-top">Start here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Understand how the pieces fit together</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="dots-for-dummies.html" class="xref page">DOTs for Dummies</a> explains the model without requiring
+an installation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create your own DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="tutorial-first-dot.html#tutorial-entry" class="xref page">Lesson 1&#8217;s entry-point instructions</a>
+set up the Next source CLI and matching catalogue in a private learning
+workspace. Then author a definition in Lesson 2 of
+<a href="dots-in-action.html" class="xref page">DOTs in Action</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connect existing DOTs on Docker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Switch to the tested source CLI using <a href="quick-start.html" class="xref page">Quick Start</a>, then
+<a href="first-composition.html" class="xref page">run your first composition</a>. The source CLI
+retrieves the matching catalogue.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a different runtime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install the tools required by your selected deployment and
+<a href="adopting-dot.html#_check_the_selected_deployment_without_starting_it" class="xref page">check its prerequisites</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explore authenticated APIs or contribute code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="contributor-guide.html#_validate_and_inspect_a_composition" class="xref page">The contributor
+composition preview</a> uses a full source checkout and its development CLI.
+The guide covers the additional toolchain and links to live operator scenarios.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Finish cleanup before changing binaries, catalogues or Docker contexts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Symptom</th>
+<th class="tableblock halign-left valign-top">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install or clone returns 404/403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeat the Git access checks. Verify the account, Git credentials and
+organization SSO authorization if required. Check browser access to the release
+if you chose the prebuilt binary.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI missing or wrong version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>command -v dotx</code>; restore the original recorded private <code>bin</code> first on
+<code>PATH</code>. Do not install another binary while cleanup is unresolved.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker permission denied</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>docker info</code> as your user. Ask the administrator for the intended
+Docker access, then log in again. Docker group access grants host-level power.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compose unavailable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install the Compose plugin/package for your Docker distribution and verify
+<code>docker compose version</code>. The legacy <code>docker-compose</code> executable is insufficient.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port already allocated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean up the failed example, select a free <code>DOTX_HTTP_PORT</code>, and deploy again
+with the same name and explicit <code>--env</code> override. Book readers must also
+<a href="tutorial-first-dot.html#tutorial-change-ports" class="xref page">save revised ports in the existing session</a>
+before redeploying. Quickstart readers must update their recorded port.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker target is missing, changed or unreachable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restore the original Docker connection/context and environment, then compare
+its daemon ID with the recorded one. Do not replace the recorded ID to bypass
+the check. For an incomplete older receipt, recover the original context with
+the operator before lifecycle commands; do not adopt an arbitrary current daemon.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contract download or digest check fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check network/proxy access to the declared URL. Never bypass its digest.
+Private raw GitHub URLs require <code>MARE_READ_ONLY_TOKEN</code> or <code>GITHUB_TOKEN</code>;
+Git credentials do not supply those to <code>dotx</code>. Use <code>--offline</code> only with
+matching documents already in the verified local cache.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Readiness or version fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the instance-scoped logs below and <code>dotx ps --all</code>, check the selected
+image/port, then clean up. No local Compose file is required for this diagnostic.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interrupted cleanup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restore the original name and catalogue path, repeat cleanup, and inspect
+resources carrying <code>com.docker.compose.project=$DOT_NAME</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_read_only_this_instances_logs"><a class="anchor" href="#_read_only_this_instances_logs"></a>Read only this instance&#8217;s logs</h3>
+<div class="paragraph">
+<p>Keep the original <code>DOT_NAME</code>. This block discovers containers by their Compose
+project label and reads bounded logs. It works from the catalogue checkout:
+<code>docker compose -p &#8230;&#8203;</code> alone would not locate the descriptor&#8217;s downloaded
+Compose document. No resources are changed or removed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(
+set -euo pipefail
+containers="$(docker ps -aq \
+  --filter "label=com.docker.compose.project=$DOT_NAME")"
+if test -z "$containers"; then
+  printf 'No containers found for this instance: %s\n' "$DOT_NAME" &gt;&amp;2
+  exit 1
+fi
+while IFS= read -r container; do
+  printf '\nLogs for this instance container: %s\n' "$container"
+  docker logs --tail=100 "$container"
+done &lt;&lt;&lt; "$containers"
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If Docker access fails or no matching container is found, the block fails;
+it does not query another instance. Use the same lesson&#8217;s cleanup command and
+retain the original context until cleanup is verified.</p>
+</div>
+<div class="paragraph">
+<p>Download <a href="_attachments/quickstart/prometheus.sh" class="xref attachment">the shared command blocks</a>.
+Contributors rehearse them from DOT-Design with
+<code>task testing:quickstart:dry-run</code> or the opt-in <code>task testing:quickstart:live</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="first-composition.html">Run your first composition</a></span>
+  <span class="next"><a href="dots-in-action.html">DOTs in Action</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>
+    DOT-Design documentation for the
+    <a href="https://mare6g.eu/" target="_blank" rel="noopener">MARE project</a>.
+    Source and issue tracking are available on
+    <a href="https://github.com/MARE-EU-Project/DOT-Design" target="_blank" rel="noopener">GitHub</a>.
+  </p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script src="../../../_/js/sidebar.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script>
+  (() => {
+    const icons = {
+      reset: '\u21ba',
+      left: '\u2190',
+      up: '\u2191',
+      down: '\u2193',
+      right: '\u2192',
+      wide: '\u2194',
+      fullscreen: '\u26f6'
+    }
+
+    const clampScale = (value) => Math.min(3, Math.max(0.5, value))
+
+    for (const diagram of document.querySelectorAll('.interactive-diagram')) {
+      if (diagram.dataset.controlsReady === 'true') continue
+
+      const content = diagram.querySelector(':scope > .content')
+      const image = content?.querySelector('img')
+      if (!content || !image) continue
+
+      diagram.dataset.controlsReady = 'true'
+      image.draggable = false
+      content.tabIndex = 0
+      content.setAttribute('role', 'group')
+      content.setAttribute('aria-label', 'Interactive diagram. Use arrow keys to pan, plus and minus to zoom, and zero to reset the view.')
+
+      let scale = 1
+      let x = 0
+      let y = 0
+      let dragStart
+      let animationFrame
+
+      const toolbar = document.createElement('div')
+      const controls = document.createElement('div')
+      const zoomLevel = document.createElement('span')
+      toolbar.className = 'diagram-toolbar'
+      toolbar.setAttribute('role', 'toolbar')
+      toolbar.setAttribute('aria-label', 'Diagram controls')
+      controls.className = 'diagram-toolbar-controls'
+      zoomLevel.className = 'diagram-zoom-level'
+      zoomLevel.setAttribute('aria-live', 'polite')
+      toolbar.append(controls, zoomLevel)
+
+      const update = () => {
+        image.style.transform = `translate(${x}px, ${y}px) scale(${scale})`
+        zoomLevel.textContent = `${Math.round(scale * 100)}%`
+      }
+
+      const scheduleUpdate = () => {
+        if (animationFrame) return
+        animationFrame = requestAnimationFrame(() => {
+          animationFrame = undefined
+          update()
+        })
+      }
+
+      const changeScale = (delta) => {
+        scale = clampScale(scale + delta)
+        if (scale <= 1) {
+          x = 0
+          y = 0
+        }
+        update()
+      }
+
+      const reset = () => {
+        scale = 1
+        x = 0
+        y = 0
+        update()
+      }
+
+      const addGroup = (label) => {
+        const group = document.createElement('div')
+        group.className = 'diagram-toolbar-group'
+        group.setAttribute('role', 'group')
+        group.setAttribute('aria-label', label)
+        controls.append(group)
+        return group
+      }
+
+      const addButton = (group, label, icon, action, toggle = false) => {
+        const button = document.createElement('button')
+        button.type = 'button'
+        button.title = label
+        button.setAttribute('aria-label', label)
+        if (toggle) button.setAttribute('aria-pressed', 'false')
+        const iconElement = document.createElement('span')
+        iconElement.className = `diagram-button-icon is-${icon}`
+        iconElement.setAttribute('aria-hidden', 'true')
+        if (icons[icon]) iconElement.textContent = icons[icon]
+        button.append(iconElement)
+        button.addEventListener('click', action)
+        group.append(button)
+        return button
+      }
+
+      const zoomGroup = addGroup('Zoom controls')
+      addButton(zoomGroup, 'Zoom out', 'minus', () => changeScale(-0.15))
+      addButton(zoomGroup, 'Zoom in', 'plus', () => changeScale(0.15))
+      addButton(zoomGroup, 'Reset diagram view', 'reset', reset)
+
+      const panGroup = addGroup('Pan controls')
+      addButton(panGroup, 'Pan left', 'left', () => { x -= 40; update() })
+      addButton(panGroup, 'Pan up', 'up', () => { y -= 40; update() })
+      addButton(panGroup, 'Pan down', 'down', () => { y += 40; update() })
+      addButton(panGroup, 'Pan right', 'right', () => { x += 40; update() })
+
+      const layoutGroup = addGroup('Layout controls')
+      const wideButton = addButton(layoutGroup, 'Use available viewport width', 'wide', () => {
+        const wide = !diagram.classList.contains('is-wide')
+        diagram.classList.toggle('is-wide', wide)
+        wideButton.setAttribute('aria-pressed', String(wide))
+        fitToViewport()
+      }, true)
+
+      const fullscreenButton = addButton(layoutGroup, 'Toggle fullscreen', 'fullscreen', () => {
+        if (document.fullscreenElement === diagram) {
+          document.exitFullscreen()
+        } else {
+          diagram.requestFullscreen()
+        }
+      }, true)
+      if (!diagram.requestFullscreen) fullscreenButton.hidden = true
+
+      const fitToViewport = () => {
+        if (!diagram.classList.contains('is-wide')) {
+          diagram.style.removeProperty('width')
+          return
+        }
+        diagram.style.width = '100%'
+        const rect = diagram.getBoundingClientRect()
+        const availableWidth = document.documentElement.clientWidth - rect.left - 16
+        if (availableWidth > rect.width) diagram.style.width = `${availableWidth}px`
+      }
+
+      diagram.prepend(toolbar)
+
+      content.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return
+        event.preventDefault()
+        dragStart = {
+          pointerId: event.pointerId,
+          pointerX: event.clientX,
+          pointerY: event.clientY,
+          panX: x,
+          panY: y
+        }
+        content.classList.add('is-dragging')
+        content.setPointerCapture(event.pointerId)
+      })
+
+      content.addEventListener('pointermove', (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        event.preventDefault()
+        x = dragStart.panX + event.clientX - dragStart.pointerX
+        y = dragStart.panY + event.clientY - dragStart.pointerY
+        scheduleUpdate()
+      })
+
+      const stopDragging = (event) => {
+        if (!dragStart || event.pointerId !== dragStart.pointerId) return
+        if (content.hasPointerCapture(event.pointerId)) content.releasePointerCapture(event.pointerId)
+        dragStart = undefined
+        content.classList.remove('is-dragging')
+        scheduleUpdate()
+      }
+      content.addEventListener('pointerup', stopDragging)
+      content.addEventListener('pointercancel', stopDragging)
+
+      content.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return
+        event.preventDefault()
+        changeScale(event.deltaY < 0 ? 0.15 : -0.15)
+      }, { passive: false })
+
+      content.addEventListener('keydown', (event) => {
+        const pan = 40
+        if (event.key === 'ArrowLeft') x -= pan
+        else if (event.key === 'ArrowRight') x += pan
+        else if (event.key === 'ArrowUp') y -= pan
+        else if (event.key === 'ArrowDown') y += pan
+        else if (event.key === '+' || event.key === '=') changeScale(0.15)
+        else if (event.key === '-') changeScale(-0.15)
+        else if (event.key === '0') reset()
+        else return
+        event.preventDefault()
+        update()
+      })
+
+      document.addEventListener('fullscreenchange', () => {
+        fullscreenButton.setAttribute('aria-pressed', String(document.fullscreenElement === diagram))
+      })
+      window.addEventListener('resize', fitToViewport)
+      update()
+    }
+  })()
+</script>
+  </body>
+</html>

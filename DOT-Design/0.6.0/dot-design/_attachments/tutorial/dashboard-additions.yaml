@@ -1,0 +1,35 @@
+vertices:
+# tag::grafana-dot[]
+    - name: grafana
+      source: repository://Grafana@13.3.0
+      dotId: Grafana@13.3.0
+      dotVersion: 13.3.0
+      deployment: docker
+      dependsOn: [prometheus]
+      deploymentInputs:
+        environment:
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            secretRef: {store: environment, name: HERO_GRAFANA_PASSWORD}
+        configFiles:
+          - source: grafana-empty.yml
+            target: /etc/grafana/provisioning/datasources/elasticsearch.yml
+# end::grafana-dot[]
+edges:
+# tag::grafana-edge[]
+    - name: prometheus-to-grafana
+      from: prometheus
+      to: grafana
+      channels:
+        - name: prometheus-to-grafana
+          fromConnector: promql-query-api
+          toConnector: promql-query-api
+          materializer:
+            type: CONFIG_FILE
+            source: grafana-prometheus.yml
+            valueFrom: ENDPOINT_URL
+            target:
+              instance: grafana
+              service: grafana
+              path: /etc/grafana/provisioning/datasources/prometheus.yml
+              jsonPointer: /datasources/0/url
+# end::grafana-edge[]

@@ -1,0 +1,64 @@
+classDiagram
+  direction TB
+  accTitle: Runtime choices and service-scoped deployment configuration
+  accDescr: A DOT offers Runtime alternatives. Each Runtime targets one Platform and offers Deployments. A Deployment has one polymorphic manifest and logical services with ports, Connector bindings, and their own configuration requirements.
+
+  class Runtime {
+    -Platform platform
+    -List~Deployment~ deployments
+  }
+  class Platform {
+    -PlatformEngine engine
+    -Version version
+  }
+  class Deployment {
+    -String id
+    -Manifest manifest
+    -Set~Service~ services
+  }
+  class Manifest {
+    <<abstract>>
+    #ManifestType type
+  }
+  class Service {
+    -String id
+    -String name
+    -String host
+    -List~ServicePort~ ports
+    -List~Contract~ contracts
+    -List~ConnectorBinding~ connectorBindings
+    -Configuration config
+  }
+  class ServicePort {
+    -String name
+    -String protocol
+    -Integer port
+  }
+  class ConnectorBinding {
+    -String connectorId
+    -String port
+  }
+  class Configuration {
+    -List~EnvironmentVariable~ environment
+    -List~ConfigFile~ configFiles
+    -List~VolumeMount~ volumes
+    -List~CdiDeviceRequirement~ cdiDevices
+    -OciRuntimeRequirements ociRuntime
+  }
+
+  Runtime "1" *-- "1" Platform : where
+  Runtime "1" *-- "1..*" Deployment : deployment alternatives
+  Deployment "1" *-- "1" Manifest : how
+  Deployment "1" *-- "0..*" Service : logical services
+  Service "1" *-- "0..*" ServicePort : named ports
+  Service "1" *-- "0..*" ConnectorBinding : binds logical interfaces
+  Service "1" *-- "1" Configuration : supported configuration
+
+  style Runtime fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Platform fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Deployment fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Manifest fill:#fff7d6,stroke:#b7791f,color:#3d2b0a,stroke-width:1.5px
+  style Service fill:#eef6f3,stroke:#39826f,color:#17232d,stroke-width:1.5px
+  style ServicePort fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style ConnectorBinding fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
+  style Configuration fill:#f6f8fa,stroke:#687887,color:#17232d,stroke-width:1.5px
